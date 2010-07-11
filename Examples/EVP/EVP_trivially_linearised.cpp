@@ -57,7 +57,7 @@ namespace CppNoddy
     class Model_BC : public Residual<double>
     {
     public:
-      // one condition for a system with 2 unknowns      
+      // one condition for a system with 2 unknowns
       Model_BC() : Residual<double> ( 1, 2 ) {}
 
       void residual_fn( const DenseVector<double> &z, DenseVector<double> &B ) const
@@ -99,7 +99,7 @@ int main()
   double max_error( 0. );
   // tolerance of validation check
   double tol( 1.e-4 );
-  
+
   // pass the ode to the BVP class
   ODE_BVP<double> ode( &problem, nodes, &BC, &BC );
   ode.set_monitor_det( false );
@@ -111,15 +111,15 @@ int main()
   evals.push_ptr( &problem.Re, "Fake Reynolds number" );
   evals.push_ptr( &sigmas, "The complex eigenvalues" );
   do
-  {  
+  {
     try
     {
       // solve for the (trivial) base flow.
       ode.solve2();
       // make 2 dense matrices
       DenseMatrix<double> a, b;
-      // ask the ODE_BVP class to assemble the linearised EVP  
-      ode.assemble_linear_evp( a, b );  
+      // ask the ODE_BVP class to assemble the linearised EVP
+      ode.assemble_linear_evp( a, b );
       // construct and solve the EVP
       DenseLinearEigenSystem<double> system( &a, &b );
       system.eigensolve();
@@ -145,7 +145,8 @@ int main()
     }
     max_error = std::max( std::abs( most_unstable - ( 1.0 - 1.0 / problem.Re ) ), max_error );
     problem.Re += 0.1;
-  } while ( problem.Re < 3.0 );
+  }
+  while ( problem.Re < 3.0 );
 
   if ( std::abs( max_error ) > tol )
   {
@@ -157,5 +158,5 @@ int main()
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
   }
 
-#endif    
+#endif
 }

@@ -126,7 +126,7 @@ int main()
       failed = false;
     }
 
-		    // compare to the known stress value
+    // compare to the known stress value
     std::cout << "  " << N << " " << abs( ode.solution()( 0, fdd ) - answer ) << "\n";
   }
 

@@ -13,7 +13,7 @@
 namespace CppNoddy
 {
 
-  /// A two dimensional mesh utility object. 
+  /// A two dimensional mesh utility object.
   template <typename _Type>
   class TwoD_Node_Mesh
   {
@@ -21,29 +21,29 @@ namespace CppNoddy
 
     TwoD_Node_Mesh()
     {}
-      
+
     /// ctor
     TwoD_Node_Mesh( const DenseVector<double>& x_nodes, const DenseVector<double>& y_nodes, const std::size_t nvars ) :
-         NX( x_nodes.size() ), NY( y_nodes.size() ), NV( nvars ), X( x_nodes ), Y( y_nodes )    
+        NX( x_nodes.size() ), NY( y_nodes.size() ), NV( nvars ), X( x_nodes ), Y( y_nodes )
     {
-      // we'll store the data as ( x, y, v ) ->  x * ny * nv + y * nv + v      
+      // we'll store the data as ( x, y, v ) ->  x * ny * nv + y * nv + v
       VARS = DenseVector<_Type>( NX * NY * NV, 0.0 );
     }
 
-    /// dtor      
+    /// dtor
     virtual ~TwoD_Node_Mesh()
     {}
 
     /// Access operator for a nodal point/variable in the mesh
     /// \param nodex The nodal index value in the first direction
     /// \param nodey The nodal index value in the second direction
-    /// \param var The variable index to be accessed 
+    /// \param var The variable index to be accessed
     _Type& operator()( const std::size_t nodex, const std::size_t nodey, const std::size_t var );
 
     /// Const access operator for a nodal point/variable in the mesh
     /// \param nodex The nodal index value in the first direction
     /// \param nodey The nodal index value in the second direction
-    /// \param var The variable index to be accessed 
+    /// \param var The variable index to be accessed
     const _Type& operator()( const std::size_t nodex, const std::size_t nodey, const std::size_t var ) const;
 
     /// Access the nodal position - to ensure the uniformity
@@ -53,7 +53,7 @@ namespace CppNoddy
     /// \param nodey The y nodal position to return
     /// \return The spatial position of this node as a pair
     std::pair<double, double> coord( const std::size_t nodex, const std::size_t nodey ) const;
-    
+
     /// Set the variables stored at A SPECIFIED node
     /// \param nodex The x nodal index to be set
     /// \param nodey The y nodal index to be set
@@ -65,15 +65,15 @@ namespace CppNoddy
     /// \param nodey The y nodal index to be returned
     /// \return The vector of VARIABLES stored at this nodal point
     DenseVector<_Type> get_nodes_vars( const std::size_t nodex, const std::size_t nodey ) const;
-    
+
     /// Assign an element to all entries in the mesh
     /// \param elt The element to be assigned to the mesh
-		void assign( const _Type elt );
-    
+    void assign( const _Type elt );
+
     /// Get the number of nodes in the two directions of the 2D mesh
-    /// \return A pair consisting of the number of nodes in the 2 directions    
+    /// \return A pair consisting of the number of nodes in the 2 directions
     std::pair< std::size_t, std::size_t > get_nnodes() const;
-    
+
     /// Get the number of variables that are stored at each node
     /// \return The number of variables that have data stored at
     /// each nodal point
@@ -120,7 +120,7 @@ namespace CppNoddy
   protected:
 
     // we'll store the number of nodes
-    std::size_t NX, NY, NV;  
+    std::size_t NX, NY, NV;
     // store x nodal points
     DenseVector<double> X;
     // store y nodal points
@@ -134,20 +134,20 @@ namespace CppNoddy
   inline _Type& TwoD_Node_Mesh<_Type>::operator()( const std::size_t nodex, const std::size_t nodey, const std::size_t var )
   {
 #ifdef PARANOID
-  if ( nodex > NX - 1 || nodey > NY - 1 )
-  {  
-    std::string problem;
-    problem = " The TwoD_Node_Mesh.operator() method is trying to \n";
-    problem += " access a nodal point that is not in the mesh. \n";
-    throw ExceptionRange( problem, NX, NY, nodex, nodey );
-  }
-  if ( var > NV - 1 )
-  {
-    std::string problem;
-    problem = " The TwoD_Node_Mesh.operator() method is trying to \n";
-    problem += " access a variable index that is not in the mesh. \n";
-    throw ExceptionRange( problem, NV, var );
-  }
+    if ( nodex > NX - 1 || nodey > NY - 1 )
+    {
+      std::string problem;
+      problem = " The TwoD_Node_Mesh.operator() method is trying to \n";
+      problem += " access a nodal point that is not in the mesh. \n";
+      throw ExceptionRange( problem, NX, NY, nodex, nodey );
+    }
+    if ( var > NV - 1 )
+    {
+      std::string problem;
+      problem = " The TwoD_Node_Mesh.operator() method is trying to \n";
+      problem += " access a variable index that is not in the mesh. \n";
+      throw ExceptionRange( problem, NV, var );
+    }
 #endif
     return VARS[ ( nodex * NY + nodey ) * NV + var ];
   }
@@ -156,20 +156,20 @@ namespace CppNoddy
   inline const _Type& TwoD_Node_Mesh<_Type>::operator()( const std::size_t nodex, const std::size_t nodey, const std::size_t var ) const
   {
 #ifdef PARANOID
-  if ( nodex > NX - 1 || nodey > NY - 1 )
-  {  
-    std::string problem;
-    problem = " The TwoD_Node_Mesh.operator() method is trying to \n";
-    problem += " access a nodal point that is not in the mesh. \n";
-    throw ExceptionRange( problem, NX, NY, nodex, nodey );
-  }
-  if ( var > NV - 1 )
-  {
-    std::string problem;
-    problem = " The TwoD_Node_Mesh.operator() method is trying to \n";
-    problem += " access a variable index that is not in the mesh. \n";
-    throw ExceptionRange( problem, NV, var );
-  }
+    if ( nodex > NX - 1 || nodey > NY - 1 )
+    {
+      std::string problem;
+      problem = " The TwoD_Node_Mesh.operator() method is trying to \n";
+      problem += " access a nodal point that is not in the mesh. \n";
+      throw ExceptionRange( problem, NX, NY, nodex, nodey );
+    }
+    if ( var > NV - 1 )
+    {
+      std::string problem;
+      problem = " The TwoD_Node_Mesh.operator() method is trying to \n";
+      problem += " access a variable index that is not in the mesh. \n";
+      throw ExceptionRange( problem, NV, var );
+    }
 #endif
     return VARS[ ( nodex * NY + nodey ) * NV + var ];
   }
@@ -178,13 +178,13 @@ namespace CppNoddy
   inline std::pair<double, double> TwoD_Node_Mesh<_Type>::coord( const std::size_t nodex, const std::size_t nodey ) const
   {
 #ifdef PARANOID
-  if ( nodex > NX - 1 || nodey > NY - 1 )
-  {  
-    std::string problem;
-    problem = " The TwoD_Node_Mesh.coord method is trying to \n";
-    problem += " access a nodal point that is not in the mesh. \n";
-    throw ExceptionRange( problem, NX, NY, nodex, nodey );
-  }
+    if ( nodex > NX - 1 || nodey > NY - 1 )
+    {
+      std::string problem;
+      problem = " The TwoD_Node_Mesh.coord method is trying to \n";
+      problem += " access a nodal point that is not in the mesh. \n";
+      throw ExceptionRange( problem, NX, NY, nodex, nodey );
+    }
 #endif
     std::pair< double, double > pos;
     pos.first = X[ nodex ];

@@ -33,7 +33,7 @@ namespace CppNoddy
   /// class is double templated, with the first type associated
   /// with real/complex data, and second (real/complex) type associated with
   /// a problem on the real line or line in the complex plane.
-  template <typename _Type, typename _Xtype = double>
+  template < typename _Type, typename _Xtype = double >
   class ODE_BVP : public ArcLength_base<_Type>
   {
   public:
@@ -47,7 +47,7 @@ namespace CppNoddy
     /// \param nodes A vector that defines the nodal positions.
     /// \param ptr_to_left_residual A pointer to a residual object that defines the LHS boundary conditions.
     /// \param ptr_to_right_residual A pointer to a residual object that defines the RHS boundary conditions.
-    ODE_BVP( Residual_with_coords<_Type,_Xtype >* ptr_to_equation,
+    ODE_BVP( Residual_with_coords<_Type, _Xtype >* ptr_to_equation,
              const DenseVector<_Xtype> &nodes,
              Residual<_Type>* ptr_to_left_residual,
              Residual<_Type>* ptr_to_right_residual );
@@ -108,7 +108,7 @@ namespace CppNoddy
     double arclength_solve( const double& step );
 
     /// \return A handle to the solution mesh
-    OneD_Node_Mesh<_Type,_Xtype>& solution();
+    OneD_Node_Mesh<_Type, _Xtype>& solution();
 
     /// Get the Jacobian of the ODE system, ie. return the LHS of the
     /// matrix equations. This is useful if you then want to define
@@ -122,14 +122,14 @@ namespace CppNoddy
     double& tolerance()
     {
       return TOL;
-    }      
+    }
 
     /// Access method to the maximum number of iterations
     /// \return A handle to the private member data MAX_ITERATIONS
     int& max_itns()
     {
       return MAX_ITERATIONS;
-    }      
+    }
 
   private:
 
@@ -153,7 +153,7 @@ namespace CppNoddy
     void assemble_matrix_problem( BandedMatrix<_Type>& a, DenseVector<_Type>& b );
 
     /// The solution mesh
-    OneD_Node_Mesh<_Type,_Xtype> SOLUTION;
+    OneD_Node_Mesh<_Type, _Xtype> SOLUTION;
     /// maximum number of iterations to be taken
     int MAX_ITERATIONS;
     /// tolerance for convergence
@@ -162,7 +162,7 @@ namespace CppNoddy
     /// converged solution.
     int LAST_DET_SIGN;
     /// The equation object associated with this instance.
-    Residual_with_coords<_Type,_Xtype > *p_EQUATION;
+    Residual_with_coords<_Type, _Xtype > *p_EQUATION;
     /// Pointer to the residual defining the LHS BC
     Residual<_Type > *p_LEFT_RESIDUAL;
     /// Pointer to the residual defining the RHS BC
@@ -188,8 +188,8 @@ namespace CppNoddy
 
   template <typename _Type, typename _Xtype>
   void ODE_BVP<_Type, _Xtype>::init_arc( _Type* p,
-                                 const double& length,
-                                 const double& max_length )
+                                         const double& length,
+                                         const double& max_length )
   {
     DenseVector<_Type> state( SOLUTION.vars_as_vector() );
     this -> init_arc( state, p, length, max_length );

@@ -82,17 +82,17 @@ int main()
       for ( int i = 0; i < N; ++i )
       {
         for ( int j = 0; j < N; ++j )
+        {
+          if ( ( i == 0 ) || ( i == N - 1 ) || ( j == 0 ) || ( j == N - 1 ) )
           {
-            if ( ( i == 0 ) || ( i == N - 1 ) || ( j == 0 ) || ( j == N - 1 ) )
-        {
-          // set boundary conditions
-          source.set( i, j ) = Example::BC_fn( r[ i ], z[ j ] );
-        }
-            else
-        {
-          source.set( i, j ) = Example::source_fn( r[ i ], z[ j ] );
-        }
+            // set boundary conditions
+            source.set( i, j ) = Example::BC_fn( r[ i ], z[ j ] );
           }
+          else
+          {
+            source.set( i, j ) = Example::source_fn( r[ i ], z[ j ] );
+          }
+        }
       }
 
       problem.solve();
@@ -104,7 +104,8 @@ int main()
     }
     timer.counter()++;
 #ifdef TIME
-  } while ( timer.get_time() <  5000.0 );
+  }
+  while ( timer.get_time() <  5000.0 );
   timer.stop();
   timer.print();
 #endif
@@ -131,13 +132,13 @@ int main()
   }
 
   if ( failed )
-    {
-      cout << "\033[1;31;48m  * FAILED \033[0m\n";
-      cout << "inf_norm of final error matrix  = " << error.inf_norm() << "\n";
-    }
+  {
+    cout << "\033[1;31;48m  * FAILED \033[0m\n";
+    cout << "inf_norm of final error matrix  = " << error.inf_norm() << "\n";
+  }
   else
-    {
-      cout << "\033[1;32;48m  * PASSED \033[0m\n";
-    }
+  {
+    cout << "\033[1;32;48m  * PASSED \033[0m\n";
+  }
 
 }

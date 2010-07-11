@@ -33,9 +33,9 @@ namespace CppNoddy
       void residual_fn( const DenseVector<double> &z, DenseVector<double> &g ) const
       {
         g[ f ] = z[ fd ];
-        g[ fd ] = 0.0; 
+        g[ fd ] = 0.0;
       }
-        
+
       /// Define the eigenvalue terms by providing the mass matrix
       /// This defines the term -lambda * z[ f ] ;
       void mass( const DenseVector<double>& z, DenseMatrix<double>& m ) const
@@ -89,12 +89,12 @@ int main()
 
   cout << " Solving the system using LAPACK:\n";
   // set up the ode eigenproblem
-  ODE_EVP<double> ode_lapack( &problem, Utility::uniform_node_vector(left, right, N ), &BC_both, &BC_both );
+  ODE_EVP<double> ode_lapack( &problem, Utility::uniform_node_vector( left, right, N ), &BC_both, &BC_both );
   ode_lapack.p_eigensystem() -> set_calc_eigenvectors( true );
   ode_lapack.p_eigensystem() -> set_shift( guess );
   try
   {
-    // solve the global eigenvalue 
+    // solve the global eigenvalue
     ode_lapack.eigensolve();
   }
   catch ( std::runtime_error )

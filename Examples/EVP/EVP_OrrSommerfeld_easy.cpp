@@ -59,7 +59,7 @@ namespace CppNoddy
         g[ phid ] = z[ psi ] + alpha * alpha * z[ phi ];
         g[ psi ] = z[ psid ];
         g[ psid ] = alpha * alpha * z[ psi ]
-                  + D_complex( 0.0, 1.0 ) * alpha * Re * ( U( y() ) * z[ psi ] - Udd( y() ) * z[ phi ] );
+                    + D_complex( 0.0, 1.0 ) * alpha * Re * ( U( y() ) * z[ psi ] - Udd( y() ) * z[ phi ] );
       }
 
       /// Define the unsteady terms by providing the mass matrix
@@ -89,8 +89,8 @@ namespace CppNoddy
         g[ phid ] = z[ psi ] + alpha * alpha * z[ phi ];
         g[ psi ] = z[ psid ];
         g[ psid ] = alpha * alpha * z[ psi ]
-                  + D_complex( 0.0, 1.0 ) * alpha * Re * ( U( y() ) * z[ psi ] - Udd( y() ) * z[ phi ] )
-                  - D_complex( 0.0, 1.0 ) * alpha * Re * z[ eval ] * z[ psi ];
+                    + D_complex( 0.0, 1.0 ) * alpha * Re * ( U( y() ) * z[ psi ] - Udd( y() ) * z[ phi ] )
+                    - D_complex( 0.0, 1.0 ) * alpha * Re * z[ eval ] * z[ psi ];
         g[ eval ] = 0.0;
       }
 
@@ -174,7 +174,7 @@ int main()
   int N = 32;
   // mesh
   DenseVector<double> nodes( Utility::uniform_node_vector( left, right, N ) );
-    
+
   // pass it to the ode
   ODE_EVP<D_complex> ode_global( &evp, nodes, &BC_both, &BC_both );
   try
@@ -210,7 +210,8 @@ int main()
   // check the eigenvalue
   const double tol = 1.e-4;
   bool failed( true );
-  if ( abs( ode_local.solution()( 0, eval ).imag() ) < tol ) failed = false;
+  if ( abs( ode_local.solution()( 0, eval ).imag() ) < tol )
+    failed = false;
   if ( failed )
   {
     cout << "\033[1;31;48m  * FAILED \033[0m\n";

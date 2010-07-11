@@ -34,15 +34,15 @@ namespace CppNoddy
       p_EQUATION( ptr_to_equation ),
       p_LEFT_RESIDUAL( ptr_to_left_residual ),
       p_RIGHT_RESIDUAL( ptr_to_right_residual ),
-      NODES( nodes ),  
+      NODES( nodes ),
       VERSION( which )
   {
-    unsigned n( nodes.size() );      
+    unsigned n( nodes.size() );
     unsigned order( p_EQUATION -> get_order() );
     // banded storage of the eigenproblem
     p_A = new BandedMatrix<_Type>( n * order, 2 * order - 1, 0.0 );
     p_B = new BandedMatrix<_Type>( n * order, 2 * order - 1, 0.0 );
-   // construct the banded matrix eigenvalue problem that corresponds
+    // construct the banded matrix eigenvalue problem that corresponds
     // to the equation & boundary conditions specified in the constructor.
     construct_banded_problem();
     // now we have the problem, we just need to pick a method of solution
@@ -76,8 +76,8 @@ namespace CppNoddy
         problem += "you must use either 'lapack' or 'arpack'\n";
         throw ExceptionRuntime( problem );
       }
-    }     
- }
+    }
+  }
 
 
   template <typename _Type>
@@ -118,8 +118,8 @@ namespace CppNoddy
     // local state variable and functions
     // the problem has to be linear, so this is a dummy vector.
     DenseVector<_Type> temp_dummy( order, 0.0 );
-    // number of nodes in the mesh      
-    std::size_t num_of_nodes( NODES.size() );      
+    // number of nodes in the mesh
+    std::size_t num_of_nodes( NODES.size() );
     // row counter
     std::size_t row( 0 );
 

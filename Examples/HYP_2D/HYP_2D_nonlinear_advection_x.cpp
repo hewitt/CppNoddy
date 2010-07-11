@@ -43,7 +43,7 @@ namespace CppNoddy
       /// edge conditions
       std::vector<bool> edge_values( const int& face_index, const DenseVector<double>& x, DenseVector<double>& q ) const
       {
-        std::vector<bool> inflow( q.size(), false);
+        std::vector<bool> inflow( q.size(), false );
         // x doesn't matter since the conditions are fixed
         if ( face_index == 1 )
         {
@@ -95,8 +95,12 @@ int main()
 
   double asym( 0.0 );
   unsigned loop_counter( 0 );
-  DenseVector<double> x1( 2, 0.0 ); x1[ 0 ] = 0.75; x1[ 1 ] = 0.5;
-  DenseVector<double> x2( 2, 0.0 ); x2[ 0 ] = 0.25; x2[ 1 ] = 0.5;
+  DenseVector<double> x1( 2, 0.0 );
+  x1[ 0 ] = 0.75;
+  x1[ 1 ] = 0.5;
+  DenseVector<double> x2( 2, 0.0 );
+  x2[ 0 ] = 0.25;
+  x2[ 1 ] = 0.5;
   do
   {
     NlinAdv_mesh.update( 0.49 );

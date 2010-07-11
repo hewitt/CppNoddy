@@ -37,11 +37,11 @@ namespace CppNoddy
     /// Return a handle to the residuals corresponding
     /// to the last update state
     const DenseVector<_Type>& residual() const;
-  
+
     /// Retrun a handle to the Jacobian of the residual
-    /// corresponding to the last update state    
+    /// corresponding to the last update state
     const DenseMatrix<_Type>& jacobian() const;
-  
+
     /// \return A handle to the step size used when finite-differencing
     /// the residual vector to obtain the Jacobian
     _Type& delta();
@@ -117,10 +117,10 @@ namespace CppNoddy
   inline const DenseVector<_Type>& Residual<_Type>::residual() const
   {
     return FN_AT_LAST_STATE;
-  }  
+  }
 
   template <typename _Type>
-  inline const DenseMatrix<_Type>& Residual<_Type>::jacobian() const  
+  inline const DenseMatrix<_Type>& Residual<_Type>::jacobian() const
   {
     return JAC_AT_LAST_STATE;
   }

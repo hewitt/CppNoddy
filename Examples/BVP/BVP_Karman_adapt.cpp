@@ -137,18 +137,18 @@ int main()
     // no. of nodes in the adapted mesh
     N = ode.solution().get_nnodes();
     cout << " Adapted mesh to " << ode.solution().get_nnodes() << " nodes.\n";
-    cout << " Adapted error = " << abs( ode.solution()( N-1, V ) + 0.88447 ) << "\n";
+    cout << " Adapted error = " << abs( ode.solution()( N - 1, V ) + 0.88447 ) << "\n";
     // adapt until condition is satisfied or max adaptions are done
   }
-  while ( ( abs( ode.solution()( N-1, V ) + 0.88447 ) > tol ) && ( adapt_counter < 10 ) );
+  while ( ( abs( ode.solution()( N - 1, V ) + 0.88447 ) > tol ) && ( adapt_counter < 10 ) );
   // store solution for plotting
   my_file.update();
 
   // check the BL transpiration vs the known solution
-  if ( abs( ode.solution()( N-1, V ) + 0.88447 ) > tol )
+  if ( abs( ode.solution()( N - 1, V ) + 0.88447 ) > tol )
   {
     cout << "\033[1;31;48m  * FAILED \033[0m\n";
-    cout << " Difference = " << abs( ode.solution()( N-1, V ) + 0.88447 ) << "\n";
+    cout << " Difference = " << abs( ode.solution()( N - 1, V ) + 0.88447 ) << "\n";
   }
   else
   {

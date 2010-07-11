@@ -135,34 +135,35 @@ namespace CppNoddy
             new_row = false;
           }
           ++i;
-        } while ( pos != MATRIX[ row ].end() );
+        }
+        while ( pos != MATRIX[ row ].end() );
       }
       // last entry points to end + 1
       rows[ NR ] = nelts();
       //for ( std::size_t i = 0; i < nelts(); ++i )
       //{
-        //std::cout << storage[ i ] << " ";
+      //std::cout << storage[ i ] << " ";
       //}
       //std::cout << "\n";
       //for ( std::size_t i = 0; i < nelts(); ++i )
       //{
-        //std::cout << cols[ i ] << " ";
+      //std::cout << cols[ i ] << " ";
       //}
       //std::cout << "\n";
       //for ( std::size_t i = 0; i < NR + 1; ++i )
       //{
-        //std::cout << rows[ i ] << " ";
+      //std::cout << rows[ i ] << " ";
       //}
       //std::cout << "\n";
     }
-    
+
     /// Take the contents of the SparseMatrix and convert it to a
     /// standard compressed column format that can be fed directly
     /// into the SuperLU library to solve.
     /// \param storage A contiguous vector of the non-zero elts
     /// \param rows The row indices of each entry in the storage vector
     /// \param cols The indices of the elements in the storage vector
-    ///   that begin a new column   
+    ///   that begin a new column
     void get_col_compressed( _Type* storage, int* rows, int* cols )
     {
       // iterator to the maps that are used in SparseVector
@@ -179,7 +180,7 @@ namespace CppNoddy
         for ( std::size_t row = 0; row < NR; ++row )
         {
           // look for this element in the sparse matrix
-          pos = MATRIX[ row ].find( col );          
+          pos = MATRIX[ row ].find( col );
           // if found
           if ( pos != MATRIX[ row ].end() )
           {
@@ -199,7 +200,7 @@ namespace CppNoddy
       // last entry points to end + 1
       cols[ NC ] = nelts();
     }
-    
+
   private:
 
     /// Find the maximum entry in a column

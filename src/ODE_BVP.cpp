@@ -31,10 +31,10 @@ namespace CppNoddy
 {
 
   template <typename _Type, typename _Xtype>
-  ODE_BVP<_Type,_Xtype>::ODE_BVP( Residual_with_coords<_Type,_Xtype>* ptr_to_equation,
-                           const DenseVector<_Xtype> &nodes,
-                           Residual<_Type>* ptr_to_left_residual,
-                           Residual<_Type>* ptr_to_right_residual ) :
+  ODE_BVP<_Type, _Xtype>::ODE_BVP( Residual_with_coords<_Type, _Xtype>* ptr_to_equation,
+                                   const DenseVector<_Xtype> &nodes,
+                                   Residual<_Type>* ptr_to_left_residual,
+                                   Residual<_Type>* ptr_to_right_residual ) :
       ArcLength_base<_Type> (),
       MAX_ITERATIONS( 12 ),
       TOL( 1.e-8 ),
@@ -45,7 +45,7 @@ namespace CppNoddy
       MONITOR_DET( true )
   {
     // set up the solution mesh using these nodes
-    SOLUTION = OneD_Node_Mesh<_Type,_Xtype>( nodes, p_EQUATION -> get_order() );
+    SOLUTION = OneD_Node_Mesh<_Type, _Xtype>( nodes, p_EQUATION -> get_order() );
     if ( ( p_LEFT_RESIDUAL -> get_number_of_vars() != p_EQUATION -> get_order() ) ||
          ( p_RIGHT_RESIDUAL -> get_number_of_vars() != p_EQUATION -> get_order() ) ||
          ( p_LEFT_RESIDUAL -> get_order() + p_RIGHT_RESIDUAL -> get_order() != p_EQUATION -> get_order() ) )
@@ -57,7 +57,7 @@ namespace CppNoddy
       problem += "both boundary conditions has to sum to the order of the equation.\n";
       throw ExceptionBifurcation( problem );
     }
-         
+
 #ifdef TIME
     // timers
     T_ASSEMBLE = Timer( "ODE_BVP: Assembling of the matrix (incl. equation updates):" );
@@ -67,7 +67,7 @@ namespace CppNoddy
   }
 
   template <typename _Type, typename _Xtype>
-  ODE_BVP<_Type,_Xtype>::~ODE_BVP()
+  ODE_BVP<_Type, _Xtype>::~ODE_BVP()
   {
 #ifdef TIME
     std::cout << "\n";
@@ -82,7 +82,7 @@ namespace CppNoddy
 
 
   template <typename _Type, typename _Xtype>
-  void ODE_BVP<_Type,_Xtype>::solve2()
+  void ODE_BVP<_Type, _Xtype>::solve2()
   {
     // the order of the problem
     unsigned order( p_EQUATION -> get_order() );
@@ -171,7 +171,7 @@ namespace CppNoddy
   }
 
   template <typename _Type, typename _Xtype>
-  double ODE_BVP<_Type,_Xtype>::arclength_solve( const double& step )
+  double ODE_BVP<_Type, _Xtype>::arclength_solve( const double& step )
   {
     this -> ds() = step;
     // order of the equation
@@ -354,7 +354,7 @@ namespace CppNoddy
   }
 
   template <typename _Type, typename _Xtype>
-  void ODE_BVP<_Type,_Xtype>::solve( DenseVector<_Type>& state )
+  void ODE_BVP<_Type, _Xtype>::solve( DenseVector<_Type>& state )
   {
     SOLUTION.set_vars_from_vector( state );
     try
@@ -371,7 +371,7 @@ namespace CppNoddy
 
 
   template <typename _Type, typename _Xtype>
-  void ODE_BVP<_Type,_Xtype>::assemble_matrix_problem( BandedMatrix<_Type>& a, DenseVector<_Type>& b )
+  void ODE_BVP<_Type, _Xtype>::assemble_matrix_problem( BandedMatrix<_Type>& a, DenseVector<_Type>& b )
   {
     // clear the Jacobian matrix, since not all elts will be overwritten
     // in the routine below.
@@ -459,53 +459,53 @@ namespace CppNoddy
 #endif
   }
 
-  
+
   // specialise to remove adaptivity from problems in the complex plane
   template<>
   std::pair< unsigned, unsigned > ODE_BVP<std::complex<double>, std::complex<double> >::adapt( const double& adapt_tol )
   {
-      std::string problem;
-      problem = " The ODE_BVP.adapt method has been called for a  \n";
-      problem += " problem in the complex plane. This doesn't make sense \n";
-      problem += " as the path is not geometrically defined. \n";
-      throw ExceptionRuntime( problem );
+    std::string problem;
+    problem = " The ODE_BVP.adapt method has been called for a  \n";
+    problem += " problem in the complex plane. This doesn't make sense \n";
+    problem += " as the path is not geometrically defined. \n";
+    throw ExceptionRuntime( problem );
   }
 
   // specialise to remove adaptivity from problems in the complex plane
   template<>
   std::pair< unsigned, unsigned > ODE_BVP<double, std::complex<double> >::adapt( const double& adapt_tol )
   {
-      std::string problem;
-      problem = " The ODE_BVP.adapt method has been called for a  \n";
-      problem += " problem in the complex plane. This doesn't make sense \n";
-      problem += " as the path is not geometrically defined. \n";
-      throw ExceptionRuntime( problem );
+    std::string problem;
+    problem = " The ODE_BVP.adapt method has been called for a  \n";
+    problem += " problem in the complex plane. This doesn't make sense \n";
+    problem += " as the path is not geometrically defined. \n";
+    throw ExceptionRuntime( problem );
   }
 
   // specialise to remove adaptivity from problems in the complex plane
   template<>
   void ODE_BVP<std::complex<double>, std::complex<double> >::adapt_until( const double& adapt_tol )
   {
-      std::string problem;
-      problem = " The ODE_BVP.adapt method has been called for a  \n";
-      problem += " problem in the complex plane. This doesn't make sense \n";
-      problem += " as the path is not geometrically defined. \n";
-      throw ExceptionRuntime( problem );
+    std::string problem;
+    problem = " The ODE_BVP.adapt method has been called for a  \n";
+    problem += " problem in the complex plane. This doesn't make sense \n";
+    problem += " as the path is not geometrically defined. \n";
+    throw ExceptionRuntime( problem );
   }
-  
+
   // specialise to remove adaptivity from problems in the complex plane
   template<>
   void ODE_BVP<double, std::complex<double> >::adapt_until( const double& adapt_tol )
   {
-      std::string problem;
-      problem = " The ODE_BVP.adapt method has been called for a  \n";
-      problem += " problem in the complex plane. This doesn't make sense \n";
-      problem += " as the path is not geometrically defined. \n";
-      throw ExceptionRuntime( problem );
+    std::string problem;
+    problem = " The ODE_BVP.adapt method has been called for a  \n";
+    problem += " problem in the complex plane. This doesn't make sense \n";
+    problem += " as the path is not geometrically defined. \n";
+    throw ExceptionRuntime( problem );
   }
 
   template< typename _Type, typename _Xtype>
-  void ODE_BVP<_Type,_Xtype>::adapt_until( const double& adapt_tol )
+  void ODE_BVP<_Type, _Xtype>::adapt_until( const double& adapt_tol )
   {
     std::pair< unsigned, unsigned > changes;
     do
@@ -518,7 +518,7 @@ namespace CppNoddy
   }
 
   template <typename _Type, typename _Xtype>
-  std::pair< unsigned, unsigned > ODE_BVP<_Type,_Xtype>::adapt( const double& adapt_tol )
+  std::pair< unsigned, unsigned > ODE_BVP<_Type, _Xtype>::adapt( const double& adapt_tol )
   {
 #ifdef TIME
     T_REFINE.start();
@@ -648,7 +648,7 @@ namespace CppNoddy
 
 
   template <typename _Type, typename _Xtype>
-  void ODE_BVP<_Type,_Xtype>::assemble_linear_evp( DenseMatrix<_Type>& dense_a, DenseMatrix<_Type>& dense_b )
+  void ODE_BVP<_Type, _Xtype>::assemble_linear_evp( DenseMatrix<_Type>& dense_a, DenseMatrix<_Type>& dense_b )
   {
     // cast the equation to an equation with mass
     Equation_with_mass<_Type, _Xtype>* p_masseqn = dynamic_cast< Equation_with_mass<_Type, _Xtype>* >( p_EQUATION );

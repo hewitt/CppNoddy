@@ -11,24 +11,24 @@
 namespace CppNoddy
 {
   template <typename _Type, typename _Xtype>
-  Residual_with_coords<_Type,_Xtype>::Residual_with_coords( const unsigned& order, const unsigned& ncoords ) : Residual<_Type>( order )
+  Residual_with_coords<_Type, _Xtype>::Residual_with_coords( const unsigned& order, const unsigned& ncoords ) : Residual<_Type>( order )
   {
     coords = std::vector<_Xtype>( ncoords, 0.0 );
   }
 
   template <typename _Type, typename _Xtype>
-  Residual_with_coords<_Type,_Xtype>::Residual_with_coords( const unsigned& order, const unsigned& nvars, const unsigned& ncoords ) : Residual<_Type>( order, nvars )
+  Residual_with_coords<_Type, _Xtype>::Residual_with_coords( const unsigned& order, const unsigned& nvars, const unsigned& ncoords ) : Residual<_Type>( order, nvars )
   {
     coords = std::vector<_Xtype>( ncoords, 0.0 );
   }
 
   template <typename _Type, typename _Xtype>
-  Residual_with_coords<_Type,_Xtype>::~Residual_with_coords()
+  Residual_with_coords<_Type, _Xtype>::~Residual_with_coords()
   {
   }
 
   template <typename _Type, typename _Xtype>
-  void Residual_with_coords<_Type,_Xtype>::paranoid_check( const unsigned& i )
+  void Residual_with_coords<_Type, _Xtype>::paranoid_check( const unsigned& i )
   {
     if ( i > coords.size() )
     {

@@ -107,6 +107,7 @@ int main()
     ds = ode.arclength_solve( ds );
     U_centre = ode.solution().get_interpolated_vars( 0.0 )[ Gd ];
     my_file.update();
-  } while ( Example::Re > 40 );
+  }
+  while ( Example::Re > 40 );
 
 }

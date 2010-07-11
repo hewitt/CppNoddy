@@ -57,12 +57,12 @@ namespace CppNoddy
       {
         m( 1, 0 ) = - Re * z[ U ];
       }
-      
-      void get_jacobian_of_mass_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) 
+
+      void get_jacobian_of_mass_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  )
       {
         h( 1, U ) = - Re * vec[ 0 ];
       }
-      
+
     };
 
     // BOUNDARY CONDITIONS
@@ -120,7 +120,7 @@ int main()
   Example::Re = 1.0;
 
   // construct our IBVP
-  PDE_IBVP<double> advection( &problem, Utility::uniform_node_vector( left, right, ny), &BC_left, &BC_right );
+  PDE_IBVP<double> advection( &problem, Utility::uniform_node_vector( left, right, ny ), &BC_left, &BC_right );
 
   // initial conditions
   for ( unsigned i = 0; i < ny; ++i )

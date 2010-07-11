@@ -32,13 +32,13 @@ namespace CppNoddy
     /// Update the Equation object for the current set of state variables
     /// \param state The state vector at which to set the equation object
     void update( const DenseVector<_Type> &state );
-    
+
     /// Return a handle to the mass1 matrix member data
     const DenseMatrix<_Type>& mass1() const;
-    
+
     /// Return a handle to the mass1 matrix member data
     const DenseMatrix<_Type>& mass2() const;
-    
+
     /// Return the product of the Jacobian-of-the-mass1-matrix and a vector 'vec'
     /// when the equation has a given 'state'. The user should overload this
     /// if concerned about performance of the solver. If not overloaded, the
@@ -46,17 +46,17 @@ namespace CppNoddy
     /// \param state The current state variables -- used for clarity when
     /// overloaded by the user instead of expecting the user to access the member data.
     /// \param vec The vector that will be multiplied by the Jacobian-of-the-mass-matrix
-    /// \param h The resulting 2D matrix 
+    /// \param h The resulting 2D matrix
     virtual void get_jacobian_of_mass1_mult_vector( const DenseVector<_Type> &state, const DenseVector<_Type> &vec, DenseMatrix<_Type> &h ) const;
-    
-     /// Return the product of the Jacobian-of-the-mass2-matrix and a vector 'vec'
+
+    /// Return the product of the Jacobian-of-the-mass2-matrix and a vector 'vec'
     /// when the equation has a given 'state'. The user should overload this
     /// if concerned about performance of the solver. If not overloaded, the
     /// default is to finite difference the Jacobian-of-the-mass-matrix.
     /// \param state The current state variables -- used for clarity when
     /// overloaded by the user instead of expecting the user to access the member data.
     /// \param vec The vector that will be multiplied by the Jacobian-of-the-mass-matrix
-    /// \param h The resulting 2D matrix 
+    /// \param h The resulting 2D matrix
     virtual void get_jacobian_of_mass2_mult_vector( const DenseVector<_Type> &state, const DenseVector<_Type> &vec, DenseMatrix<_Type> &h ) const;
 
   protected:
@@ -90,7 +90,7 @@ namespace CppNoddy
     /// Mass matrices for the last state vector
     DenseMatrix<_Type> MASS1_AT_LAST_STATE;
     DenseMatrix<_Type> MASS2_AT_LAST_STATE;
-    
+
   }
   ; // end class
 
@@ -99,7 +99,7 @@ namespace CppNoddy
   {
     return MASS1_AT_LAST_STATE;
   }
-  
+
   template <typename _Type>
   inline const DenseMatrix<_Type>& Equation_with_double_mass<_Type >::mass2() const
   {

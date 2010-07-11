@@ -24,7 +24,7 @@ namespace CppNoddy
       double p;
       double eps;
 
-      Arc_problem() : Residual<double>( 1 ){}
+      Arc_problem() : Residual<double>( 1 ) {}
 
       void residual_fn( const DenseVector<double> &z, DenseVector<double> &f ) const
       {
@@ -86,7 +86,7 @@ int main()
     catch ( ExceptionBifurcation )
     {
       cout << " Bifurcation detected near x = " << state[0] <<
-      " p = " << residual_problem.p << "\n\n";
+           " p = " << residual_problem.p << "\n\n";
       ++n_bif;
     }
     my_file.update();

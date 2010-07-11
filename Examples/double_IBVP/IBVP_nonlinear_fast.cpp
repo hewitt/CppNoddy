@@ -8,7 +8,7 @@
 /// The solution is computed over a range of \f$ t \f$ for \f$ (x,y) \in [0,10]\times [0,1] \f$
 /// and the maximum deviation away from the exact solution \f$ u = yte^{-x} \f$ is found.
 /// The test fails if this deviation is larger than a set tolerance \f$ \tau \f$.
-/// The example is solved using the PDE_double_IBVP for problems that are 
+/// The example is solved using the PDE_double_IBVP for problems that are
 /// parabolic in 2 coordinates \f$ (x,t) \f$ with a BVP in \f$ y \f$. This is the
 /// `fast' version in which a number of default finite-differenced methods are overloaded
 /// with their analytic versions.
@@ -25,8 +25,8 @@ namespace CppNoddy
 
     // A source term rigged up to give a nice exact solution
     double source( const double& x, const double& y, const double& t )
-    {    	
-			return -y * std::exp( -x ) + std::pow( y * t * std::exp( -x ), 2 );
+    {
+      return -y * std::exp( -x ) + std::pow( y * t * std::exp( -x ), 2 );
     }
 
     class nonlinear : public Equation_with_double_mass<double>
@@ -42,7 +42,7 @@ namespace CppNoddy
         f[ U ] = z[ Ud ];
         f[ Ud ] = source( x(), y(), t() );
       }
-      
+
       /// Define the unsteady terms by providing the mass matrix for x evolution
       void mass1( const DenseVector<double>& z, DenseMatrix<double>& m ) const
       {
@@ -58,12 +58,12 @@ namespace CppNoddy
       }
 
       // METHODS BELOW OVERLOAD THE DEFAULT SLOW FINIT-DIFFERENCE VERSIONS
-        
+
       /// Provide the exact Jacobian rather than using finite-differences
       void jacobian( const DenseVector<double> &z, DenseMatrix<double> &jac ) const
       {
         jac( 0, Ud ) = 1.0;
-      }   
+      }
       void get_jacobian_of_mass1_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
       {
         h( 1, U ) = - vec[ 0 ];
@@ -72,14 +72,14 @@ namespace CppNoddy
       {
         // constant mass2 matrix
       }
-      
+
     };
 
     // BOUNDARY CONDITIONS
     class BC_lower : public Residual_with_coords<double>
     {
     public:
-    	// 1 constraint, 2nd order system, 2 coordinates (x & t)
+      // 1 constraint, 2nd order system, 2 coordinates (x & t)
       BC_lower() : Residual_with_coords<double> ( 1, 2, 2 ) {}
 
       void residual_fn( const DenseVector<double>& z, DenseVector<double>& b ) const
@@ -91,13 +91,13 @@ namespace CppNoddy
     class BC_upper : public Residual_with_coords<double>
     {
     public:
-    	// 1 constraint, 2nd order system, 2 coordinates (x & t)
+      // 1 constraint, 2nd order system, 2 coordinates (x & t)
       BC_upper() : Residual_with_coords<double> ( 1, 2, 2 ) {}
 
       void residual_fn( const DenseVector<double>& z, DenseVector<double>& b ) const
       {
-      	const double x = coord( 0 );
-      	const double t = coord( 1 );
+        const double x = coord( 0 );
+        const double t = coord( 1 );
         b[ 0 ] = z[ U ] - t * std::exp( - x );
       }
     };
@@ -132,12 +132,12 @@ int main()
   double dt = 0.01;
 
   // construct our IBVP
-  PDE_double_IBVP<double> nlin( &problem, 
-      Utility::uniform_node_vector( left, right, nx ), 
-      Utility::uniform_node_vector( bottom, top, ny ), 
-      &BC_bottom, &BC_top );
+  PDE_double_IBVP<double> nlin( &problem,
+                                Utility::uniform_node_vector( left, right, nx ),
+                                Utility::uniform_node_vector( bottom, top, ny ),
+                                &BC_bottom, &BC_top );
 
-  // initial conditions 
+  // initial conditions
   for ( unsigned i = 0; i < nx; ++i )
   {
     for ( unsigned j = 0; j < ny; ++j )
@@ -146,35 +146,36 @@ int main()
       nlin.solution()( i, j, Ud ) = 0.0;
     }
   }
-  
+
   double max_error( 0.0 );
   int counter( 0 );
   do
   {
-  	// inlet profile is time dependent, so we set it here for the next time level
+    // inlet profile is time dependent, so we set it here for the next time level
     nlin.update_previous_solution();
     // now we can alter the solution stored in the double_IBVP class to define
     // the desired x=0 'initial' conditions at the next time step
     double t_next = nlin.t() + dt;
     for ( unsigned j = 0; j < ny; ++j )
     {
-      double y = nlin.solution().coord( 0, j ).second;			
+      double y = nlin.solution().coord( 0, j ).second;
       nlin.solution()( 0, j, U ) = t_next * y;
-      nlin.solution()( 0, j, Ud ) = t_next;			
+      nlin.solution()( 0, j, Ud ) = t_next;
     }
     nlin.step2( dt );
     for ( unsigned i = 0; i < nx; ++i )
-	  {
+    {
       for ( unsigned j = 0; j < ny; ++j )
       {
         double x = nlin.solution().coord( i, j ).first;
-        double y = nlin.solution().coord( i, j ).second;      
+        double y = nlin.solution().coord( i, j ).second;
         double exact_u = y * nlin.t() * exp( - x );
-        max_error = max( max_error, abs( exact_u - nlin.solution()( i, j, U ) ) );  
+        max_error = max( max_error, abs( exact_u - nlin.solution()( i, j, U ) ) );
       }
-	  }
+    }
     ++counter;
-  } while ( nlin.t() < t_end ); 
+  }
+  while ( nlin.t() < t_end );
 
   const double tol( 1.e-4 );
   // check the BL transpiration vs the known solution
@@ -187,5 +188,5 @@ int main()
   {
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
   }
-  
+
 }

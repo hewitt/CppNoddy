@@ -17,7 +17,7 @@ namespace CppNoddy
   /// N residuals and N state variables. In this case the equation also defines
   /// a mass matrix (amongst other data), which is used in the Crank-Nicolson
   /// time stepping of the PDE_IBVP class.
-  template <typename _Type, typename _Xtype = double>
+  template < typename _Type, typename _Xtype = double >
   class Equation_with_mass : public Residual_with_coords<_Type, _Xtype>
   {
   public:
@@ -42,7 +42,7 @@ namespace CppNoddy
     /// \param state The current state variables -- used for clarity when
     /// overloaded by the user instead of expecting the user to access the member data.
     /// \param vec The vector that will be multiplied by the Jacobian-of-the-mass-matrix
-    /// \param h The resulting 2D matrix 
+    /// \param h The resulting 2D matrix
     virtual void get_jacobian_of_mass_mult_vector( const DenseVector<_Type> &state, const DenseVector<_Type> &vec, DenseMatrix<_Type> &h ) const;
 
   protected:

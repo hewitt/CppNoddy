@@ -128,7 +128,7 @@ int main()
     catch ( ExceptionBifurcation )
     {
       cout << " Bifurcation detected between beta = " << last_beta
-      << " and beta = " << problem.eqn -> beta << "\n";
+           << " and beta = " << problem.eqn -> beta << "\n";
       cout << " Continuing further.\n";
       newton.set_monitor_det( false );
       approx_limit_point = 0.5 * ( problem.eqn -> beta + last_beta );

@@ -25,12 +25,12 @@ namespace CppNoddy
       /// Define the vector flux
       void flux_fn_y( const DenseVector<double>& x, const DenseVector<double> &q, DenseVector<double> &f ) const
       {
-        f[ 0 ] = sqrt(2.) * q[ 0 ] * q[ 0 ] / 2;
+        f[ 0 ] = sqrt( 2. ) * q[ 0 ] * q[ 0 ] / 2;
       }
 
       void flux_fn_x( const DenseVector<double>& x, const DenseVector<double> &q, DenseVector<double> &f ) const
       {
-        f[ 0 ] = sqrt(2.) * q[ 0 ] * q[ 0 ] / 2;
+        f[ 0 ] = sqrt( 2. ) * q[ 0 ] * q[ 0 ] / 2;
       }
 
       /// Bound the wave speed
@@ -39,13 +39,13 @@ namespace CppNoddy
         // maximum wave speed
         c[ 0 ] = c[ 1 ] = std::abs( q[ 0 ] );
       }
-      
+
       ///// edge conditions
       std::vector<bool> edge_values( const int& face_index, const DenseVector<double>& x, DenseVector<double>& q ) const
       {
-        std::vector<bool> inflow( q.size(), true);
-		q[ 0 ] = 0;
-		return inflow;
+        std::vector<bool> inflow( q.size(), true );
+        q[ 0 ] = 0;
+        return inflow;
       }
 
     };
@@ -86,12 +86,16 @@ int main()
 
   double asym( 0.0 );
   unsigned loop_counter( 0 );
-  DenseVector<double> x1( 2, 0.0 ); x1[ 0 ] = 0.75; x1[ 1 ] = 0.75;
-  DenseVector<double> x2( 2, 0.0 ); x2[ 0 ] = -0.75; x2[ 1 ] = -0.75;
+  DenseVector<double> x1( 2, 0.0 );
+  x1[ 0 ] = 0.75;
+  x1[ 1 ] = 0.75;
+  DenseVector<double> x2( 2, 0.0 );
+  x2[ 0 ] = -0.75;
+  x2[ 1 ] = -0.75;
   do
   {
     NlinAdv_mesh.update( 0.49 );
-	NlinAdv_mesh.dump_gnu( filename_stub + Utility::stringify( loop_counter ) + "_gnu.dat" );
+    NlinAdv_mesh.dump_gnu( filename_stub + Utility::stringify( loop_counter ) + "_gnu.dat" );
 
     asym = std::max( asym, std::abs( NlinAdv_mesh.get_point_values( x1 )[0] + NlinAdv_mesh.get_point_values( x2 )[0] ) );
     ++loop_counter;

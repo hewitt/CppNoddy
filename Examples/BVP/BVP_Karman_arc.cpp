@@ -117,7 +117,7 @@ int main()
   // output to check the adapted mesh
   TrackerFile my_file( "./DATA/BVP_Karman_arc.dat", 8 );
   my_file.push_ptr( &Example::s, "s" );
-  my_file.push_ptr( &ode.solution()( N-1, V ), "V_inf" );
+  my_file.push_ptr( &ode.solution()( N - 1, V ), "V_inf" );
 
   // initialise the arc-length routine
   double ds( -0.02 );

@@ -38,9 +38,9 @@ namespace CppNoddy
     void push_ptr( OneD_Node_Mesh<double>* ptr_to_mesh, std::string desc = "" );
 
     void push_ptr( OneD_Node_Mesh<D_complex>* ptr_to_mesh, std::string desc = "" );
-    
+
     void push_ptr( OneD_Node_Mesh<D_complex, D_complex>* ptr_to_mesh, std::string desc = "" );
-    
+
     void newline();
 
     void set_filename( std::string filename );

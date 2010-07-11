@@ -7,7 +7,7 @@
 /// write \f$ \cos(x) \f$ to a uniform mesh, then check the
 /// integration routines converge appropriately. We then
 /// re-interpolate the data onto a non-uniform mesh and
-/// check the integral again. 
+/// check the integral again.
 
 
 #include <OneD_Node_Mesh.h>
@@ -40,7 +40,7 @@ int main()
       // A mesh of n points
       n *= 2;
       n += 1;
-      // make a uniform mesh      
+      // make a uniform mesh
       OneD_Node_Mesh<double> Q( Utility::uniform_node_vector( 0.0, 1.0, n ), 1 );
 
       // Set the variable values to be defined by a Cosine.
@@ -56,7 +56,7 @@ int main()
       {
         // Check the lin integral method.
         cout << " n = " << n << " |Integral Error| = " << integral
-        << " Ratio = " << old_integral / integral << "\n";
+             << " Ratio = " << old_integral / integral << "\n";
       }
       old_integral = integral;
     }
@@ -76,7 +76,7 @@ int main()
       n *= 2;
       n += 1;
       // make a uniform mesh
-      OneD_Node_Mesh<double> Q( Utility::uniform_node_vector( 0.0, 1.0, n), 1 );
+      OneD_Node_Mesh<double> Q( Utility::uniform_node_vector( 0.0, 1.0, n ), 1 );
 
       // Set the nodal values to be defined by a Cosine.
       for ( std::size_t i = 0; i < n; ++i )
@@ -85,13 +85,13 @@ int main()
         Q( i, 0 ) = cos( Q.coord( i ) );
       }
 
-      // mesh integrates to give sin(x) with limits 0 to 1  
+      // mesh integrates to give sin(x) with limits 0 to 1
       integral = std::abs( Q.integral4( 0 ) - sin( 1.0 ) );
       if ( j > 1 )
       {
         // Check the lin integral method.
         cout << " n = " << n << " |Integral Error| = " << integral
-        << " Ratio = " << old_integral / integral << "\n";
+             << " Ratio = " << old_integral / integral << "\n";
       }
       old_integral = integral;
     }
@@ -111,7 +111,7 @@ int main()
       Q( i, 0 ) = std::cos( Q.coord( i ) );
     }
 
-    // integrate over the nonuniform mesh  
+    // integrate over the nonuniform mesh
     const double Inonuniform = std::abs( Q.integral2( 0 ) );
 
     // make a uniform mesh of nodes
@@ -135,7 +135,7 @@ int main()
 
     for ( std::size_t i = 0; i < n; ++i )
     {
-      // put sin(x) into var 0 
+      // put sin(x) into var 0
       F( i, 0 ) = std::sin( F.coord( i ) );
     }
 

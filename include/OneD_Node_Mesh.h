@@ -34,12 +34,12 @@ namespace CppNoddy
     /// \param nodes The positions of the nodal points
     /// \param nvars The number of variables to store in the mesh
     OneD_Node_Mesh( const DenseVector<_Xtype>& nodes, const std::size_t nvars ) :
-        NV( nvars ), X( nodes )      
+        NV( nvars ), X( nodes )
     {
       // set the contents to zero
       VARS = DenseVector<_Type>( NV * X.size(), 0.0 );
-    }  
-    
+    }
+
     /// Destructor
     virtual ~OneD_Node_Mesh()
     {}
@@ -128,10 +128,10 @@ namespace CppNoddy
     /// Set the variables of this mesh from a vector.
     /// \param vec The vector to be used.
     void set_vars_from_vector( const DenseVector<_Type>& vec );
-    
+
     /// \return An STL vector of dense vectors of the variables in the mesh
     const std::vector<DenseVector<_Type> >& get_vars() const;
-    
+
     /// A simple method for dumping data to std::cout
     void dump() const;
 
@@ -154,9 +154,9 @@ namespace CppNoddy
       std::ofstream dump;
       dump.open( filename.c_str() );
       dump.precision( 9 );
-      dump.setf(std::ios::showpoint);
-      dump.setf(std::ios::showpos);
-      dump.setf(std::ios::scientific);
+      dump.setf( std::ios::showpoint );
+      dump.setf( std::ios::showpos );
+      dump.setf( std::ios::scientific );
       for ( std::size_t i = 0; i < X.size(); ++i )
       {
         dump << X[ i ] << " ";
@@ -171,7 +171,7 @@ namespace CppNoddy
   protected:
 
     // number of variables
-    std::size_t NV;  
+    std::size_t NV;
     // store nodal points
     DenseVector<_Xtype> X;
     // store the nodal values
@@ -181,7 +181,7 @@ namespace CppNoddy
 
   // INLINE THE ACCESS METHODS
 
-  template < typename _Type, typename _Xtype > 
+  template < typename _Type, typename _Xtype >
   inline _Type& OneD_Node_Mesh<_Type, _Xtype>::operator()( const std::size_t i, const std::size_t var )
   {
     return VARS[ i * NV + var ];

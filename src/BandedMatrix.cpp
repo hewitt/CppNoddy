@@ -80,7 +80,7 @@ namespace CppNoddy
       for ( std::size_t col = std::max( 0, int( row ) - int( L ) ); col < row; ++col )
       {
         // swap elements
-        std::swap( operator()( row,col ), operator()( col,row ) );
+        std::swap( operator()( row, col ), operator()( col, row ) );
       }
     }
   }

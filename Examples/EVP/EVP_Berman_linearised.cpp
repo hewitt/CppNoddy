@@ -50,7 +50,7 @@ namespace CppNoddy
       {
         m( 3, fdd ) = -Re;
       }
-      
+
       // The Reynolds number
       double Re;
     };
@@ -117,7 +117,7 @@ int main()
   // pass it to the ode
   ODE_BVP<double> ode( &problem, nodes, &BC_left, &BC_right );
   ode.set_monitor_det( false );
-  
+
   // our initial guess
   for ( int i = 0; i < N; ++i )
   {
@@ -131,7 +131,7 @@ int main()
     // set f''(y)
     ode.solution()( i, fddd ) = -3;
   }
-  
+
   DenseVector<D_complex > sigmas;
   // solve the problem using 2nd order finite-difference
   try
@@ -139,21 +139,21 @@ int main()
     ode.solve2();
     // make 2 dense matrices
     DenseMatrix<double> a, b;
-    // ask the ODE_BVP class to assemble the linearised EVP  
+    // ask the ODE_BVP class to assemble the linearised EVP
     ode.assemble_linear_evp( a, b );
     // construct and solve the EVP
     DenseLinearEigenSystem<double> system( &a, &b );
     system.eigensolve();
     // find any eigenvalues in a disc around the origin
     system.tag_eigenvalues_disc( + 1, 1. );
-    sigmas = system.get_tagged_eigenvalues();  
+    sigmas = system.get_tagged_eigenvalues();
   }
   catch ( std::runtime_error )
   {
     cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
     assert( false );
   }
- 
+
   if ( std::abs( sigmas.inf_norm() ) > tol )
   {
     cout << "\033[1;31;48m  * FAILED \033[0m\n";

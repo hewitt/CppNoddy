@@ -89,7 +89,7 @@ namespace CppNoddy
 
   template < typename _Type, typename _Xtype >
   const DenseVector<_Type>& OneD_Node_Mesh<_Type, _Xtype>::vars_as_vector() const
-  {    
+  {
     return VARS;
   }
 
@@ -136,8 +136,8 @@ namespace CppNoddy
     // copy current state of this mesh
     DenseVector<double> copy_of_vars( VARS );
     // resize the local storage
-    VARS.resize( newX.size() * NV );  
-    
+    VARS.resize( newX.size() * NV );
+
     // first nodal values are assumed to be untouched
     // loop thru destination mesh node at a time
     for ( std::size_t node = 1; node < newX.size() - 1; ++node )
@@ -151,17 +151,17 @@ namespace CppNoddy
           for ( std::size_t var = 0; var < NV; ++var )
           {
             double dX = newX[ node ] - X[ i ];
-            double dvarsdX = ( copy_of_vars[ (i+1)*NV + var ] - copy_of_vars[ i*NV + var ] ) / ( X[ i + 1 ] - X[ i ] );
+            double dvarsdX = ( copy_of_vars[ ( i+1 )*NV + var ] - copy_of_vars[ i*NV + var ] ) / ( X[ i + 1 ] - X[ i ] );
             VARS[ node * NV + var ] = copy_of_vars[ i * NV + var ] + dX * dvarsdX;
           }
         }
       }
     }
-    
+
     // add the last nodal values to the resized vector
     for ( std::size_t var = 0; var < NV; ++var )
     {
-      VARS[ (newX.size() - 1) * NV + var ] = copy_of_vars[ (X.size() - 1) * NV + var ];
+      VARS[ ( newX.size() - 1 ) * NV + var ] = copy_of_vars[ ( X.size() - 1 ) * NV + var ];
     }
     // replace the old nodes with the new ones
     X = newX;
@@ -195,7 +195,7 @@ namespace CppNoddy
     // copy current state of this mesh
     DenseVector<std::complex<double> > copy_of_vars( VARS );
     // resize the local storage
-    VARS.resize( newX.size() * NV );   
+    VARS.resize( newX.size() * NV );
 
     // first nodal values are assumed to be untouched
     // loop thru destination mesh node at a time
@@ -211,30 +211,30 @@ namespace CppNoddy
           {
             double dX = newX[ node ] - X[ i ];
             // if the paranoid checks above are satisfied, then the X[ i + 1 ] should still be in bounds
-            std::complex<double> dvarsdX = ( copy_of_vars[ (i+1)*NV + var ] - copy_of_vars[ i*NV + var ] ) / ( X[ i + 1 ] - X[ i ] );
+            std::complex<double> dvarsdX = ( copy_of_vars[ ( i+1 )*NV + var ] - copy_of_vars[ i*NV + var ] ) / ( X[ i + 1 ] - X[ i ] );
             VARS[ node * NV + var ] = copy_of_vars[ i * NV + var ] + dX * dvarsdX;
           }
         }
       }
     }
-    
+
     // add the last nodal values to the resized vector
     for ( std::size_t var = 0; var < NV; ++var )
     {
-      VARS[ (newX.size() - 1) * NV + var ] = copy_of_vars[ (X.size() - 1) * NV + var ];
+      VARS[ ( newX.size() - 1 ) * NV + var ] = copy_of_vars[ ( X.size() - 1 ) * NV + var ];
     }
     // replace the old nodes with the new ones
     X = newX;
 
   }
-  
+
   template <>
   void OneD_Node_Mesh<std::complex<double>, std::complex<double> >::remesh1( const DenseVector<std::complex<double> >& z )
   {
     std::string problem;
     problem = " The OneD_Node_Mesh.remesh method has been called with \n";
     problem += " a complex data set on a complex mesh.\n";
-    throw ExceptionRuntime( problem );    
+    throw ExceptionRuntime( problem );
   }
 
   template <>
@@ -243,7 +243,7 @@ namespace CppNoddy
     for ( unsigned node = 0; node < X.size() - 1; ++node )
     {
       // find bracketing nodes - incl shameless hack for evaluations at the boundary
-      if ( ( X[ node ] < x_pos  || std::abs( X[ node ] - x_pos ) < 1.e-7 ) && 
+      if ( ( X[ node ] < x_pos  || std::abs( X[ node ] - x_pos ) < 1.e-7 ) &&
            ( X[ node + 1 ] > x_pos || std::abs( X[ node + 1 ] - x_pos ) < 1.e-7 ) )
       {
         // distance from left node
@@ -267,11 +267,11 @@ namespace CppNoddy
     problem += "a point that is outside the range covered by the mesh object.\n";
     throw ExceptionRuntime( problem );
   }
-  
+
   template <>
   DenseVector<std::complex<double> > OneD_Node_Mesh<std::complex<double>, std::complex<double> >::get_interpolated_vars( const std::complex<double>& pos ) const
   {
-    double x_pos( pos.real() ); 
+    double x_pos( pos.real() );
 #ifdef PARANOID
     std::cout << "WARNING: You are interpolating complex data on a complex mesh with 'get_interpolated_vars'.\n";
     std::cout << " This does a simple piecewise linear interpolating assuming a single valued path. \n";
@@ -279,10 +279,10 @@ namespace CppNoddy
     for ( unsigned node = 0; node < X.size() - 1; ++node )
     {
       // find bracketing nodes - incl shameless hack for evaluations at the boundary
-      if ( ( X[ node ].real() < x_pos  || std::abs( X[ node ].real() - x_pos ) < 1.e-7 ) && 
+      if ( ( X[ node ].real() < x_pos  || std::abs( X[ node ].real() - x_pos ) < 1.e-7 ) &&
            ( X[ node + 1 ].real() > x_pos || std::abs( X[ node + 1 ].real() - x_pos ) < 1.e-7 ) )
       {
-        // distance from left node -- real coordinate is given. We also need to 
+        // distance from left node -- real coordinate is given. We also need to
         // interpolate between the two complex nodes -- hence imaginary coordinate is implict from
         // bracketing (complex) nodes
         std::complex<double> delta_z = ( X[ node + 1 ] - X[ node ] ) * ( x_pos - X[ node ].real() ) / ( X[ node + 1 ].real() - X[ node ].real() );
@@ -307,7 +307,7 @@ namespace CppNoddy
     problem += "Even for complex nodes we assume the path is single valued.\n";
     throw ExceptionRuntime( problem );
   }
-  
+
   template <>
   DenseVector<double> OneD_Node_Mesh<std::complex<double>, double >::find_roots1( const std::size_t &var, double value ) const
   {
@@ -326,7 +326,7 @@ namespace CppNoddy
     for ( std::size_t node = 0; node < X.size() - 1; ++node )
     {
       dx = ( X[ node + 1 ] - X[ node ] );
-      sum += 0.5 * dx * ( VARS[ node * NV + var ] + VARS[ (node+1) * NV + var ] );
+      sum += 0.5 * dx * ( VARS[ node * NV + var ] + VARS[ ( node+1 ) * NV + var ] );
     }
     // return the value
     return sum;
@@ -342,7 +342,7 @@ namespace CppNoddy
     {
       dx = std::abs( X[ node + 1 ] - X[ node ] );
       sum += 0.5 * dx * ( std::pow( std::abs( VARS[ node * NV + var ] ), 2 )
-                          + std::pow( std::abs( VARS[ (node + 1) * NV + var ] ), 2 ) );
+                          + std::pow( std::abs( VARS[ ( node + 1 ) * NV + var ] ), 2 ) );
     }
     // return the value
     return std::sqrt( sum );
@@ -362,7 +362,7 @@ namespace CppNoddy
     _Type f0, f1, f2;
     _Xtype x0, x1, x2;
 
-    _Type sum = 0.0;    
+    _Type sum = 0.0;
 
     // sum interior segments
     for ( std::size_t node = 0; node < X.size() - 2; node += 2 )
@@ -371,8 +371,8 @@ namespace CppNoddy
       x1 = X[ node + 1 ];
       x2 = X[ node + 2 ];
       f0 = VARS[ node * NV + var ];
-      f1 = VARS[ (node+1) * NV + var ];
-      f2 = VARS[ (node+2) * NV + var ];
+      f1 = VARS[ ( node+1 ) * NV + var ];
+      f2 = VARS[ ( node+2 ) * NV + var ];
       sum += ( x2 - x0 )
              * (
                f1 * pow( x0 - x2, 2 ) + f0 * ( x1 - x2 ) * ( 2. * x0 - 3. * x1 + x2 )
@@ -394,7 +394,7 @@ namespace CppNoddy
     std::cout << "\n";
     std::cout << "Number of vars = " << NV << "\n";
     std::cout << "Interleaved mesh data : \n";
-    VARS.dump();  
+    VARS.dump();
     std::cout << "Mesh dump complete\n";
   }
 

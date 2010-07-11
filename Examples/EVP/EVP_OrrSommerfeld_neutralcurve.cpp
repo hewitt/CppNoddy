@@ -58,7 +58,7 @@ namespace CppNoddy
         g[ phid ] = z[ psi ] + alpha * alpha * z[ phi ];
         g[ psi ] = z[ psid ];
         g[ psid ] = alpha * alpha * z[ psi ]
-                  + D_complex( 0.0, 1.0 ) * alpha * Re * ( U( y() ) * z[ psi ] - Udd( y() ) * z[ phi ] );
+                    + D_complex( 0.0, 1.0 ) * alpha * Re * ( U( y() ) * z[ psi ] - Udd( y() ) * z[ phi ] );
       }
 
       /// Define the unsteady terms by providing the mass matrix
@@ -88,8 +88,8 @@ namespace CppNoddy
         g[ phid ] = z[ psi ] + alpha * alpha * z[ phi ];
         g[ psi ] = z[ psid ];
         g[ psid ] = alpha * alpha * z[ psi ]
-                  + D_complex( 0.0, 1.0 ) * alpha * Re * ( U( y() ) * z[ psi ] - Udd( y() ) * z[ phi ] )
-                  - D_complex( 0.0, 1.0 ) * alpha * Re * z[ eval ] * z[ psi ];
+                    + D_complex( 0.0, 1.0 ) * alpha * Re * ( U( y() ) * z[ psi ] - Udd( y() ) * z[ phi ] )
+                    - D_complex( 0.0, 1.0 ) * alpha * Re * z[ eval ] * z[ psi ];
         g[ eval ] = 0.0;
       }
     };

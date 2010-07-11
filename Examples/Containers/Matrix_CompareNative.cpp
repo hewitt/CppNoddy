@@ -30,7 +30,7 @@ int main()
   // A TwoD_Node_Mesh object (coordinates of the mesh don't matter)
   const DenseVector<double> coords( Utility::uniform_node_vector( 0.0, 1.0, L ) );
   TwoD_Node_Mesh<double> M( coords, coords, 1 );
-  // native array  
+  // native array
   double* B;
   B = new double[ L * L ];
   // put some junk into the DenseMatrix
@@ -103,20 +103,20 @@ int main()
   {
     failed = true;
     cout << "The % slow-down for a DenseMatrix was " <<
-    100.0 * ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) << "\n";
+         100.0 * ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) << "\n";
   }
   // fail if there is more than a 7.5% overhead between DenseMatrix & TwoD_Node_Mesh
   if ( std::abs( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) > 0.075 )
   {
     failed = true;
     cout << "The % slow-down for a TwoD_Node_Mesh was " <<
-    100.0 * ( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) << "\n";
+         100.0 * ( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) << "\n";
   }
 
   if ( failed )
   {
-    cout << "\033[1;31;48m  * FAILED \033[0m\n";    
-  }  
+    cout << "\033[1;31;48m  * FAILED \033[0m\n";
+  }
   else
   {
     cout << "\033[1;32;48m  * PASSED \033[0m\n";

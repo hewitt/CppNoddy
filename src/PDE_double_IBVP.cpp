@@ -110,7 +110,7 @@ namespace CppNoddy
       {
         // iteration counter
         ++counter;
-        // time the assemble phase  
+        // time the assemble phase
 #ifdef TIME
         T_ASSEMBLE.start();
 #endif
@@ -121,8 +121,8 @@ namespace CppNoddy
         std::cout << " PDE_double_IBVP.solve : Residual_max = " << max_residual << " tol = " << TOL << " counter = " << counter << "\n";
 #endif
 #ifdef TIME
-      T_ASSEMBLE.stop();
-      T_SOLVE.start();
+        T_ASSEMBLE.stop();
+        T_SOLVE.start();
 #endif
         // linear solver
         system.solve();
@@ -196,7 +196,7 @@ namespace CppNoddy
       // loop thru variables at LHS of the domain
       for ( unsigned var = 0; var < order; ++var )
       {
-        a( row, var ) = p_BOTTOM_RESIDUAL -> jacobian()( i, var ); 
+        a( row, var ) = p_BOTTOM_RESIDUAL -> jacobian()( i, var );
       }
       b[ row ] = -p_BOTTOM_RESIDUAL -> residual()[ i ];
       ++row;
@@ -220,9 +220,9 @@ namespace CppNoddy
         state_dx[ var ] = ( Fjp1_midpt - Fj_midpt + Ojp1_midpt - Oj_midpt ) * inv_dx / 2;
         state_dt[ var ] = ( Fjp1_midpt + Fj_midpt - Ojp1_midpt - Oj_midpt ) * inv_dt / 2;
         state_dy[ var ] = ( SOLN( j + 1, t_node, var ) - SOLN( j + 1, b_node, var )
-            + SOLN( j, t_node, var ) - SOLN( j, b_node, var ) 
-            + PREV_SOLN( j + 1, t_node, var ) - PREV_SOLN( j + 1, b_node, var )
-            + PREV_SOLN( j, t_node, var ) - PREV_SOLN( j, b_node, var ) ) * inv_dy / 4;
+                            + SOLN( j, t_node, var ) - SOLN( j, b_node, var )
+                            + PREV_SOLN( j + 1, t_node, var ) - PREV_SOLN( j + 1, b_node, var )
+                            + PREV_SOLN( j, t_node, var ) - PREV_SOLN( j, b_node, var ) ) * inv_dy / 4;
       }
       //
       double y_midpt = 0.5 * ( SOLN.coord( j, b_node ).second + SOLN.coord( j, t_node ).second );
@@ -236,15 +236,15 @@ namespace CppNoddy
       p_EQUATION -> get_jacobian_of_mass1_mult_vector( state, state_dx, h1 );
       // evaluate the Jacobian of mass contribution multiplied by state_dt
       p_EQUATION -> get_jacobian_of_mass2_mult_vector( state, state_dt, h2 );
-      // mass matrix 1 times state_dx      
+      // mass matrix 1 times state_dx
       const DenseVector<_Type> m1_times_state_dx( p_EQUATION -> mass1().multiply( state_dx ) );
-      // mass matrix 2 times state_dt      
+      // mass matrix 2 times state_dt
       const DenseVector<_Type> m2_times_state_dt( p_EQUATION -> mass2().multiply( state_dt ) );
       // loop over all the variables
       // il = position for (0, b_node*order)
-      typename BandedMatrix<_Type>::elt_iter b_iter( a.get_elt_iter( 0, b_node * order ));
+      typename BandedMatrix<_Type>::elt_iter b_iter( a.get_elt_iter( 0, b_node * order ) );
       // ir = position for (0, t_node*order)
-      typename BandedMatrix<_Type>::elt_iter t_iter( a.get_elt_iter( 0, t_node * order ));
+      typename BandedMatrix<_Type>::elt_iter t_iter( a.get_elt_iter( 0, t_node * order ) );
       for ( unsigned var = 0; var < order; ++var )
       {
         // offset for (r,c) -> (r+row, c+var)
@@ -261,10 +261,10 @@ namespace CppNoddy
           typename BandedMatrix<_Type>::elt_iter bottom( b_iter + offset );
           typename BandedMatrix<_Type>::elt_iter top( t_iter + offset );
           // add the Jacobian terms
-          //a( row, order * b_node + i ) -=  p_EQUATION -> jacobian()( var, i ) / 2; 
-          *bottom -= p_EQUATION -> jacobian()( var, i ) / 2; 
+          //a( row, order * b_node + i ) -=  p_EQUATION -> jacobian()( var, i ) / 2;
+          *bottom -= p_EQUATION -> jacobian()( var, i ) / 2;
           //a( row, order * t_node + i ) -=  p_EQUATION -> jacobian()( var, i ) / 2;
-          *top -= p_EQUATION -> jacobian()( var, i ) / 2;    
+          *top -= p_EQUATION -> jacobian()( var, i ) / 2;
           // add the Jacobian of mass terms
           //a( row, order * b_node + i ) += h1( var, i ) * .5;
           *bottom += h1( var, i ) * .5;
@@ -272,23 +272,23 @@ namespace CppNoddy
           *top += h1( var, i ) * .5;
           // add the Jacobian of mass terms
           //a( row, order * b_node + i ) += h2( var, i ) * .5;
-          *bottom += h2( var, i ) * .5;  
+          *bottom += h2( var, i ) * .5;
           //a( row, order * t_node + i ) += h2( var, i ) * .5;
           *top += h2( var, i ) * .5;
           // add the mass matrix terms
-          //a( row, order * b_node + i ) += p_EQUATION -> mass1()( var, i ) * inv_dx; 
+          //a( row, order * b_node + i ) += p_EQUATION -> mass1()( var, i ) * inv_dx;
           *bottom += p_EQUATION -> mass1()( var, i ) * inv_dx;
-          //a( row, order * t_node + i ) += p_EQUATION -> mass1()( var, i ) * inv_dx; 
+          //a( row, order * t_node + i ) += p_EQUATION -> mass1()( var, i ) * inv_dx;
           *top += p_EQUATION -> mass1()( var, i ) * inv_dx;
-          //a( row, order * b_node + i ) += p_EQUATION -> mass2()( var, i ) * inv_dt; 
+          //a( row, order * b_node + i ) += p_EQUATION -> mass2()( var, i ) * inv_dt;
           *bottom += p_EQUATION -> mass2()( var, i ) * inv_dt;
-          //a( row, order * t_node + i ) += p_EQUATION -> mass2()( var, i ) * inv_dt; 
+          //a( row, order * t_node + i ) += p_EQUATION -> mass2()( var, i ) * inv_dt;
           *top += p_EQUATION -> mass2()( var, i ) * inv_dt;
         }
         // RHS
         b[ row ] = p_EQUATION -> residual()[ var ] - state_dy[ var ];
-        b[ row ] -= m1_times_state_dx[ var ]; 
-        b[ row ] -= m2_times_state_dt[ var ]; 
+        b[ row ] -= m1_times_state_dx[ var ];
+        b[ row ] -= m2_times_state_dt[ var ];
         b[ row ] *= 4;
         // increment the row
         row += 1;
@@ -305,9 +305,9 @@ namespace CppNoddy
       // loop thru variables at RHS of the domain
       for ( unsigned var = 0; var < order; ++var )
       {
-        a( row, order * ( ny - 1 ) + var ) = p_TOP_RESIDUAL -> jacobian()(i, var ); 
+        a( row, order * ( ny - 1 ) + var ) = p_TOP_RESIDUAL -> jacobian()( i, var );
       }
-      b[ row ] = - p_TOP_RESIDUAL -> residual()[ i ]; 
+      b[ row ] = - p_TOP_RESIDUAL -> residual()[ i ];
       ++row;
     }
 #ifdef PARANOID

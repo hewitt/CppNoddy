@@ -20,7 +20,7 @@ namespace CppNoddy
       // the control parameter
       double p;
 
-      Arc_problem() : Residual<double>( 2 ){}
+      Arc_problem() : Residual<double>( 2 ) {}
 
       void residual_fn( const DenseVector<double> &z, DenseVector<double> &f ) const
       {
@@ -73,14 +73,14 @@ int main()
     catch ( ExceptionBifurcation )
     {
       cout << " Bifurcation detected near x = " << x[ 0 ]
-      << " p = " << residual.p << "\n\n";
+           << " p = " << residual.p << "\n\n";
     }
     if ( abs( pow( x[ 0 ], 2 )
               + pow( residual.p, 2 ) - 1.0 ) > tol )
     {
       failed = true;
       cout << " Error = " << pow( x[ 0 ], 2 )
-      + pow( residual.p, 2 ) - 1.0 << "\n";
+           + pow( residual.p, 2 ) - 1.0 << "\n";
     }
   }
 

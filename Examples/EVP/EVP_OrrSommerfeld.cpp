@@ -102,7 +102,7 @@ int main()
     assert( false );
   }
   // tag any eigenvalues with imaginary part > -0.1
-  system.set_shift( D_complex( 0.0, -0.1 ) ); 
+  system.set_shift( D_complex( 0.0, -0.1 ) );
   system.tag_eigenvalues_upper( + 1 );
   lambdas = system.get_tagged_eigenvalues();
   //lambdas.dump();
@@ -110,7 +110,7 @@ int main()
   // make sure we have a near neutral mode
   const double tol = 1.e-2;
   TrackerFile spectrum( "./DATA/spectrum.dat" );
-  spectrum.push_ptr( &lambdas, "evs");
+  spectrum.push_ptr( &lambdas, "evs" );
   spectrum.update();
   if ( std::abs( min_growth_rate ) > tol )
   {

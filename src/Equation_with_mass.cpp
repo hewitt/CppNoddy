@@ -39,7 +39,7 @@ namespace CppNoddy
       copy_of_state[ i ] -= this -> DELTA;
       copy_of_mass.sub( MASS_AT_LAST_STATE );
       copy_of_mass.scale( 1. / this -> DELTA );
-      // the 3D object that represents the Jacobian of the mass matrix  
+      // the 3D object that represents the Jacobian of the mass matrix
       jacmass.push_back( copy_of_mass );
     }
     // evaluate the jacabian of mass contribution
@@ -49,16 +49,16 @@ namespace CppNoddy
       {
         h( i, j ) = Utility::dot( jacmass[ j ][ i ], vec );
       }
-    }     
+    }
   }
-  
+
   template <typename _Type, typename _Xtype>
   void Equation_with_mass<_Type, _Xtype>::update( const DenseVector<_Type> &state )
   {
     // use the base class update to set LAST_STATE, FN_AT_LAST_STATE and JAC_AT_LAST_STATE
     Residual_with_coords<_Type, _Xtype>::update( state );
     // this has TIME ifdef to go after the base class update - otherwise we'll be
-    // resuming the timer twice in a row  
+    // resuming the timer twice in a row
 #ifdef TIME
     this -> T_UPDATER.start();
 #endif

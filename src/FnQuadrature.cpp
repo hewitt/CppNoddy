@@ -14,9 +14,9 @@ namespace CppNoddy
 
   // ctor
   FnQuadrature::FnQuadrature( fn_ptr ptr_to_fn,
-                          const double& x1,
-                          const double& x2,
-                          const unsigned& num_of_regions ) :
+                              const double& x1,
+                              const double& x2,
+                              const unsigned& num_of_regions ) :
       A( x1 ),
       B( x2 ),
       p_FN( ptr_to_fn )
@@ -26,9 +26,9 @@ namespace CppNoddy
 
   // ctor
   FnQuadrature::FnQuadrature( fn_ptr ptr_to_fn,
-                          const double& x1,
-                          const double& x2,
-                          const DenseVector<double>& nodes ) :
+                              const double& x1,
+                              const double& x2,
+                              const DenseVector<double>& nodes ) :
       A( x1 ),
       B( x2 ),
       p_FN( ptr_to_fn )

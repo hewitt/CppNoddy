@@ -107,7 +107,7 @@ namespace CppNoddy
     // set the eigenvalue member data
     EIGENVALUES_BETA = beta;
 #endif
-    
+
   }
 
   template <>

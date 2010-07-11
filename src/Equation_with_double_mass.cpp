@@ -30,7 +30,7 @@ namespace CppNoddy
     // call the base class's update method
     Residual_with_coords<_Type>::update( state );
     // this has to go after the base class update - otherwise we'll be
-    // resuming the timer twice in a row  
+    // resuming the timer twice in a row
 #ifdef TIME
     this -> T_UPDATER.start();
 #endif
@@ -41,7 +41,7 @@ namespace CppNoddy
     this -> T_UPDATER.stop();
 #endif
   }
-  
+
   template <typename _Type>
   void Equation_with_double_mass<_Type >::get_jacobian_of_mass1_mult_vector( const DenseVector<_Type> &state, const DenseVector<_Type> &vec, DenseMatrix<_Type> &h ) const
   {
@@ -59,7 +59,7 @@ namespace CppNoddy
       copy_of_state[ i ] -= this -> DELTA;
       copy_of_mass.sub( MASS1_AT_LAST_STATE );
       copy_of_mass.scale( 1. / this -> DELTA );
-      // the 3D object that represents the Jacobian of the mass matrix  
+      // the 3D object that represents the Jacobian of the mass matrix
       jacmass.push_back( copy_of_mass );
     }
     // evaluate the jacabian of mass contribution
@@ -69,9 +69,9 @@ namespace CppNoddy
       {
         h( i, j ) = Utility::dot( jacmass[ j ][ i ], vec );
       }
-    }     
-  }  
-  
+    }
+  }
+
   template <typename _Type>
   void Equation_with_double_mass<_Type>::get_jacobian_of_mass2_mult_vector( const DenseVector<_Type> &state, const DenseVector<_Type> &vec, DenseMatrix<_Type> &h ) const
   {
@@ -89,7 +89,7 @@ namespace CppNoddy
       copy_of_state[ i ] -= this -> DELTA;
       copy_of_mass.sub( MASS2_AT_LAST_STATE );
       copy_of_mass.scale( 1. / this -> DELTA );
-      // the 3D object that represents the Jacobian of the mass matrix  
+      // the 3D object that represents the Jacobian of the mass matrix
       jacmass.push_back( copy_of_mass );
     }
     // evaluate the jacabian of mass contribution
@@ -99,7 +99,7 @@ namespace CppNoddy
       {
         h( i, j ) = Utility::dot( jacmass[ j ][ i ], vec );
       }
-    }     
+    }
   }
 
   // the required templated versions are:

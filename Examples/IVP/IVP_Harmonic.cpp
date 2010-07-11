@@ -20,9 +20,9 @@ namespace CppNoddy
     {
     public:
       /// The harmonic equation is 2nd order
-      Harmonic_equation() : Equation<double> ( 2 ) 
-	  {
-	  }
+      Harmonic_equation() : Equation<double> ( 2 )
+      {
+      }
 
       /// We implement the equation as 2 first-order ODEs
       void residual_fn( const DenseVector<double> &z, DenseVector<double> &f ) const
@@ -103,7 +103,7 @@ int main()
     cout << "\n";
     cout << "    Error relative tol : " << tol << "\n";
     cout << "    Error |num - exact|: "
-    << abs( u_final[ 0 ] - cos( sqrt( problem.lambda ) * 10. ) ) << "\n";
+         << abs( u_final[ 0 ] - cos( sqrt( problem.lambda ) * 10. ) ) << "\n";
     cout << "    Total ODE steps    : " << ode.get_count() << "\n";
 
     if ( abs( u_final[ 0 ] - cos( sqrt( problem.lambda ) * 10. ) ) > 10. * tol )

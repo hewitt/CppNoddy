@@ -130,7 +130,7 @@ namespace CppNoddy
     /// \param x The dense vector to be added
     /// \return The sum of 'this' and x
     DenseVector<_Type> operator+( const DenseVector<_Type>& x ) const;
-  
+
     /// Overloading for +
     /// \return +this
     DenseVector<_Type> operator+() const;

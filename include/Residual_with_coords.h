@@ -16,7 +16,7 @@
 namespace CppNoddy
 {
   /// A base class to be inherited by objects that define residuals
-  template <typename _Type, typename _Xtype = double>
+  template < typename _Type, typename _Xtype = double >
   class Residual_with_coords : public Residual<_Type>
   {
   public:
@@ -84,7 +84,7 @@ namespace CppNoddy
   ;  // end class
 
   template <typename _Type, typename _Xtype>
-  inline _Xtype& Residual_with_coords<_Type,_Xtype>::coord( const unsigned& i )
+  inline _Xtype& Residual_with_coords<_Type, _Xtype>::coord( const unsigned& i )
   {
 #ifdef PARANOID
     /// \todo Compilation failure
@@ -94,7 +94,7 @@ namespace CppNoddy
   }
 
   template <typename _Type, typename _Xtype>
-  inline const _Xtype& Residual_with_coords<_Type,_Xtype>::coord( const unsigned& i ) const
+  inline const _Xtype& Residual_with_coords<_Type, _Xtype>::coord( const unsigned& i ) const
   {
 #ifdef PARANOID
     /// \todo Compilation failure
@@ -104,37 +104,37 @@ namespace CppNoddy
   }
 
   template <typename _Type, typename _Xtype>
-  inline _Xtype& Residual_with_coords<_Type,_Xtype>::y()
+  inline _Xtype& Residual_with_coords<_Type, _Xtype>::y()
   {
     return coord( 0 );
   }
 
   template <typename _Type, typename _Xtype>
-  inline const _Xtype& Residual_with_coords<_Type,_Xtype>::y() const
+  inline const _Xtype& Residual_with_coords<_Type, _Xtype>::y() const
   {
     return coord( 0 );
   }
 
   template <typename _Type, typename _Xtype>
-  inline _Xtype& Residual_with_coords<_Type,_Xtype>::t()
+  inline _Xtype& Residual_with_coords<_Type, _Xtype>::t()
   {
     return coords[ 1 ];
   }
 
   template <typename _Type, typename _Xtype>
-  inline const _Xtype& Residual_with_coords<_Type,_Xtype>::t() const
+  inline const _Xtype& Residual_with_coords<_Type, _Xtype>::t() const
   {
     return coords[ 1 ];
   }
 
   template <typename _Type, typename _Xtype>
-  inline _Xtype& Residual_with_coords<_Type,_Xtype>::x()
+  inline _Xtype& Residual_with_coords<_Type, _Xtype>::x()
   {
     return coords[ 2 ];
   }
 
   template <typename _Type, typename _Xtype>
-  inline const _Xtype& Residual_with_coords<_Type,_Xtype>::x() const
+  inline const _Xtype& Residual_with_coords<_Type, _Xtype>::x() const
   {
     return coords[ 2 ];
   }

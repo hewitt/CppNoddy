@@ -32,7 +32,7 @@ namespace CppNoddy
     double W_inf( 0.0 );
     // rotation of the disk, appears in the BCs
     double W_disk( 1.0 );
-      
+
     class Karman_equations : public Equation_with_mass<double>
     {
     public:
@@ -59,11 +59,11 @@ namespace CppNoddy
       }
 
       /// To speed things up we'll overload this to say the mass matrix is constant
-      void get_jacobian_of_mass_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) 
-      {    
-        // blank definition leads to a zero result    
+      void get_jacobian_of_mass_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  )
+      {
+        // blank definition leads to a zero result
       }
-      
+
     };
 
     /// Define the boundary conditions
@@ -127,7 +127,7 @@ int main()
 
   // construct our IBVP with more nodes near the boundary
   PDE_IBVP<double> karman( &problem, Utility::power_node_vector( left, right, ny, 2.0 ), &BC_left, &BC_right );
-  //  
+  //
   for ( unsigned i = 0; i < ny; ++i )
   {
     karman.solution()( i, U ) = 0.0;
@@ -164,7 +164,7 @@ int main()
     }
     timer.counter()++;
     metric.update();
-    if ( i % 20 == 0 ) 
+    if ( i % 20 == 0 )
     {
       // cout << karman.t() << "\n";
       //profs.update();

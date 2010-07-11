@@ -19,7 +19,7 @@ namespace CppNoddy
   /// with an independent variable
   /// data member and access methods. By 'square' we mean that it defines
   /// N residuals and N state variables.
-  template <typename _Type, typename _Xtype = double>
+  template < typename _Type, typename _Xtype = double >
   class Equation : public Residual_with_coords<_Type, _Xtype>
   {
   public:

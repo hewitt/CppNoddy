@@ -131,7 +131,7 @@ int main()
     catch ( ExceptionBifurcation )
     {
       cout << " Bifurcation detected between Re = " << problem.Re - delta_Re
-      << " and Re = " << problem.Re << "\n";
+           << " and Re = " << problem.Re << "\n";
       cout << " Continuing further.\n";
     }
     problem.Re += delta_Re;

@@ -38,8 +38,6 @@ rm -rf ./validate.log
 .././Containers/Vec_Overloading.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Containers
 .././Containers/Vec_SparseVector.out 2>> error.log | tee -a ../Validation/validate.log
- cd .././Containers
-.././Containers/temp.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
 .././EVP/EVP_Berman_linearised.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP

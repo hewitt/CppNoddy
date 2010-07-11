@@ -99,7 +99,7 @@ int main()
   // a complex ODE BVP solved on a line in the complex plane
   ODE_BVP<D_complex, D_complex> complex_ode( &complex_problem, complex_nodes, &complex_BC_left, &complex_BC_right );
   complex_ode.set_monitor_det( false );
-  
+
   // our initial guess
   for ( unsigned i = 0; i < N; ++i )
   {
@@ -129,8 +129,8 @@ int main()
   double complex_diff = 0;
   for ( unsigned i = 0; i < N; ++i )
   {
-    real_diff = std::max( std::abs( real_ode.solution()( i, f ) - sin( real_ode.solution().coord( i ) ) / sin( 1 ) ), real_diff ); 
-    complex_diff = std::max( std::abs( complex_ode.solution()( i, f ) - sin( complex_ode.solution().coord( i ) ) / sin( eye ) ), complex_diff ); 
+    real_diff = std::max( std::abs( real_ode.solution()( i, f ) - sin( real_ode.solution().coord( i ) ) / sin( 1 ) ), real_diff );
+    complex_diff = std::max( std::abs( complex_ode.solution()( i, f ) - sin( complex_ode.solution().coord( i ) ) / sin( eye ) ), complex_diff );
   }
 
   // validation test

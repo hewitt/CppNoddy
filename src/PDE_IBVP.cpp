@@ -104,7 +104,7 @@ namespace CppNoddy
       T_ASSEMBLE.start();
 #endif
       assemble_matrix_problem( a, b, dt );
-      max_residual = b.inf_norm();      
+      max_residual = b.inf_norm();
 #ifdef DEBUG
       std::cout << " PDE_IBVP.solve : Residual_max = " << max_residual << " tol = " << TOL << "\n";
 #endif
@@ -188,10 +188,10 @@ namespace CppNoddy
       {
         const _Type F_midpt = ( SOLN( l_node, var ) + SOLN( r_node, var ) ) / 2.;
         const _Type O_midpt = ( PREV_SOLN( l_node, var ) + PREV_SOLN( r_node, var ) ) / 2.;
-        state_dy[ var ] = ( SOLN( r_node, var ) - SOLN( l_node, var ) 
-          + PREV_SOLN( r_node, var ) - PREV_SOLN( l_node, var ) ) * inv_dy / 2.;
+        state_dy[ var ] = ( SOLN( r_node, var ) - SOLN( l_node, var )
+                            + PREV_SOLN( r_node, var ) - PREV_SOLN( l_node, var ) ) * inv_dy / 2.;
         state[ var ] = ( F_midpt + O_midpt ) / 2.;
-        state_dt[ var ] = ( F_midpt - O_midpt ) * inv_dt;                        
+        state_dt[ var ] = ( F_midpt - O_midpt ) * inv_dt;
       }
       // set the equation's y & t values to be mid points
       p_EQUATION -> y() = 0.5 * ( SOLN.coord( l_node ) + SOLN.coord( r_node ) );
@@ -202,13 +202,13 @@ namespace CppNoddy
       p_EQUATION -> get_jacobian_of_mass_mult_vector( state, state_dt, h );
       // loop over all the variables
       //
-      // to avoid repeated mapping arithmetic within operator() of the 
+      // to avoid repeated mapping arithmetic within operator() of the
       // BandedMatrix class we'll access the matrix with the iterator.
       //
       // il = position for (0, lnode*order)
-      typename BandedMatrix<_Type>::elt_iter l_iter( a.get_elt_iter( 0, l_node * order ));
+      typename BandedMatrix<_Type>::elt_iter l_iter( a.get_elt_iter( 0, l_node * order ) );
       // ir = position for (0, rnode*order)
-      typename BandedMatrix<_Type>::elt_iter r_iter( a.get_elt_iter( 0, r_node * order ));
+      typename BandedMatrix<_Type>::elt_iter r_iter( a.get_elt_iter( 0, r_node * order ) );
       for ( unsigned var = 0; var < order; ++var )
       {
         // offset for (r,c) -> (r+row, c+var)
@@ -231,14 +231,14 @@ namespace CppNoddy
           *right -= p_EQUATION -> jacobian()( var, i ) * 0.5;
           // add the Jacobian of mass terms
           // indirect access: a( row, order * l_node + i ) += h( var, i ) * 0.5;
-          *left += h( var, i ) * 0.5; 
+          *left += h( var, i ) * 0.5;
           // indirect access: a( row, order * r_node + i ) += h( var, i ) * 0.5;
-          *right += h( var, i ) * 0.5; 
+          *right += h( var, i ) * 0.5;
           // add the mass matrix terms
           // indirect access: a( row, order * l_node + i ) += mass_midpt( var, i ) * inv_dt;
-          *left += p_EQUATION -> mass()(var, i ) * inv_dt; 
+          *left += p_EQUATION -> mass()( var, i ) * inv_dt;
           // indirect access: a( row, order * r_node + i ) += mass_midpt( var, i ) * inv_dt;
-          *right += p_EQUATION -> mass()(var, i ) * inv_dt; 
+          *right += p_EQUATION -> mass()( var, i ) * inv_dt;
         }
         // RHS
         b[ row ] = p_EQUATION -> residual()[ var ] - state_dy[ var ];

@@ -18,22 +18,22 @@ namespace CppNoddy
     /// lower density
     double rho_small( 1.0 );
 
-  	/// A smoothed 1-D top hat function for the change in material properties 
- 		double hat( const double &x, const double &xr, const double &xl, const double &sharpness )
- 		{
- 			return ( std::tanh( sharpness * ( x - xl ) ) - std::tanh( sharpness * ( x - xr ) ) ) / 2.0;
-		}	
-	  
-	  double rho( const double &x, const double &y )
+    /// A smoothed 1-D top hat function for the change in material properties
+    double hat( const double &x, const double &xr, const double &xl, const double &sharpness )
     {
-			return rho_small;		
+      return ( std::tanh( sharpness * ( x - xl ) ) - std::tanh( sharpness * ( x - xr ) ) ) / 2.0;
     }
-    	
+
+    double rho( const double &x, const double &y )
+    {
+      return rho_small;
+    }
+
     double K( const double &x, const double &y )
     {
-			return K_small + hat( x, 0.2, -0.2, 50. ) * hat( y, 0.2, -0.2, 50. ) * ( K_big - K_small );		
+      return K_small + hat( x, 0.2, -0.2, 50. ) * hat( y, 0.2, -0.2, 50. ) * ( K_big - K_small );
     }
- 
+
     /// Define the system
     class Acoustic_2d : public TwoD_Hyperbolic_System
     {
@@ -67,14 +67,14 @@ namespace CppNoddy
         c[ 0 ] = c[ 1 ] = sqrt( K_big / rho_small );
       }
 
-			void source_fn( const DenseVector<double>& x, const DenseVector<double>& q, DenseVector<double>& r ) const
-			{
-				const double delta( 1.e-6 );
-				r[ p ] = + q[ u ] * ( K( x[0] + delta, x[1] ) - K( x[0], x[1] ) ) / delta
-				         + q[ v ] * ( K( x[0], x[1] + delta ) - K( x[0], x[1] ) ) / delta;
-				r[ u ] = - q[ p ] * ( ( rho( x[0] + delta, x[1] ) - rho( x[0], x[1] ) ) / delta ) / std::pow( rho( x[0], x[1] ), 2 );
-				r[ v ] = - q[ p ] * ( ( rho( x[0], x[1] + delta ) - rho( x[0], x[1] ) ) / delta ) / std::pow( rho( x[0], x[1] ), 2 );
-			}
+      void source_fn( const DenseVector<double>& x, const DenseVector<double>& q, DenseVector<double>& r ) const
+      {
+        const double delta( 1.e-6 );
+        r[ p ] = + q[ u ] * ( K( x[0] + delta, x[1] ) - K( x[0], x[1] ) ) / delta
+                 + q[ v ] * ( K( x[0], x[1] + delta ) - K( x[0], x[1] ) ) / delta;
+        r[ u ] = - q[ p ] * ( ( rho( x[0] + delta, x[1] ) - rho( x[0], x[1] ) ) / delta ) / std::pow( rho( x[0], x[1] ), 2 );
+        r[ v ] = - q[ p ] * ( ( rho( x[0], x[1] + delta ) - rho( x[0], x[1] ) ) / delta ) / std::pow( rho( x[0], x[1] ), 2 );
+      }
 
     };
 
@@ -117,18 +117,19 @@ int main()
   Acoustic_mesh.set_limiter( 1 );
   Acoustic_mesh.dump_nodes_x( "./DATA/HYP_2D_acoustic.xnodes" );
   Acoustic_mesh.dump_nodes_y( "./DATA/HYP_2D_acoustic.ynodes" );
-  std::ofstream kvalues; std::string filename( "./DATA/HYP_2D_impedance.dat" );
+  std::ofstream kvalues;
+  std::string filename( "./DATA/HYP_2D_impedance.dat" );
   kvalues.open( filename.c_str() );
-	for ( unsigned i = 1; i < Nx; ++i )
-	{
-		for ( unsigned j = 1; j < Ny; ++j )
-		{
-			double x( ( faces_x[ i - 1 ] + faces_x[ i ] ) / 2.0 );
-			double y( ( faces_y[ j - 1 ] + faces_y[ j ] ) / 2.0 );
-			kvalues << Example::K( x, y ) << "\n";
-			kvalues.flush();
-		}
-	}
+  for ( unsigned i = 1; i < Nx; ++i )
+  {
+    for ( unsigned j = 1; j < Ny; ++j )
+    {
+      double x( ( faces_x[ i - 1 ] + faces_x[ i ] ) / 2.0 );
+      double y( ( faces_y[ j - 1 ] + faces_y[ j ] ) / 2.0 );
+      kvalues << Example::K( x, y ) << "\n";
+      kvalues.flush();
+    }
+  }
 
   int file_counter( 1 );
   int loop_counter( 0 );
@@ -136,7 +137,7 @@ int main()
   do
   {
     Acoustic_mesh.update( 0.49, std::abs( Acoustic_mesh.get_time() - t_end ) );
-    if ( loop_counter % 4 == 0)
+    if ( loop_counter % 4 == 0 )
     {
       cout << " *** current time = " << Acoustic_mesh.get_time() << "\n";
       Acoustic_mesh.dump_data( filename_stub + Utility::stringify( file_counter ) + ".dat" );
@@ -144,6 +145,7 @@ int main()
       file_counter += 1;
     }
     ++loop_counter;
-  } while ( Acoustic_mesh.get_time() < t_end );
+  }
+  while ( Acoustic_mesh.get_time() < t_end );
 
 }

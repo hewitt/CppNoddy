@@ -86,7 +86,7 @@ int main()
   double tol = 1.e-4;
 
   // construct our IBVP
-  PDE_IBVP<double> heat( &problem, Utility::uniform_node_vector( left, right, ny), &BC_both, &BC_both );
+  PDE_IBVP<double> heat( &problem, Utility::uniform_node_vector( left, right, ny ), &BC_both, &BC_both );
 
   for ( unsigned i = 0; i < ny; ++i )
   {

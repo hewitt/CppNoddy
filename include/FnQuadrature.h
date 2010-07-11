@@ -10,7 +10,7 @@
 
 namespace CppNoddy
 {
-  
+
   /// A quadrature class that takes a function pointer.
   class FnQuadrature : private Uncopyable
   {
@@ -26,8 +26,8 @@ namespace CppNoddy
     /// \param x2 right hand boundary of the domain.
     /// \param num_of_regions initial number of sub-regions to divide the domain into.
     FnQuadrature( fn_ptr ptr_to_fn,
-                const double& x1, const double& x2,
-                const unsigned& num_of_regions );
+                  const double& x1, const double& x2,
+                  const unsigned& num_of_regions );
 
     /// Constructor.
     /// \param ptr_to_fn the function that defines the integrand.
@@ -35,8 +35,8 @@ namespace CppNoddy
     /// \param x2 right hand boundary of the domain.
     /// \param nodes A vector of nodal positions.
     FnQuadrature( fn_ptr ptr_to_fn,
-                const double& x1, const double& x2,
-                const DenseVector<double>& nodes );
+                  const double& x1, const double& x2,
+                  const DenseVector<double>& nodes );
 
     /// A set method to define a UNIFORM number of sub intervals.
     /// \param n Number of sub intervals
@@ -67,7 +67,7 @@ namespace CppNoddy
     DenseVector<double> NODES;
 
   };
-  
+
 
 }
 

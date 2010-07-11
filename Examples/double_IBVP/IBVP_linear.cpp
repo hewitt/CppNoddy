@@ -8,7 +8,7 @@
 /// The solution is computed over a range of \f$ t \f$ for \f$ (x,y) \in [0,10]\times [-1,1] \f$
 /// and the maximum deviation away from the exact solution \f$ u = (1-y^2) e^{-xt} \f$ is found.
 /// The test fails if this deviation is larger than a set tolerance \f$ \tau \f$.
-/// The example is solved using the PDE_double_IBVP for problems that are 
+/// The example is solved using the PDE_double_IBVP for problems that are
 /// parabolic in 2 coordinates \f$ (x,t) \f$ with a BVP in \f$ y \f$.
 
 #include <IBVP_double_bundle.h>
@@ -59,7 +59,7 @@ namespace CppNoddy
         // eqn 1 variable 0
         m( 1, 0 ) = -1.0;
       }
-      
+
       void get_jacobian_of_mass1_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
       {
         // constant mass1 matrix
@@ -75,7 +75,7 @@ namespace CppNoddy
     class dd_BC : public Residual_with_coords<double>
     {
     public:
-    	// 1 constraint, 2nd order system, 2 coordinates (x & t)
+      // 1 constraint, 2nd order system, 2 coordinates (x & t)
       dd_BC() : Residual_with_coords<double> ( 1, 2, 2 ) {}
 
       void residual_fn( const DenseVector<double>& z, DenseVector<double>& b ) const
@@ -114,12 +114,12 @@ int main()
   double dt = 0.01;
 
   // construct our IBVP
-  PDE_double_IBVP<double> diffusion( &problem, 
-      Utility::uniform_node_vector( left, right, nx ), 
-      Utility::uniform_node_vector( bottom, top, ny ), 
-      &BC_bottom, &BC_top );
-  
-  // initial conditions 
+  PDE_double_IBVP<double> diffusion( &problem,
+                                     Utility::uniform_node_vector( left, right, nx ),
+                                     Utility::uniform_node_vector( bottom, top, ny ),
+                                     &BC_bottom, &BC_top );
+
+  // initial conditions
   for ( unsigned i = 0; i < nx; ++i )
   {
     for ( unsigned j = 0; j < ny; ++j )
@@ -129,7 +129,7 @@ int main()
       diffusion.solution()( i, j, Ud ) = - 2 * y ;
     }
   }
-  
+
   double max_error( 0.0 );
   do
   {
@@ -140,12 +140,13 @@ int main()
       for ( unsigned j = 0; j < ny; ++j )
       {
         double x = diffusion.solution().coord( i, j ).first;
-        double y = diffusion.solution().coord( i, j ).second;      
+        double y = diffusion.solution().coord( i, j ).second;
         double exact_u = ( 1 - y * y ) * exp( - x * diffusion.t() );
-        max_error = max( max_error, abs( exact_u - diffusion.solution()( i, j, U ) ) );  
+        max_error = max( max_error, abs( exact_u - diffusion.solution()( i, j, U ) ) );
       }
     }
-  } while ( diffusion.t() < t_end ); 
+  }
+  while ( diffusion.t() < t_end );
 
   const double tol( 1.e-4 );
   // check the BL transpiration vs the known solution
@@ -158,5 +159,5 @@ int main()
   {
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
   }
-  
+
 }

@@ -115,7 +115,7 @@ int main()
   {
     cout << "\033[1;31;48m  * FAILED \033[0m\n";
     cout << tests << " checks were run but only " << exceptions_caught
-    << " exceptions were caught!\n";
+         << " exceptions were caught!\n";
   }
   else
   {

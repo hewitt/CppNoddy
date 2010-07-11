@@ -26,7 +26,7 @@ namespace CppNoddy
     {
       // to compare with our 1D formulation, we'll make it independent
       // of the transverse y-coordinate
-      double rsq( (x-10) * (x-10) + 0.0 * y * y );
+      double rsq( ( x - 10 ) * ( x - 10 ) + 0.0 * y * y );
       return A * std::exp( - 0.5 * rsq );
     }
 
@@ -170,9 +170,12 @@ int main()
     Shallow_2d_mesh.update( 0.49, std::abs( Shallow_2d_mesh.get_time() - t_end ) );
     loop_counter += 1;
 
-  } while ( Shallow_2d_mesh.get_time() < t_end );
+  }
+  while ( Shallow_2d_mesh.get_time() < t_end );
 
-  DenseVector<double> x( 2, 0.0 ); x[ 0 ] = 10; x[ 1 ] = 0;
+  DenseVector<double> x( 2, 0.0 );
+  x[ 0 ] = 10;
+  x[ 1 ] = 0;
   double h_10( Shallow_2d_mesh.get_point_values( x )[0] );
   // compare this value to the 1D code's result for this resolution and CFL
   double E( abs( h_10 - 0.116773 ) );

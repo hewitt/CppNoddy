@@ -21,7 +21,7 @@ namespace CppNoddy
     public:
       double p;
 
-      Arc_problem() : Residual<double>( 1 ){}
+      Arc_problem() : Residual<double>( 1 ) {}
 
       void residual_fn( const DenseVector<double> &z, DenseVector<double> &f ) const
       {

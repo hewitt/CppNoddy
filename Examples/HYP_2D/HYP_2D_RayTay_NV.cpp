@@ -76,21 +76,21 @@ namespace CppNoddy
         switch ( face_index )
         {
         case 0:
-            q[ my ] = 0.0;
-            comps[ my ] = true;
-            break;
+          q[ my ] = 0.0;
+          comps[ my ] = true;
+          break;
         case 1:
-            q[ mx ] = 0.0;
-            comps[ mx ] = true;
-            break;
+          q[ mx ] = 0.0;
+          comps[ mx ] = true;
+          break;
         case 2:
-            q[ my ] = 0.0;
-            comps[ my ] = true;
-            break;
+          q[ my ] = 0.0;
+          comps[ my ] = true;
+          break;
         case 3:
-            q[ mx ] = 0.0;
-            comps[ mx ] = true;
-            break;
+          q[ mx ] = 0.0;
+          comps[ mx ] = true;
+          break;
         }
         return comps;
       }
@@ -109,13 +109,13 @@ namespace CppNoddy
       if ( y < 0.0 )
       {
         q[ rho ]  = 1.0;
-        q[ E ] = ( 2.5 - q[rho] * g * y) / ( gamma - 1.0 );
+        q[ E ] = ( 2.5 - q[rho] * g * y ) / ( gamma - 1.0 );
         q[ my ] = q[ rho ] * A * ( -std::cos( 4 * M_PI * x ) ) * std::exp( -100 * y * y );
       }
       else
       {
         q[ rho ] = 2.0;
-        q[ E ] = ( 2.5 - q[rho] * g * y) / ( gamma - 1.0 );
+        q[ E ] = ( 2.5 - q[rho] * g * y ) / ( gamma - 1.0 );
         q[ my ] = q[ rho ] * A * ( -std::cos( 4 * M_PI * x ) ) * std::exp( -100 * y * y );
       }
     }
@@ -160,6 +160,7 @@ int main()
     }
     Euler_2d_mesh.update( 0.49, std::abs( Euler_2d_mesh.get_time() - t_end ) );
     loop_counter += 1;
-  } while ( Euler_2d_mesh.get_time() < t_end );
+  }
+  while ( Euler_2d_mesh.get_time() < t_end );
 
 } // end of main()

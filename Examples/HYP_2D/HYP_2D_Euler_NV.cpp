@@ -76,21 +76,21 @@ namespace CppNoddy
         switch ( face_index )
         {
         case 0:
-            q[ my ] = 0.0;
-            comps[ my ] = true;
-            break;
+          q[ my ] = 0.0;
+          comps[ my ] = true;
+          break;
         case 1:
-            q[ mx ] = 0.0;
-            comps[ mx ] = true;
-            break;
+          q[ mx ] = 0.0;
+          comps[ mx ] = true;
+          break;
         case 2:
-            q[ my ] = 0.0;
-            comps[ my ] = true;
-            break;
+          q[ my ] = 0.0;
+          comps[ my ] = true;
+          break;
         case 3:
-            q[ mx ] = 0.0;
-            comps[ mx ] = true;
-            break;
+          q[ mx ] = 0.0;
+          comps[ mx ] = true;
+          break;
         }
         return comps;
       }
@@ -103,7 +103,7 @@ namespace CppNoddy
       const double xi( x + y );
       const double factor( 500.0 );
       const double rho_1( 1.0 );
-      const double rho_2( 0.125);
+      const double rho_2( 0.125 );
       const double E_1( 1.0 / ( gamma - 1.0 ) );
       const double E_2( 0.14 / ( gamma - 1.0 ) );
       q[ rho ] = ( rho_1 + rho_2 ) * 0.5 + ( rho_1 - rho_2 ) * 0.5 * std::tanh( factor * ( xi - 0.15 ) );
@@ -150,7 +150,8 @@ int main()
     }
     Euler_2d_mesh.update( 0.49, std::abs( Euler_2d_mesh.get_time() - t_end ) );
     loop_counter += 1;
-  } while ( Euler_2d_mesh.get_time() < t_end );
+  }
+  while ( Euler_2d_mesh.get_time() < t_end );
 
 
 } // end of main()

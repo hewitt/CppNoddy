@@ -40,12 +40,12 @@ int main()
     }
   }
 
-  mesh.dump_gnu( "./DATA/mesh1.dat" );  
+  mesh.dump_gnu( "./DATA/mesh1.dat" );
   mesh.remesh1( x2, y2 );
   mesh.dump_gnu( "./DATA/mesh2.dat" );
   mesh.remesh1( x, y );
-  mesh.dump_gnu( "./DATA/mesh3.dat" );  
-  
+  mesh.dump_gnu( "./DATA/mesh3.dat" );
+
   // read
   for ( std::size_t j = 0; j < ny; ++j )
   {
@@ -54,9 +54,9 @@ int main()
       mesh( i, j, 0 ) -= cos( M_PI * x[ i ] ) * sin( M_PI * y[ j ] );
     }
   }
-  
 
-  // check diff  
+
+  // check diff
   const double diff = mesh.get_var_as_matrix( 0 ).inf_norm();
   if ( diff > 1.e-14 )
   {
@@ -68,5 +68,5 @@ int main()
   {
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
   }
-  
+
 }

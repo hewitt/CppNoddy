@@ -25,12 +25,12 @@ namespace CppNoddy
 
       void flux_fn_x( const DenseVector<double>& x, const DenseVector<double> &q, DenseVector<double> &f ) const
       {
-        f[ 0 ] = q[ 0 ] / sqrt(2.);
+        f[ 0 ] = q[ 0 ] / sqrt( 2. );
       }
 
       void flux_fn_y( const DenseVector<double>& x, const DenseVector<double> &q, DenseVector<double> &f ) const
       {
-        f[ 0 ] = q[ 0 ] / sqrt(2.);
+        f[ 0 ] = q[ 0 ] / sqrt( 2. );
       }
 
       /// Bound the wave speed
@@ -84,8 +84,12 @@ int main()
 
   double asym( 0.0 );
   unsigned loop_counter( 0 );
-  DenseVector<double> x1( 2, 0.0 ); x1[ 0 ] = 0.2; x1[ 1 ] = 0.4;
-  DenseVector<double> x2( 2, 0.0 ); x2[ 0 ] = 0.4; x2[ 1 ] = 0.2;
+  DenseVector<double> x1( 2, 0.0 );
+  x1[ 0 ] = 0.2;
+  x1[ 1 ] = 0.4;
+  DenseVector<double> x2( 2, 0.0 );
+  x2[ 0 ] = 0.4;
+  x2[ 1 ] = 0.2;
   do
   {
     NlinAdv_mesh.update( 0.49 );

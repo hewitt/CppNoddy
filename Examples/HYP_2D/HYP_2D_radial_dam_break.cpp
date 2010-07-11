@@ -86,7 +86,7 @@ namespace CppNoddy
         c[ 0 ] = std::max( std::abs( U + cc ), std::abs( U - cc ) );
         c[ 1 ] = std::max( std::abs( V + cc ), std::abs( V - cc ) );
       }
-      
+
     };
 
   } //end Example namespace
@@ -120,18 +120,25 @@ int main()
 
   int file_counter( 1 );
   const double t_end = 0.5;
-  DenseVector<double> x1(2, 0.0); x1[0]=0.4; x1[1]=0.1;
-  DenseVector<double> x2(2, 0.0); x2[0]=0.1; x2[1]=0.4;
+  DenseVector<double> x1( 2, 0.0 );
+  x1[0] = 0.4;
+  x1[1] = 0.1;
+  DenseVector<double> x2( 2, 0.0 );
+  x2[0] = 0.1;
+  x2[1] = 0.4;
   do
   {
     Shallow_2d_mesh.update( 0.49, std::abs( Shallow_2d_mesh.get_time() - t_end ) );
     Shallow_2d_mesh.dump_gnu( filename_stub + Utility::stringify( file_counter ) + "_gnu.dat" );
     file_counter += 1;
-  } while ( Shallow_2d_mesh.get_time() < t_end );
+  }
+  while ( Shallow_2d_mesh.get_time() < t_end );
 
   double h_clawpack( 1.13466 );
   double theta = M_PI / 4;
-  DenseVector<double> x( 2, 0.0 ); x[ 0 ] = 0.5 * cos( theta ); x[ 1 ] = 0.5 * sin( theta );
+  DenseVector<double> x( 2, 0.0 );
+  x[ 0 ] = 0.5 * cos( theta );
+  x[ 1 ] = 0.5 * sin( theta );
   double h_diag = Shallow_2d_mesh.get_point_values( x )[ h ];
   if ( abs( h_diag - h_clawpack ) > 1.e-3 )
   {

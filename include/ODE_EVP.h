@@ -65,7 +65,7 @@ namespace CppNoddy
     {
       // clear the existing data if any
       MESHES.clear();
-      // order of the equation 
+      // order of the equation
       unsigned order = p_EQUATION -> get_order();
       // get the eigenvalues
       DenseVector<D_complex> vals( p_SYSTEM -> get_tagged_eigenvalues() );
@@ -90,7 +90,7 @@ namespace CppNoddy
             vars_at_node[ var ] = vecs[ ivec ][ node * order + var ];
           }
           // the last variable at each node is the corresponding eigenvalue
-          vars_at_node[ order ] = vals[ ivec ]; 
+          vars_at_node[ order ] = vals[ ivec ];
           // set the first 'order' dof to be those from the eigenvector
           eigfn.set_nodes_vars( node, vars_at_node );
         }

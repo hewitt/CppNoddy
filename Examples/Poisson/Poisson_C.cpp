@@ -103,7 +103,8 @@ int main()
     }
     timer.counter()++;
 #ifdef TIME
-  } while ( timer.get_time() <  5000.0 );
+  }
+  while ( timer.get_time() <  5000.0 );
   timer.stop();
   timer.print();
 #endif
@@ -120,7 +121,7 @@ int main()
       // compute the errors
       error.set( i, j ) = source.get( i, j ) - pow( X[ i ], 2 ) * pow( Y[ j ], 2 );
       error_uv.set( i, j ) = std::max( u( i, j ) - 2 * X[ i ] * X[ i ] * Y[ j ],
-            v( i, j ) + 2 * X[ i ] * Y[ j ] * Y[ j ] );
+                                       v( i, j ) + 2 * X[ i ] * Y[ j ] * Y[ j ] );
     }
   }
 

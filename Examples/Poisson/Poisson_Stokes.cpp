@@ -105,7 +105,7 @@ int main()
       // compute the errors
       error.set( i, j ) = source.get( i, j ) - pow( r[ i ] * z[ j ], 2 );
       error_uw.set( i, j ) = std::max( u( i, j ) + 2 * r[ i ] * z[ j ],
-            w( i, j ) - 2 * z[ j ] * z[ j ] );
+                                       w( i, j ) - 2 * z[ j ] * z[ j ] );
     }
   }
 

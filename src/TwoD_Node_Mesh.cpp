@@ -20,13 +20,13 @@ namespace CppNoddy
   void TwoD_Node_Mesh<_Type>::set_nodes_vars( const std::size_t nodex, const std::size_t nodey, const DenseVector<_Type>& U )
   {
 #ifdef PARANOID
-  if ( U.size() > NV )
-  {  
-    std::string problem;
-    problem = " The TwoD_Node_Mesh.set_nodes_vars method is trying to use a \n";
-    problem += " vector that has more entries than variables stored in the mesh. \n";
-    throw ExceptionRuntime( problem );
-  }
+    if ( U.size() > NV )
+    {
+      std::string problem;
+      problem = " The TwoD_Node_Mesh.set_nodes_vars method is trying to use a \n";
+      problem += " vector that has more entries than variables stored in the mesh. \n";
+      throw ExceptionRuntime( problem );
+    }
 #endif
     // assign contents of U to the member data
     std::size_t offset( ( nodex * NY + nodey ) * NV );
@@ -40,15 +40,15 @@ namespace CppNoddy
   DenseVector<_Type> TwoD_Node_Mesh<_Type>::get_nodes_vars( const std::size_t nodex, const std::size_t nodey ) const
   {
 #ifdef PARANOID
-  if ( nodex > NX - 1 || nodey > NY - 1 )
-  {  
-    std::string problem;
-    problem = " The TwoD_Node_Mesh.get_nodes_vars method is trying to \n";
-    problem += " access a nodal point that is not in the mesh. \n";
-    throw ExceptionRange( problem, NX, NY, nodex, nodey );
-  }
+    if ( nodex > NX - 1 || nodey > NY - 1 )
+    {
+      std::string problem;
+      problem = " The TwoD_Node_Mesh.get_nodes_vars method is trying to \n";
+      problem += " access a nodal point that is not in the mesh. \n";
+      throw ExceptionRange( problem, NX, NY, nodex, nodey );
+    }
 #endif
-    // construct a vector with NV elements starting from a pointer 
+    // construct a vector with NV elements starting from a pointer
     DenseVector<_Type> nodes_vars( NV, &VARS[ ( nodex * NY + nodey ) * NV ] );
     return nodes_vars;
   }
@@ -58,7 +58,7 @@ namespace CppNoddy
   {
     VARS.assign( NX * NY * NV, elt );
   }
-    
+
   template <typename _Type>
   std::pair< std::size_t, std::size_t > TwoD_Node_Mesh<_Type>::get_nnodes() const
   {
@@ -90,13 +90,13 @@ namespace CppNoddy
   DenseMatrix<_Type> TwoD_Node_Mesh<_Type>::get_var_as_matrix( std::size_t var ) const
   {
 #ifdef PARANOID
-  if ( var > NV - 1 )
-  {  
-    std::string problem;
-    problem = " The TwoD_Node_Mesh.get_var_as_matrix method is trying to use a \n";
-    problem += " variable index bigger than the number of variables in the mesh. \n";
-    throw ExceptionRange( problem, NV, var );
-  }
+    if ( var > NV - 1 )
+    {
+      std::string problem;
+      problem = " The TwoD_Node_Mesh.get_var_as_matrix method is trying to use a \n";
+      problem += " variable index bigger than the number of variables in the mesh. \n";
+      throw ExceptionRange( problem, NV, var );
+    }
 #endif
     DenseMatrix<_Type> temp( NX, NY, 0.0 );
     for ( std::size_t i = 0; i < NX; ++i )
@@ -133,21 +133,21 @@ namespace CppNoddy
     }
   }
 
-  template< typename _Type>  
+  template< typename _Type>
   void TwoD_Node_Mesh<_Type>::dump_gnu( std::string filename ) const
   {
     std::ofstream dump;
     dump.open( filename.c_str() );
     dump.precision( 9 );
-    dump.setf(std::ios::showpoint);
-    dump.setf(std::ios::showpos);
-    dump.setf(std::ios::scientific);
+    dump.setf( std::ios::showpoint );
+    dump.setf( std::ios::showpos );
+    dump.setf( std::ios::scientific );
 
     for ( std::size_t j = 0; j < NY; ++j )
     {
       for ( std::size_t i = 0; i < NX; ++i )
       {
-        dump << (double)X[ i ] << " " << Y[ j ] << " ";
+        dump << ( double )X[ i ] << " " << Y[ j ] << " ";
         for ( std::size_t var = 0; var < NV; ++var )
         {
           dump << VARS[ ( i * NY + j ) * NV + var ] << " ";
@@ -157,8 +157,8 @@ namespace CppNoddy
       dump << "\n";
     }
   }
-  
-  template< typename _Type>  
+
+  template< typename _Type>
   void TwoD_Node_Mesh<_Type>::dump( std::string filename ) const
   {
     std::ofstream dump;
@@ -177,8 +177,8 @@ namespace CppNoddy
       }
     }
   }
-  
-  template< typename _Type>  
+
+  template< typename _Type>
   void TwoD_Node_Mesh<_Type>::remesh1( const DenseVector<double>& newX, const DenseVector<double>& newY )
   {
 #ifdef PARANOID
@@ -225,21 +225,21 @@ namespace CppNoddy
 #endif
     // new variables storage
     DenseVector<_Type> newvars( newX.size() * newY.size() * NV, 0.0 );
-  
-    // left boundary  
+
+    // left boundary
     {
       std::size_t xnode( 0 );
-      // bottom left corner copy      
+      // bottom left corner copy
       for ( unsigned var = 0; var < NV; ++var )
       {
         newvars[ ( xnode * newY.size() + 0 ) * NV + var ] = get_nodes_vars( 0, 0 )[ var ];
-      }     
+      }
       for ( std::size_t ynode = 1; ynode < newY.size() - 1; ++ynode )
       {
-        std::size_t left_i( 0 );  // bracketing index 
-        std::size_t below_j( 0 ); // bracketing index 
+        std::size_t left_i( 0 );  // bracketing index
+        std::size_t below_j( 0 ); // bracketing index
         double deltaY;
-        // loop through the source mesh and find the bracket-nodes  
+        // loop through the source mesh and find the bracket-nodes
         for ( std::size_t j = 0; j < Y.size() - 1; ++j )
         {
           if ( ( Y[ j ] <= newY[ ynode ] ) && ( newY[ ynode ] < Y[ j + 1 ] ) )
@@ -249,33 +249,33 @@ namespace CppNoddy
           }
         }
         DenseVector<_Type> dvarsdY = ( get_nodes_vars( left_i, below_j + 1 ) - get_nodes_vars( left_i, below_j ) )
-          / ( coord( left_i, below_j + 1 ).second - coord( left_i, below_j ).second );
+                                     / ( coord( left_i, below_j + 1 ).second - coord( left_i, below_j ).second );
         DenseVector<_Type> interpolated_vars = get_nodes_vars( left_i, below_j ) + dvarsdY * deltaY;
         for ( unsigned var = 0; var < NV; ++var )
         {
           newvars[ ( xnode * newY.size() + ynode ) * NV + var ] = interpolated_vars[ var ];
         }
       }
-      // top left corner copy      
+      // top left corner copy
       for ( unsigned var = 0; var < NV; ++var )
       {
         newvars[ ( xnode * newY.size() + newY.size() - 1 ) * NV + var ] = get_nodes_vars( 0, NY - 1 )[ var ];
-      }     
-    }  
-    // right boundary  
+      }
+    }
+    // right boundary
     {
-      std::size_t xnode( newX.size() - 1 );      
-      // bottom right corner copy      
+      std::size_t xnode( newX.size() - 1 );
+      // bottom right corner copy
       for ( unsigned var = 0; var < NV; ++var )
       {
         newvars[ ( xnode * newY.size() + 0 ) * NV + var ] = get_nodes_vars( NX - 1, 0 )[ var ];
-      }       
+      }
       for ( std::size_t ynode = 1; ynode < newY.size() - 1; ++ynode )
       {
-        std::size_t left_i( X.size() - 1 );  // bracketing index 
-        std::size_t below_j( 0 ); // bracketing index 
+        std::size_t left_i( X.size() - 1 );  // bracketing index
+        std::size_t below_j( 0 ); // bracketing index
         double deltaY;
-        // loop through the source mesh and find the bracket-nodes  
+        // loop through the source mesh and find the bracket-nodes
         for ( std::size_t j = 0; j < Y.size() - 1; ++j )
         {
           if ( ( Y[ j ] <= newY[ ynode ] ) && ( newY[ ynode ] < Y[ j + 1 ] ) )
@@ -285,26 +285,26 @@ namespace CppNoddy
           }
         }
         DenseVector<_Type> dvarsdY = ( get_nodes_vars( left_i, below_j + 1 ) - get_nodes_vars( left_i, below_j ) )
-          / ( coord( left_i, below_j + 1 ).second - coord( left_i, below_j ).second );
+                                     / ( coord( left_i, below_j + 1 ).second - coord( left_i, below_j ).second );
         DenseVector<_Type> interpolated_vars = get_nodes_vars( left_i, below_j ) + dvarsdY * deltaY;
         for ( unsigned var = 0; var < NV; ++var )
         {
           newvars[ ( xnode * newY.size() + ynode ) * NV + var ] = interpolated_vars[ var ];
         }
       }
-      // bottom right corner copy      
+      // bottom right corner copy
       for ( unsigned var = 0; var < NV; ++var )
       {
         newvars[ ( xnode * newY.size() + newY.size() - 1 ) * NV + var ] = get_nodes_vars( NX - 1, NY - 1 )[ var ];
-      }      
-    }  
-    // bottom boundary      
+      }
+    }
+    // bottom boundary
     {
-      std::size_t ynode( 0 );  
+      std::size_t ynode( 0 );
       for ( std::size_t xnode = 1; xnode < newX.size() - 1; ++xnode )
       {
-        std::size_t left_i( 0 );  // bracketing index 
-        std::size_t below_j( 0 ); // bracketing index 
+        std::size_t left_i( 0 );  // bracketing index
+        std::size_t below_j( 0 ); // bracketing index
         double deltaX;
         // loop through the source mesh and find the bracket-nodes
         for ( std::size_t i = 0; i < X.size() - 1; ++i )
@@ -316,21 +316,21 @@ namespace CppNoddy
           }
         }
         DenseVector<_Type> dvarsdX = ( get_nodes_vars( left_i + 1, below_j ) - get_nodes_vars( left_i, below_j ) )
-          / ( coord( left_i + 1, below_j ).first - coord( left_i, below_j ).first );
+                                     / ( coord( left_i + 1, below_j ).first - coord( left_i, below_j ).first );
         DenseVector<_Type> interpolated_vars = get_nodes_vars( left_i, below_j ) + dvarsdX * deltaX;
         for ( unsigned var = 0; var < NV; ++var )
         {
           newvars[ ( xnode * newY.size() + ynode ) * NV + var ] = interpolated_vars[ var ];
         }
       }
-    }  
-    // top boundary      
+    }
+    // top boundary
     {
-      std::size_t ynode( newY.size() - 1 );  
+      std::size_t ynode( newY.size() - 1 );
       for ( std::size_t xnode = 1; xnode < newX.size() - 1; ++xnode )
       {
-        std::size_t left_i( 0 );  // bracketing index 
-        std::size_t below_j( Y.size() - 1 ); // bracketing index 
+        std::size_t left_i( 0 );  // bracketing index
+        std::size_t below_j( Y.size() - 1 ); // bracketing index
         double deltaX;
         // loop through the source mesh and find the bracket-nodes
         for ( std::size_t i = 0; i < X.size() - 1; ++i )
@@ -341,23 +341,23 @@ namespace CppNoddy
             deltaX = newX[ xnode ] - X[ i ];
           }
         }
-        //std::cout << newX[ xnode ] <<  " " << X[left_i] << " " << X[ left_i + 1 ] << "\n"; 
+        //std::cout << newX[ xnode ] <<  " " << X[left_i] << " " << X[ left_i + 1 ] << "\n";
         DenseVector<_Type> dvarsdX = ( get_nodes_vars( left_i + 1, below_j ) - get_nodes_vars( left_i, below_j ) )
-          / ( coord( left_i + 1, below_j ).first - coord( left_i, below_j ).first );
+                                     / ( coord( left_i + 1, below_j ).first - coord( left_i, below_j ).first );
         DenseVector<_Type> interpolated_vars = get_nodes_vars( left_i, below_j ) + dvarsdX * deltaX;
         for ( unsigned var = 0; var < NV; ++var )
         {
           newvars[ ( xnode * newY.size() + ynode ) * NV + var ] = interpolated_vars[ var ];
         }
       }
-    }  
+    }
     // loop thru interior nodes of the destination mesh one node at a time
     for ( std::size_t xnode = 1; xnode < newX.size() - 1; ++xnode )
     {
       for ( std::size_t ynode = 1; ynode < newY.size() - 1; ++ynode )
       {
-        std::size_t left_i( 0 );  // bracketing index 
-        std::size_t below_j( 0 ); // bracketing index 
+        std::size_t left_i( 0 );  // bracketing index
+        std::size_t below_j( 0 ); // bracketing index
         double deltaX, deltaY;
         // loop through the source mesh and find the bracket-nodes
         for ( std::size_t i = 0; i < X.size() - 1; ++i )
@@ -368,7 +368,7 @@ namespace CppNoddy
             deltaX = newX[ xnode ] - X[ i ];
           }
         }
-        // loop through the source mesh and find the bracket-nodes  
+        // loop through the source mesh and find the bracket-nodes
         for ( std::size_t j = 0; j < Y.size() - 1; ++j )
         {
           if ( ( Y[ j ] <= newY[ ynode ] ) && ( newY[ ynode ] < Y[ j + 1 ] ) )
@@ -378,27 +378,27 @@ namespace CppNoddy
           }
         }
         DenseVector<_Type> dvarsdX = ( get_nodes_vars( left_i + 1, below_j ) - get_nodes_vars( left_i, below_j ) )
-          / ( coord( left_i + 1, below_j ).first - coord( left_i, below_j ).first );
+                                     / ( coord( left_i + 1, below_j ).first - coord( left_i, below_j ).first );
         DenseVector<_Type> dvarsdY = ( get_nodes_vars( left_i, below_j + 1 ) - get_nodes_vars( left_i, below_j ) )
-          / ( coord( left_i, below_j + 1 ).second - coord( left_i, below_j ).second );
-          
+                                     / ( coord( left_i, below_j + 1 ).second - coord( left_i, below_j ).second );
+
         //DenseVector<_Type> interpolated_vars = get_nodes_vars( left_i, below_j ) + dvarsdX * deltaX + dvarsdY * deltaY;
-        
-        DenseVector<_Type> interpolated_vars_bottom = 
+
+        DenseVector<_Type> interpolated_vars_bottom =
           ( get_nodes_vars( left_i, below_j ) * ( coord( left_i + 1, below_j ).first - newX[ xnode ] )
-          + get_nodes_vars( left_i + 1, below_j ) * ( newX[ xnode ] - coord( left_i, below_j ).first ) ) /
+            + get_nodes_vars( left_i + 1, below_j ) * ( newX[ xnode ] - coord( left_i, below_j ).first ) ) /
           ( coord( left_i + 1, below_j ).first - coord( left_i, below_j ).first );
 
-        DenseVector<_Type> interpolated_vars_top = 
-          ( get_nodes_vars( left_i, below_j + 1 ) * ( coord( left_i + 1, below_j + 1 ).first - newX[ xnode ] ) 
-          + get_nodes_vars( left_i + 1, below_j + 1 ) * ( newX[ xnode ] - coord( left_i, below_j + 1 ).first ) ) /
+        DenseVector<_Type> interpolated_vars_top =
+          ( get_nodes_vars( left_i, below_j + 1 ) * ( coord( left_i + 1, below_j + 1 ).first - newX[ xnode ] )
+            + get_nodes_vars( left_i + 1, below_j + 1 ) * ( newX[ xnode ] - coord( left_i, below_j + 1 ).first ) ) /
           ( coord( left_i + 1, below_j + 1 ).first - coord( left_i, below_j + 1 ).first );
-        
-        DenseVector<_Type> interpolated_vars = 
+
+        DenseVector<_Type> interpolated_vars =
           (  interpolated_vars_bottom * ( coord( left_i, below_j + 1 ).second - newY[ ynode ] )
-          +  interpolated_vars_top * ( newY[ ynode ] - coord( left_i, below_j ).second ) ) / 
+             +  interpolated_vars_top * ( newY[ ynode ] - coord( left_i, below_j ).second ) ) /
           ( coord( left_i, below_j + 1 ).second - coord( left_i, below_j ).second );
-        
+
         for ( unsigned var = 0; var < NV; ++var )
         {
           newvars[ ( xnode * newY.size() + ynode ) * NV + var ] = interpolated_vars[ var ];
@@ -407,14 +407,14 @@ namespace CppNoddy
     }
     // finally replace the old nodes with the new ones
     X = newX;
-    Y = newY;   
+    Y = newY;
     NX = newX.size();
     NY = newY.size();
-    VARS = newvars;               
-  }    
-  
-  template< typename _Type>  
-  void TwoD_Node_Mesh<_Type>::read( std::string filename ) 
+    VARS = newvars;
+  }
+
+  template< typename _Type>
+  void TwoD_Node_Mesh<_Type>::read( std::string filename )
   {
     std::ifstream dump;
     dump.open( filename.c_str() );
@@ -424,7 +424,7 @@ namespace CppNoddy
       {
         double x, y;
         dump >> x;
-        dump >> y;                      
+        dump >> y;
         for ( std::size_t var = 0; var < NV; ++var )
         {
           double value;
@@ -437,12 +437,12 @@ namespace CppNoddy
           std::string problem;
           problem = " The TwoD_Node_Mesh.read_gnu method is trying to read a \n";
           problem += " file whose nodal points are in a different position. \n";
-          throw ExceptionRuntime( problem );  
-        }  
+          throw ExceptionRuntime( problem );
+        }
       }
     }
   }
-  
+
   //the templated versions we require are:
   template class TwoD_Node_Mesh<double>
   ;

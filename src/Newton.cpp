@@ -54,8 +54,8 @@ namespace CppNoddy
 
       // evaluate the residuals and jacobian at the current state
       p_RESIDUAL -> update( x );
-      // get the residuals  
-      oldFn = p_RESIDUAL -> residual();      
+      // get the residuals
+      oldFn = p_RESIDUAL -> residual();
 #ifdef DEBUG
       std::cout << " DEBUG: starting with |Residuals|  = " << oldFn.inf_norm() << "\n";
 #endif
@@ -65,7 +65,7 @@ namespace CppNoddy
         break;
       }
       // retrieve the current jacobian
-      J = p_RESIDUAL -> jacobian();  
+      J = p_RESIDUAL -> jacobian();
 
       // linear solver
       // \todo LU interface to LAPACK for complex matrices

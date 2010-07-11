@@ -20,7 +20,7 @@ namespace CppNoddy
   public:
 
     typedef typename DenseVector<_Type>::elt_iter elt_iter;
-    
+
     /// Empty constructor .. should we stop this?
     BandedMatrix()
     {}
@@ -127,8 +127,8 @@ namespace CppNoddy
     {
       return STORAGE.begin() + L * ( 3 * col + 2 ) + row;
     }
-      
-  //private:
+
+    //private:
 
     /// A contiguous vector
     DenseVector<_Type> STORAGE;

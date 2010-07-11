@@ -85,7 +85,7 @@ int main()
     lambdas = system.get_tagged_eigenvalues();
     eigenvectors = system.get_tagged_eigenvectors();
     cout << "    " << N << " : " << lambdas[ 0 ].real() - M_PI * M_PI
-    << " : " << timer.get_time() << "\n";
+         << " : " << timer.get_time() << "\n";
     timer.stop();
   }
 

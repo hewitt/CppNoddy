@@ -29,7 +29,7 @@ namespace CppNoddy
     /// Topography shape
     double z( const double &x )
     {
-      return A * std::exp( -.5 * (x-10) * (x-10) );
+      return A * std::exp( -.5 * ( x - 10 ) * ( x - 10 ) );
     }
     /// Set the initial state of the system
     void Q_init( const double &x, DenseVector<double> &q )

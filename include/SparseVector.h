@@ -156,7 +156,7 @@ namespace CppNoddy
       citer pos;
       pos = VEC.find( i );
       return pos;
-    } 
+    }
 
     /// A dot product.
     /// \param x The vector to be "dotted" with.

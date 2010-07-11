@@ -21,7 +21,7 @@ namespace CppNoddy
     if ( !STOPPED )
     {
       // we add current time interval to that stored
-      DELTA_T_STORE += clock()- T_START;
+      DELTA_T_STORE += clock() - T_START;
       STOPPED = true;
     }
   }
@@ -31,10 +31,10 @@ namespace CppNoddy
     stop();
     COUNTER = 0;
     STOPPED = true;
-    DELTA_T_STORE = 0;  
+    DELTA_T_STORE = 0;
   }
 
-  double Timer::get_time() const 
+  double Timer::get_time() const
   {
     if ( STOPPED  )
     {
@@ -75,7 +75,7 @@ namespace CppNoddy
     const double elapsed_time_in_ms( 1.e3 * double( DELTA_T_STORE ) / CLOCKS_PER_SEC );
     if ( elapsed_time_in_ms > 1000 )
     {
-      std::cout << "  * TOTAL CPU time taken = " << elapsed_time_in_ms/1000. << " s\n";      
+      std::cout << "  * TOTAL CPU time taken = " << elapsed_time_in_ms / 1000. << " s\n";
     }
     else
     {

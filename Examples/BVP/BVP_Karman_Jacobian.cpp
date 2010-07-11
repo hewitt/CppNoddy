@@ -110,7 +110,7 @@ int main()
   int N = 801;
   // mesh
   DenseVector<double> nodes( Utility::power_node_vector( left, right, N, 1.2 ) );
-  
+
   // pass it to the ode
   ODE_BVP<double> ode( &problem, nodes, &BC_left, &BC_right );
 

@@ -71,7 +71,7 @@ namespace CppNoddy
     p_CCMESH.push_back( ptr_to_mesh );
     CCMESH_DESC.push_back( desc );
   }
-    void TrackerFile::newline()
+  void TrackerFile::newline()
   {
     dumpfile << "\n";
   }
@@ -159,7 +159,7 @@ namespace CppNoddy
     {
       block_size = p_CCMESH[ 0 ] -> get_nnodes();
     }
-    
+
     for ( unsigned line = 0; line < block_size; ++line )
     {
       dump_scalar_data();
@@ -218,7 +218,7 @@ namespace CppNoddy
             dumpfile << ( *p_CCMESH[ i ] )( line, var ).imag() << " ";
           }
         }
-      }      
+      }
       dumpfile << "\n";
     }
     // flush the buffer

@@ -62,7 +62,7 @@ namespace CppNoddy
     /// \param b The RHS (dense) vector.
     /// \param dt The 'time step' to be taken.
     void assemble_matrix_problem( BandedMatrix<_Type>& a, DenseVector<_Type>& b, const double& dt );
-   
+
     /// Return a reference to the current value of the 'timelike' variable
     /// \return A handle to the current time stored in the object
     double& t();
@@ -75,14 +75,14 @@ namespace CppNoddy
     double& tolerance()
     {
       return TOL;
-    }      
+    }
 
     /// Access method to the maximum number of iterations
     /// \return A handle to the private member data MAX_ITERATIONS
     int& max_itns()
     {
       return MAX_ITERATIONS;
-    }      
+    }
 
   private:
     /// The solution at the current time level

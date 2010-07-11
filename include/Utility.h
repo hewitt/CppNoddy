@@ -32,7 +32,7 @@ namespace CppNoddy
     // MATRIX/VECTOR FILLING UTILS
     //
     //
-    
+
     /// Fill a specified entire row of a dense matrix
     /// \param A The dense matrix to be used
     /// \param row The row in A to be modified
@@ -219,7 +219,7 @@ namespace CppNoddy
     // SOME typical ops
     //
     //
-    
+
     /// Given a DenseMatrix<double> of a streamfunction, this will compute the velocities
     /// at the same nodal points using 2nd-order finite differencing assuming a
     /// uniform nodal point distribution in a Cartesian coordinate system.
@@ -246,7 +246,7 @@ namespace CppNoddy
     // MATRIX OPERATIONS
     //
     //
-    
+
     /// BLAS wrapper to do DOUBLE DENSE A_{MxK} * B_{KxN} = C_{MxN}
     /// Since this is a Fortran library, it assumes a column_major
     /// format, but CppNoddy uses row_major. To be consistent we'll
@@ -263,8 +263,8 @@ namespace CppNoddy
     // VECTOR OPERATIONS
     //
     //
-    
-    /// Templated dot product. 
+
+    /// Templated dot product.
     /// \param X First dense vector
     /// \param Y Second dense vector
     /// \return The dot product
