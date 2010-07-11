@@ -1,0 +1,65 @@
+import os.path
+import glob
+
+Import( 'env opts preproc link_flags incdir libdir topdir libs private' )
+
+print "Building CppNoddy test codes"
+
+# ENV variables
+#
+# The list of test codes
+rec_src = []
+for root, dirs, files in os.walk( '.' ):
+  for file in files:
+    fqn = os.path.join( root, file )
+    if '.cpp' in fqn:
+      if ( '~' not in fqn ) and ( '#' not in fqn ):
+        rec_src.append( fqn )
+
+# Write a simple validation shell script
+shellfile = open('Validation/validate.sh','w')
+shellfile.write('touch ./validate.log\n')
+shellfile.write('rm -rf ./validate.log\n')
+os.system('chmod +x Validation/validate.sh')
+
+# Sort the source files for the hell of it
+rec_src.sort()
+
+examples = []
+
+# Loop through sources
+for fqn in rec_src:
+  # filename stub
+  filename = os.path.splitext( fqn )[0]
+  if ( filename.find("OLD") < 0 ):
+    # if its a private example only compile on the private flag
+    if int(private):
+      # compile everything
+      # pass filenames to SCONS
+      env.Program( filename+'.out' , [filename+'.cpp'] , OPTS = opts + preproc, LIBS = libs ) #, LINKFLAGS = '-fopenmp' )
+    elif ( filename.find("Private") < 0 ):
+      # only compile the public examples 
+      env.Program( filename+'.out' , [filename+'.cpp'] , OPTS = opts + preproc, LIBS = libs ) #, LINKFLAGS = '-fopenmp' )
+     
+  # delete any previous error logs
+  os.system('touch error.log')
+  os.system('rm error.log')
+  # add each object to the validate shell script unless in testing
+  if ( ( filename.find("_NV") < 0 ) and ( filename.find("Private") < 0 ) ):
+    # cd to the correct directory for the DATA output to be in the right place
+    shellfile.write( ' cd ../' + os.path.split( fqn )[0] + '\n' )
+    shellfile.write( '../' + filename + '.out' + ' 2>> error.log | tee -a ../Validation/validate.log\n')
+
+shellfile.write("cd ../Validation \n")
+shellfile.write("echo \n")
+shellfile.write("echo '=================== TEST RESULTS ===================='\n")
+shellfile.write("echo \n")
+shellfile.write("""a=`grep tee ./validate.sh | wc -l`\n""")
+shellfile.write("echo -n 'Number of tests run              = '\n")
+shellfile.write('echo $(($a-1))\n')
+shellfile.write("echo -n 'Number of tests returning a pass = '\n")
+shellfile.write("""grep PASSED ./validate.log | wc -l \n""")
+shellfile.write("echo -n 'Number of tests returning a skip = '\n")
+shellfile.write("""grep SKIPPED ./validate.log | wc -l \n""")
+shellfile.write("echo -n 'Number of tests returning a fail = '\n")
+shellfile.write("""grep FAILED ./validate.log | wc -l \n""")
