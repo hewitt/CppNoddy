@@ -19,11 +19,11 @@ namespace CppNoddy
     double alpha;
     double Re;
 
-    class JH_base_equation : public Equation<double>
+    class JH_base_equation : public Equation_1matrix<double>
     {
     public:
 
-      JH_base_equation() : Equation<double> ( 4 ) {}
+      JH_base_equation() : Equation_1matrix<double> ( 4 ) {}
 
       void residual_fn( const DenseVector<double> &z, DenseVector<double> &f ) const
       {
@@ -32,6 +32,12 @@ namespace CppNoddy
         f[ Gdd ] = z[ Gddd ];
         f[ Gddd ]  = - 2 * alpha * Re * z[ Gd ] * z[ Gdd ] - 4 * alpha * alpha * z[ Gdd ];
       }
+      
+      void matrix0( const DenseVector<double>&x, DenseMatrix<double> &m ) const
+      {
+        Utility::fill_identity(m);
+      }
+      
     };
 
     class JH_left_BC : public Residual<double>

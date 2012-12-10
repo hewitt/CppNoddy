@@ -17,7 +17,7 @@
 /// a sparse structure, or an appropriate multi-step algorithm for the
 /// for the banded matrix.
 
-#include <EVP_bundle.h>
+#include <BVP_bundle.h>
 #include <Equation.h>
 
 // enumerate the 3 variables
@@ -28,13 +28,13 @@ namespace CppNoddy
   namespace Example
   {
     /// Define the harmonic equation by inheriting Equation base class
-    class Harmonic_equation : public Equation<D_complex>
+    class Harmonic_equation : public Equation_1matrix<D_complex>
     {
     public:
 
       /// The eqn is a *3rd* order complex nonlinear ODE
       /// because the eigenvalue is an unknown
-      Harmonic_equation() : Equation<D_complex> ( 3 ) {}
+      Harmonic_equation() : Equation_1matrix<D_complex> ( 3 ) {}
 
       /// Define the harmonic eqn
       void residual_fn( const DenseVector<D_complex> &z, DenseVector<D_complex> &g ) const
@@ -45,6 +45,13 @@ namespace CppNoddy
         // albeit at an obvious cost.
         g[ lambda ] = 0.0;
       }
+
+      /// matrix to multiply the BVP coordinate
+      void matrix0( const DenseVector<D_complex>& z, DenseMatrix<D_complex>& m ) const
+      {
+        Utility::fill_identity(m);
+      }
+      
     };
 
     class Harmonic_left_BC : public Residual<D_complex>

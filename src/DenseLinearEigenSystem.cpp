@@ -29,6 +29,9 @@ namespace CppNoddy
   template <typename _Type>
   void DenseLinearEigenSystem<_Type>::eigensolve()
   {
+    // reset any tagged eigenvalues
+    TAGGED_INDICES.clear();
+    //
     if ( CALC_EIGENVECTORS )
     {
       eigensolve_lapack_with_vectors();
@@ -427,7 +430,7 @@ namespace CppNoddy
            std::abs( radius * EIGENVALUES_BETA[ i ] ) )
       {
         if ( val > 0 )
-        {
+        {          
           // add it to our set of tagged eigenvalues
           TAGGED_INDICES.insert( TAGGED_INDICES.end(), i );
         }
@@ -447,7 +450,7 @@ namespace CppNoddy
     // loop through all the eigenvalues
     for ( std::size_t i = 0; i < EIGENVALUES_ALPHA.size(); ++i )
     {
-      // if the eigenvalue is in the disc centred at z then include it
+      // if the eigenvalue is to the right of the shift position
       if ( ( EIGENVALUES_ALPHA[ i ] * std::conj( EIGENVALUES_BETA[ i ] ) ).real() >
            std::pow( std::abs( EIGENVALUES_BETA[ i ] ), 2 ) * real_value )
       {
@@ -472,7 +475,7 @@ namespace CppNoddy
     // loop through all the eigenvalues
     for ( std::size_t i = 0; i < EIGENVALUES_ALPHA.size(); ++i )
     {
-      // if the eigenvalue is in the disc centred at z then include it
+      // if the eigenvalue is to the left of the shift position
       if ( ( EIGENVALUES_ALPHA[ i ] * std::conj( EIGENVALUES_BETA[ i ] ) ).real() <
            std::pow( std::abs( EIGENVALUES_BETA[ i ] ), 2 ) * real_value )
       {

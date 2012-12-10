@@ -24,12 +24,12 @@ namespace CppNoddy
 {
   namespace Example
   {
-    class Diff_equation : public Equation_with_mass<double>
+    class Diff_equation : public Equation_2matrix<double>
     {
     public:
 
       /// The problem is 2nd order and real
-      Diff_equation() : Equation_with_mass<double> ( 2 ) {}
+      Diff_equation() : Equation_2matrix<double> ( 2 ) {}
 
       /// Define the equation
       void residual_fn( const DenseVector<double>& z, DenseVector<double>& g ) const
@@ -38,11 +38,31 @@ namespace CppNoddy
         g[ fd ] = 0.0;
       }
 
+      /// Define the (BVP) deriv by providing the identity matrix
+      void matrix0( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      {
+        m( 0, 0 ) = 1.0;
+        m( 1, 1 ) = 1.0;
+      }
+
+      /// To speed things up we'll overload this to say the mass matrix is constant
+      void get_jacobian_of_matrix0_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
+      {
+        // blank definition leads to a zero result
+      }
+
       /// Define the unsteady terms by providing the mass matrix
-      void mass( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      void matrix1( const DenseVector<double>& z, DenseMatrix<double>& m ) const
       {
         m( 1, 0 ) = -1.0;
       }
+      
+      /// To speed things up we'll overload this to say the mass matrix is constant
+      void get_jacobian_of_matrix1_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
+      {
+        // blank definition leads to a zero result
+      }
+      
     };
 
     class Diff_both_BC : public Residual_with_coords<double>
@@ -121,7 +141,7 @@ int main()
     {
       en += 2;
       correction = 8 / ( std::pow( en * M_PI, 3 ) )
-                   * std::exp( -std::pow( en * M_PI, 2 ) * heat.t() ) * std::sin( en * M_PI * y );
+                   * std::exp( -std::pow( en * M_PI, 2 ) * heat.coord() ) * std::sin( en * M_PI * y );
       u += correction;
     }
     while ( std::abs( correction ) > tol / 10. );

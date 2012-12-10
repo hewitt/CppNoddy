@@ -1,8 +1,5 @@
 /// \file SparseVector.h
 /// A templated SparseVector class -- a sparse, variable size, vector object.
-/// The sparse & dense vectors do not share a common base because the
-/// sparse class encapsulates an STL map and operator[] assigns entries to
-/// the map. Hence get/set methods are used here.
 
 #ifndef SPARSEVECTOR_H
 #define SPARSEVECTOR_H

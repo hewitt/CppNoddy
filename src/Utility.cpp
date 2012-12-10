@@ -237,6 +237,7 @@ namespace CppNoddy
       }
     }
 
+
     void vels_from_streamfn_Stokes( const DenseMatrix<double>& source, const double& dr, const double& dz, DenseMatrix<double>& u, DenseMatrix<double>& w )
     {
       std::size_t Nr( source.nrows() );

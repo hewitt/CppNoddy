@@ -80,6 +80,11 @@ namespace CppNoddy
     /// Tag all the eigenvalues returned from the ARPACK routine.
     virtual void tag_eigenvalues_all();
 
+    virtual void clear_all_tags()
+    {
+      TAGGED_INDICES.clear();
+    }  
+
     /// Get the the tagged eigenvalues. All of the tagged eigenvalues
     /// are returned in a complex vector, with no ordering guaranteed.
     /// \return The tagged eigenvalues as a complex vector

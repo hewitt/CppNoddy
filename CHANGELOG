@@ -1,3 +1,15 @@
+0.85 [PDE_IBVP, ODE_BVP, PDE_double_IBVP changed to more general formats; Equation objects changed]
+     I tried to clean up some things and be more consistent. Now the Equation_*_mass objects
+       have been changed to Equation_{i}matrix, where i=1,2,3. Each equation therefore has i
+       coordinates that are now solely accessed by coord(i). The shortcuts of y(),t() & x() were
+       inconsistent and have been removed. In the BVP & IBVP classes there is now a matrix that
+       multiplies the derivative of the vector of unkowns for all i coordinates; previously the
+       BVP coordinate "y" was assumed to be associated with an identity matrix. Matrix/coord 0
+       is the coordinate associated with the boundary value problem, whilst Matrix/coord 1 & 2
+       are associated with the parabolic evolution in PDE_IBVP and PDE_double_IBVP.
+       Note: the ad-hoc eigenvalue methods have been removed from the ODE_BVP class. This same
+       functionality can be obtained from the ODE_EVP class in a more consistent manner.
+
 0.80 [Sparse Matrices & TwoD_Node_Mesh]
      A sparse matrix class has been added. The matrix class makes use of the
        sparse vector class. The linear solver requires the SuperLU library. 

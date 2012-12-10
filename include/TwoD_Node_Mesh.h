@@ -9,6 +9,7 @@
 
 #include <DenseVector.h>
 #include <DenseMatrix.h>
+#include <OneD_Node_Mesh.h>
 
 namespace CppNoddy
 {
@@ -28,6 +29,12 @@ namespace CppNoddy
     {
       // we'll store the data as ( x, y, v ) ->  x * ny * nv + y * nv + v
       VARS = DenseVector<_Type>( NX * NY * NV, 0.0 );
+    }
+
+    // ctor from a file
+    TwoD_Node_Mesh( std::string filename ) 
+    {
+      read( filename, true );   
     }
 
     /// dtor
@@ -66,6 +73,16 @@ namespace CppNoddy
     /// \return The vector of VARIABLES stored at this nodal point
     DenseVector<_Type> get_nodes_vars( const std::size_t nodex, const std::size_t nodey ) const;
 
+    /// Get a cross section of the 2D mesh at a specified (constant) x node
+    /// \param nodex The x nodal index at which the cross section is to be taken
+    /// \return A 1D nodal mesh  
+    OneD_Node_Mesh<_Type> get_xsection_at_xnode( const std::size_t nodex ) const;
+
+    /// Get a cross section of the 2D mesh at a specified (constant) y node
+    /// \param nodey The y nodal index at which the cross section is to be taken
+    /// \return A 1D nodal mesh  
+    OneD_Node_Mesh<_Type> get_xsection_at_ynode( const std::size_t nodey ) const; 
+
     /// Assign an element to all entries in the mesh
     /// \param elt The element to be assigned to the mesh
     void assign( const _Type elt );
@@ -93,7 +110,7 @@ namespace CppNoddy
     /// \return A dense matrix of the specified variable
     DenseMatrix<_Type> get_var_as_matrix( std::size_t var ) const;
 
-    /// Interpolate this mesh data (linearly) into a new
+    /// Interpolate this mesh data (bilinearly) into a new
     /// mesh with nodal points defined in the argument list.
     /// Not written to be efficient, so you probably don't want
     /// to do any repeated calls with this method.
@@ -107,16 +124,76 @@ namespace CppNoddy
     /// A simple method for dumping data to a file
     /// \param filename The filename to write the data to (will overwrite)
     void dump( std::string filename ) const;
+    
+    /// A simple method for dumping a single variable to a file with no nodal information
+    /// \param filename The filename to write the data to (will overwrite)
+    /// \param var The index of the variable to be dumped to output
+    void dump_var( std::string filename, const unsigned var ) const;
 
     /// A simple method for reading data from a file
     /// \param filename The filename to write the data to (will overwrite)
-    void read( std::string filename );
+    /// \param reset Will reset the nodal positions using those from the file  
+    void read( std::string filename, const bool reset = false );
 
     /// A simple method for dumping data to a file for gnuplot surface plotting
     /// \param filename The filename to write the data to (will overwrite)
     void dump_gnu( std::string filename ) const;
 
 
+    /// Get a bilinearly interpolated value at a specified point
+    /// \param x x-coordinate in the 2D mesh      
+    /// \param y y-coordinate in the 2D mesh      
+    /// \return A vector of bilinearly interpolated values
+    DenseVector<_Type> get_interpolated_vars( const double& x, const double& y)
+    {
+      // check start and end
+      if ( ( x < X[0] ) || ( x>X[NX-1] ) )
+      {
+        std::string problem;
+        problem = " The TwoD_Node_Mesh.get_interpolated_vars method has been called with \n";
+        problem += " an x coordinate that lies outside the mesh. \n";
+        throw ExceptionRuntime( problem );
+      }
+      // check start and end
+      if ( ( y < Y[0] ) || ( y>Y[NY-1] ) )
+      {
+        std::string problem;
+        problem = " The TwoD_Node_Mesh.get_interpolated_vars method has been called with \n";
+        problem += " a y coordinate that lies outside the mesh. \n";
+        throw ExceptionRuntime( problem );
+      }
+      int bottom_j(-2);
+      for ( unsigned j = 0; j < NY-1; ++j )
+	{
+	  if ( ( y > Y[j] ) && ( y < Y[j+1] ) )
+	    {
+	      bottom_j = j;
+	    }
+	  if ( ( abs(y-Y[j])<1.e-10 ) || ( abs(y-Y[j+1])<1.e-10 ) )
+	    {
+	      bottom_j = j;
+	    }
+	}
+      if ( bottom_j == -1 )
+	{
+        std::string problem;
+        problem = " The TwoD_Node_Mesh.get_interpolated_vars method is broken.\n";
+        throw ExceptionRuntime( problem );
+	}
+
+      std::cout << y << " " << Y[bottom_j] << " " << Y[bottom_j+1] << "\n";
+      //
+      OneD_Node_Mesh<_Type> bottom_row = get_xsection_at_ynode( bottom_j );
+      OneD_Node_Mesh<_Type> top_row = get_xsection_at_ynode( bottom_j+1 );
+      const double y1 = Y[ bottom_j ]; 
+      const double y2 = Y[ bottom_j+1 ];
+      DenseVector<_Type> result = top_row.get_interpolated_vars(x)*( y2-y )/( y2-y1 )
+        + bottom_row.get_interpolated_vars(x)*( y-y1 )/( y2-y1 );
+      std::cout << "x,y,interp: " << x << " " << y << " " << result[0] << "\n"; 
+      return result; 
+    }
+    
+            
   protected:
 
     // we'll store the number of nodes
@@ -139,7 +216,7 @@ namespace CppNoddy
       std::string problem;
       problem = " The TwoD_Node_Mesh.operator() method is trying to \n";
       problem += " access a nodal point that is not in the mesh. \n";
-      throw ExceptionRange( problem, NX, NY, nodex, nodey );
+      throw ExceptionRange( problem, NX, nodex, NY, nodey );
     }
     if ( var > NV - 1 )
     {
@@ -161,7 +238,7 @@ namespace CppNoddy
       std::string problem;
       problem = " The TwoD_Node_Mesh.operator() method is trying to \n";
       problem += " access a nodal point that is not in the mesh. \n";
-      throw ExceptionRange( problem, NX, NY, nodex, nodey );
+      throw ExceptionRange( problem, NX, nodex, NY, nodey );
     }
     if ( var > NV - 1 )
     {
@@ -183,7 +260,7 @@ namespace CppNoddy
       std::string problem;
       problem = " The TwoD_Node_Mesh.coord method is trying to \n";
       problem += " access a nodal point that is not in the mesh. \n";
-      throw ExceptionRange( problem, NX, NY, nodex, nodey );
+      throw ExceptionRange( problem, NX, nodex, NY, nodey );
     }
 #endif
     std::pair< double, double > pos;

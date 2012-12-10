@@ -37,6 +37,11 @@ namespace CppNoddy
         f[ 1 ] = z[ 2 ];
         f[ 2 ] = -z[ 0 ] * z[ 2 ];
       }
+      
+      void mass( const DenseVector<double>&x, DenseMatrix<double> &m ) const
+      {
+        Utility::fill_identity(m);
+      }
     };
 
     /// Define a residual function using the boundary
@@ -54,7 +59,6 @@ namespace CppNoddy
         // 1000 integrator steps, using this problem equation
         ode = new ODE_IVP<double>( eqn, 0.0, 20.0, 1000 );
         // let's keep the history of the IVP for output in main
-        ode -> set_store_soln( true );
       }
 
       ~Blasius_residual()

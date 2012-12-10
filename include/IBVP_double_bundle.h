@@ -5,7 +5,7 @@
 #define IBVP_DOUBLE_BUNDLE_H
 
 #include <Types.h>
-#include <Equation_with_double_mass.h>
+#include <Equation_3matrix.h>
 #include <PDE_double_IBVP.h>
 #include <TwoD_Node_Mesh.h>
 #include <Residual.h>

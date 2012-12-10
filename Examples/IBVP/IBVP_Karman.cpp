@@ -18,7 +18,11 @@
 
 #include <cassert>
 
-#include <IBVP_bundle.h>
+#include <Equation_2matrix.h>
+#include <PDE_IBVP.h>
+#include <TrackerFile.h>
+#include <OneD_Node_Mesh.h>
+//
 #include <Utility.h>
 #include <Timer.h>
 
@@ -33,12 +37,12 @@ namespace CppNoddy
     // rotation of the disk, appears in the BCs
     double W_disk( 1.0 );
 
-    class Karman_equations : public Equation_with_mass<double>
+    class Karman_equations : public Equation_2matrix<double>
     {
     public:
 
       /// The problem is 5th order and real
-      Karman_equations() : Equation_with_mass<double> ( 5 ) {}
+      Karman_equations() : Equation_2matrix<double> ( 5 ) {}
 
       /// Define the Karman equations
       void residual_fn( const DenseVector<double>& z, DenseVector<double>& f ) const
@@ -50,16 +54,33 @@ namespace CppNoddy
         f[ 3 ] = z[ 4 ];
         f[ 4 ] = 2 * z[ 0 ] * z[ 3 ] + z[ 2 ] * z[ 4 ];
       }
+      
+      /// Define the BVP deriv by providing the matrix
+      void matrix0( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      {
+        // identity matrix
+        m( 0, 0 ) = 1.0;
+        m( 1, 1 ) = 1.0;
+        m( 2, 2 ) = 1.0;
+        m( 3, 3 ) = 1.0;        
+        m( 4, 4 ) = 1.0;        
+      }
+
+      /// To speed things up we'll overload this to say the mass matrix is constant
+      void get_jacobian_of_matrix0_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
+      {
+        // blank definition leads to a zero result
+      }
 
       /// Define the unsteady terms by providing the mass matrix
-      void mass( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      void matrix1( const DenseVector<double>& z, DenseMatrix<double>& m ) const
       {
         m( 1, 0 ) = -1.0;
         m( 4, 3 ) = -1.0;
       }
-
+      
       /// To speed things up we'll overload this to say the mass matrix is constant
-      void get_jacobian_of_mass_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  )
+      void get_jacobian_of_matrix1_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
       {
         // blank definition leads to a zero result
       }
@@ -139,11 +160,11 @@ int main()
 
   // set up output details
   TrackerFile metric( "./DATA/IBVP_Karman_metric.dat" );
-  metric.push_ptr( &karman.t(), "time" );
+  metric.push_ptr( &karman.coord(), "time" );
   metric.push_ptr( &karman.solution()( ny - 1, V ), "Ekman suction" );
   metric.header();
   TrackerFile profs( "./DATA/IBVP_Karman_profs.dat" );
-  profs.push_ptr( &karman.t(), "time" );
+  profs.push_ptr( &karman.coord(), "time" );
   profs.push_ptr( &karman.solution(), "solution" );
   profs.header();
 
@@ -164,12 +185,6 @@ int main()
     }
     timer.counter()++;
     metric.update();
-    if ( i % 20 == 0 )
-    {
-      // cout << karman.t() << "\n";
-      //profs.update();
-      //profs.newline();
-    }
   }
   timer.stop();
   timer.print();

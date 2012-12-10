@@ -21,7 +21,7 @@ namespace CppNoddy
 
     TrackerFile( int prec = 4 );
 
-    TrackerFile( std::string filename, int prec = 4 );
+    TrackerFile( std::string filename, int prec = 12 );
 
     ~TrackerFile();
 

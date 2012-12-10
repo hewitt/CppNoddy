@@ -33,12 +33,12 @@ namespace CppNoddy
     double s;
 
     /// Define the Karman equations
-    class Karman_equations : public Equation<double>
+    class Karman_equations : public Equation_1matrix<double>
     {
     public:
 
       /// The Karman system is a 5th order real system of ODEs
-      Karman_equations() : Equation<double>( 5 ) {}
+      Karman_equations() : Equation_1matrix<double>( 5 ) {}
 
       /// Define the Karman system
       void residual_fn( const DenseVector<double> &z, DenseVector<double> &f ) const
@@ -50,6 +50,12 @@ namespace CppNoddy
         f[ W ] = z[ Wd ];
         f[ Wd ] = 2 * z[ U ] * z[ W ] + z[ V ] * z[ Wd ];
       }
+      
+      void matrix0( const DenseVector<double>&x, DenseMatrix<double> &m ) const
+      {
+        Utility::fill_identity(m);
+      }
+      
     };
 
     /// Define the boundary conditions

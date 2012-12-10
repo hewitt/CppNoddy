@@ -37,32 +37,43 @@ namespace CppNoddy
              - 2 * eps * std::exp( - t ) / Re;
     }
 
-    class Nlin_adv_equation : public Equation_with_mass<double>
+    class Nlin_adv_equation : public Equation_2matrix<double>
     {
     public:
 
       /// The problem is 2nd order and real
-      Nlin_adv_equation() : Equation_with_mass<double> ( 2 ) {}
+      Nlin_adv_equation() : Equation_2matrix<double> ( 2 ) {}
 
       /// Define a nonlinear advection diffusion problem
       void residual_fn( const DenseVector<double>& z, DenseVector<double>& f ) const
       {
         // The system
         f[ U ] = z[ Ud ];
-        f[ Ud ] = source( y(), t() );
+        f[ Ud ] = source( coord(0), coord(1) );
+      }
+
+      /// Define the derivative terms by providing the mass matrix -- identity in this case
+      void matrix0( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      {
+        m(0,0)=1;m(1,1)=1;
+      }
+
+      void get_jacobian_of_matrix0_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
+      {
+        /// constant mass matrix, so we'll overlload this as empty to speed things up
       }
 
       /// Define the unsteady terms by providing the mass matrix
-      void mass( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      void matrix1( const DenseVector<double>& z, DenseMatrix<double>& m ) const
       {
         m( 1, 0 ) = - Re * z[ U ];
       }
 
-      void get_jacobian_of_mass_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  )
+      void get_jacobian_of_matrix1_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
       {
         h( 1, U ) = - Re * vec[ 0 ];
       }
-
+      
     };
 
     // BOUNDARY CONDITIONS
@@ -132,7 +143,7 @@ int main()
 
   // set up output details
   TrackerFile my_file( "./DATA/IBVP_NlinAdvection.dat" );
-  my_file.push_ptr( &advection.t(), "time" );
+  my_file.push_ptr( &advection.coord(), "time" );
   my_file.push_ptr( &advection.solution(), "Solution profile" );
   my_file.header();
 
@@ -159,7 +170,7 @@ int main()
     for ( unsigned i = 0; i < ny; ++i )
     {
       double y = advection.solution().coord( i );
-      const double exact_solution = 1.0 + y + Example::eps * y * ( 1 - y ) * std::exp( -advection.t() );
+      const double exact_solution = 1.0 + y + Example::eps * y * ( 1 - y ) * std::exp( -advection.coord() );
       max_err = std::max( max_err, std::abs( advection.solution()( i, 0 ) - exact_solution ) );
     }
   }

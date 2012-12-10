@@ -7,6 +7,7 @@
 #include <Generic_bundle.h>
 
 #include <Equation.h>
+#include <Equation_1matrix.h>
 #include <ODE_BVP.h>
 #include <OneD_Node_Mesh.h>
 #include <Residual.h>

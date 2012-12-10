@@ -13,6 +13,7 @@
 #include <cassert>
 
 #include <BVP_bundle.h>
+#include <Equation_1matrix.h>
 #include <Residual_with_coords.h>
 
 // enumerate the 3 variables
@@ -23,12 +24,12 @@ namespace CppNoddy
   namespace Example
   {
     /// Define the Blasius equation by inheriting Equation base class
-    class Blasius_equation : public Equation<double>
+    class Blasius_equation : public Equation_1matrix<double>
     {
     public:
 
       /// The Blasius eqn is a 3rd order real ODE
-      Blasius_equation() : Equation<double> ( 3 ) {}
+      Blasius_equation() : Equation_1matrix<double> ( 3 ) {}
 
       /// Define the Blasius eqn
       void residual_fn( const DenseVector<double> &z, DenseVector<double> &g ) const
@@ -36,6 +37,11 @@ namespace CppNoddy
         g[ f ] = z[ fd ];
         g[ fd ] = z[ fdd ];
         g[ fdd ] = -z[ f ] * z[ fdd ];
+      }
+      
+      void matrix0( const DenseVector<double>&x, DenseMatrix<double> &m ) const
+      {
+        Utility::fill_identity(m);
       }
     };
 

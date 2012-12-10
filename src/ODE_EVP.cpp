@@ -21,78 +21,37 @@
 #include <DenseLinearEigenSystem.h>
 #include <BandedLinearEigenSystem.h>
 
-#include <Equation_with_mass.h>
+#include <Equation_2matrix.h>
 
 namespace CppNoddy
 {
   template <typename _Type>
-  ODE_EVP<_Type>::ODE_EVP( Equation_with_mass<_Type >* ptr_to_equation,
+  ODE_EVP<_Type>::ODE_EVP( Equation_2matrix<_Type >* ptr_to_equation,
                            const DenseVector<double> &nodes,
                            Residual<_Type>* ptr_to_left_residual,
-                           Residual<_Type>* ptr_to_right_residual,
-                           std::string which ) :
+                           Residual<_Type>* ptr_to_right_residual ) :
       p_EQUATION( ptr_to_equation ),
       p_LEFT_RESIDUAL( ptr_to_left_residual ),
       p_RIGHT_RESIDUAL( ptr_to_right_residual ),
-      NODES( nodes ),
-      VERSION( which )
+      NODES( nodes )
   {
     unsigned n( nodes.size() );
     unsigned order( p_EQUATION -> get_order() );
-    // banded storage of the eigenproblem
-    p_A = new BandedMatrix<_Type>( n * order, 2 * order - 1, 0.0 );
-    p_B = new BandedMatrix<_Type>( n * order, 2 * order - 1, 0.0 );
-    // construct the banded matrix eigenvalue problem that corresponds
-    // to the equation & boundary conditions specified in the constructor.
-    construct_banded_problem();
-    // now we have the problem, we just need to pick a method of solution
-    if ( "lapack" == VERSION )
-    {
-      // user wants to solve the dense evp via LAPACK QZ routine
-      // first make the dense matrix equivalent of the problem
-      // using the Dense( banded ) constructor
-      p_A_DENSE = new DenseMatrix<_Type>( *p_A );
-      p_B_DENSE = new DenseMatrix<_Type>( *p_B );
-      // point the system pointer to the dense problem
-      p_SYSTEM = new DenseLinearEigenSystem<_Type>( p_A_DENSE, p_B_DENSE );
-    }
-    else
-    {
-      if ( "arpack" == VERSION )
-      {
-        // ARPACK solve is easy, since the problem is already
-        // in the appropriate banded form
-        p_SYSTEM = new BandedLinearEigenSystem<_Type>( p_A, p_B );
-        std::cout << " [Warning] : using ARPACK as the solver in the ODE_EVP routine\n";
-        std::cout << " is probably not a good idea. The formulation of the matrix \n";
-        std::cout << " has to be done in such a way that the mass matrix is symmetric \n";
-        std::cout << " positive semi-definite. Please use the slower LAPACK QZ algorithm.\n";
-      }
-      else
-      {
-        std::string problem;
-        problem = "The ODE_EVP::eigensolve method has been called with a request for \n";
-        problem += "an eigensolver method that has not been implemented. Currently\n";
-        problem += "you must use either 'lapack' or 'arpack'\n";
-        throw ExceptionRuntime( problem );
-      }
-    }
+    // first make the dense matrix equivalent of the problem
+    // using the Dense( banded ) constructor
+    p_A_DENSE = new DenseMatrix<_Type>( n * order, n * order, 0.0 );
+    p_B_DENSE = new DenseMatrix<_Type>( n * order, n * order, 0.0 );    
+    // point the system pointer to the dense problem
+    p_SYSTEM = new DenseLinearEigenSystem<_Type>( p_A_DENSE, p_B_DENSE );
   }
-
 
   template <typename _Type>
   ODE_EVP<_Type>::~ODE_EVP()
   {
     // clean up the matrices & evp system
-    delete p_A;
-    delete p_B;
     delete p_SYSTEM;
-    // if we used lapack we also have some dense matrices to clean up
-    if ( "lapack" == VERSION )
-    {
-      delete p_A_DENSE;
-      delete p_B_DENSE;
-    }
+    delete p_A_DENSE;
+    delete p_B_DENSE;
   }
 
   template <typename _Type>
@@ -104,14 +63,26 @@ namespace CppNoddy
   template <typename _Type>
   void ODE_EVP<_Type>::eigensolve()
   {
+    // NOTE: moving construct_banded_system to the constructor is a bad idea, because
+    // sometimes we will want to construct an EVP that depends on an 
+    // underlying baseflow solution that is unknown at the time of construction.
+    //
+    // construct the banded matrix eigenvalue problem that corresponds
+    // to the equation & boundary conditions specified in the constructor.
+    assemble_dense_problem();
     // solve the system
     p_SYSTEM -> eigensolve();
   }
 
 
   template <typename _Type>
-  void ODE_EVP<_Type>::construct_banded_problem()
+  void ODE_EVP<_Type>::assemble_dense_problem()
   {
+    // clear the A & B matrices, as they could have been filled with
+    // pivoting if this is a second solve.
+    p_A_DENSE -> assign( 0.0 );
+    p_B_DENSE -> assign( 0.0 );    
+    // eqn order
     unsigned order( p_EQUATION -> get_order() );
     // Jacobian matrix for the equation
     DenseMatrix<_Type> jac_midpt( order, order, 0.0 );
@@ -131,8 +102,8 @@ namespace CppNoddy
       // loop thru variables at LHS of the domain
       for ( unsigned var = 0; var < order; ++var )
       {
-        ( *p_A ) ( row, var ) = p_LEFT_RESIDUAL -> jacobian()( i, var );
-        ( *p_B ) ( row, var ) = 0.0;
+        ( *p_A_DENSE ) ( row, var ) = p_LEFT_RESIDUAL -> jacobian()( i, var );
+        ( *p_B_DENSE ) ( row, var ) = 0.0;
       }
       ++row;
     }
@@ -148,7 +119,7 @@ namespace CppNoddy
       const double invh( 1. / h );
       // mid point of the independent variable
       double x_midpt = 0.5 * ( NODES[ lnode ] + NODES[ rnode ] );
-      p_EQUATION -> y() = x_midpt;
+      p_EQUATION -> coord(0) = x_midpt;
       // Update the equation to the mid point position
       p_EQUATION -> update( temp_dummy );
       // loop over all the variables and fill the matrix
@@ -156,19 +127,19 @@ namespace CppNoddy
       {
         std::size_t placement_row( row + var );
         // deriv at the MID POINT between nodes
-        ( *p_A ) ( placement_row, order * rnode + var ) = invh;
-        ( *p_A ) ( placement_row, order * lnode + var ) = -invh;
+        ( *p_A_DENSE ) ( placement_row, order * rnode + var ) = invh;
+        ( *p_A_DENSE ) ( placement_row, order * lnode + var ) = -invh;
         // add the Jacobian terms to the linearised problem
         for ( unsigned i = 0; i < order; ++i )
         {
-          ( *p_A ) ( placement_row, order * lnode + i ) -= 0.5 * p_EQUATION -> jacobian()( var, i );
-          ( *p_A ) ( placement_row, order * rnode + i ) -= 0.5 * p_EQUATION -> jacobian()( var, i );
+          ( *p_A_DENSE ) ( placement_row, order * lnode + i ) -= 0.5 * p_EQUATION -> jacobian()( var, i );
+          ( *p_A_DENSE ) ( placement_row, order * rnode + i ) -= 0.5 * p_EQUATION -> jacobian()( var, i );
         }
         // RHS
         for ( unsigned i = 0; i < order; ++i )
         {
-          ( *p_B ) ( placement_row, order * lnode + i ) -= 0.5 * p_EQUATION -> mass()( var, i );
-          ( *p_B ) ( placement_row, order * rnode + i ) -= 0.5 * p_EQUATION -> mass()( var, i );
+          ( *p_B_DENSE ) ( placement_row, order * lnode + i ) -= 0.5 * p_EQUATION -> matrix1()( var, i );
+          ( *p_B_DENSE ) ( placement_row, order * rnode + i ) -= 0.5 * p_EQUATION -> matrix1()( var, i );
         }
       }
       // increment the row
@@ -183,8 +154,8 @@ namespace CppNoddy
       // loop thru variables at LHS of the domain
       for ( unsigned var = 0; var < order; ++var )
       {
-        ( *p_A ) ( row, order * ( num_of_nodes - 1 ) + var ) = p_RIGHT_RESIDUAL -> jacobian()( i, var );
-        ( *p_B ) ( row, order * ( num_of_nodes - 1 ) + var ) = 0.0;
+        ( *p_A_DENSE ) ( row, order * ( num_of_nodes - 1 ) + var ) = p_RIGHT_RESIDUAL -> jacobian()( i, var );
+        ( *p_B_DENSE ) ( row, order * ( num_of_nodes - 1 ) + var ) = 0.0;
       }
       ++row;
     }
@@ -194,12 +165,6 @@ namespace CppNoddy
       std::string problem( "\n The ODE_BVP has an incorrect number of boundary conditions. \n" );
       throw ExceptionRuntime( problem );
     }
-
-    // Dodgy hack alert: rather than flipping the signs in the above formulation, we will flip
-    // them here to ensure that the RHS matrix (probably?) has the semi-definite form
-    // required by the ARPACK solver.
-    ( *p_A ).scale( -1.0 );
-    ( *p_B ).scale( -1.0 );
 
   }
 

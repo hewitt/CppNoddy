@@ -103,6 +103,38 @@ namespace CppNoddy
     /// Access operator
     _Type& set( const std::size_t& row, const std::size_t& col );
 
+    /// SIMD operator sugar
+    DenseMatrix<_Type> operator*( const double& m ) const
+    {
+      DenseMatrix<_Type> temp( *this );
+      temp.scale( m );
+      return temp;
+    }
+    DenseMatrix<_Type> operator+( const DenseMatrix<_Type>& A ) const
+    {
+      DenseMatrix<_Type> temp( *this );
+      for ( std::size_t row = 0; row < NR; ++row )
+      {
+        for ( std::size_t col = 0; col < NC; ++col )
+        {
+          temp( row, col ) += A( row, col );
+        }         
+      } 
+      return temp;
+    }
+    DenseMatrix<_Type> operator-( const DenseMatrix<_Type>& A ) const
+    {
+      DenseMatrix<_Type> temp( *this );
+      for ( std::size_t row = 0; row < NR; ++row )
+      {
+        for ( std::size_t col = 0; col < NC; ++col )
+        {
+          temp( row, col ) -= A( row, col );
+        }         
+      } 
+      return temp;
+    }
+    
     /// \return The number of rows
     std::size_t nrows() const;
     /// \return The number of columns
@@ -140,7 +172,16 @@ namespace CppNoddy
     //
     // NON-INHERITED (FROM MATRIX_BASE) MEMBER FUNCTIONS
     //
-
+    
+    /// Assign a value the matrix so that it has the same
+    /// geometry, but zero entries in all locations
+    /// including.
+    /// \param elt The value to be assigned to all entries
+    void assign( _Type elt )
+    {
+      MATRIX.assign( MATRIX.size(), DenseVector<_Type>( NC, elt ) );
+    }
+    
     /// Pass through of iterator calls.
     /// \return Iterator to the begin row
     row_iter begin()
@@ -280,7 +321,7 @@ namespace CppNoddy
       throw ExceptionRange( problem, NR, row, NC, col );
     }
 #endif
-    return MATRIX[ row ][ col ];
+    return MATRIX[ row ][ col ]; 
   }
 
   template <typename _Type>

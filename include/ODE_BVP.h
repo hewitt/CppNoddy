@@ -15,7 +15,7 @@
 
 #include <DenseVector.h>
 #include <DenseMatrix.h>
-#include <Residual_with_coords.h>
+#include <Equation_1matrix.h>
 #include <OneD_Node_Mesh.h>
 #include <Uncopyable.h>
 #include <Residual.h>
@@ -23,7 +23,8 @@
 #include <ArcLength_base.h>
 #include <BandedLinearSystem.h>
 #include <Utility.h>
-
+#include <LinearEigenSystem_base.h>
+#include <DenseLinearEigenSystem.h>
 
 namespace CppNoddy
 {
@@ -43,11 +44,11 @@ namespace CppNoddy
     using ArcLength_base<_Type>::init_arc;
 
     /// The class is defined by a vector function for the system.
-    /// \param ptr_to_equation A pointer to an inherited Equation object.
+    /// \param ptr_to_equation A pointer to an Equation_1matrix object.
     /// \param nodes A vector that defines the nodal positions.
     /// \param ptr_to_left_residual A pointer to a residual object that defines the LHS boundary conditions.
     /// \param ptr_to_right_residual A pointer to a residual object that defines the RHS boundary conditions.
-    ODE_BVP( Residual_with_coords<_Type, _Xtype >* ptr_to_equation,
+    ODE_BVP( Equation_1matrix<_Type, _Xtype >* ptr_to_equation,
              const DenseVector<_Xtype> &nodes,
              Residual<_Type>* ptr_to_left_residual,
              Residual<_Type>* ptr_to_right_residual );
@@ -110,13 +111,6 @@ namespace CppNoddy
     /// \return A handle to the solution mesh
     OneD_Node_Mesh<_Type, _Xtype>& solution();
 
-    /// Get the Jacobian of the ODE system, ie. return the LHS of the
-    /// matrix equations. This is useful if you then want to define
-    /// a mass matrix to compute linearised eigenmodes of the ODE.
-    /// \param dense_a The (dense) matrix container for the LHS of the EVP
-    /// \param dense_b The (dense) matrix container for the RHS of the EVP
-    void assemble_linear_evp( DenseMatrix<_Type>& dense_a, DenseMatrix<_Type>& dense_b );
-
     /// Access method to the tolerance
     /// \return A handle to the private member data TOLERANCE
     double& tolerance()
@@ -162,14 +156,14 @@ namespace CppNoddy
     /// converged solution.
     int LAST_DET_SIGN;
     /// The equation object associated with this instance.
-    Residual_with_coords<_Type, _Xtype > *p_EQUATION;
+    Equation_1matrix<_Type, _Xtype > *p_EQUATION;
     /// Pointer to the residual defining the LHS BC
     Residual<_Type > *p_LEFT_RESIDUAL;
     /// Pointer to the residual defining the RHS BC
     Residual<_Type > *p_RIGHT_RESIDUAL;
     /// boolean flag to decide if we should monitor the determinant
     bool MONITOR_DET;
-
+          
 #ifdef TIME
     /// Timers for debug use
     Timer T_ASSEMBLE;

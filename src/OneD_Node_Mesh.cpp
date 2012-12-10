@@ -243,8 +243,10 @@ namespace CppNoddy
     for ( unsigned node = 0; node < X.size() - 1; ++node )
     {
       // find bracketing nodes - incl shameless hack for evaluations at the boundary
-      if ( ( X[ node ] < x_pos  || std::abs( X[ node ] - x_pos ) < 1.e-7 ) &&
-           ( X[ node + 1 ] > x_pos || std::abs( X[ node + 1 ] - x_pos ) < 1.e-7 ) )
+      //if ( ( X[ node ] < x_pos  || std::abs( X[ node ] - x_pos ) < 1.e-7 ) &&
+           //( X[ node + 1 ] > x_pos || std::abs( X[ node + 1 ] - x_pos ) < 1.e-7 ) )
+      if ( ( ( X[ node ] < x_pos ) && ( X[ node + 1 ] > x_pos ) )   
+              ||  ( std::abs( X[ node ] - x_pos ) < 1.e-7  ) || ( std::abs( X[ node + 1 ] - x_pos ) < 1.e-7 ) )
       {
         // distance from left node
         double delta_x( x_pos - X[ node ] );
@@ -267,6 +269,39 @@ namespace CppNoddy
     problem += "a point that is outside the range covered by the mesh object.\n";
     throw ExceptionRuntime( problem );
   }
+
+
+  template <>
+  DenseVector<std::complex<double> > OneD_Node_Mesh<std::complex<double>, double>::get_interpolated_vars( const double& x_pos ) const
+  {
+    for ( unsigned node = 0; node < X.size() - 1; ++node )
+    {
+      // find bracketing nodes - incl shameless hack for evaluations at the boundary
+      if ( ( X[ node ] < x_pos  || std::abs( X[ node ] - x_pos ) < 1.e-7 ) &&
+           ( X[ node + 1 ] > x_pos || std::abs( X[ node + 1 ] - x_pos ) < 1.e-7 ) )
+      {
+        // distance from left node
+        double delta_x( x_pos - X[ node ] );
+        // empty data to return
+        DenseVector<std::complex<double> > left;
+        DenseVector<std::complex<double> > right;
+        DenseVector<std::complex<double> > deriv;
+        // interpolate data linearly
+        left = get_nodes_vars( node );
+        right = get_nodes_vars( node + 1 );
+        deriv = ( right - left ) / ( X[ node + 1 ] - X[ node ] );
+        // overwrite right
+        right = left + deriv * delta_x;
+        return right;
+      }
+    }
+    std::cout << "You asked for a position of " << x_pos << " in a range " << X[ 0 ] << " to " << X[ X.size() - 1 ] << "\n";
+    std::string problem;
+    problem = "You have asked the OneD_Node_Mesh class to interpolate data at\n";
+    problem += "a point that is outside the range covered by the mesh object.\n";
+    throw ExceptionRuntime( problem );
+  }
+
 
   template <>
   DenseVector<std::complex<double> > OneD_Node_Mesh<std::complex<double>, std::complex<double> >::get_interpolated_vars( const std::complex<double>& pos ) const
@@ -396,6 +431,46 @@ namespace CppNoddy
     std::cout << "Interleaved mesh data : \n";
     VARS.dump();
     std::cout << "Mesh dump complete\n";
+  }
+
+  template < typename _Type, typename _Xtype >
+  void OneD_Node_Mesh<_Type, _Xtype>::dump_gnu( std::string filename, int precision ) const
+  {
+    std::ofstream dump;
+    dump.open( filename.c_str() );
+    dump.precision( precision );
+    dump.setf( std::ios::showpoint );
+    dump.setf( std::ios::showpos );
+    dump.setf( std::ios::scientific );
+    for ( std::size_t i = 0; i < X.size(); ++i )
+    {
+      dump << X[ i ] << " ";
+      for ( std::size_t var = 0; var < NV; ++var )
+      {
+        dump << VARS[ i * NV + var ] << " ";
+      }
+      dump << "\n";
+    }
+  }
+
+  template <>
+  void OneD_Node_Mesh< std::complex<double>, double >::dump_gnu( std::string filename, int precision ) const
+  {
+    std::ofstream dump;
+    dump.open( filename.c_str() );
+    dump.precision( precision );
+    dump.setf( std::ios::showpoint );
+    dump.setf( std::ios::showpos );
+    dump.setf( std::ios::scientific );
+    for ( std::size_t i = 0; i < X.size(); ++i )
+    {
+      dump << X[ i ] << " ";
+      for ( std::size_t var = 0; var < NV; ++var )
+      {
+        dump << real( VARS[ i * NV + var ] ) << " " << imag( VARS[ i * NV + var ] ) << " ";
+      }
+      dump << "\n";
+    }
   }
 
   //the templated versions we require are:

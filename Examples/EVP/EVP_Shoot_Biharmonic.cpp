@@ -54,8 +54,6 @@ namespace CppNoddy
         eqn = new Biharmonic_equation;
         // set up the ODE domain, step etc
         ode = new ODE_IVP<D_complex>( eqn, 0.0, 1.0, 1000 );
-        // let's keep the history of the IVP for output in main
-        ode -> set_store_soln( true );
       }
 
       ~Biharmonic_residual()

@@ -12,7 +12,6 @@
 #include <Matrix_base.h>
 #include <Exceptions.h>
 
-
 namespace CppNoddy
 {
 
@@ -107,55 +106,14 @@ namespace CppNoddy
     /// \return The DENSE vector of the row data
     const SparseVector<_Type>& operator[] ( const std::size_t& row ) const;
 
-
-    void get_row_compressed( _Type* storage, int* cols, int* rows )
-    {
-      // iterator to the maps that are used in SparseVector
-      // this is bad form as it exposes the internals of the SparseVector storage
-      citer pos;
-      //std::size_t last_col( NC + 1 ); // no column should have NC + 1, so this is a dummy start value
-      std::size_t i( 0 ); // where we are in the storage vector
-      //
-      for ( std::size_t row = 0; row < NR; ++row )
-      {
-        //std::cout << row << " \n";
-        // flag to indicate that we're on a new coloumn
-        bool new_row( true );
-        pos = MATRIX[ row ].begin();
-        do
-        {
-          _Type elt( pos -> second );
-          int col( pos -> first );
-          storage[ i ] = elt;
-          cols[ i ] = col;
-          ++pos;
-          if ( new_row )
-          {
-            rows[ row ] = i;
-            new_row = false;
-          }
-          ++i;
-        }
-        while ( pos != MATRIX[ row ].end() );
-      }
-      // last entry points to end + 1
-      rows[ NR ] = nelts();
-      //for ( std::size_t i = 0; i < nelts(); ++i )
-      //{
-      //std::cout << storage[ i ] << " ";
-      //}
-      //std::cout << "\n";
-      //for ( std::size_t i = 0; i < nelts(); ++i )
-      //{
-      //std::cout << cols[ i ] << " ";
-      //}
-      //std::cout << "\n";
-      //for ( std::size_t i = 0; i < NR + 1; ++i )
-      //{
-      //std::cout << rows[ i ] << " ";
-      //}
-      //std::cout << "\n";
-    }
+    /// Take the contents of the SparseMatrix and convert it to a
+    /// standard compressed row format that can be fed directly
+    /// into the SuperLU library to solve.
+    /// \param storage A contiguous vector of the non-zero elts
+    /// \param cols The col indices of each entry in the storage vector
+    /// \param rows The indices of the elements in the storage vector
+    ///   that begin a new row    
+    void get_row_compressed( _Type* storage, int* cols, int* rows) ;
 
     /// Take the contents of the SparseMatrix and convert it to a
     /// standard compressed column format that can be fed directly
@@ -164,42 +122,7 @@ namespace CppNoddy
     /// \param rows The row indices of each entry in the storage vector
     /// \param cols The indices of the elements in the storage vector
     ///   that begin a new column
-    void get_col_compressed( _Type* storage, int* rows, int* cols )
-    {
-      // iterator to the maps that are used in SparseVector
-      // this is bad form as it exposes the internals of the SparseVector storage
-      citer pos;
-      //std::size_t last_col( NC + 1 ); // no column should have NC + 1, so this is a dummy start value
-      std::size_t i( 0 ); // where we are in the storage vector
-      //
-      for ( std::size_t col = 0; col < NC; ++col )
-      {
-        std::cout << col << " \n";
-        // flag to indicate that we're on a new coloumn
-        bool new_col( true );
-        for ( std::size_t row = 0; row < NR; ++row )
-        {
-          // look for this element in the sparse matrix
-          pos = MATRIX[ row ].find( col );
-          // if found
-          if ( pos != MATRIX[ row ].end() )
-          {
-            // row/col data exists
-            storage[ i ] = pos -> second;
-            rows[ i ] = row;
-            if ( new_col )
-            {
-              // column starts at index i
-              cols[ col ] = i;
-              new_col = false;
-            }
-            ++i;
-          }
-        }
-      }
-      // last entry points to end + 1
-      cols[ NC ] = nelts();
-    }
+    // void get_col_compressed( _Type* storage, int* rows, int* cols );
 
   private:
 
@@ -214,7 +137,7 @@ namespace CppNoddy
     /// \param row2 The second row to be exchanged
     void row_swap( const std::size_t& row1, const std::size_t& row2 );
 
-    /// An vector of SparseVectors.
+    /// An STL vector of SparseVectors.
     std::vector< SparseVector<_Type> > MATRIX;
     /// The max number of rows in the matrix.
     std::size_t NR;

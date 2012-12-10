@@ -4,8 +4,6 @@
 #include <vector>
 #include <set>
 
-#include <FortranLAPACK.h>
-#include <FortranData.h>
 #include <SparseLinearSystem.h>
 #include <Exceptions.h>
 #include <Types.h>
@@ -53,8 +51,6 @@ namespace CppNoddy
   template <typename _Type>
   void SparseLinearSystem<_Type>::solve_native()
   {
-    if ( MONITOR_DET )
-      {}
     const std::size_t Nr = p_A -> nrows();
     // step through rows
     for ( std::size_t l = 0 ; l < Nr - 1 ; ++l )
@@ -167,6 +163,213 @@ namespace CppNoddy
   }
 
   template <>
+  void SparseLinearSystem<double>::solve_superlu()
+  {
+#ifndef SUPERLU
+    std::string problem = "The SparseLinearSystem::solve_superlu method has been called\n";
+    problem += "but the compiler option -DSUPERLU was not provided when\n";
+    problem += "the library was built and so SuperLU support is not available.";
+    throw ExceptionExternal( problem );
+#else
+using namespace SLUD;
+    // standard SuperLU preamble straight from the example problems
+    SuperMatrix sA, L, U, sB;
+    int *perm_r; /* row permutations from partial pivoting */
+    int *perm_c; /* column permutation vector */
+    int info;
+    int m = p_A -> nrows();
+    int n = p_A -> ncols();
+    int nnz = p_A -> nelts();
+    int nrhs = 1;
+    superlu_options_t options;
+    SuperLUStat_t stat;
+
+    // convert our SparseMatrix problem into compressed column data
+    double* storage;
+    int* rows;
+    int* cols;
+    if ( !( storage = doubleMalloc( nnz ) ) )
+      ABORT( "Malloc fails for storage[]." );
+    if ( !( cols = intMalloc( nnz ) ) )
+      ABORT( "Malloc fails for rows[]." );
+    if ( !( rows = intMalloc( m + 1 ) ) )
+      ABORT( "Malloc fails for cols[]." );
+
+    // this is the only intersection with the CppNoddy container
+    // this returns all the required row_compressed data
+    p_A -> get_row_compressed( storage, cols, rows );
+
+    /* Create matrix A in the format expected by SuperLU. */
+    dCreate_CompCol_Matrix( &sA, m, n, nnz, storage, cols,
+                            rows, SLU_NR, SLU_D, SLU_GE );
+    // ^ the SLU_NR here indicates that it's row-compressed
+    //   the SLU_D indicates double precision
+    //   the SLU_GE indicates that its a general matrix with no special properties
+    dCreate_Dense_Matrix( &sB, m, nrhs, &( ( *p_B )[0] ), m, SLU_DN, SLU_D, SLU_GE );
+    // ^ the SLU_DN indicates that its double & in Fortran column-first format
+    //     not that it makes any difference if nrhs=1
+
+    if ( !( perm_r = intMalloc( m ) ) )
+      ABORT( "Malloc fails for perm_r[]." );
+    if ( !( perm_c = intMalloc( n ) ) )
+      ABORT( "Malloc fails for perm_c[]." );
+
+    /* Set the default input options. */
+    //options.ColPerm = NATURAL;
+    set_default_options( &options );
+
+    /* Initialize the statistics variables. */
+    StatInit( &stat );
+
+    // solve & get the solution
+    dgssv( &options, &sA, perm_c, perm_r, &L, &U, &sB, &stat, &info );
+    double *sol = ( double* ) ( ( DNformat* ) sB.Store ) -> nzval;
+    for ( int j = 0; j < n; ++j )
+    {
+      // return via the CppNoddy DenseVector container
+      ( *p_B )[ j ] = sol[ j ];
+    }
+
+#ifdef DEBUG
+    SCformat *Lstore;
+    NCformat *Ustore;
+    mem_usage_t   mem_usage;
+    Lstore = ( SCformat * ) L.Store;
+    Ustore = ( NCformat * ) U.Store;
+    printf( "[DEBUG] No of nonzeros in factor L = %d\n", Lstore->nnz );
+    printf( "[DEBUG] No of nonzeros in factor U = %d\n", Ustore->nnz );
+    printf( "[DEBUG] No of nonzeros in L+U = %d\n", Lstore->nnz + Ustore->nnz - n );
+    printf( "[DEBUG] FILL ratio = %.1f\n", ( float )( Lstore->nnz + Ustore->nnz - n ) / nnz );
+    dQuerySpace( &L, &U, &mem_usage );
+    printf( "[DEBUG] L\\U MB %.3f\ttotal MB needed %.3f\n",
+            mem_usage.for_lu / 1e6, mem_usage.total_needed / 1e6 );
+#endif
+
+    SUPERLU_FREE ( perm_r );
+    SUPERLU_FREE ( perm_c );
+    // usual SuperLU free memory allocated to storage
+    Destroy_CompCol_Matrix( &sA );
+    Destroy_SuperMatrix_Store( &sB );
+    Destroy_SuperNode_Matrix( &L );
+    Destroy_CompCol_Matrix( &U );
+    StatFree( &stat );
+#endif
+  }
+
+
+  template <>
+  void SparseLinearSystem<std::complex<double> >::solve_superlu()
+  {
+#ifndef SUPERLU
+    std::string problem = "The SparseLinearSystem::solve_superlu method has been called\n";
+    problem += "but the compiler option -DSUPERLU was not provided when\n";
+    problem += "the library was built and so SuperLU support is not available.";
+    throw ExceptionExternal( problem );
+#else
+using namespace SLUZ;
+    // standard SuperLU preamble straight from the example problems
+    SuperMatrix sA, L, U, sB;
+    int *perm_r; /* row permutations from partial pivoting */
+    int *perm_c; /* column permutation vector */
+    int info;
+    int m = p_A -> nrows();
+    int n = p_A -> ncols();
+    int nnz = p_A -> nelts();
+    int nrhs = 1;
+    superlu_options_t options;
+    SuperLUStat_t stat;
+
+    // convert our SparseMatrix problem into compressed column data
+    doublecomplex* storage;
+    int* rows;
+    int* cols;
+    if ( !( storage = doublecomplexMalloc( nnz ) ) )
+      ABORT( "Malloc fails for storage[]." );
+    if ( !( cols = intMalloc( nnz ) ) )
+      ABORT( "Malloc fails for rows[]." );
+    if ( !( rows = intMalloc( m + 1 ) ) )
+      ABORT( "Malloc fails for cols[]." );
+
+    // temporary row_compressed storage
+    //std::complex<double> temp_storage[ nnz ];  
+    std::vector<std::complex<double> > temp_storage( nnz, 0.0 );
+    // this is the only intersection with the CppNoddy container
+    // this returns all the required row_compressed data
+    p_A -> get_row_compressed( &(temp_storage[0]), cols, rows );
+    // SUPERLU uses a "doublecomplex" struct, so we have to convert
+    // to that from the std::complex<double> class for both the 
+    // matrix and the RHS
+    for ( int  k = 0; k < nnz; ++k )
+    {
+      storage[ k ].r = std::real(temp_storage[ k ]);
+      storage[ k ].i = std::imag(temp_storage[ k ]);
+    }
+    doublecomplex B[ m ];
+    for ( int k = 0; k < m; ++k )
+    {
+      B[ k ].r = real((*p_B)[ k ]);
+      B[ k ].i = imag((*p_B)[ k ]);
+    }                        
+
+    /* Create matrix A in the format expected by SuperLU. */
+    zCreate_CompCol_Matrix( &sA, m, n, nnz, storage, cols,
+                            rows, SLU_NR, SLU_Z, SLU_GE );                                                        
+    // ^ the SLU_NR here indicates that it's row-compressed
+    //   the SLU_D indicates double precision
+    //   the SLU_GE indicates that its a general matrix with no special properties
+    zCreate_Dense_Matrix( &sB, m, nrhs, &B[0], m, SLU_DN, SLU_Z, SLU_GE );
+    // ^ the SLU_DN indicates that its double & in Fortran column-first format
+    //     not that it makes any difference if nrhs=1
+
+    if ( !( perm_r = intMalloc( m ) ) )
+      ABORT( "Malloc fails for perm_r[]." );
+    if ( !( perm_c = intMalloc( n ) ) )
+      ABORT( "Malloc fails for perm_c[]." );
+
+    /* Set the default input options. */
+    //options.ColPerm = NATURAL;
+    set_default_options( &options );
+
+    /* Initialize the statistics variables. */
+    StatInit( &stat );
+
+    // solve & get the solution
+    zgssv( &options, &sA, perm_c, perm_r, &L, &U, &sB, &stat, &info );
+    doublecomplex *sol = ( doublecomplex* ) ( ( DNformat* ) sB.Store ) -> nzval;
+    const std::complex<double> eye( 0., 1. );
+    for ( int j = 0; j < n; ++j )
+    {
+      // return via the CppNoddy DenseVector container
+      ( *p_B )[ j ] = sol[ j ].r + eye * sol[ j ].i;
+    }
+
+#ifdef DEBUG
+    SCformat *Lstore;
+    NCformat *Ustore;
+    mem_usage_t   mem_usage;
+    Lstore = ( SCformat * ) L.Store;
+    Ustore = ( NCformat * ) U.Store;
+    printf( "[DEBUG] No of nonzeros in factor L = %d\n", Lstore->nnz );
+    printf( "[DEBUG] No of nonzeros in factor U = %d\n", Ustore->nnz );
+    printf( "[DEBUG] No of nonzeros in L+U = %d\n", Lstore->nnz + Ustore->nnz - n );
+    printf( "[DEBUG] FILL ratio = %.1f\n", ( float )( Lstore->nnz + Ustore->nnz - n ) / nnz );
+    zQuerySpace( &L, &U, &mem_usage );
+    printf( "[DEBUG] L\\U MB %.3f\ttotal MB needed %.3f\n",
+            mem_usage.for_lu / 1e6, mem_usage.total_needed / 1e6 );
+#endif
+
+    SUPERLU_FREE ( perm_r );
+    SUPERLU_FREE ( perm_c );
+    // usual SuperLU free memory allocated to storage
+    Destroy_CompCol_Matrix( &sA );
+    Destroy_SuperMatrix_Store( &sB );
+    Destroy_SuperNode_Matrix( &L );
+    Destroy_CompCol_Matrix( &U );
+    StatFree( &stat );
+#endif
+  }
+
+  template <>
   bool SparseLinearSystem<double>::lt( double value ) const
   {
     return ( value < 0 );
@@ -200,9 +403,8 @@ namespace CppNoddy
     B = x;
   }
 
-  // SuperLU is not implemented for complex data
-  //template class SparseLinearSystem<D_complex>
-  //;
+  template class SparseLinearSystem<D_complex>
+  ;
   template class SparseLinearSystem<double>
   ;
 

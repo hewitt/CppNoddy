@@ -1,4 +1,4 @@
-/// \file NMatrix2.cpp
+/// \file MatrixMult.cpp
 /// \ingroup Examples
 /// \ingroup Containers
 /// Do some matrix multiplications and compare the
@@ -95,6 +95,7 @@ int main()
     timer.stop();
     std::cout << "\n Native N^3 multiplication method :\n";
     timer.print();
+    timer.reset();
 
 #ifdef LAPACK
 
@@ -104,6 +105,7 @@ int main()
     timer.stop();
     std::cout << "\n BLAS multiplication method :\n";
     timer.print();
+    timer.reset();
     // Check the difference between the methods
     Cblas.sub( C );
     if ( Cblas.inf_norm() > tol )

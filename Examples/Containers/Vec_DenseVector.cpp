@@ -52,6 +52,8 @@ int main()
   timer.stop();
   std::cout << " dot product done " << M << " times \n";
   timer.print();
+  timer.reset();
+
 #endif
 
   cout << " \nComplex vectors \n";
@@ -84,6 +86,8 @@ int main()
   while ( timer.get_time() < 5000.0 );
   timer.stop();
   timer.print();
+  timer.reset();
+
 #endif
 
   cout << "\n";
@@ -120,6 +124,8 @@ int main()
   while ( timer.get_time() < 5000.0 );
   timer.stop();
   timer.print();
+  timer.reset();
+
 #endif
 
   if ( failed )

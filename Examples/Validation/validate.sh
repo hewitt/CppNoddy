@@ -27,19 +27,17 @@ rm -rf ./validate.log
  cd .././BVP
 .././BVP/Shoot_Blasius.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Containers
+.././Containers/MatrixMult.out 2>> error.log | tee -a ../Validation/validate.log
+ cd .././Containers
+.././Containers/MatrixSolves.out 2>> error.log | tee -a ../Validation/validate.log
+ cd .././Containers
 .././Containers/Matrix_CompareNative.out 2>> error.log | tee -a ../Validation/validate.log
- cd .././Containers
-.././Containers/NMatrix1.out 2>> error.log | tee -a ../Validation/validate.log
- cd .././Containers
-.././Containers/NMatrix2.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Containers
 .././Containers/Vec_DenseVector.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Containers
 .././Containers/Vec_Overloading.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Containers
 .././Containers/Vec_SparseVector.out 2>> error.log | tee -a ../Validation/validate.log
- cd .././EVP
-.././EVP/EVP_Berman_linearised.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
 .././EVP/EVP_Harmonic.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
@@ -55,13 +53,9 @@ rm -rf ./validate.log
  cd .././EVP
 .././EVP/EVP_Shoot_Biharmonic.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
-.././EVP/EVP_Test.out 2>> error.log | tee -a ../Validation/validate.log
- cd .././EVP
 .././EVP/EVP_complex.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
 .././EVP/EVP_local_Harmonic.out 2>> error.log | tee -a ../Validation/validate.log
- cd .././EVP
-.././EVP/EVP_trivially_linearised.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Generic
 .././Generic/ExceptionChecks.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Generic
@@ -96,6 +90,8 @@ rm -rf ./validate.log
 .././IBVP/IBVP_Karman.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././IBVP
 .././IBVP/IBVP_diffusion.out 2>> error.log | tee -a ../Validation/validate.log
+ cd .././IBVP
+.././IBVP/IBVP_diffusion_nonlinear.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././IBVP
 .././IBVP/IBVP_nonlinear_advdiff.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././IVP

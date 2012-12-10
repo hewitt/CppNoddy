@@ -6,7 +6,7 @@
 
 #include <PDE_double_IBVP.h>
 #include <BandedLinearSystem.h>
-#include <Equation_with_double_mass.h>
+#include <Equation_3matrix.h>
 #include <Exceptions.h>
 #include <Utility.h>
 #include <Timer.h>
@@ -17,7 +17,7 @@ namespace CppNoddy
 {
   template <typename _Type>
   PDE_double_IBVP<_Type>::PDE_double_IBVP(
-    Equation_with_double_mass<_Type >* ptr_to_equation,
+    Equation_3matrix<_Type >* ptr_to_equation,
     const DenseVector<double> &xnodes,
     const DenseVector<double> &ynodes,
     Residual_with_coords<_Type>* ptr_to_bottom_residual,
@@ -35,7 +35,8 @@ namespace CppNoddy
     // copy construct the previous solution's storage
     PREV_SOLN = SOLN;
     // initialise the eqn object
-    p_EQUATION -> x() = xnodes[0];
+    // "x"
+    p_EQUATION -> coord(2) = xnodes[0];
 #ifdef TIME
     // timers
     T_ASSEMBLE = Timer( "Assembling of the matrix (incl. equation updates):" );
@@ -95,14 +96,15 @@ namespace CppNoddy
 #endif
     for ( std::size_t j = 0; j < nx - 1; ++j )
     {
-      // next x-soln guess is the previous x-soln
-      for ( std::size_t var = 0; var < order; ++var )
-      {
-        for ( std::size_t i = 0; i < ny; ++i )
-        {
-          SOLN( j + 1, i, var ) = SOLN( j, i, var );
-        }
-      }
+      //// next x-soln guess is the previous x-soln
+      //for ( std::size_t var = 0; var < order; ++var )
+      //{
+        //for ( std::size_t i = 0; i < ny; ++i )
+        //{
+          //SOLN( j + 1, i, var ) = SOLN( j, i, var );
+        //}
+      //}
+      //
       // iteration counter
       int counter = 0;
       // loop until converged or too many iterations
@@ -118,7 +120,7 @@ namespace CppNoddy
         max_residual = b.inf_norm();
 #ifdef DEBUG
         std::cout.precision( 12 );
-        std::cout << " PDE_double_IBVP.solve : Residual_max = " << max_residual << " tol = " << TOL << " counter = " << counter << "\n";
+        std::cout << " PDE_double_IBVP.step2 : x_j = " << SOLN.coord(j,0).first << " Residual_max = " << max_residual << " tol = " << TOL << " counter = " << counter << "\n";
 #endif
 #ifdef TIME
         T_ASSEMBLE.stop();
@@ -183,6 +185,7 @@ namespace CppNoddy
     DenseVector<_Type> F_midpt( order, 0.0 );
     DenseVector<_Type> O_midpt( order, 0.0 );
     // these store the Jacobian of the mass matrices times a state vector
+    DenseMatrix<_Type> h0( order, order, 0.0 );
     DenseMatrix<_Type> h1( order, order, 0.0 );
     DenseMatrix<_Type> h2( order, order, 0.0 );
     // set the x-t coordinates in the BC
@@ -227,19 +230,17 @@ namespace CppNoddy
       //
       double y_midpt = 0.5 * ( SOLN.coord( j, b_node ).second + SOLN.coord( j, t_node ).second );
       // set the coord in the equation object
-      p_EQUATION -> y() = y_midpt;
-      p_EQUATION -> x() = x_midpt;
-      p_EQUATION -> t() = T + DT / 2.;
+      p_EQUATION -> coord(0) = y_midpt;
+      p_EQUATION -> coord(1) = T + DT / 2.;
+      p_EQUATION -> coord(2) = x_midpt;
       // Update the equation to the mid point position
       p_EQUATION -> update( state );
-      // evaluate the Jacobian of mass contribution multiplied by state_dx
-      p_EQUATION -> get_jacobian_of_mass1_mult_vector( state, state_dx, h1 );
+      // evaluate the Jacobian of mass contribution multiplied by state_dy
+      p_EQUATION -> get_jacobian_of_matrix0_mult_vector( state, state_dy, h0 );
       // evaluate the Jacobian of mass contribution multiplied by state_dt
-      p_EQUATION -> get_jacobian_of_mass2_mult_vector( state, state_dt, h2 );
-      // mass matrix 1 times state_dx
-      const DenseVector<_Type> m1_times_state_dx( p_EQUATION -> mass1().multiply( state_dx ) );
-      // mass matrix 2 times state_dt
-      const DenseVector<_Type> m2_times_state_dt( p_EQUATION -> mass2().multiply( state_dt ) );
+      p_EQUATION -> get_jacobian_of_matrix1_mult_vector( state, state_dt, h1 );
+      // evaluate the Jacobian of mass contribution multiplied by state_dx
+      p_EQUATION -> get_jacobian_of_matrix2_mult_vector( state, state_dx, h2 );
       // loop over all the variables
       // il = position for (0, b_node*order)
       typename BandedMatrix<_Type>::elt_iter b_iter( a.get_elt_iter( 0, b_node * order ) );
@@ -247,13 +248,6 @@ namespace CppNoddy
       typename BandedMatrix<_Type>::elt_iter t_iter( a.get_elt_iter( 0, t_node * order ) );
       for ( unsigned var = 0; var < order; ++var )
       {
-        // offset for (r,c) -> (r+row, c+var)
-        const std::size_t offset( var * a.noffdiag() * 3 + row );
-        // deriv at the MID POINT between nodes
-        //a( row, order * b_node + var ) = -inv_dy;
-        *( b_iter + offset ) = -inv_dy;
-        //a( row, order * t_node + var ) =  inv_dy;
-        *( t_iter + offset ) = inv_dy;
         // add the matrix mult terms to the linearised problem
         for ( unsigned i = 0; i < order; ++i )  // dummy index
         {
@@ -265,30 +259,41 @@ namespace CppNoddy
           *bottom -= p_EQUATION -> jacobian()( var, i ) / 2;
           //a( row, order * t_node + i ) -=  p_EQUATION -> jacobian()( var, i ) / 2;
           *top -= p_EQUATION -> jacobian()( var, i ) / 2;
-          // add the Jacobian of mass terms
+          // add the Jacobian of matrix terms
+          // indirect access: a( row, order * l_node + i ) += h1( var, i ) * 0.5;
+          *bottom += h0( var, i ) * 0.5;
+          // indirect access: a( row, order * r_node + i ) += h1( var, i ) * 0.5;
+          *top += h0( var, i ) * 0.5;
           //a( row, order * b_node + i ) += h1( var, i ) * .5;
           *bottom += h1( var, i ) * .5;
           //a( row, order * t_node + i ) += h1( var, i ) * .5;
           *top += h1( var, i ) * .5;
-          // add the Jacobian of mass terms
+          // add the Jacobian of matrix terms
           //a( row, order * b_node + i ) += h2( var, i ) * .5;
           *bottom += h2( var, i ) * .5;
           //a( row, order * t_node + i ) += h2( var, i ) * .5;
           *top += h2( var, i ) * .5;
-          // add the mass matrix terms
-          //a( row, order * b_node + i ) += p_EQUATION -> mass1()( var, i ) * inv_dx;
-          *bottom += p_EQUATION -> mass1()( var, i ) * inv_dx;
-          //a( row, order * t_node + i ) += p_EQUATION -> mass1()( var, i ) * inv_dx;
-          *top += p_EQUATION -> mass1()( var, i ) * inv_dx;
+          // add the matrix terms
+          
+          // indirect access: a( row, order * l_node + i ) -= mass_midpt( var, i ) * inv_dy;
+          *bottom -= p_EQUATION -> matrix0()( var, i ) * inv_dy;
+          // indirect access: a( row, order * r_node + i ) += mass_midpt( var, i ) * inv_dy;
+          *top += p_EQUATION -> matrix0()( var, i ) * inv_dy;
+          
           //a( row, order * b_node + i ) += p_EQUATION -> mass2()( var, i ) * inv_dt;
-          *bottom += p_EQUATION -> mass2()( var, i ) * inv_dt;
+          *bottom += p_EQUATION -> matrix1()( var, i ) * inv_dt;
           //a( row, order * t_node + i ) += p_EQUATION -> mass2()( var, i ) * inv_dt;
-          *top += p_EQUATION -> mass2()( var, i ) * inv_dt;
+          *top += p_EQUATION -> matrix1()( var, i ) * inv_dt;
+          //a( row, order * b_node + i ) += p_EQUATION -> mass1()( var, i ) * inv_dx;
+          *bottom += p_EQUATION -> matrix2()( var, i ) * inv_dx;
+          //a( row, order * t_node + i ) += p_EQUATION -> mass1()( var, i ) * inv_dx;
+          *top += p_EQUATION -> matrix2()( var, i ) * inv_dx;
         }
         // RHS
-        b[ row ] = p_EQUATION -> residual()[ var ] - state_dy[ var ];
-        b[ row ] -= m1_times_state_dx[ var ];
-        b[ row ] -= m2_times_state_dt[ var ];
+        b[ row ] = p_EQUATION -> residual()[ var ];
+        b[ row ] -= Utility::dot( p_EQUATION -> matrix0()[ var ], state_dy );
+        b[ row ] -= Utility::dot( p_EQUATION -> matrix1()[ var ], state_dt );
+        b[ row ] -= Utility::dot( p_EQUATION -> matrix2()[ var ], state_dx );
         b[ row ] *= 4;
         // increment the row
         row += 1;

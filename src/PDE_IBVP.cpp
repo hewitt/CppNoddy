@@ -1,9 +1,9 @@
 /// \file PDE_IBVP.cpp
-/// A specification of a class for an \f$ n^{th} \f$-order IBVP of the form
-/// \f[ M( {\underline f}(y,t), y, t )\cdot {\underline f}_t (y,t)+ {\underline f}_y (y,t) = {\underline R}( {\underline f}(y,t), y, t )\,, \f]
+/// Implementation of a class for an \f$ n^{th} \f$-order IBVP of the form
+/// \f[ M_1( {\underline f}(y,t), y, t )\cdot {\underline f}_t (y,t)+ M_0( {\underline f}(y,t), y, t ) \cdot {\underline f}_y (y,t) = {\underline R}( {\underline f}(y,t), y, t )\,, \f]
 /// subject to \f$ n \f$ conditions defined at \f$ y = y_{left} \f$ and
 /// \f$ y_{right} \f$ for some components of \f$ {\underline f}(y) \f$.
-/// Here \f$ M \f$ is a mass matrix.
+/// Here \f$ M_{0,1} \f$ are matrices.
 /// The solution at the new time step \f$ t+\Delta t \f$ is
 /// \f[ {\underline f}^{new} = {\underline F} + {\underline g} \f]
 /// where \f$ {\underline F} \f$ is the current guess at the solution
@@ -12,17 +12,16 @@
 /// \f[ {\underline f}^{old} = {\underline O} \f]
 /// A Crank-Nicolson method is employed with the linearised problem at the mid-time point
 /// \f$ t + \Delta t /2 \f$ being:
-/// \f[ \frac{2}{\Delta t} M \cdot {\underline g } + {\underline g}_y - J \cdot {\underline g} + J^{(M)} \cdot \frac{\underline F - \underline O}{\Delta t} \cdot {\underline g}  = 2 {\underline R} - ({\underline F}_y + {\underline O}_y ) - \frac{2}{\Delta t} M \cdot ( {\underline F} - {\underline O} ) \f]
-/// Where \f$ M, J, J^{(M)}, R \f$ are evaluated at the mid-time step with arguments \f$ \left ( \frac{\underline F + \underline O}{2}, y, t + \frac{\Delta t}{2} \right ) \f$,
-/// with \f$ J^{(M)} \f$ denoting the Jacobian of the mass matrix \f$ \partial M_{ij} / \partial f_k \f$.
-/// This problem is solved by second-order central differencing the equation at
-/// the spatial (\f$ y \f$) inter-node mid points.
+/// \f[ \frac{2}{\Delta t} M_1 \cdot {\underline g } + 2 M_0 \cdot {\underline g}_y - J \cdot {\underline g} + J_2 \cdot \frac{\underline F - \underline O}{\Delta t} \cdot {\underline g} + J_1 \cdot \frac{\underline F_y + \underline O_y}{2} \cdot {\underline g} = 2 {\underline R} - \frac{2}{\Delta t} M_2 \cdot ( {\underline F} - {\underline O} ) -  M_1 \cdot ( {\underline F}_y + {\underline O}_y )\f]
+/// Where \f$ M_{0,1}, J, J_{1,2}, R \f$ are evaluated at the mid-time step with arguments \f$ \left ( \frac{\underline F + \underline O}{2}, y, t + \frac{\Delta t}{2} \right ) \f$,
+/// with \f$ J_{1,2} \f$ denoting the Jacobian of the matrices \f$ \partial {(M_{0,1})}_{ij} / \partial f_k \f$.
+/// This problem is solved by second-order central differencing at the spatial (\f$ y \f$) inter-node mid points.
 
 #include <string>
 #include <cassert>
 
 #include <PDE_IBVP.h>
-#include <Equation_with_mass.h>
+#include <Equation_2matrix.h>
 #include <Residual_with_coords.h>
 #include <Exceptions.h>
 #include <BandedLinearSystem.h>
@@ -33,7 +32,7 @@ namespace CppNoddy
 {
 
   template <typename _Type>
-  PDE_IBVP<_Type>::PDE_IBVP( Equation_with_mass<_Type >* ptr_to_equation,
+  PDE_IBVP<_Type>::PDE_IBVP( Equation_2matrix<_Type >* ptr_to_equation,
                              const DenseVector<double> &nodes,
                              Residual_with_coords<_Type>* ptr_to_left_residual,
                              Residual_with_coords<_Type>* ptr_to_right_residual ) :
@@ -46,7 +45,13 @@ namespace CppNoddy
   {
     SOLN = OneD_Node_Mesh<_Type>( nodes, p_EQUATION -> get_order() );
     PREV_SOLN = SOLN;
-    p_EQUATION -> t() = T;
+    p_EQUATION -> coord( 1 ) = T;
+    if ( p_EQUATION -> get_order() - p_LEFT_RESIDUAL -> get_order() - p_RIGHT_RESIDUAL -> get_order() != 0 )
+    {
+      std::string problem( "\n The PDE_IBVP class has been constructed, but the order of the \n");
+      problem += "system does not match the number of boundary conditions.\n";
+     throw ExceptionRuntime( problem );      
+    }
 #ifdef TIME
     // timers
     T_ASSEMBLE = Timer( "Assembling of the matrix (incl. equation updates):" );
@@ -127,9 +132,12 @@ namespace CppNoddy
 #endif
     }
     while ( ( max_residual > TOL ) && ( counter < MAX_ITERATIONS ) );
-    if ( counter >= MAX_ITERATIONS )
+    if ( max_residual > TOL ) 
     {
-      std::string problem( "\n The PDE_IBVP.step2 method took too many iterations. \n" );
+      // restore to previous state because this step failed
+      SOLN = PREV_SOLN;
+      std::string problem( "\n The PDE_IBVP.step2 method took too many iterations.\n");
+      problem += "Solution has been restored to the previous accurate state.\n";
       throw ExceptionItn( problem, counter, max_residual );
     }
 #ifdef DEBUG
@@ -154,7 +162,8 @@ namespace CppNoddy
     // row counter
     std::size_t row( 0 );
     // a matrix that is used in the Jacobian of the mass matrix terms
-    DenseMatrix<_Type> h( order, order, 0.0 );
+    DenseMatrix<_Type> h0( order, order, 0.0 );
+    DenseMatrix<_Type> h1( order, order, 0.0 );
     // local state variable and functions
     DenseVector<_Type> F_midpt( order, 0.0 );
     DenseVector<_Type> O_midpt( order, 0.0 );
@@ -194,12 +203,16 @@ namespace CppNoddy
         state_dt[ var ] = ( F_midpt - O_midpt ) * inv_dt;
       }
       // set the equation's y & t values to be mid points
-      p_EQUATION -> y() = 0.5 * ( SOLN.coord( l_node ) + SOLN.coord( r_node ) );
-      p_EQUATION -> t() = T + dt / 2;
+      // y
+      p_EQUATION -> coord(0) = 0.5 * ( SOLN.coord( l_node ) + SOLN.coord( r_node ) );
+      // t
+      p_EQUATION -> coord(1) = T + dt / 2;
       // Update the equation to the mid point position
       p_EQUATION -> update( state );
+      // evaluate the Jacobian of mass contribution multiplied by state_dy
+      p_EQUATION -> get_jacobian_of_matrix0_mult_vector( state, state_dy, h0 );
       // evaluate the Jacobian of mass contribution multiplied by state_dt
-      p_EQUATION -> get_jacobian_of_mass_mult_vector( state, state_dt, h );
+      p_EQUATION -> get_jacobian_of_matrix1_mult_vector( state, state_dt, h1 );
       // loop over all the variables
       //
       // to avoid repeated mapping arithmetic within operator() of the
@@ -209,40 +222,45 @@ namespace CppNoddy
       typename BandedMatrix<_Type>::elt_iter l_iter( a.get_elt_iter( 0, l_node * order ) );
       // ir = position for (0, rnode*order)
       typename BandedMatrix<_Type>::elt_iter r_iter( a.get_elt_iter( 0, r_node * order ) );
+      //
       for ( unsigned var = 0; var < order; ++var )
       {
-        // offset for (r,c) -> (r+row, c+var)
-        const std::size_t offset( var * a.noffdiag() * 3 + row );
-        // deriv at the MID POINT between nodes
-        //a( row, order * l_node + var ) = -inv_dy;
-        *( l_iter + offset ) = -inv_dy;
-        //a( row, order * r_node + var ) = inv_dy;
-        *( r_iter + offset ) = inv_dy;
-        // add the matrix mult terms to the linearised problem
+       // add the matrix mult terms to the linearised problem
         for ( unsigned i = 0; i < order; ++i )  // dummy index
         {
           // add the Jacobian terms
           // indirect access: a( row, order * l_node + i ) -= jac_midpt( var, i ) * 0.5;
           const std::size_t offset( i * a.noffdiag() * 3 + row );
-          typename BandedMatrix<_Type>::elt_iter left( l_iter + offset );
-          typename BandedMatrix<_Type>::elt_iter right( r_iter + offset );
+          const typename BandedMatrix<_Type>::elt_iter left( l_iter + offset );
+          const typename BandedMatrix<_Type>::elt_iter right( r_iter + offset );
+          //
           *left -= p_EQUATION -> jacobian()( var, i ) * 0.5;
           // indirect access: a( row, order * r_node + i ) -= jac_midpt( var, i ) * 0.5;
           *right -= p_EQUATION -> jacobian()( var, i ) * 0.5;
-          // add the Jacobian of mass terms
-          // indirect access: a( row, order * l_node + i ) += h( var, i ) * 0.5;
-          *left += h( var, i ) * 0.5;
-          // indirect access: a( row, order * r_node + i ) += h( var, i ) * 0.5;
-          *right += h( var, i ) * 0.5;
+          // add the Jacobian of mass terms for dt terms
+          // indirect access: a( row, order * l_node + i ) += h1( var, i ) * 0.5;
+          *left += h0( var, i ) * 0.5;
+          // indirect access: a( row, order * r_node + i ) += h1( var, i ) * 0.5;
+          *right += h0( var, i ) * 0.5;
+          // add the Jacobian of mass terms for dt terms
+          // indirect access: a( row, order * l_node + i ) += h2( var, i ) * 0.5;
+          *left += h1( var, i ) * 0.5;
+          // indirect access: a( row, order * r_node + i ) += h2( var, i ) * 0.5;
+          *right += h1( var, i ) * 0.5;
           // add the mass matrix terms
+          // indirect access: a( row, order * l_node + i ) -= mass_midpt( var, i ) * inv_dy;
+          *left -= p_EQUATION -> matrix0()( var, i ) * inv_dy;
+          // indirect access: a( row, order * r_node + i ) += mass_midpt( var, i ) * inv_dy;
+          *right += p_EQUATION -> matrix0()( var, i ) * inv_dy;
           // indirect access: a( row, order * l_node + i ) += mass_midpt( var, i ) * inv_dt;
-          *left += p_EQUATION -> mass()( var, i ) * inv_dt;
+          *left += p_EQUATION -> matrix1()( var, i ) * inv_dt;
           // indirect access: a( row, order * r_node + i ) += mass_midpt( var, i ) * inv_dt;
-          *right += p_EQUATION -> mass()( var, i ) * inv_dt;
+          *right += p_EQUATION -> matrix1()( var, i ) * inv_dt;
         }
         // RHS
-        b[ row ] = p_EQUATION -> residual()[ var ] - state_dy[ var ];
-        b[ row ] -= Utility::dot( p_EQUATION -> mass()[ var ], state_dt );
+        b[ row ] = p_EQUATION -> residual()[ var ];
+        b[ row ] -= Utility::dot( p_EQUATION -> matrix0()[ var ], state_dy );
+        b[ row ] -= Utility::dot( p_EQUATION -> matrix1()[ var ], state_dt );
         b[ row ] *= 2;
         // increment the row
         row += 1;

@@ -24,7 +24,7 @@ int main()
 
 
   const std::size_t L = 5000;
-  const int loops( 10 );
+  const int loops( 100 );
   // DenseMatrix object
   DenseMatrix<double> A( L, L, 0.0 );
   // A TwoD_Node_Mesh object (coordinates of the mesh don't matter)
@@ -105,8 +105,8 @@ int main()
     cout << "The % slow-down for a DenseMatrix was " <<
          100.0 * ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) << "\n";
   }
-  // fail if there is more than a 7.5% overhead between DenseMatrix & TwoD_Node_Mesh
-  if ( std::abs( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) > 0.075 )
+  // fail if there is more than a 5% overhead between DenseMatrix & TwoD_Node_Mesh
+  if ( std::abs( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) > 0.05 )
   {
     failed = true;
     cout << "The % slow-down for a TwoD_Node_Mesh was " <<

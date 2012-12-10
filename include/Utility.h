@@ -15,6 +15,7 @@
 #include <Functors.h>
 #include <Matrix_base.h>
 #include <FortranBLAS.h>
+#include <TwoD_Node_Mesh.h>
 
 namespace CppNoddy
 {
@@ -229,6 +230,98 @@ namespace CppNoddy
     /// \param u The matrix to return the "u" velocities.
     /// \param v The matrix to return the "v" velocities.
     void vels_from_streamfn_Cartesian( const DenseMatrix<double>& source, const double& dx, const double& dy, DenseMatrix<double>& u, DenseMatrix<double>& v );
+
+    //void vels_from_streamfn_Cartesian( const TwoD_Node_Mesh<double>& source, TwoD_Node_Mesh<double>& uv );
+  
+    template <typename _Type>
+    void vels_from_streamfn_Cartesian( const TwoD_Node_Mesh<_Type>& source, TwoD_Node_Mesh<_Type>& uv )
+    {
+      std::size_t Nx( source.get_nnodes().first );
+      std::size_t Ny( source.get_nnodes().second );
+      double dx( source.coord(1,1).first - source.coord(0,0).first );
+      double dy( source.coord(1,1).second - source.coord(0,0).second );
+      // differentiate the streamfunction to get the velocity field
+      {
+        // west internal nodes
+        std::size_t i( 0 );
+        for ( std::size_t j = 1; j < Ny - 1; ++j )
+        {
+          uv( i, j, 0 ) = ( source( i, j + 1, 0 ) - source( i, j - 1, 0 ) ) / ( 2 * dy );
+          uv( i, j, 1 ) = -( -source( i + 2, j, 0 ) + 4. * source( i + 1, j, 0 ) - 3. * source( i, j, 0 ) ) / ( 2 * dx );
+        }
+      }
+      {
+        // east internal nodes
+        std::size_t i( Nx - 1 );
+        for ( std::size_t j = 1; j < Ny - 1; ++j )
+        {
+          uv( i, j, 0 ) = ( source( i, j + 1, 0 ) - source( i, j - 1, 0 ) ) / ( 2 * dy );
+          uv( i, j, 1 ) = -( source( i - 2, j, 0 ) - 4. * source( i - 1, j, 0 ) + 3. * source( i, j, 0 ) ) / ( 2 * dx );
+        }
+      }
+      {
+        // south internal nodes
+        std::size_t j( 0 );
+        for ( std::size_t i = 1; i < Nx - 1; ++i )
+        {
+          uv( i, j, 0 ) = ( -source( i, j + 2, 0 ) + 4. *  source( i, j + 1, 0 ) - 3. * source( i, j, 0 ) ) / ( 2 * dy );
+          uv( i, j, 1 ) = -( source( i + 1, j, 0 ) - source( i - 1, j, 0 ) ) / ( 2 * dx );
+        }
+      }
+      {
+        // north internal nodes
+        std::size_t j( Ny - 1 );
+        for ( std::size_t i = 1; i < Nx - 1; ++i )
+        {
+          uv( i, j, 0 ) = ( source( i, j - 2, 0 ) - 4. *  source( i, j - 1, 0 ) + 3. * source( i, j, 0 ) ) / ( 2 * dy );
+          uv( i, j, 1 ) = -( source( i + 1, j, 0 ) - source( i - 1, j, 0 ) ) / ( 2 * dx );
+        }
+      }
+      {
+        // corner nodes
+        {
+          // sw
+          std::size_t i( 0 );
+          std::size_t j( 0 );
+          uv( i, j, 0 ) = ( -source( i, j + 2, 0 ) + 4. *  source( i, j + 1, 0 ) - 3. * source( i, j, 0 ) ) / ( 2 * dy );
+          uv( i, j, 1 ) = -( -source( i + 2, j, 0 ) + 4. * source( i + 1, j, 0 ) - 3. * source( i, j, 0 ) ) / ( 2 * dx );
+        }
+        {
+          // nw
+          std::size_t i( 0 );
+          std::size_t j( Ny - 1 );
+          uv( i, j, 0 ) = ( source( i, j - 2, 0 ) - 4. *  source( i, j - 1, 0 ) + 3. * source( i, j, 0 ) ) / ( 2 * dy );
+          uv( i, j, 1 ) = -( -source( i + 2, j, 0 ) + 4. * source( i + 1, j, 0 ) - 3. * source( i, j, 0 ) ) / ( 2 * dx );
+        }
+        {
+          // ne
+          std::size_t i( Nx - 1 );
+          std::size_t j( Ny - 1 );
+          uv( i, j, 0 ) = ( source( i, j - 2, 0 ) - 4. *  source( i, j - 1, 0 ) + 3. * source( i, j, 0 ) ) / ( 2 * dy );
+          uv( i, j, 1 ) = -( source( i - 2, j, 0 ) - 4. * source( i - 1, j, 0 ) + 3. * source( i, j, 0 ) ) / ( 2 * dx );
+        }
+        {
+          // se
+          std::size_t i( Nx - 1 );
+          std::size_t j( 0 );
+          uv( i, j, 0 ) = ( -source( i, j + 2, 0 ) + 4. *  source( i, j + 1, 0 ) - 3. * source( i, j, 0 ) ) / ( 2 * dy );
+          uv( i, j, 1 ) = -( source( i - 2, j, 0 ) - 4. * source( i - 1, j, 0 ) + 3. * source( i, j, 0 ) ) / ( 2 * dx );
+        }
+      }
+      {
+        // interior nodes
+        for ( std::size_t i = 1; i < Nx - 1; ++i )
+        {
+          for ( std::size_t j = 1; j < Ny - 1; ++j )
+          {
+            uv( i, j, 0 ) = ( source( i, j + 1, 0 ) - source( i, j - 1, 0 ) ) / ( 2 * dy );
+            uv( i, j, 1 ) = -( source( i + 1, j, 0 ) - source( i - 1, j, 0 ) ) / ( 2 * dx );
+          }
+        }
+      }
+    }
+    
+    // void vels_from_streamfn_Cartesian( const TwoD_Node_Mesh<D_complex>& source, TwoD_Node_Mesh<D_complex>& uv );
 
     /// Given a DenseMatrix<double> of a streamfunction, this will compute the velocities
     /// at the same nodal points using 2nd-order finite differencing assuming a

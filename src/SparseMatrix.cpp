@@ -143,6 +143,111 @@ namespace CppNoddy
   }
 
   template <typename _Type>
+  void SparseMatrix<_Type>::get_row_compressed( _Type* storage, int* cols, int* rows )
+  {
+    // iterator to the maps that are used in SparseVector
+    // this is bad form as it exposes the internals of the SparseVector storage
+    citer pos;
+    //std::size_t last_col( NC + 1 ); // no column should have NC + 1, so this is a dummy start value
+    std::size_t i( 0 ); // where we are in the storage vector
+    //
+    for ( std::size_t row = 0; row < NR; ++row )
+    {
+      // flag to indicate that we're on a new coloumn
+      bool new_row( true );
+      pos = MATRIX[ row ].begin();
+      do
+      {
+        _Type elt( pos -> second );
+        int col( pos -> first );
+        storage[ i ] = elt;
+        cols[ i ] = col;
+        ++pos;
+        if ( new_row )
+        {
+          rows[ row ] = i;
+          new_row = false;
+        }
+        ++i;
+      }
+      while ( pos != MATRIX[ row ].end() );
+    }
+    // last entry points to end + 1
+    rows[ NR ] = nelts();
+  }
+
+  //template <>
+  //void SparseMatrix<std::complex<double> >::get_row_compressed( std::complex<double>* storage, int* cols, int* rows )
+  //{
+    //// iterator to the maps that are used in SparseVector
+    //// this is bad form as it exposes the internals of the SparseVector storage
+    //citer pos;
+    ////std::size_t last_col( NC + 1 ); // no column should have NC + 1, so this is a dummy start value
+    //std::size_t i( 0 ); // where we are in the storage vector
+    ////
+    //for ( std::size_t row = 0; row < NR; ++row )
+    //{
+      //// flag to indicate that we're on a new coloumn
+      //bool new_row( true );
+      //pos = MATRIX[ row ].begin();
+      //do
+      //{
+        //_Type elt( pos -> second );
+        //int col( pos -> first );
+        //storage[ i ] = elt;
+        //cols[ i ] = col;
+        //++pos;
+        //if ( new_row )
+        //{
+          //rows[ row ] = i;
+          //new_row = false;
+        //}
+        //++i;
+      //}
+      //while ( pos != MATRIX[ row ].end() );
+    //}
+    //// last entry points to end + 1
+    //rows[ NR ] = nelts();
+  //}
+
+  //template <typename _Type>
+  //void SparseMatrix<_Type>::get_col_compressed( _Type* storage, int* rows, int* cols )
+  //{
+    //// iterator to the maps that are used in SparseVector
+    //// this is bad form as it exposes the internals of the SparseVector storage
+    //citer pos;
+    //std::size_t i( 0 ); // where we are in the storage vector
+    ////
+    //for ( std::size_t col = 0; col < NC; ++col )
+    //{
+      //std::cout << col << " \n";
+      //// flag to indicate that we're on a new coloumn
+      //bool new_col( true );
+      //for ( std::size_t row = 0; row < NR; ++row )
+      //{
+        //// look for this element in the sparse matrix
+        //pos = MATRIX[ row ].find( col );
+        //// if found
+        //if ( pos != MATRIX[ row ].end() )
+        //{
+          //// row/col data exists
+          //storage[ i ] = pos -> second;
+          //rows[ i ] = row;
+          //if ( new_col )
+          //{
+            //// column starts at index i
+            //cols[ col ] = i;
+            //new_col = false;
+          //}
+          //++i;
+        //}
+      //}
+    //}
+    //// last entry points to end + 1
+    //cols[ NC ] = nelts();
+  //}
+
+  template <typename _Type>
   void SparseMatrix<_Type>::dump() const
   {
     std::cout << "SPARSE mtx size = " << NR << " x  sparse \n";

@@ -94,7 +94,6 @@ namespace CppNoddy
       }
       if ( first_dt > max_dt )
       {
-        std::cout << "Wanting to take a step of size " << first_dt << " but max_dt = " << max_dt << "\n";
         first_dt = max_dt;
       }
 
@@ -107,11 +106,11 @@ namespace CppNoddy
         DenseVector<double> flux_in_left( ORDER_OF_SYSTEM, 0.0 );
         DenseVector<double> flux_out_right( ORDER_OF_SYSTEM, 0.0 );
         // start with the left most elt & work out the flux in from the left
-        er -> contributed_flux_in_left( first_dt, flux_in_left );
+        er -> contributed_flux_in_left( first_dt, flux_in_left, MESH_TIME );
         while ( er != RED_ELTS.end() )
         {
           // work out the flux out to the right
-          er -> contributed_flux_out_right( first_dt, flux_out_right );
+          er -> contributed_flux_out_right( first_dt, flux_out_right, MESH_TIME );
           // we now have the flux difference
           DenseVector<double> deltaQ = ( flux_in_left - flux_out_right ) * first_dt / er -> get_dx();
           // contribution from the source integral
@@ -176,11 +175,11 @@ namespace CppNoddy
         DenseVector<double> flux_in_left( ORDER_OF_SYSTEM, 0.0 );
         DenseVector<double> flux_out_right( ORDER_OF_SYSTEM, 0.0 );
         // start with the left most elt & work out the flux in from the left
-        eb -> contributed_flux_in_left( second_dt, flux_in_left );
+        eb -> contributed_flux_in_left( second_dt, flux_in_left, MESH_TIME );
         while ( eb != BLACK_ELTS.end() )
         {
           // work out the flux out to the right
-          eb -> contributed_flux_out_right( second_dt, flux_out_right );
+          eb -> contributed_flux_out_right( second_dt, flux_out_right, MESH_TIME );
           // we now have the flux difference
           DenseVector<double> deltaQ = ( flux_in_left - flux_out_right ) * second_dt / eb -> get_dx();
           // contribution from the source integral

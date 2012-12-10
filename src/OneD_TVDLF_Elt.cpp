@@ -56,7 +56,7 @@ namespace CppNoddy
     return sum;
   }
 
-  void OneD_TVDLF_Elt::contributed_flux_in_left( const double &dt, DenseVector<double> &flux_in_left )
+  void OneD_TVDLF_Elt::contributed_flux_in_left( const double &dt, DenseVector<double> &flux_in_left, const double &current_time )
   {
     std::list< contribution >::iterator c = CONT_LIST.begin();
     // loop over all contributing elements
@@ -102,7 +102,7 @@ namespace CppNoddy
                                   - c -> elt_ptr -> get_Jac_flux_fn( -1.0 ).multiply( c -> elt_ptr -> SLOPE ) )
                                 * 0.5 * dt;
             // get the edge values
-            system_ptr -> edge_values( -1, x_left, q_left_half_step );
+            system_ptr -> edge_values( -1, x_left, q_left_half_step, current_time + 0.5*dt );
             // get the flux
             system_ptr -> flux_fn( x_left, q_left_half_step, flux_in_left );
           }
@@ -112,7 +112,7 @@ namespace CppNoddy
     }
   }
 
-  void OneD_TVDLF_Elt::contributed_flux_out_right( const double &dt, DenseVector<double> &flux_out_right )
+  void OneD_TVDLF_Elt::contributed_flux_out_right( const double &dt, DenseVector<double> &flux_out_right, const double &current_time )
   {
     std::list< contribution >::iterator c = CONT_LIST.begin();
     // loop over all contributing elements
@@ -158,7 +158,7 @@ namespace CppNoddy
                                     - c -> elt_ptr -> get_Jac_flux_fn( 1.0 ).multiply( c -> elt_ptr -> SLOPE ) )
                                  * 0.5 * dt;
             // get the edge values
-            system_ptr -> edge_values( 1, x_right, q_right_half_step );
+            system_ptr -> edge_values( 1, x_right, q_right_half_step, current_time + 0.5*dt );
             // get the flux
             system_ptr -> flux_fn( x_right, q_right_half_step, flux_out_right );
           }

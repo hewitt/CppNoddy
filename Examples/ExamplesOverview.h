@@ -1,6 +1,7 @@
 /// \defgroup Examples A COMPLETE LIST OF ALL EXAMPLES
 /// * The example programs here include:
 /// *
+/// * - Two-dimensional parabolic problems ( eg., unsteady boundary layer equations).
 /// * - Initial-boundary-value problems ( eg., the heat equation and the unsteady Karman rotating-disk equations).
 /// * - One-dimensional hyperbolic problems ( eg., the acoustic, shallow water, compressible Euler equations ).
 /// * - Two-dimensional hyperbolic problems ( eg., the acoustic, shallow water, compressible Euler equations ).

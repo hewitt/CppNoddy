@@ -27,18 +27,18 @@ namespace CppNoddy
       return - 2 * std::exp( -x*t ) + ( 1 - y * y ) * ( x + t ) * std::exp( -x*t );
     }
 
-    class diffusion_double : public Equation_with_double_mass<double>
+    class diffusion_double : public Equation_3matrix<double>
     {
     public:
       /// The problem is 2nd order and real
-      diffusion_double() : Equation_with_double_mass<double> ( 2 ) {}
+      diffusion_double() : Equation_3matrix<double> ( 2 ) {}
 
       /// Define a nonlinear advection diffusion problem
       void residual_fn( const DenseVector<double>& z, DenseVector<double>& f ) const
       {
         // The system
         f[ U ] = z[ Ud ];
-        f[ Ud ] = source( x(), y(), t() );
+        f[ Ud ] = source( coord(2), coord(0), coord(1) );
       }
 
       /// Provide the exact Jacobian rather than using finite-differences
@@ -47,26 +47,36 @@ namespace CppNoddy
         jac( 0, Ud ) = 1.0;
       }
 
+      void matrix0( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      {
+        Utility::fill_identity(m);
+      }
+
       /// Define the unsteady terms by providing the mass matrix
-      void mass1( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      void matrix1( const DenseVector<double>& z, DenseMatrix<double>& m ) const
       {
         // eqn 1 variable 0
         m( 1, 0 ) = -1.0;
       }
 
-      void mass2( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      void matrix2( const DenseVector<double>& z, DenseMatrix<double>& m ) const
       {
         // eqn 1 variable 0
         m( 1, 0 ) = -1.0;
       }
 
-      void get_jacobian_of_mass1_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
+      
+      void get_jacobian_of_matrix0_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
       {
-        // constant mass1 matrix
+        // constant matrix
       }
-      void get_jacobian_of_mass2_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
+      void get_jacobian_of_matrix1_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
       {
-        // constant mass2 matrix
+        // constant matrix
+      }
+      void get_jacobian_of_matrix2_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
+      {
+        // constant matrix
       }
 
     };

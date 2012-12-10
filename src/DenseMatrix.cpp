@@ -82,8 +82,7 @@ namespace CppNoddy
   }
 
   template <typename _Type>
-  void DenseMatrix<_Type>::add
-  ( const DenseMatrix<_Type>& B )
+  void DenseMatrix<_Type>::add( const DenseMatrix<_Type>& B )
   {
 #ifdef PARANOID
     // check number of columns at least match
@@ -369,7 +368,7 @@ namespace CppNoddy
       for ( std::size_t col = 0; col < padding; ++col )
       {
         V.push_back( 0.0 );
-        V.push_back( 0.0 );
+        V.push_back( 0.0 ); 
       }
     }
     return V;

@@ -21,18 +21,23 @@ namespace CppNoddy
   {
     /// Define the harmonic equation by inheriting the Equation base class
     template <typename _Type, typename _Xtype>
-    class Harmonic_equation : public Equation<_Type, _Xtype>
+    class Harmonic_equation : public Equation_1matrix<_Type, _Xtype>
     {
     public:
 
       /// The harmonic equation is a 2nd order ODE
-      Harmonic_equation() : Equation<_Type, _Xtype>( 2 ) {}
+      Harmonic_equation() : Equation_1matrix<_Type, _Xtype>( 2 ) {}
 
       /// The Berman equation
       void residual_fn( const DenseVector<_Type> &z, DenseVector<_Type> &g ) const
       {
         g[ f ] = z[ fd ];
         g[ fd ] = - z[ f ];
+      }
+      
+      void matrix0( const DenseVector<_Type>&x, DenseMatrix<_Type> &m ) const
+      {
+        Utility::fill_identity(m);
       }
 
     };

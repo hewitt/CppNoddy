@@ -39,6 +39,11 @@ namespace CppNoddy
         f[ 3 ] = 0.0;
       }
 
+      void mass( const DenseVector<double>&x, DenseMatrix<double> &m ) const
+      {
+        Utility::fill_identity(m);
+      }
+
       /// The Reynolds number
       double Re;
 
@@ -62,8 +67,6 @@ namespace CppNoddy
         // 100 integrator steps, using this problem equation
         ode = new ODE_IVP<double>( eqn, -1.0, 1.0, 500 );
 
-        // let's keep the history of the IVP for output in main
-        ode -> set_store_soln( true );
       }
 
       ~Berman_residual()

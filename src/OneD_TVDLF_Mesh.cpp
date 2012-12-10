@@ -394,7 +394,7 @@ namespace CppNoddy
         // get the edge value
         DenseVector<double> Qe( e -> get_Q( s ) );
         // allow the user to overwrite this value
-        std::vector<bool> inflow = e -> system_ptr -> edge_values( face, e -> get_x( s ) , Qe );
+        std::vector<bool> inflow = e -> system_ptr -> edge_values( face, e -> get_x( s ) , Qe, MESH_TIME );
         DenseVector<double> Qm( e -> get_Q( 0.0 ) );
         // if the value has been specified as inflow
         for ( std::size_t i = 0; i < ORDER_OF_SYSTEM; ++i )
@@ -423,7 +423,7 @@ namespace CppNoddy
       // get the edge value
       DenseVector<double> Qe( e -> get_Q( -1.0 ) );
       // allow the user to overwrite this value
-      std::vector<bool> inflow = e -> system_ptr -> edge_values( -1, e -> get_x( -1.0 ), Qe );
+      std::vector<bool> inflow = e -> system_ptr -> edge_values( -1, e -> get_x( -1.0 ), Qe, MESH_TIME );
       // if the value has been specified as inflow
       for ( std::size_t i = 0; i < ORDER_OF_SYSTEM; ++i )
       {
@@ -458,7 +458,7 @@ namespace CppNoddy
       // get the edge value
       DenseVector<double> Qe( e -> get_Q( 1.0 ) );
       // allow the user to overwrite this value
-      std::vector<bool> inflow = e -> system_ptr -> edge_values( 1, e -> get_x( 1.0 ), Qe );
+      std::vector<bool> inflow = e -> system_ptr -> edge_values( 1, e -> get_x( 1.0 ), Qe, MESH_TIME );
       DenseVector<double> Qm( e -> get_Q( 0.0 ) );
       // if the value has been specified as inflow
       for ( std::size_t i = 0; i < ORDER_OF_SYSTEM; ++i )

@@ -34,7 +34,7 @@ namespace CppNoddy
     /// \param tolerance A tolerance used as a convergence criterion.
     /// \param derivative_step A step length used to compute derivatives.
     explicit Newton( Residual<_Type >* ptr_to_residual_object,
-                     unsigned max_steps = 10,
+                     unsigned max_steps = 20,
                      double tolerance = 1.e-8,
                      double derivative_step = 1.e-8 );
 

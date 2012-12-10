@@ -368,7 +368,7 @@ namespace CppNoddy
             // get the current edge data
             DenseVector<double> Qe( e -> get_Q( s ) );
             //// initialise the normal slope vector
-            //DenseVector<double> sigma_n( ORDER_OF_SYSTEM, 0.0 );
+            // DenseVector<double> sigma_n( ORDER_OF_SYSTEM, 0.0 );
             // get the user specified edge values
             std::vector<bool> inflow = e -> p_system -> edge_values( face, e -> get_x( s ), Qe ); //, sigma_n );
             // get the mid-element nodal data

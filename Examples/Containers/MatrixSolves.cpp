@@ -1,14 +1,14 @@
-/// \file NMatrix1.cpp
+/// \file MatrixSolves.cpp
 /// \ingroup Examples
 /// \ingroup Containers
 /// Example of the simple linear solvers implemented
-/// for dense and banded matrix objects. To begin
+/// for dense, banded and sparse matrix objects. To begin
 /// with a simple \f$ 2 \times 2 \f$ matrix problem is solved.
 /// Then a penta-diagonal problem is solved using the
-/// dense and banded containers. The native linear Gaussian
-/// elimination solver is used unless the LAPACK compiler
-/// option is used, in which case the LAPACK LU solver is
-/// used instead.
+/// dense, banded and sparse containers. The native linear Gaussian
+/// elimination solvers are used unless the LAPACK/SUPERLU compiler
+/// options are used, in which case the linear solver phase
+/// calls the LAPACK/SUPERLU library.
 
 #include <cassert>
 
@@ -98,7 +98,9 @@ int main()
   Utility::fill_band( AB, 1, 16.0 );
   Utility::fill_band( AB, -2, -1.0 );
   Utility::fill_band( AB, 2, -1.0 );
+  
   Timer timer;
+  
   cout << " Using dense matrix solver : " << N << "x" << N << " system \n";
   DenseMatrix<double> aD( AD );
   DenseVector<double> bD( BD );
@@ -137,6 +139,7 @@ int main()
   }
   while ( timer.get_time() < 5000.0 );
   timer.print();
+  timer.reset();
 #endif
 
   cout << "  * Not checking.\n";
@@ -181,6 +184,7 @@ int main()
   }
   while ( timer.get_time() < 5000.0 );
   timer.print();
+  timer.reset();
 #endif
 
   bB.sub( bD );
@@ -206,7 +210,15 @@ int main()
   SparseMatrix<double> aS( AS );
   DenseVector<double> bS( BS );
 
+#ifdef LAPACK
+
+  cout << " Using the SUPERLU sparse routine\n";
+  SparseLinearSystem<double> sparse_system( &aS, &bS, "superlu" );
+#else
+
+  cout << " Using the native Gauss-Jordan sparse routine\n";
   SparseLinearSystem<double> sparse_system( &aS, &bS, "native" );
+#endif
 
 #ifdef TIME
   do
@@ -233,6 +245,7 @@ int main()
   }
   while ( timer.get_time() < 5000.0 );
   timer.print();
+  timer.reset();
 #endif
 
   bS.sub( bD );
@@ -254,7 +267,7 @@ int main()
   //
   DenseMatrix<D_complex> CA( 2, 2, 0.0 );
   CA( 0, 0 ) = 1.;
-  CA( 0, 1 ) = 2.;
+  CA( 0, 1 ) = D_complex(2.,0.);
   CA( 1, 0 ) = 3.;
   CA( 1, 1 ) = 4.;
   DenseVector<D_complex> CB( 2, 0.0 );
@@ -290,6 +303,45 @@ int main()
   else
   {
     std::cout << " Simple complex solver works.\n";
+  }
+
+  SparseMatrix<D_complex> CSA( 2, 2 );
+  CSA( 0, 0 ) = 1.;
+  CSA( 0, 1 ) = D_complex(2.,0.);
+  CSA( 1, 0 ) = 3.;
+  CSA( 1, 1 ) = 4.;
+  CB[ 0 ] = 5;
+  CB[ 1 ] = 11;
+
+#ifdef SUPERLU
+
+  std::cout << "\n Simple 2x2 system solved by complex SUPERLU.\n";
+  SparseLinearSystem<D_complex> small_CSsystem( &CSA, &CB, "superlu" );
+#else
+
+  std::cout << "\n Simple 2x2 ('sparse') complex system solved by native Gauss Jordan routine.\n";
+  SparseLinearSystem<D_complex> small_CSsystem( &CSA, &CB, "native" );
+#endif
+  try
+  {
+    small_CSsystem.solve();
+  }
+  catch ( std::runtime_error )
+  {
+    cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
+    assert( false );
+  }
+
+  CB.sub( answer );
+  if ( CB.inf_norm() > tol )
+  {
+    std::cout << " Simple 2x2 COMPLEX 'sparse' system was not solved correctly\n";
+    std::cout << " residual vector's inf_norm = " << CB.inf_norm() << "\n";
+    failed = true;
+  }
+  else
+  {
+    std::cout << " Simple complex sparse solver works.\n";
   }
 
   //

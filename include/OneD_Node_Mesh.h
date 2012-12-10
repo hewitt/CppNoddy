@@ -1,7 +1,5 @@
 /// \file OneD_Node_Mesh.h
-/// A specification for a one dimensional mesh object. This is the
-/// base class and will be inherited from to form a uniform mesh
-/// and non-uniform mesh.
+/// A specification for a one dimensional mesh object. 
 
 #ifndef ONED_NODE_MESH_H
 #define ONED_NODE_MESH_H
@@ -28,7 +26,10 @@ namespace CppNoddy
 
     /// Default constructor
     OneD_Node_Mesh()
-    {}
+    {
+      // default to zero variables
+      NV = 0;
+    }
 
     /// ctor for a given nodal distribution
     /// \param nodes The positions of the nodal points
@@ -36,32 +37,47 @@ namespace CppNoddy
     OneD_Node_Mesh( const DenseVector<_Xtype>& nodes, const std::size_t nvars ) :
         NV( nvars ), X( nodes )
     {
+#ifdef PARANOID
+      for ( unsigned i = 1; i < X.size(); ++i )
+      {
+/*
+        if ( X[i+1] < X[i] )
+        {
+          std::string problem;
+          problem = "The OneD_Node_Mesh has been passed a vector of nodes that are\n";
+          problem += "not in INCREASING order. This will screw up some of the methods\n";
+          problem += "in the class. We should fix this .....\n";
+          throw ExceptionRuntime( problem );
+        }
+*/
+      }
+#endif
       // set the contents to zero
-      VARS = DenseVector<_Type>( NV * X.size(), 0.0 );
+      VARS = DenseVector<_Type>( NV * X.size(), _Type(0.0) );
     }
 
     /// Destructor
     virtual ~OneD_Node_Mesh()
     {}
 
-    /// Access the variables at a node as a vector
+    /// Access a variable at a node
     /// \param i The index of the node to be accessed
     /// \param var The variable to return the data for
-    /// \return The variable 'var' returned for ALL nodal points in the mesh
+    /// \return The variable stored at the node
     _Type& operator()( const std::size_t i, const std::size_t var );
 
-    /// Access the variables at a node as a vector
+    /// Access a variable at a node
     /// \param i The index of the node to be accessed
     /// \param var The variable to return the data for
-    /// \return The variable 'var' returned for ALL nodal points in the mesh
+    /// \return The variable stored at the node
     const _Type& operator()( const std::size_t i, const std::size_t var ) const;
 
-    /// Const access the nodal position
+    /// Access a nodal position
     /// \param node The nodal position to return
     /// \return The spatial position of this node
     const _Xtype& coord( const std::size_t& node ) const;
 
-    /// Const access the nodal position
+    /// Access a nodal position
     /// \param node The nodal position to return
     /// \return The spatial position of this node
     _Xtype& coord( const std::size_t& node );
@@ -81,7 +97,7 @@ namespace CppNoddy
     /// data is along the real line.
     /// \param pos The position to interpolate at.
     /// \return A vector of interpolated variables.
-    DenseVector<_Type> get_interpolated_vars( const _Type& pos ) const;
+    DenseVector<_Type> get_interpolated_vars( const _Xtype& pos ) const;
 
     /// \return The number of nodal points in the mesh
     std::size_t get_nnodes() const;
@@ -94,13 +110,12 @@ namespace CppNoddy
     const DenseVector<_Xtype>& nodes() const;
 
     /// Find a list of approximate locations at which a specified
-    /// variable attains a given value.
+    /// variable attains a given value. First order only.
     /// \param var The variable to be examined for zeros
     /// \param value The value to find
     DenseVector<double> find_roots1( const std::size_t& var, double value = 0.0 ) const;
 
-    /// Integrate over the domain. Typically useful for
-    /// finite volume methods.
+    /// Integrate over the domain. Typically useful for finite volume methods.
     /// \param var The variable-index to be integrated over the mesh using a
     /// trapezium rule.
     /// \return The integral value.
@@ -111,8 +126,7 @@ namespace CppNoddy
     /// \return The integral of the square of the absolute value.
     _Xtype squared_integral2( std::size_t var = 0 ) const;
 
-    /// Integrate over the domain. Typically useful for
-    /// finite volume methods.
+    /// Integrate over the domain with a Simpson rule.
     /// \param var The variable-index to be integrated over the mesh using a
     /// trapezium rule.
     /// \return The integral value.
@@ -135,6 +149,11 @@ namespace CppNoddy
     /// A simple method for dumping data to std::cout
     void dump() const;
 
+    /// A simple method for dumping data to a file for gnuplot
+    /// \param filename The filename to write the data to (will overwrite)
+    /// \param precision Precision of the output strings
+    void dump_gnu( std::string filename, int precision = 10 ) const;
+
     /// Interpolate this mesh data (linearly) into a new
     /// mesh with nodal points defined in the argument list.
     /// \param z The nodal coordinates to be used in the new mesh.
@@ -146,28 +165,25 @@ namespace CppNoddy
     {
       VARS.scale( x );
     }
-
-    /// A simple method for dumping data to a file for gnuplot
-    /// \param filename The filename to write the data to (will overwrite)
-    void dump_gnu( std::string filename ) const
+    
+    /// Normalise all data in the mesh based on one variable.
+    /// \param var This var will have its peak (absolute) value as +/-unity following
+    /// the normalisation. All other variables will also be rescaled by
+    /// the same amount.
+    void normalise( const std::size_t& var )
     {
-      std::ofstream dump;
-      dump.open( filename.c_str() );
-      dump.precision( 9 );
-      dump.setf( std::ios::showpoint );
-      dump.setf( std::ios::showpos );
-      dump.setf( std::ios::scientific );
-      for ( std::size_t i = 0; i < X.size(); ++i )
+      double max( 0.0 );
+      // step through the nodes
+      for ( unsigned node = 0; node < X.size(); ++node )
       {
-        dump << X[ i ] << " ";
-        for ( std::size_t var = 0; var < NV; ++var )
+        if ( std::abs( VARS[ node * NV + var ] ) > max )
         {
-          dump << VARS[ i * NV + var ] << " ";
+          max = std::abs( VARS[ node * NV + var ] );
         }
-        dump << "\n";
       }
+      VARS.scale( 1./max );
     }
-
+    
   protected:
 
     // number of variables
@@ -204,6 +220,7 @@ namespace CppNoddy
   {
     return X[ node ];
   }
+  
 }
 
 #endif // ONED_NODE_MESH_H

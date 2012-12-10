@@ -1,6 +1,5 @@
 /// \file ODE_IVP.h
-/// A templated class for an \f$n\f$-th order system
-/// of ODEs that form the IVP:
+/// A specification for a class to solve initial value problems of the form
 /// \f[ \underline{ \dot f} (t) = \underline R ( \underline f (t), t) \,, \f]
 /// where \f$ \underline f (0) \f$ is known.
 
@@ -47,23 +46,16 @@ namespace CppNoddy
     /// \return An NVector of the final values.
     DenseVector<_Type> shoot45( DenseVector<_Type> u, const double& tol, const double& h_init );
 
-    /// Get the number of steps taken.
-    /// \return The number of steps in the integration
-    unsigned get_count() const;
-
     /// Return the history of the stepped solution.
     /// \return A reference to the mesh solution
     OneD_Node_Mesh<_Type>& get_mesh();
 
-    /// Set the flag that determines if the solution 'history'
-    /// should be stored.
-    /// \param flag The boolean flag to set
-    void set_store_soln( bool flag );
+    /// Return a handle to the STORE_EVERY object
+    /// \return A reference to the STORE_EVERY variable
+    unsigned& store_every();
 
   private:
 
-    /// Number of steps taken in the integrator methods
-    unsigned COUNT;
     /// initial and final step points
     double X_INIT, X_FINAL;
     /// initial step size
@@ -72,10 +64,10 @@ namespace CppNoddy
     std::size_t N;
     /// The function associated with this instance.
     Equation<_Type > *p_EQUATION;
+    /// Store every
+    unsigned STORE_EVERY;
     /// In-class storage of the solution
     OneD_Node_Mesh<_Type> SOLN;
-    /// Should we store the whole solution?
-    bool STORE_SOLN;
   }
   ; // end class
 

@@ -1,6 +1,6 @@
 /// \file ODE_EVP.h
 /// A specification of a class for an \f$ n^{th} \f$-order ODE LINEAR EVP defined by
-/// \f[ \lambda M({\underline f}(x),x ) \cdot {\underline f } + {\underline f}^\prime (x) = {\underline R}( {\underline f}(x), x )\,, \f]
+/// \f[ \lambda M_1({\underline f}(x),x ) \cdot {\underline f } + M_0({\underline f}(x),x ) \cdot {\underline f}^\prime (x) = {\underline R}( {\underline f}(x), x )\,, \f]
 /// subject to \f$ n \f$ zero Dirichlet conditions defined at \f$ x = x_{left} \f$ or
 /// \f$ x_{right} \f$ for some components of \f$ {\underline f}(x) \f$. The routine
 /// constructs a banded 2nd order finite-difference (banded) representation of the EVP
@@ -19,7 +19,7 @@
 
 #include <DenseVector.h>
 #include <DenseMatrix.h>
-#include <Equation_with_mass.h>
+#include <Equation_2matrix.h>
 #include <Exceptions.h>
 #include <Uncopyable.h>
 #include <OneD_Node_Mesh.h>
@@ -39,16 +39,14 @@ namespace CppNoddy
   public:
 
     /// The class is defined by a vector function for the system.
-    /// \param equation_ptr A pointer to an Equation_with_mass object.
+    /// \param equation_ptr A pointer to an equation with 2 associated matrices; matrix1 will define the eigenvalue problem.
     /// \param nodes A vector of nodal points.
     /// \param ptr_to_left_residual A pointer to a residual object that defines the LHS boundary conditions.
     /// \param ptr_to_right_residual A pointer to a residual object that defines the RHS boundary conditions.
-    /// \param which A string identifier of the eigensolver to be applied.
-    ODE_EVP( Equation_with_mass<_Type > *equation_ptr,
+    ODE_EVP( Equation_2matrix<_Type > *equation_ptr,
              const DenseVector<double> &nodes,
              Residual<_Type>* ptr_to_left_residual,
-             Residual<_Type>* ptr_to_right_residual,
-             std::string which = "lapack" );
+             Residual<_Type>* ptr_to_right_residual );
 
     /// Destructor
     ~ODE_EVP();
@@ -121,30 +119,27 @@ namespace CppNoddy
   private:
 
     /// A method that constructs the banded matrix problem
-    void construct_banded_problem();
+    void assemble_dense_problem();
 
     /// The function associated with this instance.
-    Equation_with_mass<_Type > *p_EQUATION;
+    Equation_2matrix<_Type > *p_EQUATION;
     /// Pointer to the residual defining the LHS BC
     Residual<_Type > *p_LEFT_RESIDUAL;
     /// Pointer to the residual defining the RHS BC
     Residual<_Type > *p_RIGHT_RESIDUAL;
     /// The dense linear eigensystem
     LinearEigenSystem_base *p_SYSTEM;
-    /// Matrices for the banded generalised eigenproblem
-    BandedMatrix<_Type>* p_A;
-    BandedMatrix<_Type>* p_B;
     /// Matrices for the LAPACK QZ routine -- must be DENSE
     DenseMatrix<_Type>* p_A_DENSE;
     DenseMatrix<_Type>* p_B_DENSE;
     /// the nodal distribution
     DenseVector<double> NODES;
-    /// choice of eigensolver
-    std::string VERSION;
     /// A vector of uniform meshes that store the eigenfunctions
     /// and eigenvalue (as the last dof at each nodal point)
     /// for use in later local refinement via the ODE_BVP class
     std::vector< OneD_Node_Mesh<D_complex> > MESHES;
+    /// has the eigensystem been constructed/solved?
+    bool CONSTRUCTED;
 
   }
   ; // end class

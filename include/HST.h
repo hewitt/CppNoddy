@@ -7,6 +7,7 @@
 #define HST_H
 
 #include <ODE_BVP.h>
+#include <Equation_1matrix.h>
 #include <DenseLinearEigenSystem.h>
 
 namespace CppNoddy
@@ -18,21 +19,27 @@ namespace CppNoddy
     template <typename _Type>
     class Rayleigh
     {
-      class Rayleigh_equation : public Equation_with_mass<std::complex<double>, _Type>
+      class Rayleigh_equation : public Equation_1matrix<std::complex<double>, _Type>
       {
       public:
         // this is 3rd order for local refinement
-        Rayleigh_equation( ) : Equation_with_mass<std::complex<double> , _Type>( 3 )
+        Rayleigh_equation( ) : Equation_1matrix<std::complex<double> , _Type>( 3 )
         {}
 
         void residual_fn( const DenseVector<std::complex<double> > &z, DenseVector<std::complex<double> > &g ) const
         {
-          _Type y_pos( this -> y() );
+          _Type y_pos( this -> coord(0) );
           _Type U( p_BASEFLOW -> get_interpolated_vars( y_pos )[ 0 ] );
           _Type Udd( p_BASEFLOW -> get_interpolated_vars( y_pos )[ 1 ] );
           g[ 0 ] = z[ 1 ];
           g[ 1 ] = *p_ALPHA * *p_ALPHA * z[ 0 ] + Udd * z[ 0 ] / ( U - z[ 2 ] );
           g[ 2 ] = 0.0;
+        }
+
+        /// The matrix for the BVP coord -- in this case its identity
+        void matrix0( const DenseVector<D_complex>& z, DenseMatrix<D_complex>& m ) const
+        {
+          Utility::fill_identity(m);
         }
 
         double* p_ALPHA;
@@ -87,23 +94,24 @@ namespace CppNoddy
 
       /// ctor -- either for a complex solution in the complex plane,
       /// or a double solution along the real line.
-      /// \param base_flow_solution The base flow velocity profile and
-      /// its curvature.
-      Rayleigh( OneD_Node_Mesh<_Type, _Type> &base_flow_solution, double& alpha, const std::string &right_bc_type = "BL" );
-
-      /// Solve the global eigenvalue problem for the Rayleigh equation.
-      /// \param alpha The wavenumber to compute the spectrum for
-      /// \param right_bc_type Defines the far-field boundary condition
+      /// \param base_flow_solution The base flow velocity profile and its curvature.
+      /// \param alpha The wavenumber of the perturbation.
+      /// \param right_bc_type Determines the choice of boundary condition.       
       /// "BL" is a derivative condition, whilst "CHANNEL" is a Dirichlet
       /// impermeability condition
+
+      Rayleigh( OneD_Node_Mesh<_Type, _Type> &base_flow_solution, double& alpha, const std::string &right_bc_type = "BL" );
+
+      /// Solve the global eigenvalue problem for the Rayleigh equation
+      /// by employing a second-order finite-difference matrix. The
+      /// scheme allows for a non-uniform distribution of nodal points.
       void global_evp( );
 
       /// Solve the EVP locally as a nonlinear BVP for just one mode.
+      /// Again we employ a second-order accurate finite-difference scheme
+      /// which allows for non-uniform distribution of nodal points.
       /// \param i_ev The index of the eigenvalue to solve for, based on the return
       /// from the global_evp method.
-      /// \param right_bc_type Defines the far-field boundary condition
-      /// "BL" is a derivative condition, whilst "CHANNEL" is a Dirichlet
-      /// impermeability condition
       void local_evp( std::size_t i_ev );
 
       /// Refine the EIGENVECTORS mesh for a new baseflow. Useful following
@@ -166,16 +174,16 @@ namespace CppNoddy
     {
       enum { phi, phid, psi, psid, eval };
 
-      class Orr_Sommerfeld_equation : public Equation_with_mass<std::complex<double> >
+      class Orr_Sommerfeld_equation : public Equation_1matrix<std::complex<double> >
       {
       public:
         // this is 5th order for local refinement
-        Orr_Sommerfeld_equation( ) : Equation_with_mass<std::complex<double> >( 5 )
+        Orr_Sommerfeld_equation( ) : Equation_1matrix<std::complex<double> >( 5 )
         {}
 
         void residual_fn( const DenseVector<std::complex<double> > &z, DenseVector<std::complex<double> > &g ) const
         {
-          double y_pos( this -> y() );
+          double y_pos( this -> coord(0) );
           double U( p_BASEFLOW -> get_interpolated_vars( y_pos )[ 0 ] );
           double Udd( p_BASEFLOW -> get_interpolated_vars( y_pos )[ 1 ] );
           // define the equation as 5 1st order equations
@@ -186,6 +194,12 @@ namespace CppNoddy
                       + D_complex( 0.0, 1.0 ) * *p_ALPHA * *p_RE * ( U * z[ psi ] - Udd * z[ phi ] )
                       - D_complex( 0.0, 1.0 ) * *p_ALPHA * *p_RE * z[ eval ] * z[ psi ];
           g[ eval ] = 0.0;
+        }
+        
+        /// The matrix for the BVP coord -- in this case it's an identity matrix
+        void matrix0( const DenseVector<D_complex>& z, DenseMatrix<D_complex>& m ) const
+        {
+          Utility::fill_identity(m);
         }
 
         double* p_ALPHA;
@@ -228,6 +242,8 @@ namespace CppNoddy
       /// or a double solution along the real line.
       /// \param base_flow_solution The base flow velocity profile and
       /// its curvature.
+      /// \param alpha The wavenumber to compute the spectrum for.
+      /// \param rey The Reynolds number to compute the spectrum for.
       Orr_Sommerfeld( OneD_Node_Mesh<double> &base_flow_solution, double alpha, double rey )
       {
         ALPHA = alpha;
@@ -236,10 +252,6 @@ namespace CppNoddy
       }
 
       /// Solve the global eigenvalue problem for the Rayleigh equation.
-      /// \param alpha The wavenumber to compute the spectrum for
-      /// \param right_bc_type Defines the far-field boundary condition
-      /// "BL" is a derivative condition, whilst "CHANNEL" is a Dirichlet
-      /// impermeability condition
       void global_evp( )
       {
         const std::complex<double> I( 0.0, 1.0 );
@@ -295,9 +307,6 @@ namespace CppNoddy
       /// Solve the EVP locally as a nonlinear BVP for just one mode.
       /// \param i_ev The index of the eigenvalue to solve for, based on the return
       /// from the global_evp method.
-      /// \param right_bc_type Defines the far-field boundary condition
-      /// "BL" is a derivative condition, whilst "CHANNEL" is a Dirichlet
-      /// impermeability condition
       void local_evp( std::size_t i_ev ) {}
 
       /// Refine the EIGENVECTORS mesh for a new baseflow. Useful following
@@ -479,7 +488,7 @@ namespace CppNoddy
           std::string problem;
           problem = " Warning: The Rayleigh.global_evp method is only first order \n";
           problem += " on a non-uniform mesh.\n";
-          //throw ExceptionRuntime( problem );
+          throw ExceptionRuntime( problem );
         }
 #endif
         double h( BASEFLOW.coord( i ) - BASEFLOW.coord( i - 1 ) );
@@ -561,11 +570,12 @@ namespace CppNoddy
       // f_0 = 0
       A( 0, 0 ) = 1.0;
       B( 0, 0 ) = 0.0;
-      const std::complex<double>  h1 = BASEFLOW.coord( 1 ) - BASEFLOW.coord( 0 );
+      //const std::complex<double>  h1 = BASEFLOW.coord( 1 ) - BASEFLOW.coord( 0 );
       // step through the interior nodes
       for ( std::size_t i = 1; i < N - 1; ++i )
       {
 #ifdef PARANOID
+        const double h1 = abs(BASEFLOW.coord( 1 ) - BASEFLOW.coord( 0 ));
         if ( std::abs( BASEFLOW.coord( i ) - BASEFLOW.coord( i - 1 ) - h1 ) > 1.e-12 )
         {
           std::string problem;

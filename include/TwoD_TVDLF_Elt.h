@@ -217,7 +217,7 @@ namespace CppNoddy
 
     /// Evaluate the contribution to this element by the hyperbolic
     /// system's source function over a given time step using a
-    // mid-point in time evaluation.
+    /// mid-point in time evaluation.
     /// \param dt The time step over which source function is to be integrated
     /// \return The total contribution
     DenseVector<double> get_source_contribution( const double &dt ) const;

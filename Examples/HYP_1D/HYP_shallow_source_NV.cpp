@@ -67,7 +67,7 @@ namespace CppNoddy
       }
 
       /// edge conditions
-      std::vector<bool> edge_values( const int face_index, const double& x, DenseVector<double>& q ) const
+      std::vector<bool> edge_values( const int face_index, const double& x, DenseVector<double>& q, const double &t  ) const
       {
         std::vector<bool> inflow( q.size(), false );
         if ( face_index < 0 )

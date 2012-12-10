@@ -29,48 +29,59 @@ namespace CppNoddy
       return -y * std::exp( -x ) + std::pow( y * t * std::exp( -x ), 2 );
     }
 
-    class nonlinear : public Equation_with_double_mass<double>
+    class nonlinear : public Equation_3matrix<double>
     {
     public:
       /// The problem is 2nd order and real
-      nonlinear() : Equation_with_double_mass<double> ( 2 ) {}
+      nonlinear() : Equation_3matrix<double> ( 2 ) {}
 
       /// Define a nonlinear advection diffusion problem
       void residual_fn( const DenseVector<double>& z, DenseVector<double>& f ) const
       {
         // The system
         f[ U ] = z[ Ud ];
-        f[ Ud ] = source( x(), y(), t() );
+        // x,y,t
+        f[ Ud ] = source( coord(2), coord(0), coord(1) );
       }
 
-      /// Define the unsteady terms by providing the mass matrix for x evolution
-      void mass1( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      /// Define the BVP terms
+      void matrix0( const DenseVector<double>& z, DenseMatrix<double>& m ) const
       {
-        // eqn 1 variable 0
-        m( 1, 0 ) = -z[ U ];
+        Utility::fill_identity(m);
       }
-
+      
       /// Define the unsteady terms by providing the mass matrix for t evolution
-      void mass2( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      void matrix1( const DenseVector<double>& z, DenseMatrix<double>& m ) const
       {
         // eqn 1 variable 0
         m( 1, 0 ) = -1.0;
       }
 
-      // METHODS BELOW OVERLOAD THE DEFAULT SLOW FINIT-DIFFERENCE VERSIONS
+      /// Define the unsteady terms by providing the mass matrix for x evolution
+      void matrix2( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      {
+        // eqn 1 variable 0
+        m( 1, 0 ) = -z[ U ];
+      }
+
+      // METHODS BELOW OVERLOAD THE DEFAULT SLOW FINITE-DIFFERENCE VERSIONS
 
       /// Provide the exact Jacobian rather than using finite-differences
       void jacobian( const DenseVector<double> &z, DenseMatrix<double> &jac ) const
       {
         jac( 0, Ud ) = 1.0;
       }
-      void get_jacobian_of_mass1_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
+      void get_jacobian_of_matrix0_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
+      {
+        // constant matrix
+      }
+      void get_jacobian_of_matrix1_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
       {
         h( 1, U ) = - vec[ 0 ];
       }
-      void get_jacobian_of_mass2_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
+      void get_jacobian_of_matrix2_mult_vector( const DenseVector<double> &state, const DenseVector<double> &vec, DenseMatrix<double> &h  ) const
       {
-        // constant mass2 matrix
+        // constant matrix
       }
 
     };
@@ -178,7 +189,7 @@ int main()
   while ( nlin.t() < t_end );
 
   const double tol( 1.e-4 );
-  // check the BL transpiration vs the known solution
+  // check the error from the exact solution
   if ( max_error > tol )
   {
     cout << "\033[1;31;48m  * FAILED \033[0m\n";

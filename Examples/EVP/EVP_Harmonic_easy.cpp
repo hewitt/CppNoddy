@@ -23,11 +23,11 @@ namespace CppNoddy
   namespace Example
   {
     /// Define the harmonic equation by inheriting the Equation base class
-    class harmonic_equation : public Equation_with_mass<double>
+    class harmonic_equation : public Equation_2matrix<double>
     {
     public:
       /// The harmonic equation is a 2nd order real ODE
-      harmonic_equation() : Equation_with_mass<double>( 2 ) {}
+      harmonic_equation() : Equation_2matrix<double>( 2 ) {}
 
       /// The harmonic equation
       void residual_fn( const DenseVector<double> &z, DenseVector<double> &g ) const
@@ -36,9 +36,15 @@ namespace CppNoddy
         g[ fd ] = 0.0;
       }
 
+      /// matrix to multiply the BVP coordinate
+      void matrix0( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      {
+        Utility::fill_identity(m);
+      }
+
       /// Define the eigenvalue terms by providing the mass matrix
       /// This defines the term -lambda * z[ f ] ;
-      void mass( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      void matrix1( const DenseVector<double>& z, DenseMatrix<double>& m ) const
       {
         // eigenvalue multiplies unknown 0 in equation 1
         m( 1, 0 ) = 1.0;
@@ -116,37 +122,6 @@ int main()
   cout << "\033[1;33;48m  * SKIPPED \033[0m\n";
   assert( false );
 #endif
-
-
-//#ifdef ARPACK
-
-  //cout << " Solving the system using ARPACK:\n";
-  //// set up the ode eigenproblem
-  //ODE_EVP<double> ode_arpack( &problem, left, right, N, "arpack", guess );
-  //try
-  //{
-  //// solve the global eigenvalue problem for lambda
-  //ode_arpack.eigensolve( &problem.lambda );
-  //}
-  //catch ( std::runtime_error )
-  //{
-  //cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
-  //assert( false );
-  //}
-  //// get the eigenvalues in a disk of radius 1 about the guess
-  //ode_arpack.eigensystem_ptr() -> tag_eigenvalues_disc( + 1, 1. );
-  //// get the tagged eigenvalue(s) -- hopefully only 1
-  //DenseVector<D_complex> arpack_lambdas = ode_lapack.eigensystem_ptr() -> get_tagged_eigenvalues();
-
-  //if ( abs( lapack_lambdas[ 0 ].real() - M_PI * M_PI ) < tol )
-  //{
-  //failed = false;
-  //cout << "  ARPACK solver works.\n";
-  //}
-//#else
-  //cout << " ARPACK support is required for this EVP computation.\n";
-//#endif
-
 
   if ( failed )
   {

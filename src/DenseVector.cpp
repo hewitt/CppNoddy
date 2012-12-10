@@ -1,6 +1,6 @@
 /// \file src/DenseVector.cpp
 /// Implementation of the DenseVector class -- a dense, variable size, vector object.
-
+ 
 #include <vector>
 #include <complex>
 #include <algorithm>

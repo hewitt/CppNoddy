@@ -14,7 +14,7 @@
 
 namespace CppNoddy
 {
-
+ 
   // forward declare the matrix classes that will be friends
   // conversion from banded to vector (for LAPACK routines)
   // is best done if we allow BandedMatrix direct access to the

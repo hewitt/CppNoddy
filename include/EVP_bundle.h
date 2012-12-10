@@ -6,7 +6,7 @@
 
 #include <Generic_bundle.h>
 
-#include <Equation_with_mass.h>
+#include <Equation_2matrix.h>
 #include <ODE_EVP.h>
 #include <ODE_BVP.h>
 #include <DenseLinearEigenSystem.h>

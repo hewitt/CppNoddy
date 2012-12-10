@@ -21,6 +21,8 @@
  * In the current version, the test/example cases solve (amongst others):
  *
  *
+ * - Two-dimensional parabolic problems
+ *      ( eg., unsteady boundary-layer equations ).
  * - Boundary-value ODE problems
  *      ( eg., the Karman rotating-disk, Blasius boundary-layer and other similarity solutions ).
  * - Arc-length continuation of problems involving limit points
@@ -49,20 +51,23 @@
  * Alternatively, a complete list of examples can be found at this link \link Examples \endlink
  *
  * The library provides:
- * - A \link #CppNoddy::DenseVector dense vector \endlink class (including the usual vector operations).
- * - Both \link #CppNoddy::DenseMatrix dense \endlink and \link #CppNoddy::BandedMatrix banded \endlink matrix classes.
+
+ * - Both \link #CppNoddy::DenseVector dense vector \endlink and \link #CppNoddy::SparseVector sparse vector \endlink classes (including the usual vector operations).
+ * - \link #CppNoddy::DenseMatrix Dense \endlink, \link #CppNoddy::BandedMatrix banded \endlink and \link #CppNoddy::SparseMatrix sparse \endlink matrix classes.
  * - A class for \link #CppNoddy::ODE_IVP ODE IVPs \endlink with 4th-order Runge-Kutta(-Fehlberg) method(s).
  * - A class for \link #CppNoddy::ODE_BVP ODE BVPs \endlink with second-order finite-difference methods and adaptive refinement.
  * - A class for \link #CppNoddy::ODE_EVP ODE EVPs \endlink with second-order finite-difference methods.
- * - A class for \link #CppNoddy::PDE_IBVP IBVPs \endlink with second-order methods in both `space' and `time'.
+ * - A class for \link #CppNoddy::PDE_IBVP IBVPs \endlink with second-order methods in both `space'
+ and `time'.
+ * - A class for \link #CppNoddy::PDE_double_IBVP Two dimensional parabolic problems \endlink with a second-order box scheme.
  * - Classes for both \link #CppNoddy::OneD_TVDLF_Mesh 1-D \endlink and \link #CppNoddy::TwoD_TVDLF_Mesh 2-D \endlink hyperbolic problems via central scheme algorithms.
  * - 2-D Poisson objects (\link #CppNoddy::Poisson_Cartesian Cartesian \endlink and
  *        \link #CppNoddy::Poisson_meridional axisymmetric \endlink cylindrical polars).
  * - \link #CppNoddy::Newton vector \endlink Newton iteration classes.
  * - Arc-length continuation solvers exist for Residual objects and boundary value problems.
- * - An ability to link to selected BLAS and LAPACK routines via a simplified API
- *      (these currently include the real/complex generalised eigenproblem solvers, dense/banded LU
- *       solvers.).
+ * - An ability to link to selected BLAS, LAPACK and SuperLU routines via a simplified API
+ *      (these currently include the real/complex generalised eigenproblem solvers, 
+ *       dense/banded/sparse LU solvers.).
  *
  * \subsection intro2 What is it for?
  * It exists for two reasons:
@@ -72,15 +77,15 @@
  *
  * \section get0 Getting and running it
  *
- * You need a machine with a recent C++ compiler and 'bazaar' to check out the latest version.
- * The build system also uses SCons and Python. The source is hosted on Launchpad
- * and can be obtained using 'bzr' via
+ * You need a machine with a recent C++ compiler and 'git' to clone the latest version.
+ * The build system also uses SCons and Python. The source is hosted on Github
+ * and can be obtained using 'git' via
  *
- *       bzr branch lp:~rich-e-hewitt/+junk/CppNoddy
+ *       git clone git://github.com/hewitt/CppNoddy.git
  *
  *
  * Once you have the code, running "scons" (or "scons lapack=1" to attempt to link
- * to external BLAS/LAPACK libraries) in
+ * to external BLAS/LAPACK libraries for example) in
  * the CppNoddy directory should compile the library & example codes. You can check the
  * finished product by running "./validate.sh" in the "Examples/Validation" directory.
  *
@@ -92,7 +97,7 @@
  * \htmlonly
     <a href="http://www.python.org">python</a>
     <a href="http://www.gnu.org/software/gcc">GCC</a>
-    <a href="http://bazaar-vcs.org">bazaar</a>
+    <a href="http://github.com/hewitt/CppNoddy">github</a>
     <a href="http://www.scons.org">scons</a>
  * \endhtmlonly
  *
@@ -100,14 +105,13 @@
  *
  * \section best0 Is it fast/accurate?
  *
- * The dense and banded matrix classes have native solvers that are naive
- * unoptimised Gaussian elimination algorithms.
+ * The matrix classes have native solvers that are naive unoptimised Gaussian elimination algorithms.
  * These routines will only be practical (if at all!) for
  * rather `small' matrix/band sizes and do not scale well. If the problem is of even
- * moderate size, then you should link to your local LAPACK/BLAS
- * LU routines. LAPACK/BLAS libraries are not shipped with CppNoddy, you have to install
- * them yourself if they are not available by default (most linux distributions provide
- * them as packages).
+ * moderate size, then you should link to your local LAPACK/BLAS/SuperLU
+ * LU routines by compiling with the `lapack=1' flag. LAPACK/BLAS/SuperLU libraries are not shipped 
+ * with CppNoddy, you have to install them separately yourself if they are not available by default 
+ * (most linux distributions provide them as packages).
  *
  * The code is not especially optimised, in fact in many places the code is deliberately
  * un-optimised for greater transparency; it is not intended for 'heavy duty' problems. The only sanity

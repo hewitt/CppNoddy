@@ -18,12 +18,12 @@ namespace CppNoddy
   namespace Example
   {
     /// Define the Berman equation by inheriting the Equation base class
-    class Berman_equation : public Equation<double>
+    class Berman_equation : public Equation_1matrix<double>
     {
     public:
 
       /// The Berman equation is a 4th order real ODE
-      Berman_equation() : Equation<double>( 4 ) {}
+      Berman_equation() : Equation_1matrix<double>( 4 ) {}
 
       /// The Berman equation
       void residual_fn( const DenseVector<double> &z, DenseVector<double> &g ) const
@@ -33,7 +33,12 @@ namespace CppNoddy
         g[ fdd ] = z[ fddd ];
         g[ fddd ] = Re * ( z[ f ] * z[ fddd ] - z[ fd ] * z[ fdd ] );
       }
-
+      
+      void matrix0( const DenseVector<double>&x, DenseMatrix<double> &m ) const
+      {
+        Utility::fill_identity(m);
+      }
+      
       // The Reynolds number
       double Re;
     };

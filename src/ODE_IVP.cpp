@@ -20,15 +20,14 @@ namespace CppNoddy
   ODE_IVP<_Type>::ODE_IVP( Equation<_Type > *ptr,
                            const double &x1, const double &x2,
                            const std::size_t &num_of_points ) :
-      COUNT( 0 ),
       X_INIT( x1 ),
       X_FINAL( x2 ),
       H_INIT( ( x2 - x1 ) / num_of_points ),
       N( num_of_points ),
       p_EQUATION( ptr ),
-      STORE_SOLN( false )
+      STORE_EVERY( 1 )
   {
-    p_EQUATION -> y() = X_INIT;
+    p_EQUATION -> coord(0) = X_INIT;
   }
 
   template <typename _Type>
@@ -45,51 +44,55 @@ namespace CppNoddy
     const double hby3 = h / 3.;
     const int order = u.size();
 
-    DenseVector<_Type> z( order, 0.0 ), k1( order, 0.0 ), k2( order, 0.0 ),
-    k3( order, 0.0 ), k4( order, 0.0 );
+    DenseVector<_Type> z( order, 0.0 ), k1( order, 0.0 ), k2( order, 0.0 ), k3( order, 0.0 ), k4( order, 0.0 );
 
-    if ( STORE_SOLN )
-    {
-      SOLN.coord( 0 ) = x;
-      SOLN.set_nodes_vars( 0, u );
-    }
+    DenseVector< double > coords;  
+    std::vector< DenseVector<_Type> > values;
+
+    coords.push_back( x );
+    values.push_back( u ); 
 
     for ( unsigned i = 0; i < N; i++ )
     {
       // k1 = F(u,x)
-      p_EQUATION -> y() = x;
+      p_EQUATION -> coord(0) = x;
       p_EQUATION -> residual_fn( u, k1 );
       z = u + k1 * hby2;
 
       x += hby2;
 
       // k2 = F(z,xhh)
-      p_EQUATION -> y() = x;
+      p_EQUATION -> coord(0) = x;
       p_EQUATION -> residual_fn( z, k2 );
       z = u + k2 * hby2;
 
       // k3 = F(z,xhh)
-      p_EQUATION -> y() = x;
+      p_EQUATION -> coord(0) = x;
       p_EQUATION -> residual_fn( z, k3 );
       z = u + k3 * h;
 
       x += hby2;
 
       // k4 = F(z,xh)
-      p_EQUATION -> y() = x;
+      p_EQUATION -> coord(0) = x;
       p_EQUATION -> residual_fn( z, k4 );
       u += k1 * hby6 + k2 * hby3 + k3 * hby3 + k4 * hby6;
 
-      if ( STORE_SOLN )
+      if ( i % STORE_EVERY == 0 )
       {
-        // output point of flag is set
-        SOLN.coord( i + 1 ) = x;
-        SOLN.set_nodes_vars( i + 1, u );
+        coords.push_back( x );
+        values.push_back( u ); 
       }
 
-      //std::cout << x << " " << u[0] << " " << u[1] << " " << u[2] << "\n";
     } //for loop stepping across domain
-    this -> COUNT = N;
+    
+    // construct the solution mesh stored in this object
+    SOLN = OneD_Node_Mesh<_Type>( coords, p_EQUATION -> get_order() );    
+    for ( unsigned i = 0; i < coords.size(); ++i )
+    {
+      // fill mesh
+      SOLN.set_nodes_vars( i, values[i] );
+    }
     return u;
   }
 
@@ -97,7 +100,7 @@ namespace CppNoddy
   DenseVector<_Type> ODE_IVP<_Type>::shoot45( DenseVector<_Type> u, const double& tol, const double& h_init )
   {
     bool ok( false );
-    this -> COUNT = 0;
+    unsigned step = 0;
     double x = X_INIT;
     double h = h_init;
     double c, diff;
@@ -142,50 +145,49 @@ namespace CppNoddy
     const unsigned order = u.size();
 
     DenseVector<_Type> z( order, 0.0 ), e( order, 0.0 ), k1( order, 0.0 ),
-    k2( order, 0.0 ), k3( order, 0.0 ), k4( order, 0.0 ),
-    k5( order, 0.0 ), k6( order, 0.0 );
+    k2( order, 0.0 ), k3( order, 0.0 ), k4( order, 0.0 ), k5( order, 0.0 ), k6( order, 0.0 );
 
-    if ( STORE_SOLN )
-    {
-      SOLN.coord( 0 ) = x;
-      SOLN.set_nodes_vars( 0, u );
-    }
+    DenseVector< double > coords;  
+    std::vector< DenseVector<_Type> > values;
+
+    coords.push_back( x );
+    values.push_back( u ); 
 
     do
     {
-      COUNT += 1;
+      step += 1;
       // k1 = F(u,x)
-      p_EQUATION -> y() = x;
+      p_EQUATION -> coord(0) = x;
       p_EQUATION -> residual_fn( u, k1 );
       k1 *= h;
       z = u + k1 * W21;
 
       // k2 = F(z,x+X2*h)
-      p_EQUATION -> y() = x + X2 * h;
+      p_EQUATION -> coord(0) = x + X2 * h;
       p_EQUATION -> residual_fn( z, k2 );
       k2 *= h;
       z = u + k1 * W31 + k2 * W32;
 
       // k3 = F(z,x+X3*h)
-      p_EQUATION -> y() = x + X3 * h;
+      p_EQUATION -> coord(0) = x + X3 * h;
       p_EQUATION -> residual_fn( z, k3 );
       k3 *= h;
       z = u + k1 * W41 + k2 * W42 + k3 * W43;
 
       // k4 = F(z,x+X4*h)
-      p_EQUATION -> y() = x + X4 * h;
+      p_EQUATION -> coord(0) = x + X4 * h;
       p_EQUATION -> residual_fn( z, k4 );
       k4 *= h;
       z = u + k1 * W51 + k2 * W52 + k3 * W53 + k4 * W54;
 
       // k5 = F(z,x+X5*h)
-      p_EQUATION -> y() = x + X5 * h;
+      p_EQUATION -> coord(0) = x + X5 * h;
       p_EQUATION -> residual_fn( z, k5 );
       k5 *= h;
       z = u + k1 * W61 + k2 * W62 + k3 * W63 + k4 * W64 + k5 * W65;
 
       // k6 = F(z,x+X6*h)
-      p_EQUATION -> y() = x + X6 * h;
+      p_EQUATION -> coord(0) = x + X6 * h;
       p_EQUATION -> residual_fn( z, k6 );
       k6 *= h;
 
@@ -202,26 +204,24 @@ namespace CppNoddy
 
       // is the first step ok? or does it need reducing?
 
-      if ( ( COUNT == 1 ) && ( c < 1.0 ) )
+      if ( ( step == 1 ) && ( c < 1.0 ) )
       {
         // step needs reducing so start from initial value again
         ok = false;
-        COUNT = 1;
+        step = 1;
       }
 
       if ( ok )
       {
-        //std::cout << x << " " << u[0] << " " << u[1] << " " << u[2] << "\n";
         x += h;
         u += z;
-        if ( STORE_SOLN )
+
+        if ( step % STORE_EVERY == 0 )
         {
-          /// \todo Improve the dumb-ass storage solution which
-          /// currently stores N values where N is the max number
-          /// of steps, not the number required!
-          SOLN.coord( COUNT ) = x;
-          SOLN.set_nodes_vars( COUNT, u );
+          coords.push_back( x );
+          values.push_back( u ); 
         }
+
       }
 
       h *= c;
@@ -231,7 +231,7 @@ namespace CppNoddy
         h = ( X_FINAL - x );
       }
 
-      if ( COUNT >= N )
+      if ( step >= N )
       {
         std::string problem;
         problem = "The ODE.shoot45 method reached the maximum \n";
@@ -242,18 +242,15 @@ namespace CppNoddy
     }
     while ( std::abs( x - X_FINAL ) > tol );  // end loop stepping across domain
 
-    // trim down the storage in the mesh object to only those steps taken
-    // -- taken out ... this will cause problems if we recall the method
-    // and we then need to add more points.
-    // SOLN.set_nnodes( COUNT + 1 );
+    // construct the solution mesh stored in this object
+    SOLN = OneD_Node_Mesh<_Type>( coords, p_EQUATION -> get_order() );    
+    for ( unsigned i = 0; i < coords.size(); ++i )
+    {
+      // fill mesh
+      SOLN.set_nodes_vars( i, values[i] );
+    }
 
     return u;
-  }
-
-  template <typename _Type>
-  unsigned ODE_IVP<_Type>::get_count() const
-  {
-    return COUNT;
   }
 
   template <typename _Type>
@@ -263,14 +260,9 @@ namespace CppNoddy
   }
 
   template <typename _Type>
-  void ODE_IVP<_Type>::set_store_soln( bool flag )
+  unsigned& ODE_IVP<_Type>::store_every()
   {
-    STORE_SOLN = flag;
-    if ( STORE_SOLN )
-    {
-      // set the storage
-      SOLN = OneD_Node_Mesh<_Type>( Utility::uniform_node_vector( X_INIT, X_FINAL, N + 1 ), p_EQUATION -> get_order() );
-    }
+    return STORE_EVERY;
   }
 
   // the templated versions we require are:

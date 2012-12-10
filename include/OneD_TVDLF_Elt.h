@@ -60,13 +60,15 @@ namespace CppNoddy
     /// time step.
     /// \param dt The time step to compute the flux over
     /// \param flux_in_left A vector to return the flux components in
-    void contributed_flux_in_left( const double &dt, DenseVector<double> &flux_in_left );
+    /// \param current_time The current mesh time level
+    void contributed_flux_in_left( const double &dt, DenseVector<double> &flux_in_left, const double &current_time );
 
     /// Compute the flux out of this element through the right face over a given
     /// time step.
     /// \param dt The time step to compute the flux over
     /// \param flux_out_right A vector to return the flux components in
-    void contributed_flux_out_right( const double &dt, DenseVector<double> &flux_out_right );
+    /// \param current_time The current mesh time level
+    void contributed_flux_out_right( const double &dt, DenseVector<double> &flux_out_right, const double &current_time );
 
     /// Convert a global coordinate into a local coordinate within this element
     /// If the global coordinate is outside the element, then we throw an exception.

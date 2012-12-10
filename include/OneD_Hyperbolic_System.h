@@ -81,7 +81,8 @@ namespace CppNoddy
     /// -1=left +1=right for OneD_TVDLF_Mesh
     /// \param x The position vector along the face
     /// \param q The unknowns specified along the face
-    virtual bool_vec edge_values( const int face_index, const double& x, DenseVector<double>& q ) const
+    /// \param t A time for unsteady edge conditions
+    virtual bool_vec edge_values( const int face_index, const double& x, DenseVector<double>& q, const double &t = 0.0 ) const
     {
       return std::vector<bool>( ORDER_OF_SYSTEM, false );
     }

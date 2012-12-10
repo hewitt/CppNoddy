@@ -20,7 +20,7 @@
 #include <cassert>
 
 #include <Types.h>
-#include <Equation.h>
+#include <BVP_bundle.h>
 #include <EVP_bundle.h>
 
 // enumerate the variables in the ODE
@@ -45,11 +45,11 @@ namespace CppNoddy
     };
 
     /// Define the OS equation for the global QZ EVP
-    class OS_evp_equation : public Equation_with_mass<D_complex>
+    class OS_evp_equation : public Equation_2matrix<D_complex>
     {
     public:
       /// The OS equation is a 4th order complex ODE
-      OS_evp_equation() : Equation_with_mass<D_complex>( 4 ) {}
+      OS_evp_equation() : Equation_2matrix<D_complex>( 4 ) {}
 
       /// The OS equation
       void residual_fn( const DenseVector<D_complex> &z, DenseVector<D_complex> &g ) const
@@ -59,27 +59,34 @@ namespace CppNoddy
         g[ phid ] = z[ psi ] + alpha * alpha * z[ phi ];
         g[ psi ] = z[ psid ];
         g[ psid ] = alpha * alpha * z[ psi ]
-                    + D_complex( 0.0, 1.0 ) * alpha * Re * ( U( y() ) * z[ psi ] - Udd( y() ) * z[ phi ] );
+                    + D_complex( 0.0, 1.0 ) * alpha * Re * ( U( coord(0) ) * z[ psi ] - Udd( coord(0) ) * z[ phi ] );
+      }
+
+      /// matrix to multiply the BVP coordinate
+      void matrix0( const DenseVector<D_complex>& z, DenseMatrix<D_complex>& m ) const
+      {
+        Utility::fill_identity(m);
       }
 
       /// Define the unsteady terms by providing the mass matrix
       /// Here we define the eigenvalue contribution to the g[ psid ] equation
       ///   - D_complex( 0.0, 1.0 ) * alpha * Re * c * z[ psi ]
-      void mass( const DenseVector<D_complex>& z, DenseMatrix<D_complex>& m ) const
+      void matrix1( const DenseVector<D_complex>& z, DenseMatrix<D_complex>& m ) const
       {
         // the eigenvalue is in equation 3, and multiplies unknown 2
         m( 3, 2 ) = D_complex( 0.0, 1.0 ) * alpha * Re;
       }
+      
     };
 
 
     /// Define the OSE for the local refinement procedure
-    class OS_bvp_equation : public Equation<D_complex>
+    class OS_bvp_equation : public Equation_1matrix<D_complex>
     {
     public:
       /// The OS *LOCAL* problem is a nonlinear 5th order complex BVP
       /// because the eigenvalue is added to the 4th order equation
-      OS_bvp_equation() : Equation<D_complex>( 5 ) {}
+      OS_bvp_equation() : Equation_1matrix<D_complex>( 5 ) {}
 
       /// The OS equation
       void residual_fn( const DenseVector<D_complex> &z, DenseVector<D_complex> &g ) const
@@ -89,11 +96,17 @@ namespace CppNoddy
         g[ phid ] = z[ psi ] + alpha * alpha * z[ phi ];
         g[ psi ] = z[ psid ];
         g[ psid ] = alpha * alpha * z[ psi ]
-                    + D_complex( 0.0, 1.0 ) * alpha * Re * ( U( y() ) * z[ psi ] - Udd( y() ) * z[ phi ] )
+                    + D_complex( 0.0, 1.0 ) * alpha * Re * ( U( coord(0) ) * z[ psi ] - Udd( coord(0) ) * z[ phi ] )
                     - D_complex( 0.0, 1.0 ) * alpha * Re * z[ eval ] * z[ psi ];
         g[ eval ] = 0.0;
       }
-
+      
+      /// matrix to multiply the BVP coordinate
+      void matrix0( const DenseVector<D_complex>& z, DenseMatrix<D_complex>& m ) const
+      {
+        Utility::fill_identity(m);
+      }
+      
     };
 
     // BOUNDARY CONDITIONS FOR THE EVP SOLVER - same at both boundaries

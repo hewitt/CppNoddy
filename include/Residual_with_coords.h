@@ -44,41 +44,10 @@ namespace CppNoddy
     /// \return A handle to the i-th coordinate
     const _Xtype& coord( const unsigned& i ) const;
 
-    /// A bit of aliasing to simplify things for the user
-    /// \return A handle to the y coordinate
-    _Xtype& y();
-
-    /// A bit of aliasing to simplify things for the user
-    /// \return A handle to the y coordinate
-    const _Xtype& y() const;
-
-    /// A bit of aliasing to simplify things for the user
-    /// \return A handle to the t coordinate
-    _Xtype& t();
-
-    /// A bit of aliasing to simplify things for the user
-    /// \return A handle to the t coordinate
-    const _Xtype& t() const;
-
-    /// A bit of aliasing to simplify things for the user
-    /// \return A handle to the x coordinate
-    _Xtype& x();
-
-    /// A bit of aliasing to simplify things for the user
-    /// \return A handle to the x coordinate
-    const _Xtype& x() const;
-
-
   protected:
 
     /// The coordinates stored for this residual
     std::vector<_Xtype> coords;
-
-  private:
-    /// Check bounds on the coordinate index for use
-    /// when paranoid
-    /// \param i The index of the coordinate.
-    void paranoid_check( const unsigned& i );
 
   }
   ;  // end class
@@ -87,8 +56,7 @@ namespace CppNoddy
   inline _Xtype& Residual_with_coords<_Type, _Xtype>::coord( const unsigned& i )
   {
 #ifdef PARANOID
-    /// \todo Compilation failure
-    //  paranoid_check( i );
+    /// \todo check range on coord
 #endif
     return coords[ i ];
   }
@@ -97,46 +65,8 @@ namespace CppNoddy
   inline const _Xtype& Residual_with_coords<_Type, _Xtype>::coord( const unsigned& i ) const
   {
 #ifdef PARANOID
-    /// \todo Compilation failure
-    //  paranoid_check( i );
 #endif
     return coords[ i ];
-  }
-
-  template <typename _Type, typename _Xtype>
-  inline _Xtype& Residual_with_coords<_Type, _Xtype>::y()
-  {
-    return coord( 0 );
-  }
-
-  template <typename _Type, typename _Xtype>
-  inline const _Xtype& Residual_with_coords<_Type, _Xtype>::y() const
-  {
-    return coord( 0 );
-  }
-
-  template <typename _Type, typename _Xtype>
-  inline _Xtype& Residual_with_coords<_Type, _Xtype>::t()
-  {
-    return coords[ 1 ];
-  }
-
-  template <typename _Type, typename _Xtype>
-  inline const _Xtype& Residual_with_coords<_Type, _Xtype>::t() const
-  {
-    return coords[ 1 ];
-  }
-
-  template <typename _Type, typename _Xtype>
-  inline _Xtype& Residual_with_coords<_Type, _Xtype>::x()
-  {
-    return coords[ 2 ];
-  }
-
-  template <typename _Type, typename _Xtype>
-  inline const _Xtype& Residual_with_coords<_Type, _Xtype>::x() const
-  {
-    return coords[ 2 ];
   }
 
 }   // end namespace

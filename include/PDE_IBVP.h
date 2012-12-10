@@ -1,9 +1,9 @@
 /// \file PDE_IBVP.h
 /// A specification of a class for an \f$ n^{th} \f$-order IBVP of the form
-/// \f[ M( {\underline f}(y,t), y, t )\cdot {\underline f}_t (y,t)+ {\underline f}_y (y,t) = {\underline R}( {\underline f}(y,t), y, t )\,, \f]
+/// \f[ M_1( {\underline f}(y,t), y, t )\cdot {\underline f}_t (y,t)+ M_0( {\underline f}(y,t), y, t ) \cdot {\underline f}_y (y,t) = {\underline R}( {\underline f}(y,t), y, t )\,, \f]
 /// subject to \f$ n \f$ conditions defined at \f$ y = y_{left} \f$ and
 /// \f$ y_{right} \f$ for some components of \f$ {\underline f}(y) \f$.
-/// Here \f$ M \f$ is a mass matrix.
+/// Here \f$ M_{0,1} \f$ are matrices.
 /// The solution at the new time step \f$ t+\Delta t \f$ is
 /// \f[ {\underline f}^{new} = {\underline F} + {\underline g} \f]
 /// where \f$ {\underline F} \f$ is the current guess at the solution
@@ -12,18 +12,17 @@
 /// \f[ {\underline f}^{old} = {\underline O} \f]
 /// A Crank-Nicolson method is employed with the linearised problem at the mid-time point
 /// \f$ t + \Delta t /2 \f$ being:
-/// \f[ \frac{2}{\Delta t} M \cdot {\underline g } + {\underline g}_y - J \cdot {\underline g} + J^{(M)} \cdot \frac{\underline F - \underline O}{\Delta t} \cdot {\underline g}  = 2 {\underline R} - ({\underline F}_y + {\underline O}_y ) - \frac{2}{\Delta t} M \cdot ( {\underline F} - {\underline O} ) \f]
-/// Where \f$ M, J, J^{(M)}, R \f$ are evaluated at the mid-time step with arguments \f$ \left ( \frac{\underline F + \underline O}{2}, y, t + \frac{\Delta t}{2} \right ) \f$,
-/// with \f$ J^{(M)} \f$ denoting the Jacobian of the mass matrix \f$ \partial M_{ij} / \partial f_k \f$.
-/// This problem is solved by second-order central differencing the equation at
-/// the spatial (\f$ y \f$) inter-node mid points.
+/// \f[ \frac{2}{\Delta t} M_1 \cdot {\underline g } + 2 M_0 \cdot {\underline g}_y - J \cdot {\underline g} + J_2 \cdot \frac{\underline F - \underline O}{\Delta t} \cdot {\underline g} + J_1 \cdot \frac{\underline F_y + \underline O_y}{2} \cdot {\underline g} = 2 {\underline R} - \frac{2}{\Delta t} M_2 \cdot ( {\underline F} - {\underline O} ) -  M_1 \cdot ( {\underline F}_y + {\underline O}_y )\f]
+/// Where \f$ M_{0,1}, J, J_{1,2}, R \f$ are evaluated at the mid-time step with arguments \f$ \left ( \frac{\underline F + \underline O}{2}, y, t + \frac{\Delta t}{2} \right ) \f$,
+/// with \f$ J_{1,2} \f$ denoting the Jacobian of the matrices \f$ \partial {(M_{0,1})}_{ij} / \partial f_k \f$.
+/// This problem is solved by second-order central differencing at the spatial (\f$ y \f$) inter-node mid points.
 
 #ifndef PDE_IBVP_H
 #define PDE_IBVP_H
 
 #include <DenseVector.h>
 #include <DenseMatrix.h>
-#include <Equation_with_mass.h>
+#include <Equation_2matrix.h>
 #include <Residual_with_coords.h>
 #include <OneD_Node_Mesh.h>
 #include <Uncopyable.h>
@@ -45,7 +44,7 @@ namespace CppNoddy
     /// \param nodes A vector that defines the nodal positions.
     /// \param ptr_to_left_residual A pointer to a residual object that defines the LHS boundary conditions.
     /// \param ptr_to_right_residual A pointer to a residual object that defines the RHS boundary conditions.
-    PDE_IBVP( Equation_with_mass<_Type > *equation_ptr,
+    PDE_IBVP( Equation_2matrix<_Type > *equation_ptr,
               const DenseVector<double>& nodes,
               Residual_with_coords<_Type>* ptr_to_left_residual,
               Residual_with_coords<_Type>* ptr_to_right_residual );
@@ -63,15 +62,18 @@ namespace CppNoddy
     /// \param dt The 'time step' to be taken.
     void assemble_matrix_problem( BandedMatrix<_Type>& a, DenseVector<_Type>& b, const double& dt );
 
-    /// Return a reference to the current value of the 'timelike' variable
+    /// Return a reference to the current value of the 'timelike/parabolic' coordinate
     /// \return A handle to the current time stored in the object
-    double& t();
+    double& coord()
+    {
+      return T;
+    }
 
     /// \return A handle to the solution mesh
     OneD_Node_Mesh<_Type>& solution();
 
     /// Access method to the tolerance
-    /// \return A handle to the private member data TOLERANCE
+    /// \return A handle to the private member data TOL
     double& tolerance()
     {
       return TOL;
@@ -96,7 +98,7 @@ namespace CppNoddy
     /// maximum number of iterations
     int MAX_ITERATIONS;
     /// The function associated with this instance.
-    Equation_with_mass<_Type > *p_EQUATION;
+    Equation_2matrix<_Type > *p_EQUATION;
     /// Pointer to the residual defining the LHS BC
     Residual_with_coords<_Type > *p_LEFT_RESIDUAL;
     /// Pointer to the residual defining the RHS BC
@@ -117,11 +119,6 @@ namespace CppNoddy
     return SOLN;
   }
 
-  template <typename _Type>
-  inline double& PDE_IBVP<_Type>::t()
-  {
-    return T;
-  }
 
 } // end namespace
 

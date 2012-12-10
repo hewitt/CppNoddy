@@ -151,7 +151,7 @@ namespace CppNoddy
       std::cout << problem << "\n";
       std::cout << " Range error for two-dimensional container.\n";
       std::cout << " Size 1 of container = " << size1 << "\n";
-      std::cout << " Size 2 of container = " << size1 << "\n";
+      std::cout << " Size 2 of container = " << size2 << "\n";
       std::cout << " Index 1 being accessed = " << index1 << "\n";
       std::cout << " Index 2 being accessed = " << index2 << "\n\n";
 #endif

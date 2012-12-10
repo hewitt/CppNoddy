@@ -27,32 +27,38 @@ namespace CppNoddy
       return -y * std::exp( -x ) + std::pow( y * t * std::exp( -x ), 2 );
     }
 
-    class nonlinear : public Equation_with_double_mass<double>
+    class nonlinear : public Equation_3matrix<double>
     {
     public:
       /// The problem is 2nd order and real
-      nonlinear() : Equation_with_double_mass<double> ( 2 ) {}
+      nonlinear() : Equation_3matrix<double> ( 2 ) {}
 
       /// Define a nonlinear advection diffusion problem
       void residual_fn( const DenseVector<double>& z, DenseVector<double>& f ) const
       {
         // The system
         f[ U ] = z[ Ud ];
-        f[ Ud ] = source( x(), y(), t() );
-      }
-
-      /// Define the unsteady terms by providing the mass matrix for x evolution
-      void mass1( const DenseVector<double>& z, DenseMatrix<double>& m ) const
-      {
-        // eqn 1 variable 0
-        m( 1, 0 ) = -z[ U ];
+        f[ Ud ] = source( coord(2), coord(0), coord(1) );
       }
 
       /// Define the unsteady terms by providing the mass matrix for t evolution
-      void mass2( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      void matrix0( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      {
+        Utility::fill_identity(m);
+      }
+
+      /// Providing the matrix for t evolution
+      void matrix1( const DenseVector<double>& z, DenseMatrix<double>& m ) const
       {
         // eqn 1 variable 0
         m( 1, 0 ) = -1.0;
+      }
+
+      /// Providing the matrix for x evolution
+      void matrix2( const DenseVector<double>& z, DenseMatrix<double>& m ) const
+      {
+        // eqn 1 variable 0
+        m( 1, 0 ) = -z[ U ];
       }
 
     };
@@ -160,7 +166,7 @@ int main()
   while ( nlin.t() < t_end );
 
   const double tol( 1.e-4 );
-  // check the BL transpiration vs the known solution
+  // check the error from the exact solution
   if ( max_error > tol )
   {
     cout << "\033[1;31;48m  * FAILED \033[0m\n";

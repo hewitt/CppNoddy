@@ -224,7 +224,7 @@ if int(arpack):
         message( red, "No libarpack!")
         arpack = 0
     if ( arpack * fortran == 0 ):
-        messgae( red, "ARPACK support has failed.")
+        message( red, "ARPACK support has failed.")
         Exit(1)
     else:
         message( green, "Found ARPACK and including support for some routines.")
@@ -232,17 +232,17 @@ if int(arpack):
 if int(superlu):
     # superlu => blas
     superlu = blas = 1
-    if not conf.CheckLib('superlu'):
+    if not conf.CheckLib( superlu_lib ):
         message( red, "No libsuperlu!")
         superlu = 0
     if not conf.CheckLib('blas'):
-        message( red, "No libsblas!")
+        message( red, "No libblas!")
         blas = 0
     if ( superlu * blas == 0 ):
-        messgae( red, "SUPERLU support has failed.")
+        message( red, "SUPERLU support has failed.")
         Exit(1)
     else:
-        message( green, "Found SUPERLU and including support for real sparse matrix solvers.")
+        message( green, "Found SUPERLU and including support for sparse matrix solvers.")
 
 env = conf.Finish()
 

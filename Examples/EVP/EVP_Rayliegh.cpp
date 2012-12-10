@@ -1,4 +1,4 @@
-/// \file EVP_rayleigh.cpp
+/// \file EVP_Rayleigh.cpp
 /// \ingroup Examples
 /// \ingroup EVP
 /// Solves the Rayleigh problem for values \f$ c \f$

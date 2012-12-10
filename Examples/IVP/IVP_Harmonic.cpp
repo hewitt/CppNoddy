@@ -66,7 +66,7 @@ int main()
   u_init[ 0 ] = 1.0;
   u_init[ 1 ] = 0.0;
 
-  problem.y() = 0.0;
+  problem.coord(0) = 0.0;
   ode.shoot45( u_init, tol, 0.01 );
 
 #ifdef TIME
@@ -104,7 +104,6 @@ int main()
     cout << "    Error relative tol : " << tol << "\n";
     cout << "    Error |num - exact|: "
          << abs( u_final[ 0 ] - cos( sqrt( problem.lambda ) * 10. ) ) << "\n";
-    cout << "    Total ODE steps    : " << ode.get_count() << "\n";
 
     if ( abs( u_final[ 0 ] - cos( sqrt( problem.lambda ) * 10. ) ) > 10. * tol )
     {

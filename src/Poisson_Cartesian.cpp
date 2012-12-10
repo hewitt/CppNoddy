@@ -8,6 +8,7 @@
 #include <Poisson_base.h>
 #include <Exceptions.h>
 #include <BandedLinearSystem.h>
+#include <SparseLinearSystem.h>
 #include <Utility.h>
 
 namespace CppNoddy
@@ -26,6 +27,7 @@ namespace CppNoddy
 #ifdef LAPACK
     assemble_LHS();
     p_SYSTEM = new BandedLinearSystem<double>( &A, &B, "lapack" );
+
     // since the LHS of the problem is fixed, we can LU decompose
     // here in the constructor for a zero RHS, then any actual solve is
     // done just done as a re_solve using the decomposition

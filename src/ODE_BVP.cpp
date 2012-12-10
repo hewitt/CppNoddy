@@ -11,10 +11,7 @@
 /// positions based on residual evaluations (including both refinement and unrefinement).
 
 #include <string>
-#include <cassert>
 #include <utility>
-#include <iostream>
-#include <typeinfo>
 
 #include <ODE_BVP.h>
 #include <Residual_with_coords.h>
@@ -25,13 +22,14 @@
 #include <Exceptions.h>
 #include <Timer.h>
 #include <OneD_Node_Mesh.h>
-#include <Equation_with_mass.h>
+#include <Equation_1matrix.h>
+#include <Equation_2matrix.h>
 
 namespace CppNoddy
 {
 
   template <typename _Type, typename _Xtype>
-  ODE_BVP<_Type, _Xtype>::ODE_BVP( Residual_with_coords<_Type, _Xtype>* ptr_to_equation,
+  ODE_BVP<_Type, _Xtype>::ODE_BVP( Equation_1matrix<_Type, _Xtype>* ptr_to_equation,
                                    const DenseVector<_Xtype> &nodes,
                                    Residual<_Type>* ptr_to_left_residual,
                                    Residual<_Type>* ptr_to_right_residual ) :
@@ -50,14 +48,18 @@ namespace CppNoddy
          ( p_RIGHT_RESIDUAL -> get_number_of_vars() != p_EQUATION -> get_order() ) ||
          ( p_LEFT_RESIDUAL -> get_order() + p_RIGHT_RESIDUAL -> get_order() != p_EQUATION -> get_order() ) )
     {
+      std::cout << "order " << p_EQUATION -> get_order() << "\n";
+      std::cout << "left nvars " << p_LEFT_RESIDUAL -> get_number_of_vars() << "\n";
+      std::cout << "right nvars " << p_RIGHT_RESIDUAL -> get_number_of_vars() << "\n";
+      std::cout << "left order " << p_LEFT_RESIDUAL -> get_order() << "\n";
+      std::cout << "right order " << p_RIGHT_RESIDUAL -> get_order() << "\n";
       std::string problem;
       problem = "It looks like the ODE_BVP equation and boundary conditions are\n";
       problem += "not well posed. The number of variables for each boundary condition\n";
       problem += "has to be the same as the order of the equation. Also the order of\n";
       problem += "both boundary conditions has to sum to the order of the equation.\n";
-      throw ExceptionBifurcation( problem );
+      throw ExceptionRuntime( problem );
     }
-
 #ifdef TIME
     // timers
     T_ASSEMBLE = Timer( "ODE_BVP: Assembling of the matrix (incl. equation updates):" );
@@ -221,7 +223,7 @@ namespace CppNoddy
       // construct the Jacobian/residual matrix problem
       assemble_matrix_problem( Jac, Res1 );
       actions_before_linear_solve( Jac, Res1 );
-      BandedMatrix<_Type> Jac_copy( Jac );
+      //BandedMatrix<_Type> Jac_copy( Jac );
       y = Res1;
 #ifdef DEBUG
       //std::cout << " [ DEBUG ] : max_residual = " << Res1.inf_norm() << "\n";
@@ -312,7 +314,7 @@ namespace CppNoddy
     else
     {
       // update the variables needed for arc-length continuation
-      update( SOLUTION.vars_as_vector() );
+      this -> update( SOLUTION.vars_as_vector() );
       if ( LAST_DET_SIGN * det_sign < 0 )
       {
         // a change in the sign of the determinant of the Jacobian
@@ -387,6 +389,9 @@ namespace CppNoddy
     // local state variable and functions
     DenseVector<_Type> F_midpt( order, 0.0 );
     DenseVector<_Type> R_midpt( order, 0.0 );
+    DenseVector<_Type> state_dy( order, 0.0 );
+    // a matrix that is used in the Jacobian of the mass matrix terms
+    DenseMatrix<_Type> h1( order, order, 0.0 );
     // update the BC residuals for the current iteration
     p_LEFT_RESIDUAL -> update( SOLUTION.get_nodes_vars( 0 ) );
     // add the (linearised) LHS BCs to the matrix problem
@@ -410,29 +415,39 @@ namespace CppNoddy
       // set the current solution at this node by 2nd order evaluation at mid point
       for ( unsigned var = 0; var < order; ++var )
       {
-        //F_midpt[ var ] = ( SOLUTION[ var ][ lnode ] + SOLUTION[ var ][ rnode ] ) / 2.;
         F_midpt[ var ] = ( SOLUTION( lnode, var ) + SOLUTION( rnode, var ) ) / 2.;
+        state_dy[ var ] = ( SOLUTION( rnode, var ) - SOLUTION( lnode, var ) ) * invh;
       }
       // mid point of the independent variable
       _Xtype y_midpt = ( SOLUTION.coord( lnode ) + SOLUTION.coord( rnode ) ) / 2.;
       // set the equation coord
-      p_EQUATION -> y() = y_midpt;
+      p_EQUATION -> coord(0) = y_midpt;
       // Update the equation to the mid point position
       p_EQUATION -> update( F_midpt );
+
+
+      // evaluate the Jacobian of mass contribution multiplied by state_dy
+      p_EQUATION -> get_jacobian_of_matrix0_mult_vector( F_midpt, state_dy, h1 );
+      //h1.dump();
+      
       // loop over all the variables
       for ( unsigned var = 0; var < order; ++var )
       {
-        // deriv at the MID POINT between nodes
-        a( row, order * rnode + var ) = invh;
-        a( row, order * lnode + var ) = -invh;
-        // add the Jacobian terms to the linearised problem
-        for ( unsigned i = 0; i < order; ++i )
+        // add the matrix mult terms to the linearised problem
+        for ( unsigned i = 0; i < order; ++i )  // dummy index
         {
-          a( row, order * lnode + i ) -= p_EQUATION -> jacobian()( var, i ) / 2.;
-          a( row, order * rnode + i ) -= p_EQUATION -> jacobian()( var, i ) / 2.;
+          // Jac of matrix * F_y * g terms
+          a( row, order * lnode + i ) += h1( var, i )/2.;
+          a( row, order * rnode + i ) += h1( var, i )/2.;
+          // Matrix * g_y terms
+          a( row, order * lnode + i ) -= p_EQUATION -> matrix0()( var, i ) * invh;
+          a( row, order * rnode + i ) += p_EQUATION -> matrix0()( var, i ) * invh;
+          // Jacobian of RHS terms
+          a( row, order * lnode + i ) -= p_EQUATION -> jacobian()( var, i )/2.; 
+          a( row, order * rnode + i ) -= p_EQUATION -> jacobian()( var, i )/2.; 
         }
         // RHS
-        b[ row ] = p_EQUATION -> residual()[ var ] - ( SOLUTION( rnode, var ) - SOLUTION( lnode, var ) ) * invh;
+        b[ row ] = p_EQUATION -> residual()[ var ] - Utility::dot( p_EQUATION -> matrix0()[ var ], state_dy);
         // increment the row
         row += 1;
       }
@@ -458,7 +473,6 @@ namespace CppNoddy
     }
 #endif
   }
-
 
   // specialise to remove adaptivity from problems in the complex plane
   template<>
@@ -530,7 +544,7 @@ namespace CppNoddy
     // last call.
     unsigned N( SOLUTION.get_nnodes() );
     // row counter
-    std::size_t row( 0 );
+    //std::size_t row( 0 );
     // local state variable and functions
     DenseVector<_Type> F_node( order, 0.0 );
     DenseVector<_Type> R_node( order, 0.0 );
@@ -540,7 +554,7 @@ namespace CppNoddy
     // Residual vector at interior nodes
     DenseVector<double> Res2( N, 0.0 );
     // reset row counter
-    row = 0;
+    //row = 0;
     // inner nodes of the mesh, node = 1,2,...,N-2
     for ( std::size_t node = 1; node <= N - 2; node += 2 )
     {
@@ -551,7 +565,7 @@ namespace CppNoddy
         F_node[ var ] = SOLUTION( node, var );
       }
       // set the y-pos in the eqn
-      p_EQUATION -> y() = SOLUTION.coord( node );
+      p_EQUATION -> coord(0) = SOLUTION.coord( node );
       // Update the equation to the nodal position
       p_EQUATION -> update( F_node );
       //// evaluate the RHS at the node
@@ -646,67 +660,10 @@ namespace CppNoddy
     return feedback;
   }
 
-
-  template <typename _Type, typename _Xtype>
-  void ODE_BVP<_Type, _Xtype>::assemble_linear_evp( DenseMatrix<_Type>& dense_a, DenseMatrix<_Type>& dense_b )
-  {
-    // cast the equation to an equation with mass
-    Equation_with_mass<_Type, _Xtype>* p_masseqn = dynamic_cast< Equation_with_mass<_Type, _Xtype>* >( p_EQUATION );
-    // the order of the problem
-    unsigned order( p_masseqn -> get_order() );
-    // get the number of nodes in the mesh
-    unsigned n( SOLUTION.get_nnodes() );
-    // assemble the banded/vector system for the BVP
-    BandedMatrix<_Type> a( n * order, 2 * order - 1, 0.0 );
-    DenseVector<_Type> b( n * order, 0.0 );
-    assemble_matrix_problem( a, b );
-    // move the banded matrix to a dense one
-    dense_a = a;
-    // make a new dense RHS - which will just be contributed to
-    // by the mass matrix of the equation.
-    dense_b = DenseMatrix<_Type>( n * order, n * order, 0.0 );
-    // local state variable and functions
-    DenseVector<_Type> F_midpt( order, 0.0 );
-    // skip the boundary condition rows at the left of the domain
-    std::size_t row( p_LEFT_RESIDUAL -> get_order() );
-    // inner nodes of the mesh, node = 0,1,2,...,N-2
-    for ( std::size_t node = 0; node <= n - 2; ++node )
-    {
-      const std::size_t lnode = node;
-      const std::size_t rnode = node + 1;
-      // set the current solution at this node by 2nd order evaluation at mid point
-      for ( unsigned var = 0; var < order; ++var )
-      {
-        F_midpt[ var ] = ( SOLUTION( lnode, var ) + SOLUTION( rnode, var ) ) / 2.;
-      }
-      // mid point of the independent variable
-      _Xtype y_midpt = 0.5 * ( SOLUTION.coord( lnode ) + SOLUTION.coord( rnode ) );
-      // set the equation coord
-      p_masseqn -> y() = y_midpt;
-      // Update the equation to the mid point position
-      p_masseqn -> update( F_midpt );
-      // loop over all the variables
-      for ( unsigned var = 0; var < order; ++var )
-      {
-        // add the Jacobian terms to the linearised problem
-        for ( unsigned i = 0; i < order; ++i )
-        {
-          dense_b( row, order * lnode + i ) -= p_masseqn -> mass()( var, i ) / 2.;
-          dense_b( row, order * rnode + i ) -= p_masseqn -> mass()( var, i ) / 2.;
-        }
-        // increment the row
-        row += 1;
-      }
-    }
-  }
-
   // the templated versions that we require are:
-  template class ODE_BVP<double>
-  ;
-  template class ODE_BVP<std::complex<double> >
-  ;
-  template class ODE_BVP<std::complex<double>, std::complex<double> >
-  ;
+  template class ODE_BVP<double>;
+  template class ODE_BVP<std::complex<double> >;
+  template class ODE_BVP<std::complex<double>, std::complex<double> >;
 
 
 } // end namespace
