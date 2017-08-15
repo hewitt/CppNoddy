@@ -8,9 +8,7 @@
 
 #include <Equation_2matrix.h>
 #include <ODE_EVP.h>
-#include <ODE_BVP.h>
 #include <DenseLinearEigenSystem.h>
-#include <BandedLinearEigenSystem.h>
 #include <OneD_Node_Mesh.h>
 
 #endif

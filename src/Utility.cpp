@@ -95,6 +95,14 @@ namespace CppNoddy
       }
     }
 
+    void fill_with_index( std::vector<std::size_t>& vec )
+    {
+      for ( std::size_t i = 0; i < vec.size(); ++i )
+      {
+        vec[i]=i;
+      }
+    }
+
     DenseVector<double> uniform_node_vector( const double& lower, const double& upper, const std::size_t& N )
     {
       DenseVector<double> V;
@@ -120,11 +128,28 @@ namespace CppNoddy
     DenseVector<double> two_uniform_node_vector( const double& lower, const double& mid, const double& upper, const std::size_t& N1, const std::size_t& N2 )
     {
       DenseVector<double> first = uniform_node_vector( lower, mid, N1 );
-      DenseVector<double> second = uniform_node_vector( mid, upper, N2 );
+      DenseVector<double> second = uniform_node_vector( mid, upper, N2 + 1 );
       // skip the common elt by starting at 1 not 0
-      for ( std::size_t i = 1; i < N2; ++i )
+      for ( std::size_t i = 1; i < N2+1; ++i )
       {
         first.push_back( second[ i ] );
+      }
+      return first;
+    }
+    
+    DenseVector<double> three_uniform_node_vector( const double& lower, const double& mid1, const double& mid2, const double& upper, const std::size_t& N1, const std::size_t& N2, const std::size_t& N3 )
+    {
+      DenseVector<double> first = uniform_node_vector( lower, mid1, N1 );
+      DenseVector<double> second = uniform_node_vector( mid1, mid2, N2+1 );
+      DenseVector<double> third = uniform_node_vector( mid2, upper, N3+1 );
+      // skip the common elt by starting at 1 not 0
+      for ( std::size_t i = 1; i < N2+1; ++i )
+      {
+        first.push_back( second[ i ] );
+      }
+      for ( std::size_t i = 1; i < N3+1; ++i )
+      {
+        first.push_back( third[ i ] );
       }
       return first;
     }

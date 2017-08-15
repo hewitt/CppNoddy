@@ -72,6 +72,9 @@ namespace CppNoddy
     /// \return A handle to the solution mesh
     OneD_Node_Mesh<_Type>& solution();
 
+    /// \return A handle to the previous step's solution mesh
+    OneD_Node_Mesh<_Type>& previous_solution();
+
     /// Access method to the tolerance
     /// \return A handle to the private member data TOL
     double& tolerance()
@@ -119,7 +122,12 @@ namespace CppNoddy
     return SOLN;
   }
 
-
+  template <typename _Type>
+  inline OneD_Node_Mesh<_Type>& PDE_IBVP<_Type>::previous_solution()
+  {
+    return PREV_SOLN;
+  }
+  
 } // end namespace
 
 #endif

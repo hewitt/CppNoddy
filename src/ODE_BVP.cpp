@@ -73,11 +73,11 @@ namespace CppNoddy
   {
 #ifdef TIME
     std::cout << "\n";
-    T_ASSEMBLE.stop();
+    //T_ASSEMBLE.stop();
     T_ASSEMBLE.print();
-    T_SOLVE.stop();
+    //T_SOLVE.stop();
     T_SOLVE.print();
-    T_REFINE.stop();
+    //T_REFINE.stop();
     T_REFINE.print();
 #endif
   }
@@ -123,7 +123,7 @@ namespace CppNoddy
       // iteration counter
       ++counter;
 #ifdef TIME
-      T_ASSEMBLE.stop();
+      T_ASSEMBLE.start();
 #endif
       assemble_matrix_problem( a, b );
       actions_before_linear_solve( a, b );
@@ -132,7 +132,7 @@ namespace CppNoddy
       std::cout << " ODE_BVP.solve : Residual_max = " << max_residual << " tol = " << TOL << "\n";
 #endif
 #ifdef TIME
-      T_ASSEMBLE.start();
+      T_ASSEMBLE.stop();
       T_SOLVE.start();
 #endif
       // linear solver
@@ -391,7 +391,7 @@ namespace CppNoddy
     DenseVector<_Type> R_midpt( order, 0.0 );
     DenseVector<_Type> state_dy( order, 0.0 );
     // a matrix that is used in the Jacobian of the mass matrix terms
-    DenseMatrix<_Type> h1( order, order, 0.0 );
+    DenseMatrix<_Type> h0( order, order, 0.0 );
     // update the BC residuals for the current iteration
     p_LEFT_RESIDUAL -> update( SOLUTION.get_nodes_vars( 0 ) );
     // add the (linearised) LHS BCs to the matrix problem
@@ -425,10 +425,8 @@ namespace CppNoddy
       // Update the equation to the mid point position
       p_EQUATION -> update( F_midpt );
 
-
       // evaluate the Jacobian of mass contribution multiplied by state_dy
-      p_EQUATION -> get_jacobian_of_matrix0_mult_vector( F_midpt, state_dy, h1 );
-      //h1.dump();
+      p_EQUATION -> get_jacobian_of_matrix0_mult_vector( F_midpt, state_dy, h0 );
       
       // loop over all the variables
       for ( unsigned var = 0; var < order; ++var )
@@ -437,8 +435,8 @@ namespace CppNoddy
         for ( unsigned i = 0; i < order; ++i )  // dummy index
         {
           // Jac of matrix * F_y * g terms
-          a( row, order * lnode + i ) += h1( var, i )/2.;
-          a( row, order * rnode + i ) += h1( var, i )/2.;
+          a( row, order * lnode + i ) += h0( var, i )/2.;
+          a( row, order * rnode + i ) += h0( var, i )/2.;
           // Matrix * g_y terms
           a( row, order * lnode + i ) -= p_EQUATION -> matrix0()( var, i ) * invh;
           a( row, order * rnode + i ) += p_EQUATION -> matrix0()( var, i ) * invh;

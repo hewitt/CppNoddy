@@ -37,7 +37,7 @@ using namespace std;
 int main()
 {
   cout << "\n";
-  cout << "=== ARC: cont of x^2 + p^2 = 1.0, y = sin(x) =========\n";
+  cout << "=== ARC: cont of x^2 + p^2 = 1.0, y = sin(x) ========\n";
   cout << "\n";
 
   // initial guess

@@ -1,11 +1,13 @@
-/// \file BVP_nonidentity.cpp
+/// \file BVP_nonIdentity.cpp
 /// \ingroup Examples
 /// \ingroup BVP
 /// Solving the equation
-/// \f[ f(y) f''(y) + f'(y)^2 = 1  \f]
+/// \f[ f(y) f''(y) + f'(y)^2 = 1+\gamma y  \f]
 /// subject to \f$ f(0) = 1 \f$ and \f$ f(1) = 2 \f$.
 /// We don't divide by the \f$ f(y) \f$ that multiplies the
 /// highest derivative, rather we define a non-identity matrix0.
+/// The solution is compared at all nodes to the exact solution
+/// \f[ f(y)=\left ( y^2 + \frac{\gamma}{3}y^3 + (2-\frac{\gamma}{3}) y + 1 \right )^{1/2}\,.\f]
 
 #include <cassert>
 
@@ -81,7 +83,7 @@ using namespace std;
 int main()
 {
   cout << "\n";
-  cout << "=== BVP: finite-difference solution, non-identity matrix0 =\n";
+  cout << "=== BVP: finite-difference, non-identity matrix0 ====\n";
   cout << "\n";
 
   Example::Nonidentity_equation<double, double> problem;

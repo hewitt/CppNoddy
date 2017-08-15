@@ -15,7 +15,7 @@ namespace CppNoddy
 {
 
   template <typename _Type>
-  DenseLinearEigenSystem<_Type>::DenseLinearEigenSystem( DenseMatrix<_Type>* Aptr, DenseMatrix<_Type>* Bptr ) :
+  DenseLinearEigenSystem<_Type>::DenseLinearEigenSystem( DenseMatrix<_Type>* Aptr, DenseMatrix<_Type>* Bptr  ) :
       LinearEigenSystem_base()
   {
     p_A = Aptr;
@@ -41,6 +41,7 @@ namespace CppNoddy
       eigensolve_lapack_without_vectors();
     }
   }
+  
 
   template <>
   void DenseLinearEigenSystem<double>::eigensolve_lapack_without_vectors()

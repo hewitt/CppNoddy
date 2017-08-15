@@ -1,3 +1,12 @@
+0.86 [SparseLinearEigenSystem, SparseLinearSystem interface to MUMPS]
+	   Added support for SLEPc(/PETSc) sparse eigenvalue solver, see the EVP examples.
+	     The default (generalised) eigensolve methods make use of SuperLU_dist and are a
+			 little hacked together at the moment. You also have to decide on double-vs-complex
+			 by compiling PETSc/SLEPc with the PETSC_ARCH environment variable set. There is
+			 now also a MUMPS interace in the SparseLinearSystem object that can by typed as
+			 double or complex. The best way to obtain MUMPS/Superlu(_dist) is to download,
+			 configure/make PETSc and SLEPc.
+
 0.85 [PDE_IBVP, ODE_BVP, PDE_double_IBVP changed to more general formats; Equation objects changed]
      I tried to clean up some things and be more consistent. Now the Equation_*_mass objects
        have been changed to Equation_{i}matrix, where i=1,2,3. Each equation therefore has i
@@ -12,7 +21,7 @@
 
 0.80 [Sparse Matrices & TwoD_Node_Mesh]
      A sparse matrix class has been added. The matrix class makes use of the
-       sparse vector class. The linear solver requires the SuperLU library. 
+       sparse vector class. The linear solver requires the SuperLU library.
        Not currently used in any of the other classes (yet). Uniform meshes
        have been removed in favour of more general non-uniform meshes. A
        two dimensonal mesh class has been added.
@@ -28,13 +37,13 @@
 0.75 [Unsteady boundary-layer solver]
      An unsteady 'boundary layer' solver is included. ie. parabolic in two
        coordinates and a boundary-value solve at each station.
-		   	
+
 0.70 [Two dimensional hyperbolic solvers]
      A 2-D analogue of the Hyperbolic solver is included using the Jiang & Tadmor
        non-oscillatory central scheme.
      The Poisson solvers have been made somewhat mores sensible, using resolves
        from the LU decomposition when linked to LAPACK.
-       
+
 0.67 [Arclength solver for ODE_BVP]
      The arc-length solver has been applied to the ODE_BVP by solving
        the augmented banded linear system with a bordering algorithm.
@@ -161,7 +170,7 @@
      Included a new sparse vector based on STL maps - just to see if it could be done.
        It can, but its not pretty.
      Added the Fortran interface to selected BLAS/LAPACK routines
-       (inc. mmult, LU decomp. and generalise eigenvalue solver).
+       (inc. mmult, LU decomp. and generalised eigenvalue solver).
      Arc-length continuation for 1D problems -- including a
        Falkner-Skan example.
 

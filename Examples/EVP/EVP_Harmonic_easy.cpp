@@ -13,6 +13,7 @@
 #include <cassert>
 
 #include <EVP_bundle.h>
+#include <Utility.h>
 #include <Timer.h>
 
 // enumerate the variables in the ODE
@@ -43,7 +44,7 @@ namespace CppNoddy
       }
 
       /// Define the eigenvalue terms by providing the mass matrix
-      /// This defines the term -lambda * z[ f ] ;
+      /// This defines the term lambda * z[ f ] ;
       void matrix1( const DenseVector<double>& z, DenseMatrix<double>& m ) const
       {
         // eigenvalue multiplies unknown 0 in equation 1

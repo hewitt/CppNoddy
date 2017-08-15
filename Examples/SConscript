@@ -1,7 +1,7 @@
 import os.path
 import glob
 
-Import( 'env opts preproc link_flags incdir libdir topdir libs private' )
+Import( 'env opts preproc link_flags rpath incdir libdir topdir libs private' )
 
 print "Building CppNoddy test codes"
 
@@ -36,10 +36,10 @@ for fqn in rec_src:
     if int(private):
       # compile everything
       # pass filenames to SCONS
-      env.Program( filename+'.out' , [filename+'.cpp'] , OPTS = opts + preproc, LIBS = libs ) #, LINKFLAGS = '-fopenmp' )
+      env.Program( filename+'.out' , [filename+'.cpp'] , OPTS = opts + preproc, LIBS = libs, RPATH = rpath ) #, LINKFLAGS = '-fopenmp' )
     elif ( filename.find("Private") < 0 ):
       # only compile the public examples 
-      env.Program( filename+'.out' , [filename+'.cpp'] , OPTS = opts + preproc, LIBS = libs ) #, LINKFLAGS = '-fopenmp' )
+      env.Program( filename+'.out' , [filename+'.cpp'] , OPTS = opts + preproc, LIBS = libs, RPATH = rpath ) #, LINKFLAGS = '-fopenmp' )
      
   # delete any previous error logs
   os.system('touch error.log')

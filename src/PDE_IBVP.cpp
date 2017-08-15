@@ -45,6 +45,7 @@ namespace CppNoddy
   {
     SOLN = OneD_Node_Mesh<_Type>( nodes, p_EQUATION -> get_order() );
     PREV_SOLN = SOLN;
+    //
     p_EQUATION -> coord( 1 ) = T;
     if ( p_EQUATION -> get_order() - p_LEFT_RESIDUAL -> get_order() - p_RIGHT_RESIDUAL -> get_order() != 0 )
     {

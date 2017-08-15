@@ -34,8 +34,8 @@ namespace CppNoddy
     void eigensolve();
 
     // BECAUSE OF THE WAY THE DENSE LAPACK QZ ROUTINE
-    // RETURNS EIGENVALUES WE WILL NOT USE THE BASE
-    // CLASS'S TAGGING METHODS.
+    // RETURNS EIGENVALUES (in alpha/beta format) WE WILL NOT USE THE BASE
+    // CLASS'S TAGGING METHODS, BUT INSTEAD DEFINE NEW VERSIONS.
 
     /// Tag those eigenvalues that are to the right of a specified
     /// point.
@@ -91,7 +91,7 @@ namespace CppNoddy
     /// pointers to the associated matrices
     DenseMatrix<_Type>* p_A;
     DenseMatrix<_Type>* p_B;
-
+    
   };
 
 } //end namepsace

@@ -41,7 +41,8 @@ namespace CppNoddy
     /// overloaded by the user instead of expecting the user to access the member data.
     /// \param vec The vector that will be multiplied by the Jacobian-of-the-matrix
     /// \param h The resulting 2D matrix
-    virtual void get_jacobian_of_matrix0_mult_vector( const DenseVector<_Type> &state, const DenseVector<_Type> &vec, DenseMatrix<_Type> &h ) const;
+    virtual void get_jacobian_of_matrix0_mult_vector( const DenseVector<_Type> &state, 
+       const DenseVector<_Type> &vec, DenseMatrix<_Type> &h ) const;
 
 
   protected:

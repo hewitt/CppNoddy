@@ -23,7 +23,7 @@ namespace CppNoddy
                          double derivative_step )
       : ArcLength_base< _Type >(),
       TOL( tolerance ),
-      MAX( max_steps ),
+      MAX_STEPS( max_steps ),
       p_RESIDUAL( ptr_to_residual_object )
   {
     p_RESIDUAL -> delta() = derivative_step;
@@ -60,7 +60,7 @@ namespace CppNoddy
       std::cout << " DEBUG: starting with |Residuals|  = " << oldFn.inf_norm() << "\n";
 #endif
 
-      if ( ( std::abs( oldFn.inf_norm() ) < TOL ) || ( itn == MAX ) )
+      if ( ( std::abs( oldFn.inf_norm() ) < TOL ) || ( itn == MAX_STEPS ) )
       {
         break;
       }
@@ -81,8 +81,8 @@ namespace CppNoddy
     }
     while ( true );
 
-    // More the 'MAX' iterations currently triggers a failure.
-    if ( itn == MAX )
+    // More the 'MAX_STEPS' iterations currently triggers a failure.
+    if ( itn == MAX_STEPS )
     {
       std::string problem;
       problem = " The Newton.iterate method took too many iterations. \n";
@@ -204,7 +204,7 @@ namespace CppNoddy
       x += delta_x;
       *( this -> p_PARAM ) += delta_p;
       ++itn;
-      if ( itn > MAX )
+      if ( itn > MAX_STEPS )
       {
         step_succeeded = false;
         break;

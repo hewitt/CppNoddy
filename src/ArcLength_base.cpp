@@ -113,4 +113,3 @@ namespace CppNoddy
   template class ArcLength_base<std::complex<double> >
   ;
 }
-

@@ -3,14 +3,14 @@
 /// \ingroup EVP
 /// Solves the Rayleigh problem for values \f$ c \f$
 /// that satisfy :
-/// \f[ (U_B(y)-c) (\phi''''(y) - \alpha^2 \phi''(y)) - U_B''(y) \psi(y) = 0\,, \f]
+/// \f[ (U_B(y)-c) (\phi''(y) - \alpha^2 \phi(y)) - U_B''(y) \phi(y) = 0\,, \f]
 /// subject to \f$ \phi( 0 ) = \phi( 2\pi ) = 0 \f$; it determines the
 /// critical wavenumber \f$\alpha \f$ such that \f$ c_i=0 \f$ for \f$ U_B(y)=\sin(y) \f$.
 /// The test compares the critical wavenumber with the predicted value of \f$ \sqrt(3)/2 \f$.
 
 #include <EVP_bundle.h>
 #include <HST.h>
-
+#include "cassert"
 namespace CppNoddy
 {
   namespace Example
@@ -37,9 +37,14 @@ using namespace std;
 
 int main()
 {
+  
   cout << "\n";
   cout << "=== EVP: Rayleigh modes, Tollmien's example =========\n";
   cout << "\n";
+#ifndef LAPACK
+  cout << " LAPACK support has not been included (need dense QZ solver)\n";
+  cout << "\033[1;33;48m  * SKIPPED \033[0m\n";
+#else
 
   Example::alpha = 0.8;    // the wavenumber
   double tol = 1.e-5;      // tolerance for the test
@@ -72,12 +77,12 @@ int main()
 
   for ( unsigned i = 0; i < my_ray.eigenvalues().size(); ++i )
   {
-    if ( my_ray.eigenvalues()[ i ].imag() > 0.05 )
+    if ( my_ray.eigenvalues()[ i ].imag() > -0.05 )
     {
       cout << i << " " << my_ray.eigenvalues()[ i ] << "\n";
     }
   }
-
+  
   unsigned i_ev = 378;
   std::cout << "locally solved\n";
   // on my machine the eigenvalue is number 197 -- i'm not sure if this
@@ -93,4 +98,5 @@ int main()
   {
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
   }
+  #endif
 }

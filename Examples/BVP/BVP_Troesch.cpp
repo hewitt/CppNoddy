@@ -1,7 +1,7 @@
 /// \file BVP_Troesch.cpp
 /// \ingroup Examples
 /// \ingroup BVP
-/// Solving the Harmonic equation
+/// Solving the Troesch equation
 /// \f[ f''(y) = c \sinh (cy)  \f]
 /// subject to \f$ f(0) = 0 \f$ and \f$ f(1) = 1 \f$.
 
@@ -75,7 +75,7 @@ using namespace std;
 int main()
 {
   cout << "\n";
-  cout << "=== BVP: finite-difference solution of Troesch eqn =\n";
+  cout << "=== BVP: finite-difference solution of Troesch eqn ==\n";
   cout << "\n";
 
   Example::Troesch_equation<double, double> problem;

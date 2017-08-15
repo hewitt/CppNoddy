@@ -1,4 +1,4 @@
-/// \file EVP_Harmonic.cpp
+/// \file EVP_Harmonic_slepc.cpp
 /// \ingroup Examples
 /// \ingroup EVP
 /// Solves the harmonic equation
@@ -11,15 +11,16 @@
 /// of nodal points in the FD representation; a 2nd order
 /// central difference representation of
 /// \f[ f''(x_i) + \lambda f(x_i) = \frac{ f_{i-1} - 2f_i + f_{i+1} }{ \Delta^2 } + \lambda f_i + O(\Delta^2) \f]
-/// is used. The matrix problem is solved for all eigenvalues within a specified distance
-/// of the origin of the comlplex plane by calling the LAPACK generalised eigenvalue routine.
+/// is used. The matrix problem is solved for a subset of eigenvalues within a specified distance
+/// of the origin of the comlplex plane by calling the SLEPc generalised eigenvalue routine.
 
 #include <cassert>
 
 #include <Timer.h>
 #include <Utility.h>
-#include <EVP_bundle.h>
-
+#ifdef SLEPC
+#include <SparseLinearEigenSystem.h>
+#endif
 
 using namespace CppNoddy;
 using namespace std;
@@ -27,13 +28,12 @@ using namespace std;
 int main()
 {
   cout << "\n";
-  cout << "=== EVP: Harmonic equation solved using LAPACK  =====\n";
+  cout << "=== EVP: Harmonic equation solved using SLEPc  ======\n";
   cout << "===  with a manually assembled matrix problem.\n";
   cout << "\n";
 
-#ifndef LAPACK
-
-  cout << " BLAS/LAPACK support has not been included\n";
+#ifndef SLEPC
+  cout << " SLEPc/PETSc support has not been included\n";
   cout << "\033[1;33;48m  * SKIPPED \033[0m\n";
 #else
 
@@ -50,10 +50,18 @@ int main()
     const double delta = 1. / ( N - 1 );
     const double delta2 = delta * delta;
     // matrix problem
-    DenseMatrix<double> a( N, N, 0.0 );
+#ifdef PETSC_D
+    typedef double PETSC_type;
+    //SparseMatrix<double> a( N, N );
+#endif
+#ifdef PETSC_Z
+    typedef D_complex PETSC_type;
+    //SparseMatrix<D_complex> a( N, N );
+#endif
+    SparseMatrix<PETSC_type> a( N, N );
     // Finite difference representation of f''(x)
     // here it's a a tri-diagonal system
-    Utility::fill_tridiag( a, 1.0 / delta2, -2.0 / delta2, 1.0 / delta2 );
+    Utility::fill_tridiag( a, (PETSC_type)(1.0 / delta2), (PETSC_type)(-2.0 / delta2), (PETSC_type)(1.0 / delta2) );
     // overwrite with boundary conditions at f(0) = f(1) = 0
     a( 0, 0 ) = 1.0;
     a( 0, 1 ) = 0.0;
@@ -61,7 +69,7 @@ int main()
     a( N - 1, N - 2 ) = 0.0;
     // not a generalised problem - but we'll apply that routine anyway
     // b is the RHS matrix, so it's -I
-    DenseMatrix<double> b( N, N, 0.0 );
+    SparseMatrix<PETSC_type> b( N, N );
     Utility::fill_identity( b );
     b.scale( -1.0 );
     b( 0, 0 ) = 0.0;
@@ -69,9 +77,11 @@ int main()
     // a vector for the eigenvectors - although we won't use them
     DenseMatrix<D_complex> eigenvectors;
 
-    DenseLinearEigenSystem<double> system( &a, &b );
+    SparseLinearEigenSystem<PETSC_type> system( &a, &b );
     system.set_calc_eigenvectors( true );
-
+    system.set_nev(4);
+    system.set_order( "EPS_SMALLEST_MAGNITUDE" );
+    
     timer.start();
     try
     {

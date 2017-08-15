@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
+#include <cassert>
 
 #include <Exceptions.h>
 #include <DenseVector.h>
@@ -75,13 +76,13 @@ namespace CppNoddy
   }
 
   template <typename _Type>
-  const DenseVector<double>& TwoD_Node_Mesh<_Type>::xnodes() const
+  DenseVector<double>& TwoD_Node_Mesh<_Type>::xnodes()
   {
     return X;
   }
 
   template <typename _Type>
-  const DenseVector<double>& TwoD_Node_Mesh<_Type>::ynodes() const
+  DenseVector<double>& TwoD_Node_Mesh<_Type>::ynodes()
   {
     return Y;
   }
@@ -390,16 +391,74 @@ namespace CppNoddy
     }
   }
 
+
+  template<>
+  void TwoD_Node_Mesh<double>::normalise( const std::size_t& var )
+  {
+    double maxval( max(var) );
+    VARS.scale( 1./maxval );
+  }
+
+  template<>
+  void TwoD_Node_Mesh<D_complex>::normalise( const std::size_t& var )
+  {
+    std::cout << "[DEBUG] asked to normalise a complex mesh\n";
+    unsigned max_nx( 0 );
+    unsigned max_ny( 0 );
+    double max( 0.0 );
+    // step through the nodes
+    for ( unsigned nodex = 0; nodex < X.size(); ++nodex )
+    {
+      for ( unsigned nodey = 0; nodey < Y.size(); ++nodey )
+      {
+        if ( std::abs( VARS[ ( nodex * NY + nodey ) * NV + var ] ) > max )
+        {
+          max = std::abs( VARS[ ( nodex * NY + nodey ) * NV + var ] );
+          max_nx = nodex;
+          max_ny = nodey;
+        }
+      }
+    }
+    D_complex factor( VARS[ ( max_nx * NY + max_ny ) * NV + var ] ); 
+    std::cout << "[DEBUG] MAX |variable| had complex value of " << factor << "\n"; 
+    VARS.scale( 1./factor );
+  }
+  
+  template<>
+  double TwoD_Node_Mesh<D_complex>::max_real_part( unsigned var )
+  {
+    double max( 0.0 );
+    // step through the nodes
+    for ( unsigned nodex = 0; nodex < X.size(); ++nodex )
+    {
+      for ( unsigned nodey = 0; nodey < Y.size(); ++nodey )
+      {
+        if ( std::abs( VARS[ ( nodex * NY + nodey ) * NV + var ].real() ) > max )
+        {
+          max = std::abs( VARS[ ( nodex * NY + nodey ) * NV + var ].real() );
+        }
+      }
+    }
+    return max;
+  }
+
+  template<>
+  double TwoD_Node_Mesh<double>::max_real_part( unsigned var )
+  {
+    assert(false);
+    return 0.0;
+  }
+
   template<>
   void TwoD_Node_Mesh<double>::dump_gnu( std::string filename ) const
   {
     std::ofstream dump;
     dump.open( filename.c_str() );
-    dump.precision( 9 );
+    dump.precision( 15 );
     dump.setf( std::ios::showpoint );
     dump.setf( std::ios::showpos );
     dump.setf( std::ios::scientific );
-
+    //
     for ( std::size_t i = 0; i < NX; ++i )
     {
       for ( std::size_t j = 0; j < NY; ++j )
@@ -421,14 +480,14 @@ namespace CppNoddy
   {
     std::ofstream dump;
     dump.open( filename.c_str() );
-    dump.precision( 9 );
+    dump.precision( 15 );
     dump.setf( std::ios::showpoint );
     dump.setf( std::ios::showpos );
     dump.setf( std::ios::scientific );
-
-    for ( std::size_t j = 0; j < NY; ++j )
+    //
+    for ( std::size_t i = 0; i < NX; ++i )
     {
-      for ( std::size_t i = 0; i < NX; ++i )
+      for ( std::size_t j = 0; j < NY; ++j )
       {
         dump << X[ i ] << " " << Y[ j ] << " ";
         for ( std::size_t var = 0; var < NV; ++var )
@@ -448,14 +507,13 @@ namespace CppNoddy
   {
     std::ofstream dump;
     dump.open( filename.c_str() );
-    dump.precision( 9 );
+    dump.precision( 15 );
     dump.setf( std::ios::showpoint );
     dump.setf( std::ios::showpos );
     dump.setf( std::ios::scientific );
-    dump.precision( 9 );
-    for ( std::size_t j = 0; j < NY; ++j )
+    for ( std::size_t i = 0; i < NX; ++i )
     {
-      for ( std::size_t i = 0; i < NX; ++i )
+      for ( std::size_t j = 0; j < NY; ++j )
       {
         dump << VARS[ ( i * NY + j ) * NV + var ] << "\n";
       }
@@ -467,15 +525,15 @@ namespace CppNoddy
   {
     std::ofstream dump;
     dump.open( filename.c_str() );
-    dump.precision( 9 );
+    dump.precision( 15 );
     dump.setf( std::ios::showpoint );
     dump.setf( std::ios::showpos );
     dump.setf( std::ios::scientific );
     //dump << NX << " " << NY << " " << NV << "\n";
     dump.precision( 9 );
-    for ( std::size_t j = 0; j < NY; ++j )
+    for ( std::size_t i = 0; i < NX; ++i )
     {
-      for ( std::size_t i = 0; i < NX; ++i )
+      for ( std::size_t j = 0; j < NY; ++j )
       {
         dump << X[ i ] << " " << Y[ j ] << " ";
         for ( std::size_t var = 0; var < NV; ++var )
@@ -487,18 +545,25 @@ namespace CppNoddy
     }
   }
 
-  template< typename _Type>
-  void TwoD_Node_Mesh<_Type>::read( std::string filename, bool reset )
+  template<>
+  void TwoD_Node_Mesh<double>::read( std::string filename, bool reset )
   {
     std::ifstream dump;
     dump.open( filename.c_str() );
-    dump.precision( 9 );
+    if ( dump.good() != true )
+    {
+      std::string problem;
+        problem = " The TwoD_Node_Mesh.read method is trying to read a \n";
+        problem += " file (" + filename + ") that doesn't exist.\n";
+      throw ExceptionRuntime( problem );
+    }
+    dump.precision( 15 );
     dump.setf( std::ios::showpoint );
     dump.setf( std::ios::showpos );
     dump.setf( std::ios::scientific );
-    for ( std::size_t j = 0; j < NY; ++j )
+    for ( std::size_t i = 0; i < NX; ++i )
     {
-      for ( std::size_t i = 0; i < NX; ++i )
+      for ( std::size_t j = 0; j < NY; ++j )
       {
         double x, y;
         dump >> x;
@@ -512,10 +577,59 @@ namespace CppNoddy
         if ( reset != true )
         {
           // if not reseting the mesh we should check the node positions
-          if ( ( std::abs( x - X[ i ] ) > 1.e-6 ) || ( std::abs( y - Y[ j ] ) > 1.e-6 ) )
+          if ( ( std::fabs( x - X[ i ] ) > 1.e-6 ) || ( std::fabs( y - Y[ j ] ) > 1.e-6 ) )
           {
             std::cout << " Read x = " << x << " Expected x = " << X[ i ] << "; Read y = " << y << " Expected y = " << Y[ j ] << " \n";
-            std::cout << " Absolute differences are " << abs( x - X[i] ) << " and " << abs( y - Y[j] ) << "\n";              
+            std::cout << " Absolute differences are " << fabs( x - X[i] ) << " and " << fabs( y - Y[j] ) << "\n";              
+            std::string problem;
+            problem = " The TwoD_Node_Mesh.read method is trying to read a \n";
+            problem += " file whose nodal points are in a different position. \n";
+            throw ExceptionRuntime( problem );
+          }
+        }
+        else
+        {
+          X[ i ] = x;
+          Y[ j ] = y;
+        }
+      }
+    }
+  }
+
+
+  template<>
+  void TwoD_Node_Mesh<D_complex>::read( std::string filename, bool reset )
+  {
+    std::ifstream dump;
+    dump.open( filename.c_str() );
+    dump.precision( 15 );
+    dump.setf( std::ios::showpoint );
+    dump.setf( std::ios::showpos );
+    dump.setf( std::ios::scientific );
+    //
+    // 18/06/2017: switched i and j below for consistency with double
+    //
+    for ( std::size_t i = 0; i < NX; ++i )
+    {
+      for ( std::size_t j = 0; j < NY; ++j )
+      {
+        double x, y;
+        dump >> x;
+        dump >> y;
+        for ( std::size_t var = 0; var < NV; ++var )
+        {
+          double value_r, value_i;
+          dump >> value_r;
+          dump >> value_i;
+          VARS[ ( i * NY + j ) * NV + var ] = D_complex( value_r, value_i );
+        }
+        if ( reset != true )
+        {
+          // if not reseting the mesh we should check the node positions
+          if ( ( std::fabs( x - X[ i ] ) > 1.e-6 ) || ( std::fabs( y - Y[ j ] ) > 1.e-6 ) )
+          {
+            std::cout << " Read x = " << x << " Expected x = " << X[ i ] << "; Read y = " << y << " Expected y = " << Y[ j ] << " \n";
+            std::cout << " Absolute differences are " << fabs( x - X[i] ) << " and " << fabs( y - Y[j] ) << "\n";              
             std::string problem;
             problem = " The TwoD_Node_Mesh.read method is trying to read a \n";
             problem += " file whose nodal points are in a different position. \n";

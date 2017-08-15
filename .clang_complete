@@ -1,0 +1,3 @@
+-Iinclude
+-I$PETSC_DIR/$PETSC_ARCH/include
+-I$SLEPC_DIR/$PETSC_ARCH/include

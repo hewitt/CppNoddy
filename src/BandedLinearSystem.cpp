@@ -6,9 +6,9 @@
 #include <cassert>
 
 #include <FortranLAPACK.h>
-#include <FortranData.h>
 #include <BandedLinearSystem.h>
 #include <Exceptions.h>
+#include <Utility.h>
 #include <Types.h>
 
 namespace CppNoddy

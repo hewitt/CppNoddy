@@ -76,7 +76,7 @@ int main()
   // set up the problem
   Example::JH_base_equation problem;
   Example::alpha = 0.1;
-  Example::Re = 40.0;
+  Example::Re = 5.0;
   // set up BCs
   Example::JH_left_BC BC_left;
   Example::JH_right_BC BC_right;
@@ -114,6 +114,6 @@ int main()
     U_centre = ode.solution().get_interpolated_vars( 0.0 )[ Gd ];
     my_file.update();
   }
-  while ( Example::Re > 40 );
+  while ( Example::Re > 5 );
 
 }

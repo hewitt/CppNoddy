@@ -105,18 +105,18 @@ namespace CppNoddy
     /// Set the initial state of the system
     void Q_init( const double &x, const double &y, DenseVector<double> &q )
     {
-      double A( 0.025 );
+      double A( 0.2 );
       if ( y < 0.0 )
       {
         q[ rho ]  = 1.0;
         q[ E ] = ( 2.5 - q[rho] * g * y ) / ( gamma - 1.0 );
-        q[ my ] = q[ rho ] * A * ( -std::cos( 16 * M_PI * x ) ) * std::exp( -100 * y * y );
+        q[ my ] = q[ rho ] * A * ( -std::cos( 4 * M_PI * x ) ) * std::exp( -100 * y * y );
       }
       else
       {
         q[ rho ] = 2.0;
         q[ E ] = ( 2.5 - q[rho] * g * y ) / ( gamma - 1.0 );
-        q[ my ] = q[ rho ] * A * ( -std::cos( 16 * M_PI * x ) ) * std::exp( -100 * y * y );
+        q[ my ] = q[ rho ] * A * ( -std::cos( 4 * M_PI * x ) ) * std::exp( -100 * y * y );
       }
     }
   } //end Example namespace
@@ -135,8 +135,8 @@ int main()
   const double east = 0.25;
   const double south = -0.75;
   const double north = 0.75;
-  const unsigned Nx = 101;
-  const unsigned Ny = 101;
+  const unsigned Nx = 601;
+  const unsigned Ny = 601;
   DenseVector<double> faces_x = Utility::power_node_vector( west, east, Nx, 1.0 );
   DenseVector<double> faces_y = Utility::power_node_vector( south, north, Ny, 1.0 );
 
@@ -151,7 +151,7 @@ int main()
   const double t_end = 5.0;
   do
   {
-    if ( loop_counter % 5 == 0 )
+    if ( loop_counter % 200 == 0 )
     {
       cout << " *** " << file_counter << " current time = " << Euler_2d_mesh.get_time() << "\n";
       Euler_2d_mesh.dump_data( filename_stub + Utility::stringify( file_counter ) + ".dat" );

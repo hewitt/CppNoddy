@@ -18,7 +18,7 @@ int main()
 {
 
   cout << "\n";
-  cout << "=== Vector: (dense) double/complex Example  ============\n";
+  cout << "=== Vector: (dense) double/complex Example  =========\n";
   cout << "\n";
 
   const unsigned N = 1000000; // size of vectors

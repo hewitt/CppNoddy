@@ -72,7 +72,7 @@ namespace CppNoddy
     /// a derivative step
     double DELTA;
     /// maximum number of iterations to be taken
-    unsigned MAX;
+    unsigned MAX_STEPS;
     /// last sign of determinant of the Jacobian
     int LAST_DET_SIGN;
     /// pointer to the residual object

@@ -41,13 +41,11 @@ namespace CppNoddy
     /// \param flag The boolean value to set.
     void set_calc_eigenvectors( bool flag );
 
-    /// Set the shift value to be used in Arnoldi computations
-    /// and when tagging eigenvalues
+    /// Set the shift value to be used in tagging
     /// \param z The shift value to be used
     void set_shift( const D_complex& z );
 
-    /// Get the shift value associated with this class
-    /// \return The shift value currently used in Arnoldi computations
+    /// Get the shift value associated with this class (used for tagging)
     /// and eigenvalue tagging
     D_complex get_shift() const;
 

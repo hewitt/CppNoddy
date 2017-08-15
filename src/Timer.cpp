@@ -71,20 +71,20 @@ namespace CppNoddy
   void Timer::print() const
   {
     std::cout.precision( 4 );
-    std::cout << HEADER << "\n";
+    std::cout << "  " << HEADER << "\n";
     const double elapsed_time_in_ms( 1.e3 * double( DELTA_T_STORE ) / CLOCKS_PER_SEC );
     if ( elapsed_time_in_ms > 1000 )
     {
-      std::cout << "  * TOTAL CPU time taken = " << elapsed_time_in_ms / 1000. << " s\n";
+      std::cout << "  TOTAL CPU time taken = " << elapsed_time_in_ms / 1000. << " s\n";
     }
     else
     {
-      std::cout << "  * TOTAL CPU time taken = " << elapsed_time_in_ms << " ms\n";
+      std::cout << "  TOTAL CPU time taken = " << elapsed_time_in_ms << " ms\n";
     }
     if ( COUNTER != 0 )
     {
-      std::cout << "  * Number of loops during this time = " << COUNTER << "\n";
-      std::cout << "  * Throughput = " << 1.e3 * COUNTER / elapsed_time_in_ms << " runs/s \n";
+      std::cout << "  Number of loops during this time = " << COUNTER << "\n";
+      std::cout << "  Throughput = " << 1.e3 * COUNTER / elapsed_time_in_ms << " runs/s \n";
     }
   }
 

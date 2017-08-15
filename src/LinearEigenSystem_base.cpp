@@ -67,6 +67,7 @@ namespace CppNoddy
     {
       // get the index of the relevant eigenvalue from the set
       std::size_t j = *p;
+      std::cout << " number " << j << " is a tagged ev.\n";
       // work out the complex eigenvalue associated with this index
       // and add it to the vector
       evals.push_back( ALL_EIGENVALUES[ j ] );
@@ -85,8 +86,8 @@ namespace CppNoddy
       problem += "no eigenvalues that have been tagged. This set is empty.\n";
       throw ExceptionRuntime( problem );
     }
-    // order of the problem
-    std::size_t N = ALL_EIGENVALUES.size();
+    // number of degrees of freedom in each eigenvector
+    std::size_t N = ALL_EIGENVECTORS[0].size();
     // eigenvector storage : size() eigenvectors each of length N
     DenseMatrix<D_complex> evecs( TAGGED_INDICES.size(), N, 0.0 );
     std::size_t row = 0;
@@ -112,6 +113,7 @@ namespace CppNoddy
     {
       TAGGED_INDICES.insert( TAGGED_INDICES.end(), i );
     }
+    std::cout << "** I have tagged " << ALL_EIGENVALUES.size() << " eigenvalues.\n";
   }
 
 

@@ -24,7 +24,7 @@ namespace CppNoddy
     Residual_with_coords<_Type>* ptr_to_top_residual ) :
       TOL( 1.e-8 ),
       T( 0.0 ),
-      MAX_ITERATIONS( 12 ),
+      MAX_ITERATIONS( 20 ),
       p_EQUATION( ptr_to_equation ),
       p_BOTTOM_RESIDUAL( ptr_to_bottom_residual ),
       p_TOP_RESIDUAL( ptr_to_top_residual ),
@@ -83,7 +83,7 @@ namespace CppNoddy
     // DEFINED HERE TO AVOID REPEATED CONSTRUCTION.
     // Note we blank the A matrix after every iteration.
     //
-    // Banded LHS matrix - max obove diagonal band width is
+    // Banded LHS matrix - max obove diagonal band wTidth is
     // from first variable at node i to last variable at node i+1
     BandedMatrix<_Type> a( ny * order, 2 * order - 1, 0.0 );
     // RHS

@@ -19,7 +19,7 @@ namespace CppNoddy
   {
   public:
 
-    TrackerFile( int prec = 4 );
+    TrackerFile( int prec = 12 );
 
     TrackerFile( std::string filename, int prec = 12 );
 

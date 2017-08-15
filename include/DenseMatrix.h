@@ -173,9 +173,8 @@ namespace CppNoddy
     // NON-INHERITED (FROM MATRIX_BASE) MEMBER FUNCTIONS
     //
     
-    /// Assign a value the matrix so that it has the same
-    /// geometry, but zero entries in all locations
-    /// including.
+    /// Assign a value to the matrix but keep the same
+    /// geometry.
     /// \param elt The value to be assigned to all entries
     void assign( _Type elt )
     {

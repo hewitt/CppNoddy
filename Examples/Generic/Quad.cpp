@@ -45,7 +45,7 @@ int main()
   cout << "=== Quadrature: integral of cos(x)exp(-x/4) =========\n";
   cout << "\n";
 
-  /// Define I as being a Quadrature object with limits 0,1
+  /// Define I as being a Quadrature object with limits 0,20
   /// and a default of 1 sub-interval.
   FnQuadrature I( Example::Qfn, 0.0, 20.0 , 1 );
 

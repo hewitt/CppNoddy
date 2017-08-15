@@ -4,21 +4,55 @@
 #
 ##########
 
+home = "/home/hewitt/CURRENT/Projects/CppNoddy"
 # Customise these for your compiler/libs/include names/locations
+#
 c_comp = 'g++'
 f_comp = 'gfortran'
+#
+#
 blas_lib = 'blas'
 lapack_lib = 'lapack'
+#
+# you may want to use MUMPS instead of SuperLU
+#
 superlu_lib = 'superlu'
 superlu_inc = '/usr/include/superlu'
+#
+#
+# FOR SLEPC/PETSC - makes sure you have the PETSC_DIR, SLEPC_DIR and PETSC_ARCH
+# environment variables set.
+#
+slepc_lib = 'slepc'
+petsc_lib = 'petsc'
+petsc_inc = '' # we'll construct this using PETSC_DIR and PETSC_ARCH
+#
+# we assume you only have the sequential version of mumps
+#
+dmumps_lib = 'dmumps'
+zmumps_lib = 'zmumps'
 
-#
-#
-########## YOU PROBABLY SHOULDN'T BE EDITING BELOW HERE
-#
-#
+mpi_lib = 'mpi'
+mpi_inc = '' # get this for free if you install PETSc with --download-mpich
+
+
+######################################################
+#                                                    #
+## YOU PROBABLY SHOULDN'T BE EDITING BELOW HERE      #
+#                                                    #
+######################################################
 
 import os.path
+import os
+
+# get the environment
+env = Environment(ENV = os.environ)
+env['ENV']['TERM'] = os.environ['TERM']
+
+# we need to set the rpath for the linker to find petsc/slepc
+# we will populate this below
+rpath = []
+
 
 ########## PREAMBLE - get CLI arguments & define colorised output
 #
@@ -27,20 +61,20 @@ import os.path
 ##########
 
 col = ARGUMENTS.get('col',1)                          # defaults to colourised output
-static = ARGUMENTS.get('static',0)                    # static library
 lapack = ARGUMENTS.get('lapack',0)                    # link to LAPACK
-arpack = ARGUMENTS.get('arpack',0)                    # link to ARPACK -- just a test case, do not use
-superlu = ARGUMENTS.get('superlu',0)                  # link to SUPERLU
+superlu = ARGUMENTS.get('superlu',0)                  # link to SUPERLU (sequential) => BLAS/LAPACK
+slepc = ARGUMENTS.get('slepc',0)	              # link to SLEPC => PETSC => BLAS/LAPACK
+petsc = ARGUMENTS.get('petsc',0)	              # link to PETSC => BLAS/LAPACK (min)
+mumps = ARGUMENTS.get('mumps',0)                      # link to MUMPS => MPI
+mpi = ARGUMENTS.get('mpi',0)                          # link to MPI
 debug = ARGUMENTS.get('debug', 0)                     # ask for debug info to be written to stdout
 debug_symbols = ARGUMENTS.get('debug_symbols', 0)     # include debug symbols (-g)
 paranoid = ARGUMENTS.get('paranoid', 0)               # paranoid bounds checking
-warn = ARGUMENTS.get('warn', 1)                       # compilation warnings on (defaults to on)
 time = ARGUMENTS.get('time', 0)                       # time some routines
 profile = ARGUMENTS.get('profile', 0)                 # turn profiling on
 private = ARGUMENTS.get('private', 0)                 # compile the private examples?
 examples = ARGUMENTS.get('examples', 1)               # compile any of the examples at all?
 doc = ARGUMENTS.get('doc', 0)                         # make the documentation
-force_g2c = ARGUMENTS.get('force_g2c', 0)             # force use of g2c instead of gfortran (legacy)
 
 # colour me silly -- unless asked not to with col=0
 # <ESC>[{attr};{fg};{bg}m
@@ -79,7 +113,7 @@ if int(doc):
 try:
     import glob
 except ImportError:
-    message( red, "No globbing module ... bursting into flames and failing")
+    message( red, "No python glob module ... bursting into flames and failing")
     Exit(1)
 #
 #
@@ -88,7 +122,6 @@ except ImportError:
 #
 
 # source is all cpp files, so let's glob them
-# some fortran will be added later for arpack wrapping-up
 src = glob.glob('src/*.cpp')
 
 # set the build dir
@@ -99,46 +132,117 @@ incdir_str = topdir + '/include '
 libdir_str = topdir + '/lib '
 libs_str   = 'CppNoddy '
 preproc = ' '
-opts = '-O3 ' 
+opts = ' -O2 '
 link_flags = ' '
 
 
+petsc_dir = os.environ.get('PETSC_DIR','default')
+petsc_arch = os.environ.get('PETSC_ARCH','default')
+slepc_dir = os.environ.get('SLEPC_DIR','default')
+
 # Set the flags based on command line options
-if int(arpack):
-    message( green, "ARPACK support is enabled. This require BLAS/LAPACK support too.")
-    message( red, "I'm assuming a GNU compiler & hard-wiring -DgFortran for")
-    message( red, "cfortran to do its magic with.")
-    # arpack support requires lapack support
+if int(slepc):
+    print( " *" )
+    message( green, "SLEPc library support is enabled. ")
+    message( blue, " This requires PETSc/BLAS/LAPACK support too.")
+    message( blue, " Make sure your LD_LIBRARY_PATH contains ")
+    message( blue, " $SLEPC_DIR/x86_64-linux-gnu-complex/lib")
+    message( blue, " and $PETSC_DIR/x86_64-linux-gnu-complex/lib.")
+    if (slepc_dir == 'default'):
+       message( red, " $SLEPC_DIR is not set!")
+       message( red, " You must have $SLEPC_DIR/$PETSC_ARCH point to you SLEPC installation." )
+       Exit(1)
+    else:
+	message( green, " $SLEPC_DIR = "+slepc_dir )
+	if ( petsc_arch == 'default' ):
+	   message( red, " $PETSC_ARCH is not set!" )
+	   message( red, " You must have $PETSC_ARCH be the name of the library build directory in $SLEPC_DIR." )
+           Exit(1)
+	else:
+	   message( green, " $PETSC_ARCH = " + petsc_arch )
+	slepc_lib_dir = slepc_dir + "/" + petsc_arch + "/lib"
+	slepc_inc = slepc_dir + "/include " + slepc_dir + "/" + petsc_arch + "/include "
+	rpath.append( slepc_lib_dir )
+    petsc_lib_dir = petsc_dir + "/" + petsc_arch + "/lib"
+    petsc_inc = petsc_dir + "/include " + petsc_dir + "/" + petsc_arch + "/include "
+    # slepc support requires blas/lapack support
     lapack = 1
-    libs_str += 'arpack gfortran '
-    preproc += ' -DARPACK'
-    # add the fortran banded arpack wrappers to the source suite
-    src +=  glob.glob('src/*.f')
+    blas = 1
+    petsc = 1
+    libs_str += slepc_lib + ' ' #+ petsc_lib + ' ' + mpi_lib + ' '
+    libdir_str += slepc_lib_dir + ' ' #+ petsc_lib_dir + ' '
+    incdir_str += ' ' + slepc_inc + ' ' #+ mpi_inc + ' ' #+ petsc_inc + ' '
+    preproc += ' -DSLEPC '
+
+if int(petsc):
+    print( " *" )
+    message( green, "PETSc library support is enabled. ")
+    message( blue, " This requires MUMPS/BLAS/LAPACK/MPI support too.")
+    if (petsc_dir == 'default'):
+       message( red, " $PETSC_DIR is not set!")
+       message( red, " You must have $PETSC_DIR/$PETSC_ARCH point to you PETSC installation." )
+       Exit(1)
+    else:
+	message( green, " $PETSC_DIR = "+petsc_dir )
+	if ( petsc_arch == 'default' ):
+	   message( red, " $PETSC_ARCH is not set!" )
+	   message( red, " You must have $PETSC_ARCH be the name of the library build directory in $SLEPC_DIR." )
+	else:
+	   message( green, " $PETSC_ARCH = " + petsc_arch )
+	petsc_lib_dir = petsc_dir + "/" + petsc_arch + "/lib"
+	petsc_inc = petsc_dir + "/include " + petsc_dir + "/" + petsc_arch + "/include "
+	rpath.append( petsc_lib_dir )
+    # quick hack to determine which PETSc build we have
+    if 'double' in petsc_arch:
+       preproc += ' -DPETSC_D '
+    if 'complex' in petsc_arch:
+       preproc += ' -DPETSC_Z '
+    # slepc support requires blas/lapack/mumps support
+    lapack = 1
+    blas = 1
+    libs_str += petsc_lib + ' '#+ ' mpi gfortran '
+    libdir_str += petsc_lib_dir + ' '
+    incdir_str += petsc_inc + ' '
+
+if int(mumps):
+    print( " *" )
+    message( green, "MUMPS (sequential) direct solver support is enabled.")
+    message( blue, " Perhaps best to do this via PETSc.")
+    message( blue, " This requires BLAS/MPI support.")
+    blas = 1
+    mpi = 1
+    libs_str += dmumps_lib + ' ' + zmumps_lib + ' ' + blas_lib + ' ' + petsc_lib + ' metis mpifort scalapack lapack mpi gfortran '
+    incdir_str += ' ' + petsc_inc + ' '
+    preproc += ' -DMUMPS_SEQ '
 
 if int(superlu):
-    message( green, "SUPERLU support is enabled. This requires BLAS support too.")
-    # arpack support requires blas support
-    lapack = 1
+    print( " *" )
+    message( green, "SUPERLU direct solver support is enabled.")
+    message( blue, " This requires BLAS support too.")
+    # superlu support requires blas support
+    blas = 1
     libs_str += superlu_lib + ' ' + blas_lib + ' '
     incdir_str += ' ' + superlu_inc + ' '
     preproc += ' -DSUPERLU '
 
 if int(lapack):
+    print( " *" )
     message( green, "LAPACK support is enabled.")
-    if ( arpack == 0):
-        #dont repeat the message if its already been given for arpack
-        message( red, "I'm assuming a GNU compiler & hard-wiring -DgFortran for")
-        message( red, "cfortran to do its magic with.")
+    message( blue, " I'm assuming a GNU compiler & hard-wiring -DgFortran for")
+    message( blue, " cfortran to do its magic with.")
     preproc += ' -DLAPACK -DgFortran'
-    libs_str += blas_lib + ' ' + lapack_lib + ' '
+    libs_str +=  lapack_lib + ' ' + blas_lib + ' '
 
-if int(static):
-    message( yellow, "Building the static library." )
-else:
-    message( yellow, "Building the shared library." )
-    message( yellow, "Its up to you to make sure the library is in the LD_LIBRARY_PATH.")
+if int(mpi):
+    print( " *" )
+    message( green, "MPI library linking is enabled.")
+    message( blue, "This is best done via PETSc, and required for MUMPS.")
+    libs_str += mpi_lib + ' '
+    incdir_str += mpi_inc + ' '
+    preproc += ' -DINC_MPI '
 
 if int(debug):
+    print( " *" )
     message( red, "DEBUG messages enabled.")
     # overwrite opts to remove any optimisation
     opts = ' '
@@ -146,32 +250,29 @@ if int(debug):
     preproc += ' -DDEBUG '
 
 if int(paranoid):
+    print( " *" )
     message( red, "PARANOID checking enabled.")
     preproc += ' -DPARANOID '
 
-if (int(warn) > 0) :
-    message( green, "WARNING level is set to 1.")
-    opts += ' -Wall '
-
-if (int(warn) >= 2) :
-    message( green, "WARNING level increased to 2.")
-    opts += ' -Winline '
-
 if int(time):
-    message( blue, "TIMING of selected example problems will be performed.")
+    print( " *" )
+    message( yellow, "TIMING of selected example problems will be performed.")
     preproc += ' -DTIME '
 
 if int(profile):
-    message( blue, "PROFILING is enabled.")
+    print( " *" )
+    message( red, "PROFILING is enabled.")
     opts += ' -pg '
     link_flags += ' -pg '
 
 if int(debug_symbols):
-    message( blue, "DEBUG symbols enabled.")
+    print( " *" )
+    message( yellow, "DEBUG symbols enabled.")
     preproc += ' -g '
-print
 
-message( blue, " -----  Checking for dependencies.")
+
+print( " *" )
+message( blue, " -----  Now checking for dependencies.")
 
 #
 #
@@ -185,6 +286,7 @@ incdir = incdir_str.split()
 libdir = libdir_str.split()
 # we won't split the libs_str just yet, because we might
 # change it after checking for libraries
+
 
 # Construct the environment
 env = Environment( FORTRAN = f_comp, CXX = c_comp, CPPPATH = incdir, CCFLAGS = opts + preproc, LINKFLAGS = link_flags, LIBPATH = libdir )
@@ -213,22 +315,6 @@ if int(lapack):
         message( green, "Found BLAS & LAPACK support.")
         message( green, "LAPACK solvers will be used in preference to the native ones.")
 
-if int(arpack):
-    arpack = fortran = 1
-    if not conf.CheckLib('gfortran'):
-        message( yellow, "CppNoddy build script assumes you have a fairly modern")
-        message( yellow, "installation, with up-to-date GCC compiler with gfortran")
-        message( red, "No libgfortran!")
-        fortran = 0
-    if not conf.CheckLib('arpack'):
-        message( red, "No libarpack!")
-        arpack = 0
-    if ( arpack * fortran == 0 ):
-        message( red, "ARPACK support has failed.")
-        Exit(1)
-    else:
-        message( green, "Found ARPACK and including support for some routines.")
-
 if int(superlu):
     # superlu => blas
     superlu = blas = 1
@@ -244,6 +330,65 @@ if int(superlu):
     else:
         message( green, "Found SUPERLU and including support for sparse matrix solvers.")
 
+if int(petsc):
+    if not conf.CheckLib( petsc_lib ):
+        message( red, "No libpetsc!")
+    else:
+	message( green, "Found PETSC.")
+
+if int(slepc):
+    if not conf.CheckLib( slepc_lib ):
+        message( red, "No libslepc!")
+    else:
+	message( green, "Found SLEPC.")
+
+
+if int(mumps):
+    # superlu => blas
+    mumps = blas = mpi = 1
+    if not conf.CheckLib( dmumps_lib ):
+        message( red, "No dmumps!")
+        mumps = 0
+    if not conf.CheckLib( zmumps_lib ):
+        message( red, "No zmumps!")
+        mumps = 0
+    if not conf.CheckLib( mpi_lib ):
+        message( red, "No mpi!")
+        mumps = 0
+    if not conf.CheckLib('blas'):
+        message( red, "No libblas!")
+        blas = 0
+    if ( mumps * blas * mpi == 0 ):
+        message( red, "MUMPS_SEQ support has failed.")
+        Exit(1)
+    else:
+        message( green, "Found MUMPS_SEQ and including support for sparse matrix solvers.")
+
+if int(slepc):
+    # slepc => petsc (and let's assume blas and lapack)
+    slepc = blas = lapack = mpi = 1
+    if not conf.CheckLib('mpi'):
+        message( red, "No libmpi!")
+        slepc = 0
+    if not conf.CheckLib('slepc'):
+        message( red, "No libslepc!")
+        slepc = 0
+    if not conf.CheckLib('petsc'):
+        message( red, "No libpetsc!")
+        petsc = 0
+    if not conf.CheckLib('lapack'):
+        message( red, "No liblapack!")
+        lapack = 0
+    if not conf.CheckLib('blas'):
+        message( red, "No libblas!")
+        blas = 0
+    if ( slepc * petsc * lapack * blas == 0 ):
+        message( red, "SLEPC support has failed.")
+        Exit(1)
+    else:
+        message( green, "Found SLEPc and PETSc, including support for sparse matrix eigensolvers.")
+
+
 env = conf.Finish()
 
 libs = libs_str.split()
@@ -251,12 +396,17 @@ libs = libs_str.split()
 message( blue, " -----  Building.")
 
 
+#rpath='/home/hewitt/CURRENT/PROGRAMMING/EXTERNAL/petsc-3.7.5/x86_64-linux-gnu-complex/lib'
+#
 # Build the library in ./lib
-if int(static):
-  env.StaticLibrary('lib/CppNoddy', src )
-else:
-  env.SharedLibrary('lib/CppNoddy', src, LINKFLAGS = link_flags )
+#if int(static):
+#  print "Static Library"
+#  env.StaticLibrary('lib/CppNoddy', src )
+#else
+
+print "Shared Library"
+env.SharedLibrary('lib/CppNoddy', src, LINKFLAGS = link_flags )
 
 # Call the Examples' SConscript if examples != 0 -- note OPTS & LFLAGS are exported to the build
 if int(examples):
-    SConscript('Examples/SConscript', exports='env opts preproc link_flags incdir libdir topdir libs private' )
+    SConscript('Examples/SConscript', exports='env opts preproc link_flags rpath incdir libdir topdir libs private' )

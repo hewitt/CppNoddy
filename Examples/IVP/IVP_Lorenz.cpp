@@ -63,6 +63,7 @@ int main()
 
   // Construct an ODE from the problem.
   ODE_IVP<double> ode( &problem, 0.0, 200.0, num_of_steps );
+  ode.store_every() = 10;
 
   const double tol = 1.e-7;
 #ifdef TIME
@@ -99,5 +100,5 @@ int main()
   {
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
   }
-
+  ode.get_mesh().dump_gnu("./DATA/test.dat");
 }

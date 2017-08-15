@@ -172,6 +172,24 @@ namespace CppNoddy
     /// the same amount.
     void normalise( const std::size_t& var )
     {
+      //double max( 0.0 );
+      //// step through the nodes
+      //for ( unsigned node = 0; node < X.size(); ++node )
+      //{
+        //if ( std::abs( VARS[ node * NV + var ] ) > max )
+        //{
+          //max = std::abs( VARS[ node * NV + var ] );
+        //}
+      //}
+      double maxval( max(var) );
+      VARS.scale( 1./maxval );
+    }
+    
+    /// Find the maximum stored absolute value in the mesh for a given variable -- no interpolation is used
+    /// \param var The variable index whose maximum is being asked for
+    /// \return The value of the maximum (abs value)
+    double max( unsigned var )
+    {
       double max( 0.0 );
       // step through the nodes
       for ( unsigned node = 0; node < X.size(); ++node )
@@ -181,7 +199,7 @@ namespace CppNoddy
           max = std::abs( VARS[ node * NV + var ] );
         }
       }
-      VARS.scale( 1./max );
+      return max;
     }
     
   protected:

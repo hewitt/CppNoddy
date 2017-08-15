@@ -30,7 +30,7 @@ namespace CppNoddy
   {
     if ( this == &source )
       return * this;
-    VEC = source.VEC;
+    MAP_VEC = source.MAP_VEC;
     ZERO = source.ZERO;
     MAX_SIZE = source.MAX_SIZE;
     return *this;
@@ -39,7 +39,7 @@ namespace CppNoddy
   template <typename _Type>
   SparseVector<_Type>& SparseVector<_Type>::operator*=( const _Type& m )
   {
-    for ( iter pos = VEC.begin(); pos != VEC.end(); ++pos )
+    for ( iter pos = MAP_VEC.begin(); pos != MAP_VEC.end(); ++pos )
     {
       pos -> second *= m;
     }
@@ -58,8 +58,8 @@ namespace CppNoddy
       throw ExceptionGeom( problem, size(), X.size() );
     }
 #endif
-    citer pos_ro = X.VEC.begin();
-    iter pos_rw = VEC.begin();
+    citer pos_ro = X.MAP_VEC.begin();
+    iter pos_rw = MAP_VEC.begin();
     do
     {
       std::size_t index_rw = pos_rw -> first;
@@ -84,8 +84,8 @@ namespace CppNoddy
         ++pos_rw;
       }
     }
-    while ( pos_ro != X.VEC.end() && pos_rw != VEC.end() );
-    if ( pos_ro != X.VEC.end() )
+    while ( pos_ro != X.MAP_VEC.end() && pos_rw != MAP_VEC.end() );
+    if ( pos_ro != X.MAP_VEC.end() )
     {
       // need to finish the X data
       do
@@ -94,7 +94,7 @@ namespace CppNoddy
         ( pos_ro -> first ) = -( pos_ro -> second );
         ++pos_ro;
       }
-      while ( pos_ro != X.VEC.end() );
+      while ( pos_ro != X.MAP_VEC.end() );
     }
     return *this;
   }
@@ -111,8 +111,8 @@ namespace CppNoddy
       throw ExceptionGeom( problem, size(), X.size() );
     }
 #endif
-    citer pos_ro = X.VEC.begin();
-    iter pos_rw = VEC.begin();
+    citer pos_ro = X.MAP_VEC.begin();
+    iter pos_rw = MAP_VEC.begin();
     do
     {
       std::size_t index_rw = pos_rw -> first;
@@ -137,8 +137,8 @@ namespace CppNoddy
         ++pos_rw;
       }
     }
-    while ( pos_ro != X.VEC.end() && pos_rw != VEC.end() );
-    if ( pos_ro != X.VEC.end() )
+    while ( pos_ro != X.MAP_VEC.end() && pos_rw != MAP_VEC.end() );
+    if ( pos_ro != X.MAP_VEC.end() )
     {
       // need to finish the X data
       do
@@ -147,7 +147,7 @@ namespace CppNoddy
         ( pos_ro -> first ) = pos_ro -> second;
         ++pos_ro;
       }
-      while ( pos_ro != X.VEC.end() );
+      while ( pos_ro != X.MAP_VEC.end() );
     }
     return *this;
   }
@@ -212,7 +212,7 @@ namespace CppNoddy
   template <typename _Type>
   void SparseVector<_Type>::clear()
   {
-    VEC.clear();
+    MAP_VEC.clear();
   }
 
   template <typename _Type>
@@ -229,7 +229,7 @@ namespace CppNoddy
 #endif
     SparseVector<_Type> temp( X );
     _Type sum( 0.0 );
-    for ( iter pos = temp.VEC.begin(); pos != temp.VEC.end(); ++pos )
+    for ( iter pos = temp.MAP_VEC.begin(); pos != temp.MAP_VEC.end(); ++pos )
     {
       std::size_t index = pos -> first;
       /// \todo Using a 'get' (aka find) here is slooow
@@ -246,7 +246,7 @@ namespace CppNoddy
     // Accumulate the ABS values of the container entries
     // using a fuction object.
     double sum( 0.0 );
-    for ( citer pos = VEC.begin(); pos != VEC.end(); ++pos )
+    for ( citer pos = MAP_VEC.begin(); pos != MAP_VEC.end(); ++pos )
     {
       sum += std::abs( pos -> second );
     }
@@ -259,7 +259,7 @@ namespace CppNoddy
     // Accumulate the ABS values of the container entries SQUARED
     // using a fuction object.
     double sum( 0.0 );
-    for ( citer pos = VEC.begin(); pos != VEC.end(); ++pos )
+    for ( citer pos = MAP_VEC.begin(); pos != MAP_VEC.end(); ++pos )
     {
       sum += std::pow( std::abs( pos -> second ), 2 );
     }
@@ -271,7 +271,7 @@ namespace CppNoddy
   {
     double max( 0.0 );
     // Return the maximum (abs) element in the vector
-    for ( citer pos = VEC.begin(); pos != VEC.end(); ++pos )
+    for ( citer pos = MAP_VEC.begin(); pos != MAP_VEC.end(); ++pos )
     {
       if ( std::abs( pos -> second ) > max )
       {
@@ -284,7 +284,7 @@ namespace CppNoddy
   template <typename _Type>
   void SparseVector<_Type>::scale( const _Type& scale )
   {
-    for ( iter pos = VEC.begin(); pos != VEC.end(); ++pos )
+    for ( iter pos = MAP_VEC.begin(); pos != MAP_VEC.end(); ++pos )
     {
       pos -> second *= scale;
     }
@@ -306,10 +306,10 @@ namespace CppNoddy
   template <typename _Type>
   std::size_t SparseVector<_Type>::nearest_index( const _Type& value ) const
   {
-    citer location( VEC.begin() );
+    citer location( MAP_VEC.begin() );
     _Type min_diff( location -> second - value );
     citer start( ++location );
-    for ( citer pos = start; pos != VEC.end(); ++pos )
+    for ( citer pos = start; pos != MAP_VEC.end(); ++pos )
     {
       _Type diff( pos -> second - value );
       if ( std::abs( diff ) < std::abs( min_diff ) )
@@ -324,10 +324,10 @@ namespace CppNoddy
   template <typename _Type>
   std::size_t SparseVector<_Type>::maxabs_index() const
   {
-    citer location( VEC.begin() );
+    citer location( MAP_VEC.begin() );
     double max( std::abs( location -> second ) );
     citer start( ++location );
-    for ( citer pos = start; pos != VEC.end(); ++pos )
+    for ( citer pos = start; pos != MAP_VEC.end(); ++pos )
     {
       if ( std::abs( pos -> second ) > max )
       {
@@ -341,10 +341,10 @@ namespace CppNoddy
   template <typename _Type>
   std::size_t SparseVector<_Type>::minabs_index() const
   {
-    citer location( VEC.begin() );
+    citer location( MAP_VEC.begin() );
     double min( std::abs( location -> second ) );
     citer start( ++location );
-    for ( citer pos = start; pos != VEC.end(); ++pos )
+    for ( citer pos = start; pos != MAP_VEC.end(); ++pos )
     {
       if ( std::abs( pos -> second ) < min )
       {
@@ -368,19 +368,19 @@ namespace CppNoddy
       throw ExceptionRange( problem, size(), std::max( i, j ) );
     }
 #endif
-    std::swap<_Type>( VEC[ i ], VEC[ j ] );
+    std::swap<_Type>( MAP_VEC[ i ], MAP_VEC[ j ] );
   }
 
   template <typename _Type>
   void SparseVector<_Type>::dump() const
   {
-    if ( VEC.begin() == VEC.end() )
+    if ( MAP_VEC.begin() == MAP_VEC.end() )
     {
       std::cout << "[ Empty vector ]\n";
     }
     else
     {
-      for ( citer pos = VEC.begin(); pos != VEC.end(); ++pos )
+      for ( citer pos = MAP_VEC.begin(); pos != MAP_VEC.end(); ++pos )
       {
         std::cout << "[ " << pos -> first << " ]" << " = " << pos -> second << " ";
       }

@@ -23,9 +23,15 @@ rm -rf ./validate.log
  cd .././BVP
 .././BVP/BVP_Karman_arc.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././BVP
+.././BVP/BVP_Troesch.out 2>> error.log | tee -a ../Validation/validate.log
+ cd .././BVP
+.././BVP/BVP_nonIdentity.out 2>> error.log | tee -a ../Validation/validate.log
+ cd .././BVP
 .././BVP/Shoot_Berman.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././BVP
 .././BVP/Shoot_Blasius.out 2>> error.log | tee -a ../Validation/validate.log
+ cd .././Containers
+.././Containers/MPI_MUMPS.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Containers
 .././Containers/MatrixMult.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Containers
@@ -43,19 +49,27 @@ rm -rf ./validate.log
  cd .././EVP
 .././EVP/EVP_Harmonic_easy.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
+.././EVP/EVP_Harmonic_sparse.out 2>> error.log | tee -a ../Validation/validate.log
+ cd .././EVP
 .././EVP/EVP_OrrSommerfeld.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
 .././EVP/EVP_OrrSommerfeld_easy.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
 .././EVP/EVP_OrrSommerfeld_neutralcurve.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
-.././EVP/EVP_Rayliegh.out 2>> error.log | tee -a ../Validation/validate.log
+.././EVP/EVP_OrrSommerfeld_sparse.out 2>> error.log | tee -a ../Validation/validate.log
+ cd .././EVP
+.././EVP/EVP_Rayleigh.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
 .././EVP/EVP_Shoot_Biharmonic.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
 .././EVP/EVP_complex.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
+.././EVP/EVP_complex_sparse.out 2>> error.log | tee -a ../Validation/validate.log
+ cd .././EVP
 .././EVP/EVP_local_Harmonic.out 2>> error.log | tee -a ../Validation/validate.log
+ cd .././EVP
+.././EVP/EVP_real_sparse.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Generic
 .././Generic/ExceptionChecks.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Generic

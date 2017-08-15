@@ -180,6 +180,8 @@ namespace CppNoddy
     /// \param A The BANDED matrix to be filled
     void fill_random( BandedMatrix<double>& A );
 
+    void fill_with_index( std::vector<std::size_t>& vec );
+
     /// Return a DENSE vector with the nodal points of a uniform
     /// mesh distributed between the upper/lower bounds as specified
     /// \param lower The lower bound of the uniform nodal distribution
@@ -196,6 +198,7 @@ namespace CppNoddy
     /// \param upper The upper bound of the uniform nodal distribution
     /// \param N The number of nodal points
     /// \param power A measure of the non-uniformity
+    /// \return A vector of nodal positions with a power law distribution
     DenseVector<double> power_node_vector( const double& lower, const double& upper, const std::size_t& N, const double& power );
 
     /// Return a dense vector with two uniform distributions in two separate
@@ -205,7 +208,20 @@ namespace CppNoddy
     /// \param upper The final node
     /// \param N1 The number of nodes in the first region
     /// \param N2 The number of nodes in the second region
+    /// \return A combined vector of nodes of length N1+N2
     DenseVector<double> two_uniform_node_vector( const double& lower, const double& mid, const double& upper, const std::size_t& N1, const std::size_t& N2 );
+
+    /// Return a dense vector with two uniform distributions in two separate
+    /// regions.
+    /// \param lower The first node
+    /// \param mid1 The node that defines the first interior boundary
+    /// \param mid2 The node that defines the second interior boundary
+    /// \param upper The final node
+    /// \param N1 The number of nodes in the first region
+    /// \param N2 The number of nodes in the second region
+    /// \param N3 The number of nodes in the third region
+    /// \return A combined vector of nodes of length N1+N2+N3
+    DenseVector<double> three_uniform_node_vector( const double& lower, const double& mid1, const double& mid2, const double& upper, const std::size_t& N1, const std::size_t& N2, const std::size_t& N3 );
 
     /// Return a dense vector of nodal positions with more nodes concentrated
     /// at the mid point of the range.

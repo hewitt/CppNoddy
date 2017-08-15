@@ -148,7 +148,7 @@ int main()
       Euler_2d_mesh.dump_data( filename_stub + Utility::stringify( file_counter ) + ".dat" );
       file_counter += 1;
     }
-    Euler_2d_mesh.update( 0.49, std::abs( Euler_2d_mesh.get_time() - t_end ) );
+    Euler_2d_mesh.update( 0.49 );//, std::abs( Euler_2d_mesh.get_time() - t_end ) );
     loop_counter += 1;
   }
   while ( Euler_2d_mesh.get_time() < t_end );

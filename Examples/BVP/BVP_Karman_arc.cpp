@@ -95,7 +95,7 @@ using namespace std;
 int main()
 {
   cout << "\n";
-  cout << "=== BVP: Arc-length continuation of the Karman eqns ==\n";
+  cout << "=== BVP: Arc-length continuation of the Karman eqns =\n";
   cout << "\n";
 
   Example::Karman_equations problem;

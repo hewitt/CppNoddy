@@ -19,7 +19,7 @@ int main()
 
 
   cout << "\n";
-  cout << "=== Matrix: compare access speeds to native array  ===\n";
+  cout << "=== Matrix: compare access speeds to native array ===\n";
   cout << "\n";
 
 
@@ -96,6 +96,8 @@ int main()
   double timeB = timer.get_time();
   timer.print();
   timer.reset();
+
+  delete[] B;  
 
   bool failed( false );
   // fail if there is more than a 5% overhead between DenseMatrix & native

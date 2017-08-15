@@ -6,11 +6,27 @@
 #define SPARSEMATRIX_H
 
 #include <vector>
+#include <iostream>
+#include <iomanip>
+#include <fstream>
 
 #include <SparseVector.h>
 #include <DenseVector.h>
 #include <Matrix_base.h>
 #include <Exceptions.h>
+
+#ifdef MUMPS_SEQ
+#include "dmumps_c.h"
+#include "zmumps_c.h"
+#endif
+
+#if defined(PETSC_D) || defined(PETSC_Z)
+#include "petscsys.h"
+#endif
+
+#ifdef SLEPC
+#include "slepceps.h"
+#endif
 
 namespace CppNoddy
 {
@@ -32,6 +48,10 @@ namespace CppNoddy
     /// \param rows The number of rows in the matrix
     /// \param cols The number of columns in the matrix
     SparseMatrix( const std::size_t& rows, const std::size_t& cols );
+    
+    /// Construct from a row permutation of another sparse matrix
+    /// \param source_rows Defines the permutation, row i of this matrix is row source_rows[i] of the source
+    SparseMatrix( const SparseMatrix<_Type>& source, const std::vector<std::size_t>& source_rows );
 
     /// Copy constructor.
     /// \param source The source object to be copied
@@ -42,7 +62,20 @@ namespace CppNoddy
     /// \return The newly assigned object
     SparseMatrix& operator=( const SparseMatrix& source );
 
+    /// Default d-tor
     ~SparseMatrix() {}
+
+    /// Blank the contents of this matrix
+    void blank()
+    {
+      MATRIX.clear();
+      MATRIX.reserve( NR );
+      SparseVector<_Type> sparse_row( NC );
+      for ( std::size_t i = 0; i < NR; ++i )
+      {
+        MATRIX.push_back( sparse_row );
+      }
+    }
 
     /// Access operator
     const _Type& operator() ( const std::size_t& row, const std::size_t& col ) const;
@@ -53,6 +86,16 @@ namespace CppNoddy
     /// Access operator
     _Type& set( const std::size_t& row, const std::size_t& col );
 
+    SparseVector<_Type> get_row( const std::size_t& row ) const
+    {
+      return MATRIX[row];
+    }
+
+    void set_row( const std::size_t& row, const SparseVector<_Type>& row_vector )
+    {
+      MATRIX[row] = row_vector;
+    }
+
     /// Get the number of rows in the matrix
     /// \return The number of rows
     std::size_t nrows() const;
@@ -61,15 +104,15 @@ namespace CppNoddy
     /// \return The number of columns
     std::size_t ncols() const;
 
-    /// Get the number of elements in the matrix
-    /// \return The number of elements
+    /// Get the number of (non-zero) elements in the matrix
+    /// \return The number of (non-zero) elements
     std::size_t nelts() const;
 
     /// Scale the matrix by a scalar
     /// \param mult The scalar multiplier
     void scale( const _Type& mult );
 
-    /// Transpose the matrix
+    /// Transpose the matrix in place
     void transpose();
 
     /// \return The maximum one_norm of all rows
@@ -86,11 +129,33 @@ namespace CppNoddy
 
     /// Right-multiply by a DENSE vector
     /// \param X The DENSE vector to be multiplied by
-    /// \return A DENSE matrix of the result of the multiplication
+    /// \return A DENSE vector of the result of the multiplication
     DenseVector<_Type> multiply( const DenseVector<_Type>& X ) const;
 
     /// Output the contents of the matrix to std::cout
     void dump() const;
+
+    /// A simple method for dumping the matrix to a file
+    /// \param filename The filename to write the data to (will overwrite)
+    /// \param precision Precision of the output strings
+    void dump( std::string filename, int precision = 10 ) const
+    {
+      std::ofstream dump;
+      dump.open( filename.c_str() );
+      dump.precision( precision );
+      dump.setf( std::ios::showpoint );
+      dump.setf( std::ios::showpos );
+      dump.setf( std::ios::scientific );
+      for ( std::size_t row = 0; row < NR; ++row )
+      {
+        for ( citer pos = MATRIX[row].begin(); pos != MATRIX[row].end(); ++pos )
+        {
+          dump << row << " " << pos -> first << " " << pos -> second << "\n";
+        }
+      }
+      dump << "\n";
+      dump.close();
+    }
 
     //
     // NON-INHERITED MEMBER FUNCTIONS
@@ -113,29 +178,76 @@ namespace CppNoddy
     /// \param cols The col indices of each entry in the storage vector
     /// \param rows The indices of the elements in the storage vector
     ///   that begin a new row    
-    void get_row_compressed( _Type* storage, int* cols, int* rows) ;
+#ifdef SUPERLU
+    void get_row_compressed_superlu( _Type* storage, int* cols, int* rows) ;
+#endif
 
-    /// Take the contents of the SparseMatrix and convert it to a
-    /// standard compressed column format that can be fed directly
-    /// into the SuperLU library to solve.
+    /// Takes the contents of the SparseMatrix and converts it to a
+    /// standard coordinate (FORTRAN) format that can be fed directly
+    /// into the MUMPS_SEQ library to solve. The output is in a 
+    /// "FORTRAN format" indicating that the i,j indices start at i=j=1 
+    /// rather than zero.
     /// \param storage A contiguous vector of the non-zero elts
     /// \param rows The row indices of each entry in the storage vector
-    /// \param cols The indices of the elements in the storage vector
-    ///   that begin a new column
-    // void get_col_compressed( _Type* storage, int* rows, int* cols );
+    /// \param cols The column indices of each entry in the storage vector
+#ifdef MUMPS_SEQ
+    void get_row_compressed_mumps_seq( double* storage, int* cols, int* rows);
+    void get_row_compressed_mumps_seq( mumps_double_complex* storage, int* cols, int* rows);
+#endif
 
-  private:
+#if defined (PETSC_D) || defined (PETSC_Z)
+    // SLEPc is compiled separately for double or complex ... but only linked against
+    // once in the build process, so it's either or. I'll assume PetscScalar is complex.
 
-    /// Find the maximum entry in a column
+
+    /// Takes the contents of the SparseMatrix and converts it to a
+    /// standard coordinate format. The elements of the sparse matrix
+    /// are put (row-wise) into a contiguous vector, the i and j
+    /// are then put into the row and column vectors. Apart from the +1
+    /// on i,j this is equivalent to get_row_compressed_mumps_seq.
+    /// \param storage A contiguous vector of the non-zero elts (has to be allocated and big enough)
+    /// \param rows The row indices of each entry in the storage vector (has to be allocated and big enough)
+    /// \param cols The column indices of each entry in the storage vector  (has to be allocated and big enough)
+    void get_row_compressed_petsc( PetscScalar* storage, PetscInt* cols, PetscInt* rows);
+
+    /// Takes the contents of the SparseMatrix and converts it to a
+    /// standard compressed format for a specified row.
+    /// \param row_number The row index to extract the data for
+    /// \param storage A contiguous vector of the non-zero elts (has to be allocated and big enough)
+    /// \param cols The column indices of each entry in the storage vector (has to be allocated and big enough)
+    void get_row_petsc( PetscInt row_number, PetscScalar* storage, PetscInt* cols );
+
+    /// Extracts the number of non-zero elements in each row and returns them as a 
+    /// PetscInt array of length NR. The array should be allocated on entry.
+    /// \param The array to fill with the number of non-zero elts in each row (has to be allocated and big enough)
+    void nelts_all_rows( PetscInt* row_nnz)
+    {
+      for ( std::size_t i = 0; i < NR; ++i )
+      {
+        row_nnz[i] = MATRIX[i].nelts();
+      }
+    }
+#endif
+
+    /// The number of non-zero elements in a specified row
+    /// \param row The row index to return the number of non-zero elts for
+    std::size_t nelts_in_row( int row )
+    {
+      return MATRIX[row].nelts();
+    }
+
+    /// Find the maximum entry in a column -- used in the native solver.
     /// \param col The column to search through
     /// \param row_min The start row for the search
     /// \param row_max The end row for the search (NOT INCLUSIVE)
     std::size_t max_in_col( const std::size_t& col, const std::size_t& row_min, const std::size_t& row_max ) const;
-
-    /// Swap two rows in the matrix
+    
+    /// Swap two rows in the matrix -- used in the native solver.
     /// \param row1 The first row to be exchanged
     /// \param row2 The second row to be exchanged
     void row_swap( const std::size_t& row1, const std::size_t& row2 );
+
+  private:
 
     /// An STL vector of SparseVectors.
     std::vector< SparseVector<_Type> > MATRIX;

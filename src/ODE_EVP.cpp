@@ -19,8 +19,6 @@
 #include <ODE_EVP.h>
 #include <Exceptions.h>
 #include <DenseLinearEigenSystem.h>
-#include <BandedLinearEigenSystem.h>
-
 #include <Equation_2matrix.h>
 
 namespace CppNoddy

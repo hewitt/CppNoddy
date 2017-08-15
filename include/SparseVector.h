@@ -90,8 +90,6 @@ namespace CppNoddy
     /// Find the number of non-zero elements in the vector.
     std::size_t nelts() const;
 
-    //
-
     /// Set an element of the vector
     /// \param i The index to be accessed
     /// \return A reference to the element
@@ -151,7 +149,7 @@ namespace CppNoddy
     citer find( std::size_t i ) const
     {
       citer pos;
-      pos = VEC.find( i );
+      pos = MAP_VEC.find( i );
       return pos;
     }
 
@@ -202,7 +200,7 @@ namespace CppNoddy
 
   private:
     // private storage of the data - encapsulated in std::vector
-    std::map< std::size_t, _Type > VEC;
+    std::map< std::size_t, _Type > MAP_VEC;
     _Type ZERO;
     std::size_t MAX_SIZE;
 
@@ -215,25 +213,25 @@ namespace CppNoddy
   template <typename _Type>
   inline typename std::map< std::size_t, _Type >::iterator SparseVector<_Type>::begin()
   {
-    return VEC.begin();
+    return MAP_VEC.begin();
   }
 
   template <typename _Type>
   inline typename std::map< std::size_t, _Type >::const_iterator SparseVector<_Type>::begin() const
   {
-    return VEC.begin();
+    return MAP_VEC.begin();
   }
 
   template <typename _Type>
   inline typename std::map< std::size_t, _Type >::iterator SparseVector<_Type>::end()
   {
-    return VEC.end();
+    return MAP_VEC.end();
   }
 
   template <typename _Type>
   inline typename std::map< std::size_t, _Type >::const_iterator SparseVector<_Type>::end() const
   {
-    return VEC.end();
+    return MAP_VEC.end();
   }
 
   template <typename _Type>
@@ -248,7 +246,7 @@ namespace CppNoddy
       throw ExceptionRange( problem, size(), i );
     }
 #endif
-    return VEC[ i ];
+    return MAP_VEC[ i ];
   }
 
   template <typename _Type>
@@ -278,7 +276,7 @@ namespace CppNoddy
       throw ExceptionRange( problem, size(), i );
     }
 #endif
-    return VEC[ i ];
+    return MAP_VEC[ i ];
   }
 
   template <typename _Type>
@@ -294,8 +292,8 @@ namespace CppNoddy
     }
 #endif
     citer pos;
-    pos = VEC.find( i );
-    if ( pos != VEC.end() )
+    pos = MAP_VEC.find( i );
+    if ( pos != MAP_VEC.end() )
     {
       return pos -> second;
     }
@@ -314,19 +312,19 @@ namespace CppNoddy
   template <typename _Type>
   inline std::size_t SparseVector<_Type>::nelts() const
   {
-    return VEC.size();
+    return MAP_VEC.size();
   }
 
   template <typename _Type>
   inline void SparseVector<_Type>::erase( const std::size_t& index )
   {
-    VEC.erase( index );
+    MAP_VEC.erase( index );
   }
 
   template <typename _Type>
   inline void SparseVector<_Type>::erase( const iter& pos )
   {
-    VEC.erase( pos );
+    MAP_VEC.erase( pos );
   }
 
   template <typename _Type>
@@ -341,7 +339,7 @@ namespace CppNoddy
       throw ExceptionGeom( problem, size(), X.size() );
     }
 #endif
-    VEC.swap( X.VEC );
+    MAP_VEC.swap( X.MAP_VEC );
   }
 
   template <typename _Type>

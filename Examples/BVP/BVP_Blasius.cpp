@@ -134,6 +134,9 @@ int main()
 
     // compare to the known stress value
     std::cout << "  " << N << " " << abs( ode.solution()( 0, fdd ) - answer ) << "\n";
+
+    ode.solution().dump_gnu("./DATA/blasius.data");
+
   }
 
   if ( failed )

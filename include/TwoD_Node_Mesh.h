@@ -10,6 +10,7 @@
 #include <DenseVector.h>
 #include <DenseMatrix.h>
 #include <OneD_Node_Mesh.h>
+#include <Types.h>
 
 namespace CppNoddy
 {
@@ -32,8 +33,15 @@ namespace CppNoddy
     }
 
     // ctor from a file
-    TwoD_Node_Mesh( std::string filename ) 
+    TwoD_Node_Mesh( std::string filename, const std::size_t nx, const std::size_t ny, const std::size_t nv )  :
+        NX( nx ), NY( ny ), NV( nv )
     {
+      // need storage for the coordinates
+      X = DenseVector<double>( nx, 0.0 );
+      Y = DenseVector<double>( ny, 0.0 );
+      // we'll store the data as ( x, y, v ) ->  x * ny * nv + y * nv + v
+      VARS = DenseVector<_Type>( nx * ny * nv, 0.0 );
+      // now read the mesh from the given filename
       read( filename, true );   
     }
 
@@ -53,14 +61,12 @@ namespace CppNoddy
     /// \param var The variable index to be accessed
     const _Type& operator()( const std::size_t nodex, const std::size_t nodey, const std::size_t var ) const;
 
-    /// Access the nodal position - to ensure the uniformity
-    /// of the mesh nodal positions, we do not allow any
-    /// non-const access to the X, Y vectors in the base class.
+    /// Access the nodal position - as a pair.
     /// \param nodex The x nodal position to return
     /// \param nodey The y nodal position to return
     /// \return The spatial position of this node as a pair
     std::pair<double, double> coord( const std::size_t nodex, const std::size_t nodey ) const;
-
+    
     /// Set the variables stored at A SPECIFIED node
     /// \param nodex The x nodal index to be set
     /// \param nodey The y nodal index to be set
@@ -83,6 +89,31 @@ namespace CppNoddy
     /// \return A 1D nodal mesh  
     OneD_Node_Mesh<_Type> get_xsection_at_ynode( const std::size_t nodey ) const; 
 
+    /// Get a cross section of the 2D mesh at a specified (constant) x node
+    /// \param nodex The x nodal index at which the cross section is to be taken
+    /// \return A 1D nodal mesh  
+    OneD_Node_Mesh<_Type> get_xsection_at_x1( const double x ) const
+    {
+      unsigned I(0);
+      OneD_Node_Mesh<_Type> xsection( Y, NV );
+      for ( unsigned i = 0; i<NX-1; ++i )
+      {
+        if (( X[i]< x ) && (X[i+1]>x) )
+        {
+          I=i;
+        } 
+      }
+      double dx_ratio( (x-X[I])/(X[I+1]-X[I]) );
+      for ( unsigned j = 0; j<NY; ++j )
+      {
+        for ( unsigned var = 0; var<NV; ++var )
+        { 
+         xsection(j,var) = this->operator()(I,j,var)+(this->operator()(I+1,j,var)-this->operator()(I,j,var))*dx_ratio;
+        }
+      }
+      return xsection;      
+    }
+
     /// Assign an element to all entries in the mesh
     /// \param elt The element to be assigned to the mesh
     void assign( const _Type elt );
@@ -98,11 +129,11 @@ namespace CppNoddy
 
     /// Access the vector of x-nodal positions
     /// \return A vector of the nodal positions for this mesh
-    const DenseVector<double>& xnodes() const;
+    DenseVector<double>& xnodes();
 
     /// Access the vector of y-nodal positions
     /// \return A vector of the nodal positions for this mesh
-    const DenseVector<double>& ynodes() const;
+    DenseVector<double>& ynodes();
 
     /// Return a matrix corresponding to each nodal point in the mesh
     /// Each matrix element will contain a specified variable number
@@ -139,6 +170,58 @@ namespace CppNoddy
     /// \param filename The filename to write the data to (will overwrite)
     void dump_gnu( std::string filename ) const;
 
+    /// Normalise all data in the mesh based on one variable.
+    /// \param var This var will have its peak (absolute) value as +/-unity following
+    /// the normalisation. All other variables will also be rescaled by
+    /// the same amount.
+    void normalise( const std::size_t& var );
+    
+    void normalise_real_part( const std::size_t& var )
+    {
+      double maxval( max_real_part(var) );
+      VARS.scale( 1./maxval );
+    }
+
+    /// Find the maximum stored absolute value in the mesh for a given variable -- no interpolation is used
+    /// \param var The variable index whose maximum is being asked for
+    /// \return The value of the maximum (abs value)
+    double max_real_part( unsigned var )
+    {
+      double max( 0.0 );
+      // step through the nodes
+      for ( unsigned nodex = 0; nodex < X.size(); ++nodex )
+      {
+        for ( unsigned nodey = 0; nodey < Y.size(); ++nodey )
+        {
+          if ( std::abs( VARS[ ( nodex * NY + nodey ) * NV + var ].real() ) > max )
+          {
+            max = std::abs( VARS[ ( nodex * NY + nodey ) * NV + var ].real() );
+          }
+        }
+      }
+      return max;
+    }
+
+    /// Find the maximum stored absolute value in the mesh for a given variable -- no interpolation is used
+    /// \param var The variable index whose maximum is being asked for
+    /// \return The value of the maximum (abs value)
+    double max( unsigned var )
+    {
+      double max( 0.0 );
+      // step through the nodes
+      for ( unsigned nodex = 0; nodex < X.size(); ++nodex )
+      {
+        for ( unsigned nodey = 0; nodey < Y.size(); ++nodey )
+        {
+          if ( std::abs( VARS[ ( nodex * NY + nodey ) * NV + var ] ) > max )
+          {
+            max = std::abs( VARS[ ( nodex * NY + nodey ) * NV + var ] );
+          }
+        }
+      }
+      return max;
+    }
+    
 
     /// Get a bilinearly interpolated value at a specified point
     /// \param x x-coordinate in the 2D mesh      
@@ -146,8 +229,9 @@ namespace CppNoddy
     /// \return A vector of bilinearly interpolated values
     DenseVector<_Type> get_interpolated_vars( const double& x, const double& y)
     {
+      const double tol( 1.e-10 );
       // check start and end
-      if ( ( x < X[0] ) || ( x>X[NX-1] ) )
+      if ( ( x < X[0] - tol ) || ( x > X[NX-1] + tol ) )
       {
         std::string problem;
         problem = " The TwoD_Node_Mesh.get_interpolated_vars method has been called with \n";
@@ -155,41 +239,44 @@ namespace CppNoddy
         throw ExceptionRuntime( problem );
       }
       // check start and end
-      if ( ( y < Y[0] ) || ( y>Y[NY-1] ) )
+      if ( ( y < Y[0] - tol ) || ( y > Y[NY-1] + tol ) )
       {
         std::string problem;
         problem = " The TwoD_Node_Mesh.get_interpolated_vars method has been called with \n";
         problem += " a y coordinate that lies outside the mesh. \n";
         throw ExceptionRuntime( problem );
       }
-      int bottom_j(-2);
+      int bottom_j(-1);
       for ( unsigned j = 0; j < NY-1; ++j )
-	{
-	  if ( ( y > Y[j] ) && ( y < Y[j+1] ) )
-	    {
-	      bottom_j = j;
-	    }
-	  if ( ( abs(y-Y[j])<1.e-10 ) || ( abs(y-Y[j+1])<1.e-10 ) )
-	    {
-	      bottom_j = j;
-	    }
-	}
+      {
+        if ( ( y >= Y[j] - tol ) && ( y <= Y[j+1] + tol ) )
+          {
+            bottom_j = j;
+          }
+        //if ( abs(y-Y[j]) < tol )
+          //{
+            //bottom_j = j;
+          //}
+        //if ( abs(y-Y[j+1]) < tol )
+          //{
+            //bottom_j = j+1;
+          //}          
+      }
+      //std::cout << y << " " << Y[bottom_j] << " " << Y[bottom_j+1] << "\n";
       if ( bottom_j == -1 )
-	{
-        std::string problem;
-        problem = " The TwoD_Node_Mesh.get_interpolated_vars method is broken.\n";
-        throw ExceptionRuntime( problem );
-	}
-
-      std::cout << y << " " << Y[bottom_j] << " " << Y[bottom_j+1] << "\n";
+      {
+            std::string problem;
+            problem = " The TwoD_Node_Mesh.get_interpolated_vars method is broken.\n";
+            throw ExceptionRuntime( problem );
+      }
       //
       OneD_Node_Mesh<_Type> bottom_row = get_xsection_at_ynode( bottom_j );
       OneD_Node_Mesh<_Type> top_row = get_xsection_at_ynode( bottom_j+1 );
       const double y1 = Y[ bottom_j ]; 
       const double y2 = Y[ bottom_j+1 ];
-      DenseVector<_Type> result = top_row.get_interpolated_vars(x)*( y2-y )/( y2-y1 )
-        + bottom_row.get_interpolated_vars(x)*( y-y1 )/( y2-y1 );
-      std::cout << "x,y,interp: " << x << " " << y << " " << result[0] << "\n"; 
+      DenseVector<_Type> result = top_row.get_interpolated_vars(x)*( y-y1 )/( y2-y1 )
+        + bottom_row.get_interpolated_vars(x)*( y2-y )/( y2-y1 );
+      //std::cout << "x,y,interp: " << x << " " << y << " " << result[0] << "\n"; 
       return result; 
     }
     
@@ -203,7 +290,6 @@ namespace CppNoddy
     // store y nodal points
     DenseVector<double> Y;
     // store the nodal values
-    ///std::vector< DenseMatrix<_Type> > VARS;
     DenseVector<_Type> VARS;
   };
 

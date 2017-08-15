@@ -51,7 +51,7 @@ int main()
 
   // Set an initial guess
   DenseVector<double> guess( 2, 0.0 );
-  guess[ 0 ] = -0.4;
+  guess[ 0 ] = -0.5;
   guess[ 1 ] = 1.5;
 
   try

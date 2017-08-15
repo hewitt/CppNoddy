@@ -4,11 +4,11 @@
 /// verbose, but perhaps also a little less obfuscated.
 
 /*! \mainpage Overview
- * \image html http://ting.ma.man.ac.uk/IMAGES/CppNoddy-logo-small.gif
+ * \image html http://hewitt.ddns.net/images/CppNoddy-logo-small.gif
  *
  * \htmlonly
 
- <a href="http://ting.ma.man.ac.uk/Dev/CppNoddy/CHANGELOG"> CHANGELOG </a>
+ <a href="http://hewitt.ddns.net/Dev/CppNoddy/CHANGELOG"> CHANGELOG </a>
 
 
  * \endhtmlonly
@@ -44,7 +44,7 @@
  * - Poisson problems in Cartesian and cylindrical geometries.
  *
  * Example output: pressure contours of a linear acoustic wave hitting a body of differing acoustic properties.
- * \image html http://ting.ma.man.ac.uk/IMAGES/inclusion.jpg
+ * \image html http://hewitt.ddns.net/images/inclusion.jpg
  *
  *
  * A breakdown of examples into groups is found under the 'Modules' link above.

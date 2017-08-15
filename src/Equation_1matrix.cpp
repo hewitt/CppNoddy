@@ -63,7 +63,7 @@ namespace CppNoddy
 #ifdef TIME
     this -> T_UPDATER.start();
 #endif
-    // now we deal with the mass matrix separately to set MASS_AT_LAST_STATE
+    // now we deal with the mass matrix separately to set MATRIX0_AT_LAST_STATE
     // and JAC_OF_MATRIX
     matrix0( state, MATRIX0_AT_LAST_STATE );
 #ifdef TIME

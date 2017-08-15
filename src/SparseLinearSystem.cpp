@@ -8,6 +8,14 @@
 #include <Exceptions.h>
 #include <Types.h>
 
+#ifdef MUMPS_SEQ
+#include <MPIinit.h>
+#endif
+
+#ifdef DEBUG
+  #include <Timer.h>
+#endif
+
 namespace CppNoddy
 {
 
@@ -18,11 +26,11 @@ namespace CppNoddy
     p_A = Aptr;
     p_B = Bptr;
     VERSION = which;
-    if ( ( VERSION != "superlu" ) && ( VERSION != "native" ) )
+    if ( ( VERSION != "superlu" ) && ( VERSION != "native" ) && ( VERSION != "mumps_seq" ) )
     {
       std::string problem;
       problem = "The SparseLinearSystem has been instantiated with an unrecognised\n";
-      problem += "request for a solver type. Options are 'native' or 'superlu'. \n";
+      problem += "request for a solver type. Options: 'native','superlu','mumps_seq'. \n";
       throw ExceptionRuntime( problem );
     }
   }
@@ -38,14 +46,29 @@ namespace CppNoddy
       problem += "implemented.\n";
       throw ExceptionRuntime( problem );
     }
+    #ifdef DEBUG
+    Timer timer( "[DEBUG] SparseLinearSystem solver." );
+    timer.start();
+    #endif
     if ( "superlu" == VERSION )
     {
       solve_superlu();
     }
     else // we catch incorrect VERSION choices in the ctor
     {
-      solve_native();
+      if ( "mumps_seq" == VERSION )
+      {
+        solve_mumps_seq();
+      }
+      else
+      {
+        solve_native();
+      }
     }
+    #ifdef DEBUG
+    timer.stop();
+    timer.print();
+    #endif
   }
 
   template <typename _Type>
@@ -153,14 +176,6 @@ namespace CppNoddy
     backsub( *p_A, *p_B );
   }
 
-  template <typename _Type>
-  bool SparseLinearSystem<_Type>::lt( _Type value ) const
-  {
-    std::string problem;
-    problem = "You've turned on monitoring of the sign of the determinant for a \n";
-    problem += "SparseLinearSystem whose elements are not of type <double>.\n";
-    throw ExceptionRuntime( problem );
-  }
 
   template <>
   void SparseLinearSystem<double>::solve_superlu()
@@ -171,9 +186,11 @@ namespace CppNoddy
     problem += "the library was built and so SuperLU support is not available.";
     throw ExceptionExternal( problem );
 #else
-using namespace SLUD;
+    using namespace SLUD;
     // standard SuperLU preamble straight from the example problems
     SuperMatrix sA, L, U, sB;
+    // All these integers are 4 bytes (32bit) -- presumably because the
+    // superlu library is compiled in this way, as is BLAS probably.
     int *perm_r; /* row permutations from partial pivoting */
     int *perm_c; /* column permutation vector */
     int info;
@@ -197,7 +214,7 @@ using namespace SLUD;
 
     // this is the only intersection with the CppNoddy container
     // this returns all the required row_compressed data
-    p_A -> get_row_compressed( storage, cols, rows );
+    p_A -> get_row_compressed_superlu( storage, cols, rows );
 
     /* Create matrix A in the format expected by SuperLU. */
     dCreate_CompCol_Matrix( &sA, m, n, nnz, storage, cols,
@@ -233,7 +250,7 @@ using namespace SLUD;
 #ifdef DEBUG
     SCformat *Lstore;
     NCformat *Ustore;
-    mem_usage_t   mem_usage;
+    SLUD::mem_usage_t   mem_usage;
     Lstore = ( SCformat * ) L.Store;
     Ustore = ( NCformat * ) U.Store;
     printf( "[DEBUG] No of nonzeros in factor L = %d\n", Lstore->nnz );
@@ -266,9 +283,11 @@ using namespace SLUD;
     problem += "the library was built and so SuperLU support is not available.";
     throw ExceptionExternal( problem );
 #else
-using namespace SLUZ;
+    using namespace SLUZ;
     // standard SuperLU preamble straight from the example problems
     SuperMatrix sA, L, U, sB;
+    // All these integers are 4 bytes (32bit) -- presumably because the
+    // superlu library is compiled in this way, as is BLAS probably.
     int *perm_r; /* row permutations from partial pivoting */
     int *perm_c; /* column permutation vector */
     int info;
@@ -295,7 +314,7 @@ using namespace SLUZ;
     std::vector<std::complex<double> > temp_storage( nnz, 0.0 );
     // this is the only intersection with the CppNoddy container
     // this returns all the required row_compressed data
-    p_A -> get_row_compressed( &(temp_storage[0]), cols, rows );
+    p_A -> get_row_compressed_superlu( &(temp_storage[0]), cols, rows );
     // SUPERLU uses a "doublecomplex" struct, so we have to convert
     // to that from the std::complex<double> class for both the 
     // matrix and the RHS
@@ -346,7 +365,7 @@ using namespace SLUZ;
 #ifdef DEBUG
     SCformat *Lstore;
     NCformat *Ustore;
-    mem_usage_t   mem_usage;
+    SLUZ::mem_usage_t   mem_usage;
     Lstore = ( SCformat * ) L.Store;
     Ustore = ( NCformat * ) U.Store;
     printf( "[DEBUG] No of nonzeros in factor L = %d\n", Lstore->nnz );
@@ -369,10 +388,206 @@ using namespace SLUZ;
 #endif
   }
 
+
   template <>
-  bool SparseLinearSystem<double>::lt( double value ) const
+  void SparseLinearSystem<double>::solve_mumps_seq()
   {
-    return ( value < 0 );
+#ifndef MUMPS_SEQ
+    std::string problem = "The SparseLinearSystem<double>::solve_mumps_seq method has been called\n";
+    problem += "but the compiler option -DMUMPS_SEQ was not provided when\n";
+    problem += "the library was built and so MUMPS_SEQ support is not available.";
+    throw ExceptionExternal( problem );
+#else
+    DMUMPS_STRUC_C id;
+
+    int ierr, myid;
+    // create a new MPI singleton instance only if none already exists
+    MPIinit* p_library = MPIinit::getInstance();
+    ierr = MPI_Comm_rank(p_library->get_Comm(), &myid);
+    //ierr = MPI_Comm_rank(MPI_COMM_WORLD, &myid);
+
+    int nr = p_A -> nrows();
+    int nnz = p_A -> nelts();
+
+    // initialisation is done with -1 as the job
+    id.job=-1;
+    // par has to be set to 1 for sequential
+    id.par=1;
+    // not symmetric
+    id.sym=0;
+    // something to handle fortran<->C as specified in MUMPS manual
+    id.comm_fortran=-987654;
+    // set things up
+    dmumps_c(&id);
+  
+    // All these integers are 4 bytes (32bit) -- presumably because the
+    // MUMPS library is compiled in this way, as is BLAS probably.
+    //
+    // we can't do "double a[nnz];" etc b/c this would allocate from the stack and fail 
+    // when nnz is not particularly large
+    //
+    // storage for the row indices
+    int* irn = new int[nnz];
+    // storage for the column indices
+    int* jcn = new int[nnz];
+    // storage for the element list
+    double* a = new double[nnz]; 
+  
+    // we don't need alternative storage for the RHS when the problem is real
+    // double rhs[nr];
+    // convert the sparse matrix into the coordinate format required by MUMPS
+    p_A -> get_row_compressed_mumps_seq( a, jcn, irn );
+    
+    if (myid == 0)  // define the problem on the host
+    {
+      // set up the details of the matrix
+      id.n = nr; id.nz =nnz; id.irn=irn; id.jcn=jcn;
+      // set the LHS
+      id.a = a;
+      // keep the RHS in its DenseVector format and just pass the base address to the stored vector 
+      id.rhs = &( ( *p_B )[0] );
+    }
+    
+    //#define ICNTL(I) icntl[(I)-1] /* macro s.t. indices match documentation */
+    ///* No outputs */
+    //id.ICNTL(1)=-1; id.ICNTL(2)=-1; id.ICNTL(3)=-1; id.ICNTL(4)=0;
+    
+    // these indices are -1 from that in the MUMPS (Fortran indexed) documentation
+    id.icntl[0] = 6; //error output stream (Fortran numbering)
+#ifdef DEBUG  
+    id.icntl[1] = 6; //diagnostic/warning/statistics collected output stream (Fortran numbering)
+#else
+    id.icntl[1] = 0; //diagnostic/warning/statistics collected output stream (Fortran numbering)
+#endif
+    id.icntl[2] = 0; //global information collected on host
+    id.icntl[3] = 1; //level of printing verbosity for above streams
+    
+    ////ordering metis (5), or pord (4), or AMD (0), AMF (2), QAMD (6)
+    //id.icntl[6] = 2; // 7 = default which indicates automatic
+
+    // 1 = analysis, 2 = factorization, 3 = solve previously factorised, 4 = same as 1+2, 5 = same as 2+3, 6 = same as 1+2+3
+    id.job = 6;
+    dmumps_c(&id);
+
+    // if we are interested in timings, we may as well throw in the memory used too
+#ifdef DEBUG
+    std::cout << "[DEBUG] Memory used by MUMPS_SEQ = " << id.info[ 15 ] << "MB.\n";
+#endif
+    // close things down
+    id.job = -2;
+    dmumps_c(&id);
+    delete[] a;
+    delete[] irn;
+    delete[] jcn;
+#ifdef DEBUG
+    if ( myid == 0 )
+    {
+      std::cout << " [DEBUG] MPI ierr in MUMPS solve phase = " << ierr << "\n";
+    }
+#endif // DEBUG
+#endif // MUMPS ndef
+  }
+
+  template <>
+  void SparseLinearSystem<D_complex>::solve_mumps_seq()
+  {
+#ifndef MUMPS_SEQ
+    std::string problem = "The SparseLinearSystem<D_complex>::solve_mumps_seq method has been called\n";
+    problem += "but the compiler option -DMUMPS_SEQ was not provided when\n";
+    problem += "the library was built and so MUMPS_SEQ support is not available.";
+    throw ExceptionExternal( problem );
+#else
+    ZMUMPS_STRUC_C id;
+    
+    // create a new MPI singleton instance only if none already exists
+    MPIinit* p_library = MPIinit::getInstance();
+    int ierr, myid;
+    ierr = MPI_Comm_rank(p_library->get_Comm(), &myid);
+
+    // All these integers are 4 bytes (32bit) -- presumably because the
+    // MUMPS library is compiled in this way, as is BLAS probably.
+    int nr = p_A -> nrows();
+    int nnz = p_A -> nelts();
+
+    // instance is initialised via job=-1
+    id.job=-1;
+    // for the sequential non-MPI version we need par=1
+    id.par=1;
+    // assumes no symmetry
+    id.sym=0;
+    // set things up
+    zmumps_c(&id);
+  
+    // storage for row indices
+    int* irn = new int[nnz];
+    // storage for the column indices
+    int* jcn = new int[nnz];
+    // storage for the element list
+    mumps_double_complex* a = new mumps_double_complex[nnz];
+    // RHS vector storage is needed because it is a complex problem
+    mumps_double_complex* rhs = new mumps_double_complex[nr];
+    
+    // convert the sparse matrix into the coordinate format required by MUMPS
+    p_A -> get_row_compressed_mumps_seq( a, jcn, irn );
+    
+    // set up the RHS vector from the CppNoddy RHS
+    for ( int k = 0; k<nr; ++k )
+    {
+      (rhs[k]).r = real( (*p_B)[k] );
+      (rhs[k]).i = imag( (*p_B)[k] );
+    }
+    
+    if (myid == 0)  // define the problem on the host
+    {
+      // set up the details of the matrix
+      id.n = nr; id.nz =nnz; id.irn=irn; id.jcn=jcn;
+      // set the LHS
+      id.a = a;
+      // define the RHS  
+      id.rhs = rhs;
+    }
+
+    // these indices are -1 from that in the MUMPS (Fortran indexed) documentation
+#ifdef DEBUG
+    id.icntl[1] = 6; //diagnostic/warning/statistics collected output stream (Fortran numbering)
+#else
+    id.icntl[1] = 0; //diagnostic/warning/statistics collected output stream (Fortran numbering)
+#endif
+    id.icntl[2] = 0; //global information collected on host
+    id.icntl[3] = 1; //level of printing verbosity for above streams
+    
+    //ordering metis (5), or pord (4), or AMD (0), AMF (2), QAMD (6)
+    id.icntl[6] = 2;
+
+    // 1 = analysis, 2 = factorization, 3 = solve previously factorised, 4 = same as 1+2, 5 = same as 2+3, 6 = same as 1+2+3
+    id.job = 6;
+    zmumps_c(&id);
+
+    // if we are interested in timings, we may as well throw in the memory used too
+#ifdef DEBUG
+    std::cout << "[DEBUG] Memory used by MUMPS_SEQ = " << id.info[ 15 ] << "MB.\n";
+    if ( myid == 0 )
+    {
+      std::cout << " [DEBUG] MPI ierr in MUMPS solve phase = " << ierr << "\n";
+    }
+#endif
+
+    const std::complex<double> eye( 0., 1. );
+    for ( int j = 0; j < nr; ++j )
+    {
+      // return via the CppNoddy DenseVector container
+      ( *p_B )[ j ] = (rhs[ j ]).r + eye * (rhs[ j ]).i;
+    }
+
+    // close down this instance
+    id.job = -2;
+    zmumps_c(&id);
+
+    delete[] a;
+    delete[] rhs;
+    delete[] irn;
+    delete[] jcn;
+#endif
   }
 
   template <typename _Type>

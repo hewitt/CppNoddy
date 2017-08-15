@@ -37,6 +37,7 @@ namespace CppNoddy
   template <typename _Type>
   DenseVector<_Type> ODE_IVP<_Type>::shoot4( DenseVector<_Type> u )
   {
+        
     double x = X_INIT;
     const double h = H_INIT;
     const double hby2 = h / 2.;
@@ -83,7 +84,7 @@ namespace CppNoddy
         coords.push_back( x );
         values.push_back( u ); 
       }
-
+      
     } //for loop stepping across domain
     
     // construct the solution mesh stored in this object
