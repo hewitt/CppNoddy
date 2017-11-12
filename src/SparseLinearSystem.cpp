@@ -57,6 +57,61 @@ namespace CppNoddy
       problem += " dumb, and will be stored in each process.\n";
       throw ExceptionRuntime( problem );
     }
+    #ifdef INC_MPI
+      if ( VERSION == "mumps_seq" )
+      {
+        int flag(0);
+        MPI_Initialized( &flag );
+        if ( flag != 1 )
+        {
+          std::string problem;
+          problem = "The SparseLinearSystem has been instantiated for a mumps solver.\n";
+          problem += "You must run MPI_Init() before calling the mumps solver.\n";
+          throw ExceptionRuntime( problem );
+        }
+      }
+    #endif
+  }
+
+  template<>
+  SparseLinearSystem<double>::~SparseLinearSystem()
+  {
+    #ifdef MUMPS_SEQ
+      if ( mumps_job_running )
+      {
+        // close things down
+        Did_.job = -2;
+        dmumps_c(&Did_);
+        mumps_job_running = false;
+        // mumps_end_job();
+        delete[] real_a_;
+        delete[] irn_;
+        delete[] jcn_;
+      }
+    #endif
+  }
+
+  template<>
+  SparseLinearSystem<std::complex<double> >::~SparseLinearSystem()
+  {
+    #ifdef MUMPS_SEQ
+      // std::cout << "[DEBUG] destructor called for a complex SparseLinearSystem with MUMPS_SEQ\n";
+      // std::cout << "[DEBUG] mumps_job_running = " << mumps_job_running << "\n";
+      if ( mumps_job_running )
+      {
+        // std::cout << "[DEBUG] mumps_job_running == true\n";
+        // close things down
+        Zid_.job = -2;
+        zmumps_c(&Zid_);
+        mumps_job_running = false;
+        // mumps_end_job();
+        delete[] complex_a_;
+        delete[] complex_b_;
+        delete[] irn_;
+        delete[] jcn_;
+      }
+    #endif
+    // std::cout << "[DEBUG] leaving destructor for complex SparseLinearSystem with MUMPS_SEQ\n";
   }
 
   template<typename _Type>

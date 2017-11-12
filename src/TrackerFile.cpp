@@ -36,8 +36,11 @@ namespace CppNoddy
 
   void TrackerFile::push_ptr( D_complex* scalar, std::string desc )
   {
-    p_DOUBLES.push_back( &( scalar -> real() ) );
-    p_DOUBLES.push_back( &( scalar -> imag() ) );
+    //p_DOUBLES.push_back( &( scalar -> real() ) );
+    //p_DOUBLES.push_back( &( scalar -> imag() ) );
+    // above is no longer valid for g++-7.2
+    p_DOUBLES.push_back( &reinterpret_cast<double(&)[2]>( *scalar )[0] );
+    p_DOUBLES.push_back( &reinterpret_cast<double(&)[2]>( *scalar )[1] );
     DOUBLE_DESC.push_back( desc + " (real)" );
     DOUBLE_DESC.push_back( desc + " (imag)" );
   }

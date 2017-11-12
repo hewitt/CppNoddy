@@ -141,7 +141,9 @@ namespace CppNoddy
     std::vector<int> pivots( N );
     // warning info
     int info( 0 );
-    LAPACK_ZGBSV( N, L, L, K, p_A -> base(), LDAB, &pivots[ 0 ], &( p_B -> operator[]( 0 ).real() ), N, info );
+    // LAPACK_ZGBSV( N, L, L, K, p_A -> base(), LDAB, &pivots[ 0 ], &( p_B -> operator[]( 0 ).real() ), N, info );
+    LAPACK_ZGBSV( N, L, L, K, p_A -> base(), LDAB, &pivots[ 0 ], &reinterpret_cast<double(&)
+[2]>( p_B -> operator[](0) )[0], N, info );
     if ( 0 != info )
     {
       std::string problem( " The BandedLinearSystem::solve_lapack method has detected a failure. \n" );

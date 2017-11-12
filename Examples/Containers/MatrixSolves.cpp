@@ -22,6 +22,8 @@
 // #include "mpi.h"
 // #include <PETSc.h>
 
+#include "mpi.h"
+
 using namespace CppNoddy;
 using namespace std;
 

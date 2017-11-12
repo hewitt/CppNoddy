@@ -192,7 +192,8 @@ namespace CppNoddy
   template <>
   double* BandedMatrix<std::complex<double> >::base()
   {
-    return &( STORAGE[0].real() );
+    //return &( STORAGE[0].real() );
+    return &reinterpret_cast<double(&)[2]>( STORAGE[0] )[0];
   }
 
   // the templated versions we require are:

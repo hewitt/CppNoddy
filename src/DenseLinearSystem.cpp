@@ -111,7 +111,8 @@ namespace CppNoddy
     // LAPACK information integer
     int info( 0 );
     // Call FORTRAN LAPACK
-    LAPACK_ZGESV( N, 1, Af.base(), N, &pivots[ 0 ], &( p_B -> operator[]( 0 ).real() ), N, info );
+    // LAPACK_ZGESV( N, 1, Af.base(), N, &pivots[ 0 ], &( p_B -> operator[]( 0 ).real() ), N, info );
+    LAPACK_ZGESV( N, 1, Af.base(), N, &pivots[ 0 ], &reinterpret_cast<double(&)[2]>( p_B -> operator[](0) )[0], N, info );
     if ( 0 != info )
     {
       std::string problem( " The LAPACK::LU method has detected a failure \n" );
