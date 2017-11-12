@@ -59,6 +59,8 @@ rm -rf ./validate.log
  cd .././EVP
 .././EVP/EVP_OrrSommerfeld_sparse.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
+.././EVP/EVP_OrrSommerfeld_student.out 2>> error.log | tee -a ../Validation/validate.log
+ cd .././EVP
 .././EVP/EVP_Rayleigh.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
 .././EVP/EVP_Shoot_Biharmonic.out 2>> error.log | tee -a ../Validation/validate.log

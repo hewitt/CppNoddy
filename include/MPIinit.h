@@ -7,6 +7,8 @@
 
 #include <mpi.h>
 
+namespace CppNoddy
+{
 class MPIinit
 {
 private:
@@ -15,23 +17,26 @@ private:
   MPI_Comm COMM;
   MPIinit()
   {
+    std::cout << "Initializing MPI\n";
     // Singleton : private constructor
     // initialize the SLEPc library
     MPI_Init(NULL, NULL);
     COMM = MPI_COMM_WORLD;
+    //MPI_Comm_dup(MPI_COMM_WORLD,COMM);
   }
-    
+
 public:
     static MPIinit* getInstance();
-    
+
     MPI_Comm get_Comm() const;
-    
+
     ~MPIinit()
     {
+        std::cout << "Running destructor for MPIinit\n";
         instanceFlag = false;
         MPI_Finalize();
     }
-    
+
 };
 
 bool MPIinit::instanceFlag = false;
@@ -55,6 +60,7 @@ MPIinit* MPIinit::getInstance()
 MPI_Comm MPIinit::get_Comm() const
 {
   return COMM;
+}
 }
 
 #endif // INC_MPI

@@ -114,7 +114,7 @@ namespace CppNoddy
   void TwoD_Node_Mesh<_Type>::remesh1( const DenseVector<double>& newX, const DenseVector<double>& newY )
   {
 #ifdef PARANOID
-    // check start & end 
+    // check start & end
     if ( std::abs( X[ 0 ] - newX[ 0 ] ) > 1.e-10 ||
          std::abs( X[ X.size() - 1 ] - newX[ newX.size() - 1 ] ) > 1.e-10 )
     {
@@ -402,7 +402,7 @@ namespace CppNoddy
   template<>
   void TwoD_Node_Mesh<D_complex>::normalise( const std::size_t& var )
   {
-    std::cout << "[DEBUG] asked to normalise a complex mesh\n";
+    //std::cout << "[DEBUG] asked to normalise a complex mesh\n";
     unsigned max_nx( 0 );
     unsigned max_ny( 0 );
     double max( 0.0 );
@@ -419,11 +419,11 @@ namespace CppNoddy
         }
       }
     }
-    D_complex factor( VARS[ ( max_nx * NY + max_ny ) * NV + var ] ); 
-    std::cout << "[DEBUG] MAX |variable| had complex value of " << factor << "\n"; 
+    D_complex factor( VARS[ ( max_nx * NY + max_ny ) * NV + var ] );
+    //std::cout << "[DEBUG] MAX |variable| had complex value of " << factor << "\n";
     VARS.scale( 1./factor );
   }
-  
+
   template<>
   double TwoD_Node_Mesh<D_complex>::max_real_part( unsigned var )
   {
@@ -580,7 +580,7 @@ namespace CppNoddy
           if ( ( std::fabs( x - X[ i ] ) > 1.e-6 ) || ( std::fabs( y - Y[ j ] ) > 1.e-6 ) )
           {
             std::cout << " Read x = " << x << " Expected x = " << X[ i ] << "; Read y = " << y << " Expected y = " << Y[ j ] << " \n";
-            std::cout << " Absolute differences are " << fabs( x - X[i] ) << " and " << fabs( y - Y[j] ) << "\n";              
+            std::cout << " Absolute differences are " << fabs( x - X[i] ) << " and " << fabs( y - Y[j] ) << "\n";
             std::string problem;
             problem = " The TwoD_Node_Mesh.read method is trying to read a \n";
             problem += " file whose nodal points are in a different position. \n";
@@ -629,7 +629,7 @@ namespace CppNoddy
           if ( ( std::fabs( x - X[ i ] ) > 1.e-6 ) || ( std::fabs( y - Y[ j ] ) > 1.e-6 ) )
           {
             std::cout << " Read x = " << x << " Expected x = " << X[ i ] << "; Read y = " << y << " Expected y = " << Y[ j ] << " \n";
-            std::cout << " Absolute differences are " << fabs( x - X[i] ) << " and " << fabs( y - Y[j] ) << "\n";              
+            std::cout << " Absolute differences are " << fabs( x - X[i] ) << " and " << fabs( y - Y[j] ) << "\n";
             std::string problem;
             problem = " The TwoD_Node_Mesh.read method is trying to read a \n";
             problem += " file whose nodal points are in a different position. \n";

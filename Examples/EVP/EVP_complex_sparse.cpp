@@ -105,7 +105,7 @@ int main()
   system.tag_eigenvalues_disc( + 1, 0.1 );
   // get those tagged eigenvalues
   lambdas = system.get_tagged_eigenvalues();
-  const double tol = 1.e-14;
+  const double tol = 1.e-10;
   if ( std::abs( lambdas[ 0 ] - D_complex( 3.0, -1.0 ) ) > tol )
   {
     cout << "\033[1;31;48m  * FAILED \033[0m\n";

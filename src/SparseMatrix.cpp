@@ -33,9 +33,9 @@ namespace CppNoddy
     for ( std::size_t i = 0; i < NR; ++i )
     {
       MATRIX.push_back( source.get_row( source_rows[i] ) );
-    }    
+    }
   }
-  
+
   template <typename _Type>
   SparseMatrix<_Type>::SparseMatrix( const SparseMatrix<_Type>& source ) :
       Matrix_base<_Type>( source )
@@ -267,7 +267,7 @@ namespace CppNoddy
     //
     for ( std::size_t row = 0; row < NR; ++row )
     {
-      // matrix could be singular with an empty row for the mass matrix 
+      // matrix could be singular with an empty row for the mass matrix
       // of a generalised eigenvalue problem
       if ( MATRIX[row].nelts() > 0 )
       {
@@ -291,7 +291,7 @@ namespace CppNoddy
     }
   }
 #endif
-  
+
 #ifdef PETSC_Z
   template <>
   void SparseMatrix<std::complex<double> >::get_row_petsc( PetscInt row, PetscScalar* storage, PetscInt* cols )
@@ -305,7 +305,7 @@ namespace CppNoddy
     citer pos;
     std::size_t i(0);
     //
-    // matrix could be singular with an empty row for the mass matrix 
+    // matrix could be singular with an empty row for the mass matrix
     // of a generalised eigenvalue problem
     if ( MATRIX[row].nelts() > 0 )
     {
@@ -327,7 +327,7 @@ namespace CppNoddy
     }
   }
 #endif
-  
+
 #ifdef PETSC_D
   template <>
   void SparseMatrix<double >::get_row_compressed_petsc( PetscScalar* storage, PetscInt* cols, PetscInt* rows )
@@ -343,7 +343,7 @@ namespace CppNoddy
     //
     for ( std::size_t row = 0; row < NR; ++row )
     {
-      // matrix could be singular with an empty row for the mass matrix 
+      // matrix could be singular with an empty row for the mass matrix
       // of a generalised eigenvalue problem
       if ( MATRIX[row].nelts() > 0 )
       {
@@ -367,7 +367,7 @@ namespace CppNoddy
     }
   }
 #endif
-  
+
 #ifdef PETSC_D
   template <>
   void SparseMatrix<double >::get_row_petsc( PetscInt row, PetscScalar* storage, PetscInt* cols )
@@ -381,7 +381,7 @@ namespace CppNoddy
     citer pos;
     std::size_t i(0);
     //
-    // matrix could be singular with an empty row for the mass matrix 
+    // matrix could be singular with an empty row for the mass matrix
     // of a generalised eigenvalue problem
     if ( MATRIX[row].nelts() > 0 )
     {
@@ -427,4 +427,3 @@ namespace CppNoddy
   ;
 
 } // end namespace
-

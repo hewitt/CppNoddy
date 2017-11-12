@@ -29,8 +29,8 @@ petsc_inc = '' # we'll construct this using PETSC_DIR and PETSC_ARCH
 #
 # we assume you only have the sequential version of mumps
 #
-dmumps_lib = 'dmumps'
-zmumps_lib = 'zmumps'
+#dmumps_lib = 'dmumps'
+#zmumps_lib = 'zmumps'
 
 mpi_lib = 'mpi'
 mpi_inc = '' # get this for free if you install PETSc with --download-mpich
@@ -60,12 +60,14 @@ rpath = []
 #
 ##########
 
+
+
 col = ARGUMENTS.get('col',1)                          # defaults to colourised output
 lapack = ARGUMENTS.get('lapack',0)                    # link to LAPACK
-superlu = ARGUMENTS.get('superlu',0)                  # link to SUPERLU (sequential) => BLAS/LAPACK
-slepc = ARGUMENTS.get('slepc',0)	              # link to SLEPC => PETSC => BLAS/LAPACK
-petsc = ARGUMENTS.get('petsc',0)	              # link to PETSC => BLAS/LAPACK (min)
-mumps = ARGUMENTS.get('mumps',0)                      # link to MUMPS => MPI
+#superlu = ARGUMENTS.get('superlu',0)                  # link to SUPERLU (sequential) => BLAS/LAPACK
+slepc = ARGUMENTS.get('slepc',0)	                  # link to SLEPC => PETSC => BLAS/LAPACK
+petsc = ARGUMENTS.get('petsc',0)	                  # link to PETSC => BLAS/LAPACK (min)
+#mumps = ARGUMENTS.get('mumps',0)                      # link to MUMPS => MPI
 mpi = ARGUMENTS.get('mpi',0)                          # link to MPI
 debug = ARGUMENTS.get('debug', 0)                     # ask for debug info to be written to stdout
 debug_symbols = ARGUMENTS.get('debug_symbols', 0)     # include debug symbols (-g)
@@ -132,7 +134,7 @@ incdir_str = topdir + '/include '
 libdir_str = topdir + '/lib '
 libs_str   = 'CppNoddy '
 preproc = ' '
-opts = ' -O2 '
+opts = ' -O2 -Wall '#-std=c++11 '
 link_flags = ' '
 
 
@@ -200,30 +202,30 @@ if int(petsc):
     # slepc support requires blas/lapack/mumps support
     lapack = 1
     blas = 1
-    libs_str += petsc_lib + ' '#+ ' mpi gfortran '
+    libs_str += petsc_lib + ' mpi '#+ ' mpi gfortran '
     libdir_str += petsc_lib_dir + ' '
     incdir_str += petsc_inc + ' '
 
-if int(mumps):
-    print( " *" )
-    message( green, "MUMPS (sequential) direct solver support is enabled.")
-    message( blue, " Perhaps best to do this via PETSc.")
-    message( blue, " This requires BLAS/MPI support.")
-    blas = 1
-    mpi = 1
-    libs_str += dmumps_lib + ' ' + zmumps_lib + ' ' + blas_lib + ' ' + petsc_lib + ' metis mpifort scalapack lapack mpi gfortran '
-    incdir_str += ' ' + petsc_inc + ' '
-    preproc += ' -DMUMPS_SEQ '
+# if int(mumps):
+#     print( " *" )
+#     message( green, "MUMPS (sequential) direct solver support is enabled.")
+#     message( blue, " Perhaps best to do this via PETSc.")
+#     message( blue, " This requires BLAS/MPI support.")
+#     blas = 1
+#     mpi = 1
+#     libs_str += dmumps_lib + ' ' + zmumps_lib + ' ' + blas_lib + ' ' + petsc_lib + ' metis mpifort scalapack lapack mpi gfortran '
+#     incdir_str += ' ' + petsc_inc + ' '
+#     preproc += ' -DMUMPS_SEQ '
 
-if int(superlu):
-    print( " *" )
-    message( green, "SUPERLU direct solver support is enabled.")
-    message( blue, " This requires BLAS support too.")
-    # superlu support requires blas support
-    blas = 1
-    libs_str += superlu_lib + ' ' + blas_lib + ' '
-    incdir_str += ' ' + superlu_inc + ' '
-    preproc += ' -DSUPERLU '
+# if int(superlu):
+#     print( " *" )
+#     message( green, "SUPERLU direct solver support is enabled.")
+#     message( blue, " This requires BLAS support too.")
+#     # superlu support requires blas support
+#     blas = 1
+#     libs_str += superlu_lib + ' ' + blas_lib + ' '
+#     incdir_str += ' ' + superlu_inc + ' '
+#     preproc += ' -DSUPERLU '
 
 if int(lapack):
     print( " *" )
@@ -315,20 +317,20 @@ if int(lapack):
         message( green, "Found BLAS & LAPACK support.")
         message( green, "LAPACK solvers will be used in preference to the native ones.")
 
-if int(superlu):
-    # superlu => blas
-    superlu = blas = 1
-    if not conf.CheckLib( superlu_lib ):
-        message( red, "No libsuperlu!")
-        superlu = 0
-    if not conf.CheckLib('blas'):
-        message( red, "No libblas!")
-        blas = 0
-    if ( superlu * blas == 0 ):
-        message( red, "SUPERLU support has failed.")
-        Exit(1)
-    else:
-        message( green, "Found SUPERLU and including support for sparse matrix solvers.")
+# if int(superlu):
+#     # superlu => blas
+#     superlu = blas = 1
+#     if not conf.CheckLib( superlu_lib ):
+#         message( red, "No libsuperlu!")
+#         superlu = 0
+#     if not conf.CheckLib('blas'):
+#         message( red, "No libblas!")
+#         blas = 0
+#     if ( superlu * blas == 0 ):
+#         message( red, "SUPERLU support has failed.")
+#         Exit(1)
+#     else:
+#         message( green, "Found SUPERLU and including support for sparse matrix solvers.")
 
 if int(petsc):
     if not conf.CheckLib( petsc_lib ):
@@ -343,26 +345,26 @@ if int(slepc):
 	message( green, "Found SLEPC.")
 
 
-if int(mumps):
-    # superlu => blas
-    mumps = blas = mpi = 1
-    if not conf.CheckLib( dmumps_lib ):
-        message( red, "No dmumps!")
-        mumps = 0
-    if not conf.CheckLib( zmumps_lib ):
-        message( red, "No zmumps!")
-        mumps = 0
-    if not conf.CheckLib( mpi_lib ):
-        message( red, "No mpi!")
-        mumps = 0
-    if not conf.CheckLib('blas'):
-        message( red, "No libblas!")
-        blas = 0
-    if ( mumps * blas * mpi == 0 ):
-        message( red, "MUMPS_SEQ support has failed.")
-        Exit(1)
-    else:
-        message( green, "Found MUMPS_SEQ and including support for sparse matrix solvers.")
+# if int(mumps):
+#     # superlu => blas
+#     mumps = blas = mpi = 1
+#     if not conf.CheckLib( dmumps_lib ):
+#         message( red, "No dmumps!")
+#         mumps = 0
+#     if not conf.CheckLib( zmumps_lib ):
+#         message( red, "No zmumps!")
+#         mumps = 0
+#     if not conf.CheckLib( mpi_lib ):
+#         message( red, "No mpi!")
+#         mumps = 0
+#     if not conf.CheckLib('blas'):
+#         message( red, "No libblas!")
+#         blas = 0
+#     if ( mumps * blas * mpi == 0 ):
+#         message( red, "MUMPS_SEQ support has failed.")
+#         Exit(1)
+#     else:
+#         message( green, "Found MUMPS_SEQ and including support for sparse matrix solvers.")
 
 if int(slepc):
     # slepc => petsc (and let's assume blas and lapack)

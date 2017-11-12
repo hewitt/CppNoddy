@@ -47,7 +47,7 @@ int main()
 #else
 
   // discretise with these many nodal points
-  const std::size_t nodes( 601 );
+  const std::size_t nodes( 12001 );
   // we'll solve as TWO second order problems
   const std::size_t N( 2 * nodes );
   // domain boundaries
@@ -85,7 +85,7 @@ int main()
     a( row, row - 2 ) = 1.0 / ( d * d );
     a( row, row + 2 ) = 1.0 / ( d * d );
     a( row, row + 1 ) = -1.0;
-    
+
     row += 1;
     // the second equation at the i'th nodal point
     a( row, row ) = -2.0 / ( d * d ) - alpha * alpha - I * alpha * Re * U;
@@ -118,14 +118,14 @@ int main()
   //// create new sparse matrices that re-order the rows
   //SparseMatrix<D_complex> A(a,row_perm);
   //SparseMatrix<D_complex> B(b,row_perm);
-    
+
   // a vector for storing the eigenvalues
   DenseVector<D_complex> lambdas;
   SparseLinearEigenSystem<D_complex> system( &a, &b );
   system.set_target(D_complex(0.2,0.1));
   system.set_nev(4);
-  system.set_order( "EPS_SMALLEST_MAGNITUDE" );  
-  
+  system.set_order( "EPS_SMALLEST_MAGNITUDE" );
+
   try
   {
     system.eigensolve();

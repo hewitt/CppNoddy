@@ -36,20 +36,21 @@ int main()
   cout << " MUMPS/MPI support has not been included\n";
   cout << "\033[1;33;48m  * SKIPPED \033[0m\n";
 #else
-  MPIinit* p_library = MPIinit::getInstance();
   int myid, size;
-  MPI_Comm_rank(p_library->get_Comm(), &myid);
-  MPI_Comm_size(p_library->get_Comm(), &size);
-  
+  MPI_Init(NULL,NULL);
+  MPI_Comm_rank(MPI_COMM_WORLD, &myid);
+  MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+
   if ( myid == 0 )
   {
     cout << "\n";
     cout << "=== Matrix: Example MUMPS MPI linear solver  ======\n";
     cout << "\n";
   }
-  MPI_Barrier( p_library->get_Comm() );
+  MPI_Barrier( MPI_COMM_WORLD );
   cout << " MPI instance " << myid << " of " << size << " is running.\n";
-  
+
   bool failed = false;
   // tolerance for the test
   const double tol = 1.e-10;
@@ -57,7 +58,7 @@ int main()
   const unsigned N = 511;
   const double D = 12 * ( 1. / ( N - 1 ) ) * ( 1. / ( N - 1 ) );
   // SOLVE the BANDED REAL SYSTEM as above but as a sparse system using native and superlu
-  
+
   DenseMatrix<double> AD( N, N, 0.0 );
   DenseVector<double> BD( N, D );
   Utility::fill_band( AD, 0, -30.0 );
@@ -67,7 +68,7 @@ int main()
   Utility::fill_band( AD, 2, -1.0 );
   DenseLinearSystem<double> dense_system( &AD, &BD, "lapack" );
   dense_system.solve();
-  
+
   //
   // SOLVE the BANDED REAL SYSTEM as above but as a sparse system using mumps_seq
   //
@@ -82,7 +83,7 @@ int main()
   Utility::fill_band( AS, -2, -1.0 );
   Utility::fill_band( AS, 2, -1.0 );
   if ( myid == 0 )
-  {  
+  {
     cout << N << " rows and " << AS.nelts() << " elts. \n";
   }
   DenseVector<double> BS( N, D );
@@ -92,10 +93,10 @@ int main()
     cout << " Using the MUMPS_SEQ sparse routine:\n";
   }
   SparseLinearSystem<double> sparse_system( &AS, &BS, "mumps_seq" );
-  
+
   sparse_system.solve();
   BS.sub( BD );
-  
+
   if ( myid == 0 )
   {
     if ( std::abs( BS.two_norm() ) > tol )
@@ -115,8 +116,8 @@ int main()
     else
     {
       cout << "\033[1;32;48m  * PASSED \033[0m\n";
-    }  
-  }  
+    }
+  }
 
 #endif //check for MUMPS
 }

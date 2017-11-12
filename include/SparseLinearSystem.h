@@ -39,15 +39,48 @@ namespace CppNoddy
     /// Constructor for a sparse linear system object.
     /// \param Aptr A pointer to the 'A matrix', an NxN double/complex sparse matrix
     /// \param Bptr A pointer to the 'B vector' a size N double/complex dense vector
-    /// \param which A string that indicates which solver to use: native (default), superlu or mumps_seq 
+    /// \param which A string that indicates which solver to use: native (default), superlu or mumps_seq
     SparseLinearSystem( SparseMatrix<_Type>* Aptr, DenseVector<_Type>* Bptr, std::string which = "native" );
 
     /// Destructor for a linear system object.
-    ~SparseLinearSystem()
-    {}
+    ~SparseLinearSystem();
 
     /// Solve the sparse system
     void solve();
+
+    void factorize()
+    {
+      if ( "mumps_seq" == VERSION )
+      {
+        #ifdef MUMPS_SEQ
+          solve_mumps_analysis();
+          solve_mumps_factorize();
+        #else
+          std::string problem;
+          problem = "You've asked for the LinearSystem object to factorize \n";
+          problem += "using the MUMPS library. This has not been \n";
+          problem += "enabled via -DMUMPS_SEQ.\n";
+          throw ExceptionRuntime( problem );
+        #endif // mumps
+      }
+    }
+
+    void solve_using_factorization()
+    {
+      if ( "mumps_seq" == VERSION )
+      {
+        #ifdef MUMPS_SEQ
+          solve_mumps_solve_using_factorization();
+        #else
+          std::string problem;
+          problem = "You've asked for the LinearSystem object to solve_using_new_rhs \n";
+          problem += "using the MUMPS library. This has not been \n";
+          problem += "enabled via -DMUMPS_SEQ.\n";
+          throw ExceptionRuntime( problem );
+        #endif // mumps
+      }
+    }
+
 
   private:
 
@@ -57,8 +90,15 @@ namespace CppNoddy
     /// Solve the linear system by linking to the SuperLU library
     void solve_superlu();
 
+#ifdef MUMPS_SEQ
     /// Solve the linear system by linking to the MUMPS (Sequential) library
-    void solve_mumps_seq();
+    // void solve_mumps_seq();
+    /// Solve the linear system by linking to the MUMPS (Sequential) library
+    void solve_mumps_analysis();
+    void solve_mumps_factorize();
+    void solve_mumps_solve_using_factorization();
+    void mumps_end_job();
+#endif
 
     /// Back substitution routine for dense systems.
     /// \param A The upper triangular matrix LHS
@@ -72,6 +112,22 @@ namespace CppNoddy
     SparseMatrix<_Type>* p_A;
     /// pointer to the RHS vector
     DenseVector<_Type>* p_B;
+
+    #ifdef MUMPS_SEQ
+      // compressed storage form for the contents of p_A, set on first factorization/analysis step
+      // but will be re-set if factorization/analysis is performed again
+      double* real_a_;
+      mumps_double_complex* complex_a_;
+      mumps_double_complex* complex_b_;
+      // indices of non-zero entries
+      int* irn_;
+      int* jcn_;
+      // has the matrix been analysed/factorized
+      bool mumps_job_running;
+
+      DMUMPS_STRUC_C Did_;
+      ZMUMPS_STRUC_C Zid_;
+    #endif
 
   };
 

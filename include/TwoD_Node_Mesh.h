@@ -42,7 +42,7 @@ namespace CppNoddy
       // we'll store the data as ( x, y, v ) ->  x * ny * nv + y * nv + v
       VARS = DenseVector<_Type>( nx * ny * nv, 0.0 );
       // now read the mesh from the given filename
-      read( filename, true );   
+      read( filename, true );
     }
 
     /// dtor
@@ -66,7 +66,7 @@ namespace CppNoddy
     /// \param nodey The y nodal position to return
     /// \return The spatial position of this node as a pair
     std::pair<double, double> coord( const std::size_t nodex, const std::size_t nodey ) const;
-    
+
     /// Set the variables stored at A SPECIFIED node
     /// \param nodex The x nodal index to be set
     /// \param nodey The y nodal index to be set
@@ -81,17 +81,17 @@ namespace CppNoddy
 
     /// Get a cross section of the 2D mesh at a specified (constant) x node
     /// \param nodex The x nodal index at which the cross section is to be taken
-    /// \return A 1D nodal mesh  
+    /// \return A 1D nodal mesh
     OneD_Node_Mesh<_Type> get_xsection_at_xnode( const std::size_t nodex ) const;
 
     /// Get a cross section of the 2D mesh at a specified (constant) y node
     /// \param nodey The y nodal index at which the cross section is to be taken
-    /// \return A 1D nodal mesh  
-    OneD_Node_Mesh<_Type> get_xsection_at_ynode( const std::size_t nodey ) const; 
+    /// \return A 1D nodal mesh
+    OneD_Node_Mesh<_Type> get_xsection_at_ynode( const std::size_t nodey ) const;
 
     /// Get a cross section of the 2D mesh at a specified (constant) x node
     /// \param nodex The x nodal index at which the cross section is to be taken
-    /// \return A 1D nodal mesh  
+    /// \return A 1D nodal mesh
     OneD_Node_Mesh<_Type> get_xsection_at_x1( const double x ) const
     {
       unsigned I(0);
@@ -101,17 +101,17 @@ namespace CppNoddy
         if (( X[i]< x ) && (X[i+1]>x) )
         {
           I=i;
-        } 
+        }
       }
       double dx_ratio( (x-X[I])/(X[I+1]-X[I]) );
       for ( unsigned j = 0; j<NY; ++j )
       {
         for ( unsigned var = 0; var<NV; ++var )
-        { 
+        {
          xsection(j,var) = this->operator()(I,j,var)+(this->operator()(I+1,j,var)-this->operator()(I,j,var))*dx_ratio;
         }
       }
-      return xsection;      
+      return xsection;
     }
 
     /// Assign an element to all entries in the mesh
@@ -155,7 +155,7 @@ namespace CppNoddy
     /// A simple method for dumping data to a file
     /// \param filename The filename to write the data to (will overwrite)
     void dump( std::string filename ) const;
-    
+
     /// A simple method for dumping a single variable to a file with no nodal information
     /// \param filename The filename to write the data to (will overwrite)
     /// \param var The index of the variable to be dumped to output
@@ -163,7 +163,7 @@ namespace CppNoddy
 
     /// A simple method for reading data from a file
     /// \param filename The filename to write the data to (will overwrite)
-    /// \param reset Will reset the nodal positions using those from the file  
+    /// \param reset Will reset the nodal positions using those from the file
     void read( std::string filename, const bool reset = false );
 
     /// A simple method for dumping data to a file for gnuplot surface plotting
@@ -175,7 +175,12 @@ namespace CppNoddy
     /// the normalisation. All other variables will also be rescaled by
     /// the same amount.
     void normalise( const std::size_t& var );
-    
+
+    void scale( const _Type& value )
+    {
+      VARS.scale( value );
+    }
+
     void normalise_real_part( const std::size_t& var )
     {
       double maxval( max_real_part(var) );
@@ -221,11 +226,11 @@ namespace CppNoddy
       }
       return max;
     }
-    
+
 
     /// Get a bilinearly interpolated value at a specified point
-    /// \param x x-coordinate in the 2D mesh      
-    /// \param y y-coordinate in the 2D mesh      
+    /// \param x x-coordinate in the 2D mesh
+    /// \param y y-coordinate in the 2D mesh
     /// \return A vector of bilinearly interpolated values
     DenseVector<_Type> get_interpolated_vars( const double& x, const double& y)
     {
@@ -260,7 +265,7 @@ namespace CppNoddy
         //if ( abs(y-Y[j+1]) < tol )
           //{
             //bottom_j = j+1;
-          //}          
+          //}
       }
       //std::cout << y << " " << Y[bottom_j] << " " << Y[bottom_j+1] << "\n";
       if ( bottom_j == -1 )
@@ -272,15 +277,15 @@ namespace CppNoddy
       //
       OneD_Node_Mesh<_Type> bottom_row = get_xsection_at_ynode( bottom_j );
       OneD_Node_Mesh<_Type> top_row = get_xsection_at_ynode( bottom_j+1 );
-      const double y1 = Y[ bottom_j ]; 
+      const double y1 = Y[ bottom_j ];
       const double y2 = Y[ bottom_j+1 ];
       DenseVector<_Type> result = top_row.get_interpolated_vars(x)*( y-y1 )/( y2-y1 )
         + bottom_row.get_interpolated_vars(x)*( y2-y )/( y2-y1 );
-      //std::cout << "x,y,interp: " << x << " " << y << " " << result[0] << "\n"; 
-      return result; 
+      //std::cout << "x,y,interp: " << x << " " << y << " " << result[0] << "\n";
+      return result;
     }
-    
-            
+
+
   protected:
 
     // we'll store the number of nodes
