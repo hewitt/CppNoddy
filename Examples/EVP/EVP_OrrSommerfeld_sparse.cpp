@@ -32,22 +32,22 @@ int main()
   cout << "===  eigenproblem solved with SLEPc sparse solver.\n";
   cout << "\n";
 
-#ifndef PETSC_Z
+#if !defined(PETSC_Z)
 
   cout << " PETSC complex support has not been included\n";
   cout << "\033[1;33;48m  * SKIPPED \033[0m\n";
 
 #else
 
-#ifndef SLEPC
+#if !defined(SLEPC)
 
-  cout << " SLEPC/PETSC support has not been included\n";
+  cout << " SLEPC support has not been included\n";
   cout << "\033[1;33;48m  * SKIPPED \033[0m\n";
 
 #else
 
   // discretise with these many nodal points
-  const std::size_t nodes( 601 );
+  const std::size_t nodes( 12001 );
   // we'll solve as TWO second order problems
   const std::size_t N( 2 * nodes );
   // domain boundaries
@@ -85,7 +85,7 @@ int main()
     a( row, row - 2 ) = 1.0 / ( d * d );
     a( row, row + 2 ) = 1.0 / ( d * d );
     a( row, row + 1 ) = -1.0;
-    
+
     row += 1;
     // the second equation at the i'th nodal point
     a( row, row ) = -2.0 / ( d * d ) - alpha * alpha - I * alpha * Re * U;
@@ -101,31 +101,17 @@ int main()
   a( N - 2, N - 6 ) = 0.5 / d; // psi'( right ) = 0
   a( N - 1, N - 2 ) = 1.0;     // psi( right ) = 0
 
-  //// This might be needed, depending on the KSP configuration.
-  //// Current default uses an LU preconditioner and MUMPS
-  //// which doesn't mind zeros on the diagonal of a.
-  ////
-  //// the SLEPc eigensolve method requires non-zero entries on
-  //// the diagonal of the "A" matrix. To acheive this we will
-  //// do a quick permutation at the start/end of the matrix
-  //// to move things around to give a non-zero diagonal on each row.
-  //std::vector<std::size_t> row_perm( N );
-  //// this fills the vector with 0,1,2,...,N-1
-  //Utility::fill_with_index( row_perm );
-  //// the permutations to make at the start/end row regions
-  //row_perm[1]=3; row_perm[2]=1; row_perm[3]=2;
-  //row_perm[N-1]=N-3; row_perm[N-2]=N-1; row_perm[N-3]=N-4; row_perm[N-4]=N-2;
-  //// create new sparse matrices that re-order the rows
-  //SparseMatrix<D_complex> A(a,row_perm);
-  //SparseMatrix<D_complex> B(b,row_perm);
-    
+  /* Note: current KSP configuration uses an LU preconditioner and MUMPS
+    which doesn't mind zeros on the diagonal of a. */
+
+
   // a vector for storing the eigenvalues
   DenseVector<D_complex> lambdas;
   SparseLinearEigenSystem<D_complex> system( &a, &b );
   system.set_target(D_complex(0.2,0.1));
   system.set_nev(4);
-  system.set_order( "EPS_SMALLEST_MAGNITUDE" );  
-  
+  system.set_order( "EPS_SMALLEST_MAGNITUDE" );
+
   try
   {
     system.eigensolve();
@@ -156,6 +142,6 @@ int main()
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
   }
 
-#endif
-#endif
+#endif //SLEPC check
+#endif //PETSC_Z check
 }

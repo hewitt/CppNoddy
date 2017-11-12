@@ -65,7 +65,7 @@
  *        \link #CppNoddy::Poisson_meridional axisymmetric \endlink cylindrical polars).
  * - \link #CppNoddy::Newton vector \endlink Newton iteration classes.
  * - Arc-length continuation solvers exist for Residual objects and boundary value problems.
- * - An ability to link to selected BLAS, LAPACK and SuperLU routines via a simplified API
+ * - An ability to link to selected BLAS, LAPACK and PETSc routines via a simplified API
  *      (these currently include the real/complex generalised eigenproblem solvers, 
  *       dense/banded/sparse LU solvers.).
  *
@@ -108,10 +108,10 @@
  * The matrix classes have native solvers that are naive unoptimised Gaussian elimination algorithms.
  * These routines will only be practical (if at all!) for
  * rather `small' matrix/band sizes and do not scale well. If the problem is of even
- * moderate size, then you should link to your local LAPACK/BLAS/SuperLU
- * LU routines by compiling with the `lapack=1' flag. LAPACK/BLAS/SuperLU libraries are not shipped 
- * with CppNoddy, you have to install them separately yourself if they are not available by default 
- * (most linux distributions provide them as packages).
+ * moderate size, then you should link to your local LAPACK/BLAS/PETSc
+ * LU routines by compiling with the `lapack=1' flag. LAPACK/BLAS/PETSc libraries are not shipped 
+ * with CppNoddy, you have to install them separately yourself if they are not available by default.
+ * PETSc has a particularly nice configure/make/install routine that makes it easy to get running.
  *
  * The code is not especially optimised, in fact in many places the code is deliberately
  * un-optimised for greater transparency; it is not intended for 'heavy duty' problems. The only sanity

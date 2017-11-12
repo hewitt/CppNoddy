@@ -27,7 +27,7 @@ namespace CppNoddy
     //
     p_A = Aptr;
     p_B = Bptr;
-    NEV = 4; NCONV = 0;
+    NEV = 8; NCONV = 0;
     ORDER = (EPSWhich)2; // smallest magnitude is the default
     // base class
     CALC_EIGENVECTORS = true; // SLEPc methods *always* obtain eigenvecs.
@@ -127,6 +127,8 @@ namespace CppNoddy
     //throw ExceptionExternal( problem );
   //}
 
+
+
   template <typename _Type>
   void SparseLinearEigenSystem<_Type>::eigensolve_slepc()
   {
@@ -175,7 +177,6 @@ namespace CppNoddy
     // allocate memory using the number of non-zero elts in each row (the 0 is ignored here)
     MatSeqAIJSetPreallocation(A, 0, all_rows_nnz );
     MatSetUp(A);
-
     for ( PetscInt i = 0; i<n; ++i )
     {
       // move the matrix data into PETSc format 1 row at a time
@@ -186,10 +187,7 @@ namespace CppNoddy
       PetscScalar* storage = new PetscScalar[all_rows_nnz[i]];
       // get the data from the CppNoddy sparse matrix structure
       p_A -> get_row_petsc( i, storage, cols );
-      //if ( p_A -> nelts_in_row(i) > 0 )
-      //{
-        MatSetValues(A,1,&i,nelts_in_row,cols,storage,INSERT_VALUES);
-      //}
+      MatSetValues(A,1,&i,nelts_in_row,cols,storage,INSERT_VALUES);
       // delete temp storage made in the conversion
       delete[] cols; delete[] storage;
     }
@@ -229,16 +227,12 @@ namespace CppNoddy
       PetscScalar* storage = new PetscScalar[all_rows_nnz[i]];
       // get the data from the CppNoddy sparse matrix structure
       p_B -> get_row_petsc( i, storage, cols );
-      //if ( p_A -> nelts_in_row(i) > 0 )
-      //{
-        MatSetValues(B,1,&i,nelts_in_row,cols,storage,INSERT_VALUES);
-      //}
+      MatSetValues(B,1,&i,nelts_in_row,cols,storage,INSERT_VALUES);
       // delete temp storage made in the conversion
       delete[] cols; delete[] storage;
     }
     // delete the temp storage
     delete[] all_rows_nnz;
-
 
     // MatSetValue inserted values are generally cached
     // so we need to explicitly do final assembly
@@ -250,9 +244,13 @@ namespace CppNoddy
     timer.print();
 
     // PETSc storage for the eigenvector, using A to define the size
+#ifdef PETSC_D
     MatCreateVecs(A,NULL,&xr);
     MatCreateVecs(A,NULL,&xi);
-
+#endif
+#ifdef PETSC_Z
+    MatCreateVecs(A,NULL,&x);
+#endif
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                   Create the eigensolver and set various options
        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -277,26 +275,40 @@ namespace CppNoddy
     // set the order of the returned ev's, as set by the get_order method.
     EPSSetWhichEigenpairs(eps, ORDER);
     // set the number of requested ev's. Not sure if this is relevant if REGION_DEFINED
-    EPSSetDimensions(eps,NEV,PETSC_DEFAULT,PETSC_DEFAULT);
+    if ( NEV < 5 )
+    {
+      EPSSetDimensions(eps,NEV,10,PETSC_DEFAULT);
+    }
+    else
+    {
+      EPSSetDimensions(eps,NEV,2*NEV,PETSC_DEFAULT);
+    }
+    // EPSSetTolerances(eps, 1.e-8, 4 );
+    // EPSSetTrueResidual(eps, PETSC_TRUE );
+    // EPSSetConvergenceTest(eps, EPS_CONV_ABS);
 
-    //Vec x;
-    //VecCreate(p_LIBRARY -> get_Comm(),&x);
-    //VecSetSizes(x,PETSC_DECIDE,n);
-    //VecSetFromOptions(x);
-    //if ( GUESS_DEFINED )
-    //{
-      //for ( PetscInt i = 0; i < n; ++i )
-      //{
-//#ifdef PETSC_Z
-        //VecSetValue(x,i,INITIAL_GUESS[i],INSERT_VALUES);
-//#endif
-//#ifdef PETSC_D
-        //VecSetValue(x,i,INITIAL_GUESS[i].real(),INSERT_VALUES);
-//#endif
-      //}
-      //std::cout << "***** setting initial space\n";
-      //EPSSetInitialSpace(eps,1,&x);
-    //}
+
+    EPSMonitorSet( eps,&monitor_function, NULL, NULL );
+
+
+//     //Vec x;
+//     VecCreate(p_LIBRARY -> get_Comm(),&x);
+//     VecSetSizes(x,PETSC_DECIDE,n);
+//     VecSetFromOptions(x);
+//     if ( GUESS_DEFINED )
+//     {
+//       for ( PetscInt i = 0; i < n; ++i )
+//       {
+// #ifdef PETSC_Z
+//         VecSetValue(x,i,INITIAL_GUESS[i],INSERT_VALUES);
+// #endif
+// #ifdef PETSC_D
+//         VecSetValue(x,i,INITIAL_GUESS[i].real(),INSERT_VALUES);
+// #endif
+//       }
+//       std::cout << "***** setting initial space\n";
+//       EPSSetInitialSpace(eps,1,&x);
+//     }
 
     /*
        Define the region containing the eigenvalues of interest
@@ -330,7 +342,7 @@ namespace CppNoddy
     KSPGetPC(ksp,&pc);
     // set it to LU factorization is precondition
     PCSetType(pc,PCLU);
-    // solve using the MUMPS library -- bit faster it seems
+    // solve using the SUPERLU_DIST library
     PCFactorSetMatSolverPackage(pc,MATSOLVERSUPERLU_DIST);
 
 
@@ -355,8 +367,7 @@ namespace CppNoddy
     //
     EPSGetIterationNumber(eps,&its);
     PetscPrintf(p_LIBRARY -> get_Comm(),"[DEBUG] Number of iterations of the method: %D\n",its);
-    EPSGetST(eps,&st);
-    STGetKSP(st,&ksp);
+    EPSGetST(eps,&st); STGetKSP(st,&ksp);
     KSPGetTotalIterations(ksp,&lits);
     PetscPrintf(p_LIBRARY -> get_Comm(),"[DEBUG] Number of linear iterations of the method: %D\n",lits);
     EPSGetType(eps,&type);
@@ -370,7 +381,7 @@ namespace CppNoddy
 
     PetscViewerPushFormat(PETSC_VIEWER_STDOUT_WORLD,PETSC_VIEWER_ASCII_INFO_DETAIL);
     EPSReasonView(eps,PETSC_VIEWER_STDOUT_WORLD);
-    EPSErrorView(eps,EPS_ERROR_RELATIVE,PETSC_VIEWER_STDOUT_WORLD);
+    EPSErrorView(eps,EPS_ERROR_ABSOLUTE,PETSC_VIEWER_STDOUT_WORLD);
     PetscViewerPopFormat(PETSC_VIEWER_STDOUT_WORLD);
 //#endif
 
@@ -388,8 +399,9 @@ namespace CppNoddy
     //
     for ( unsigned i=0; i<NCONV; i++ )
     {
-#ifdef PESTC_Z
+#ifdef PETSC_Z
       EPSGetEigenvalue(eps,i,&ALL_EIGENVALUES[i],NULL);
+      std::cout << ALL_EIGENVALUES[i] << "\n";
 #endif
 #ifdef PETSC_D
       double lambda_r,lambda_i;
@@ -409,7 +421,7 @@ namespace CppNoddy
         VecGetArray1d( xi, n, 0, &arrayi );
         for ( int j=0; j<n; ++j )
         {
-          ALL_EIGENVECTORS[i][j]=D_complex( arrayr[j], arrayi[i] );
+          ALL_EIGENVECTORS[i][j]=D_complex( arrayr[j], arrayi[j] );
         }
         // documentation says to "restore", though it might not matter as we're done with it now
         VecRestoreArray1d( xr, n, 0, &arrayr );
@@ -426,7 +438,7 @@ namespace CppNoddy
           ALL_EIGENVECTORS[i][j]=array[j];
         }
         // documentation says to "restore", though it might not matter as we're done with it now
-        VecRestoreArray1d( xr, n, 0, &array );
+        VecRestoreArray1d( x, n, 0, &array );
 #endif
       }
     }
@@ -437,8 +449,12 @@ namespace CppNoddy
 
     EPSDestroy(&eps);
     MatDestroy(&A); MatDestroy(&B);
+#ifdef PETSC_D
     VecDestroy(&xr); VecDestroy(&xi);
-
+#endif
+#ifdef PETSC_Z
+    VecDestroy(&x);
+#endif
     // SLEPc will be "finalized" in the d-tor
 #endif
   }

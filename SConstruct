@@ -5,33 +5,23 @@
 ##########
 
 home = "/home/hewitt/CURRENT/Projects/CppNoddy"
+#
 # Customise these for your compiler/libs/include names/locations
 #
 c_comp = 'g++'
 f_comp = 'gfortran'
 #
-#
 blas_lib = 'blas'
 lapack_lib = 'lapack'
 #
-# you may want to use MUMPS instead of SuperLU
-#
-superlu_lib = 'superlu'
-superlu_inc = '/usr/include/superlu'
-#
-#
 # FOR SLEPC/PETSC - makes sure you have the PETSC_DIR, SLEPC_DIR and PETSC_ARCH
-# environment variables set.
+# environment variables set. Complex versions of the library must contain the
+# string "complex" in $PETSC_ARCH
 #
 slepc_lib = 'slepc'
 petsc_lib = 'petsc'
 petsc_inc = '' # we'll construct this using PETSC_DIR and PETSC_ARCH
 #
-# we assume you only have the sequential version of mumps
-#
-dmumps_lib = 'dmumps'
-zmumps_lib = 'zmumps'
-
 mpi_lib = 'mpi'
 mpi_inc = '' # get this for free if you install PETSc with --download-mpich
 
@@ -41,7 +31,7 @@ mpi_inc = '' # get this for free if you install PETSc with --download-mpich
 ## YOU PROBABLY SHOULDN'T BE EDITING BELOW HERE      #
 #                                                    #
 ######################################################
-
+#
 import os.path
 import os
 
@@ -60,13 +50,13 @@ rpath = []
 #
 ##########
 
+
+
 col = ARGUMENTS.get('col',1)                          # defaults to colourised output
 lapack = ARGUMENTS.get('lapack',0)                    # link to LAPACK
-superlu = ARGUMENTS.get('superlu',0)                  # link to SUPERLU (sequential) => BLAS/LAPACK
-slepc = ARGUMENTS.get('slepc',0)	              # link to SLEPC => PETSC => BLAS/LAPACK
-petsc = ARGUMENTS.get('petsc',0)	              # link to PETSC => BLAS/LAPACK (min)
-mumps = ARGUMENTS.get('mumps',0)                      # link to MUMPS => MPI
-mpi = ARGUMENTS.get('mpi',0)                          # link to MPI
+slepc = ARGUMENTS.get('slepc',0)	                  # link to SLEPC => PETSC => BLAS/LAPACK
+petsc = ARGUMENTS.get('petsc',0)	                  # link to complex PETSC => BLAS/LAPACK (min)
+mpi = ARGUMENTS.get('mpi',1)                          # link to MPI
 debug = ARGUMENTS.get('debug', 0)                     # ask for debug info to be written to stdout
 debug_symbols = ARGUMENTS.get('debug_symbols', 0)     # include debug symbols (-g)
 paranoid = ARGUMENTS.get('paranoid', 0)               # paranoid bounds checking
@@ -132,12 +122,20 @@ incdir_str = topdir + '/include '
 libdir_str = topdir + '/lib '
 libs_str   = 'CppNoddy '
 preproc = ' '
-opts = ' -O2 '
+opts = ' -O2 -Wall '#-std=c++11 '
 link_flags = ' '
 
-
+#
+# extract the PETSc and SLEPc locations from environment variables
+petsc_z = petsc_d = False
 petsc_dir = os.environ.get('PETSC_DIR','default')
 petsc_arch = os.environ.get('PETSC_ARCH','default')
+if "complex" in petsc_arch:
+    petsc_z = True
+    message( red, " PETSC_ARCH points to COMPLEX.")
+else:
+    petsc_d = True
+    message( red, " PETSC_ARCH points to DOUBLE.")
 slepc_dir = os.environ.get('SLEPC_DIR','default')
 
 # Set the flags based on command line options
@@ -146,8 +144,12 @@ if int(slepc):
     message( green, "SLEPc library support is enabled. ")
     message( blue, " This requires PETSc/BLAS/LAPACK support too.")
     message( blue, " Make sure your LD_LIBRARY_PATH contains ")
-    message( blue, " $SLEPC_DIR/x86_64-linux-gnu-complex/lib")
-    message( blue, " and $PETSC_DIR/x86_64-linux-gnu-complex/lib.")
+    if petsc_z:
+        message( blue, " $SLEPC_DIR/x86_64-linux-gnu-complex/lib")
+        message( blue, " and $PETSC_DIR/x86_64-linux-gnu-complex/lib.")
+    else:
+        message( blue, " $SLEPC_DIR/x86_64-linux-gnu-double/lib")
+        message( blue, " and $PETSC_DIR/x86_64-linux-gnu-double/lib.")
     if (slepc_dir == 'default'):
        message( red, " $SLEPC_DIR is not set!")
        message( red, " You must have $SLEPC_DIR/$PETSC_ARCH point to you SLEPC installation." )
@@ -177,13 +179,13 @@ if int(slepc):
 if int(petsc):
     print( " *" )
     message( green, "PETSc library support is enabled. ")
-    message( blue, " This requires MUMPS/BLAS/LAPACK/MPI support too.")
+    message( blue, " This requires BLAS/LAPACK/MPI support too.")
     if (petsc_dir == 'default'):
        message( red, " $PETSC_DIR is not set!")
        message( red, " You must have $PETSC_DIR/$PETSC_ARCH point to you PETSC installation." )
        Exit(1)
     else:
-	message( green, " $PETSC_DIR = "+petsc_dir )
+        message( green, " $PETSC_DIR = "+petsc_dir )
 	if ( petsc_arch == 'default' ):
 	   message( red, " $PETSC_ARCH is not set!" )
 	   message( red, " You must have $PETSC_ARCH be the name of the library build directory in $SLEPC_DIR." )
@@ -193,37 +195,16 @@ if int(petsc):
 	petsc_inc = petsc_dir + "/include " + petsc_dir + "/" + petsc_arch + "/include "
 	rpath.append( petsc_lib_dir )
     # quick hack to determine which PETSc build we have
-    if 'double' in petsc_arch:
-       preproc += ' -DPETSC_D '
-    if 'complex' in petsc_arch:
+    if petsc_z:
        preproc += ' -DPETSC_Z '
+    else:
+       preproc += ' -DPETSC_D '
     # slepc support requires blas/lapack/mumps support
     lapack = 1
     blas = 1
-    libs_str += petsc_lib + ' '#+ ' mpi gfortran '
+    libs_str += petsc_lib + ' mpi '
     libdir_str += petsc_lib_dir + ' '
     incdir_str += petsc_inc + ' '
-
-if int(mumps):
-    print( " *" )
-    message( green, "MUMPS (sequential) direct solver support is enabled.")
-    message( blue, " Perhaps best to do this via PETSc.")
-    message( blue, " This requires BLAS/MPI support.")
-    blas = 1
-    mpi = 1
-    libs_str += dmumps_lib + ' ' + zmumps_lib + ' ' + blas_lib + ' ' + petsc_lib + ' metis mpifort scalapack lapack mpi gfortran '
-    incdir_str += ' ' + petsc_inc + ' '
-    preproc += ' -DMUMPS_SEQ '
-
-if int(superlu):
-    print( " *" )
-    message( green, "SUPERLU direct solver support is enabled.")
-    message( blue, " This requires BLAS support too.")
-    # superlu support requires blas support
-    blas = 1
-    libs_str += superlu_lib + ' ' + blas_lib + ' '
-    incdir_str += ' ' + superlu_inc + ' '
-    preproc += ' -DSUPERLU '
 
 if int(lapack):
     print( " *" )
@@ -315,21 +296,6 @@ if int(lapack):
         message( green, "Found BLAS & LAPACK support.")
         message( green, "LAPACK solvers will be used in preference to the native ones.")
 
-if int(superlu):
-    # superlu => blas
-    superlu = blas = 1
-    if not conf.CheckLib( superlu_lib ):
-        message( red, "No libsuperlu!")
-        superlu = 0
-    if not conf.CheckLib('blas'):
-        message( red, "No libblas!")
-        blas = 0
-    if ( superlu * blas == 0 ):
-        message( red, "SUPERLU support has failed.")
-        Exit(1)
-    else:
-        message( green, "Found SUPERLU and including support for sparse matrix solvers.")
-
 if int(petsc):
     if not conf.CheckLib( petsc_lib ):
         message( red, "No libpetsc!")
@@ -341,28 +307,6 @@ if int(slepc):
         message( red, "No libslepc!")
     else:
 	message( green, "Found SLEPC.")
-
-
-if int(mumps):
-    # superlu => blas
-    mumps = blas = mpi = 1
-    if not conf.CheckLib( dmumps_lib ):
-        message( red, "No dmumps!")
-        mumps = 0
-    if not conf.CheckLib( zmumps_lib ):
-        message( red, "No zmumps!")
-        mumps = 0
-    if not conf.CheckLib( mpi_lib ):
-        message( red, "No mpi!")
-        mumps = 0
-    if not conf.CheckLib('blas'):
-        message( red, "No libblas!")
-        blas = 0
-    if ( mumps * blas * mpi == 0 ):
-        message( red, "MUMPS_SEQ support has failed.")
-        Exit(1)
-    else:
-        message( green, "Found MUMPS_SEQ and including support for sparse matrix solvers.")
 
 if int(slepc):
     # slepc => petsc (and let's assume blas and lapack)

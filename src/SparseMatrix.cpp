@@ -33,9 +33,9 @@ namespace CppNoddy
     for ( std::size_t i = 0; i < NR; ++i )
     {
       MATRIX.push_back( source.get_row( source_rows[i] ) );
-    }    
+    }
   }
-  
+
   template <typename _Type>
   SparseMatrix<_Type>::SparseMatrix( const SparseMatrix<_Type>& source ) :
       Matrix_base<_Type>( source )
@@ -154,144 +154,6 @@ namespace CppNoddy
     throw ExceptionRuntime( "SparseMatrix.multiply has not been implemented" );
   }
 
-#ifdef SUPERLU
-  template <typename _Type>
-  void SparseMatrix<_Type>::get_row_compressed_superlu( _Type* storage, int* cols, int* rows )
-  {
-    // iterator to the maps that are used in SparseVector
-    // this is bad form as it exposes the internals of the SparseVector storage
-    citer pos;
-    //std::size_t last_col( NC + 1 ); // no column should have NC + 1, so this is a dummy start value
-    std::size_t i( 0 ); // where we are in the storage vector
-    //
-    for ( std::size_t row = 0; row < NR; ++row )
-    {
-      // flag to indicate that we're on a new coloumn
-      bool new_row( true );
-      pos = MATRIX[ row ].begin();
-      do
-      {
-        _Type elt( pos -> second );
-        int col( pos -> first );
-        storage[ i ] = elt;
-        cols[ i ] = col;
-        ++pos;
-        if ( new_row )
-        {
-          rows[ row ] = i;
-          new_row = false;
-        }
-        ++i;
-      }
-      while ( pos != MATRIX[ row ].end() );
-    }
-    // last entry points to end + 1
-    rows[ NR ] = nelts();
-  }
-#endif
-
-#ifdef MUMPS_SEQ
-  template <>
-  void SparseMatrix<double>::get_row_compressed_mumps_seq( double* storage, int* cols, int* rows )
-  {
-    // iterator to the maps that are used in SparseVector
-    // this is bad form as it exposes the internals of the SparseVector storage
-    citer pos;
-    std::size_t i( 0 ); // where we are in the storage vector
-    //
-    for ( std::size_t row = 0; row < NR; ++row )
-    {
-      // start at the begining of this row
-      pos = MATRIX[ row ].begin();
-      do
-      {
-        // for each non-zero elt in the row
-        double elt( pos -> second );
-        int col( pos -> first );
-        storage[ i ] = elt;
-        // +1 to return FORTRAN indexing
-        cols[ i ] = col+1;
-        rows[ i ] = row+1;
-        ++pos;
-        ++i;
-      }
-      while ( pos != MATRIX[ row ].end() );
-    }
-  }
-
-
-  template <>
-  void SparseMatrix<std::complex<double> >::get_row_compressed_mumps_seq( mumps_double_complex* storage, int* cols, int* rows )
-  {
-    // iterator to the maps that are used in SparseVector
-    // this is bad form as it exposes the internals of the SparseVector storage
-    citer pos;
-    std::size_t i( 0 ); // where we are in the storage vector
-    //
-    for ( std::size_t row = 0; row < NR; ++row )
-    {
-      // start at the begining of this row
-      pos = MATRIX[ row ].begin();
-      do
-      {
-        // for each non-zero elt in the row
-        mumps_double_complex elt;
-        elt.r = real(pos -> second);
-        elt.i = imag(pos -> second);
-        int col( pos -> first );
-        storage[ i ] = elt;
-        // +1 to return FORTRAN indexing
-        cols[ i ] = col+1;
-        rows[ i ] = row+1;
-        ++pos;
-        ++i;
-      }
-      while ( pos != MATRIX[ row ].end() );
-    }
-  }
-#endif
-
-
-#ifdef PETSC_Z
-  template <>
-  void SparseMatrix<std::complex<double> >::get_row_compressed_petsc( PetscScalar* storage, PetscInt* cols, PetscInt* rows )
-  {
-    //std::string problem;
-    //problem = "The SparseMatrix::get_row_compressed_petsc method was called for a SparseMatrix<D_complex>\n";
-    //problem += "even though PETSC_ARCH is currently pointing to a double version of the library.\n";
-    //throw ExceptionExternal( problem );
-    // iterator to the maps that are used in SparseVector
-    // this is bad form as it exposes the internals of the SparseVector storage
-    citer pos;
-    std::size_t i( 0 ); // where we are in the storage vector
-    //
-    for ( std::size_t row = 0; row < NR; ++row )
-    {
-      // matrix could be singular with an empty row for the mass matrix 
-      // of a generalised eigenvalue problem
-      if ( MATRIX[row].nelts() > 0 )
-      {
-        // start at the begining of this row
-        pos = MATRIX[ row ].begin();
-        do
-        {
-          // for each non-zero elt in the row
-          PetscScalar elt;
-          elt = real(pos -> second) + PETSC_i * imag(pos -> second);
-          int col( pos -> first );
-          storage[ i ] = elt;
-          // +1 to return FORTRAN indexing
-          cols[ i ] = col;
-          rows[ i ] = row;
-          ++pos;
-          ++i;
-        }
-        while ( pos != MATRIX[ row ].end() );
-      }
-    }
-  }
-#endif
-  
 #ifdef PETSC_Z
   template <>
   void SparseMatrix<std::complex<double> >::get_row_petsc( PetscInt row, PetscScalar* storage, PetscInt* cols )
@@ -305,7 +167,7 @@ namespace CppNoddy
     citer pos;
     std::size_t i(0);
     //
-    // matrix could be singular with an empty row for the mass matrix 
+    // matrix could be singular with an empty row for the mass matrix
     // of a generalised eigenvalue problem
     if ( MATRIX[row].nelts() > 0 )
     {
@@ -326,48 +188,63 @@ namespace CppNoddy
       while ( pos != MATRIX[ row ].end() );
     }
   }
-#endif
-  
-#ifdef PETSC_D
+#else
   template <>
-  void SparseMatrix<double >::get_row_compressed_petsc( PetscScalar* storage, PetscInt* cols, PetscInt* rows )
+  void SparseMatrix<std::complex<double> >::get_row_petsc( PetscInt row, PetscScalar* storage, PetscInt* cols )
   {
-    //std::string problem;
-    //problem = "The SparseMatrix::get_row_compressed_petsc method was called for a SparseMatrix<double>\n";
-    //problem += "even though PETSC_ARCH is currently pointing to a complex version of the library.\n";
-    //throw ExceptionExternal( problem );
-    // iterator to the maps that are used in SparseVector
-    // this is bad form as it exposes the internals of the SparseVector storage
-    citer pos;
-    std::size_t i( 0 ); // where we are in the storage vector
-    //
-    for ( std::size_t row = 0; row < NR; ++row )
-    {
-      // matrix could be singular with an empty row for the mass matrix 
-      // of a generalised eigenvalue problem
-      if ( MATRIX[row].nelts() > 0 )
-      {
-        // start at the begining of this row
-        pos = MATRIX[ row ].begin();
-        do
-        {
-          // for each non-zero elt in the row
-          PetscScalar elt;
-          elt = pos -> second;
-          int col( pos -> first );
-          storage[ i ] = elt;
-          // +1 to return FORTRAN indexing
-          cols[ i ] = col;
-          rows[ i ] = row;
-          ++pos;
-          ++i;
-        }
-        while ( pos != MATRIX[ row ].end() );
-      }
-    }
+    std::string problem;
+    problem = "The SparseMatrix::get_row_petsc method was called for a SparseMatrix<D_complex>\n";
+    problem += "even though PETSC_ARCH is currently pointing to a double version of the library.\n";
+    throw ExceptionExternal( problem );
   }
 #endif
-  
+
+// #ifdef PETSC_D
+//   template <>
+//   void SparseMatrix<double >::get_row_compressed_petsc( PetscScalar* storage, PetscInt* cols, PetscInt* rows )
+//   {
+//     // iterator to the maps that are used in SparseVector
+//     // this is bad form as it exposes the internals of the SparseVector storage
+//     citer pos;
+//     std::size_t i( 0 ); // where we are in the storage vector
+//     //
+//     for ( std::size_t row = 0; row < NR; ++row )
+//     {
+//       // matrix could be singular with an empty row for the mass matrix
+//       // of a generalised eigenvalue problem
+//       if ( MATRIX[row].nelts() > 0 )
+//       {
+//         // start at the begining of this row
+//         pos = MATRIX[ row ].begin();
+//         do
+//         {
+//           // for each non-zero elt in the row
+//           PetscScalar elt;
+//           elt = pos -> second;
+//           int col( pos -> first );
+//           storage[ i ] = elt;
+//           // +1 to return FORTRAN indexing
+//           cols[ i ] = col;
+//           rows[ i ] = row;
+//           ++pos;
+//           ++i;
+//         }
+//         while ( pos != MATRIX[ row ].end() );
+//       }
+//     }
+//   }
+// #else
+//   template <>
+//   void SparseMatrix<double >::get_row_compressed_petsc( PetscScalar* storage, PetscInt* cols, PetscInt* rows )
+//   {
+//     std::string problem;
+//     problem = "The SparseMatrix::get_row_compressed_petsc method was called for a SparseMatrix<double>\n";
+//     problem += "even though PETSC_ARCH is currently pointing to a complex version of the library.\n";
+//     throw ExceptionExternal( problem );
+//   }
+// #endif
+
+
 #ifdef PETSC_D
   template <>
   void SparseMatrix<double >::get_row_petsc( PetscInt row, PetscScalar* storage, PetscInt* cols )
@@ -381,7 +258,7 @@ namespace CppNoddy
     citer pos;
     std::size_t i(0);
     //
-    // matrix could be singular with an empty row for the mass matrix 
+    // matrix could be singular with an empty row for the mass matrix
     // of a generalised eigenvalue problem
     if ( MATRIX[row].nelts() > 0 )
     {
@@ -401,6 +278,15 @@ namespace CppNoddy
       }
       while ( pos != MATRIX[ row ].end() );
     }
+  }
+#else
+  template <>
+  void SparseMatrix<double >::get_row_petsc( PetscInt row, PetscScalar* storage, PetscInt* cols )
+  {
+    std::string problem;
+    problem = "The SparseMatrix::get_row_petsc method was called for a SparseMatrix<double>\n";
+    problem += "even though PETSC_ARCH is currently pointing to a complex version of the library.\n";
+    throw ExceptionExternal( problem );
   }
 #endif
 
@@ -427,4 +313,3 @@ namespace CppNoddy
   ;
 
 } // end namespace
-

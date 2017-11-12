@@ -15,10 +15,6 @@
 #include <Matrix_base.h>
 #include <Exceptions.h>
 
-#ifdef MUMPS_SEQ
-#include "dmumps_c.h"
-#include "zmumps_c.h"
-#endif
 
 #if defined(PETSC_D) || defined(PETSC_Z)
 #include "petscsys.h"
@@ -48,7 +44,7 @@ namespace CppNoddy
     /// \param rows The number of rows in the matrix
     /// \param cols The number of columns in the matrix
     SparseMatrix( const std::size_t& rows, const std::size_t& cols );
-    
+
     /// Construct from a row permutation of another sparse matrix
     /// \param source_rows Defines the permutation, row i of this matrix is row source_rows[i] of the source
     SparseMatrix( const SparseMatrix<_Type>& source, const std::vector<std::size_t>& source_rows );
@@ -171,44 +167,19 @@ namespace CppNoddy
     /// \return The DENSE vector of the row data
     const SparseVector<_Type>& operator[] ( const std::size_t& row ) const;
 
-    /// Take the contents of the SparseMatrix and convert it to a
-    /// standard compressed row format that can be fed directly
-    /// into the SuperLU library to solve.
-    /// \param storage A contiguous vector of the non-zero elts
-    /// \param cols The col indices of each entry in the storage vector
-    /// \param rows The indices of the elements in the storage vector
-    ///   that begin a new row    
-#ifdef SUPERLU
-    void get_row_compressed_superlu( _Type* storage, int* cols, int* rows) ;
-#endif
-
-    /// Takes the contents of the SparseMatrix and converts it to a
-    /// standard coordinate (FORTRAN) format that can be fed directly
-    /// into the MUMPS_SEQ library to solve. The output is in a 
-    /// "FORTRAN format" indicating that the i,j indices start at i=j=1 
-    /// rather than zero.
-    /// \param storage A contiguous vector of the non-zero elts
-    /// \param rows The row indices of each entry in the storage vector
-    /// \param cols The column indices of each entry in the storage vector
-#ifdef MUMPS_SEQ
-    void get_row_compressed_mumps_seq( double* storage, int* cols, int* rows);
-    void get_row_compressed_mumps_seq( mumps_double_complex* storage, int* cols, int* rows);
-#endif
 
 #if defined (PETSC_D) || defined (PETSC_Z)
     // SLEPc is compiled separately for double or complex ... but only linked against
-    // once in the build process, so it's either or. I'll assume PetscScalar is complex.
-
+    // once in the build process, so it's either/or.
 
     /// Takes the contents of the SparseMatrix and converts it to a
     /// standard coordinate format. The elements of the sparse matrix
     /// are put (row-wise) into a contiguous vector, the i and j
-    /// are then put into the row and column vectors. Apart from the +1
-    /// on i,j this is equivalent to get_row_compressed_mumps_seq.
+    /// are then put into the row and column vectors. 
     /// \param storage A contiguous vector of the non-zero elts (has to be allocated and big enough)
     /// \param rows The row indices of each entry in the storage vector (has to be allocated and big enough)
     /// \param cols The column indices of each entry in the storage vector  (has to be allocated and big enough)
-    void get_row_compressed_petsc( PetscScalar* storage, PetscInt* cols, PetscInt* rows);
+    // void get_row_compressed_petsc( PetscScalar* storage, PetscInt* cols, PetscInt* rows);
 
     /// Takes the contents of the SparseMatrix and converts it to a
     /// standard compressed format for a specified row.
@@ -217,7 +188,7 @@ namespace CppNoddy
     /// \param cols The column indices of each entry in the storage vector (has to be allocated and big enough)
     void get_row_petsc( PetscInt row_number, PetscScalar* storage, PetscInt* cols );
 
-    /// Extracts the number of non-zero elements in each row and returns them as a 
+    /// Extracts the number of non-zero elements in each row and returns them as a
     /// PetscInt array of length NR. The array should be allocated on entry.
     /// \param The array to fill with the number of non-zero elts in each row (has to be allocated and big enough)
     void nelts_all_rows( PetscInt* row_nnz)
@@ -241,7 +212,7 @@ namespace CppNoddy
     /// \param row_min The start row for the search
     /// \param row_max The end row for the search (NOT INCLUSIVE)
     std::size_t max_in_col( const std::size_t& col, const std::size_t& row_min, const std::size_t& row_max ) const;
-    
+
     /// Swap two rows in the matrix -- used in the native solver.
     /// \param row1 The first row to be exchanged
     /// \param row2 The second row to be exchanged

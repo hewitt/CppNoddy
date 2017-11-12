@@ -9,20 +9,8 @@
 #include <Exceptions.h>
 #include <LinearSystem_base.h>
 
-
-#ifdef SUPERLU
-  // There are conflicts between Superlu3 include files
-  // slu_ddefs.h & slu_zdefs.h for double and complex systems.
-  // Hence SLU.h is these two includes put together, but then
-  // separated by the SLUD and SLUZ namespaces.
-  #include <SLU.h>
-#endif
-
-#ifdef MUMPS_SEQ
-  // double precision real includes
-  #include "dmumps_c.h"
-  // double precision complex includes
-  #include "zmumps_c.h"
+#if defined(PETSC_Z) || defined(PETSC_D)
+  #include <petscksp.h>
 #endif
 
 namespace CppNoddy
@@ -39,26 +27,33 @@ namespace CppNoddy
     /// Constructor for a sparse linear system object.
     /// \param Aptr A pointer to the 'A matrix', an NxN double/complex sparse matrix
     /// \param Bptr A pointer to the 'B vector' a size N double/complex dense vector
-    /// \param which A string that indicates which solver to use: native (default), superlu or mumps_seq 
+    /// \param which A string that indicates which solver to use: native (default) pr petsc
     SparseLinearSystem( SparseMatrix<_Type>* Aptr, DenseVector<_Type>* Bptr, std::string which = "native" );
 
     /// Destructor for a linear system object.
-    ~SparseLinearSystem()
-    {}
+    ~SparseLinearSystem();
+
+    /// deallocates some objects
+    void cleanup();
 
     /// Solve the sparse system
     void solve();
 
+    /// Factorise the Ax=B system
+    void factorise();
+
+    /// Resolve the same system using the same factorisation
+    void solve_using_factorisation();
+
   private:
+    // solve by linking to PETSc
+    void solve_petsc();
+
+    // factorise by linking to PETSc -- allow for re-solves
+    void factorise_petsc();
 
     /// Solve the linear system using the native elimination -- quite a naive implementation I imagine.
     void solve_native();
-
-    /// Solve the linear system by linking to the SuperLU library
-    void solve_superlu();
-
-    /// Solve the linear system by linking to the MUMPS (Sequential) library
-    void solve_mumps_seq();
 
     /// Back substitution routine for dense systems.
     /// \param A The upper triangular matrix LHS
@@ -72,7 +67,15 @@ namespace CppNoddy
     SparseMatrix<_Type>* p_A;
     /// pointer to the RHS vector
     DenseVector<_Type>* p_B;
-
+    ///
+    #if defined(PETSC_Z) || defined(PETSC_D)
+      bool factorised_;
+      Vec            x_,B_;      /* B = RHS and x = soln */
+      Mat            F_;
+      KSP            ksp_;       /* linear solver context */
+      PC             pc_;        /* preconditioner -- though hard wired for MUMPS direct method */
+      PetscMPIInt    rank_, size_;
+    #endif
   };
 
 } //end namepsace

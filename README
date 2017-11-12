@@ -1,13 +1,3 @@
 See:
 
 http://hewitt.gotdns.org/Dev/CppNoddy/doc/html/index.html
-
-Coding conventions:
-
-1. A class's private/protected member data is all capitalised.
-2. Private/protected member data that are pointers begin with 'p_'
-3. Read only access to private member data is provided
-by member functions beginning with 'get_'
-4. Write only access uses the prefix 'set_'
-
- 

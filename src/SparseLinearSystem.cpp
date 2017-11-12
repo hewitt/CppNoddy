@@ -7,13 +7,10 @@
 #include <SparseLinearSystem.h>
 #include <Exceptions.h>
 #include <Types.h>
+#include <Timer.h>
 
-#ifdef MUMPS_SEQ
-#include <MPIinit.h>
-#endif
-
-#ifdef DEBUG
-  #include <Timer.h>
+#ifdef INC_MPI
+  #include "mpi.h"
 #endif
 
 namespace CppNoddy
@@ -21,18 +18,66 @@ namespace CppNoddy
 
   template <typename _Type>
   SparseLinearSystem<_Type>::SparseLinearSystem( SparseMatrix<_Type>* Aptr, DenseVector<_Type>* Bptr, std::string which ) : LinearSystem_base(),
-      MIN_PIV( 1.e-12 )
+      MIN_PIV( 1.e-12 ), factorised_(false)
   {
     p_A = Aptr;
     p_B = Bptr;
     VERSION = which;
-    if ( ( VERSION != "superlu" ) && ( VERSION != "native" ) && ( VERSION != "mumps_seq" ) )
+    //
+    if ( ( VERSION != "petsc" ) && ( VERSION != "native" ) )
     {
+      std::cout << "Solver type requested: " << VERSION << "\n";
       std::string problem;
       problem = "The SparseLinearSystem has been instantiated with an unrecognised\n";
-      problem += "request for a solver type. Options: 'native','superlu','mumps_seq'. \n";
+      problem += "request for a solver type. Options: 'native','petsc'. \n";
       throw ExceptionRuntime( problem );
     }
+    #ifdef INC_MPI
+      if ( VERSION == "petsc" )
+      {
+        int flag(0);
+        MPI_Initialized( &flag );
+        if ( flag != 1 )
+        {
+          std::string problem;
+          problem = "The SparseLinearSystem has been instantiated for a petsc solver.\n";
+          problem += "You must call PetscInitialize before calling the petsc solver.\n";
+          throw ExceptionRuntime( problem );
+        }
+      }
+    #endif
+    MPI_Comm_size(MPI_COMM_WORLD,&size_);
+    MPI_Comm_size(MPI_COMM_WORLD,&rank_);
+    if ( size_ > 1 )
+    {
+      std::string problem;
+      problem = " The SparseLinearSystem object links to PETSc which makes\n";
+      problem += " use of MPI, but you probably won't gain anything yet by\n";
+      problem += " using >1 processes. The SparseMatrix object is still too\n";
+      problem += " dumb, and will be stored in each process.\n";
+      throw ExceptionRuntime( problem );
+    }
+  }
+
+  template<typename _Type>
+  SparseLinearSystem<_Type>::~SparseLinearSystem()
+  {
+    cleanup();
+  }
+
+  template<typename _Type>
+  void SparseLinearSystem<_Type>::cleanup()
+  {
+    #if defined(PETSC_D) || defined(PETSC_Z)
+      if (factorised_)
+      {
+        // delete objects used in the factorisation?
+        KSPDestroy(&ksp_);
+        VecDestroy(&x_);
+        VecDestroy(&B_);
+      }
+    #endif
+    factorised_ = false;
   }
 
   template <typename _Type>
@@ -47,29 +92,19 @@ namespace CppNoddy
       throw ExceptionRuntime( problem );
     }
     #ifdef DEBUG
-    Timer timer( "[DEBUG] SparseLinearSystem solver." );
-    timer.start();
     #endif
-    if ( "superlu" == VERSION )
+    if ( "petsc" == VERSION )
     {
-      solve_superlu();
+      factorise();
+      solve_using_factorisation();
     }
     else // we catch incorrect VERSION choices in the ctor
     {
-      if ( "mumps_seq" == VERSION )
-      {
-        solve_mumps_seq();
-      }
-      else
-      {
-        solve_native();
-      }
+      solve_native();
     }
-    #ifdef DEBUG
-    timer.stop();
-    timer.print();
-    #endif
   }
+
+
 
   template <typename _Type>
   void SparseLinearSystem<_Type>::solve_native()
@@ -177,418 +212,816 @@ namespace CppNoddy
   }
 
 
-  template <>
-  void SparseLinearSystem<double>::solve_superlu()
-  {
-#ifndef SUPERLU
-    std::string problem = "The SparseLinearSystem::solve_superlu method has been called\n";
-    problem += "but the compiler option -DSUPERLU was not provided when\n";
-    problem += "the library was built and so SuperLU support is not available.";
-    throw ExceptionExternal( problem );
+
+/*
+  $PETSC_ARCH points to a DOUBLE implementation routines are below
+*/
+
+template<>
+void SparseLinearSystem<double>::factorise()
+{
+#if defined(PETSC_Z)
+  std::string problem;
+  problem = "CppNoddy is linked against the COMPLEX version of PETSc\n";
+  problem += "but you are trying to factorise a DOUBLE matrix. Either\n";
+  problem += "redefine your matrix as complex, or recompile with $PETSC_ARCH\n";
+  problem += "pointing to a DOUBLE version of the PETSc code.";
+  throw ExceptionExternal( problem );
 #else
-    using namespace SLUD;
-    // standard SuperLU preamble straight from the example problems
-    SuperMatrix sA, L, U, sB;
-    // All these integers are 4 bytes (32bit) -- presumably because the
-    // superlu library is compiled in this way, as is BLAS probably.
-    int *perm_r; /* row permutations from partial pivoting */
-    int *perm_c; /* column permutation vector */
-    int info;
-    int m = p_A -> nrows();
-    int n = p_A -> ncols();
-    int nnz = p_A -> nelts();
-    int nrhs = 1;
-    superlu_options_t options;
-    SuperLUStat_t stat;
 
-    // convert our SparseMatrix problem into compressed column data
-    double* storage;
-    int* rows;
-    int* cols;
-    if ( !( storage = doubleMalloc( nnz ) ) )
-      ABORT( "Malloc fails for storage[]." );
-    if ( !( cols = intMalloc( nnz ) ) )
-      ABORT( "Malloc fails for rows[]." );
-    if ( !( rows = intMalloc( m + 1 ) ) )
-      ABORT( "Malloc fails for cols[]." );
-
-    // this is the only intersection with the CppNoddy container
-    // this returns all the required row_compressed data
-    p_A -> get_row_compressed_superlu( storage, cols, rows );
-
-    /* Create matrix A in the format expected by SuperLU. */
-    dCreate_CompCol_Matrix( &sA, m, n, nnz, storage, cols,
-                            rows, SLU_NR, SLU_D, SLU_GE );
-    // ^ the SLU_NR here indicates that it's row-compressed
-    //   the SLU_D indicates double precision
-    //   the SLU_GE indicates that its a general matrix with no special properties
-    dCreate_Dense_Matrix( &sB, m, nrhs, &( ( *p_B )[0] ), m, SLU_DN, SLU_D, SLU_GE );
-    // ^ the SLU_DN indicates that its double & in Fortran column-first format
-    //     not that it makes any difference if nrhs=1
-
-    if ( !( perm_r = intMalloc( m ) ) )
-      ABORT( "Malloc fails for perm_r[]." );
-    if ( !( perm_c = intMalloc( n ) ) )
-      ABORT( "Malloc fails for perm_c[]." );
-
-    /* Set the default input options. */
-    //options.ColPerm = NATURAL;
-    set_default_options( &options );
-
-    /* Initialize the statistics variables. */
-    StatInit( &stat );
-
-    // solve & get the solution
-    dgssv( &options, &sA, perm_c, perm_r, &L, &U, &sB, &stat, &info );
-    double *sol = ( double* ) ( ( DNformat* ) sB.Store ) -> nzval;
-    for ( int j = 0; j < n; ++j )
-    {
-      // return via the CppNoddy DenseVector container
-      ( *p_B )[ j ] = sol[ j ];
-    }
-
-#ifdef DEBUG
-    SCformat *Lstore;
-    NCformat *Ustore;
-    SLUD::mem_usage_t   mem_usage;
-    Lstore = ( SCformat * ) L.Store;
-    Ustore = ( NCformat * ) U.Store;
-    printf( "[DEBUG] No of nonzeros in factor L = %d\n", Lstore->nnz );
-    printf( "[DEBUG] No of nonzeros in factor U = %d\n", Ustore->nnz );
-    printf( "[DEBUG] No of nonzeros in L+U = %d\n", Lstore->nnz + Ustore->nnz - n );
-    printf( "[DEBUG] FILL ratio = %.1f\n", ( float )( Lstore->nnz + Ustore->nnz - n ) / nnz );
-    dQuerySpace( &L, &U, &mem_usage );
-    printf( "[DEBUG] L\\U MB %.3f\ttotal MB needed %.3f\n",
-            mem_usage.for_lu / 1e6, mem_usage.total_needed / 1e6 );
-#endif
-
-    SUPERLU_FREE ( perm_r );
-    SUPERLU_FREE ( perm_c );
-    // usual SuperLU free memory allocated to storage
-    Destroy_CompCol_Matrix( &sA );
-    Destroy_SuperMatrix_Store( &sB );
-    Destroy_SuperNode_Matrix( &L );
-    Destroy_CompCol_Matrix( &U );
-    StatFree( &stat );
-#endif
+  if (factorised_)
+  {
+    // already factorised -- so delete and re-create below
+    cleanup();
   }
 
+  // store a boolean to indicate that we
+  factorised_ = true;
+  PetscInt Istart,Iend,n;
+  Mat A;
 
-  template <>
-  void SparseLinearSystem<std::complex<double> >::solve_superlu()
+  // size of the (assumed square) matrix
+  n = p_A -> nrows();
+  /*
+     Create parallel vectors.
+  */
+  VecCreate(PETSC_COMM_WORLD,&B_);
+  VecSetSizes(B_,PETSC_DECIDE,p_A->nrows());
+  VecSetFromOptions(B_);
+  VecDuplicate(B_,&x_);
+
+  // configure the A matrix
+  MatCreate(PETSC_COMM_WORLD,&A);
+  // set A to be an nxn matrix
+  MatSetSizes(A,PETSC_DECIDE,PETSC_DECIDE,n,n);
+  MatSetFromOptions(A);
+
+  // get: all_rows_nnz[i] is the number of nonzero elts in row i
+  PetscInt* all_rows_nnz = new PetscInt[ n ];
+  p_A -> nelts_all_rows( all_rows_nnz );
+
+  // pre-allocate memory using the number of non-zero elts in each row (the 0 is ignored here)
+  MatSeqAIJSetPreallocation(A, 0, all_rows_nnz );
+  // need to allocate for MPI codes too
+  // \todo if we every get MPI running, we need to sort out preallocation
+  // MatMPIAIJSetPreallocation(A, 800, NULL, 800, NULL);
+  //
+  // finish the A definition
+  MatSetUp(A);
+
+  /*
+     Currently, all PETSc parallel matrix formats are partitioned by
+     contiguous chunks of rows across the processors.  Determine which
+     rows of the matrix are locally owned.
+  */
+  MatGetOwnershipRange(A,&Istart,&Iend);
+  // populate the A matrix using the CppNoddy sparse matrix data
+  for ( PetscInt i = Istart; i<Iend; ++i )
   {
-#ifndef SUPERLU
-    std::string problem = "The SparseLinearSystem::solve_superlu method has been called\n";
-    problem += "but the compiler option -DSUPERLU was not provided when\n";
-    problem += "the library was built and so SuperLU support is not available.";
-    throw ExceptionExternal( problem );
-#else
-    using namespace SLUZ;
-    // standard SuperLU preamble straight from the example problems
-    SuperMatrix sA, L, U, sB;
-    // All these integers are 4 bytes (32bit) -- presumably because the
-    // superlu library is compiled in this way, as is BLAS probably.
-    int *perm_r; /* row permutations from partial pivoting */
-    int *perm_c; /* column permutation vector */
-    int info;
-    int m = p_A -> nrows();
-    int n = p_A -> ncols();
-    int nnz = p_A -> nelts();
-    int nrhs = 1;
-    superlu_options_t options;
-    SuperLUStat_t stat;
-
-    // convert our SparseMatrix problem into compressed column data
-    doublecomplex* storage;
-    int* rows;
-    int* cols;
-    if ( !( storage = doublecomplexMalloc( nnz ) ) )
-      ABORT( "Malloc fails for storage[]." );
-    if ( !( cols = intMalloc( nnz ) ) )
-      ABORT( "Malloc fails for rows[]." );
-    if ( !( rows = intMalloc( m + 1 ) ) )
-      ABORT( "Malloc fails for cols[]." );
-
-    // temporary row_compressed storage
-    //std::complex<double> temp_storage[ nnz ];  
-    std::vector<std::complex<double> > temp_storage( nnz, 0.0 );
-    // this is the only intersection with the CppNoddy container
-    // this returns all the required row_compressed data
-    p_A -> get_row_compressed_superlu( &(temp_storage[0]), cols, rows );
-    // SUPERLU uses a "doublecomplex" struct, so we have to convert
-    // to that from the std::complex<double> class for both the 
-    // matrix and the RHS
-    for ( int  k = 0; k < nnz; ++k )
-    {
-      storage[ k ].r = std::real(temp_storage[ k ]);
-      storage[ k ].i = std::imag(temp_storage[ k ]);
-    }
-    doublecomplex B[ m ];
-    for ( int k = 0; k < m; ++k )
-    {
-      B[ k ].r = real((*p_B)[ k ]);
-      B[ k ].i = imag((*p_B)[ k ]);
-    }                        
-
-    /* Create matrix A in the format expected by SuperLU. */
-    zCreate_CompCol_Matrix( &sA, m, n, nnz, storage, cols,
-                            rows, SLU_NR, SLU_Z, SLU_GE );                                                        
-    // ^ the SLU_NR here indicates that it's row-compressed
-    //   the SLU_D indicates double precision
-    //   the SLU_GE indicates that its a general matrix with no special properties
-    zCreate_Dense_Matrix( &sB, m, nrhs, &B[0], m, SLU_DN, SLU_Z, SLU_GE );
-    // ^ the SLU_DN indicates that its double & in Fortran column-first format
-    //     not that it makes any difference if nrhs=1
-
-    if ( !( perm_r = intMalloc( m ) ) )
-      ABORT( "Malloc fails for perm_r[]." );
-    if ( !( perm_c = intMalloc( n ) ) )
-      ABORT( "Malloc fails for perm_c[]." );
-
-    /* Set the default input options. */
-    //options.ColPerm = NATURAL;
-    set_default_options( &options );
-
-    /* Initialize the statistics variables. */
-    StatInit( &stat );
-
-    // solve & get the solution
-    zgssv( &options, &sA, perm_c, perm_r, &L, &U, &sB, &stat, &info );
-    doublecomplex *sol = ( doublecomplex* ) ( ( DNformat* ) sB.Store ) -> nzval;
-    const std::complex<double> eye( 0., 1. );
-    for ( int j = 0; j < n; ++j )
-    {
-      // return via the CppNoddy DenseVector container
-      ( *p_B )[ j ] = sol[ j ].r + eye * sol[ j ].i;
-    }
-
-#ifdef DEBUG
-    SCformat *Lstore;
-    NCformat *Ustore;
-    SLUZ::mem_usage_t   mem_usage;
-    Lstore = ( SCformat * ) L.Store;
-    Ustore = ( NCformat * ) U.Store;
-    printf( "[DEBUG] No of nonzeros in factor L = %d\n", Lstore->nnz );
-    printf( "[DEBUG] No of nonzeros in factor U = %d\n", Ustore->nnz );
-    printf( "[DEBUG] No of nonzeros in L+U = %d\n", Lstore->nnz + Ustore->nnz - n );
-    printf( "[DEBUG] FILL ratio = %.1f\n", ( float )( Lstore->nnz + Ustore->nnz - n ) / nnz );
-    zQuerySpace( &L, &U, &mem_usage );
-    printf( "[DEBUG] L\\U MB %.3f\ttotal MB needed %.3f\n",
-            mem_usage.for_lu / 1e6, mem_usage.total_needed / 1e6 );
-#endif
-
-    SUPERLU_FREE ( perm_r );
-    SUPERLU_FREE ( perm_c );
-    // usual SuperLU free memory allocated to storage
-    Destroy_CompCol_Matrix( &sA );
-    Destroy_SuperMatrix_Store( &sB );
-    Destroy_SuperNode_Matrix( &L );
-    Destroy_CompCol_Matrix( &U );
-    StatFree( &stat );
-#endif
+    // move the matrix data into PETSc format 1 row at a time
+    std::size_t nelts_in_row = all_rows_nnz[i]; //p_A -> nelts_in_row(i);
+    // row i has all_rows_nnz[i] elements that are non-zero, so we store their columns
+    PetscInt* cols = new PetscInt[all_rows_nnz[i]];
+    // store the non-zero elts in this row
+    PetscScalar* storage = new PetscScalar[all_rows_nnz[i]];
+    // get the data from the CppNoddy sparse matrix structure
+    p_A -> get_row_petsc( i, storage, cols );
+    MatSetValues(A,1,&i,nelts_in_row,cols,storage,INSERT_VALUES);
+    // delete temp storage made in the conversion
+    delete[] cols; delete[] storage;
   }
 
+  /*
+     Assemble matrix, using the 2-step process:
+       MatAssemblyBegin(), MatAssemblyEnd()
+     Computations can be done while messages are in transition
+     by placing code between these two statements.
+  */
+  MatAssemblyBegin(A,MAT_FINAL_ASSEMBLY);
+  MatAssemblyEnd(A,MAT_FINAL_ASSEMBLY);
 
-  template <>
-  void SparseLinearSystem<double>::solve_mumps_seq()
+  /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                Create the linear solver and set various options
+     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  */
+  KSPCreate(PETSC_COMM_WORLD,&ksp_);
+  KSPSetOperators(ksp_,A,A);
+  KSPSetType(ksp_,KSPPREONLY);
+  PetscInt  ival,icntl;
+  PetscReal val;
+  KSPGetPC(ksp_,&pc_);
+  // hardwire a DIRECT SOLVER via MUMPS
+  PCSetType(pc_,PCLU);
+  PCFactorSetMatSolverPackage(pc_,MATSOLVERMUMPS);
+  PCFactorSetUpMatSolverPackage(pc_);
+  /* call MatGetFactor() to create F */
+  PCFactorGetMatrix(pc_,&F_);
+
+  /* sequential ordering */
+  icntl = 7; ival = 2;
+  MatMumpsSetIcntl(F_,icntl,ival);
+
+  /* threshhold for row pivot detection */
+  MatMumpsSetIcntl(F_,24,1);
+  icntl = 3; val = 1.e-6;
+  MatMumpsSetCntl(F_,icntl,val);
+
+  /* compute determinant of A */
+  // MatMumpsSetIcntl(F_,33,1);
+  /* not used unless we initialise PETSc using the command line options */
+  KSPSetFromOptions(ksp_);
+
+  /* Get info from matrix factors */
+  KSPSetUp(ksp_);
+
+  // /* determinant calculation */
+  // {
+  //   PetscInt  icntl,infog34;
+  //   PetscReal cntl,rinfo12,rinfo13;
+  //   icntl = 3;
+  //   MatMumpsGetCntl(F,icntl,&cntl);
+  //   // output determinant only the first proc.
+  //   if (!rank)
+  //   {
+  //     MatMumpsGetInfog(F,34,&infog34);
+  //     MatMumpsGetRinfog(F,12,&rinfo12);
+  //     MatMumpsGetRinfog(F,13,&rinfo13);
+  //     PetscPrintf(PETSC_COMM_SELF,"  Mumps row pivot threshhold = %g\n",cntl);
+  //     PetscPrintf(PETSC_COMM_SELF,"  Mumps determinant = (%g, %g) * 2^%D \n",(double)rinfo12,(double)rinfo13,infog34);
+  //   }
+  // }
+  MatDestroy(&A);
+  delete[] all_rows_nnz;
+#endif // check for PETSC_D/Z
+}
+
+
+
+
+template <>
+void SparseLinearSystem<double>::solve_using_factorisation()
+{
+#if defined(PETSC_Z)
+  std::string problem;
+  problem = "CppNoddy is linked against the COMPLEX version of PETSc\n";
+  problem += "but you are trying to solve a DOUBLE matrix. Either\n";
+  problem += "redefine your matrix as complex, or recompile with $PETSC_ARCH\n";
+  problem += "pointing to a DOUBLE version of the PETSc code.";
+  throw ExceptionExternal( problem );
+#else
+  // size of the (assumed square) matrix
+  PetscInt n = p_A -> nrows();
+
+  // populate the RHS vector using the CppNoddy DenseVector content
+  for ( PetscInt i = 0; i < n; ++i )
   {
-#ifndef MUMPS_SEQ
-    std::string problem = "The SparseLinearSystem<double>::solve_mumps_seq method has been called\n";
-    problem += "but the compiler option -DMUMPS_SEQ was not provided when\n";
-    problem += "the library was built and so MUMPS_SEQ support is not available.";
-    throw ExceptionExternal( problem );
-#else
-    DMUMPS_STRUC_C id;
-
-    int ierr, myid;
-    // create a new MPI singleton instance only if none already exists
-    MPIinit* p_library = MPIinit::getInstance();
-    ierr = MPI_Comm_rank(p_library->get_Comm(), &myid);
-    //ierr = MPI_Comm_rank(MPI_COMM_WORLD, &myid);
-
-    int nr = p_A -> nrows();
-    int nnz = p_A -> nelts();
-
-    // initialisation is done with -1 as the job
-    id.job=-1;
-    // par has to be set to 1 for sequential
-    id.par=1;
-    // not symmetric
-    id.sym=0;
-    // something to handle fortran<->C as specified in MUMPS manual
-    id.comm_fortran=-987654;
-    // set things up
-    dmumps_c(&id);
-  
-    // All these integers are 4 bytes (32bit) -- presumably because the
-    // MUMPS library is compiled in this way, as is BLAS probably.
-    //
-    // we can't do "double a[nnz];" etc b/c this would allocate from the stack and fail 
-    // when nnz is not particularly large
-    //
-    // storage for the row indices
-    int* irn = new int[nnz];
-    // storage for the column indices
-    int* jcn = new int[nnz];
-    // storage for the element list
-    double* a = new double[nnz]; 
-  
-    // we don't need alternative storage for the RHS when the problem is real
-    // double rhs[nr];
-    // convert the sparse matrix into the coordinate format required by MUMPS
-    p_A -> get_row_compressed_mumps_seq( a, jcn, irn );
-    
-    if (myid == 0)  // define the problem on the host
-    {
-      // set up the details of the matrix
-      id.n = nr; id.nz =nnz; id.irn=irn; id.jcn=jcn;
-      // set the LHS
-      id.a = a;
-      // keep the RHS in its DenseVector format and just pass the base address to the stored vector 
-      id.rhs = &( ( *p_B )[0] );
-    }
-    
-    //#define ICNTL(I) icntl[(I)-1] /* macro s.t. indices match documentation */
-    ///* No outputs */
-    //id.ICNTL(1)=-1; id.ICNTL(2)=-1; id.ICNTL(3)=-1; id.ICNTL(4)=0;
-    
-    // these indices are -1 from that in the MUMPS (Fortran indexed) documentation
-    id.icntl[0] = 6; //error output stream (Fortran numbering)
-#ifdef DEBUG  
-    id.icntl[1] = 6; //diagnostic/warning/statistics collected output stream (Fortran numbering)
-#else
-    id.icntl[1] = 0; //diagnostic/warning/statistics collected output stream (Fortran numbering)
-#endif
-    id.icntl[2] = 0; //global information collected on host
-    id.icntl[3] = 1; //level of printing verbosity for above streams
-    
-    ////ordering metis (5), or pord (4), or AMD (0), AMF (2), QAMD (6)
-    //id.icntl[6] = 2; // 7 = default which indicates automatic
-
-    // 1 = analysis, 2 = factorization, 3 = solve previously factorised, 4 = same as 1+2, 5 = same as 2+3, 6 = same as 1+2+3
-    id.job = 6;
-    dmumps_c(&id);
-
-    // if we are interested in timings, we may as well throw in the memory used too
-#ifdef DEBUG
-    std::cout << "[DEBUG] Memory used by MUMPS_SEQ = " << id.info[ 15 ] << "MB.\n";
-#endif
-    // close things down
-    id.job = -2;
-    dmumps_c(&id);
-    delete[] a;
-    delete[] irn;
-    delete[] jcn;
-#ifdef DEBUG
-    if ( myid == 0 )
-    {
-      std::cout << " [DEBUG] MPI ierr in MUMPS solve phase = " << ierr << "\n";
-    }
-#endif // DEBUG
-#endif // MUMPS ndef
+    VecSetValue(B_,i,p_B->operator[](i),INSERT_VALUES);
   }
 
-  template <>
-  void SparseLinearSystem<D_complex>::solve_mumps_seq()
+  /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                      Solve the linear system
+     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+  KSPSolve(ksp_,B_,x_);
+
+  /* We can now gather the parallel result back to ALL processes
+    This is temporary as the SparseMatrix is stored on each processes
+    and is too dumb for "proper" parallelization */
+  Vec y;
+  // a scatter context
+  VecScatter ctx = 0;
+  // map all elts of the parallel vector to a sequential copy
+  VecScatterCreateToAll(x_,&ctx,&y);
+  // scatter it
+  VecScatterBegin(ctx,x_,y,INSERT_VALUES,SCATTER_FORWARD);
+  VecScatterEnd(ctx,x_,y,INSERT_VALUES,SCATTER_FORWARD);
+  // clean up
+  VecScatterDestroy(&ctx);
+  // this array is a pointer not a copy
+  PetscScalar* array;
+  VecGetArray(y,&array);
+  // now copy to the CppNoddy densevctor
+  for (PetscInt i=0; i<n; i++)
   {
-#ifndef MUMPS_SEQ
-    std::string problem = "The SparseLinearSystem<D_complex>::solve_mumps_seq method has been called\n";
-    problem += "but the compiler option -DMUMPS_SEQ was not provided when\n";
-    problem += "the library was built and so MUMPS_SEQ support is not available.";
-    throw ExceptionExternal( problem );
-#else
-    ZMUMPS_STRUC_C id;
-    
-    // create a new MPI singleton instance only if none already exists
-    MPIinit* p_library = MPIinit::getInstance();
-    int ierr, myid;
-    ierr = MPI_Comm_rank(p_library->get_Comm(), &myid);
-
-    // All these integers are 4 bytes (32bit) -- presumably because the
-    // MUMPS library is compiled in this way, as is BLAS probably.
-    int nr = p_A -> nrows();
-    int nnz = p_A -> nelts();
-
-    // instance is initialised via job=-1
-    id.job=-1;
-    // for the sequential non-MPI version we need par=1
-    id.par=1;
-    // assumes no symmetry
-    id.sym=0;
-    // set things up
-    zmumps_c(&id);
-  
-    // storage for row indices
-    int* irn = new int[nnz];
-    // storage for the column indices
-    int* jcn = new int[nnz];
-    // storage for the element list
-    mumps_double_complex* a = new mumps_double_complex[nnz];
-    // RHS vector storage is needed because it is a complex problem
-    mumps_double_complex* rhs = new mumps_double_complex[nr];
-    
-    // convert the sparse matrix into the coordinate format required by MUMPS
-    p_A -> get_row_compressed_mumps_seq( a, jcn, irn );
-    
-    // set up the RHS vector from the CppNoddy RHS
-    for ( int k = 0; k<nr; ++k )
-    {
-      (rhs[k]).r = real( (*p_B)[k] );
-      (rhs[k]).i = imag( (*p_B)[k] );
-    }
-    
-    if (myid == 0)  // define the problem on the host
-    {
-      // set up the details of the matrix
-      id.n = nr; id.nz =nnz; id.irn=irn; id.jcn=jcn;
-      // set the LHS
-      id.a = a;
-      // define the RHS  
-      id.rhs = rhs;
-    }
-
-    // these indices are -1 from that in the MUMPS (Fortran indexed) documentation
-#ifdef DEBUG
-    id.icntl[1] = 6; //diagnostic/warning/statistics collected output stream (Fortran numbering)
-#else
-    id.icntl[1] = 0; //diagnostic/warning/statistics collected output stream (Fortran numbering)
-#endif
-    id.icntl[2] = 0; //global information collected on host
-    id.icntl[3] = 1; //level of printing verbosity for above streams
-    
-    //ordering metis (5), or pord (4), or AMD (0), AMF (2), QAMD (6)
-    id.icntl[6] = 2;
-
-    // 1 = analysis, 2 = factorization, 3 = solve previously factorised, 4 = same as 1+2, 5 = same as 2+3, 6 = same as 1+2+3
-    id.job = 6;
-    zmumps_c(&id);
-
-    // if we are interested in timings, we may as well throw in the memory used too
-#ifdef DEBUG
-    std::cout << "[DEBUG] Memory used by MUMPS_SEQ = " << id.info[ 15 ] << "MB.\n";
-    if ( myid == 0 )
-    {
-      std::cout << " [DEBUG] MPI ierr in MUMPS solve phase = " << ierr << "\n";
-    }
-#endif
-
-    const std::complex<double> eye( 0., 1. );
-    for ( int j = 0; j < nr; ++j )
-    {
-      // return via the CppNoddy DenseVector container
-      ( *p_B )[ j ] = (rhs[ j ]).r + eye * (rhs[ j ]).i;
-    }
-
-    // close down this instance
-    id.job = -2;
-    zmumps_c(&id);
-
-    delete[] a;
-    delete[] rhs;
-    delete[] irn;
-    delete[] jcn;
-#endif
+    p_B -> operator[](i) = array[i];
   }
+  // follow the docs and Restore after get
+  VecRestoreArray(x_,&array);
+  #endif
+}
+
+
+
+
+
+
+/*
+  $PETSC_ARCH points to a COMPLEX implementation routines are below
+*/
+
+template<>
+void SparseLinearSystem<std::complex<double> >::factorise()
+{
+#if defined(PETSC_D)
+  std::string problem;
+  problem = "CppNoddy is linked against the DOUBLE version of PETSc\n";
+  problem += "but you are trying to factorise a COMPLEX matrix.\n";
+  problem += "Recompile with $PETSC_ARCH\n";
+  problem += "pointing to a COMPLEX version of the PETSc code.";
+  throw ExceptionExternal( problem );
+#else
+
+  if (factorised_)
+  {
+    // already factorised -- so delete and re-create below
+    cleanup();
+  }
+
+  // store a boolean to indicate that we
+  factorised_ = true;
+  PetscInt Istart,Iend,n;
+  Mat A;
+
+  // size of the (assumed square) matrix
+  n = p_A -> nrows();
+  /*
+     Create parallel vectors.
+  */
+  VecCreate(PETSC_COMM_WORLD,&B_);
+  VecSetSizes(B_,PETSC_DECIDE,p_A->nrows());
+  VecSetFromOptions(B_);
+  VecDuplicate(B_,&x_);
+
+  // configure the A matrix
+  MatCreate(PETSC_COMM_WORLD,&A);
+  // set A to be an nxn matrix
+  MatSetSizes(A,PETSC_DECIDE,PETSC_DECIDE,n,n);
+  MatSetFromOptions(A);
+
+  // get: all_rows_nnz[i] is the number of nonzero elts in row i
+  PetscInt* all_rows_nnz = new PetscInt[ n ];
+  p_A -> nelts_all_rows( all_rows_nnz );
+
+  // pre-allocate memory using the number of non-zero elts in each row (the 0 is ignored here)
+  MatSeqAIJSetPreallocation(A, 0, all_rows_nnz );
+  // need to allocate for MPI codes too
+  // \todo if we every get MPI running, we need to sort out preallocation
+  // MatMPIAIJSetPreallocation(A, 800, NULL, 800, NULL);
+  //
+  // finish the A definition
+  MatSetUp(A);
+
+  /*
+     Currently, all PETSc parallel matrix formats are partitioned by
+     contiguous chunks of rows across the processors.  Determine which
+     rows of the matrix are locally owned.
+  */
+  MatGetOwnershipRange(A,&Istart,&Iend);
+  // populate the A matrix using the CppNoddy sparse matrix data
+  for ( PetscInt i = Istart; i<Iend; ++i )
+  {
+    // move the matrix data into PETSc format 1 row at a time
+    std::size_t nelts_in_row = all_rows_nnz[i]; //p_A -> nelts_in_row(i);
+    // row i has all_rows_nnz[i] elements that are non-zero, so we store their columns
+    PetscInt* cols = new PetscInt[all_rows_nnz[i]];
+    // store the non-zero elts in this row
+    PetscScalar* storage = new PetscScalar[all_rows_nnz[i]];
+    // get the data from the CppNoddy sparse matrix structure
+    p_A -> get_row_petsc( i, storage, cols );
+    MatSetValues(A,1,&i,nelts_in_row,cols,storage,INSERT_VALUES);
+    // delete temp storage made in the conversion
+    delete[] cols; delete[] storage;
+  }
+
+  /*
+     Assemble matrix, using the 2-step process:
+       MatAssemblyBegin(), MatAssemblyEnd()
+     Computations can be done while messages are in transition
+     by placing code between these two statements.
+  */
+  MatAssemblyBegin(A,MAT_FINAL_ASSEMBLY);
+  MatAssemblyEnd(A,MAT_FINAL_ASSEMBLY);
+
+  /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                Create the linear solver and set various options
+     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  */
+  KSPCreate(PETSC_COMM_WORLD,&ksp_);
+  KSPSetOperators(ksp_,A,A);
+  KSPSetType(ksp_,KSPPREONLY);
+  PetscInt  ival,icntl;
+  PetscReal val;
+  KSPGetPC(ksp_,&pc_);
+  // hardwire a DIRECT SOLVER via MUMPS
+  PCSetType(pc_,PCLU);
+  PCFactorSetMatSolverPackage(pc_,MATSOLVERMUMPS);
+  PCFactorSetUpMatSolverPackage(pc_);
+  /* call MatGetFactor() to create F */
+  PCFactorGetMatrix(pc_,&F_);
+
+  /* sequential ordering */
+  icntl = 7; ival = 2;
+  MatMumpsSetIcntl(F_,icntl,ival);
+
+  /* threshhold for row pivot detection */
+  MatMumpsSetIcntl(F_,24,1);
+  icntl = 3; val = 1.e-6;
+  MatMumpsSetCntl(F_,icntl,val);
+
+  /* compute determinant of A */
+  // MatMumpsSetIcntl(F_,33,1);
+  /* not used unless we initialise PETSc using the command line options */
+  KSPSetFromOptions(ksp_);
+
+  /* Get info from matrix factors */
+  KSPSetUp(ksp_);
+
+  // /* determinant calculation */
+  // {
+  //   PetscInt  icntl,infog34;
+  //   PetscReal cntl,rinfo12,rinfo13;
+  //   icntl = 3;
+  //   MatMumpsGetCntl(F,icntl,&cntl);
+  //   // output determinant only the first proc.
+  //   if (!rank)
+  //   {
+  //     MatMumpsGetInfog(F,34,&infog34);
+  //     MatMumpsGetRinfog(F,12,&rinfo12);
+  //     MatMumpsGetRinfog(F,13,&rinfo13);
+  //     PetscPrintf(PETSC_COMM_SELF,"  Mumps row pivot threshhold = %g\n",cntl);
+  //     PetscPrintf(PETSC_COMM_SELF,"  Mumps determinant = (%g, %g) * 2^%D \n",(double)rinfo12,(double)rinfo13,infog34);
+  //   }
+  // }
+  MatDestroy(&A);
+  delete[] all_rows_nnz;
+#endif // check for PETSC_D/Z
+}
+
+
+
+
+template <>
+void SparseLinearSystem<std::complex<double> >::solve_using_factorisation()
+{
+#if defined(PETSC_D)
+  std::string problem;
+  problem = "CppNoddy is linked against the DOUBLE version of PETSc\n";
+  problem += "but you are trying to solve e a COMPLEX matrix.\n";
+  problem += "Recompile with $PETSC_ARCH\n";
+  problem += "pointing to a COMPLEX version of the PETSc code.";
+  throw ExceptionExternal( problem );
+#else
+  // size of the (assumed square) matrix
+  PetscInt n = p_A -> nrows();
+
+  // populate the RHS vector using the CppNoddy DenseVector content
+  for ( PetscInt i = 0; i < n; ++i )
+  {
+    VecSetValue(B_,i,p_B->operator[](i),INSERT_VALUES);
+  }
+
+  /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                      Solve the linear system
+     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+  KSPSolve(ksp_,B_,x_);
+
+  /* We can now gather the parallel result back to ALL processes
+    This is temporary as the SparseMatrix is stored on each processes
+    and is too dumb for "proper" parallelization */
+  Vec y;
+  // a scatter context
+  VecScatter ctx = 0;
+  // map all elts of the parallel vector to a sequential copy
+  VecScatterCreateToAll(x_,&ctx,&y);
+  // scatter it
+  VecScatterBegin(ctx,x_,y,INSERT_VALUES,SCATTER_FORWARD);
+  VecScatterEnd(ctx,x_,y,INSERT_VALUES,SCATTER_FORWARD);
+  // clean up
+  VecScatterDestroy(&ctx);
+  // this array is a pointer not a copy
+  PetscScalar* array;
+  VecGetArray(y,&array);
+  // now copy to the CppNoddy densevctor
+  for (PetscInt i=0; i<n; i++)
+  {
+    p_B -> operator[](i) = array[i];
+  }
+  // follow the docs and Restore after get
+  VecRestoreArray(x_,&array);
+  #endif
+}
+
+
+
+// /*
+//   DOUBLE SPARSE SOLVE HARDWIRED TO USE MUMPS.
+// */
+//
+//
+// template<>
+// void SparseLinearSystem<double >::solve_petsc()
+// {
+//   #if defined(PETSC_Z)
+//     std::string problem;
+//     problem = " The SparseLinearSystem object has called solve_petsc for a DOUBLE\n";
+//     problem += " system, but PETSC_ARCH and PETSC_DIR were pointing to the COMPLEX\n";
+//     problem += " version of the library at compile time.";
+//     throw ExceptionRuntime( problem );
+//   #else
+//     Vec            x,B;      /* RHS, x is the solution, that we'll move to B */
+//     Mat            A,F;
+//     KSP            ksp;      /* linear solver context */
+//     PC             pc;
+//     PetscInt       Istart,Iend,n;
+//     // PetscInt its;
+//     // PetscMPIInt    rank, size;
+//
+//     // size of the (assumed square) matrix
+//     n = p_A -> nrows();
+//
+//     std::cout << "[DEBUG] process rank = " << rank_ << " reporting in.\n";
+//
+//     // configure the A matrix
+//     MatCreate(PETSC_COMM_WORLD,&A);
+//     // set A to be an nxn matrix
+//     MatSetSizes(A,PETSC_DECIDE,PETSC_DECIDE,n,n);
+//     MatSetFromOptions(A);
+//
+//     // get: all_rows_nnz[i] is the number of nonzero elts in row i
+//     PetscInt* all_rows_nnz = new PetscInt[ n ];
+//     p_A -> nelts_all_rows( all_rows_nnz );
+//
+//     // pre-allocate memory using the number of non-zero elts in each row (the 0 is ignored here)
+//     MatSeqAIJSetPreallocation(A, 0, all_rows_nnz );
+//     // might need to allocate for MPI codes too
+//     // \todo if we every get MPI running, we need to sort out preallocation
+//     //MatMPIAIJSetPreallocation(A, 800, NULL, 800, NULL);
+//     //
+//     // finish the A definition
+//     MatSetUp(A);
+//
+//     /*
+//        Currently, all PETSc parallel matrix formats are partitioned by
+//        contiguous chunks of rows across the processors.  Determine which
+//        rows of the matrix are locally owned.
+//     */
+//     MatGetOwnershipRange(A,&Istart,&Iend);
+//     {
+//       Timer timer("SparseLinearSystem timer for LHS assembly step.");
+//       timer.start();
+//       // populate the A matrix using the CppNoddy sparse matrix data
+//       for ( PetscInt i = Istart; i<Iend; ++i )
+//       {
+//         // move the matrix data into PETSc format 1 row at a time
+//         std::size_t nelts_in_row = all_rows_nnz[i]; //p_A -> nelts_in_row(i);
+//         // row i has all_rows_nnz[i] elements that are non-zero, so we store their columns
+//         PetscInt* cols = new PetscInt[all_rows_nnz[i]];
+//         // store the non-zero elts in this row
+//         PetscScalar* storage = new PetscScalar[all_rows_nnz[i]];
+//         // get the data from the CppNoddy sparse matrix structure
+//         p_A -> get_row_petsc( i, storage, cols );
+//         MatSetValues(A,1,&i,nelts_in_row,cols,storage,INSERT_VALUES);
+//         // delete temp storage made in the conversion
+//         delete[] cols; delete[] storage;
+//       }
+//       timer.stop();
+//       timer.print();
+//     }
+//
+//     /*
+//        Assemble matrix, using the 2-step process:
+//          MatAssemblyBegin(), MatAssemblyEnd()
+//        Computations can be done while messages are in transition
+//        by placing code between these two statements.
+//     */
+//     MatAssemblyBegin(A,MAT_FINAL_ASSEMBLY);
+//     MatAssemblyEnd(A,MAT_FINAL_ASSEMBLY);
+//
+//     /*
+//        Create parallel vectors.
+//         - We form 1 vector from scratch and then duplicate as needed.
+//         - When using VecCreate(), VecSetSizes and VecSetFromOptions()
+//           in this example, we specify only the
+//           vector's global dimension; the parallel partitioning is determined
+//           at runtime.
+//         - When solving a linear system, the vectors and matrices MUST
+//           be partitioned accordingly.  PETSc automatically generates
+//           appropriately partitioned matrices and vectors when MatCreate()
+//           and VecCreate() are used with the same communicator.
+//         - The user can alternatively specify the local vector and matrix
+//           dimensions when more sophisticated partitioning is needed
+//           (replacing the PETSC_DECIDE argument in the VecSetSizes() statement
+//           below).
+//     */
+//     VecCreate(PETSC_COMM_WORLD,&B);
+//     VecSetSizes(B,PETSC_DECIDE,n);
+//     VecSetFromOptions(B);
+//     VecDuplicate(B,&x);
+//
+//     // populate the B vector using the CppNoddy DenseVector content
+//     for ( PetscInt i = 0; i < n; ++i )
+//     {
+//       VecSetValue(B,i,p_B->operator[](i),INSERT_VALUES);
+//     }
+//
+//     {
+//       Timer timer("SparseLinearSystem timer for the factorization step.");
+//       timer.start();
+//       /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//                     Create the linear solver and set various options
+//          - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//       */
+//       /*
+//          Create linear solver context
+//       */
+//       KSPCreate(PETSC_COMM_WORLD,&ksp);
+//       KSPSetOperators(ksp,A,A);
+//       KSPSetType(ksp,KSPPREONLY);
+//       PetscInt  ival,icntl;
+//       PetscReal val;
+//       KSPGetPC(ksp,&pc);
+//       PCSetType(pc,PCLU);
+//       PCFactorSetMatSolverPackage(pc,MATSOLVERMUMPS);
+//       PCFactorSetUpMatSolverPackage(pc); /* call MatGetFactor() to create F */
+//       PCFactorGetMatrix(pc,&F);
+//
+//       /* sequential ordering */
+//       icntl = 7; ival = 2;
+//       MatMumpsSetIcntl(F,icntl,ival);
+//
+//       /* threshhold for row pivot detection */
+//       MatMumpsSetIcntl(F,24,1);
+//       icntl = 3; val = 1.e-6;
+//       MatMumpsSetCntl(F,icntl,val);
+//
+//       /* compute determinant of A */
+//       MatMumpsSetIcntl(F,33,1);
+//       /* not used unless we initialise PETSc using the command line options */
+//       KSPSetFromOptions(ksp);
+//
+//       /* Get info from matrix factors */
+//       KSPSetUp(ksp);
+//
+//       /* determinant calculation */
+//       {
+//         PetscInt  icntl,infog34;
+//         PetscReal cntl,rinfo12,rinfo13;
+//         icntl = 3;
+//         MatMumpsGetCntl(F,icntl,&cntl);
+//         // output determinant only the first proc.
+//         if (!rank_)
+//         {
+//           MatMumpsGetInfog(F,34,&infog34);
+//           MatMumpsGetRinfog(F,12,&rinfo12);
+//           MatMumpsGetRinfog(F,13,&rinfo13);
+//           PetscPrintf(PETSC_COMM_SELF,"  Mumps row pivot threshhold = %g\n",cntl);
+//           PetscPrintf(PETSC_COMM_SELF,"  Mumps determinant = (%g, %g) * 2^%D \n",(double)rinfo12,(double)rinfo13,infog34);
+//         }
+//       }
+//       timer.stop();
+//       timer.print();
+//     }
+//
+//     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//                         Solve the linear system
+//        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+//     {
+//       Timer timer("SparseLinearSystem timer for the KSPsolve step.");
+//       timer.start();
+//       KSPSolve(ksp,B,x);
+//       timer.stop();
+//       timer.print();
+//     }
+//
+//     /* We can now gather the parallel result back to ALL processes
+//       This is temporary as the SparseMatrix is stored on each processes
+//       and is too dumb for "proper" parallelization */
+//     Vec y;
+//     // a scatter context
+//     VecScatter ctx = 0;
+//     // map all elts of the parallel vector to a sequential copy
+//     VecScatterCreateToAll(x,&ctx,&y);
+//     // scatter it
+//     VecScatterBegin(ctx,x,y,INSERT_VALUES,SCATTER_FORWARD);
+//     VecScatterEnd(ctx,x,y,INSERT_VALUES,SCATTER_FORWARD);
+//     // clean up
+//     VecScatterDestroy(&ctx);
+//     // this array is a pointer not a copy
+//     PetscScalar* array;
+//     VecGetArray(y,&array);
+//     // now copy to the CppNoddy densevctor
+//     for (PetscInt i=0; i<n; i++)
+//     {
+//       p_B -> operator[](i) = array[i];
+//     }
+//     // follow the docs and Restore after get
+//     VecRestoreArray(x,&array);
+//
+//
+//     std::cout << "***HERE\n";
+//     /*
+//        Free work space.  All PETSc objects should be destroyed when they
+//        are no longer needed.
+//     */
+//     KSPDestroy(&ksp);
+//     VecDestroy(&x);
+//     VecDestroy(&B);
+//     MatDestroy(&A);
+//     std::cout << "*** post destroy\n";
+//   #endif
+// }
+//
+//
+//
+//
+// /*
+//   COMPLEX SPARSE SOLVE HARDWIRED TO USE MUMPS.
+// */
+//
+//
+// template<>
+// void SparseLinearSystem<std::complex<double> >::solve_petsc()
+// {
+//   #if defined(PETSC_D)
+//     std::string problem;
+//     problem = " The SparseLinearSystem object has called solve_petsc for a COMPLEX\n";
+//     problem += " system, but PETSC_ARCH and PETSC_DIR were pointing to the DOUBLE\n";
+//     problem += " version of the library at compile time.";
+//     throw ExceptionRuntime( problem );
+//   #else
+//     Vec            x,B;      /* RHS, x is the solution */
+//     Mat            A,F;
+//     KSP            ksp;      /* linear solver context */
+//     PC             pc;
+//     PetscInt       Istart,Iend,n,its;
+//     PetscMPIInt    rank;
+//
+//     // size of the (assumed square) matrix
+//     n = p_A -> nrows();
+//     // used to output only on 0 node
+//     MPI_Comm_rank(PETSC_COMM_WORLD,&rank);
+//
+//     // configure the A matrix
+//     MatCreate(PETSC_COMM_WORLD,&A);
+//     // set A to be an nxn matrix
+//     MatSetSizes(A,PETSC_DECIDE,PETSC_DECIDE,n,n);
+//     MatSetFromOptions(A);
+//
+//     // get: all_rows_nnz[i] is the number of nonzero elts in row i
+//     PetscInt* all_rows_nnz = new PetscInt[ n ];
+//     p_A -> nelts_all_rows( all_rows_nnz );
+//
+//     // pre-allocate memory using the number of non-zero elts in each row (the 0 is ignored here)
+//     MatSeqAIJSetPreallocation(A, 0, all_rows_nnz );
+//     // might need to allocate for MPI codes too
+//     // MatMPIAIJSetPreallocation(A,size,NULL,size,NULL);
+//     //
+//     // finish the A definition
+//     MatSetUp(A);
+//
+//     /*
+//        Currently, all PETSc parallel matrix formats are partitioned by
+//        contiguous chunks of rows across the processors.  Determine which
+//        rows of the matrix are locally owned.
+//     */
+//     MatGetOwnershipRange(A,&Istart,&Iend);
+//
+//     // populate the A matrix using the CppNoddy sparse matrix data
+//     for ( PetscInt i = Istart; i<Iend; ++i )
+//     {
+//       // move the matrix data into PETSc format 1 row at a time
+//       std::size_t nelts_in_row = all_rows_nnz[i]; //p_A -> nelts_in_row(i);
+//       // row i has all_rows_nnz[i] elements that are non-zero, so we store their columns
+//       PetscInt* cols = new PetscInt[all_rows_nnz[i]];
+//       // store the non-zero elts in this row
+//       PetscScalar* storage = new PetscScalar[all_rows_nnz[i]];
+//       // get the data from the CppNoddy sparse matrix structure
+//       p_A -> get_row_petsc( i, storage, cols );
+//       MatSetValues(A,1,&i,nelts_in_row,cols,storage,INSERT_VALUES);
+//       // delete temp storage made in the conversion
+//       delete[] cols; delete[] storage;
+//     }
+//
+//     /*
+//        Assemble matrix, using the 2-step process:
+//          MatAssemblyBegin(), MatAssemblyEnd()
+//        Computations can be done while messages are in transition
+//        by placing code between these two statements.
+//     */
+//     MatAssemblyBegin(A,MAT_FINAL_ASSEMBLY);
+//     MatAssemblyEnd(A,MAT_FINAL_ASSEMBLY);
+//
+//     /*
+//        Create parallel vectors.
+//         - We form 1 vector from scratch and then duplicate as needed.
+//         - When using VecCreate(), VecSetSizes and VecSetFromOptions()
+//           in this example, we specify only the
+//           vector's global dimension; the parallel partitioning is determined
+//           at runtime.
+//         - When solving a linear system, the vectors and matrices MUST
+//           be partitioned accordingly.  PETSc automatically generates
+//           appropriately partitioned matrices and vectors when MatCreate()
+//           and VecCreate() are used with the same communicator.
+//         - The user can alternatively specify the local vector and matrix
+//           dimensions when more sophisticated partitioning is needed
+//           (replacing the PETSC_DECIDE argument in the VecSetSizes() statement
+//           below).
+//     */
+//     VecCreate(PETSC_COMM_WORLD,&B);
+//     VecSetSizes(B,PETSC_DECIDE,n);
+//     VecSetFromOptions(B);
+//     VecDuplicate(B,&x);
+//
+//     // populate the B vector using the CppNoddy DenseVector content
+//     for ( PetscInt i = 0; i < n; ++i )
+//     {
+//       std::cout << " i = " << i << " "  << " B[i]= " << p_B->operator[](i) << "\n";
+//       VecSetValue(B,i,p_B->operator[](i),INSERT_VALUES);
+//     }
+//
+//     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//                   Create the linear solver and set various options
+//        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//     */
+//     /*
+//        Create linear solver context
+//     */
+//     KSPCreate(PETSC_COMM_WORLD,&ksp);
+//     KSPSetOperators(ksp,A,A);
+//     KSPSetType(ksp,KSPPREONLY);
+//     PetscInt  ival,icntl;
+//     PetscReal val;
+//     KSPGetPC(ksp,&pc);
+//     PCSetType(pc,PCLU);
+//     PCFactorSetMatSolverPackage(pc,MATSOLVERMUMPS);
+//     PCFactorSetUpMatSolverPackage(pc); /* call MatGetFactor() to create F */
+//     PCFactorGetMatrix(pc,&F);
+//
+//     /* sequential ordering */
+//     icntl = 7; ival = 2;
+//     MatMumpsSetIcntl(F,icntl,ival);
+//
+//     /* threshhold for row pivot detection */
+//     MatMumpsSetIcntl(F,24,1);
+//     icntl = 3; val = 1.e-6;
+//     MatMumpsSetCntl(F,icntl,val);
+//
+//     /* compute determinant of A */
+//     MatMumpsSetIcntl(F,33,1);
+//
+//     KSPSetFromOptions(ksp);
+//
+//     /* Get info from matrix factors */
+//     KSPSetUp(ksp);
+//
+//     {
+//       PetscInt  icntl,infog34;
+//       PetscReal cntl,rinfo12,rinfo13;
+//       icntl = 3;
+//       MatMumpsGetCntl(F,icntl,&cntl);
+//
+//       /* compute determinant */
+//       if (!rank) {
+//         MatMumpsGetInfog(F,34,&infog34);
+//         MatMumpsGetRinfog(F,12,&rinfo12);
+//         MatMumpsGetRinfog(F,13,&rinfo13);
+//         PetscPrintf(PETSC_COMM_SELF,"  Mumps row pivot threshhold = %g\n",cntl);
+//         PetscPrintf(PETSC_COMM_SELF,"  Mumps determinant = (%g, %g) * 2^%D \n",(double)rinfo12,(double)rinfo13,infog34);
+//       }
+//     }
+//
+//     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//                         Solve the linear system
+//        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+//     {
+//       Timer timer("Internal KSPsolve step.");
+//       timer.start();
+//       KSPSolve(ksp,B,x);
+//       timer.stop();
+//       timer.print();
+//     }
+//
+//     // convert to a more accessible data structure and push it back using the B vector.
+//     PetscScalar* array;
+//     VecGetArray1d( x, n, 0, &array );
+//     for ( int j=0; j<n; ++j )
+//     {
+//         p_B->operator[](j) = array[j];
+//     }
+//     // documentation says to "restore", though it might not matter as we're done with it now
+//     VecRestoreArray1d( x, n, 0, &array );
+//
+//     /*
+//        Free work space.  All PETSc objects should be destroyed when they
+//        are no longer needed.
+//     */
+//     KSPDestroy(&ksp);
+//     VecDestroy(&x);
+//     VecDestroy(&B);
+//     MatDestroy(&A);
+//   #endif
+// }
+//
+
 
   template <typename _Type>
   void SparseLinearSystem<_Type >::backsub( SparseMatrix<_Type> &A, DenseVector<_Type> &B ) const
@@ -617,6 +1050,11 @@ namespace CppNoddy
     }
     B = x;
   }
+
+
+
+
+
 
   template class SparseLinearSystem<D_complex>
   ;

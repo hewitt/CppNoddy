@@ -31,11 +31,11 @@ rm -rf ./validate.log
  cd .././BVP
 .././BVP/Shoot_Blasius.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Containers
-.././Containers/MPI_MUMPS.out 2>> error.log | tee -a ../Validation/validate.log
- cd .././Containers
 .././Containers/MatrixMult.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Containers
 .././Containers/MatrixSolves.out 2>> error.log | tee -a ../Validation/validate.log
+ cd .././Containers
+.././Containers/MatrixSparseSolves.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Containers
 .././Containers/Matrix_CompareNative.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Containers
@@ -58,6 +58,8 @@ rm -rf ./validate.log
 .././EVP/EVP_OrrSommerfeld_neutralcurve.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
 .././EVP/EVP_OrrSommerfeld_sparse.out 2>> error.log | tee -a ../Validation/validate.log
+ cd .././EVP
+.././EVP/EVP_OrrSommerfeld_student.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP
 .././EVP/EVP_Rayleigh.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././EVP

@@ -1,177 +1,60 @@
-0.86 [SparseLinearEigenSystem, SparseLinearSystem interface to MUMPS]
-	   Added support for SLEPc(/PETSc) sparse eigenvalue solver, see the EVP examples.
-	     The default (generalised) eigensolve methods make use of SuperLU_dist and are a
-			 little hacked together at the moment. You also have to decide on double-vs-complex
-			 by compiling PETSc/SLEPc with the PETSC_ARCH environment variable set. There is
-			 now also a MUMPS interace in the SparseLinearSystem object that can by typed as
-			 double or complex. The best way to obtain MUMPS/Superlu(_dist) is to download,
-			 configure/make PETSc and SLEPc.
+0.90 [MUMPS and SuperLU removed -- available implicitly via PETSc] 
+     Explicit support is dropped for SuperLU and MUMPS to simplify things. Instead, the SparseLinearSystem solve methods point to PETSc. PETSc has a particularly nice configure/make interface that will download and install MUMPS etc for its own use. Now the CppNoddy sparse solve points to PETSc using MUMPS as a direct solver -- this removes all the nice flexibility of PETSc but simplifies it to (my) most common case. Note that that this simplistic library is aimed at small-ish sequential problems, so the native SparseMatrix method is COPIED to the appropriate PETSc structure prior to a solve, so you don't want to 'mpirun' such a solver. 
+
+0.86 [SparseLinearEigenSystem, SparseLinearSystem interface to SLEPc]
+     Added support for SLEPc(/PETSc) sparse eigenvalue solver, see the EVP examples. The default (generalised) eigensolve methods are a little hacked together at the moment. You also have to decide on double-vs-complex by compiling PETSc/SLEPc with the PETSC_ARCH environment variable set. There is
+now also a MUMPS interace in the SparseLinearSystem object that can by typed as double or complex. The best way to obtain MUMPS/Superlu(_dist) is to download, configure/make PETSc and SLEPc.
 
 0.85 [PDE_IBVP, ODE_BVP, PDE_double_IBVP changed to more general formats; Equation objects changed]
-     I tried to clean up some things and be more consistent. Now the Equation_*_mass objects
-       have been changed to Equation_{i}matrix, where i=1,2,3. Each equation therefore has i
-       coordinates that are now solely accessed by coord(i). The shortcuts of y(),t() & x() were
-       inconsistent and have been removed. In the BVP & IBVP classes there is now a matrix that
-       multiplies the derivative of the vector of unkowns for all i coordinates; previously the
-       BVP coordinate "y" was assumed to be associated with an identity matrix. Matrix/coord 0
-       is the coordinate associated with the boundary value problem, whilst Matrix/coord 1 & 2
-       are associated with the parabolic evolution in PDE_IBVP and PDE_double_IBVP.
-       Note: the ad-hoc eigenvalue methods have been removed from the ODE_BVP class. This same
-       functionality can be obtained from the ODE_EVP class in a more consistent manner.
+     I tried to clean up some things and be more consistent. Now the Equation_*_mass objects have been changed to Equation_{i}matrix, where i=1,2,3.
+Each equation therefore has i coordinates that are now solely accessed by coord(i). The shortcuts of y(),t() & x() were inconsistent and have been removed. In the BVP & IBVP classes there is now a matrix that multiplies the derivative of the vector of unkowns for all i coordinates; previously the BVP coordinate "y" was assumed to be associated with an identity matrix. Matrix/coord 0 is the coordinate associated with the boundary value problem, whilst Matrix/coord 1 & 2 are associated with the parabolic evolution in PDE_IBVP and PDE_double_IBVP. Note: the ad-hoc eigenvalue methods have been removed from the ODE_BVP class. This same functionality can be obtained from the ODE_EVP class in a more consistent manner.
 
 0.80 [Sparse Matrices & TwoD_Node_Mesh]
-     A sparse matrix class has been added. The matrix class makes use of the
-       sparse vector class. The linear solver requires the SuperLU library.
-       Not currently used in any of the other classes (yet). Uniform meshes
-       have been removed in favour of more general non-uniform meshes. A
-       two dimensonal mesh class has been added.
+     A sparse matrix class has been added. The matrix class makes use of the sparse vector class. The linear solver requires the SuperLU library. Not currently used in any of the other classes (yet). Uniform meshes have been removed in favour of more general non-uniform meshes. A two dimensonal mesh class has been added.
 
 0.76 [Clean up]
-     The PDE_IBVP and PDE_double_IBVP classes have been made a little less
-       inefficient. The OneD_Mesh_base, OneD_Mesh, TwoD_Mesh_base & TwoD_Mesh
-       classes have been replaced by OneD_Node_Mesh & TwoD_Node_Mesh. Some
-       of the method interfaces have been tweake. Internal storage has been
-       changed and access to data is via operator() rather than []. The Timer
-       class has been simplified to just stop/start/reset methods.
+     The PDE_IBVP and PDE_double_IBVP classes have been made a little less inefficient. The OneD_Mesh_base, OneD_Mesh, TwoD_Mesh_base & TwoD_Mesh classes have been replaced by OneD_Node_Mesh & TwoD_Node_Mesh. Some of the method interfaces have been tweake. Internal storage has been changed and access to data is via operator() rather than []. The Timer class has been simplified to just stop/start/reset methods.
 
 0.75 [Unsteady boundary-layer solver]
-     An unsteady 'boundary layer' solver is included. ie. parabolic in two
-       coordinates and a boundary-value solve at each station.
+     An unsteady 'boundary layer' solver is included. ie. parabolic in two coordinates and a boundary-value solve at each station.
 
 0.70 [Two dimensional hyperbolic solvers]
-     A 2-D analogue of the Hyperbolic solver is included using the Jiang & Tadmor
-       non-oscillatory central scheme.
-     The Poisson solvers have been made somewhat mores sensible, using resolves
-       from the LU decomposition when linked to LAPACK.
+     A 2-D analogue of the Hyperbolic solver is included using the Jiang & Tadmor non-oscillatory central scheme. The Poisson solvers have been made somewhat mores sensible, using resolves from the LU decomposition when linked to LAPACK.
 
 0.67 [Arclength solver for ODE_BVP]
-     The arc-length solver has been applied to the ODE_BVP by solving
-       the augmented banded linear system with a bordering algorithm.
-     The classic example of the Karman rotating disk problem is solved
-       by the arc-length method.
+     The arc-length solver has been applied to the ODE_BVP by solving the augmented banded linear system with a bordering algorithm. The classic example of the Karman rotating disk problem is solved by the arc-length method.
 
 0.65 [Hyperbolic solver and ODE_BVP changes]
-     The hyperbolic solver is still 1D but has been switched to a
-       non-oscillatory central scheme.
-     The previous Riemann solver/mesh approach has been removed from the
-       library.
-     The ODE_BVP now supports non-uniform meshes and adaptive refinement
-       of any existing solution on a mesh.
-     The ODE_BVP solver has a 'actions_before_linear_solve' method that
-       is called prior to the linear solve. This allows the user access to
-       the matrix problem for unusual boundary conditions.
+     The hyperbolic solver is still 1D but has been switched to a non-oscillatory central scheme. The previous Riemann solver/mesh approach has been removed from the library. The ODE_BVP now supports non-uniform meshes and adaptive refinement of any existing solution on a mesh. The ODE_BVP solver has a 'actions_before_linear_solve' method that is called prior to the linear solve. This allows the user access to the matrix problem for unusual boundary conditions.
 
 0.61 [Change to the way boundary conditions are applied]
-     Boundary conditions in the BVP, EVP & IBVP classes are now defined
-       by passing two Residual objects to the constructor. This allows
-       general (nonlinear) mixed type conditions to be imposed.
+     Boundary conditions in the BVP, EVP & IBVP classes are now defined by passing two Residual objects to the constructor. This allows general (nonlinear) mixed type conditions to be imposed.
 
 0.60 [More EVP work & expanding the IBVP class]
-     The Equation class is now a base & a separate Equation_with_mass inherits
-       from it for unsteady and eigenvalue problems.
-     The PDE_IBVP class can now accept problems with a general mass matrix;
-       ie. it can depend on time, space & the unknowns.
-     There is now an ODE_EVP class that takes the n-th order system as n
-       first order equations and (currently) a pointer to the eigenvalue terms. The
-       class can then construct the appropriate matrix problem rather than
-       the user having to code them explicitly.
-     Linking to ARPACK is now possible via the BandedLinearEigenSystem, but
-       the user needs to ensure the mass matrix has the correct form.
-     An example is included that solves for the neutral curve for perturbations
-       to plane Poiseuille flow; including arc-length continuation of the
-       neutral curve.
-     The example codes have been separated into separate folders.
-     Compilation keywords have been changed, -DEXTLIB has been split
-       into -DLAPACK and -DARPACK.
+     The Equation class is now a base & a separate Equation_with_mass inherits from it for unsteady and eigenvalue problems. The PDE_IBVP class can now accept problems with a general mass matrix; ie. it can depend on time, space & the unknowns. There is now an ODE_EVP class that takes the n-th order system as n first order equations and (currently) a pointer to the eigenvalue terms. The class can then construct the appropriate matrix problem rather than the user having to code them explicitly. Linking to ARPACK is now possible via the BandedLinearEigenSystem, but the user needs to ensure the mass matrix has the correct form. An example is included that solves for the neutral curve for perturbations to plane Poiseuille flow; including arc-length continuation of the neutral curve. The example codes have been separated into separate folders. Compilation keywords have been changed, -DEXTLIB has been split into -DLAPACK and -DARPACK.
 
 0.57 [Additional EVP examples]
-     Examples are included that perform (fast, banded) local refinement of
-       eigenvalues generated by the (slow, dense) QZ routine.
-     Tidied up the arc-length solver and Newton class iterfaces.
-     N{D/B/S}Matrix and N{D/S}Vector types have been replaced with
-       {Dense/Banded/Sparse}Matrix and {Dense/Sparse}Vector.
+     Examples are included that perform (fast, banded) local refinement of eigenvalues generated by the (slow, dense) QZ routine. Tidied up the arc-length solver and Newton class iterfaces. N{D/B/S}Matrix and N{D/S}Vector types have been replaced with {Dense/Banded/Sparse}Matrix and {Dense/Sparse}Vector.
 
 0.56 [Code tidying and interface clean up]
-     Some efficiency improvements after profiling. The Residual classes
-       have had their interfaces tweaked and the state of the residuals
-       is now member data.
-     A FortranData object is used to transfer CppNoddy vector/matrix
-       data to external FORTRAN library routines.
-     The inheritance from Dumpable has been dumped, a new output-capable
-       object has been introduced called a 'TrackerFile'.
-     {Dense/Banded/Sparse}LinearSystem classes now hold the linear solvers
-       and eigensolvers -- the way of isolating eigenvalues is
-       significantly better.
-     Linear solvers now allow the sign of the determinant to be obtained - this
-       is built in to the ODE_BVP solve2 routine to detect bifurcations.
-     Bifurcations at the moment simply trigger an INFO notice to cout.
-     Exceptions classes are all housed in the same include file : Exceptions.h
-     All non-member functions previously in Extlib.h are now member
-       functions of the LinearSolver class or rolled into Utilities
-     Extlib.h/cpp have been removed.
+     Some efficiency improvements after profiling. The Residual classes have had their interfaces tweaked and the state of the residuals is now member data. A FortranData object is used to transfer CppNoddy vector/matrix data to external FORTRAN library routines. The inheritance from Dumpable has been dumped, a new output-capable object has been introduced called a 'TrackerFile'. {Dense/Banded/Sparse}LinearSystem classes now hold the linear solvers and eigensolvers -- the way of isolating eigenvalues is significantly better. Linear solvers now allow the sign of the determinant to be obtained - this is built in to the ODE_BVP solve2 routine to detect bifurcations. Bifurcations at the moment simply trigger an INFO notice to cout. Exceptions classes are all housed in the same include file : Exceptions.h All non-member functions previously in Extlib.h are now member functions of the LinearSolver class or rolled into Utilities Extlib.h/cpp have been removed.
 
 0.55 [Initial boundary value solver]
-     A PDE_IBVP class introduced for solving initial-boundary-value
-       problems via 2nd-order finite-differencing.
-     As part of PDE_IBVP, a mass matrix is introduced into the
-       Equation class.
-     A sparse matrix class introduced, based on a vector of sparse vectors.
-     A default sparse solver done the dumb way via elimination ... to do is
-       to link in to an external sparse solver (ie. it's still just a
-       'for fun' class).
-     Interfaces tidied up throughout, especially to make the multiple
-       matrix classes a little more self-consistent.
+     A PDE_IBVP class introduced for solving initial-boundary-value problems via 2nd-order finite-differencing. As part of PDE_IBVP, a mass matrix is introduced into the Equation class. A sparse matrix class introduced, based on a vector of sparse vectors. A default sparse solver done the dumb way via elimination ... to do is to link in to an external sparse solver (ie. it's still just a 'for fun' class). Interfaces tidied up throughout, especially to make the multiple matrix classes a little more self-consistent.
 
 0.50 [Exceptions]
-     Overloading of the 'ExtLib::eigenvalue' method(s) to allow them to be
-       called without passing/calculating the eigenvectors.
-     Global replacement of the 'Error' class with the ExceptionRuntime,
-       ExceptionGeom, ExceptionItn, ExceptionExternal exceptions.
-     Error checking included in the LAPACK wrappers - throwing
-       ExceptionExternal.
-     A simple test (ExceptionChecks) is included to test a few of the more
-       obvious failures.
-     Some CONST madness removed in container classes ...
+     Overloading of the 'ExtLib::eigenvalue' method(s) to allow them to be called without passing/calculating the eigenvectors.  Global replacement of the 'Error' class with the ExceptionRuntime, ExceptionGeom, ExceptionItn, ExceptionExternal exceptions. Error checking included in the LAPACK wrappers - throwing ExceptionExternal. A simple test (ExceptionChecks) is included to test a few of the more obvious failures. Some CONST madness removed in container classes ...
 
 0.46 [Complex generalised eigenvalue methods]
-     The 'ExtLib::eigenvalue' method now accepts arguments of 'CD_matrix'
-       and calls the appropriate complex LAPACK generalised eigenvalue solver.
-     Two examples/tests have been added for the complex eigenvalue method
-       (a very simple 4x4 system and the Orr-Sommerfeld equation)
+     The 'ExtLib::eigenvalue' method now accepts arguments of 'CD_matrix' and calls the appropriate complex LAPACK generalised eigenvalue solver. Two examples/tests have been added for the complex eigenvalue method (a very simple 4x4 system and the Orr-Sommerfeld equation)
 
 0.45 [Boundary-value problem solver]
-     The 'ODE' class has been moved to 'ODE_IVP' to make room for a
-       new 'ODE_BVP' class.
-     'ODE_BVP' can be used for direct solution of BVPs via a second-order
-       finite-difference formulation from an Equation class.
-     The 'Residual' and 'Equation' classes now have default Jacobian
-       methods, which apply a first-order finite-difference
-       approximation. You can overload with an analytic version when
-       implementing objects that inherit from these if you wish.
-       The existing classes should work transparently if the analytic
-       Jacobian is specified.
-     ALL 'Equation' objects are now assumed to be vector equations and are
-       templated by real/complex.
-     ALL 'Residual' objects are now assumed to be vector equations and are
-        templated by real/complex.
-     For scalar (real/complex) residual problems a separate class is now
-        available 'ResidualS'
-     'NewtonV' has been renamed 'Newton'.
+     The 'ODE' class has been moved to 'ODE_IVP' to make room for a new 'ODE_BVP' class. 'ODE_BVP' can be used for direct solution of BVPs via a second-order finite-difference formulation from an Equation class. The 'Residual' and 'Equation' classes now have default Jacobian methods, which apply a first-order finite-difference approximation. You can overload with an analytic version when implementing objects that inherit from these if you wish. The existing classes should work transparently if the analytic Jacobian is specified. ALL 'Equation' objects are now assumed to be vector equations and are templated by real/complex. ALL 'Residual' objects are now assumed to be vector equations and are templated by real/complex. For scalar (real/complex) residual problems a separate class is now available 'ResidualS' 'NewtonV' has been renamed 'Newton'.
 
 0.41 [Changes to data storage]
-     Changes to Dumpable & how ODE shoot method stores data.
-     Solutions to ODEs are now stored as a 'OneD_GenMesh' in the
-       ODE class.
-     Corrected some very dumb design choices on how parameters
-       are used in ODEs.
+     Changes to Dumpable & how ODE shoot method stores data. Solutions to ODEs are now stored as a 'OneD_GenMesh' in the ODE class. Corrected some very dumb design choices on how parameters are used in ODEs.
 
 0.40 [Fortan libraries]
-     Removed the sparse matrix class.
-     Included a new sparse vector based on STL maps - just to see if it could be done.
-       It can, but its not pretty.
-     Added the Fortran interface to selected BLAS/LAPACK routines
-       (inc. mmult, LU decomp. and generalised eigenvalue solver).
-     Arc-length continuation for 1D problems -- including a
-       Falkner-Skan example.
+     Removed the sparse matrix class. Included a new sparse vector based on STL maps - just to see if it could be done. It can, but its not pretty. Added the Fortran interface to selected BLAS/LAPACK routines (inc. mmult, LU decomp. and generalised eigenvalue solver). Arc-length continuation for 1D problems -- including a Falkner-Skan example.
 
 0.35 [First release]

@@ -1,6 +1,10 @@
 import os.path
 import glob
 
+#WIP = "BL_downstream_march_microjet"
+WIP = ["Offset_Vtx","Luchini","BL_downstream_march_microjet","Thomas_Wilder"]
+#WIP = "Nonaxi"
+
 Import( 'env opts preproc link_flags rpath incdir libdir topdir libs private' )
 
 print "Building CppNoddy test codes"
@@ -34,13 +38,18 @@ for fqn in rec_src:
   if ( filename.find("OLD") < 0 ):
     # if its a private example only compile on the private flag
     if int(private):
+      print " + " + filename
       # compile everything
       # pass filenames to SCONS
       env.Program( filename+'.out' , [filename+'.cpp'] , OPTS = opts + preproc, LIBS = libs, RPATH = rpath ) #, LINKFLAGS = '-fopenmp' )
     elif ( filename.find("Private") < 0 ):
-      # only compile the public examples 
+      # only compile the public examples
       env.Program( filename+'.out' , [filename+'.cpp'] , OPTS = opts + preproc, LIBS = libs, RPATH = rpath ) #, LINKFLAGS = '-fopenmp' )
-     
+    for name in WIP:
+        if ( int(private) == 0 ) and ( filename.find(name) > 0 ):
+            # force compilation of my WIP dir even if private = 0
+            env.Program( filename+'.out' , [filename+'.cpp'] , OPTS = opts + preproc, LIBS = libs, RPATH = rpath ) #, LINKFLAGS = '-fopenmp' )
+
   # delete any previous error logs
   os.system('touch error.log')
   os.system('rm error.log')

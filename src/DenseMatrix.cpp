@@ -263,7 +263,11 @@ namespace CppNoddy
   void DenseMatrix<_Type>::dump() const
   {
     std::cout << "DENSE mtx size = " << nrows() << " x " << ncols() << "; \n";
-    std::cout.precision( 4 );
+    std::cout.precision( 3 );
+    std::cout << std::fixed;
+    std::cout.setf( std::ios::showpoint );
+    std::cout.setf( std::ios::showpos );
+    //std::cout.setf( std::ios::scientific );
     std::cout << "- start matrix \n";
     for ( std::size_t i = 0; i < nrows(); ++i )
     {
@@ -368,7 +372,7 @@ namespace CppNoddy
       for ( std::size_t col = 0; col < padding; ++col )
       {
         V.push_back( 0.0 );
-        V.push_back( 0.0 ); 
+        V.push_back( 0.0 );
       }
     }
     return V;
@@ -382,4 +386,3 @@ namespace CppNoddy
   ;
 
 } // end namespace
-

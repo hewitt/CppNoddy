@@ -96,7 +96,7 @@ namespace CppNoddy
       /// or a double solution along the real line.
       /// \param base_flow_solution The base flow velocity profile and its curvature.
       /// \param alpha The wavenumber of the perturbation.
-      /// \param right_bc_type Determines the choice of boundary condition.       
+      /// \param right_bc_type Determines the choice of boundary condition.
       /// "BL" is a derivative condition, whilst "CHANNEL" is a Dirichlet
       /// impermeability condition
 
@@ -195,7 +195,7 @@ namespace CppNoddy
                       - D_complex( 0.0, 1.0 ) * *p_ALPHA * *p_RE * z[ eval ] * z[ psi ];
           g[ eval ] = 0.0;
         }
-        
+
         /// The matrix for the BVP coord -- in this case it's an identity matrix
         void matrix0( const DenseVector<D_complex>& z, DenseMatrix<D_complex>& m ) const
         {
@@ -238,8 +238,7 @@ namespace CppNoddy
 
     public:
 
-      /// ctor -- either for a complex solution in the complex plane,
-      /// or a double solution along the real line.
+      /// ctor
       /// \param base_flow_solution The base flow velocity profile and
       /// its curvature.
       /// \param alpha The wavenumber to compute the spectrum for.
@@ -270,10 +269,12 @@ namespace CppNoddy
         for ( std::size_t i = 1; i <= BASEFLOW.get_nnodes() - 2; ++i )
         {
           // position in the channel
-          const double y = BASEFLOW.coord( i );
+          //const double y = BASEFLOW.coord( i );
           // base flow profile
-          const double U = BASEFLOW.get_interpolated_vars( y )[ 0 ];
-          const double Udd = BASEFLOW.get_interpolated_vars( y )[ 1 ];
+          const double U = BASEFLOW(i,0);
+          // BASEFLOW.get_interpolated_vars( y )[ 0 ];
+          const double Udd = (BASEFLOW(i+1,0) - 2*BASEFLOW(i,0) + BASEFLOW(i-1,0))/(d*d);
+          //BASEFLOW.get_interpolated_vars( y )[ 1 ];
 
           // the first quation at the i'th nodal point
           std::size_t row = 2 * i;
