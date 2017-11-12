@@ -31,6 +31,8 @@ rm -rf ./validate.log
  cd .././BVP
 .././BVP/Shoot_Blasius.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Containers
+.././Containers/MPI_MUMPS.out 2>> error.log | tee -a ../Validation/validate.log
+ cd .././Containers
 .././Containers/MatrixMult.out 2>> error.log | tee -a ../Validation/validate.log
  cd .././Containers
 .././Containers/MatrixSolves.out 2>> error.log | tee -a ../Validation/validate.log

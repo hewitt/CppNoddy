@@ -1,0 +1,8 @@
+indent=spaces=2
+style=ansi
+brackets=break
+indent-namespaces
+break-elseifs
+pad=oper
+pad=paren-in
+convert-tabs
