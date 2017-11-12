@@ -14,7 +14,9 @@
 #include <Utility.h>
 #include <SparseLinearSystem.h>
 
-#include "mpi.h"
+#if defined(PETSC_D)||defined(PETSC_Z)
+  #include "PETSc.h"
+#endif
 
 using namespace CppNoddy;
 using namespace std;
@@ -191,6 +193,7 @@ int main()
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
   }
 
-  PetscFinalize();
-
+  #if defined(PETSC_D)||defined(PETSC_Z)
+    PetscFinalize();
+  #endif  
 }

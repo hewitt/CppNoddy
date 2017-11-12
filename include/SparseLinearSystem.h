@@ -67,9 +67,11 @@ namespace CppNoddy
     SparseMatrix<_Type>* p_A;
     /// pointer to the RHS vector
     DenseVector<_Type>* p_B;
-    ///
+
+    /// indicates that the matrix has been factorised
+    bool factorised_;
+
     #if defined(PETSC_Z) || defined(PETSC_D)
-      bool factorised_;
       Vec            x_,B_;      /* B = RHS and x = soln */
       Mat            F_;
       KSP            ksp_;       /* linear solver context */

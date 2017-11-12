@@ -56,7 +56,7 @@ col = ARGUMENTS.get('col',1)                          # defaults to colourised o
 lapack = ARGUMENTS.get('lapack',0)                    # link to LAPACK
 slepc = ARGUMENTS.get('slepc',0)	                  # link to SLEPC => PETSC => BLAS/LAPACK
 petsc = ARGUMENTS.get('petsc',0)	                  # link to complex PETSC => BLAS/LAPACK (min)
-mpi = ARGUMENTS.get('mpi',1)                          # link to MPI
+mpi = ARGUMENTS.get('mpi',0)                          # link to MPI
 debug = ARGUMENTS.get('debug', 0)                     # ask for debug info to be written to stdout
 debug_symbols = ARGUMENTS.get('debug_symbols', 0)     # include debug symbols (-g)
 paranoid = ARGUMENTS.get('paranoid', 0)               # paranoid bounds checking
@@ -202,6 +202,7 @@ if int(petsc):
     # slepc support requires blas/lapack/mumps support
     lapack = 1
     blas = 1
+    mpi = 1
     libs_str += petsc_lib + ' mpi '
     libdir_str += petsc_lib_dir + ' '
     incdir_str += petsc_inc + ' '

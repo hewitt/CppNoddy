@@ -154,7 +154,7 @@ namespace CppNoddy
     throw ExceptionRuntime( "SparseMatrix.multiply has not been implemented" );
   }
 
-#ifdef PETSC_Z
+#if defined(PETSC_Z)
   template <>
   void SparseMatrix<std::complex<double> >::get_row_petsc( PetscInt row, PetscScalar* storage, PetscInt* cols )
   {
@@ -188,7 +188,9 @@ namespace CppNoddy
       while ( pos != MATRIX[ row ].end() );
     }
   }
-#else
+#endif
+
+#if defined(PETSC_D)
   template <>
   void SparseMatrix<std::complex<double> >::get_row_petsc( PetscInt row, PetscScalar* storage, PetscInt* cols )
   {
@@ -245,7 +247,7 @@ namespace CppNoddy
 // #endif
 
 
-#ifdef PETSC_D
+#if defined(PETSC_D)
   template <>
   void SparseMatrix<double >::get_row_petsc( PetscInt row, PetscScalar* storage, PetscInt* cols )
     {
@@ -279,7 +281,8 @@ namespace CppNoddy
       while ( pos != MATRIX[ row ].end() );
     }
   }
-#else
+#endif
+#if defined(PETSC_Z)
   template <>
   void SparseMatrix<double >::get_row_petsc( PetscInt row, PetscScalar* storage, PetscInt* cols )
   {

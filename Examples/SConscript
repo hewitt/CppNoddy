@@ -1,9 +1,7 @@
 import os.path
 import glob
 
-#WIP = "BL_downstream_march_microjet"
-WIP = ["Offset_Vtx","Luchini","BL_downstream_march_microjet","Thomas_Wilder"]
-#WIP = "Nonaxi"
+WIP = [] #"Offset_Vtx","Luchini","BL_downstream_march_microjet"]
 
 Import( 'env opts preproc link_flags rpath incdir libdir topdir libs private' )
 
