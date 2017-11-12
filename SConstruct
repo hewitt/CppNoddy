@@ -133,7 +133,7 @@ petsc_arch = os.environ.get('PETSC_ARCH','default')
 if "complex" in petsc_arch:
     petsc_z = True
     message( red, " PETSC_ARCH points to COMPLEX.")
-else:
+if "double" in petsc_arch:
     petsc_d = True
     message( red, " PETSC_ARCH points to DOUBLE.")
 slepc_dir = os.environ.get('SLEPC_DIR','default')

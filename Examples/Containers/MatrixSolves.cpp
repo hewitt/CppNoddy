@@ -19,10 +19,6 @@
 #include <BandedLinearSystem.h>
 #include <SparseLinearSystem.h>
 
-#if defined(PETSC_D)||defined(PETSC_Z)
-  #include <PETSc.h>
-#endif
-
 
 using namespace CppNoddy;
 using namespace std;
