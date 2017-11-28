@@ -41,6 +41,7 @@ int main()
 
 #else
 
+  SlepcInitialize(NULL,NULL,(char*)0,(char*)0);
   SparseMatrix<D_complex> a( 4, 4 );
 
   a( 0, 0 ) = D_complex( -21.10, -22.50 );
@@ -117,7 +118,8 @@ int main()
   {
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
   }
-
+  
+  SlepcFinalize();
 
 #endif
 #endif

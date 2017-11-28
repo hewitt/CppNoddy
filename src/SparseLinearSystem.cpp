@@ -61,47 +61,6 @@ namespace CppNoddy
     #endif
   }
 
-  template<>
-  SparseLinearSystem<double>::~SparseLinearSystem()
-  {
-    #ifdef MUMPS_SEQ
-      if ( mumps_job_running )
-      {
-        // close things down
-        Did_.job = -2;
-        dmumps_c(&Did_);
-        mumps_job_running = false;
-        // mumps_end_job();
-        delete[] real_a_;
-        delete[] irn_;
-        delete[] jcn_;
-      }
-    #endif
-  }
-
-  template<>
-  SparseLinearSystem<std::complex<double> >::~SparseLinearSystem()
-  {
-    #ifdef MUMPS_SEQ
-      // std::cout << "[DEBUG] destructor called for a complex SparseLinearSystem with MUMPS_SEQ\n";
-      // std::cout << "[DEBUG] mumps_job_running = " << mumps_job_running << "\n";
-      if ( mumps_job_running )
-      {
-        // std::cout << "[DEBUG] mumps_job_running == true\n";
-        // close things down
-        Zid_.job = -2;
-        zmumps_c(&Zid_);
-        mumps_job_running = false;
-        // mumps_end_job();
-        delete[] complex_a_;
-        delete[] complex_b_;
-        delete[] irn_;
-        delete[] jcn_;
-      }
-    #endif
-    // std::cout << "[DEBUG] leaving destructor for complex SparseLinearSystem with MUMPS_SEQ\n";
-  }
-
   template<typename _Type>
   SparseLinearSystem<_Type>::~SparseLinearSystem()
   {
@@ -112,13 +71,10 @@ namespace CppNoddy
   void SparseLinearSystem<_Type>::cleanup()
   {
     #if defined(PETSC_D) || defined(PETSC_Z)
-      if (factorised_)
-      {
-        // delete objects used in the factorisation?
-        KSPDestroy(&ksp_);
-        VecDestroy(&x_);
-        VecDestroy(&B_);
-      }
+      // delete objects used in the factorisation?
+      KSPDestroy(&ksp_);
+      VecDestroy(&x_);
+      VecDestroy(&B_);
     #endif
     factorised_ = false;
   }
@@ -134,8 +90,6 @@ namespace CppNoddy
       problem += "implemented.\n";
       throw ExceptionRuntime( problem );
     }
-    #ifdef DEBUG
-    #endif
     if ( "petsc" == VERSION )
     {
       factorise();
@@ -524,11 +478,11 @@ void SparseLinearSystem<std::complex<double> >::factorise()
   for ( PetscInt i = Istart; i<Iend; ++i )
   {
     // move the matrix data into PETSc format 1 row at a time
-    std::size_t nelts_in_row = all_rows_nnz[i]; //p_A -> nelts_in_row(i);
+    std::size_t nelts_in_row = all_rows_nnz[i];
     // row i has all_rows_nnz[i] elements that are non-zero, so we store their columns
-    PetscInt* cols = new PetscInt[all_rows_nnz[i]];
+    PetscInt* cols = new PetscInt[nelts_in_row];
     // store the non-zero elts in this row
-    PetscScalar* storage = new PetscScalar[all_rows_nnz[i]];
+    PetscScalar* storage = new PetscScalar[nelts_in_row];
     // get the data from the CppNoddy sparse matrix structure
     p_A -> get_row_petsc( i, storage, cols );
     MatSetValues(A,1,&i,nelts_in_row,cols,storage,INSERT_VALUES);
@@ -652,6 +606,7 @@ void SparseLinearSystem<std::complex<double> >::solve_using_factorisation()
   }
   // follow the docs and Restore after get
   VecRestoreArray(x_,&array);
+  VecDestroy(&y);
   #endif
 }
 

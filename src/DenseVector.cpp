@@ -1,6 +1,6 @@
 /// \file src/DenseVector.cpp
 /// Implementation of the DenseVector class -- a dense, variable size, vector object.
- 
+
 #include <vector>
 #include <complex>
 #include <algorithm>
@@ -77,6 +77,37 @@ namespace CppNoddy
       std::cout << VEC[ i ] << ", ";
     }
     std::cout << "\n";
+  }
+
+
+  template <>
+  void DenseVector<double>::dump_file( std::string filename, int precision ) const
+  {
+    std::ofstream dump;
+    dump.open( filename.c_str() );
+    dump.precision( precision );
+    dump.setf( std::ios::showpoint );
+    dump.setf( std::ios::showpos );
+    dump.setf( std::ios::scientific );
+    for ( std::size_t i = 0; i < VEC.size(); ++i )
+    {
+      dump << i << " " << VEC[ i ] << "\n";
+    }
+  }
+
+  template <>
+  void DenseVector<std::complex<double> >::dump_file( std::string filename, int precision ) const
+  {
+    std::ofstream dump;
+    dump.open( filename.c_str() );
+    dump.precision( precision );
+    dump.setf( std::ios::showpoint );
+    dump.setf( std::ios::showpos );
+    dump.setf( std::ios::scientific );
+    for ( std::size_t i = 0; i < VEC.size(); ++i )
+    {
+      dump << i << " " << VEC[ i ].real() << " " << VEC[ i ].imag()  << "\n";
+    }
   }
 
   template <typename _Type>

@@ -107,9 +107,9 @@ namespace CppNoddy
     {
       DenseVector<double> V;
       V.reserve( N );
+      const double delta = ( upper - lower ) / ( N - 1 );
       for ( std::size_t i = 0; i < N; ++i )
       {
-        const double delta = ( upper - lower ) / ( N - 1 );
         V.push_back( lower + delta * i );
       }
       return V;
@@ -136,7 +136,7 @@ namespace CppNoddy
       }
       return first;
     }
-    
+
     DenseVector<double> three_uniform_node_vector( const double& lower, const double& mid1, const double& mid2, const double& upper, const std::size_t& N1, const std::size_t& N2, const std::size_t& N3 )
     {
       DenseVector<double> first = uniform_node_vector( lower, mid1, N1 );

@@ -25,9 +25,35 @@ namespace CppNoddy
     {}
 
     /// ctor
-    TwoD_Node_Mesh( const DenseVector<double>& x_nodes, const DenseVector<double>& y_nodes, const std::size_t nvars ) :
+    TwoD_Node_Mesh( const DenseVector<double>& x_nodes, const DenseVector<double>& y_nodes,
+        const std::size_t nvars ) :
         NX( x_nodes.size() ), NY( y_nodes.size() ), NV( nvars ), X( x_nodes ), Y( y_nodes )
     {
+      // we'll store the data as ( x, y, v ) ->  x * ny * nv + y * nv + v
+      VARS = DenseVector<_Type>( NX * NY * NV, 0.0 );
+    }
+
+    /// ctor
+    TwoD_Node_Mesh( const double left, const double right, const double bottom, const double top,
+        const std::size_t nx, const std::size_t ny, const std::size_t nvars ) :
+        NX( nx ), NY( ny ), NV( nvars )
+    {
+      {
+        X.reserve( NX );
+        const double delta = ( right - left ) / ( NX - 1 );
+        for ( std::size_t i = 0; i < NX; ++i )
+        {
+          X.push_back( left + delta * i );
+        }
+      }
+      {
+        Y.reserve( NY );
+        const double delta = ( top - bottom ) / ( NY - 1 );
+        for ( std::size_t i = 0; i < NY; ++i )
+        {
+          Y.push_back( bottom + delta * i );
+        }
+      }
       // we'll store the data as ( x, y, v ) ->  x * ny * nv + y * nv + v
       VARS = DenseVector<_Type>( NX * NY * NV, 0.0 );
     }

@@ -18,7 +18,7 @@
 
 namespace CppNoddy
 {
- 
+
   // forward declare the matrix classes that will be friends
   // conversion from banded to vector (for LAPACK routines)
   // is best done if we allow BandedMatrix direct access to the
@@ -255,23 +255,23 @@ namespace CppNoddy
 
     /// Dump to std::cout
     void dump() const;
-    
+
     /// Dump the contents to a file, each element on a separate line
     /// \param filename The name of the file to write to
     /// \param precision Precision of the output strings
-    void dump_file( std::string filename, int precision = 10 ) const
-    {
-      std::ofstream dump;
-      dump.open( filename.c_str() );
-      dump.precision( precision );
-      dump.setf( std::ios::showpoint );
-      dump.setf( std::ios::showpos );
-      dump.setf( std::ios::scientific );
-      for ( std::size_t i = 0; i < VEC.size(); ++i )
-      {
-        dump << VEC[ i ] << "\n";
-      }
-    }
+    void dump_file( std::string filename, int precision = 10 ) const;
+    // {
+    //   std::ofstream dump;
+    //   dump.open( filename.c_str() );
+    //   dump.precision( precision );
+    //   dump.setf( std::ios::showpoint );
+    //   dump.setf( std::ios::showpos );
+    //   dump.setf( std::ios::scientific );
+    //   for ( std::size_t i = 0; i < VEC.size(); ++i )
+    //   {
+    //     dump << VEC[ i ] << "\n";
+    //   }
+    // }
 
   private:
 
@@ -498,4 +498,3 @@ namespace CppNoddy
 
 }
 #endif
-

@@ -46,6 +46,7 @@ int main()
 
 #else
 
+  SlepcInitialize(NULL,NULL,(char*)0,(char*)0);
   // discretise with these many nodal points
   const std::size_t nodes( 12001 );
   // we'll solve as TWO second order problems
@@ -108,9 +109,9 @@ int main()
   // a vector for storing the eigenvalues
   DenseVector<D_complex> lambdas;
   SparseLinearEigenSystem<D_complex> system( &a, &b );
-  system.set_target(D_complex(0.2,0.1));
+  system.set_target(D_complex(0.2,0.0));
   system.set_nev(4);
-  system.set_order( "EPS_SMALLEST_MAGNITUDE" );
+  system.set_order( "EPS_TARGET_MAGNITUDE" );
 
   try
   {
@@ -141,7 +142,8 @@ int main()
   {
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
   }
-
+  SlepcFinalize();
+  
 #endif //SLEPC check
 #endif //PETSC_Z check
 }

@@ -21,7 +21,6 @@ using namespace std;
 int main()
 {
   #if defined(PETSC_Z) || defined(PETSC_D)
-  cout << "=== Init of PETSc. ==================================\n";
   PetscInitialize(NULL,NULL,(char*)0,(char*)0);
   #endif
 
@@ -124,9 +123,9 @@ int main()
 
     try
     {
-      // small_system.solve();
-      small_system.factorise();
-      small_system.solve_using_factorisation();
+      small_system.solve();
+      // small_system.factorise();
+      // small_system.solve_using_factorisation();
     }
     catch ( std::runtime_error )
     {
@@ -148,31 +147,31 @@ int main()
       std::cout << " Simple 2x2 complex sparse solve works.\n";
     }
 
-    // double the RHS and try a resolve
-    B[ 0 ] = 10.;
-    B[ 1 ] = 22.;
-    try
-    {
-      small_system.solve_using_factorisation();
-    }
-    catch ( std::runtime_error )
-    {
-      cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
-      assert( false );
-    }
-    answer[ 0 ] = 2.0;
-    answer[ 1 ] = 4.0;
-    B.sub( answer );
-    if ( B.inf_norm() > tol )
-    {
-      std::cout << "\033[1;31;48m Simple 2x2 complex sparse system was not solved correctly\033[0m\n";
-      std::cout << " residual vector's inf_norm = " << B.inf_norm() << "\n";
-      failed = true;
-    }
-    else
-    {
-      std::cout << " Simple 2x2 complex sparse solve_using_factorisation works.\n";
-    }
+    // // double the RHS and try a resolve
+    // B[ 0 ] = 10.;
+    // B[ 1 ] = 22.;
+    // try
+    // {
+    //   small_system.solve_using_factorisation();
+    // }
+    // catch ( std::runtime_error )
+    // {
+    //   cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
+    //   assert( false );
+    // }
+    // answer[ 0 ] = 2.0;
+    // answer[ 1 ] = 4.0;
+    // B.sub( answer );
+    // if ( B.inf_norm() > tol )
+    // {
+    //   std::cout << "\033[1;31;48m Simple 2x2 complex sparse system was not solved correctly\033[0m\n";
+    //   std::cout << " residual vector's inf_norm = " << B.inf_norm() << "\n";
+    //   failed = true;
+    // }
+    // else
+    // {
+    //   std::cout << " Simple 2x2 complex sparse solve_using_factorisation works.\n";
+    // }
 
   }
   cout << "COMPLEX 2x2 TEST ENDED\n";

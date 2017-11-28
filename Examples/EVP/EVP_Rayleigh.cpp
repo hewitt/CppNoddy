@@ -37,7 +37,7 @@ using namespace std;
 
 int main()
 {
-  
+
   cout << "\n";
   cout << "=== EVP: Rayleigh modes, Tollmien's example =========\n";
   cout << "\n";
@@ -75,17 +75,17 @@ int main()
   // do a global solve
   my_ray.global_evp();
 
-  for ( unsigned i = 0; i < my_ray.eigenvalues().size(); ++i )
-  {
-    if ( my_ray.eigenvalues()[ i ].imag() > -0.05 )
-    {
-      cout << i << " " << my_ray.eigenvalues()[ i ] << "\n";
-    }
-  }
-  
+  // for ( unsigned i = 0; i < my_ray.eigenvalues().size(); ++i )
+  // {
+  //   if ( my_ray.eigenvalues()[ i ].imag() > -0.05 )
+  //   {
+  //     cout << i << " " << my_ray.eigenvalues()[ i ] << "\n";
+  //   }
+  // }
+
   unsigned i_ev = 378;
   std::cout << "locally solved\n";
-  // on my machine the eigenvalue is number 197 -- i'm not sure if this
+  // on my machine the eigenvalue is number 378 -- i'm not sure if this
   // could potentially change on other machines depending on LAPACK. We'll see.
   my_ray.iterate_to_neutral( i_ev );
 

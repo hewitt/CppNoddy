@@ -35,6 +35,8 @@ int main()
   cout << "\033[1;33;48m  * SKIPPED \033[0m\n";
 #else
 
+  SlepcInitialize(NULL,NULL,(char*)0,(char*)0);
+
   SparseMatrix<double> a( 2, 2 );
   SparseMatrix<double> b( 2, 2 );
   a( 0, 0 ) = 1;
@@ -78,7 +80,8 @@ int main()
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
   }
 
-
+  SlepcFinalize();
+  
 #endif // SLEPC test
 #endif // PETSC_D test
 }

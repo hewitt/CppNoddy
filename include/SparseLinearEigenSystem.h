@@ -13,7 +13,7 @@
 
 #ifdef SLEPC
 #include <slepceps.h>
-#include <SLEPc.h>
+// #include <SLEPc.h>
 
 namespace CppNoddy
 {
@@ -61,7 +61,7 @@ namespace CppNoddy
 
     /// Set target for the shift-invert algorithm.
     /// \param target The target eigenvalue
-    void set_target( _Type target );
+    void set_target( std::complex<double> target );
 
     /// Defines the ordering of returned set of eigenvalues/vectors
     /// \param order_string A string that defines the SLEPc enum options for ordering (see EPSWhich)
@@ -119,7 +119,7 @@ namespace CppNoddy
     /// pointer to the RHS matrix
     SparseMatrix<_Type>* p_B;
 
-    SLEPc* p_LIBRARY;
+    // SLEPc* p_LIBRARY;
   };
 
 } //end namepsace

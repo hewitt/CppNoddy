@@ -37,6 +37,8 @@ int main()
   cout << "\033[1;33;48m  * SKIPPED \033[0m\n";
 #else
 
+  SlepcInitialize(NULL,NULL,(char*)0,(char*)0);
+
   cout.precision( 12 );
   cout << " Number of nodal points : Leading eigenvalue error : Total CPU time taken (ms) \n";
   bool failed = false;
@@ -80,8 +82,8 @@ int main()
     SparseLinearEigenSystem<PETSC_type> system( &a, &b );
     system.set_calc_eigenvectors( true );
     system.set_nev(4);
-    system.set_order( "EPS_SMALLEST_MAGNITUDE" );
-    
+    system.set_order( "EPS_TARGET_MAGNITUDE" ); //default
+
     timer.start();
     try
     {
@@ -115,6 +117,7 @@ int main()
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
   }
 
-
+  SlepcFinalize();
+  
 #endif
 }
