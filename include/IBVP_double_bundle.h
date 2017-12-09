@@ -4,7 +4,7 @@
 #ifndef IBVP_DOUBLE_BUNDLE_H
 #define IBVP_DOUBLE_BUNDLE_H
 
-#include <Types.h>
+#include <Generic_bundle.h>
 #include <Equation_3matrix.h>
 #include <PDE_double_IBVP.h>
 #include <TwoD_Node_Mesh.h>

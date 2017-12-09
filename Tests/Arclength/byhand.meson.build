@@ -1,0 +1,20 @@
+exe = executable('ArcCircle', 'ArcCircle.cpp',
+    include_directories : inc,
+    link_with : CppNoddy )
+test('ArcCircle', exe)
+
+exe = executable('ArcCircleVector', 'ArcCircleVector.cpp',
+    include_directories : inc,
+    link_with : CppNoddy )
+test('ArcCircleVector', exe)
+
+exe = executable('ArcTranscritFold', 'ArcTranscritFold.cpp',
+    include_directories : inc,
+    link_with : CppNoddy )
+test('ArcTranscritFold', exe)
+
+exe = executable('ArcShootFalknerSkan', 'ArcShootFalknerSkan.cpp',
+    include_directories : inc,
+    link_with : CppNoddy )
+test('ArcShootFalknerSkan', exe)
+

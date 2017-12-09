@@ -9,7 +9,10 @@
 #include <Types.h>
 #include <Timer.h>
 
-#ifdef INC_MPI
+
+#if defined(PETSC_D) || defined(PETSC_Z)
+  #include "petscksp.h"
+  #include "petsc.h"
   #include "mpi.h"
 #endif
 
@@ -32,7 +35,16 @@ namespace CppNoddy
       problem += "request for a solver type. Options: 'native','petsc'. \n";
       throw ExceptionRuntime( problem );
     }
-    #ifdef INC_MPI
+    if ( VERSION == "petsc" )
+    {
+      #if !defined(PETSC_D) && !defined(PETSC_Z)
+      std::string problem;
+      problem = "The SparseLinearSystem has been instantiated for a petsc solver.\n";
+      problem += "HOWEVER, CppNoddy was not compiled with PETSC_D or PETSC_Z defined.\n";
+      throw ExceptionRuntime( problem );
+      #endif
+    }
+    #if defined(PETSC_D) || defined(PETSC_Z)
       if ( VERSION == "petsc" )
       {
         int flag(0);
@@ -45,10 +57,8 @@ namespace CppNoddy
           throw ExceptionRuntime( problem );
         }
       }
-    #endif
-    #ifdef INC_MPI
       MPI_Comm_size(MPI_COMM_WORLD,&size_);
-      MPI_Comm_size(MPI_COMM_WORLD,&rank_);
+      MPI_Comm_rank(MPI_COMM_WORLD,&rank_);
       if ( size_ > 1 )
       {
         std::string problem;
@@ -72,11 +82,14 @@ namespace CppNoddy
   {
     #if defined(PETSC_D) || defined(PETSC_Z)
       // delete objects used in the factorisation?
-      KSPDestroy(&ksp_);
-      VecDestroy(&x_);
-      VecDestroy(&B_);
+      if (factorised_)
+      {
+        KSPDestroy(&ksp_);
+        VecDestroy(&x_);
+        VecDestroy(&B_);
+        factorised_ = false;
+      }
     #endif
-    factorised_ = false;
   }
 
   template <typename _Type>
@@ -326,7 +339,7 @@ void SparseLinearSystem<double>::factorise()
   /* compute determinant of A */
   // MatMumpsSetIcntl(F_,33,1);
   /* not used unless we initialise PETSc using the command line options */
-  KSPSetFromOptions(ksp_);
+  // KSPSetFromOptions(ksp_);
 
   /* Get info from matrix factors */
   KSPSetUp(ksp_);
@@ -404,7 +417,8 @@ void SparseLinearSystem<double>::solve_using_factorisation()
   }
   // follow the docs and Restore after get
   VecRestoreArray(x_,&array);
-  #endif
+  VecDestroy(&y);
+#endif
 }
 
 
@@ -427,6 +441,7 @@ void SparseLinearSystem<std::complex<double> >::factorise()
   problem += "pointing to a COMPLEX version of the PETSc code.";
   throw ExceptionExternal( problem );
 #endif
+
 #if defined(PETSC_Z)
   if (factorised_)
   {
@@ -459,7 +474,8 @@ void SparseLinearSystem<std::complex<double> >::factorise()
   PetscInt* all_rows_nnz = new PetscInt[ n ];
   p_A -> nelts_all_rows( all_rows_nnz );
 
-  // pre-allocate memory using the number of non-zero elts in each row (the 0 is ignored here)
+  // pre-allocate memory using the number of non-zero elts
+  // in each row (the 0 is ignored here)
   MatSeqAIJSetPreallocation(A, 0, all_rows_nnz );
   // need to allocate for MPI codes too
   // \todo if we every get MPI running, we need to sort out preallocation
@@ -528,7 +544,7 @@ void SparseLinearSystem<std::complex<double> >::factorise()
   /* compute determinant of A */
   // MatMumpsSetIcntl(F_,33,1);
   /* not used unless we initialise PETSc using the command line options */
-  KSPSetFromOptions(ksp_);
+  // KSPSetFromOptions(ksp_);
 
   /* Get info from matrix factors */
   KSPSetUp(ksp_);
@@ -551,6 +567,7 @@ void SparseLinearSystem<std::complex<double> >::factorise()
   // }
   MatDestroy(&A);
   delete[] all_rows_nnz;
+
 #endif // check for PETSC_D/Z
 }
 
@@ -639,9 +656,6 @@ void SparseLinearSystem<std::complex<double> >::solve_using_factorisation()
     }
     B = x;
   }
-
-
-
 
 
 

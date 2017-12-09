@@ -9,5 +9,6 @@
 
 #include <Types.h>
 #include <TrackerFile.h>
+#include <Utility.h>
 
 #endif

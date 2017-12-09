@@ -1,0 +1,60 @@
+c = run_command('ls_all.sh')
+sources = c.stdout().strip().split('\n')
+
+foreach source : sources
+  stub = source.split('.cpp')[0]
+  #
+  if stub.contains('_lapack') and lapack_dep.found()
+    # tests that need lapack to be present
+    exe = executable(stub, source,
+      include_directories : inc,
+      dependencies : [lapack_dep, blas_dep],
+      link_with : CppNoddy )
+    test(stub, exe, timeout : 180 )
+  endif
+  #
+  if stub.contains('_petscd') and petscd
+    # tests that need lapack to be present
+    exe = executable(stub, source,
+      include_directories : inc,
+      dependencies : [lapack_dep, blas_dep, petsc_dep, mpich_dep],
+      link_with : CppNoddy )
+    test(stub, exe, timeout : 180 )
+  endif
+  #
+  if stub.contains('_petscz') and petscz
+    # tests that need lapack to be present
+    exe = executable(stub, source,
+      include_directories : inc,
+      dependencies : [lapack_dep, blas_dep, petsc_dep, mpich_dep],
+      link_with : CppNoddy )
+    test(stub, exe, timeout : 180 )
+  endif
+  #
+  if stub.contains('_slepcd') and slepc and petscd
+    # tests that need lapack to be present
+    exe = executable(stub, source,
+      include_directories : inc,
+      dependencies : [lapack_dep, blas_dep, petsc_dep, slepc_dep, mpich_dep],
+      link_with : CppNoddy )
+    test(stub, exe, timeout : 180 )
+  endif
+  #
+  if stub.contains('_slepcz') and slepc and petscz
+    # tests that need lapack to be present
+    exe = executable(stub, source,
+      include_directories : inc,
+      dependencies : [lapack_dep, blas_dep, petsc_dep, slepc_dep, mpich_dep],
+      link_with : CppNoddy )
+    test(stub, exe, timeout : 180 )
+  endif
+  #
+  if (not stub.contains('_slepc')) and (not stub.contains('_petsc')) and (not stub.contains('_lapack'))
+    # tests that need lapack to be present
+    exe = executable(stub, source,
+      include_directories : inc,
+      dependencies : [lapack_dep, blas_dep ],
+      link_with : CppNoddy )
+    test(stub, exe, timeout : 180 )
+  endif
+endforeach

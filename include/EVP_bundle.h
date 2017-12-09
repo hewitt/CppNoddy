@@ -5,10 +5,10 @@
 #define EVP_BUNDLE_H
 
 #include <Generic_bundle.h>
-
 #include <Equation_2matrix.h>
 #include <ODE_EVP.h>
 #include <DenseLinearEigenSystem.h>
+//#include <SparseLinearEigenSystem.h>
 #include <OneD_Node_Mesh.h>
 
 #endif

@@ -17,12 +17,12 @@
 
 
 #if defined(PETSC_D) || defined(PETSC_Z)
-#include "petscsys.h"
+#include "petsc.h"
 #endif
 
-#ifdef SLEPC
-#include "slepceps.h"
-#endif
+//#ifdef SLEPC
+//#include "slepceps.h"
+//#endif
 
 namespace CppNoddy
 {

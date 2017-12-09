@@ -8,5 +8,6 @@
 
 #include <ODE_IVP.h>
 #include <Equation.h>
+#include <Newton_bundle.h>
 
 #endif

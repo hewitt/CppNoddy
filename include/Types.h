@@ -22,7 +22,7 @@
  *
  *
  * - Two-dimensional parabolic problems
- *      ( eg., unsteady boundary-layer equations ).
+ *      ( eg., the unsteady boundary-layer equations ).
  * - Boundary-value ODE problems
  *      ( eg., the Karman rotating-disk, Blasius boundary-layer and other similarity solutions ).
  * - Arc-length continuation of problems involving limit points
@@ -48,7 +48,7 @@
  *
  *
  * A breakdown of examples into groups is found under the 'Modules' link above.
- * Alternatively, a complete list of examples can be found at this link \link Examples \endlink
+ * Alternatively, a complete list of examples can be found at this link \link Tests \endlink
  *
  * The library provides:
 
@@ -71,51 +71,56 @@
  *
  * \subsection intro2 What is it for?
  * It exists for two reasons:
- * - It's an introduction/framework for final-year undergraduate project students or
- * new graduate students.
+ * - It's an introduction/framework for final-year undergraduate project students or graduate students.
  * - Just for fun.
  *
  * \section get0 Getting and running it
  *
  * You need a machine with a recent C++ compiler and 'git' to clone the latest version.
- * The build system also uses SCons and Python. The source is hosted on Github
+ * The build system uses 'meson'. The source is hosted on Github
  * and can be obtained using 'git' via
  *
  *       git clone git://github.com/hewitt/CppNoddy.git
  *
+ * A minimal install can be achieved via
  *
- * Once you have the code, running "scons" (or "scons lapack=1" to attempt to link
- * to external BLAS/LAPACK libraries for example) in
- * the CppNoddy directory should compile the library & example codes. You can check the
- * finished product by running "./validate.sh" in the "Examples/Validation" directory.
+ *       meson --buildtype=debugoptimized build
  *
- * Before running the 'validate.sh' script you must make sure that the CppNoddy/libs
- * directory is in LD_LIBRARY_PATH. For example, for the bash shell,
- * 'export  LD_LIBRARY_PATH=/path/to/installation/CppNoddy/lib/'
+ *       cd build
  *
- * Off-site links:
- * \htmlonly
-    <a href="http://www.python.org">python</a>
-    <a href="http://www.gnu.org/software/gcc">GCC</a>
-    <a href="http://github.com/hewitt/CppNoddy">github</a>
-    <a href="http://www.scons.org">scons</a>
- * \endhtmlonly
+ *       ninja
  *
- * See the \link Examples \endlink for a starting point.
+ * The self-tests can be executed via
+ *
+ *       ninja tests 
+ *
+ *
+ * Optionally you can link to PETSc (for sparse matrix problems) and SLEPc (for sparse matrix eigenvalue problems) via
+ *
+ *       meson configure -Dpetscz=true -Dslepc=true
+ *
+ * for complex arithmetic, or
+ *
+ *       meson configure -Dpetscd=true -Dslepc=true
+ *
+ * for real arithmetic.
+ * If PETSc/SLEPc are not installed system-wide, you will need to set PKG_CONFIG_PATH to point to PETSc.pc and SLEPc.pc via
+ *
+ *       export PKG_CONFIG_PATH=$PETSC_DIR/$PETSC_ARCH/lib/pkgconfig:$SLEPC/$PETSC_ARCH/lib/pkgconfig
+ *
+ * assuming a bash shell. The environment variables $PETSC_DIR/$SLEPC_DIR point to the base locations of the respective source trees, whilst $PETSC_ARCH is the name of the build directory (assumed to be the same in both cases). Suggested configure options for PETSc are
+ *
+ *      ./configure --download-superlu_dist --download-mpich --download-metis --download-parmetis --download-cmake --download-scalapack --download-mumps --with-scalar-type=complex
+ *
+ * for complex arithmetic or use --with-scalar-type=real for real arithmetic.
+ *
+ * See the \link Tests \endlink for a starting point.
  *
  * \section best0 Is it fast/accurate?
  *
- * The matrix classes have native solvers that are naive unoptimised Gaussian elimination algorithms.
- * These routines will only be practical (if at all!) for
- * rather `small' matrix/band sizes and do not scale well. If the problem is of even
- * moderate size, then you should link to your local LAPACK/BLAS/PETSc
- * LU routines by compiling with the `lapack=1' flag. LAPACK/BLAS/PETSc libraries are not shipped 
- * with CppNoddy, you have to install them separately yourself if they are not available by default.
- * PETSc has a particularly nice configure/make/install routine that makes it easy to get running.
+ * The matrix classes have native solvers that are naive unoptimised Gaussian elimination algorithms. These routines will only be practical (if at all!) for rather `small' matrix/band sizes and do not scale well. If the problem is of even moderate size, then you should link to your local LAPACK/BLAS/PETSc LU routines. LAPACK/BLAS/PETSc/SLEPc libraries are not shipped with CppNoddy, you have to install them separately yourself if they are not available by default. 
  *
- * The code is not especially optimised, in fact in many places the code is deliberately
- * un-optimised for greater transparency; it is not intended for 'heavy duty' problems. The only sanity
- * checks applied are those listed in the test/example codes \link Examples \endlink.
+ * The code is not especially optimised, in fact in many places the code is deliberately  un-optimised for greater transparency; it is not intended for 'heavy duty' problems. The only sanity checks applied are those listed in the test/example codes \link Tests \endlink.
  *
  * \section flames0 It made my machine burst into flames
  *
@@ -123,9 +128,7 @@
  *
  * \section add0 I think it needs a CppNoddy::foo<bar> class
  *
- * Feel free to add something. If you're an undergraduate looking for a final-year project
- * or an MSc. student and have
- * an idea of something to include (or wish to redesign something that I did in a stupid way), then let me know.
+ * Feel free to add something. If you're an undergraduate looking for a final-year project or an MSc. student and have  an idea of something to include (or wish to redesign something that I did in a stupid way), then let me know.
  *
  *
  * \htmlonly
@@ -166,12 +169,13 @@ This software is licenced under the <a href="http://creativecommons.org/licenses
 
 #include <complex>
 #include <cmath>
+#include <sys/stat.h>
 
 #include <DenseVector.h>
 #include <SparseVector.h>
 #include <DenseMatrix.h>
 #include <BandedMatrix.h>
-#include <SparseMatrix.h>
+//#include <SparseMatrix.h>
 
 
 /// A collection of OO numerical routines aimed at simple

@@ -1,3 +1,5 @@
+0.91 [Build system changed from SCons to Meson]
+
 0.90 [MUMPS and SuperLU removed -- available implicitly via PETSc] 
      Explicit support is dropped for SuperLU and MUMPS to simplify things. Instead, the SparseLinearSystem solve methods point to PETSc. PETSc has a particularly nice configure/make interface that will download and install MUMPS etc for its own use. Now the CppNoddy sparse solve points to PETSc using MUMPS as a direct solver -- this removes all the nice flexibility of PETSc but simplifies it to (my) most common case. Note that that this simplistic library is aimed at small-ish sequential problems, so the native SparseMatrix method is COPIED to the appropriate PETSc structure prior to a solve, so you don't want to 'mpirun' such a solver. 
 

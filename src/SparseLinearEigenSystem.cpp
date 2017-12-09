@@ -1,6 +1,6 @@
 /// \file SparseLinearEigenSystem.cpp
-/// Implementation for the BandedLinearEigenSystem class
-/// This class links to ARPACK to perform the solver phase.
+/// Implementation for the SparseLinearEigenSystem class
+/// This class links to SLEPc to perform the solver phase.
 
 #include <vector>
 #include <set>

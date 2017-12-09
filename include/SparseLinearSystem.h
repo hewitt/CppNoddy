@@ -10,7 +10,7 @@
 #include <LinearSystem_base.h>
 
 #if defined(PETSC_Z) || defined(PETSC_D)
-  #include <petscksp.h>
+  #include "petscksp.h"
 #endif
 
 namespace CppNoddy
@@ -45,6 +45,8 @@ namespace CppNoddy
     /// Resolve the same system using the same factorisation
     void solve_using_factorisation();
 
+   void temp_solve();
+   
   private:
     // solve by linking to PETSc
     void solve_petsc();

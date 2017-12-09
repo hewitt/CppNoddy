@@ -1,3 +1,12 @@
+Meson build process:
+
+meson --buildtype=debugoptimized build
+meson configure -Dslepc=true -Dpetscz=true build
+cd build
+ninja
+ninja test
+ninja install
+
 See:
 
 http://hewitt.gotdns.org/Dev/CppNoddy/doc/html/index.html

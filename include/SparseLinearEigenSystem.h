@@ -6,14 +6,13 @@
 #define SPARSELINEAREIGENSYSTEM_BASE_H
 
 #include <set>
-
+#include <SparseMatrix.h>
 #include <Uncopyable.h>
 #include <Types.h>
 #include <LinearEigenSystem_base.h>
 
 #ifdef SLEPC
-#include <slepceps.h>
-// #include <SLEPc.h>
+#include <slepc.h>
 
 namespace CppNoddy
 {

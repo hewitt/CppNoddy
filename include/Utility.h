@@ -9,6 +9,8 @@
 #include <numeric>
 #include <algorithm>
 #include <numeric>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include <Types.h>
 #include <Exceptions.h>
