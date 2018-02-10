@@ -98,7 +98,7 @@ int main()
     std::cout << " Simple 2x2 double sparse solve_using_factorisation works.\n";
   }
 
-  PetscFinalize();
+  //PetscFinalize();
 
   // CONCLUDING PASS/FAIL
   //

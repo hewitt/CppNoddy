@@ -80,13 +80,14 @@ namespace CppNoddy
   template<typename _Type>
   void SparseLinearSystem<_Type>::cleanup()
   {
+    std::cout << "in cleanup.\n";
     #if defined(PETSC_D) || defined(PETSC_Z)
       // delete objects used in the factorisation?
       if (factorised_)
       {
-        KSPDestroy(&ksp_);
         VecDestroy(&x_);
         VecDestroy(&B_);
+        KSPDestroy(&ksp_);
         factorised_ = false;
       }
     #endif

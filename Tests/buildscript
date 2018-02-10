@@ -5,6 +5,7 @@ foreach source : sources
   stub = source.split('.cpp')[0]
   #
   if stub.contains('_lapack') and lapack_dep.found()
+    message( 'Building _lapack test: ' + stub )
     # tests that need lapack to be present
     exe = executable(stub, source,
       include_directories : inc,
@@ -13,7 +14,8 @@ foreach source : sources
     test(stub, exe, timeout : 180 )
   endif
   #
-  if stub.contains('_petscd') and petscd
+  if stub.contains('_petscd') and get_option('petscd')
+    message( 'Building _petscd test: ' + stub )
     # tests that need lapack to be present
     exe = executable(stub, source,
       include_directories : inc,
@@ -22,8 +24,9 @@ foreach source : sources
     test(stub, exe, timeout : 180 )
   endif
   #
-  if stub.contains('_petscz') and petscz
-    # tests that need lapack to be present
+  if stub.contains('_petscz') and get_option('petscz')
+    message( 'Building _petscz test: ' + stub )
+    # tests that need petscz
     exe = executable(stub, source,
       include_directories : inc,
       dependencies : [lapack_dep, blas_dep, petsc_dep, mpich_dep],
@@ -31,8 +34,9 @@ foreach source : sources
     test(stub, exe, timeout : 180 )
   endif
   #
-  if stub.contains('_slepcd') and slepc and petscd
-    # tests that need lapack to be present
+  if stub.contains('_slepcd') and get_option('slepc') and get_option('petscd')
+    # tests that need slepc and petscd
+    message( 'Building _slepcd test: ' + stub )
     exe = executable(stub, source,
       include_directories : inc,
       dependencies : [lapack_dep, blas_dep, petsc_dep, slepc_dep, mpich_dep],
@@ -40,8 +44,9 @@ foreach source : sources
     test(stub, exe, timeout : 180 )
   endif
   #
-  if stub.contains('_slepcz') and slepc and petscz
-    # tests that need lapack to be present
+  if stub.contains('_slepcz') and get_option('slepc') and get_option('petscz')
+    # tests that need slepc and petscz
+    message( 'Building _slepcz test: ' + stub )
     exe = executable(stub, source,
       include_directories : inc,
       dependencies : [lapack_dep, blas_dep, petsc_dep, slepc_dep, mpich_dep],
@@ -50,10 +55,11 @@ foreach source : sources
   endif
   #
   if (not stub.contains('_slepc')) and (not stub.contains('_petsc')) and (not stub.contains('_lapack'))
-    # tests that need lapack to be present
+    # all other tests
+    message( 'Building default test: ' + stub )
     exe = executable(stub, source,
       include_directories : inc,
-      dependencies : [lapack_dep, blas_dep ],
+      #dependencies : [ blas_dep ],
       link_with : CppNoddy )
     test(stub, exe, timeout : 180 )
   endif

@@ -28,6 +28,7 @@ int main()
   a( 0, 1 ) = 2;
   a( 1, 0 ) = 4;
   a( 1, 1 ) = 3;
+
   b( 0, 0 ) = 1;
   b( 1, 1 ) = 1;
 
@@ -54,13 +55,12 @@ int main()
   const double tol = 1.e-13;
   //lambdas.dump();
 
-
   SlepcFinalize();
-
 
   if ( std::abs( lambdas[ 0 ] - 5.0 ) < tol )
   {
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
+    return 0;
   }
 
   cout << "\033[1;31;48m  * FAILED \033[0m\n";

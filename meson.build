@@ -2,8 +2,8 @@ project('CppNoddy', 'cpp',
   version : '0.91',
   license : 'GPL2')
 
-#c = run_command('./env.sh')
-#message(c.stdout() )
+c = run_command('./env.sh')
+message( 'LD_LIBRARY_PATH =  ' + c.stdout() )
 
 # this is a Cpp project
 compiler = meson.get_compiler('cpp')
@@ -32,7 +32,7 @@ if get_option('petscd') or get_option('petscz')
 endif
 if get_option('slepc')
    slepc = true
-   message( 'Using SLEPc')
+   message( 'Using SLEPc with arithmetic defined by PETSc above')
 endif
 
 if lapack_dep.found()
@@ -72,7 +72,7 @@ subdir('Tests')
 
 pkg_mod = import('pkgconfig')
 pkg_mod.generate(libraries : CppNoddy,
-                 version : '0.9',
+                 version : '0.9 ',
                  name : 'CppNoddy',
                  filebase : 'CppNoddy',
                  description : 'A Noddy numerical computation library.')

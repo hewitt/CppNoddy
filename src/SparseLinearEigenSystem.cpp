@@ -276,7 +276,7 @@ namespace CppNoddy
     // set the order of the returned ev's, as set by the get_order method.
     EPSSetWhichEigenpairs(eps, ORDER);
     // set the number of requested ev's. Not sure if this is relevant if REGION_DEFINED
-    EPSSetDimensions(eps,NEV,2*NEV+10,PETSC_DEFAULT);
+    EPSSetDimensions(eps,NEV,NEV+1,PETSC_DEFAULT);
     // if ( NEV < 5 )
     // {
     //   EPSSetDimensions(eps,NEV,15,PETSC_DEFAULT);
@@ -285,13 +285,12 @@ namespace CppNoddy
     // {
     //   EPSSetDimensions(eps,NEV,2*NEV,PETSC_DEFAULT);
     // }
-    // EPSSetTolerances(eps, 1.e-8, 4 );
-    // EPSSetTrueResidual(eps, PETSC_TRUE );
-    // EPSSetConvergenceTest(eps, EPS_CONV_ABS);
-
+    
+    EPSSetTolerances(eps, 1.e-9, 250 );
+    //EPSSetTrueResidual(eps, PETSC_TRUE );
+    //EPSSetConvergenceTest(eps, EPS_CONV_ABS);
 
     EPSMonitorSet( eps,&monitor_function, NULL, NULL );
-
 
 //     //Vec x;
 //     VecCreate(p_LIBRARY -> get_Comm(),&x);
