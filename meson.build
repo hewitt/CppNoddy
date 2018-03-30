@@ -2,9 +2,6 @@ project('CppNoddy', 'cpp',
   version : '0.91',
   license : 'GPL2')
 
-c = run_command('./env.sh')
-message( 'LD_LIBRARY_PATH =  ' + c.stdout() )
-
 # this is a Cpp project
 compiler = meson.get_compiler('cpp')
 add_global_arguments( '-O2', language: 'cpp' )
@@ -36,21 +33,25 @@ if get_option('slepc')
 endif
 
 if lapack_dep.found()
+   message( 'Including LAPACK support' )
    add_global_arguments('-DLAPACK', language : 'cpp')
 endif
 
 if petsc_dep.found()
    if petscd
+      message( 'Including PETSC_D support' )
       add_global_arguments('-DPETSC_D', language : 'cpp')
    endif
    if petscz
+      message( 'Including PETSC_Z support' )
       add_global_arguments('-DPETSC_Z', language : 'cpp')
    endif
 endif
 
 if slepc_dep.found()
    if slepc
-      add_global_arguments('-DSLEPC', language : 'cpp')
+      message( 'Including SLEPC support' )
+      add_global_arguments('-DSLEPC -DPARANOID', language : 'cpp')
    endif
 endif
 

@@ -118,7 +118,7 @@
  *
  * \section best0 Is it fast/accurate?
  *
- * The matrix classes have native solvers that are naive unoptimised Gaussian elimination algorithms. These routines will only be practical (if at all!) for rather `small' matrix/band sizes and do not scale well. If the problem is of even moderate size, then you should link to your local LAPACK/BLAS/PETSc LU routines. LAPACK/BLAS/PETSc/SLEPc libraries are not shipped with CppNoddy, you have to install them separately yourself if they are not available by default. 
+ * The matrix classes have native solvers that are naive unoptimised Gaussian elimination algorithms. These routines will only be practical (if at all!) for rather `small' matrix/band sizes and do not scale well. If the problem is of even moderate size, then you should link to your local LAPACK/PETSc routines. LAPACK/PETSc/SLEPc libraries are not shipped with CppNoddy, you have to install them separately yourself if they are not available by default. 
  *
  * The code is not especially optimised, in fact in many places the code is deliberately  un-optimised for greater transparency; it is not intended for 'heavy duty' problems. The only sanity checks applied are those listed in the test/example codes \link Tests \endlink.
  *

@@ -51,7 +51,7 @@ foreach source : sources
       include_directories : inc,
       dependencies : [lapack_dep, blas_dep, petsc_dep, slepc_dep, mpich_dep],
       link_with : CppNoddy )
-    test(stub, exe, timeout : 180 )
+    test(stub, exe, timeout : 1200 )
   endif
   #
   if (not stub.contains('_slepc')) and (not stub.contains('_petsc')) and (not stub.contains('_lapack'))

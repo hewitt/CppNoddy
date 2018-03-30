@@ -286,7 +286,7 @@ namespace CppNoddy
     //   EPSSetDimensions(eps,NEV,2*NEV,PETSC_DEFAULT);
     // }
     
-    EPSSetTolerances(eps, 1.e-9, 250 );
+    EPSSetTolerances(eps, 1.e-10, 200 );
     //EPSSetTrueResidual(eps, PETSC_TRUE );
     //EPSSetConvergenceTest(eps, EPS_CONV_ABS);
 
