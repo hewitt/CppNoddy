@@ -9,6 +9,8 @@
 
 #include <BVP_bundle.h>
 
+#include "../Utils_Fill.h"
+
 // enumerate the variables in the ODE
 enum {f, fd, fdd, fddd };
 
@@ -35,7 +37,7 @@ namespace CppNoddy
 
       void matrix0( const DenseVector<double>&x, DenseMatrix<double> &m ) const
       {
-        Utility::fill_identity(m);
+        Utils_Fill::fill_identity(m);
       }
 
       // The Reynolds number
@@ -124,15 +126,14 @@ int main()
       try
       {
         ode.solve2();
-        // cout << problem.Re << " " << ode.solution().get_interpolated_vars( 0.25 )[0] << "\n";
       }
-      catch ( std::runtime_error )
+      catch ( const std::runtime_error& error )
       {
         cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
         return 1;
       }
     }
-    catch ( ExceptionBifurcation )
+    catch ( const ExceptionBifurcation& bifn )
     {
       cout << " Bifurcation detected between Re = " << problem.Re - delta_Re
            << " and Re = " << problem.Re << "\n";

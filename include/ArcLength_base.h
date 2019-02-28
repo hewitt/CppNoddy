@@ -10,21 +10,19 @@
 #include <Uncopyable.h>
 #include <DenseVector.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   template <typename _Type>
-  class ArcLength_base : private Uncopyable
-  {
+  class ArcLength_base : private Uncopyable {
 
-  public:
+   public:
 
     ArcLength_base() :
-        ARCSTEP_MULTIPLIER( 2.0 ),
-        INITIALISED( false ),
-        THETA( 0.5 ),
-        DESIRED_ARC_PROPORTION( 0.5 ),
-        RESCALE_THETA( false )
+      ARCSTEP_MULTIPLIER(2.0),
+      INITIALISED(false),
+      THETA(0.5),
+      DESIRED_ARC_PROPORTION(0.5),
+      RESCALE_THETA(false)
     {}
 
     virtual ~ArcLength_base()
@@ -38,10 +36,10 @@ namespace CppNoddy
     /// \param p A pointer to the required parameter
     /// \param length Initial arc-length step to take
     /// \param max_length Maximum absolute arc length step permitted
-    void init_arc( DenseVector<_Type> x,
-                   _Type* p,
-                   const double& length,
-                   const double& max_length );
+    void init_arc(DenseVector<_Type> x,
+                  _Type* p,
+                  const double& length,
+                  const double& max_length);
 
     /// Compute a solution for that state & parameter variables
     /// that are an arc-length 'ds' from the current state.
@@ -49,7 +47,7 @@ namespace CppNoddy
 
     /// Solve the system for a given initial guess.
     /// \param x The initial guess for the system.
-    virtual void solve( DenseVector<_Type> &x ) = 0;
+    virtual void solve(DenseVector<_Type> &x) = 0;
 
     /// Return a handle to the arclength step. This is normally done via the init_arc
     /// method, but one can use this  to change the setting
@@ -74,17 +72,17 @@ namespace CppNoddy
     /// in the secondary parameter.
     double& desired_arc_proportion();
 
-  protected:
+   protected:
 
     /// A method called by arclength_solve and init_arc
     /// which stores the current converged state and parameter
     /// and hence computes the derivatives w.r.t the arc-length.
-    void update( const DenseVector<_Type>& x );
+    void update(const DenseVector<_Type>& x);
 
     /// The extra constraint that is to be used to replace the
     /// unknown arc length
     /// \return The residual of this constraint
-    double arclength_residual( const DenseVector<_Type>& x ) const;
+    double arclength_residual(const DenseVector<_Type>& x) const;
 
     /// The derivative of the arclength_residual function with respect
     /// to each of the state variables. When arc-length continuing boundary
@@ -93,12 +91,11 @@ namespace CppNoddy
     /// \param x The state vector.
     /// \return The derivative of the arclength_residual function with
     /// respect to each state variable.
-    DenseVector<_Type> Jac_arclength_residual( DenseVector<_Type>& x ) const
-    {
+    DenseVector<_Type> Jac_arclength_residual(DenseVector<_Type>& x) const {
       // a by-hand differentiation of 'arclength_residual' provides
       // the follwoing result.
-      DenseVector<_Type> Jx( x - LAST_X );
-      Jx *= THETA / ( x.size() * ( x - LAST_X ).two_norm() );
+      DenseVector<_Type> Jx(x - LAST_X);
+      Jx *= THETA / (x.size() * (x - LAST_X).two_norm());
       return Jx;
     }
 
@@ -106,7 +103,7 @@ namespace CppNoddy
     /// proportion of the arclength obtained from the parameter
     /// is the desired value. This method will only have any
     /// effect of the RESCALE_THETA flag is true.
-    void update_theta( const DenseVector<_Type>& x );
+    void update_theta(const DenseVector<_Type>& x);
 
     /// pointer to the parameter in arclength solves
     _Type *p_PARAM;
@@ -129,7 +126,7 @@ namespace CppNoddy
     /// the arclength theta
     double THETA;
 
-  private:
+   private:
 
     /// the desired proportion of the arc length for the parameter
     double DESIRED_ARC_PROPORTION;

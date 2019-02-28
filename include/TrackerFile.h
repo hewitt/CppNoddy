@@ -13,47 +13,45 @@
 #include <Types.h>
 #include <OneD_Node_Mesh.h>
 
-namespace CppNoddy
-{
-  class TrackerFile
-  {
-  public:
+namespace CppNoddy {
+  class TrackerFile {
+   public:
 
-    TrackerFile( int prec = 12 );
+    TrackerFile(int prec = 12);
 
-    TrackerFile( std::string filename, int prec = 12 );
+    TrackerFile(std::string filename, int prec = 12);
 
     ~TrackerFile();
 
-    void precision( unsigned prec );
+    void precision(unsigned prec);
 
-    void push_ptr( double* scalar, std::string desc = "" );
+    void push_ptr(double* scalar, std::string desc = "");
 
-    void push_ptr( D_complex* scalar, std::string desc = "" );
+    void push_ptr(D_complex* scalar, std::string desc = "");
 
-    void push_ptr( DenseVector<double>* ptr_to_vector, std::string desc = "" );
+    void push_ptr(DenseVector<double>* ptr_to_vector, std::string desc = "");
 
-    void push_ptr( DenseVector<D_complex>* ptr_to_vector, std::string desc = "" );
+    void push_ptr(DenseVector<D_complex>* ptr_to_vector, std::string desc = "");
 
-    void push_ptr( OneD_Node_Mesh<double>* ptr_to_mesh, std::string desc = "" );
+    void push_ptr(OneD_Node_Mesh<double>* ptr_to_mesh, std::string desc = "");
 
-    void push_ptr( OneD_Node_Mesh<D_complex>* ptr_to_mesh, std::string desc = "" );
+    void push_ptr(OneD_Node_Mesh<D_complex>* ptr_to_mesh, std::string desc = "");
 
-    void push_ptr( OneD_Node_Mesh<D_complex, D_complex>* ptr_to_mesh, std::string desc = "" );
+    void push_ptr(OneD_Node_Mesh<D_complex, D_complex>* ptr_to_mesh, std::string desc = "");
 
     void newline();
 
-    void set_filename( std::string filename );
+    void set_filename(std::string filename);
 
     void header();
 
     void update();
 
-  protected:
+   protected:
 
     mutable std::ofstream dumpfile;
 
-  private:
+   private:
 
     /// private output method to write all scalar data to dumpfile
     void dump_scalar_data();

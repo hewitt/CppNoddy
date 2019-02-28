@@ -17,6 +17,7 @@
 #include <Utility.h>
 #include <EVP_bundle.h>
 
+#include "../Utils_Fill.h"
 
 using namespace CppNoddy;
 using namespace std;
@@ -44,7 +45,9 @@ int main()
     DenseMatrix<double> a( N, N, 0.0 );
     // Finite difference representation of f''(x)
     // here it's a a tri-diagonal system
-    Utility::fill_tridiag( a, 1.0 / delta2, -2.0 / delta2, 1.0 / delta2 );
+    Utils_Fill::fill_band(a,-1, 1.0/delta2);
+    Utils_Fill::fill_band(a, 0,-2.0/delta2);
+    Utils_Fill::fill_band(a, 1, 1.0/delta2);
     // overwrite with boundary conditions at f(0) = f(1) = 0
     a( 0, 0 ) = 1.0;
     a( 0, 1 ) = 0.0;
@@ -53,7 +56,7 @@ int main()
     // not a generalised problem - but we'll apply that routine anyway
     // b is the RHS matrix, so it's -I
     DenseMatrix<double> b( N, N, 0.0 );
-    Utility::fill_identity( b );
+    Utils_Fill::fill_identity( b );
     b.scale( -1.0 );
     b( 0, 0 ) = 0.0;
     b( N - 1, N - 1 ) = 0.0;
@@ -68,7 +71,7 @@ int main()
     {
       system.eigensolve();
     }
-    catch ( std::runtime_error )
+    catch (const std::runtime_error &error )
     {
       cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
       return 1;

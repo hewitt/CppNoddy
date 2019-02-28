@@ -14,6 +14,8 @@
 
 #include <IVP_bundle.h>
 
+#include "../Utils_Fill.h"
+
 namespace CppNoddy
 {
   namespace Example
@@ -37,7 +39,7 @@ namespace CppNoddy
 
       void mass( const DenseVector<double>&x, DenseMatrix<double> &m ) const
       {
-        Utility::fill_identity(m);
+        Utils_Fill::fill_identity(m);
       }
     };
 
@@ -103,7 +105,7 @@ int main()
   {
     Blasius.iterate( stress );
   }
-  catch ( std::runtime_error )
+  catch (const std::runtime_error &error )
   {
     cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
     return 1;

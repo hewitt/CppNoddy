@@ -12,6 +12,8 @@
 
 #include <BVP_bundle.h>
 
+#include "../Utils_Fill.h"
+
 // enumerate the 3 variables
 enum { f, fd, fdd };
 
@@ -37,7 +39,7 @@ namespace CppNoddy
 
       void matrix0( const DenseVector<double>&x, DenseMatrix<double> &m ) const
       {
-        Utility::fill_identity(m);
+        Utils_Fill::fill_identity(m);
       }
     };
 
@@ -111,7 +113,7 @@ int main()
     {
       ode.solve2();
     }
-    catch ( std::runtime_error )
+    catch ( const std::runtime_error &error )
     {
       cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
       return 1;
@@ -129,7 +131,7 @@ int main()
     }
 
     // compare to the known stress value
-    std::cout << "  " << N << " " << abs( ode.solution()( 0, fdd ) - answer ) << "\n";
+    std::cout << " N=" << N << " error=" << abs( ode.solution()( 0, fdd ) - answer ) << " IVP answer=" << answer << "\n";
 
     std::string dirname("./DATA");
     mkdir( dirname.c_str(), S_IRWXU );

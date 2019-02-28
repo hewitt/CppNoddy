@@ -5,18 +5,15 @@
 #include <Equation.h>
 #include <Residual_with_coords.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   template <typename _Type, typename _Xtype>
-  Equation<_Type, _Xtype>::Equation( const unsigned& order ) :
-      Residual_with_coords<_Type, _Xtype>( order, 1 )
-  {
+  Equation<_Type, _Xtype>::Equation(const unsigned& order) :
+    Residual_with_coords<_Type, _Xtype>(order, 1) {
   }
 
   template <typename _Type, typename _Xtype>
-  Equation<_Type, _Xtype>::~Equation()
-  {
+  Equation<_Type, _Xtype>::~Equation() {
   }
 
   // the required templated versions are:

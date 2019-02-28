@@ -13,6 +13,8 @@
 
 #include <BVP_bundle.h>
 
+#include "../Utils_Fill.h"
+
 // enumerate the variables in the ODE system
 enum { U, Ud, V, W, Wd };
 namespace CppNoddy
@@ -56,7 +58,7 @@ namespace CppNoddy
 
       void matrix0( const DenseVector<double>&x, DenseMatrix<double> &m ) const
       {
-        Utility::fill_identity(m);
+        Utils_Fill::fill_identity(m);
       }
     };
 
@@ -130,7 +132,7 @@ int main()
   {
     ode.solve2();
   }
-  catch ( std::runtime_error )
+  catch ( const std::runtime_error &error )
   {
     cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
     return 1;

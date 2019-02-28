@@ -17,6 +17,8 @@
 
 #include <BVP_bundle.h>
 
+#include "../Utils_Fill.h"
+
 // enumerate the 5 variables of the ODE system
 enum {U, Ud, V, W, Wd};
 
@@ -48,7 +50,7 @@ namespace CppNoddy
 
       void matrix0( const DenseVector<double>&x, DenseMatrix<double> &m ) const
       {
-        Utility::fill_identity(m);
+        Utils_Fill::fill_identity(m);
       }
 
     };
@@ -136,12 +138,13 @@ int main()
     try
     {
       ds = ode.arclength_solve( ds );
-      //cout << Example::s << " " << ode.solution()( N-1, V ) << "\n";
+      cout << Example::s << " " << ode.solution()( N-1, V ) << "\n";
     }
-    catch ( ExceptionBifurcation )
+    catch (const ExceptionBifurcation &error )
     {
       cout << " Bifurcation detected near p = " << Example::s << "\n";
       last_approx_lp = Example::s;
+      break;
     }
     my_file.update();
   }

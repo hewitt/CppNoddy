@@ -1,5 +1,7 @@
 option('lapack', type : 'boolean', value : false)
+option('petscd', type : 'boolean', value : false)
+option('petscz', type : 'boolean', value : false)
+option('slepc', type : 'boolean', value : false)
 #
-option('petscd', type : 'boolean', value: false )
-option('petscz', type : 'boolean', value: false )
-option('slepc', type : 'boolean', value: false )
+
+

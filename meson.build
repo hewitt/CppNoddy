@@ -1,10 +1,14 @@
 project('CppNoddy', 'cpp',
-  version : '0.91',
+  version : '0.9',
   license : 'GPL2')
 
 # this is a Cpp project
 compiler = meson.get_compiler('cpp')
 add_global_arguments( '-O2', language: 'cpp' )
+add_global_arguments( '-std=c++14', language: 'cpp' )
+add_global_arguments( '-DgFortran', language: 'cpp' )
+add_global_arguments( '-DDEBUG', language: 'cpp' )
+#add_global_arguments( '-DPARANOID', language: 'cpp' )
 
 lapack_dep = dependency('lapack', required:false)
 blas_dep = dependency('blas', required:false)
@@ -15,6 +19,10 @@ mpich_dep = dependency('mpich', required:false)
 slepc = false
 petscd = false
 petscz = false
+
+###############################
+# LOOK FOR SPECIFIED OPTIONS  #
+###############################
 
 if get_option('petscd') or get_option('petscz')
    petsc = true
@@ -27,10 +35,15 @@ if get_option('petscd') or get_option('petscz')
       message( 'Using complex arithmetic PETSc')
    endif
 endif
+
 if get_option('slepc')
    slepc = true
    message( 'Using SLEPc with arithmetic defined by PETSc above')
 endif
+
+##########################
+# LOOK FOR REQUIRED LIBS #
+##########################
 
 if lapack_dep.found()
    message( 'Including LAPACK support' )
@@ -51,7 +64,7 @@ endif
 if slepc_dep.found()
    if slepc
       message( 'Including SLEPC support' )
-      add_global_arguments('-DSLEPC -DPARANOID', language : 'cpp')
+      add_global_arguments('-DSLEPC', language : 'cpp')
    endif
 endif
 

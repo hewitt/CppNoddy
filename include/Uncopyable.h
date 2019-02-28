@@ -1,22 +1,20 @@
 #ifndef UNCOPYABLE_H
 #define UNCOPYABLE_H
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   /// An object to block copying
 
-  class Uncopyable
-  {
+  class Uncopyable {
 
-  protected:
+   protected:
     Uncopyable() {}
     ~Uncopyable() {}
 
-  private:
+   private:
 
-    Uncopyable( const Uncopyable& );
-    Uncopyable& operator=( const Uncopyable& );
+    Uncopyable(const Uncopyable&);
+    Uncopyable& operator=(const Uncopyable&);
 
   };
 

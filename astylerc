@@ -1,8 +1,7 @@
 indent=spaces=2
-style=ansi
-brackets=break
+style=google
 indent-namespaces
-break-elseifs
-pad=oper
-pad=paren-in
+indent-classes
+indent-col1-comments
 convert-tabs
+unpad-paren

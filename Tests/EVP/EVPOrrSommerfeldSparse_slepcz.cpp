@@ -29,7 +29,7 @@ int main()
 
   SlepcInitialize(NULL,NULL,(char*)0,(char*)0);
   // discretise with these many nodal points
-  const std::size_t nodes( 12001 );
+  const std::size_t nodes( 301 );
   // we'll solve as TWO second order problems
   const std::size_t N( 2 * nodes );
   // domain boundaries
@@ -98,7 +98,7 @@ int main()
   {
     system.eigensolve();
   }
-  catch ( std::runtime_error )
+  catch (const std::runtime_error &error )
   {
     cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
     return 1;
@@ -110,7 +110,7 @@ int main()
   lambdas.dump();
   double min_growth_rate( lambdas[ 0 ].imag() );
   // make sure we have a near neutral mode
-  const double tol = 1.e-2;
+  const double tol = 1.e-3;
 
   std::string dirname("./DATA");
   mkdir( dirname.c_str(), S_IRWXU );

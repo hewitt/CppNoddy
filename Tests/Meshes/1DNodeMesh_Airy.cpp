@@ -34,15 +34,15 @@ int main()
 
   BandedMatrix<double> a( n, 3, 0.0 );     // Tridiagonal banded matrix
   DenseVector<double> b( n, 0.0 );         // RHS vector
-  // set up the f''(x) operator
-  Utility::fill_tridiag( a, 1.0 / ( d * d ), -2.0 / ( d * d ), 1.0 / ( d * d ) );
-  Utility::fill_row( a, 0, 0.0 );
-  Utility::fill_row( a, n - 1, 0.0 );
 
   a( 0, 0 ) = 1.0;               // BC is that f(-10) = Ai(-10)
   b[ 0 ] = 0.04024123849;        // value from Abramowitz & Stegun
   for ( size_t i = 1; i < n - 1; ++i )
   {
+    // set up the f''(x) operator
+    a( i, i-1 ) = 1.0/(d*d);
+    a( i, i ) = -2.0/(d*d);
+    a( i, i+1 ) = 1.0/(d*d);
     // add the -xf(x) term
     a( i, i ) -= soln.coord( i );
   }
@@ -56,7 +56,7 @@ int main()
   {
     system.solve();
   }
-  catch ( std::runtime_error )
+  catch (const std::runtime_error &error )
   {
     cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
     return 1;

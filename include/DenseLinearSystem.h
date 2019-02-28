@@ -6,19 +6,16 @@
 
 #include <DenseMatrix.h>
 #include <DenseVector.h>
-#include <LinearSystem_base.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   /// A linear system class for vector right-hand sides.
   /// The class is constructed for dense typed problems of the form
   /// \f[ A_{NxN} \,{\underline x}_i = B_{1xN} \f].
   template <typename _Type>
-  class DenseLinearSystem : public LinearSystem_base
-  {
+  class DenseLinearSystem  {
 
-  protected:
+   protected:
 
     typedef typename DenseMatrix<_Type>::row_iter row_iter;
     typedef typename DenseMatrix<_Type>::row_riter row_riter;
@@ -28,13 +25,13 @@ namespace CppNoddy
     typedef typename DenseMatrix<_Type>::elt_riter elt_riter;
     typedef typename DenseMatrix<_Type>::elt_citer elt_citer;
 
-  public:
+   public:
 
     /// Constructor for a dense linear system object.
-    /// \param p_A A pointer to the 'A matrix', an nxn double/complex dense matrix
-    /// \param p_B A pointer to the 'B vector' a size n double/complex dense vector
+    /// \param m_pA A pointer to the 'A matrix', an nxn double/complex dense matrix
+    /// \param m_pB A pointer to the 'B vector' a size n double/complex dense vector
     /// \param which A string that indicates which solver to use
-    DenseLinearSystem( DenseMatrix<_Type>* p_A, DenseVector<_Type>* p_B, std::string which = "native" );
+    DenseLinearSystem(DenseMatrix<_Type>* m_pA, DenseVector<_Type>* m_pB, std::string which = "native");
 
     /// Destructor for a linear system object.
     ~DenseLinearSystem()
@@ -43,7 +40,18 @@ namespace CppNoddy
     /// Solve the sparse system
     void solve();
 
-  private:
+    /// Get the sign of the determinant of the LHS matrix
+    /// from the linear system just computed.
+    /// \return The sign of the determinant of the
+    /// LAST solved system.
+    int get_det_sign() const;
+
+    /// Store the sign of the determinant of the LHS matrix
+    /// every time a solve is requested on a real system.
+    /// \param flag The boolean value to set.
+    void set_monitor_det(bool flag);
+
+   private:
 
     /// Solve the linear system using LAPACK's LU solver
     void solve_lapack();
@@ -53,7 +61,7 @@ namespace CppNoddy
 
     /// A wrapped up less_than check that throws an exception
     /// if the matrix elements are complex.
-    bool lt( _Type value ) const;
+    bool lt(_Type value) const;
 
     /// Back substitution routine for dense systems.
     void backsub() const;
@@ -63,21 +71,30 @@ namespace CppNoddy
     /// LAPACK routine has been called.
     /// \param pivots The pivot permutation vector
     /// \return The sign of the permutation
-    int signature( const std::vector<int> &pivots ) const;
+    int signature(const std::vector<int> &pivots) const;
 
     /// A lower bound on pivot size for the native elimination routine
-    double MIN_PIV;
+    double m_minPivot;
 
     /// pointers to the associated containers
-    DenseMatrix<_Type> *p_A;
-    DenseVector<_Type> *p_B;
+    DenseMatrix<_Type> *m_pA;
+    DenseVector<_Type> *m_pB;
 
+    /// a string ID to pick out the appropriate solver
+    std::string m_version;
+
+    /// the sign of the determinant of the last solved system LHS
+    int m_detSign;
+
+    /// a flag that determines of the determinant sign should be monitored
+    bool m_monitorDet;
+
+    
   };
 
   template <>
-  inline bool DenseLinearSystem<double>::lt( double value ) const
-  {
-    return ( value < 0 );
+  inline bool DenseLinearSystem<double>::lt(double value) const {
+    return (value < 0);
   }
 
 } //end namepsace

@@ -8,23 +8,19 @@
 
 #include <Residual_with_coords.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
   template <typename _Type, typename _Xtype>
-  Residual_with_coords<_Type, _Xtype>::Residual_with_coords( const unsigned& order, const unsigned& ncoords ) : Residual<_Type>( order )
-  {
-    coords = std::vector<_Xtype>( ncoords, 0.0 );
+  Residual_with_coords<_Type, _Xtype>::Residual_with_coords(const unsigned& order, const unsigned& ncoords) : Residual<_Type>(order) {
+    coords = std::vector<_Xtype>(ncoords, 0.0);
   }
 
   template <typename _Type, typename _Xtype>
-  Residual_with_coords<_Type, _Xtype>::Residual_with_coords( const unsigned& order, const unsigned& nvars, const unsigned& ncoords ) : Residual<_Type>( order, nvars )
-  {
-    coords = std::vector<_Xtype>( ncoords, 0.0 );
+  Residual_with_coords<_Type, _Xtype>::Residual_with_coords(const unsigned& order, const unsigned& nvars, const unsigned& ncoords) : Residual<_Type>(order, nvars) {
+    coords = std::vector<_Xtype>(ncoords, 0.0);
   }
 
   template <typename _Type, typename _Xtype>
-  Residual_with_coords<_Type, _Xtype>::~Residual_with_coords()
-  {
+  Residual_with_coords<_Type, _Xtype>::~Residual_with_coords() {
   }
 
   // the templated versions we require are:

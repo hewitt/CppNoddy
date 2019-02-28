@@ -9,26 +9,22 @@
 #include <ctime>
 #include <string>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   /// A simple CPU-clock-tick timer for timing
   /// metods.
 
-  class Timer
-  {
+  class Timer {
 
-  public:
+   public:
     // CONSTRUCTORS
-    Timer() : STOPPED( true ), COUNTER( 0 ),
-        T_START( clock() ), DELTA_T_STORE( 0 )
-    {
+    Timer() : STOPPED(true), COUNTER(0),
+      T_START(clock()), DELTA_T_STORE(0) {
       HEADER = "";
     }
 
-    Timer( std::string name ) : STOPPED( true ), COUNTER( 0 ),
-        T_START( clock() ), DELTA_T_STORE( 0 )
-    {
+    Timer(std::string name) : STOPPED(true), COUNTER(0),
+      T_START(clock()), DELTA_T_STORE(0) {
       HEADER = name;
     }
 
@@ -59,7 +55,7 @@ namespace CppNoddy
     /// \return The time (in ms).
     double get_time() const;
 
-  private:
+   private:
     // ATTRIBUTES
     bool STOPPED;
     // a counter - useful for working out time per counter click

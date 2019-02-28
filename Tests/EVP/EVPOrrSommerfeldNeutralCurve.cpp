@@ -18,6 +18,7 @@
 #include <EVP_bundle.h>
 #include <BVP_bundle.h>
 
+#include "../Utils_Fill.h"
 
 // enumerate the variables in the ODE
 enum { phi, phid, psi, psid, eval };
@@ -41,7 +42,9 @@ namespace CppNoddy
     {
       return -2.0;
     };
+    int MAX_REFINE(3);
 
+    
     /// Define the OS equation for the global QZ EVP
     class OS_evp_equation : public Equation_2matrix<D_complex>
     {
@@ -63,7 +66,7 @@ namespace CppNoddy
       /// matrix to multiply the BVP coordinate
       void matrix0( const DenseVector<D_complex>& z, DenseMatrix<D_complex>& m ) const
       {
-        Utility::fill_identity(m);
+        Utils_Fill::fill_identity(m);
       }
 
       /// Define the unsteady terms by providing the mass matrix
@@ -101,7 +104,7 @@ namespace CppNoddy
       /// matrix to multiply the BVP coordinate
       void matrix0( const DenseVector<D_complex>& z, DenseMatrix<D_complex>& m ) const
       {
-        Utility::fill_identity(m);
+        Utils_Fill::fill_identity(m);
       }
     };
 
@@ -174,7 +177,7 @@ namespace CppNoddy
           // solve the global eigenvalue problem for growth rate
           ode_global.eigensolve();
         }
-        catch ( std::runtime_error )
+        catch (const std::runtime_error &error )
         {
           std::cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
           assert(false);
@@ -200,7 +203,7 @@ namespace CppNoddy
         ode_local -> set_monitor_det( false );
         ode_local -> solve2();
         // adaptively refine the mesh
-        for ( int i = 0; i < 8; ++i )
+        for ( int i = 0; i < MAX_REFINE; ++i )
         {
           ode_local -> adapt( 1.e-2 );
           ode_local -> solve2();
@@ -246,10 +249,10 @@ int main()
   cout << "===  and arclength continuation of the neutral curve.\n";
   cout << "\n";
 
-  double tol = 1.e-10;
-  unsigned initial_QZ_mesh = 64;
-  DenseVector<double> Re( 1, 5800.0 );
-  Example::alpha = 0.99;
+  double tol = 1.e-8;
+  unsigned initial_QZ_mesh = 121;
+  DenseVector<double> Re( 1, 5750.0 );
+  Example::alpha = 1.0;
   Example::Re = Re[0];
 
   Example::Neutral_residual residual_problem( initial_QZ_mesh );
@@ -257,7 +260,7 @@ int main()
   Newton<double> newton( &residual_problem, 20, tol );
   newton.set_monitor_det( false );
   newton.rescale_theta() = true;
-  newton.theta() = 0.0001;
+  newton.theta() = 0.00001;
   newton.init_arc( Re, &Example::alpha, 0.001, 0.01 );
 
   // set up the output file
@@ -273,15 +276,19 @@ int main()
   double min_Re( Re[ 0 ] );
   do
   {
-    newton.arclength_solve( Re );
+    try {
+      newton.arclength_solve( Re );
+    } catch ( const ExceptionBifurcation &bifn ) {
+    }
     my_file.update();
     min_Re = std::min( Re[ 0 ], min_Re );
   }
-  while ( Re[ 0 ] < 12000.0 );
+  while ( Re[ 0 ] < 5820.0 );
 
   std::cout << " Minimum Reynolds number (for this spatial resolution ) = " << min_Re << "\n";
-  // the known minimum critical Re is 5772
-  if ( std::abs( min_Re - 5772. ) < 0.5 )
+  // the known minimum critical Re is approx 5772 at alpha =1.02
+  // increase MAX_REFINE to get a closer value to 5772.
+  if ( std::abs( min_Re - 5772. ) < 30.0 )
   {
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
     return 0;

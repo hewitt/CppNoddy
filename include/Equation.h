@@ -11,8 +11,7 @@
 #include <DenseVector.h>
 #include <DenseMatrix.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   /// An equation object base class used in the BVP/IVP classes.
   /// An equation object is essentially a ('square') residual object
@@ -20,12 +19,11 @@ namespace CppNoddy
   /// data member and access methods. By 'square' we mean that it defines
   /// N residuals and N state variables.
   template < typename _Type, typename _Xtype = double >
-  class Equation : public Residual_with_coords<_Type, _Xtype>
-  {
-  public:
+  class Equation : public Residual_with_coords<_Type, _Xtype> {
+   public:
     /// Constructor for equation class.
     /// \param order The order of the system
-    Equation( const unsigned& order );
+    Equation(const unsigned& order);
 
     /// An empty destructor, virtual since we have virtual methods.
     virtual ~Equation();

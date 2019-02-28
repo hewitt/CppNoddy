@@ -19,6 +19,8 @@
 
 #include <BVP_bundle.h>
 
+#include "../Utils_Fill.h"
+
 // enumerate the 3 variables
 enum { f, fd, lambda };
 
@@ -48,7 +50,7 @@ namespace CppNoddy
       /// matrix to multiply the BVP coordinate
       void matrix0( const DenseVector<D_complex>& z, DenseMatrix<D_complex>& m ) const
       {
-        Utility::fill_identity(m);
+        Utils_Fill::fill_identity(m);
       }
 
     };

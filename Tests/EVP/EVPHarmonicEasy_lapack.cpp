@@ -12,6 +12,7 @@
 
 #include <EVP_bundle.h>
 #include <Utility.h>
+#include "../Utils_Fill.h"
 
 // enumerate the variables in the ODE
 enum {f, fd };
@@ -37,7 +38,7 @@ namespace CppNoddy
       /// matrix to multiply the BVP coordinate
       void matrix0( const DenseVector<double>& z, DenseMatrix<double>& m ) const
       {
-        Utility::fill_identity(m);
+        Utils_Fill::fill_identity(m);
       }
 
       /// Define the eigenvalue terms by providing the mass matrix
@@ -100,7 +101,7 @@ int main()
     // solve the global eigenvalue
     ode_lapack.eigensolve();
   }
-  catch ( std::runtime_error )
+  catch (const std::runtime_error &error )
   {
     cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
     return 1;

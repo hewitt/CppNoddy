@@ -1,66 +1,51 @@
 c = run_command('ls_all.sh')
 sources = c.stdout().strip().split('\n')
 
+dep = []
+if lapack_dep.found()
+   dep += lapack_dep
+   dep += blas_dep
+endif
+if petscd
+   dep += petsc_dep
+   dep += mpich_dep
+endif
+if slepc
+   if petsc
+      dep += slepc_dep
+   endif   
+endif
+
 foreach source : sources
-  stub = source.split('.cpp')[0]
-  #
-  if stub.contains('_lapack') and lapack_dep.found()
-    message( 'Building _lapack test: ' + stub )
-    # tests that need lapack to be present
-    exe = executable(stub, source,
-      include_directories : inc,
-      dependencies : [lapack_dep, blas_dep],
-      link_with : CppNoddy )
-    test(stub, exe, timeout : 180 )
+  stub = source.split('.cpp')[0]  
+
+  build = true
+  if stub.contains('_petscd') and get_option('petscd')==false
+     message( 'Ignoring _petscd test: ' + stub )
+     build = false
   endif
-  #
-  if stub.contains('_petscd') and get_option('petscd')
-    message( 'Building _petscd test: ' + stub )
-    # tests that need lapack to be present
-    exe = executable(stub, source,
-      include_directories : inc,
-      dependencies : [lapack_dep, blas_dep, petsc_dep, mpich_dep],
-      link_with : CppNoddy )
-    test(stub, exe, timeout : 180 )
+  if stub.contains('_petscz') and get_option('petscz')==false
+     message( 'Ignoring _petscz test: ' + stub )
+     build = false
   endif
-  #
-  if stub.contains('_petscz') and get_option('petscz')
-    message( 'Building _petscz test: ' + stub )
-    # tests that need petscz
-    exe = executable(stub, source,
-      include_directories : inc,
-      dependencies : [lapack_dep, blas_dep, petsc_dep, mpich_dep],
-      link_with : CppNoddy )
-    test(stub, exe, timeout : 180 )
+  if stub.contains('_lapack') and lapack_dep.found()==false
+     message( 'Ignoring _lapack test: ' + stub )
+     build = false
+  endif   
+  if stub.contains('_slepcd') and ( get_option('slepc')==false or get_option('petscd')==false )
+     message( 'Ignoring _slepcd test: ' + stub )
+     build = false
   endif
-  #
-  if stub.contains('_slepcd') and get_option('slepc') and get_option('petscd')
-    # tests that need slepc and petscd
-    message( 'Building _slepcd test: ' + stub )
-    exe = executable(stub, source,
-      include_directories : inc,
-      dependencies : [lapack_dep, blas_dep, petsc_dep, slepc_dep, mpich_dep],
-      link_with : CppNoddy )
-    test(stub, exe, timeout : 180 )
+  if stub.contains('_slepcz') and ( get_option('slepc')==false or get_option('petscz')==false )
+     message( 'Ignoring _slepcz test: ' + stub )
+     build = false
   endif
-  #
-  if stub.contains('_slepcz') and get_option('slepc') and get_option('petscz')
-    # tests that need slepc and petscz
-    message( 'Building _slepcz test: ' + stub )
-    exe = executable(stub, source,
-      include_directories : inc,
-      dependencies : [lapack_dep, blas_dep, petsc_dep, slepc_dep, mpich_dep],
-      link_with : CppNoddy )
-    test(stub, exe, timeout : 1200 )
-  endif
-  #
-  if (not stub.contains('_slepc')) and (not stub.contains('_petsc')) and (not stub.contains('_lapack'))
-    # all other tests
-    message( 'Building default test: ' + stub )
-    exe = executable(stub, source,
-      include_directories : inc,
-      #dependencies : [ blas_dep ],
-      link_with : CppNoddy )
-    test(stub, exe, timeout : 180 )
-  endif
+
+  if build
+    message( 'Building test: ' + stub )
+    exe = executable(stub, source, include_directories : inc,
+      dependencies : dep, link_with : CppNoddy )
+    test(stub, exe, timeout : 300 ) 
+  endif  
+
 endforeach

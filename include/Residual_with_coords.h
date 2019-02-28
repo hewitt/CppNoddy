@@ -13,38 +13,36 @@
 #include <DenseVector.h>
 #include <DenseMatrix.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
   /// A base class to be inherited by objects that define residuals
   template < typename _Type, typename _Xtype = double >
-  class Residual_with_coords : public Residual<_Type>
-  {
-  public:
+  class Residual_with_coords : public Residual<_Type> {
+   public:
     /// Constructor for a 'square' residual object
     /// that is, N residuals for N unknowns.
     /// \param order The order of the residual vector
     /// \param ncoords The number of coordinates to store
-    Residual_with_coords( const unsigned& order, const unsigned& ncoords );
+    Residual_with_coords(const unsigned& order, const unsigned& ncoords);
 
     /// Constructor for a 'non-square' residual object
     /// that is, there are less residual constraints than unknowns.
     /// \param order The number of residuals
     /// \param nvars The number of unknowns/variables
     /// \param ncoords The number of coordinates to store
-    Residual_with_coords( const unsigned& order, const unsigned& nvars, const unsigned& ncoords );
+    Residual_with_coords(const unsigned& order, const unsigned& nvars, const unsigned& ncoords);
 
     /// An empty destructor
     virtual ~Residual_with_coords();
 
     /// General handle access to the coordinates
     /// \return A handle to the i-th coordinate
-    _Xtype& coord( const unsigned& i );
+    _Xtype& coord(const unsigned& i);
 
     /// General handle access to the coordinates
     /// \return A handle to the i-th coordinate
-    const _Xtype& coord( const unsigned& i ) const;
+    const _Xtype& coord(const unsigned& i) const;
 
-  protected:
+   protected:
 
     /// The coordinates stored for this residual
     std::vector<_Xtype> coords;
@@ -53,8 +51,7 @@ namespace CppNoddy
   ;  // end class
 
   template <typename _Type, typename _Xtype>
-  inline _Xtype& Residual_with_coords<_Type, _Xtype>::coord( const unsigned& i )
-  {
+  inline _Xtype& Residual_with_coords<_Type, _Xtype>::coord(const unsigned& i) {
 #ifdef PARANOID
     /// \todo check range on coord
 #endif
@@ -62,8 +59,7 @@ namespace CppNoddy
   }
 
   template <typename _Type, typename _Xtype>
-  inline const _Xtype& Residual_with_coords<_Type, _Xtype>::coord( const unsigned& i ) const
-  {
+  inline const _Xtype& Residual_with_coords<_Type, _Xtype>::coord(const unsigned& i) const {
 #ifdef PARANOID
 #endif
     return coords[ i ];

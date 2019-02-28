@@ -13,20 +13,18 @@
 #include <Exceptions.h>
 #include <Utility.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   template <typename _Type>
-  ODE_IVP<_Type>::ODE_IVP( Equation<_Type > *ptr,
-                           const double &x1, const double &x2,
-                           const std::size_t &num_of_points ) :
-      X_INIT( x1 ),
-      X_FINAL( x2 ),
-      H_INIT( ( x2 - x1 ) / num_of_points ),
-      N( num_of_points ),
-      p_EQUATION( ptr ),
-      STORE_EVERY( 1 )
-  {
+  ODE_IVP<_Type>::ODE_IVP(Equation<_Type > *ptr,
+                          const double &x1, const double &x2,
+                          const std::size_t &num_of_points) :
+    X_INIT(x1),
+    X_FINAL(x2),
+    H_INIT((x2 - x1) / num_of_points),
+    N(num_of_points),
+    p_EQUATION(ptr),
+    STORE_EVERY(1) {
     p_EQUATION -> coord(0) = X_INIT;
   }
 
@@ -35,9 +33,8 @@ namespace CppNoddy
   {}
 
   template <typename _Type>
-  DenseVector<_Type> ODE_IVP<_Type>::shoot4( DenseVector<_Type> u )
-  {
-        
+  DenseVector<_Type> ODE_IVP<_Type>::shoot4(DenseVector<_Type> u) {
+
     double x = X_INIT;
     const double h = H_INIT;
     const double hby2 = h / 2.;
@@ -45,62 +42,58 @@ namespace CppNoddy
     const double hby3 = h / 3.;
     const int order = u.size();
 
-    DenseVector<_Type> z( order, 0.0 ), k1( order, 0.0 ), k2( order, 0.0 ), k3( order, 0.0 ), k4( order, 0.0 );
+    DenseVector<_Type> z(order, 0.0), k1(order, 0.0), k2(order, 0.0), k3(order, 0.0), k4(order, 0.0);
 
-    DenseVector< double > coords;  
+    DenseVector< double > coords;
     std::vector< DenseVector<_Type> > values;
 
-    coords.push_back( x );
-    values.push_back( u ); 
+    coords.push_back(x);
+    values.push_back(u);
 
-    for ( unsigned i = 0; i < N; i++ )
-    {
+    for(unsigned i = 0; i < N; i++) {
       // k1 = F(u,x)
       p_EQUATION -> coord(0) = x;
-      p_EQUATION -> residual_fn( u, k1 );
+      p_EQUATION -> residual_fn(u, k1);
       z = u + k1 * hby2;
 
       x += hby2;
 
       // k2 = F(z,xhh)
       p_EQUATION -> coord(0) = x;
-      p_EQUATION -> residual_fn( z, k2 );
+      p_EQUATION -> residual_fn(z, k2);
       z = u + k2 * hby2;
 
       // k3 = F(z,xhh)
       p_EQUATION -> coord(0) = x;
-      p_EQUATION -> residual_fn( z, k3 );
+      p_EQUATION -> residual_fn(z, k3);
       z = u + k3 * h;
 
       x += hby2;
 
       // k4 = F(z,xh)
       p_EQUATION -> coord(0) = x;
-      p_EQUATION -> residual_fn( z, k4 );
+      p_EQUATION -> residual_fn(z, k4);
       u += k1 * hby6 + k2 * hby3 + k3 * hby3 + k4 * hby6;
 
-      if ( i % STORE_EVERY == 0 )
-      {
-        coords.push_back( x );
-        values.push_back( u ); 
+      if(i % STORE_EVERY == 0) {
+        coords.push_back(x);
+        values.push_back(u);
       }
-      
+
     } //for loop stepping across domain
-    
+
     // construct the solution mesh stored in this object
-    SOLN = OneD_Node_Mesh<_Type>( coords, p_EQUATION -> get_order() );    
-    for ( unsigned i = 0; i < coords.size(); ++i )
-    {
+    SOLN = OneD_Node_Mesh<_Type>(coords, p_EQUATION -> get_order());
+    for(unsigned i = 0; i < coords.size(); ++i) {
       // fill mesh
-      SOLN.set_nodes_vars( i, values[i] );
+      SOLN.set_nodes_vars(i, values[i]);
     }
     return u;
   }
 
   template <typename _Type>
-  DenseVector<_Type> ODE_IVP<_Type>::shoot45( DenseVector<_Type> u, const double& tol, const double& h_init )
-  {
-    bool ok( false );
+  DenseVector<_Type> ODE_IVP<_Type>::shoot45(DenseVector<_Type> u, const double& tol, const double& h_init) {
+    bool ok(false);
     unsigned step = 0;
     double x = X_INIT;
     double h = h_init;
@@ -145,51 +138,50 @@ namespace CppNoddy
 
     const unsigned order = u.size();
 
-    DenseVector<_Type> z( order, 0.0 ), e( order, 0.0 ), k1( order, 0.0 ),
-    k2( order, 0.0 ), k3( order, 0.0 ), k4( order, 0.0 ), k5( order, 0.0 ), k6( order, 0.0 );
+    DenseVector<_Type> z(order, 0.0), e(order, 0.0), k1(order, 0.0),
+                k2(order, 0.0), k3(order, 0.0), k4(order, 0.0), k5(order, 0.0), k6(order, 0.0);
 
-    DenseVector< double > coords;  
+    DenseVector< double > coords;
     std::vector< DenseVector<_Type> > values;
 
-    coords.push_back( x );
-    values.push_back( u ); 
+    coords.push_back(x);
+    values.push_back(u);
 
-    do
-    {
+    do {
       step += 1;
       // k1 = F(u,x)
       p_EQUATION -> coord(0) = x;
-      p_EQUATION -> residual_fn( u, k1 );
+      p_EQUATION -> residual_fn(u, k1);
       k1 *= h;
       z = u + k1 * W21;
 
       // k2 = F(z,x+X2*h)
       p_EQUATION -> coord(0) = x + X2 * h;
-      p_EQUATION -> residual_fn( z, k2 );
+      p_EQUATION -> residual_fn(z, k2);
       k2 *= h;
       z = u + k1 * W31 + k2 * W32;
 
       // k3 = F(z,x+X3*h)
       p_EQUATION -> coord(0) = x + X3 * h;
-      p_EQUATION -> residual_fn( z, k3 );
+      p_EQUATION -> residual_fn(z, k3);
       k3 *= h;
       z = u + k1 * W41 + k2 * W42 + k3 * W43;
 
       // k4 = F(z,x+X4*h)
       p_EQUATION -> coord(0) = x + X4 * h;
-      p_EQUATION -> residual_fn( z, k4 );
+      p_EQUATION -> residual_fn(z, k4);
       k4 *= h;
       z = u + k1 * W51 + k2 * W52 + k3 * W53 + k4 * W54;
 
       // k5 = F(z,x+X5*h)
       p_EQUATION -> coord(0) = x + X5 * h;
-      p_EQUATION -> residual_fn( z, k5 );
+      p_EQUATION -> residual_fn(z, k5);
       k5 *= h;
       z = u + k1 * W61 + k2 * W62 + k3 * W63 + k4 * W64 + k5 * W65;
 
       // k6 = F(z,x+X6*h)
       p_EQUATION -> coord(0) = x + X6 * h;
-      p_EQUATION -> residual_fn( z, k6 );
+      p_EQUATION -> residual_fn(z, k6);
       k6 *= h;
 
       e = k1 * U1 + k3 * U3 + k4 * U4 + k5 * U5;
@@ -200,69 +192,60 @@ namespace CppNoddy
       // diff = ||e|| -- here use "abs" to deal with Complex systems
       diff = e.inf_norm();
 
-      c = sqrt( sqrt( tol * h / ( 2 * diff ) ) );
+      c = sqrt(sqrt(tol * h / (2 * diff)));
       ok = true;
 
       // is the first step ok? or does it need reducing?
 
-      if ( ( step == 1 ) && ( c < 1.0 ) )
-      {
+      if((step == 1) && (c < 1.0)) {
         // step needs reducing so start from initial value again
         ok = false;
         step = 1;
       }
 
-      if ( ok )
-      {
+      if(ok) {
         x += h;
         u += z;
 
-        if ( step % STORE_EVERY == 0 )
-        {
-          coords.push_back( x );
-          values.push_back( u ); 
+        if(step % STORE_EVERY == 0) {
+          coords.push_back(x);
+          values.push_back(u);
         }
 
       }
 
       h *= c;
 
-      if ( x + h > X_FINAL )
-      {
-        h = ( X_FINAL - x );
+      if(x + h > X_FINAL) {
+        h = (X_FINAL - x);
       }
 
-      if ( step >= N )
-      {
+      if(step >= N) {
         std::string problem;
         problem = "The ODE.shoot45 method reached the maximum \n";
         problem += "number of steps specified by the user. \n";
-        throw ExceptionRuntime( problem );
+        throw ExceptionRuntime(problem);
       }
 
-    }
-    while ( std::abs( x - X_FINAL ) > tol );  // end loop stepping across domain
+    } while(std::abs(x - X_FINAL) > tol);     // end loop stepping across domain
 
     // construct the solution mesh stored in this object
-    SOLN = OneD_Node_Mesh<_Type>( coords, p_EQUATION -> get_order() );    
-    for ( unsigned i = 0; i < coords.size(); ++i )
-    {
+    SOLN = OneD_Node_Mesh<_Type>(coords, p_EQUATION -> get_order());
+    for(unsigned i = 0; i < coords.size(); ++i) {
       // fill mesh
-      SOLN.set_nodes_vars( i, values[i] );
+      SOLN.set_nodes_vars(i, values[i]);
     }
 
     return u;
   }
 
   template <typename _Type>
-  OneD_Node_Mesh<_Type>& ODE_IVP<_Type>::get_mesh()
-  {
+  OneD_Node_Mesh<_Type>& ODE_IVP<_Type>::get_mesh() {
     return SOLN;
   }
 
   template <typename _Type>
-  unsigned& ODE_IVP<_Type>::store_every()
-  {
+  unsigned& ODE_IVP<_Type>::store_every() {
     return STORE_EVERY;
   }
 

@@ -28,44 +28,41 @@
 #include <Uncopyable.h>
 #include <Timer.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   /// A templated object for real/complex vector system
   /// of unsteady equations.
 
   template <typename _Type>
-  class PDE_IBVP : private Uncopyable
-  {
-  public:
+  class PDE_IBVP : private Uncopyable {
+   public:
 
     /// The class is defined by a vector function for the system.
     /// \param equation_ptr A pointer to an inherited Equation object.
     /// \param nodes A vector that defines the nodal positions.
     /// \param ptr_to_left_residual A pointer to a residual object that defines the LHS boundary conditions.
     /// \param ptr_to_right_residual A pointer to a residual object that defines the RHS boundary conditions.
-    PDE_IBVP( Equation_2matrix<_Type > *equation_ptr,
-              const DenseVector<double>& nodes,
-              Residual_with_coords<_Type>* ptr_to_left_residual,
-              Residual_with_coords<_Type>* ptr_to_right_residual );
+    PDE_IBVP(Equation_2matrix<_Type > *equation_ptr,
+             const DenseVector<double>& nodes,
+             Residual_with_coords<_Type>* ptr_to_left_residual,
+             Residual_with_coords<_Type>* ptr_to_right_residual);
 
     /// Destructor
     ~PDE_IBVP();
 
     /// A Crank-Nicolson 'time' stepper.
-    void step2( const double& dt );
+    void step2(const double& dt);
 
     /// Assembles the matrix problem for a BVP solve at the
     /// current time level.
     /// \param a The LHS (banded) matrix.
     /// \param b The RHS (dense) vector.
     /// \param dt The 'time step' to be taken.
-    void assemble_matrix_problem( BandedMatrix<_Type>& a, DenseVector<_Type>& b, const double& dt );
+    void assemble_matrix_problem(BandedMatrix<_Type>& a, DenseVector<_Type>& b, const double& dt);
 
     /// Return a reference to the current value of the 'timelike/parabolic' coordinate
     /// \return A handle to the current time stored in the object
-    double& coord()
-    {
+    double& coord() {
       return T;
     }
 
@@ -77,19 +74,17 @@ namespace CppNoddy
 
     /// Access method to the tolerance
     /// \return A handle to the private member data TOL
-    double& tolerance()
-    {
+    double& tolerance() {
       return TOL;
     }
 
     /// Access method to the maximum number of iterations
     /// \return A handle to the private member data MAX_ITERATIONS
-    int& max_itns()
-    {
+    int& max_itns() {
       return MAX_ITERATIONS;
     }
 
-  private:
+   private:
     /// The solution at the current time level
     OneD_Node_Mesh<_Type> SOLN;
     /// The solution at the previous time step
@@ -117,17 +112,15 @@ namespace CppNoddy
   ; // end class
 
   template <typename _Type>
-  inline OneD_Node_Mesh<_Type>& PDE_IBVP<_Type>::solution()
-  {
+  inline OneD_Node_Mesh<_Type>& PDE_IBVP<_Type>::solution() {
     return SOLN;
   }
 
   template <typename _Type>
-  inline OneD_Node_Mesh<_Type>& PDE_IBVP<_Type>::previous_solution()
-  {
+  inline OneD_Node_Mesh<_Type>& PDE_IBVP<_Type>::previous_solution() {
     return PREV_SOLN;
   }
-  
+
 } // end namespace
 
 #endif

@@ -2,12 +2,15 @@
 
 # Meson build process:
 # meson --buildtype=debugoptimized build
-meson --buildtype=plain --prefix=/home/hewitt/CURRENT/Projects/CppNoddy/build build
+# meson --buildtype=plain --prefix=/home/hewitt/CURRENT/Projects/CppNoddy/build build
+
+meson build 
 meson configure -Dslepc=true -Dpetscz=true build
 cd build
 ninja reconfigure
 ninja
-ninja test
+#ninja test
+#DESTDIR=/home/hewitt/CURRENT/Projects/CppNoddy/build ninja install
 ninja install
 
 #See:

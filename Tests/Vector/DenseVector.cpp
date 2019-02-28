@@ -10,6 +10,7 @@
 #include <Timer.h>
 #include <Utility.h>
 #include <Functors.h>
+#include "../Utils_Fill.h"
 
 using namespace CppNoddy;
 using namespace std;
@@ -28,16 +29,16 @@ int main()
   const double tol = 1.e-13;
   bool failed = false;
 
-  Utility::time_seed();
+  Utils_Fill::time_seed();
   // a real vector of random entries
   DenseVector<double> V( N, 0.0 );
-  Utility::fill_random( V );
+  Utils_Fill::fill_random( V );
   // a complex vector initialised with the same real vector
   DenseVector<D_complex> CExample( V );
 
   // another real vector of random entries
   DenseVector<double> DExample( N, 0.0 );
-  Utility::fill_random( DExample );
+  Utils_Fill::fill_random( DExample );
 
   const unsigned M = 100;    // number of repeats
   for ( unsigned i = 0; i < M; ++i )

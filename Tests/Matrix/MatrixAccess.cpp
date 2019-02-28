@@ -11,17 +11,17 @@
 #include <Utility.h>
 #include <TwoD_Node_Mesh.h>
 
+#include "../Utils_Fill.h"
+
 using namespace CppNoddy;
 using namespace std;
 
 int main()
 {
 
-
   cout << "\n";
   cout << "=== Matrix: compare access speeds to native array ===\n";
   cout << "\n";
-
 
   const std::size_t L = 5000;
   const int loops( 100 );
@@ -34,7 +34,7 @@ int main()
   double* B;
   B = new double[ L * L ];
   // put some junk into the DenseMatrix
-  Utility::fill_random( A );
+  Utils_Fill::fill_random( A );
   // copy the matrix to a native array & the mesh object
   for ( std::size_t row = 0; row < L; ++row )
   {

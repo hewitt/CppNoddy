@@ -16,8 +16,7 @@
 #include <Exceptions.h>
 #include <Functors.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   // forward declare the matrix classes that will be friends
   // conversion from banded to vector (for LAPACK routines)
@@ -32,9 +31,8 @@ namespace CppNoddy
   /// container and pass through a few simple iterators whilst
   /// adding appropriate operator overloading and norms.
   template <typename _Type>
-  class DenseVector
-  {
-  public:
+  class DenseVector {
+   public:
 
     typedef typename std::vector<_Type>::iterator elt_iter;
     typedef typename std::vector<_Type>::const_iterator elt_citer;
@@ -47,30 +45,28 @@ namespace CppNoddy
     /// Constructor with specified fill-in initialization
     /// \param fill Data to be initialised to each entry
     /// \param size The size of the vector to be instantiated
-    DenseVector( const std::size_t& size, const _Type& fill );
+    DenseVector(const std::size_t& size, const _Type& fill);
 
     /// Construct a Noddy vector from a contiguous set of real data.
     /// This will be nasty if you pass the wrong pointer, but is
     /// useful in interfacing with external libraries
     /// \param size The number of elements in the vector.
     /// \param p A pointer to the start of the data.
-    DenseVector( const std::size_t& size, const _Type* p );
+    DenseVector(const std::size_t& size, const _Type* p);
 
     /// A templated implicitly converting copy constructor.
     /// Note this is specialised for double to double and
     /// std::complex<double> to std::complex<double> copy construction.
     /// \param source The DenseVector to be used in the initialising.
     template <typename _sourceType>
-    DenseVector( const DenseVector<_sourceType>& source )
-    {
+    DenseVector(const DenseVector<_sourceType>& source) {
       // size the current vector
-      VEC.resize( source.size() );
-      elt_iter p_local( VEC.begin() );
-      for ( typename DenseVector<_sourceType>::elt_citer
-            p_from = source.begin();
-            p_from != source.end();
-            ++p_from, ++p_local )
-      {
+      m_vec.resize(source.size());
+      elt_iter p_local(m_vec.begin());
+      for(typename DenseVector<_sourceType>::elt_citer
+          p_from = source.begin();
+          p_from != source.end();
+          ++p_from, ++p_local) {
         *p_local = *p_from;
       }
     }
@@ -78,62 +74,54 @@ namespace CppNoddy
     /// Copy assignment
     /// \param source Object to copy
     /// \return The new object
-    DenseVector& operator=( const DenseVector& source );
+    DenseVector& operator=(const DenseVector& source);
 
     ~DenseVector();
 
     /// Pass through to the storage container.
-    elt_iter begin()
-    {
-      return VEC.begin();
+    elt_iter begin() {
+      return m_vec.begin();
     }
 
     /// Pass through to the storage container.
-    elt_riter rbegin()
-    {
-      return VEC.rbegin();
+    elt_riter rbegin() {
+      return m_vec.rbegin();
     }
 
     /// Pass through to the storage container.
-    elt_citer begin() const
-    {
-      return VEC.begin();
+    elt_citer begin() const {
+      return m_vec.begin();
     }
 
     /// Pass through to the storage container.
-    elt_criter rbegin() const
-    {
-      return VEC.rbegin();
+    elt_criter rbegin() const {
+      return m_vec.rbegin();
     }
 
     /// Pass through to the storage container.
-    elt_iter end()
-    {
-      return VEC.end();
+    elt_iter end() {
+      return m_vec.end();
     }
 
     /// Pass through to the storage container.
-    elt_citer end() const
-    {
-      return VEC.end();
+    elt_citer end() const {
+      return m_vec.end();
     }
 
     /// Pass through to the storage container.
-    elt_riter rend()
-    {
-      return VEC.rend();
+    elt_riter rend() {
+      return m_vec.rend();
     }
 
     /// Pass through to the storage container.
-    elt_criter rend() const
-    {
-      return VEC.rend();
+    elt_criter rend() const {
+      return m_vec.rend();
     }
 
     /// Operator overloading for addition
     /// \param x The dense vector to be added
     /// \return The sum of 'this' and x
-    DenseVector<_Type> operator+( const DenseVector<_Type>& x ) const;
+    DenseVector<_Type> operator+(const DenseVector<_Type>& x) const;
 
     /// Overloading for +
     /// \return +this
@@ -142,7 +130,7 @@ namespace CppNoddy
     /// Operator overloading for subtraction
     /// \param x The dense vector to be subtracted from 'this'
     /// \return The subtraction of x from 'this'
-    DenseVector<_Type> operator-( const DenseVector<_Type>& x ) const;
+    DenseVector<_Type> operator-(const DenseVector<_Type>& x) const;
 
     /// Overloading for -
     /// \return -this
@@ -151,57 +139,56 @@ namespace CppNoddy
     /// Operator overloading for scalar multiplication
     /// \param m The scalar multiplier
     /// \return The 'this' vector scaled by the constant 'm'
-    DenseVector<_Type> operator*( const _Type& m ) const;
+    DenseVector<_Type> operator*(const _Type& m) const;
 
     /// Operaotr overloading for scalar division
     /// \param m The scalar divisor
     /// \return The 'this' vector divided by the constant 'm'
-    DenseVector<_Type> operator/( const _Type& m ) const;
+    DenseVector<_Type> operator/(const _Type& m) const;
 
     /// Overloading of the [] operator
     /// \param i The index of the element to be accessed
     /// \return The element stored at index i (read only)
-    const _Type& operator[] ( const std::size_t& i ) const;
+    const _Type& operator[](const std::size_t& i) const;
 
     /// Overloading of the [] operator
     /// \param i The index of the element to be accessed
     /// \return The element  stored at index i (read/write)
-    _Type& operator[] ( const std::size_t& i );
+    _Type& operator[](const std::size_t& i);
 
     /// Overloading *= for scalar multiplication
     /// \param m The scalar multiplier
     /// \return A reference to the 'this' vector multiplied by the scalar
-    DenseVector<_Type>& operator*=( const _Type& m );
+    DenseVector<_Type>& operator*=(const _Type& m);
 
     /// Overloading /= for scalar multiplication
     /// \param m The scalar divisor
     /// \return A reference to the 'this' vector divided by the scalar
-    DenseVector<_Type>& operator/=( const _Type& m );
+    DenseVector<_Type>& operator/=(const _Type& m);
 
     /// Overloading the -= operator
     /// \param x A dense vector that will be subtracted from 'this'
     /// \return A reference to the 'this' vector after subtraction by x
-    DenseVector<_Type>& operator-=( const DenseVector<_Type>& x );
+    DenseVector<_Type>& operator-=(const DenseVector<_Type>& x);
 
     /// Overloading the += operator
     /// \param x A dense vector that will be added to 'this'
     /// \return A reference to the 'this' vector after addition by x
-    DenseVector<_Type>& operator+=( const DenseVector<_Type>& x );
+    DenseVector<_Type>& operator+=(const DenseVector<_Type>& x);
 
     /// A pass-thru definition of push_back
     /// \param fill The data element to be pushed into the vector
-    void push_back( const _Type& fill );
+    void push_back(const _Type& fill);
 
     /// A pass-thru definition of resize
     /// \param length The target length after resizing
-    void resize( const std::size_t& length );
+    void resize(const std::size_t& length);
 
     /// A pass-thru definition of assign
     /// \param n The number of elements to assign
     /// \param elem The element copy to be used in the assign
-    void assign( const std::size_t n, const _Type elem )
-    {
-      VEC.assign( n, elem );
+    void assign(const std::size_t n, const _Type elem) {
+      m_vec.assign(n, elem);
     }
 
     /// A pass-thru definition of clear
@@ -222,15 +209,15 @@ namespace CppNoddy
 
     /// Scale each element of the vector, equivalent to *=
     /// \param scale The value to scale each element by.
-    void scale( const _Type& scale );
+    void scale(const _Type& scale);
 
     /// Add a vector, element wise, equivalent to +=
     /// \param x The vector to be added to this object.
-    void add( const DenseVector<_Type>& x );
+    void add(const DenseVector<_Type>& x);
 
     /// Subtract a vector, element wise, equivalent to -=
     /// \param x The vector to be subtracted from this object.
-    void sub( const DenseVector<_Type>& x );
+    void sub(const DenseVector<_Type>& x);
 
     /// A pass-thru definition to get the size of the vector.
     /// Since the vector is dense, the number of elements is the
@@ -246,12 +233,12 @@ namespace CppNoddy
 
     /// Reserve space for the vector.
     /// \param n The number of elements to reserve space for
-    void reserve( const std::size_t& n );
+    void reserve(const std::size_t& n);
 
     /// Swap elements i and j.
     /// \param i The index of the element to swap.
     /// \param j The index of the other element to swap.
-    void swap( const std::size_t& i, const std::size_t& j );
+    void swap(const std::size_t& i, const std::size_t& j);
 
     /// Dump to std::cout
     void dump() const;
@@ -259,27 +246,15 @@ namespace CppNoddy
     /// Dump the contents to a file, each element on a separate line
     /// \param filename The name of the file to write to
     /// \param precision Precision of the output strings
-    void dump_file( std::string filename, int precision = 10 ) const;
-    // {
-    //   std::ofstream dump;
-    //   dump.open( filename.c_str() );
-    //   dump.precision( precision );
-    //   dump.setf( std::ios::showpoint );
-    //   dump.setf( std::ios::showpos );
-    //   dump.setf( std::ios::scientific );
-    //   for ( std::size_t i = 0; i < VEC.size(); ++i )
-    //   {
-    //     dump << VEC[ i ] << "\n";
-    //   }
-    // }
+    void dump_file(std::string filename, int precision = 10) const;
 
-  private:
+   private:
 
-    // friend classes that may access VEC directly
+    // friend classes that may access m_vec directly
     friend class BandedMatrix<_Type>;
 
     // private storage of the data - encapsulated in std::vector
-    std::vector<_Type> VEC;
+    std::vector<_Type> m_vec;
 
   }
   ; // end class
@@ -296,203 +271,176 @@ namespace CppNoddy
   // specialise some copy constructors
   template <>
   template <>
-  inline DenseVector<double>::DenseVector( const DenseVector<double>& source )
-  {
-    VEC = source.VEC;
+  inline DenseVector<double>::DenseVector(const DenseVector<double>& source) {
+    m_vec = source.m_vec;
   }
 
   template <>
   template <>
-  inline DenseVector<std::complex<double> >::DenseVector( const DenseVector<std::complex<double> >& source )
-  {
-    VEC = source.VEC;
+  inline DenseVector<std::complex<double> >::DenseVector(const DenseVector<std::complex<double> >& source) {
+    m_vec = source.m_vec;
   }
 
   template <typename _Type>
-  inline _Type& DenseVector<_Type>::operator[] ( const std::size_t& i )
-  {
+  inline _Type& DenseVector<_Type>::operator[](const std::size_t& i) {
 #ifdef PARANOID
-    if ( ( i < 0 ) || ( i >= size() ) )
-    {
+    if((i < 0) || (i >= size())) {
       std::string problem;
       problem = " The DenseVector.operator[] method has a range error. \n";
-      throw ExceptionRange( problem, size(), i );
+      throw ExceptionRange(problem, size(), i);
     }
 #endif
-    return VEC[ i ];
+    return m_vec[ i ];
   }
 
   template <typename _Type>
-  inline const _Type& DenseVector<_Type>::operator[] ( const std::size_t& i ) const
-  {
+  inline const _Type& DenseVector<_Type>::operator[](const std::size_t& i) const {
 #ifdef PARANOID
-    if ( ( i < 0 ) || ( i >= size() ) )
-    {
+    if((i < 0) || (i >= size())) {
       std::string problem;
       problem = " The DenseVector.operator[] method has a range error. \n";
-      throw ExceptionRange( problem, size(), i );
+      throw ExceptionRange(problem, size(), i);
     }
 #endif
-    return VEC[ i ];
+    return m_vec[ i ];
   }
 
 
   template <typename _Type>
-  inline void DenseVector<_Type>::push_back( const _Type& fill )
-  {
-    VEC.push_back( fill );
+  inline void DenseVector<_Type>::push_back(const _Type& fill) {
+    m_vec.push_back(fill);
   }
 
   template <typename _Type>
-  inline void DenseVector<_Type>::resize( const std::size_t& length )
-  {
-    VEC.resize( length );
+  inline void DenseVector<_Type>::resize(const std::size_t& length) {
+    m_vec.resize(length);
   }
 
   template <typename _Type>
-  inline void DenseVector<_Type>::clear()
-  {
-    VEC.clear();
+  inline void DenseVector<_Type>::clear() {
+    m_vec.clear();
   }
 
   template <typename _Type>
-  inline DenseVector<_Type> DenseVector<_Type>::operator+() const
-  {
+  inline DenseVector<_Type> DenseVector<_Type>::operator+() const {
     return * this;
   }
 
   template <typename _Type>
-  inline std::size_t DenseVector<_Type>::size() const
-  {
-    return VEC.size();
+  inline std::size_t DenseVector<_Type>::size() const {
+    return m_vec.size();
   }
 
   template <typename _Type>
-  inline std::size_t DenseVector<_Type>::nelts() const
-  {
-    return VEC.size();
+  inline std::size_t DenseVector<_Type>::nelts() const {
+    return m_vec.size();
   }
 
   template <typename _Type>
-  inline void DenseVector<_Type>::reserve( const std::size_t& n )
-  {
-    VEC.reserve( n );
+  inline void DenseVector<_Type>::reserve(const std::size_t& n) {
+    m_vec.reserve(n);
   }
 
   template <typename _Type>
-  inline DenseVector<_Type> DenseVector<_Type>::operator*( const _Type& m ) const
-  {
-    DenseVector<_Type> temp( *this );
+  inline DenseVector<_Type> DenseVector<_Type>::operator*(const _Type& m) const {
+    DenseVector<_Type> temp(*this);
     temp *= m;
     return temp;
   }
 
   template <typename _Type>
-  inline DenseVector<_Type>& DenseVector<_Type>::operator*=( const _Type& m )
-  {
-    // run thru VEC from begin to end, transforming into
-    // VEC container starting from begin using functor
-    std::transform( VEC.begin(), VEC.end(), VEC.begin(), scale_functor<_Type, _Type>( m ) );
+  inline DenseVector<_Type>& DenseVector<_Type>::operator*=(const _Type& m) {
+    // run thru m_vec from begin to end, transforming into
+    // m_vec container starting from begin using functor
+    std::transform(m_vec.begin(), m_vec.end(), m_vec.begin(), scale_functor<_Type, _Type>(m));
     return *this;
   }
 
   template <typename _Type>
-  inline DenseVector<_Type> DenseVector<_Type>::operator/( const _Type& m ) const
-  {
-    DenseVector<_Type> temp( *this );
-    temp *= ( 1. / m );
+  inline DenseVector<_Type> DenseVector<_Type>::operator/(const _Type& m) const {
+    DenseVector<_Type> temp(*this);
+    temp *= (1. / m);
     return temp;
   }
 
   template <typename _Type>
-  inline DenseVector<_Type>& DenseVector<_Type>::operator/=( const _Type& m )
-  {
-    // run thru VECfrom begin to end, transforming into
-    // VEC container starting from begin using functor
-    std::transform( VEC.begin(), VEC.end(), VEC.begin(), scale_functor<_Type, _Type>( 1.0 / m ) );
+  inline DenseVector<_Type>& DenseVector<_Type>::operator/=(const _Type& m) {
+    // run thru m_vecfrom begin to end, transforming into
+    // m_vec container starting from begin using functor
+    std::transform(m_vec.begin(), m_vec.end(), m_vec.begin(), scale_functor<_Type, _Type>(1.0 / m));
     return *this;
   }
 
   template <typename _Type>
-  inline DenseVector<_Type>& DenseVector<_Type>::operator-=( const DenseVector<_Type>& x )
-  {
+  inline DenseVector<_Type>& DenseVector<_Type>::operator-=(const DenseVector<_Type>& x) {
 #ifdef PARANOID
-    if ( x.size() != size() )
-    {
+    if(x.size() != size()) {
       std::string problem;
       problem = " The DenseVector.operator-= method is trying to use \n";
       problem += " two vectors of unequal length \n";
-      throw ExceptionGeom( problem, size(), x.size() );
+      throw ExceptionGeom(problem, size(), x.size());
     }
 #endif
-    std::transform( VEC.begin(), VEC.end(), x.begin(), VEC.begin(), std::minus<_Type>() );
+    std::transform(m_vec.begin(), m_vec.end(), x.begin(), m_vec.begin(), std::minus<_Type>());
     return *this;
   }
 
   template <typename _Type>
-  inline DenseVector<_Type>& DenseVector<_Type>::operator+=( const DenseVector<_Type>& x )
-  {
+  inline DenseVector<_Type>& DenseVector<_Type>::operator+=(const DenseVector<_Type>& x) {
 #ifdef PARANOID
-    if ( x.size() != size() )
-    {
+    if(x.size() != size()) {
       std::string problem;
       problem = " The DenseVector.operator+= method is trying to use \n";
       problem += " two vectors of unequal length \n";
-      throw ExceptionGeom( problem, size(), x.size() );
+      throw ExceptionGeom(problem, size(), x.size());
     }
 #endif
-    std::transform( VEC.begin(), VEC.end(), x.begin(), VEC.begin(), std::plus<_Type>() );
+    std::transform(m_vec.begin(), m_vec.end(), x.begin(), m_vec.begin(), std::plus<_Type>());
     return *this;
   }
 
   template <typename _Type>
-  inline DenseVector<_Type> DenseVector<_Type>::operator-( const DenseVector<_Type>& x ) const
-  {
+  inline DenseVector<_Type> DenseVector<_Type>::operator-(const DenseVector<_Type>& x) const {
 #ifdef PARANOID
-    if ( x.size() != size() )
-    {
+    if(x.size() != size()) {
       std::string problem;
       problem = " The DenseVector.operator- method is trying to use \n";
       problem += " two vectors of unequal length \n";
-      throw ExceptionGeom( problem, size(), x.size() );
+      throw ExceptionGeom(problem, size(), x.size());
     }
 #endif
-    DenseVector<_Type> temp( *this );
+    DenseVector<_Type> temp(*this);
     temp -= x;
     return temp;
   }
 
   template <typename _Type>
-  inline DenseVector<_Type> DenseVector<_Type>::operator-() const
-  {
-    DenseVector<_Type> temp( *this );
+  inline DenseVector<_Type> DenseVector<_Type>::operator-() const {
+    DenseVector<_Type> temp(*this);
     temp *= -1;
     return temp;
   }
 
   template <typename _Type>
-  inline DenseVector<_Type> DenseVector<_Type>::operator+( const DenseVector<_Type>& x ) const
-  {
+  inline DenseVector<_Type> DenseVector<_Type>::operator+(const DenseVector<_Type>& x) const {
 #ifdef PARANOID
-    if ( x.size() != size() )
-    {
+    if(x.size() != size()) {
       std::string problem;
       problem = " The DenseVector.operator+ method is trying to use \n";
       problem += " two vectors of unequal length \n";
-      throw ExceptionGeom( problem, size(), x.size() );
+      throw ExceptionGeom(problem, size(), x.size());
     }
 #endif
-    DenseVector<_Type> temp( *this );
+    DenseVector<_Type> temp(*this);
     temp += x;
     return temp;
   }
 
   template <typename _Type>
-  inline DenseVector<_Type>& DenseVector<_Type>::operator=( const DenseVector<_Type>& source )
-  {
-    if ( this == &source )
+  inline DenseVector<_Type>& DenseVector<_Type>::operator=(const DenseVector<_Type>& source) {
+    if(this == &source)
       return *this;
-    VEC = source.VEC;
+    m_vec = source.m_vec;
     return *this;
   }
 

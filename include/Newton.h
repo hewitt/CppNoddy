@@ -16,38 +16,35 @@
 #include <DenseLinearSystem.h>
 #include <Utility.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
   /// A vector NEWTON iteration class.
   /// This allows for Newton iteration to be performed
   /// for a vector function of a vector unknown.
   /// Use templates to allow double or complex.
   template <typename _Type>
-  class Newton : public ArcLength_base< _Type >
-  {
+  class Newton : public ArcLength_base< _Type > {
 
-  public:
+   public:
 
     /// Constructor
     /// \param ptr_to_residual_object A pointer to an inherited Residual object
     /// \param max_steps The maximum number of iteration steps.
     /// \param tolerance A tolerance used as a convergence criterion.
     /// \param derivative_step A step length used to compute derivatives.
-    explicit Newton( Residual<_Type >* ptr_to_residual_object,
-                     unsigned max_steps = 20,
-                     double tolerance = 1.e-8,
-                     double derivative_step = 1.e-8 );
+    explicit Newton(Residual<_Type >* ptr_to_residual_object,
+                    unsigned max_steps = 20,
+                    double tolerance = 1.e-8,
+                    double derivative_step = 1.e-8);
 
     /// The Newton iteration method.
     /// \param x An initial guess vector and returns the solution via this too.
-    void iterate( DenseVector<_Type>& x );
+    void iterate(DenseVector<_Type>& x);
 
     /// If set then the system will monitor the sign of determinant of the
     /// Jacobian matrix and cause an ExceptionBifurcation when it changes
     /// sign.
     /// \param flag The value to be set.
-    void set_monitor_det( bool flag )
-    {
+    void set_monitor_det(bool flag) {
       MONITOR_DET = flag;
     }
 
@@ -55,18 +52,17 @@ namespace CppNoddy
     /// method is inherited from the ArcLength_base class and this simply
     /// points it to the iteration method.
     /// \param x An initial guess vector, the solution overwrites it.
-    void solve( DenseVector<_Type>& x )
-    {
-      iterate( x );
+    void solve(DenseVector<_Type>& x) {
+      iterate(x);
     }
 
     /// Arc-length solve the system. Before this can be called the
     /// arc_init method should have been called in order to ensure
     /// we know a solution and have derivatives w.r.t. the arc-length
     /// parameter.
-    void arclength_solve( DenseVector<_Type>& x );
+    void arclength_solve(DenseVector<_Type>& x);
 
-  private:
+   private:
     /// tolerance in the iteration convergence test
     double TOL;
     /// a derivative step

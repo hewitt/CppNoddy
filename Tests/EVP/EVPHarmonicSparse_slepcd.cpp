@@ -18,6 +18,8 @@
 #include <Timer.h>
 #include <SparseLinearEigenSystem.h>
 
+#include "../Utils_Fill.h"
+
 using namespace CppNoddy;
 using namespace std;
 
@@ -47,7 +49,9 @@ int main()
     SparseMatrix<PETSC_type> a( N, N );
     // Finite difference representation of f''(x)
     // here it's a a tri-diagonal system
-    Utility::fill_tridiag( a, (PETSC_type)(1.0 / delta2), (PETSC_type)(-2.0 / delta2), (PETSC_type)(1.0 / delta2) );
+    Utils_Fill::fill_band(a, -1, (PETSC_type)(1.0 / delta2));
+    Utils_Fill::fill_band(a,  0, (PETSC_type)(-2.0 / delta2));
+    Utils_Fill::fill_band(a, 1, (PETSC_type)(1.0 / delta2));
     // overwrite with boundary conditions at f(0) = f(1) = 0
     a( 0, 0 ) = 1.0;
     a( 0, 1 ) = 0.0;
@@ -56,7 +60,7 @@ int main()
     // not a generalised problem - but we'll apply that routine anyway
     // b is the RHS matrix, so it's -I
     SparseMatrix<PETSC_type> b( N, N );
-    Utility::fill_identity( b );
+    Utils_Fill::fill_identity( b );
     b.scale( -1.0 );
     b( 0, 0 ) = 0.0;
     b( N - 1, N - 1 ) = 0.0;
@@ -73,7 +77,7 @@ int main()
     {
       system.eigensolve();
     }
-    catch ( std::runtime_error )
+    catch (const std::runtime_error &error )
     {
       cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
       return 1;

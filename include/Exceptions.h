@@ -13,17 +13,14 @@
 // WHAT is defined here
 #define WHAT
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   /// An exception to indicate that an error has
   /// been detected in an external (LAPACK) routine
-  class ExceptionExternal : public std::runtime_error
-  {
-  public:
-    ExceptionExternal( const std::string &problem, const int &ifail = 0 ) :
-        std::runtime_error( problem )
-    {
+  class ExceptionExternal : public std::runtime_error {
+   public:
+    ExceptionExternal(const std::string &problem, const int &ifail = 0) :
+      std::runtime_error(problem) {
 #ifdef WHAT
       error_header();
       std::cout << problem << "\n";
@@ -33,10 +30,9 @@ namespace CppNoddy
 
     }
 
-  private:
+   private:
 
-    void error_header()
-    {
+    void error_header() {
       std::cout << "----------------------------------------------------\n";
       std::cout << " Error: A CppNoddy routine has had an EXTERNAL \n";
       std::cout << "        library problem! \n";
@@ -48,12 +44,10 @@ namespace CppNoddy
 
   /// An exception class to be thrown when a container
   /// of incorrect geometry used in any class/method.
-  class ExceptionGeom : public std::runtime_error
-  {
-  public:
-    ExceptionGeom( const std::string &problem, const std::size_t &size1, const std::size_t &size2 ) :
-        std::runtime_error( problem )
-    {
+  class ExceptionGeom : public std::runtime_error {
+   public:
+    ExceptionGeom(const std::string &problem, const std::size_t &size1, const std::size_t &size2) :
+      std::runtime_error(problem) {
 #ifdef WHAT
       error_header();
       std::cout << problem << "\n";
@@ -64,10 +58,9 @@ namespace CppNoddy
 
     }
 
-    ExceptionGeom( const std::string &problem, const std::size_t &size1, const std::size_t &size2,
-                   const std::size_t &size3, const std::size_t &size4 ) :
-        std::runtime_error( problem )
-    {
+    ExceptionGeom(const std::string &problem, const std::size_t &size1, const std::size_t &size2,
+                  const std::size_t &size3, const std::size_t &size4) :
+      std::runtime_error(problem) {
 #ifdef WHAT
       error_header();
       std::cout << problem << "\n";
@@ -80,10 +73,9 @@ namespace CppNoddy
 
     }
 
-  private:
+   private:
 
-    void error_header()
-    {
+    void error_header() {
       std::cout << "----------------------------------------------------\n";
       std::cout << " Error: A CppNoddy routine has had a GEOMETRY error!\n";
       std::cout << "----------------------------------------------------\n";
@@ -95,12 +87,10 @@ namespace CppNoddy
   /// An exception class that is thrown if too many
   /// Newton steps are taken in either the scalar or
   /// vector Newton classes.
-  class ExceptionItn : public std::runtime_error
-  {
-  public:
-    ExceptionItn( const std::string &problem, const unsigned &itns, const double &max_resid ) :
-        std::runtime_error( problem )
-    {
+  class ExceptionItn : public std::runtime_error {
+   public:
+    ExceptionItn(const std::string &problem, const unsigned &itns, const double &max_resid) :
+      std::runtime_error(problem) {
 #ifdef WHAT
       error_header();
       std::cout << problem << "\n";
@@ -110,10 +100,9 @@ namespace CppNoddy
 
     }
 
-  private:
+   private:
 
-    void error_header()
-    {
+    void error_header() {
       std::cout << "----------------------------------------------------\n";
       std::cout << " Error: A CppNoddy routine has had an ITERATION error\n";
       std::cout << "----------------------------------------------------\n";
@@ -125,13 +114,11 @@ namespace CppNoddy
   /// An exception to indicate that a CppNoddy container
   /// has been accessed with index/indices outside the
   /// maximum range for the container.
-  class ExceptionRange : public std::runtime_error
-  {
-  public:
+  class ExceptionRange : public std::runtime_error {
+   public:
 
-    ExceptionRange( const std::string &problem, const std::size_t &size1, const std::size_t &index1 ) :
-        std::runtime_error( problem )
-    {
+    ExceptionRange(const std::string &problem, const std::size_t &size1, const std::size_t &index1) :
+      std::runtime_error(problem) {
 #ifdef WHAT
       error_header();
       std::cout << problem << "\n";
@@ -142,10 +129,9 @@ namespace CppNoddy
 
     }
 
-    ExceptionRange( const std::string &problem, const std::size_t &size1, const std::size_t &index1,
-                    const std::size_t &size2, const std::size_t &index2 ) :
-        std::runtime_error( problem )
-    {
+    ExceptionRange(const std::string &problem, const std::size_t &size1, const std::size_t &index1,
+                   const std::size_t &size2, const std::size_t &index2) :
+      std::runtime_error(problem) {
 #ifdef WHAT
       error_header();
       std::cout << problem << "\n";
@@ -157,10 +143,9 @@ namespace CppNoddy
 #endif
 
     }
-  private:
+   private:
 
-    void error_header()
-    {
+    void error_header() {
       std::cout << "----------------------------------------------------\n";
       std::cout << " Error: A CppNoddy routine has had a RANGE error! \n";
       std::cout << "----------------------------------------------------\n";
@@ -170,11 +155,9 @@ namespace CppNoddy
 
 
   /// A generic runtime exception
-  class ExceptionRuntime : public std::runtime_error
-  {
-  public:
-    ExceptionRuntime( const std::string &problem ) : std::runtime_error( problem )
-    {
+  class ExceptionRuntime : public std::runtime_error {
+   public:
+    ExceptionRuntime(const std::string &problem) : std::runtime_error(problem) {
 #ifdef WHAT
       error_header();
       std::cout << problem << "\n";
@@ -182,10 +165,9 @@ namespace CppNoddy
 
     }
 
-  private:
+   private:
 
-    void error_header()
-    {
+    void error_header() {
       std::cout << "----------------------------------------------------\n";
       std::cout << " Error: A CppNoddy routine has had a RUNTIME problem! \n";
       std::cout << "----------------------------------------------------\n";
@@ -194,18 +176,16 @@ namespace CppNoddy
   };
 
   /// Not used yet....
-  class ExceptionBifurcation
-  {
-  public:
-    ExceptionBifurcation( const std::string &problem )
-    {
+  class ExceptionBifurcation {
+   public:
+    ExceptionBifurcation(const std::string &problem) {
 #ifdef WHAT
       std::cout << problem << "\n";
 #endif
 
     }
 
-  private:
+   private:
 
   };
 }

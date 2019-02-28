@@ -17,6 +17,7 @@
 #include <Utility.h>
 #include <DenseLinearSystem.h>
 #include <BandedLinearSystem.h>
+#include "../Utils_Fill.h"
 
 using namespace CppNoddy;
 using namespace std;
@@ -39,20 +40,16 @@ int main()
   // N = size of some of the larger tests
   const unsigned N = 511;
   const double D = 12 * ( 1. / ( N - 1 ) ) * ( 1. / ( N - 1 ) );
-  DenseMatrix<double> AD( N, N, 0.0 );
-  DenseVector<double> BD( N, D );
+
   BandedMatrix<double> AB( N, offdiag, 0.0 );
   DenseVector<double> BB( N, D );
-  Utility::fill_band( AD, 0, -30.0 );
-  Utility::fill_band( AD, -1, 16.0 );
-  Utility::fill_band( AD, 1, 16.0 );
-  Utility::fill_band( AD, -2, -1.0 );
-  Utility::fill_band( AD, 2, -1.0 );
-  Utility::fill_band( AB, 0, -30.0 );
-  Utility::fill_band( AB, -1, 16.0 );
-  Utility::fill_band( AB, 1, 16.0 );
-  Utility::fill_band( AB, -2, -1.0 );
-  Utility::fill_band( AB, 2, -1.0 );
+  Utils_Fill::fill_band( AB, 0, -30.0 );
+  Utils_Fill::fill_band( AB, -1, 16.0 );
+  Utils_Fill::fill_band( AB, 1, 16.0 );
+  Utils_Fill::fill_band( AB, -2, -1.0 );
+  Utils_Fill::fill_band( AB, 2, -1.0 );
+  DenseMatrix<double> AD( AB );
+  DenseVector<double> BD( BB );
 
   cout << "     Using dense matrix solver : " << N << "x" << N << " system \n";
   cout << "     Using the LAPACK LU dense routine\n";
@@ -62,7 +59,7 @@ int main()
   {
     dense_system.solve();
   }
-  catch ( std::runtime_error )
+  catch ( const std::runtime_error &error )
   {
     cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
     return 1;
@@ -80,7 +77,7 @@ int main()
   {
     banded_system.solve();
   }
-  catch ( std::runtime_error )
+  catch ( const std::runtime_error &error )
   {
     cout << " \033[1;31;48m * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
     return 1;

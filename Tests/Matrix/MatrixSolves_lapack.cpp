@@ -51,7 +51,7 @@ int main()
   {
     small_system.solve();
   }
-  catch ( std::runtime_error )
+  catch (const std::runtime_error &error )
   {
     cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
     return 1;

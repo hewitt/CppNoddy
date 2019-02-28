@@ -14,433 +14,418 @@
 
 #ifdef SLEPC
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   template <typename _Type>
-  SparseLinearEigenSystem<_Type>::SparseLinearEigenSystem( SparseMatrix<_Type >* Aptr, SparseMatrix<_Type >* Bptr ) :
-      LinearEigenSystem_base()
-  {
-    REGION_DEFINED = false;
-    GUESS_DEFINED = false;
+  SparseLinearEigenSystem<_Type>::SparseLinearEigenSystem(SparseMatrix<_Type >* Aptr, SparseMatrix<_Type >* Bptr) :
+    LinearEigenSystem_base() {
+    m_region_defined = false;
+    m_guess_defined = false;
     //
-    p_A = Aptr;
-    p_B = Bptr;
-    NEV = 8; NCONV = 0;
-    ORDER = (EPSWhich)7; // target magnitude is the default
+    m_pA = Aptr;
+    m_pB = Bptr;
+    m_nev = 8;
+    m_nconv = 0;
+    m_order = (EPSWhich)7; // target magnitude is the default
     // base class
-    CALC_EIGENVECTORS = true; // SLEPc methods *always* obtain eigenvecs.
+    m_calc_eigenvectors = true; // SLEPc methods *always* obtain eigenvecs.
   }
 
   template <typename _Type>
-  SparseLinearEigenSystem<_Type>::~SparseLinearEigenSystem()
-  {
+  SparseLinearEigenSystem<_Type>::~SparseLinearEigenSystem() {
   }
 
   template <typename _Type>
-  unsigned SparseLinearEigenSystem<_Type>::get_nconv() const
-  {
-    return NCONV;
+  unsigned SparseLinearEigenSystem<_Type>::get_nconv() const {
+    return m_nconv;
   }
 
   template <typename _Type>
-  void SparseLinearEigenSystem<_Type>::set_nev( unsigned n )
-  {
-    NEV = n;
+  void SparseLinearEigenSystem<_Type>::set_nev(unsigned n) {
+    m_nev = n;
   }
 
   template <typename _Type>
-  void SparseLinearEigenSystem<_Type>::set_target( std::complex<double> target )
-  {
+  void SparseLinearEigenSystem<_Type>::set_target(std::complex<double> target) {
     // defaults to (0,0)
-    SHIFT = target;
+    m_shift = target;
   }
 
   template <typename _Type>
-  void SparseLinearEigenSystem<_Type>::set_order( std::string order_string )
-  {
-    //if ( order_string == "EPS_LARGEST_MAGNITUDE" ) { ORDER=(EPSWhich)1; }
-    //if ( order_string == "EPS_SMALLEST_MAGNITUDE" ) { ORDER=(EPSWhich)2; }
-    //if ( order_string == "EPS_LARGEST_REAL" ) { ORDER=(EPSWhich)3; }
-    //if ( order_string == "EPS_SMALLEST_REAL" ) { ORDER=(EPSWhich)4; }
-    //if ( order_string == "EPS_LARGEST_IMAGINARY" ) { ORDER=(EPSWhich)5; }
-    //if ( order_string == "EPS_SMALLEST_IMAGINARY" ) { ORDER=(EPSWhich)6; }
-    //
+  void SparseLinearEigenSystem<_Type>::set_order(std::string order_string) {
     int flag(0);
-    if ( order_string == "EPS_TARGET_MAGNITUDE" ) { ORDER=(EPSWhich)7; flag=1; }
-    if ( order_string == "EPS_TARGET_REAL" ) { ORDER=(EPSWhich)8; flag=1; }
-    if ( order_string == "EPS_TARGET_IMAGINARY" ) { ORDER=(EPSWhich)9; flag=1; }
+    if(order_string == "EPS_TARGET_MAGNITUDE") {
+      m_order=(EPSWhich)7;
+      flag=1;
+    }
+    if(order_string == "EPS_TARGET_REAL") {
+      m_order=(EPSWhich)8;
+      flag=1;
+    }
+    if(order_string == "EPS_TARGET_IMAGINARY") {
+      m_order=(EPSWhich)9;
+      flag=1;
+    }
     //typedef enum { EPS_LARGEST_MAGNITUDE=1,
-               //EPS_SMALLEST_MAGNITUDE,
-               //EPS_LARGEST_REAL,
-               //EPS_SMALLEST_REAL,
-               //EPS_LARGEST_IMAGINARY,
-               //EPS_SMALLEST_IMAGINARY,
-               //EPS_TARGET_MAGNITUDE,
-               //EPS_TARGET_REAL,
-               //EPS_TARGET_IMAGINARY, -- only if COMPLEX
-               //EPS_ALL,
-               //EPS_WHICH_USER } EPSWhich;
-    if (flag==0)
-    {
+    //EPS_SMALLEST_MAGNITUDE,
+    //EPS_LARGEST_REAL,
+    //EPS_SMALLEST_REAL,
+    //EPS_LARGEST_IMAGINARY,
+    //EPS_SMALLEST_IMAGINARY,
+    //EPS_TARGET_MAGNITUDE,
+    //EPS_TARGET_REAL,
+    //EPS_TARGET_IMAGINARY, -- only if COMPLEX
+    //EPS_ALL,
+    //EPS_WHICH_USER } EPSWhich;
+    if(flag==0) {
       std::string problem;
       problem = "The SparseLinearEigenSystem::set_order method has been called\n";
       problem += "with an ordering_string that is not recognised.\n";
-      throw ExceptionExternal( problem );
+      throw ExceptionExternal(problem);
     }
   }
 
   template <typename _Type>
-  bool& SparseLinearEigenSystem<_Type>::region_defined()
-  {
-    return REGION_DEFINED;
+  bool& SparseLinearEigenSystem<_Type>::region_defined() {
+    return m_region_defined;
   }
 
   template <typename _Type>
-  void SparseLinearEigenSystem<_Type>::set_region( const double& a, const double& b, const double& c, const double& d )
-  {
-    REGION_DEFINED = true;
-    REAL_L = a;
-    REAL_R = b;
-    IMAG_B = c;
-    IMAG_T = d;
+  void SparseLinearEigenSystem<_Type>::set_region(const double& a, const double& b, const double& c, const double& d) {
+    m_region_defined = true;
+    m_real_left = a;
+    m_real_right = b;
+    m_imag_bottom = c;
+    m_imag_top = d;
   }
 
   template <typename _Type>
-  bool& SparseLinearEigenSystem<_Type>::guess_defined()
-  {
-    return GUESS_DEFINED;
+  bool& SparseLinearEigenSystem<_Type>::guess_defined() {
+    return m_guess_defined;
   }
 
   template <typename _Type>
-  void SparseLinearEigenSystem<_Type>::set_initial_guess( const DenseVector<_Type>& guess )
-  {
-    GUESS_DEFINED = true;
-    INITIAL_GUESS = guess;
+  void SparseLinearEigenSystem<_Type>::set_initial_guess(const DenseVector<_Type>& guess) {
+    m_guess_defined = true;
+    m_initial_guess = guess;
   }
 
   template <typename _Type>
-  void SparseLinearEigenSystem<_Type >::eigensolve()
-  {
+  void SparseLinearEigenSystem<_Type >::eigensolve() {
     // only one method available: SLEPc's generalized shift-invert solver
     eigensolve_slepc();
   }
 
 
   template <typename _Type>
-  void SparseLinearEigenSystem<_Type>::eigensolve_slepc()
-  {
+  void SparseLinearEigenSystem<_Type>::eigensolve_slepc() {
 #ifndef SLEPC
     std::string problem;
     problem = "The SparseLinearEigenSystem::eigensolve method has been called\n";
     problem += "but the compiler option -DSLEPC was not provided when\n";
     problem += "the library was built.";
-    throw ExceptionExternal( problem );
+    throw ExceptionExternal(problem);
 #else
-    // the SLEPc and PETSc data types needed
-    Mat A,B;
+    // create the SLEPc and PETSc data types needed
+    Mat petsc_A,petsc_B;
     PetscInt n;
 #ifdef PETSC_Z
     // for complex PETSC we only need one (complex) vector to store eigenvec.
-    Vec x;
+    Vec petsc_x;
 #endif
 #ifdef PETSC_D
     // for double PETSC we need separate real and imag parts for eigenvec.
-    Vec xr,xi;
+    Vec petsc_xr,petsc_xi;
 #endif
-    ST st;
-    EPS eps;
+    ST petsc_st;
+    EPS petsc_eps;
 
     // assuming A & B are square
-    n = p_A -> nrows();
-
+    n = m_pA -> nrows();
+    
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
           Define the matrices that define the eigensystem, Ax=lambdaBx
        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
     // we need to convert from the native sparse format to that required by SLEPc/PETSc
 
-    std::cout << "Starting matrix assembly\n";
-    Timer timer;
-    timer.start();
-
     // define A using PETSc structures
-    //MatCreate(p_LIBRARY -> get_Comm(),&A);
-    MatCreate(PETSC_COMM_WORLD,&A);
-    MatSetSizes(A,n,n,n,n);
-    MatSetFromOptions(A);
+    MatCreate(PETSC_COMM_WORLD,&petsc_A);
+    MatSetSizes(petsc_A,PETSC_DECIDE,PETSC_DECIDE,n,n);
+    MatSetFromOptions(petsc_A);
+    
     // we ABSOLUTELY MUST pre-allocate, otherwise the performance really is AWFUL!
     // get the number of non-zero elts in each row as a vector
     PetscInt* all_rows_nnz = new PetscInt[ n ];
-    p_A -> nelts_all_rows( all_rows_nnz );
-    // allocate memory using the number of non-zero elts in each row (the 0 is ignored here)
-    MatSeqAIJSetPreallocation(A, 0, all_rows_nnz );
-    MatSetUp(A);
-    for ( PetscInt i = 0; i<n; ++i )
-    {
+    m_pA -> nelts_all_rows(all_rows_nnz);
+
+    // pre-allocate memory using the number of non-zero elts
+    // in each row (the 0 is ignored here)
+    MatSeqAIJSetPreallocation(petsc_A, 0, all_rows_nnz);
+    // add any command line configuration
+    MatSetFromOptions(petsc_A);
+    // finish the A definition
+    MatSetUp(petsc_A);
+
+    
+    for(PetscInt i = 0; i<n; ++i) {
       // move the matrix data into PETSc format 1 row at a time
-      std::size_t nelts_in_row = p_A -> nelts_in_row(i);
+      std::size_t nelts_in_row = all_rows_nnz[i];
       // row i has all_rows_nnz[i] elements that are non-zero, so we store their columns
       PetscInt* cols = new PetscInt[all_rows_nnz[i]];
       // store the non-zero elts in this row
       PetscScalar* storage = new PetscScalar[all_rows_nnz[i]];
       // get the data from the CppNoddy sparse matrix structure
-      p_A -> get_row_petsc( i, storage, cols );
-      MatSetValues(A,1,&i,nelts_in_row,cols,storage,INSERT_VALUES);
+      m_pA -> get_row_petsc(i, storage, cols);
+      MatSetValues(petsc_A,1,&i,nelts_in_row,cols,storage,INSERT_VALUES);
       // delete temp storage made in the conversion
-      delete[] cols; delete[] storage;
+      delete[] cols;
+      delete[] storage;
     }
     // delete the temp storage
     delete[] all_rows_nnz;
 
     // MatSetValue inserted values are generally cached
     // so we need to explicitly do final assembly
-    MatAssemblyBegin(A,MAT_FINAL_ASSEMBLY);
-    MatAssemblyEnd(A,MAT_FINAL_ASSEMBLY);
+    MatAssemblyBegin(petsc_A,MAT_FINAL_ASSEMBLY);
+    MatAssemblyEnd(petsc_A,MAT_FINAL_ASSEMBLY);
 
-    std::cout << "A assembled \n";
-    timer.stop();
-    timer.print();
-    timer.reset();
-    timer.start();
+    
+    // configure the B matrix
+    MatCreate(PETSC_COMM_WORLD,&petsc_B);
+    // set B to be an nxn matrix
+    MatSetSizes(petsc_B,PETSC_DECIDE,PETSC_DECIDE,n,n);
+    // add any command line options
+    MatSetFromOptions(petsc_B);
 
-    // define B using PETSc structures
-    //MatCreate(p_LIBRARY -> get_Comm(),&B);
-    MatCreate(PETSC_COMM_WORLD,&B);
-    MatSetSizes(B,PETSC_DECIDE,PETSC_DECIDE,n,n);
-    MatSetFromOptions(B);
     // we ABSOLUTELY MUST pre-allocate, otherwise the performance really is AWFUL!
     // get the number of non-zero elts in each row as a vector
     all_rows_nnz = new PetscInt[ n ];
-    p_B -> nelts_all_rows( all_rows_nnz );
-    // allocate memory using the number of non-zero elts in each row (the 0 is ignored here)
-    MatSeqAIJSetPreallocation(B, 0, all_rows_nnz );
-    MatSetUp(B);
+    m_pB -> nelts_all_rows(all_rows_nnz);
 
-    for ( PetscInt i = 0; i<n; ++i )
-    {
+    // allocate memory using the number of non-zero elts in each row (the 0 is ignored here)
+    MatSeqAIJSetPreallocation(petsc_B, 0, all_rows_nnz);
+    // finish the B definition
+    MatSetUp(petsc_B);
+
+    // fill the petsc_B matrix from the CppNoddy::SparseMatrix object
+    for(PetscInt i = 0; i<n; ++i) {
       // move the matrix data into PETSc format 1 row at a time
-      std::size_t nelts_in_row = p_B -> nelts_in_row(i);
+      std::size_t nelts_in_row = all_rows_nnz[i];
       // row i has all_rows_nnz[i] elements that are non-zero, so we store their columns
       PetscInt* cols = new PetscInt[all_rows_nnz[i]];
       // store the non-zero elts in this row
       PetscScalar* storage = new PetscScalar[all_rows_nnz[i]];
       // get the data from the CppNoddy sparse matrix structure
-      p_B -> get_row_petsc( i, storage, cols );
-      MatSetValues(B,1,&i,nelts_in_row,cols,storage,INSERT_VALUES);
+      m_pB -> get_row_petsc(i, storage, cols);
+      MatSetValues(petsc_B,1,&i,nelts_in_row,cols,storage,INSERT_VALUES);
       // delete temp storage made in the conversion
-      delete[] cols; delete[] storage;
+      delete[] cols;
+      delete[] storage;
     }
     // delete the temp storage
     delete[] all_rows_nnz;
 
     // MatSetValue inserted values are generally cached
     // so we need to explicitly do final assembly
-    MatAssemblyBegin(B,MAT_FINAL_ASSEMBLY);
-    MatAssemblyEnd(B,MAT_FINAL_ASSEMBLY);
-
-    std::cout << "B assembled \n";
-    timer.stop();
-    timer.print();
+    MatAssemblyBegin(petsc_B,MAT_FINAL_ASSEMBLY);
+    MatAssemblyEnd(petsc_B,MAT_FINAL_ASSEMBLY);
 
     // PETSc storage for the eigenvector, using A to define the size
 #ifdef PETSC_D
-    MatCreateVecs(A,NULL,&xr);
-    MatCreateVecs(A,NULL,&xi);
+    MatCreateVecs(petsc_A,NULL,&petsc_xr);
+    MatCreateVecs(petsc_A,NULL,&petsc_xi);
 #endif
 #ifdef PETSC_Z
-    MatCreateVecs(A,NULL,&x);
+    MatCreateVecs(petsc_A,NULL,&petsc_x);
 #endif
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                   Create the eigensolver and set various options
        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-    // create the eigensolver environment -- the MPI_COMM_WORLD is stored in the
-    // singleton instance to avoid creating/deleting it, which causes issues.
-    //EPSCreate(p_LIBRARY -> get_Comm(),&eps);
-    EPSCreate(PETSC_COMM_WORLD,&eps);
-    // define a generalised problem with a B -- default case is non-Hermitian
-    EPSSetOperators(eps,A,B);
-
+    // create the eigensolver environment 
+    EPSCreate(PETSC_COMM_WORLD,&petsc_eps);
+    // define a generalised problem with a B
+    EPSSetOperators(petsc_eps,petsc_A,petsc_B);
     // Default is generalizzed non-Hermitian
-    EPSSetProblemType(eps,EPS_GNHEP);
+    EPSSetProblemType(petsc_eps,EPS_GNHEP);
     // Method is Krylov Schur
-    EPSSetType(eps, EPSKRYLOVSCHUR);
+    EPSSetType(petsc_eps, EPSKRYLOVSCHUR);
+
     // target spectrum shift - defaults to (0,0)
 #ifdef PETSC_D
-    EPSSetTarget(eps, SHIFT.real());
+    EPSSetTarget(petsc_eps, m_shift.real());
 #endif
 #ifdef PETSC_Z
-    EPSSetTarget(eps, SHIFT);
+    EPSSetTarget(petsc_eps, m_shift);
 #endif
     // set the order of the returned ev's, as set by the get_order method.
-    EPSSetWhichEigenpairs(eps, ORDER);
+    EPSSetWhichEigenpairs(petsc_eps, m_order);
     // set the number of requested ev's. Not sure if this is relevant if REGION_DEFINED
-    EPSSetDimensions(eps,NEV,NEV+1,PETSC_DEFAULT);
-    // if ( NEV < 5 )
-    // {
-    //   EPSSetDimensions(eps,NEV,15,PETSC_DEFAULT);
-    // }
-    // else
-    // {
-    //   EPSSetDimensions(eps,NEV,2*NEV,PETSC_DEFAULT);
-    // }
-    
-    EPSSetTolerances(eps, 1.e-10, 200 );
-    //EPSSetTrueResidual(eps, PETSC_TRUE );
-    //EPSSetConvergenceTest(eps, EPS_CONV_ABS);
+    //EPSSetDimensions(eps,NEV,NEV+1,PETSC_DEFAULT);
+    if ( m_nev < 5 )
+    {
+      EPSSetDimensions(petsc_eps,m_nev,5,PETSC_DEFAULT);
+    }
+    else
+    {
+      EPSSetDimensions(petsc_eps,m_nev,2*m_nev,PETSC_DEFAULT);
+    }
 
-    EPSMonitorSet( eps,&monitor_function, NULL, NULL );
+    // set tolerance and max number of iterations
+    EPSSetTolerances(petsc_eps, 1.e-8, 2000);
+    // EPSSetTrueResidual(eps, PETSC_TRUE );
+    // EPSSetConvergenceTest(eps, EPS_CONV_ABS);
 
-//     //Vec x;
-//     VecCreate(p_LIBRARY -> get_Comm(),&x);
-//     VecSetSizes(x,PETSC_DECIDE,n);
-//     VecSetFromOptions(x);
-//     if ( GUESS_DEFINED )
-//     {
-//       for ( PetscInt i = 0; i < n; ++i )
-//       {
-// #ifdef PETSC_Z
-//         VecSetValue(x,i,INITIAL_GUESS[i],INSERT_VALUES);
-// #endif
-// #ifdef PETSC_D
-//         VecSetValue(x,i,INITIAL_GUESS[i].real(),INSERT_VALUES);
-// #endif
-//       }
-//       std::cout << "***** setting initial space\n";
-//       EPSSetInitialSpace(eps,1,&x);
-//     }
+    // define a monitor function to view convergence (function set above)
+    EPSMonitorSet(petsc_eps,&monitor_function, NULL, NULL);
+
+    //     //Vec x;
+    //     VecCreate(p_LIBRARY -> get_Comm(),&x);
+    //     VecSetSizes(x,PETSC_DECIDE,n);
+    //     VecSetFromOptions(x);
+    //     if ( GUESS_DEFINED )
+    //     {
+    //       for ( PetscInt i = 0; i < n; ++i )
+    //       {
+    // #ifdef PETSC_Z
+    //         VecSetValue(x,i,INITIAL_GUESS[i],INSERT_VALUES);
+    // #endif
+    // #ifdef PETSC_D
+    //         VecSetValue(x,i,INITIAL_GUESS[i].real(),INSERT_VALUES);
+    // #endif
+    //       }
+    //       std::cout << "***** setting initial space\n";
+    //       EPSSetInitialSpace(eps,1,&x);
+    //     }
 
     /*
        Define the region containing the eigenvalues of interest
     */
-    if ( REGION_DEFINED )
-    {
-      RG rg;
-      EPSGetRG(eps, &rg);
-      RGSetType(rg, RGINTERVAL);
-      RGIntervalSetEndpoints(rg,REAL_L,REAL_R,IMAG_B,IMAG_T);
-      // it is possible to "invert" (take the complement of) the region
-      //RGSetComplement(rg,PETSC_TRUE);
+    if(m_region_defined) {
+      RG petsc_rg;
+      EPSGetRG(petsc_eps, &petsc_rg);
+      RGSetType(petsc_rg, RGINTERVAL);
+      RGIntervalSetEndpoints(petsc_rg,m_real_left,m_real_right,
+                             m_imag_bottom,m_imag_top);
     }
 
     // get access to the spectral transformation
-    EPSGetST(eps, &st);
+    EPSGetST(petsc_eps, &petsc_st);
     // we have to use "STSINVERT" instead of the default, because B is
     // typically singular for all problems I'm interested in.
-    STSetType(st, STSINVERT);
+    STSetType(petsc_st, STSINVERT);
 
-    /*
-       Defaults to using the MUMPS solver
-    */
     // KSP is the linear solver object of the PETSc library
-    KSP ksp;
-    STGetKSP(st, &ksp);
-    // set to precondition only
-    KSPSetType(ksp, KSPPREONLY);
-    // get a preconditioner object
-    PC pc;
-    KSPGetPC(ksp,&pc);
-    // set it to LU factorization is precondition
-    PCSetType(pc,PCLU);
-    // solve using the SUPERLU_DIST library
-    //PCFactorSetMatSolverPackage(pc,MATSOLVERSUPERLU_DIST);
-    PCFactorSetMatSolverPackage(pc,MATSOLVERMUMPS);
+    KSP petsc_ksp;
+    STGetKSP(petsc_st, &petsc_ksp);
 
+    KSPSetOperators(petsc_ksp,petsc_A,petsc_A);
+    // set to precondition only
+    KSPSetType(petsc_ksp, KSPPREONLY);
+    // get a preconditioner object
+    PC petsc_pc;
+    KSPGetPC(petsc_ksp,&petsc_pc);
+    // set it to LU factorization is precondition
+    PCSetType(petsc_pc,PCLU);
+    PCFactorSetMatSolverType(petsc_pc,MATSOLVERMUMPS);
+    PCFactorSetUpMatSolverType(petsc_pc);
+
+    //  create m_petsc_F
+    Mat petsc_F;
+    PCFactorGetMatrix(petsc_pc,&petsc_F);
+
+    KSPSetUp(petsc_ksp);
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                         Solve the eigensystem
        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-    EPSSolve(eps);
+    EPSSolve(petsc_eps);
     // EPSGetDimensions(eps,&nev,NULL,NULL);
     // update the NEV private data with the number of returned eigenvalues
     // NEV = (unsigned)nev; // is this always the same as the input nev?
 
     // Optional: Get some information from the solver and display it
-//#ifdef DEBUG
+    //#ifdef DEBUG
     PetscInt its, lits, maxit;
-    EPSType type;
+    EPSType petsc_eps_type;
     PetscReal tol;
-    //KSP ksp;
     //
-    std::cout << "[DEBUG] Target location for eigenvalue  = " << SHIFT << "\n";
-    std::cout << "[DEBUG] Target ordering of returned eigenvalues (see EPSWhich enum) = " << ORDER << "\n";
+    std::cout << "[DEBUG] Target location for eigenvalue  = " << m_shift << "\n";
+    std::cout << "[DEBUG] Target ordering of returned eigenvalues (see EPSWhich enum) = " << m_order << "\n";
     //
-    EPSGetIterationNumber(eps,&its);
+    EPSGetIterationNumber(petsc_eps,&its);
     PetscPrintf(PETSC_COMM_WORLD,"[DEBUG] Number of iterations of the method: %D\n",its);
-    EPSGetST(eps,&st); STGetKSP(st,&ksp);
-    KSPGetTotalIterations(ksp,&lits);
+    EPSGetST(petsc_eps,&petsc_st);
+    STGetKSP(petsc_st,&petsc_ksp);
+    KSPGetTotalIterations(petsc_ksp,&lits);
     PetscPrintf(PETSC_COMM_WORLD,"[DEBUG] Number of linear iterations of the method: %D\n",lits);
-    EPSGetType(eps,&type);
-    PetscPrintf(PETSC_COMM_WORLD,"[DEBUG] Solution method: %s\n\n",type);
-    PetscPrintf(PETSC_COMM_WORLD,"[DEBUG] Number of requested eigenvalues: %D\n",NEV);
-    EPSGetTolerances(eps,&tol,&maxit);
+    EPSGetType(petsc_eps,&petsc_eps_type);
+    PetscPrintf(PETSC_COMM_WORLD,"[DEBUG] Solution method: %s\n\n",petsc_eps_type);
+    PetscPrintf(PETSC_COMM_WORLD,"[DEBUG] Number of requested eigenvalues: %D\n",m_nev);
+    EPSGetTolerances(petsc_eps,&tol,&maxit);
     PetscPrintf(PETSC_COMM_WORLD,"[DEBUG] Stopping condition: tol=%.4g, maxit=%D\n",(double)tol,maxit);
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                       Display solution and clean up
        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
     PetscViewerPushFormat(PETSC_VIEWER_STDOUT_WORLD,PETSC_VIEWER_ASCII_INFO_DETAIL);
-    EPSReasonView(eps,PETSC_VIEWER_STDOUT_WORLD);
-    EPSErrorView(eps,EPS_ERROR_ABSOLUTE,PETSC_VIEWER_STDOUT_WORLD);
+    EPSReasonView(petsc_eps,PETSC_VIEWER_STDOUT_WORLD);
+    EPSErrorView(petsc_eps,EPS_ERROR_ABSOLUTE,PETSC_VIEWER_STDOUT_WORLD);
     PetscViewerPopFormat(PETSC_VIEWER_STDOUT_WORLD);
-//#endif
+    //#endif
 
     /*
        Save eigenvectors, if requested
     */
     PetscInt nconv;
-    EPSGetConverged(eps,&nconv);
+    EPSGetConverged(petsc_eps,&nconv);
     // store it in the class
-    NCONV = (unsigned)nconv;
+    m_nconv = (unsigned)nconv;
     // create a complex eigenvalue vector
-    ALL_EIGENVALUES = DenseVector<D_complex>( NCONV, 0.0 );
+    m_all_eigenvalues = DenseVector<D_complex>(m_nconv, 0.0);
     // complex eigenvector matrix
-    ALL_EIGENVECTORS = DenseMatrix<D_complex>( NCONV, n, 0.0 );
+    m_all_eigenvectors = DenseMatrix<D_complex>(m_nconv, n, 0.0);
     //
-    for ( unsigned i=0; i<NCONV; i++ )
-    {
+    for(unsigned i=0; i<m_nconv; i++) {
 #ifdef PETSC_Z
-      EPSGetEigenvalue(eps,i,&ALL_EIGENVALUES[i],NULL);
-      std::cout << ALL_EIGENVALUES[i] << "\n";
+      EPSGetEigenvalue(petsc_eps,i,&m_all_eigenvalues[i],NULL);
+      std::cout << m_all_eigenvalues[i] << "\n";
 #endif
 #ifdef PETSC_D
       double lambda_r,lambda_i;
-      EPSGetEigenvalue(eps,i,&lambda_r,&lambda_i);
-      ALL_EIGENVALUES[i] = D_complex( lambda_r, lambda_i );
+      EPSGetEigenvalue(petsc_eps,i,&lambda_r,&lambda_i);
+      m_all_eigenvalues[i] = D_complex(lambda_r, lambda_i);
 #endif
 
-      if ( CALC_EIGENVECTORS )
-      {
+      if(m_calc_eigenvectors) {
 #ifdef PETSC_D
         // get the i-th eigenvector from SLEPc
-        EPSGetEigenvector(eps,i,xr,xi);
+        EPSGetEigenvector(petsc_eps,i,petsc_xr,petsc_xi);
         // convert to a more accessible data structure
         PetscScalar* arrayr;
-        VecGetArray1d( xr, n, 0, &arrayr );
+        VecGetArray1d(petsc_xr, n, 0, &arrayr);
         PetscScalar* arrayi;
-        VecGetArray1d( xi, n, 0, &arrayi );
-        for ( int j=0; j<n; ++j )
-        {
-          ALL_EIGENVECTORS[i][j]=D_complex( arrayr[j], arrayi[j] );
+        VecGetArray1d(petsc_xi, n, 0, &arrayi);
+        for(int j=0; j<n; ++j) {
+          m_all_eigenvectors[i][j]=D_complex(arrayr[j], arrayi[j]);
         }
         // documentation says to "restore", though it might not matter as we're done with it now
-        VecRestoreArray1d( xr, n, 0, &arrayr );
-        VecRestoreArray1d( xi, n, 0, &arrayi );
+        VecRestoreArray1d(petsc_xr, n, 0, &arrayr);
+        VecRestoreArray1d(petsc_xi, n, 0, &arrayi);
 #endif
 #ifdef PETSC_Z
         // get the i-th eigenvector from SLEPc
-        EPSGetEigenvector(eps,i,x,NULL);
+        EPSGetEigenvector(petsc_eps,i,petsc_x,NULL);
         // convert to a more accessible data structure
         PetscScalar* array;
-        VecGetArray1d( x, n, 0, &array );
-        for ( int j=0; j<n; ++j )
-        {
-          ALL_EIGENVECTORS[i][j]=array[j];
+        VecGetArray1d(petsc_x, n, 0, &array);
+        for(int j=0; j<n; ++j) {
+          m_all_eigenvectors[i][j]=array[j];
         }
         // documentation says to "restore", though it might not matter as we're done with it now
-        VecRestoreArray1d( x, n, 0, &array );
+        VecRestoreArray1d(petsc_x, n, 0, &array);
 #endif
       }
     }
@@ -449,13 +434,15 @@ namespace CppNoddy
        Free work space
     */
 
-    EPSDestroy(&eps);
-    MatDestroy(&A); MatDestroy(&B);
+    EPSDestroy(&petsc_eps);
+    MatDestroy(&petsc_A);
+    MatDestroy(&petsc_B);
 #ifdef PETSC_D
-    VecDestroy(&xr); VecDestroy(&xi);
+    VecDestroy(&petsc_xr);
+    VecDestroy(&petsc_xi);
 #endif
 #ifdef PETSC_Z
-    VecDestroy(&x);
+    VecDestroy(&petsc_x);
 #endif
 
 #endif

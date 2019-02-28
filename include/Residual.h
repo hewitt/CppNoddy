@@ -9,30 +9,28 @@
 #include <DenseVector.h>
 #include <DenseMatrix.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
   /// A base class to be inherited by objects that define residuals
   template <typename _Type>
-  class Residual
-  {
-  public:
+  class Residual {
+   public:
     /// Constructor for a 'square' residual object
     /// that is, N residuals for N unknowns.
     /// \param order The order of the residual vector
-    Residual( const unsigned& order );
+    Residual(const unsigned& order);
 
     /// Constructor for a 'non-square' residual object
     /// that is, there are less residual constraints than unknowns.
     /// \param order The number of residuals
     /// \param nvars The number of unknowns/variables
-    Residual( const unsigned& order, const unsigned& nvars );
+    Residual(const unsigned& order, const unsigned& nvars);
 
     /// An empty destructor, virtual since we have virtual methods.
     virtual ~Residual();
 
     /// Update the Residual object for the current set of state variables
     /// \param state The state at which to set the residual object
-    void update( const DenseVector<_Type>& state );
+    void update(const DenseVector<_Type>& state);
 
     /// Return a handle to the residuals corresponding
     /// to the last update state
@@ -62,15 +60,14 @@ namespace CppNoddy
     /// A blank virtual residual function method.
     /// \param state The unknown variable.
     /// \param f The residual function f(x).
-    virtual void residual_fn( const DenseVector<_Type>& state, DenseVector<_Type>& f ) const
-    {
+    virtual void residual_fn(const DenseVector<_Type>& state, DenseVector<_Type>& f) const {
       std::string problem;
       problem = "The Residual::residual_fn method has not been implemented.\n";
       problem += "You have to implement this method to define the residual.\n";
-      throw ExceptionRuntime( problem );
+      throw ExceptionRuntime(problem);
     }
 
-  protected:
+   protected:
     /// Because the residual evaluation at the current state is assumed
     /// to have already been done by the 'update' method, this routine is
     /// protected. This default uses a finite-differenced Jacobian.
@@ -79,7 +76,7 @@ namespace CppNoddy
     ///    easier, the 'last_x' member data is assumed in the default FD method.
     /// \param jac The NxN matrix Jacobian where the equation_fn
     ///    is a vector function of length N.
-    virtual void jacobian( const DenseVector<_Type>& state, DenseMatrix<_Type>& jac ) const;
+    virtual void jacobian(const DenseVector<_Type>& state, DenseMatrix<_Type>& jac) const;
 
     /// Jacobian for the last state vector
     DenseMatrix<_Type> JAC_AT_LAST_STATE;
@@ -100,52 +97,45 @@ namespace CppNoddy
   ;  // end class
 
   template <typename _Type>
-  inline void Residual<_Type>::update( const DenseVector<_Type>& x )
-  {
+  inline void Residual<_Type>::update(const DenseVector<_Type>& x) {
 #ifdef TIME
     T_UPDATER.start();
 #endif
     LAST_STATE = x;
-    residual_fn( LAST_STATE, FN_AT_LAST_STATE );
-    jacobian( LAST_STATE, JAC_AT_LAST_STATE );
+    residual_fn(LAST_STATE, FN_AT_LAST_STATE);
+    jacobian(LAST_STATE, JAC_AT_LAST_STATE);
 #ifdef TIME
     T_UPDATER.stop();
 #endif
   }
 
   template <typename _Type>
-  inline const DenseVector<_Type>& Residual<_Type>::residual() const
-  {
+  inline const DenseVector<_Type>& Residual<_Type>::residual() const {
     return FN_AT_LAST_STATE;
   }
 
   template <typename _Type>
-  inline const DenseMatrix<_Type>& Residual<_Type>::jacobian() const
-  {
+  inline const DenseMatrix<_Type>& Residual<_Type>::jacobian() const {
     return JAC_AT_LAST_STATE;
   }
 
   template <typename _Type>
-  inline unsigned Residual<_Type>::get_order() const
-  {
+  inline unsigned Residual<_Type>::get_order() const {
     return ORDER_OF_SYSTEM;
   }
 
   template <typename _Type>
-  inline unsigned Residual<_Type>::get_number_of_vars() const
-  {
+  inline unsigned Residual<_Type>::get_number_of_vars() const {
     return NUMBER_OF_VARS;
   }
 
   template <typename _Type>
-  inline _Type& Residual<_Type>::delta()
-  {
+  inline _Type& Residual<_Type>::delta() {
     return DELTA;
   }
 
   template <typename _Type>
-  inline const _Type& Residual<_Type>::delta() const
-  {
+  inline const _Type& Residual<_Type>::delta() const {
     return DELTA;
   }
 

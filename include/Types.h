@@ -66,7 +66,7 @@
  * - \link #CppNoddy::Newton vector \endlink Newton iteration classes.
  * - Arc-length continuation solvers exist for Residual objects and boundary value problems.
  * - An ability to link to selected BLAS, LAPACK and PETSc routines via a simplified API
- *      (these currently include the real/complex generalised eigenproblem solvers, 
+ *      (these currently include the real/complex generalised eigenproblem solvers,
  *       dense/banded/sparse LU solvers.).
  *
  * \subsection intro2 What is it for?
@@ -92,7 +92,7 @@
  *
  * The self-tests can be executed via
  *
- *       ninja tests 
+ *       ninja tests
  *
  *
  * Optionally you can link to PETSc (for sparse matrix problems) and SLEPc (for sparse matrix eigenvalue problems) via
@@ -118,7 +118,7 @@
  *
  * \section best0 Is it fast/accurate?
  *
- * The matrix classes have native solvers that are naive unoptimised Gaussian elimination algorithms. These routines will only be practical (if at all!) for rather `small' matrix/band sizes and do not scale well. If the problem is of even moderate size, then you should link to your local LAPACK/PETSc routines. LAPACK/PETSc/SLEPc libraries are not shipped with CppNoddy, you have to install them separately yourself if they are not available by default. 
+ * The matrix classes have native solvers that are naive unoptimised Gaussian elimination algorithms. These routines will only be practical (if at all!) for rather `small' matrix/band sizes and do not scale well. If the problem is of even moderate size, then you should link to your local LAPACK/PETSc routines. LAPACK/PETSc/SLEPc libraries are not shipped with CppNoddy, you have to install them separately yourself if they are not available by default.
  *
  * The code is not especially optimised, in fact in many places the code is deliberately  un-optimised for greater transparency; it is not intended for 'heavy duty' problems. The only sanity checks applied are those listed in the test/example codes \link Tests \endlink.
  *
@@ -172,16 +172,13 @@ This software is licenced under the <a href="http://creativecommons.org/licenses
 #include <sys/stat.h>
 
 #include <DenseVector.h>
-#include <SparseVector.h>
 #include <DenseMatrix.h>
 #include <BandedMatrix.h>
-//#include <SparseMatrix.h>
 
 
 /// A collection of OO numerical routines aimed at simple
 /// (typical) applied problems in continuum mechanics.
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   /// A complex double precision number using std::complex
   typedef std::complex<double> D_complex;

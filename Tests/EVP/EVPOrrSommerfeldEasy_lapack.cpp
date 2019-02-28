@@ -20,6 +20,8 @@
 #include <BVP_bundle.h>
 #include <EVP_bundle.h>
 
+#include "../Utils_Fill.h"
+
 // enumerate the variables in the ODE
 enum { phi, phid, psi, psid, eval };
 
@@ -62,7 +64,7 @@ namespace CppNoddy
       /// matrix to multiply the BVP coordinate
       void matrix0( const DenseVector<D_complex>& z, DenseMatrix<D_complex>& m ) const
       {
-        Utility::fill_identity(m);
+        Utils_Fill::fill_identity(m);
       }
 
       /// Define the unsteady terms by providing the mass matrix
@@ -101,7 +103,7 @@ namespace CppNoddy
       /// matrix to multiply the BVP coordinate
       void matrix0( const DenseVector<D_complex>& z, DenseMatrix<D_complex>& m ) const
       {
-        Utility::fill_identity(m);
+        Utils_Fill::fill_identity(m);
       }
 
     };
@@ -185,7 +187,7 @@ int main()
     // solve the global eigenvalue problem on ropey mesh
     ode_global.eigensolve();
   }
-  catch ( std::runtime_error )
+  catch (const std::runtime_error &error )
   {
     cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
     return 1;

@@ -8,8 +8,7 @@
 #include <Types.h>
 #include <LinearEigenSystem_base.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   /// A linear Nth-order generalised eigensystem class.
   /// Here we can construct a linear eigenproblem in the form
@@ -17,15 +16,14 @@ namespace CppNoddy
   /// for dense double/complex matrices \f$ A \f$ and \f$ B \f$. The eigenvalues
   /// and eigenvectors can be tagged and retrieved as required.
   template <typename _Type>
-  class DenseLinearEigenSystem : public LinearEigenSystem_base
-  {
+  class DenseLinearEigenSystem : public LinearEigenSystem_base {
 
-  public:
+   public:
 
     /// Constructor for a linear system object.
     /// \param Aptr A pointer to a typed A matrix
     /// \param Bptr A pointer to a typed B matrix
-    DenseLinearEigenSystem( DenseMatrix<_Type>* Aptr, DenseMatrix<_Type>* Bptr );
+    DenseLinearEigenSystem(DenseMatrix<_Type>* Aptr, DenseMatrix<_Type>* Bptr);
 
     /// Destructor for a linear system object.
     ~DenseLinearEigenSystem();
@@ -40,29 +38,29 @@ namespace CppNoddy
     /// Tag those eigenvalues that are to the right of a specified
     /// point.
     /// \param val Tags are added or removed for val +ve or -ve
-    void tag_eigenvalues_right( const int &val );
+    void tag_eigenvalues_right(const int &val);
 
     /// Tag those eigenvalues that are to the left of a specified
     /// point.
     /// \param val Tags are added or removed for val +ve or -ve
-    void tag_eigenvalues_left( const int &val );
+    void tag_eigenvalues_left(const int &val);
 
     /// Tag those eigenvalues that are in the upper half-plane above a
     /// specified point.
     /// \param val Tags are added or removed for val +ve or -ve
-    void tag_eigenvalues_upper( const int &val );
+    void tag_eigenvalues_upper(const int &val);
 
     /// Tag those eigenvalues that are in the lower half-plane below a specified
     /// point.
     /// \param val Tags are added or removed for val +ve or -ve
-    void tag_eigenvalues_lower( const int &val );
+    void tag_eigenvalues_lower(const int &val);
 
     /// Tag those eigenvalues that are within a disc centred
     /// at a point in the complex plane.
     /// \param val Tags are added or removed for val +ve or -ve
     /// \param radius The radius of the disc to be considered
-    void tag_eigenvalues_disc( const int &val,
-                               const double &radius );
+    void tag_eigenvalues_disc(const int &val,
+                              const double &radius);
 
     /// Get the the tagged eigenvalues. All of the tagged eigenvalues
     /// are returned in a complex vector, with no ordering guaranteed.
@@ -76,7 +74,7 @@ namespace CppNoddy
     /// \return The tagged eigenvectors as a complex matrix
     DenseMatrix<D_complex> get_tagged_eigenvectors() const;
 
-  private:
+   private:
 
     /// Solve the generalised eigenproblem and compute eigenvectors
     void eigensolve_lapack_with_vectors();
@@ -85,13 +83,13 @@ namespace CppNoddy
     void eigensolve_lapack_without_vectors();
 
     /// storage for eigenvectors and eigenvalues
-    DenseVector<D_complex> EIGENVALUES_ALPHA;
-    DenseVector<D_complex> EIGENVALUES_BETA;
+    DenseVector<D_complex> m_eigenvalues_alpha;
+    DenseVector<D_complex> m_eigenvalues_beta;
 
     /// pointers to the associated matrices
-    DenseMatrix<_Type>* p_A;
-    DenseMatrix<_Type>* p_B;
-    
+    DenseMatrix<_Type>* m_pA;
+    DenseMatrix<_Type>* m_pB;
+
   };
 
 } //end namepsace

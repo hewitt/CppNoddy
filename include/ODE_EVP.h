@@ -26,27 +26,25 @@
 #include <LinearEigenSystem_base.h>
 #include <Residual.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   /// A templated object for real/complex vector system
   /// of first-order ordinary differential equations.
 
   template <typename _Type>
-  class ODE_EVP : private Uncopyable
-  {
+  class ODE_EVP : private Uncopyable {
 
-  public:
+   public:
 
     /// The class is defined by a vector function for the system.
     /// \param equation_ptr A pointer to an equation with 2 associated matrices; matrix1 will define the eigenvalue problem.
     /// \param nodes A vector of nodal points.
     /// \param ptr_to_left_residual A pointer to a residual object that defines the LHS boundary conditions.
     /// \param ptr_to_right_residual A pointer to a residual object that defines the RHS boundary conditions.
-    ODE_EVP( Equation_2matrix<_Type > *equation_ptr,
-             const DenseVector<double> &nodes,
-             Residual<_Type>* ptr_to_left_residual,
-             Residual<_Type>* ptr_to_right_residual );
+    ODE_EVP(Equation_2matrix<_Type > *equation_ptr,
+            const DenseVector<double> &nodes,
+            Residual<_Type>* ptr_to_left_residual,
+            Residual<_Type>* ptr_to_right_residual);
 
     /// Destructor
     ~ODE_EVP();
@@ -59,38 +57,34 @@ namespace CppNoddy
     /// through a pointer to the private member data.
     LinearEigenSystem_base *p_eigensystem();
 
-    void add_tagged_to_mesh()
-    {
+    void add_tagged_to_mesh() {
       // clear the existing data if any
       MESHES.clear();
       // order of the equation
       unsigned order = p_EQUATION -> get_order();
       // get the eigenvalues
-      DenseVector<D_complex> vals( p_SYSTEM -> get_tagged_eigenvalues() );
+      DenseVector<D_complex> vals(p_SYSTEM -> get_tagged_eigenvalues());
       // get the eigenvectors
-      DenseMatrix<D_complex> vecs( p_SYSTEM -> get_tagged_eigenvectors() );
+      DenseMatrix<D_complex> vecs(p_SYSTEM -> get_tagged_eigenvectors());
       // loop through the eigenvectors
-      for ( unsigned ivec = 0; ivec < vals.size(); ++ivec )
-      {
+      for(unsigned ivec = 0; ivec < vals.size(); ++ivec) {
         // make a mesh with the right node distribution
         // we'll increase the order by 1 to allow the eigenvalue to be
         // stored at each nodal point -- this is wasteful but very useful
         // for feeding this into a BVP for local refinement.
-        OneD_Node_Mesh<D_complex> eigfn( NODES, order + 1 );
+        OneD_Node_Mesh<D_complex> eigfn(NODES, order + 1);
         // loop through all nodes
-        for ( unsigned node = 0; node < NODES.size(); ++node )
-        {
+        for(unsigned node = 0; node < NODES.size(); ++node) {
           // complex vector of the dof at this node ( + 1 for the eigenvalue)
-          DenseVector<D_complex> vars_at_node( order + 1, 0.0 );
+          DenseVector<D_complex> vars_at_node(order + 1, 0.0);
           // get the dof from the eigenvector
-          for ( unsigned var = 0; var < order; ++var )
-          {
+          for(unsigned var = 0; var < order; ++var) {
             vars_at_node[ var ] = vecs[ ivec ][ node * order + var ];
           }
           // the last variable at each node is the corresponding eigenvalue
           vars_at_node[ order ] = vals[ ivec ];
           // set the first 'order' dof to be those from the eigenvector
-          eigfn.set_nodes_vars( node, vars_at_node );
+          eigfn.set_nodes_vars(node, vars_at_node);
         }
         //// store the eigenvalue in the mesh at each node ... wasteful, but useful
         //// a complex vector filled with the same value N times
@@ -98,25 +92,23 @@ namespace CppNoddy
         //// add it to the mesh -- for use in nonlinear local refinement via ODE_BVP
         //eigfn.push_var( c );
         // add the eigenfunction to the vector of meshes
-        MESHES.push_back( eigfn );
+        MESHES.push_back(eigfn);
       }
     }
 
-    OneD_Node_Mesh<D_complex> get_mesh( const unsigned& i ) const
-    {
+    OneD_Node_Mesh<D_complex> get_mesh(const unsigned& i) const {
 #ifdef PARANOID
-      if ( i > MESHES.size() )
-      {
+      if(i > MESHES.size()) {
         std::string problem;
         problem = "You have tried to extract an eigenfunction from the ODE_EVP class\n";
         problem += "whose index is outside the range of stored meshes.\n";
-        throw ExceptionRange( problem, MESHES.size(), i );
+        throw ExceptionRange(problem, MESHES.size(), i);
       }
 #endif
       return MESHES[ i ];
     }
 
-  private:
+   private:
 
     /// A method that constructs the banded matrix problem
     void assemble_dense_problem();

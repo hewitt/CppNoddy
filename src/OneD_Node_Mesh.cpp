@@ -8,390 +8,339 @@
 #include <OneD_Node_Mesh.h>
 #include <Exceptions.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   template < typename _Type, typename _Xtype >
-  void OneD_Node_Mesh<_Type, _Xtype>::set_nodes_vars( const std::size_t node, const DenseVector<_Type>& U )
-  {
+  void OneD_Node_Mesh<_Type, _Xtype>::set_nodes_vars(const std::size_t node, const DenseVector<_Type>& U) {
 #ifdef PARANOID
-    if ( U.size() != NV )
-    {
+    if(U.size() != m_nv) {
       std::string problem;
       problem = " The OneD_Node_Mesh.set_node method is trying to add \n";
-      problem += " an NVector of variables of a different size to that \n";
+      problem += " an DenseVector of variables of a different size to that \n";
       problem += " stored at other nodal points. \n";
-      throw ExceptionGeom( problem, NV, U.size() );
+      throw ExceptionGeom(problem, m_nv, U.size());
     }
 #endif
-    for ( std::size_t var = 0; var < U.size(); ++var )
-    {
-      VARS[ node * NV + var ] = U[ var ];
+    for(std::size_t var = 0; var < U.size(); ++var) {
+      VARS[ node * m_nv + var ] = U[ var ];
     }
   }
 
   template < typename _Type, typename _Xtype >
-  DenseVector<_Type> OneD_Node_Mesh<_Type, _Xtype>::get_nodes_vars( const std::size_t &node ) const
-  {
+  DenseVector<_Type> OneD_Node_Mesh<_Type, _Xtype>::get_nodes_vars(const std::size_t &node) const {
 #ifdef PARANOID
-    if ( ( node >= X.size() ) || ( node < 0 ) )
-    {
+    if((node >= m_X.size()) || (node < 0)) {
       std::string problem;
       problem = " The OneD_Node_Mesh.get_nodes_vars method is trying to access \n";
       problem += " a nodal point outside of the range stored. \n";
-      throw ExceptionRange( problem, X.size(), node );
+      throw ExceptionRange(problem, m_X.size(), node);
     }
 #endif
     DenseVector<_Type> nodes_vars;
-    for ( std::size_t var = 0; var < NV; ++var )
-    {
-      nodes_vars.push_back( VARS[ node * NV + var ] );
+    for(std::size_t var = 0; var < m_nv; ++var) {
+      nodes_vars.push_back(VARS[ node * m_nv + var ]);
     }
     return nodes_vars;
   }
 
   template < typename _Type, typename _Xtype >
-  std::size_t OneD_Node_Mesh<_Type, _Xtype>::get_nnodes() const
-  {
-    return X.size();
+  std::size_t OneD_Node_Mesh<_Type, _Xtype>::get_nnodes() const {
+    return m_X.size();
   }
 
   template < typename _Type, typename _Xtype >
-  std::size_t OneD_Node_Mesh<_Type, _Xtype>::get_nvars() const
-  {
-    return NV;
+  std::size_t OneD_Node_Mesh<_Type, _Xtype>::get_nvars() const {
+    return m_nv;
   }
 
   template < typename _Type, typename _Xtype >
-  const DenseVector<_Xtype>& OneD_Node_Mesh<_Type, _Xtype>::nodes() const
-  {
-    return X;
+  const DenseVector<_Xtype>& OneD_Node_Mesh<_Type, _Xtype>::nodes() const {
+    return m_X;
   }
 
   template <>
-  DenseVector<double> OneD_Node_Mesh<double, double>::find_roots1( const std::size_t &var, double value ) const
-  {
+  DenseVector<double> OneD_Node_Mesh<double, double>::find_roots1(const std::size_t &var, double value) const {
     DenseVector<double> roots;
-    for ( std::size_t node = 0; node < X.size() - 1; ++node )
-    {
-      std::size_t offset( node * NV + var );
+    for(std::size_t node = 0; node < m_X.size() - 1; ++node) {
+      std::size_t offset(node * m_nv + var);
       // find bracket nodes
-      if ( ( VARS[ offset ] - value ) * ( VARS[ offset + NV ] - value ) < 0.0 )
-      {
-        double deriv = ( VARS[ offset + NV ] - VARS[ offset ] ) / ( X[ node + 1 ] - X[ node ] );
-        double x = X[ node ] + ( value - VARS[ offset ] ) / deriv;
+      if((VARS[ offset ] - value) * (VARS[ offset + m_nv ] - value) < 0.0) {
+        double deriv = (VARS[ offset + m_nv ] - VARS[ offset ]) / (m_X[ node + 1 ] - m_X[ node ]);
+        double x = m_X[ node ] + (value - VARS[ offset ]) / deriv;
         // add the left hand node to the roots vector
-        roots.push_back( x );
+        roots.push_back(x);
       }
     }
     return roots;
   }
 
   template < typename _Type, typename _Xtype >
-  const DenseVector<_Type>& OneD_Node_Mesh<_Type, _Xtype>::vars_as_vector() const
-  {
+  const DenseVector<_Type>& OneD_Node_Mesh<_Type, _Xtype>::vars_as_vector() const {
     return VARS;
   }
 
   template < typename _Type, typename _Xtype >
-  void OneD_Node_Mesh<_Type, _Xtype>::set_vars_from_vector( const DenseVector<_Type>& vec )
-  {
+  void OneD_Node_Mesh<_Type, _Xtype>::set_vars_from_vector(const DenseVector<_Type>& vec) {
 #ifdef PARANOID
-    if  ( vec.size() != NV * X.size() )
-    {
+    if(vec.size() != m_nv * m_X.size()) {
       std::string problem;
       problem = "The set_vars_from_vector method has been passed a vector\n";
       problem += "of a length that is of an incompatible size for this mesh object\n";
-      throw ExceptionRuntime( problem );
+      throw ExceptionRuntime(problem);
     }
 #endif
     VARS = vec;
   }
 
   template <>
-  void OneD_Node_Mesh<double, double>::remesh1( const DenseVector<double>& newX )
-  {
+  void OneD_Node_Mesh<double, double>::remesh1(const DenseVector<double>& newX) {
 #ifdef PARANOID
-    if ( std::abs( X[ 0 ] - newX[ 0 ] ) > 1.e-10 ||
-         std::abs( X[ X.size() - 1 ] - newX[ newX.size() - 1 ] ) > 1.e-10 )
-    {
+    if(std::abs(m_X[ 0 ] - newX[ 0 ]) > 1.e-10 ||
+        std::abs(m_X[ m_X.size() - 1 ] - newX[ newX.size() - 1 ]) > 1.e-10) {
       std::string problem;
       problem = " The OneD_Node_Mesh.remesh method has been called with \n";
       problem += " a passed coordinate vector that has different start and/or \n";
       problem += " end points from the instantiated object. \n";
-      throw ExceptionRuntime( problem );
+      throw ExceptionRuntime(problem);
     }
 
-    for ( std::size_t i = 0; i < newX.size() - 1; ++i )
-    {
-      if ( newX[ i ] >= newX[ i + 1 ] )
-      {
+    for(std::size_t i = 0; i < newX.size() - 1; ++i) {
+      if(newX[ i ] >= newX[ i + 1 ]) {
         std::string problem;
         problem = " The OneD_Node_Mesh.remesh method has been passed \n";
         problem += " a non-monotonic coordinate vector. \n";
-        throw ExceptionRuntime( problem );
+        throw ExceptionRuntime(problem);
       }
     }
 #endif
     // copy current state of this mesh
-    DenseVector<double> copy_of_vars( VARS );
+    DenseVector<double> copy_of_vars(VARS);
     // resize the local storage
-    VARS.resize( newX.size() * NV );
+    VARS.resize(newX.size() * m_nv);
 
     // first nodal values are assumed to be untouched
     // loop thru destination mesh node at a time
-    for ( std::size_t node = 1; node < newX.size() - 1; ++node )
-    {
+    for(std::size_t node = 1; node < newX.size() - 1; ++node) {
       // loop through the source mesh and find the bracket-nodes
-      for ( std::size_t i = 0; i < X.size(); ++i )
-      {
-        if ( ( X[ i ] <= newX[ node ] ) && ( newX[ node ] < X[ i + 1 ] ) )
-        {
+      for(std::size_t i = 0; i < m_X.size(); ++i) {
+        if((m_X[ i ] <= newX[ node ]) && (newX[ node ] < m_X[ i + 1 ])) {
           // linearly interpolate each variable in the mesh
-          for ( std::size_t var = 0; var < NV; ++var )
-          {
-            double dX = newX[ node ] - X[ i ];
-            double dvarsdX = ( copy_of_vars[ ( i+1 )*NV + var ] - copy_of_vars[ i*NV + var ] ) / ( X[ i + 1 ] - X[ i ] );
-            VARS[ node * NV + var ] = copy_of_vars[ i * NV + var ] + dX * dvarsdX;
+          for(std::size_t var = 0; var < m_nv; ++var) {
+            double dX = newX[ node ] - m_X[ i ];
+            double dvarsdX = (copy_of_vars[(i+1)*m_nv + var ] - copy_of_vars[ i*m_nv + var ]) / (m_X[ i + 1 ] - m_X[ i ]);
+            VARS[ node * m_nv + var ] = copy_of_vars[ i * m_nv + var ] + dX * dvarsdX;
           }
         }
       }
     }
 
     // add the last nodal values to the resized vector
-    for ( std::size_t var = 0; var < NV; ++var )
-    {
-      VARS[ ( newX.size() - 1 ) * NV + var ] = copy_of_vars[ ( X.size() - 1 ) * NV + var ];
+    for(std::size_t var = 0; var < m_nv; ++var) {
+      VARS[(newX.size() - 1) * m_nv + var ] = copy_of_vars[(m_X.size() - 1) * m_nv + var ];
     }
     // replace the old nodes with the new ones
-    X = newX;
+    m_X = newX;
   }
 
   template <>
-  void OneD_Node_Mesh<std::complex<double>, double>::remesh1( const DenseVector<double>& newX )
-  {
+  void OneD_Node_Mesh<std::complex<double>, double>::remesh1(const DenseVector<double>& newX) {
 #ifdef PARANOID
-    if ( std::abs( X[ 0 ] - newX[ 0 ] ) > 1.e-10 ||
-         std::abs( X[ X.size() - 1 ] - newX[ newX.size() - 1 ] ) > 1.e-10 )
-    {
+    if(std::abs(m_X[ 0 ] - newX[ 0 ]) > 1.e-10 ||
+        std::abs(m_X[ m_X.size() - 1 ] - newX[ newX.size() - 1 ]) > 1.e-10) {
       std::string problem;
       problem = " The OneD_Node_Mesh.remesh method has been called with \n";
       problem += " a passed coordinate vector that has different start and/or \n";
       problem += " end points from the instantiated object. \n";
-      throw ExceptionRuntime( problem );
+      throw ExceptionRuntime(problem);
     }
 
-    for ( std::size_t i = 0; i < newX.size() - 1; ++i )
-    {
-      if ( newX[ i ] >= newX[ i + 1 ] )
-      {
+    for(std::size_t i = 0; i < newX.size() - 1; ++i) {
+      if(newX[ i ] >= newX[ i + 1 ]) {
         std::string problem;
         problem = " The OneD_Node_Mesh.remesh method has been passed \n";
         problem += " a non-monotonic coordinate vector. \n";
-        throw ExceptionRuntime( problem );
+        throw ExceptionRuntime(problem);
       }
     }
 #endif
     // copy current state of this mesh
-    DenseVector<std::complex<double> > copy_of_vars( VARS );
+    DenseVector<std::complex<double> > copy_of_vars(VARS);
     // resize the local storage
-    VARS.resize( newX.size() * NV );
+    VARS.resize(newX.size() * m_nv);
 
     // first nodal values are assumed to be untouched
     // loop thru destination mesh node at a time
-    for ( std::size_t node = 1; node < newX.size() - 1; ++node )
-    {
+    for(std::size_t node = 1; node < newX.size() - 1; ++node) {
       // loop through the source mesh and find the bracket-nodes
-      for ( std::size_t i = 0; i < X.size(); ++i )
-      {
-        if ( ( X[ i ] <= newX[ node ] ) && ( newX[ node ] < X[ i + 1 ] ) )
-        {
+      for(std::size_t i = 0; i < m_X.size(); ++i) {
+        if((m_X[ i ] <= newX[ node ]) && (newX[ node ] < m_X[ i + 1 ])) {
           // linearly interpolate each variable in the mesh
-          for ( std::size_t var = 0; var < NV; ++var )
-          {
-            double dX = newX[ node ] - X[ i ];
-            // if the paranoid checks above are satisfied, then the X[ i + 1 ] should still be in bounds
-            std::complex<double> dvarsdX = ( copy_of_vars[ ( i+1 )*NV + var ] - copy_of_vars[ i*NV + var ] ) / ( X[ i + 1 ] - X[ i ] );
-            VARS[ node * NV + var ] = copy_of_vars[ i * NV + var ] + dX * dvarsdX;
+          for(std::size_t var = 0; var < m_nv; ++var) {
+            double dX = newX[ node ] - m_X[ i ];
+            // if the paranoid checks above are satisfied, then the m_X[ i + 1 ] should still be in bounds
+            std::complex<double> dvarsdX = (copy_of_vars[(i+1)*m_nv + var ] - copy_of_vars[ i*m_nv + var ]) / (m_X[ i + 1 ] - m_X[ i ]);
+            VARS[ node * m_nv + var ] = copy_of_vars[ i * m_nv + var ] + dX * dvarsdX;
           }
         }
       }
     }
 
     // add the last nodal values to the resized vector
-    for ( std::size_t var = 0; var < NV; ++var )
-    {
-      VARS[ ( newX.size() - 1 ) * NV + var ] = copy_of_vars[ ( X.size() - 1 ) * NV + var ];
+    for(std::size_t var = 0; var < m_nv; ++var) {
+      VARS[(newX.size() - 1) * m_nv + var ] = copy_of_vars[(m_X.size() - 1) * m_nv + var ];
     }
     // replace the old nodes with the new ones
-    X = newX;
+    m_X = newX;
 
   }
 
   template <>
-  void OneD_Node_Mesh<std::complex<double>, std::complex<double> >::remesh1( const DenseVector<std::complex<double> >& z )
-  {
+  void OneD_Node_Mesh<std::complex<double>, std::complex<double> >::remesh1(const DenseVector<std::complex<double> >& z) {
     std::string problem;
     problem = " The OneD_Node_Mesh.remesh method has been called with \n";
     problem += " a complex data set on a complex mesh.\n";
-    throw ExceptionRuntime( problem );
+    throw ExceptionRuntime(problem);
   }
 
   template <>
-  DenseVector<double> OneD_Node_Mesh<double, double>::get_interpolated_vars( const double& x_pos ) const
-  {
-    for ( unsigned node = 0; node < X.size() - 1; ++node )
-    {
+  DenseVector<double> OneD_Node_Mesh<double, double>::get_interpolated_vars(const double& x_pos) const {
+    for(unsigned node = 0; node < m_X.size() - 1; ++node) {
       // find bracketing nodes - incl shameless hack for evaluations at the boundary
-      //if ( ( X[ node ] < x_pos  || std::abs( X[ node ] - x_pos ) < 1.e-7 ) &&
-           //( X[ node + 1 ] > x_pos || std::abs( X[ node + 1 ] - x_pos ) < 1.e-7 ) )
-      if ( ( ( X[ node ] < x_pos ) && ( X[ node + 1 ] > x_pos ) )   
-              ||  ( std::abs( X[ node ] - x_pos ) < 1.e-7  ) || ( std::abs( X[ node + 1 ] - x_pos ) < 1.e-7 ) )
-      {
+      //if ( ( m_X[ node ] < x_pos  || std::abs( m_X[ node ] - x_pos ) < 1.e-7 ) &&
+      //( m_X[ node + 1 ] > x_pos || std::abs( m_X[ node + 1 ] - x_pos ) < 1.e-7 ) )
+      if(((m_X[ node ] < x_pos) && (m_X[ node + 1 ] > x_pos))
+          || (std::abs(m_X[ node ] - x_pos) < 1.e-7) || (std::abs(m_X[ node + 1 ] - x_pos) < 1.e-7)) {
         // distance from left node
-        double delta_x( x_pos - X[ node ] );
+        double delta_x(x_pos - m_X[ node ]);
         // empty data to return
         DenseVector<double> left;
         DenseVector<double> right;
         DenseVector<double> deriv;
         // interpolate data linearly
-        left = get_nodes_vars( node );
-        right = get_nodes_vars( node + 1 );
-        deriv = ( right - left ) / ( X[ node + 1 ] - X[ node ] );
+        left = get_nodes_vars(node);
+        right = get_nodes_vars(node + 1);
+        deriv = (right - left) / (m_X[ node + 1 ] - m_X[ node ]);
         // overwrite right
         right = left + deriv * delta_x;
         return right;
       }
     }
-    std::cout << "You asked for a position of " << x_pos << " in a range " << X[ 0 ] << " to " << X[ X.size() - 1 ] << "\n";
+    std::cout << "You asked for a position of " << x_pos << " in a range " << m_X[ 0 ] << " to " << m_X[ m_X.size() - 1 ] << "\n";
     std::string problem;
     problem = "You have asked the OneD_Node_Mesh class to interpolate data at\n";
     problem += "a point that is outside the range covered by the mesh object.\n";
-    throw ExceptionRuntime( problem );
+    throw ExceptionRuntime(problem);
   }
 
 
   template <>
-  DenseVector<std::complex<double> > OneD_Node_Mesh<std::complex<double>, double>::get_interpolated_vars( const double& x_pos ) const
-  {
-    for ( unsigned node = 0; node < X.size() - 1; ++node )
-    {
+  DenseVector<std::complex<double> > OneD_Node_Mesh<std::complex<double>, double>::get_interpolated_vars(const double& x_pos) const {
+    for(unsigned node = 0; node < m_X.size() - 1; ++node) {
       // find bracketing nodes - incl shameless hack for evaluations at the boundary
-      if ( ( X[ node ] < x_pos  || std::abs( X[ node ] - x_pos ) < 1.e-7 ) &&
-           ( X[ node + 1 ] > x_pos || std::abs( X[ node + 1 ] - x_pos ) < 1.e-7 ) )
-      {
+      if((m_X[ node ] < x_pos  || std::abs(m_X[ node ] - x_pos) < 1.e-7) &&
+          (m_X[ node + 1 ] > x_pos || std::abs(m_X[ node + 1 ] - x_pos) < 1.e-7)) {
         // distance from left node
-        double delta_x( x_pos - X[ node ] );
+        double delta_x(x_pos - m_X[ node ]);
         // empty data to return
         DenseVector<std::complex<double> > left;
         DenseVector<std::complex<double> > right;
         DenseVector<std::complex<double> > deriv;
         // interpolate data linearly
-        left = get_nodes_vars( node );
-        right = get_nodes_vars( node + 1 );
-        deriv = ( right - left ) / ( X[ node + 1 ] - X[ node ] );
+        left = get_nodes_vars(node);
+        right = get_nodes_vars(node + 1);
+        deriv = (right - left) / (m_X[ node + 1 ] - m_X[ node ]);
         // overwrite right
         right = left + deriv * delta_x;
         return right;
       }
     }
-    std::cout << "You asked for a position of " << x_pos << " in a range " << X[ 0 ] << " to " << X[ X.size() - 1 ] << "\n";
+    std::cout << "You asked for a position of " << x_pos << " in a range " << m_X[ 0 ] << " to " << m_X[ m_X.size() - 1 ] << "\n";
     std::string problem;
     problem = "You have asked the OneD_Node_Mesh class to interpolate data at\n";
     problem += "a point that is outside the range covered by the mesh object.\n";
-    throw ExceptionRuntime( problem );
+    throw ExceptionRuntime(problem);
   }
 
 
   template <>
-  DenseVector<std::complex<double> > OneD_Node_Mesh<std::complex<double>, std::complex<double> >::get_interpolated_vars( const std::complex<double>& pos ) const
-  {
-    double x_pos( pos.real() );
+  DenseVector<std::complex<double> > OneD_Node_Mesh<std::complex<double>, std::complex<double> >::get_interpolated_vars(const std::complex<double>& pos) const {
+    double x_pos(pos.real());
 #ifdef PARANOID
     std::cout << "WARNING: You are interpolating complex data on a complex mesh with 'get_interpolated_vars'.\n";
     std::cout << " This does a simple piecewise linear interpolating assuming a single valued path. \n";
 #endif
-    for ( unsigned node = 0; node < X.size() - 1; ++node )
-    {
+    for(unsigned node = 0; node < m_X.size() - 1; ++node) {
       // find bracketing nodes - incl shameless hack for evaluations at the boundary
-      if ( ( X[ node ].real() < x_pos  || std::abs( X[ node ].real() - x_pos ) < 1.e-7 ) &&
-           ( X[ node + 1 ].real() > x_pos || std::abs( X[ node + 1 ].real() - x_pos ) < 1.e-7 ) )
-      {
+      if((m_X[ node ].real() < x_pos  || std::abs(m_X[ node ].real() - x_pos) < 1.e-7) &&
+          (m_X[ node + 1 ].real() > x_pos || std::abs(m_X[ node + 1 ].real() - x_pos) < 1.e-7)) {
         // distance from left node -- real coordinate is given. We also need to
         // interpolate between the two complex nodes -- hence imaginary coordinate is implict from
         // bracketing (complex) nodes
-        std::complex<double> delta_z = ( X[ node + 1 ] - X[ node ] ) * ( x_pos - X[ node ].real() ) / ( X[ node + 1 ].real() - X[ node ].real() );
+        std::complex<double> delta_z = (m_X[ node + 1 ] - m_X[ node ]) * (x_pos - m_X[ node ].real()) / (m_X[ node + 1 ].real() - m_X[ node ].real());
         // empty data to return
         DenseVector<std::complex<double> > left;
         DenseVector<std::complex<double> > right;
         DenseVector<std::complex<double> > deriv;
         // interpolate data linearly
-        left = get_nodes_vars( node );
-        right = get_nodes_vars( node + 1 );
+        left = get_nodes_vars(node);
+        right = get_nodes_vars(node + 1);
         // derivative of the data
-        deriv = ( right - left ) / ( X[ node + 1 ] - X[ node ] );
+        deriv = (right - left) / (m_X[ node + 1 ] - m_X[ node ]);
         // overwrite right
         right = left + deriv * delta_z;
         return right;
       }
     }
-    std::cout << "You asked for a position of " << x_pos << " in a range " << X[ 0 ] << " to " << X[ X.size() - 1 ] << "\n";
+    std::cout << "You asked for a position of " << x_pos << " in a range " << m_X[ 0 ] << " to " << m_X[ m_X.size() - 1 ] << "\n";
     std::string problem;
     problem = "You have asked the OneD_Node_Mesh class to interpolate data at\n";
     problem += "a point that is outside the range covered by the mesh object.\n";
     problem += "Even for complex nodes we assume the path is single valued.\n";
-    throw ExceptionRuntime( problem );
+    throw ExceptionRuntime(problem);
   }
 
   template <>
-  DenseVector<double> OneD_Node_Mesh<std::complex<double>, double >::find_roots1( const std::size_t &var, double value ) const
-  {
+  DenseVector<double> OneD_Node_Mesh<std::complex<double>, double >::find_roots1(const std::size_t &var, double value) const {
     std::string problem;
     problem = " The OneD_Node_Mesh.find_roots1 method has been called with \n";
     problem += " a mesh containing complex data.\n";
-    throw ExceptionRuntime( problem );
+    throw ExceptionRuntime(problem);
   }
 
   template < typename _Type, typename _Xtype >
-  _Type OneD_Node_Mesh<_Type, _Xtype>::integral2( std::size_t var ) const
-  {
+  _Type OneD_Node_Mesh<_Type, _Xtype>::integral2(std::size_t var) const {
     _Type sum = 0.0;
     _Xtype dx = 0.0;
     // sum interior segments
-    for ( std::size_t node = 0; node < X.size() - 1; ++node )
-    {
-      dx = ( X[ node + 1 ] - X[ node ] );
-      sum += 0.5 * dx * ( VARS[ node * NV + var ] + VARS[ ( node+1 ) * NV + var ] );
+    for(std::size_t node = 0; node < m_X.size() - 1; ++node) {
+      dx = (m_X[ node + 1 ] - m_X[ node ]);
+      sum += 0.5 * dx * (VARS[ node * m_nv + var ] + VARS[(node+1) * m_nv + var ]);
     }
     // return the value
     return sum;
   }
 
   template < typename _Type, typename _Xtype >
-  _Xtype OneD_Node_Mesh<_Type, _Xtype>::squared_integral2( std::size_t var ) const
-  {
+  _Xtype OneD_Node_Mesh<_Type, _Xtype>::squared_integral2(std::size_t var) const {
     _Xtype sum = 0.0;
     double dx = 0.0;
     // sum interior segments
-    for ( std::size_t node = 0; node < X.size() - 1; ++node )
-    {
-      dx = std::abs( X[ node + 1 ] - X[ node ] );
-      sum += 0.5 * dx * ( std::pow( std::abs( VARS[ node * NV + var ] ), 2 )
-                          + std::pow( std::abs( VARS[ ( node + 1 ) * NV + var ] ), 2 ) );
+    for(std::size_t node = 0; node < m_X.size() - 1; ++node) {
+      dx = std::abs(m_X[ node + 1 ] - m_X[ node ]);
+      sum += 0.5 * dx * (std::pow(std::abs(VARS[ node * m_nv + var ]), 2)
+                         + std::pow(std::abs(VARS[(node + 1) * m_nv + var ]), 2));
     }
     // return the value
-    return std::sqrt( sum );
+    return std::sqrt(sum);
   }
 
   template < typename _Type, typename _Xtype >
-  _Type OneD_Node_Mesh<_Type, _Xtype>::integral4( std::size_t var ) const
-  {
-    if ( ( X.size() ) % 2 == 0 )
-    {
+  _Type OneD_Node_Mesh<_Type, _Xtype>::integral4(std::size_t var) const {
+    if((m_X.size()) % 2 == 0) {
       std::string problem;
       problem = " The OneD_Node_Mesh.Simpson_integral method is trying to run \n";
       problem += " on a mesh with an even number of points. \n";
-      throw ExceptionRuntime( problem );
+      throw ExceptionRuntime(problem);
     }
 
     _Type f0, f1, f2;
@@ -400,20 +349,19 @@ namespace CppNoddy
     _Type sum = 0.0;
 
     // sum interior segments
-    for ( std::size_t node = 0; node < X.size() - 2; node += 2 )
-    {
-      x0 = X[ node ];
-      x1 = X[ node + 1 ];
-      x2 = X[ node + 2 ];
-      f0 = VARS[ node * NV + var ];
-      f1 = VARS[ ( node+1 ) * NV + var ];
-      f2 = VARS[ ( node+2 ) * NV + var ];
-      sum += ( x2 - x0 )
+    for(std::size_t node = 0; node < m_X.size() - 2; node += 2) {
+      x0 = m_X[ node ];
+      x1 = m_X[ node + 1 ];
+      x2 = m_X[ node + 2 ];
+      f0 = VARS[ node * m_nv + var ];
+      f1 = VARS[(node+1) * m_nv + var ];
+      f2 = VARS[(node+2) * m_nv + var ];
+      sum += (x2 - x0)
              * (
-               f1 * pow( x0 - x2, 2 ) + f0 * ( x1 - x2 ) * ( 2. * x0 - 3. * x1 + x2 )
-               - f2 * ( x0 - x1 ) * ( x0 - 3. * x1 + 2. * x2 )
+               f1 * pow(x0 - x2, 2) + f0 * (x1 - x2) * (2. * x0 - 3. * x1 + x2)
+               - f2 * (x0 - x1) * (x0 - 3. * x1 + 2. * x2)
              )
-             / ( 6. * ( x0 - x1 ) * ( x1 - x2 ) );
+             / (6. * (x0 - x1) * (x1 - x2));
       // sum += (x1-x0)*( f0 + 4*f1 + f2 ) / 3.0 for equal spacing
     }
     // return the value
@@ -421,53 +369,46 @@ namespace CppNoddy
   }
 
   template < typename _Type, typename _Xtype >
-  void OneD_Node_Mesh<_Type, _Xtype>::dump() const
-  {
-    std::cout << "Number of nodes = " << X.size() << "\n";
+  void OneD_Node_Mesh<_Type, _Xtype>::dump() const {
+    std::cout << "Number of nodes = " << m_X.size() << "\n";
     std::cout << "Nodal positions :\n";
-    X.dump();
+    m_X.dump();
     std::cout << "\n";
-    std::cout << "Number of vars = " << NV << "\n";
+    std::cout << "Number of vars = " << m_nv << "\n";
     std::cout << "Interleaved mesh data : \n";
     VARS.dump();
     std::cout << "Mesh dump complete\n";
   }
 
   template < typename _Type, typename _Xtype >
-  void OneD_Node_Mesh<_Type, _Xtype>::dump_gnu( std::string filename, int precision ) const
-  {
+  void OneD_Node_Mesh<_Type, _Xtype>::dump_gnu(std::string filename, int precision) const {
     std::ofstream dump;
-    dump.open( filename.c_str() );
-    dump.precision( precision );
-    dump.setf( std::ios::showpoint );
-    dump.setf( std::ios::showpos );
-    dump.setf( std::ios::scientific );
-    for ( std::size_t i = 0; i < X.size(); ++i )
-    {
-      dump << X[ i ] << " ";
-      for ( std::size_t var = 0; var < NV; ++var )
-      {
-        dump << VARS[ i * NV + var ] << " ";
+    dump.open(filename.c_str());
+    dump.precision(precision);
+    dump.setf(std::ios::showpoint);
+    dump.setf(std::ios::showpos);
+    dump.setf(std::ios::scientific);
+    for(std::size_t i = 0; i < m_X.size(); ++i) {
+      dump << m_X[ i ] << " ";
+      for(std::size_t var = 0; var < m_nv; ++var) {
+        dump << VARS[ i * m_nv + var ] << " ";
       }
       dump << "\n";
     }
   }
 
   template <>
-  void OneD_Node_Mesh< std::complex<double>, double >::dump_gnu( std::string filename, int precision ) const
-  {
+  void OneD_Node_Mesh< std::complex<double>, double >::dump_gnu(std::string filename, int precision) const {
     std::ofstream dump;
-    dump.open( filename.c_str() );
-    dump.precision( precision );
-    dump.setf( std::ios::showpoint );
-    dump.setf( std::ios::showpos );
-    dump.setf( std::ios::scientific );
-    for ( std::size_t i = 0; i < X.size(); ++i )
-    {
-      dump << X[ i ] << " ";
-      for ( std::size_t var = 0; var < NV; ++var )
-      {
-        dump << real( VARS[ i * NV + var ] ) << " " << imag( VARS[ i * NV + var ] ) << " ";
+    dump.open(filename.c_str());
+    dump.precision(precision);
+    dump.setf(std::ios::showpoint);
+    dump.setf(std::ios::showpos);
+    dump.setf(std::ios::scientific);
+    for(std::size_t i = 0; i < m_X.size(); ++i) {
+      dump << m_X[ i ] << " ";
+      for(std::size_t var = 0; var < m_nv; ++var) {
+        dump << real(VARS[ i * m_nv + var ]) << " " << imag(VARS[ i * m_nv + var ]) << " ";
       }
       dump << "\n";
     }

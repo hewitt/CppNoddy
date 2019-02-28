@@ -6,18 +6,16 @@
 #define BANDEDMATRIX_H
 
 #include <DenseVector.h>
-#include <Matrix_base.h>
 #include <Exceptions.h>
+#include <Sequential_Matrix_base.h>
 
-namespace CppNoddy
-{
+namespace CppNoddy {
 
   /// A matrix class that constructs a BANDED matrix.
   template <typename _Type>
-  class BandedMatrix  : public Matrix_base<_Type>
-  {
+  class BandedMatrix : public Sequential_Matrix_base<_Type>{
 
-  public:
+   public:
 
     typedef typename DenseVector<_Type>::elt_iter elt_iter;
 
@@ -25,6 +23,10 @@ namespace CppNoddy
     BandedMatrix()
     {}
 
+    void blank() {
+      m_storage = DenseVector<_Type>(m_N * (3 * m_L + 1), 0.0);
+    }
+    
     /// Noddy Banded Matrix constructor.
     /// \param rows The number of rows in the matrix.
     /// \param offdiag The maximum number of bands above OR below the diagonal.
@@ -33,25 +35,25 @@ namespace CppNoddy
     /// we must an extra 'offdiag' because of fill-in during pivotting.
     /// \param fill The initial value to be placed in each element
     ///   of the banded matrix.
-    BandedMatrix( const std::size_t& rows, const std::size_t& offdiag, const _Type& fill );
+    BandedMatrix(const std::size_t& rows, const std::size_t& offdiag, const _Type& fill);
 
     /// Copy constructor.
     /// \param source The source object to be copied
-    BandedMatrix( const BandedMatrix& source );
+    BandedMatrix(const BandedMatrix& source);
 
     /// Assignment operator.
     /// \param source The source object for the assignment
     /// \return The newly assigned object
-    BandedMatrix& operator=( const BandedMatrix& source );
+    BandedMatrix& operator=(const BandedMatrix& source);
 
     /// Access operator
-    const _Type& operator() ( const std::size_t& row, const std::size_t& col ) const;
+    const _Type& operator()(const std::size_t& row, const std::size_t& col) const;
     /// Access operator
-    _Type& operator() ( const std::size_t& row, const std::size_t& col );
+    _Type& operator()(const std::size_t& row, const std::size_t& col);
     /// Access operator
-    const _Type& get( const std::size_t& row, const std::size_t& col ) const;
+    const _Type& get(const std::size_t& row, const std::size_t& col) const;
     /// Access operator
-    _Type& set( const std::size_t& row, const std::size_t& col );
+    _Type& set(const std::size_t& row, const std::size_t& col);
 
     /// Get the number of rows
     /// \return The number of rows in the matrix
@@ -67,7 +69,7 @@ namespace CppNoddy
 
     /// Scale all entries in the matrix by a scalar
     /// \param mult The scalar multiplier
-    void scale( const _Type& mult );
+    void scale(const _Type& mult);
 
     /// Transpose the matrix
     void transpose();
@@ -88,7 +90,7 @@ namespace CppNoddy
     /// \param X The DENSE vector to multiply by
     /// \return A DENSE vector of length ncols() produced from
     ///  the multiplication
-    DenseVector<_Type>  multiply( const DenseVector<_Type>& X ) const;
+    DenseVector<_Type>  multiply(const DenseVector<_Type>& X) const;
 
     /// Output the matrix contents to std::cout
     void dump() const;
@@ -101,9 +103,8 @@ namespace CppNoddy
     /// geometry, but zero entries in all locations
     /// including those reserved for pivotting.
     /// \param elt The value to be assigned to all entries
-    void assign( _Type elt )
-    {
-      STORAGE.assign( STORAGE.size(), elt );
+    void assign(_Type elt) {
+      m_storage.assign(m_storage.size(), elt);
     }
 
     /// Get the number of off-diagonal elements
@@ -117,25 +118,24 @@ namespace CppNoddy
     /// Exchange rows in the matrix
     /// \param row1 First row to be swapped
     /// \param row2 Second row to be swapped
-    void row_swap( const std::size_t& row1, const std::size_t& row2 );
+    void row_swap(const std::size_t& row1, const std::size_t& row2);
 
-    /// Allow direct access to the vector STORAGE.
+    /// Allow direct access to the vector m_storage.
     /// Dangerous, but used for passing to LAPACK.
     double* base();
 
-    elt_iter get_elt_iter( std::size_t row, std::size_t col )
-    {
-      return STORAGE.begin() + L * ( 3 * col + 2 ) + row;
+    elt_iter get_elt_iter(std::size_t row, std::size_t col) {
+      return m_storage.begin() + m_L * (3 * col + 2) + row;
     }
 
     //private:
 
     /// A contiguous vector
-    DenseVector<_Type> STORAGE;
+    DenseVector<_Type> m_storage;
     /// The number of rows/cols in the matrix.
-    std::size_t N;
+    std::size_t m_N;
     /// Max number of (INPUT) bands above OR below the main diagonal
-    std::size_t L;
+    std::size_t m_L;
 
   }
   ; // end class
@@ -144,99 +144,88 @@ namespace CppNoddy
   // INLINED METHODS ARE BELOW
 
   template <typename _Type >
-  inline const _Type& BandedMatrix<_Type>::operator() ( const std::size_t& row, const std::size_t& col ) const
-  {
+  inline const _Type& BandedMatrix<_Type>::operator()(const std::size_t& row, const std::size_t& col) const {
 #ifdef PARANOID
-    // if outside the NxN matrix
-    if ( ( row >= N ) || ( row < 0 ) || ( col >= N ) || ( col < 0 ) )
-    {
+    // if outside the m_Nxm_N matrix
+    if((row >= m_N) || (row < 0) || (col >= m_N) || (col < 0)) {
       std::string problem;
       problem = " The const operator() of BandedMatrix has been called \n";
       problem += " with a (row, col) index that is outside \n";
-      problem += " the square NxN matrix.\n";
-      throw ExceptionGeom( problem, N, N, row, col );
+      problem += " the square m_Nxm_N matrix.\n";
+      throw ExceptionGeom(problem, m_N, m_N, row, col);
     }
     // check if the subscripts are out of the band
-    if ( !( ( col + L >= row ) && ( col <= 2*L + row ) ) )
-    {
+    if(!((col + m_L >= row) && (col <= 2*m_L + row))) {
       std::string problem;
       problem = " The const operator() of BandedMatrix has been called \n";
       problem += " with a (row, col) index that is outside \n";
       problem += " the band structure. Bandwidth and offset from\n";
       problem += " the diagonal information follows.\n";
-      throw ExceptionGeom( problem, L, col - row );
+      throw ExceptionGeom(problem, m_L, col - row);
     }
 #endif
     // MOSTLY WE PUSH BANDED MATRICES TO LAPACK - so we'll keep column major
     // internal storage ... a la Fortran
-    // return STORAGE[ col * ( 3 * L + 1 ) + ( row - col ) + 2 * L ];
+    // return m_storage[ col * ( 3 * m_L + 1 ) + ( row - col ) + 2 * m_L ];
     // or equiv.
-    return STORAGE[ L * ( 3 * col + 2 ) + row ];
+    return m_storage[ m_L * (3 * col + 2) + row ];
   }
 
   template <typename _Type>
-  inline _Type& BandedMatrix<_Type>::operator() ( const std::size_t& row, const std::size_t& col )
-  {
+  inline _Type& BandedMatrix<_Type>::operator()(const std::size_t& row, const std::size_t& col) {
 #ifdef PARANOID
-    // if outside the NxN matrix
-    if ( ( row >= N ) || ( row < 0 ) || ( col >= N ) || ( col < 0 ) )
-    {
+    // if outside the m_Nxm_N matrix
+    if((row >= m_N) || (row < 0) || (col >= m_N) || (col < 0)) {
       std::string problem;
       problem = " The operator() of BandedMatrix has been called \n";
       problem += " with a (row, col) index that is outside \n";
-      problem += " the square NxN matrix.\n";
-      throw ExceptionRange( problem, N, N, row, col );
+      problem += " the square m_Nxm_N matrix.\n";
+      throw ExceptionRange(problem, m_N, m_N, row, col);
     }
     // check if the subscripts are out of the band
-    if ( !( ( col + L >= row ) && ( col <= 2*L + row ) ) )
-    {
+    if(!((col + m_L >= row) && (col <= 2*m_L + row))) {
       std::string problem;
       problem = " The operator() of BandedMatrix has been called \n";
       problem += " with a (row, col) index that is outside \n";
       problem += " the band structure.\n";
-      std::cout << " L = " << L << "\n";
+      std::cout << " m_L = " << m_L << "\n";
       std::cout << " row = " << row << "\n";
       std::cout << " col = " << col << "\n";
-      throw ExceptionRange( problem, N, L, row, col );
+      throw ExceptionRange(problem, m_N, m_L, row, col);
     }
 #endif
     // MOSTLY WE PUSH BANDED MATRICES TO LAPACK - so we'll keep column major
     // internal storage ... a la Fortran
-    // return STORAGE[ col * ( 3 * L + 1 ) + ( row - col ) + 2 * L ];
+    // return m_storage[ col * ( 3 * m_L + 1 ) + ( row - col ) + 2 * m_L ];
     // or equiv.
-    return STORAGE[ L * ( 3 * col + 2 ) + row ];
+    return m_storage[ m_L * (3 * col + 2) + row ];
   }
 
   template <typename _Type>
   inline const _Type& BandedMatrix<_Type>::get
-  ( const std::size_t& row, const std::size_t& col ) const
-  {
-    return operator() ( row, col );
+  (const std::size_t& row, const std::size_t& col) const {
+    return operator()(row, col);
   }
 
   template <typename _Type>
   inline _Type& BandedMatrix<_Type>::set
-  ( const std::size_t& row, const std::size_t& col )
-  {
-    return operator() ( row, col );
+  (const std::size_t& row, const std::size_t& col) {
+    return operator()(row, col);
   }
 
   template <typename _Type>
-  inline std::size_t BandedMatrix<_Type>::nrows() const
-  {
-    return N;
+  inline std::size_t BandedMatrix<_Type>::nrows() const {
+    return m_N;
   }
 
   template <typename _Type>
-  inline std::size_t BandedMatrix<_Type>::ncols() const
-  {
-    return N;
+  inline std::size_t BandedMatrix<_Type>::ncols() const {
+    return m_N;
   }
 
   template <typename _Type>
-  inline std::size_t BandedMatrix<_Type>::noffdiag() const
-  {
-    return L;
+  inline std::size_t BandedMatrix<_Type>::noffdiag() const {
+    return m_L;
   }
 
 

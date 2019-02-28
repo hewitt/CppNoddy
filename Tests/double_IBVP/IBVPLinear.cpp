@@ -13,6 +13,8 @@
 
 #include <IBVP_double_bundle.h>
 
+#include "../Utils_Fill.h"
+
 enum { U, Ud };
 
 namespace CppNoddy
@@ -48,7 +50,7 @@ namespace CppNoddy
 
       void matrix0( const DenseVector<double>& z, DenseMatrix<double>& m ) const
       {
-        Utility::fill_identity(m);
+        Utils_Fill::fill_identity(m);
       }
 
       /// Define the unsteady terms by providing the mass matrix
