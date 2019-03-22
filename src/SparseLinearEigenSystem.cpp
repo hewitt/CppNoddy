@@ -162,8 +162,6 @@ namespace CppNoddy {
     // pre-allocate memory using the number of non-zero elts
     // in each row (the 0 is ignored here)
     MatSeqAIJSetPreallocation(petsc_A, 0, all_rows_nnz);
-    // add any command line configuration
-    MatSetFromOptions(petsc_A);
     // finish the A definition
     MatSetUp(petsc_A);
 
@@ -251,7 +249,9 @@ namespace CppNoddy {
     EPSSetProblemType(petsc_eps,EPS_GNHEP);
     // Method is Krylov Schur
     EPSSetType(petsc_eps, EPSKRYLOVSCHUR);
-
+    // add any command line options
+    EPSSetFromOptions(petsc_eps);
+    
     // target spectrum shift - defaults to (0,0)
 #ifdef PETSC_D
     EPSSetTarget(petsc_eps, m_shift.real());
@@ -273,12 +273,13 @@ namespace CppNoddy {
     }
 
     // set tolerance and max number of iterations
-    EPSSetTolerances(petsc_eps, 1.e-8, 2000);
+    EPSSetTolerances(petsc_eps, 1.e-8, 100);
     // EPSSetTrueResidual(eps, PETSC_TRUE );
     // EPSSetConvergenceTest(eps, EPS_CONV_ABS);
 
     // define a monitor function to view convergence (function set above)
-    EPSMonitorSet(petsc_eps,&monitor_function, NULL, NULL);
+    // not needed: use -eps_monitor
+    // EPSMonitorSet(petsc_eps,&monitor_function, NULL, NULL);
 
     //     //Vec x;
     //     VecCreate(p_LIBRARY -> get_Comm(),&x);
