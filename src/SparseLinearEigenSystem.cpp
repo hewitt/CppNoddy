@@ -273,7 +273,7 @@ namespace CppNoddy {
     }
 
     // set tolerance and max number of iterations
-    EPSSetTolerances(petsc_eps, 1.e-8, 100);
+    //EPSSetTolerances(petsc_eps, 1.e-6, 20);
     // EPSSetTrueResidual(eps, PETSC_TRUE );
     // EPSSetConvergenceTest(eps, EPS_CONV_ABS);
 
@@ -281,25 +281,25 @@ namespace CppNoddy {
     // not needed: use -eps_monitor
     // EPSMonitorSet(petsc_eps,&monitor_function, NULL, NULL);
 
-    //     //Vec x;
-    //     VecCreate(p_LIBRARY -> get_Comm(),&x);
-    //     VecSetSizes(x,PETSC_DECIDE,n);
-    //     VecSetFromOptions(x);
-    //     if ( GUESS_DEFINED )
-    //     {
-    //       for ( PetscInt i = 0; i < n; ++i )
-    //       {
-    // #ifdef PETSC_Z
-    //         VecSetValue(x,i,INITIAL_GUESS[i],INSERT_VALUES);
-    // #endif
-    // #ifdef PETSC_D
-    //         VecSetValue(x,i,INITIAL_GUESS[i].real(),INSERT_VALUES);
-    // #endif
-    //       }
-    //       std::cout << "***** setting initial space\n";
-    //       EPSSetInitialSpace(eps,1,&x);
-    //     }
-
+    //Vec x;
+//     VecCreate(PETSC_COMM_WORLD,&petsc_x);
+//     VecSetSizes(petsc_x,PETSC_DECIDE,n);
+//     VecSetFromOptions(petsc_x);
+//     if ( m_guess_defined ) {
+//       for ( PetscInt i = 0; i < n; ++i ) {
+// #ifdef PETSC_Z
+// 	VecSetValue(petsc_x,i,m_initial_guess[i],INSERT_VALUES);
+// #endif
+// #ifdef PETSC_D
+// 	VecSetValue(petsc_x,i,m_initial_guess[i].real(),INSERT_VALUES);
+// #endif
+//       }
+//       #ifdef DEBUG
+//       std::cout << "[DEBUG] setting initial space/guess\n";
+//       #endif
+//       EPSSetInitialSpace(petsc_eps,1,&petsc_x);
+//     }
+    
     /*
        Define the region containing the eigenvalues of interest
     */
@@ -348,14 +348,16 @@ namespace CppNoddy {
     // NEV = (unsigned)nev; // is this always the same as the input nev?
 
     // Optional: Get some information from the solver and display it
-    //#ifdef DEBUG
+    #ifdef DEBUG
     PetscInt its, lits, maxit;
     EPSType petsc_eps_type;
     PetscReal tol;
     //
     std::cout << "[DEBUG] Target location for eigenvalue  = " << m_shift << "\n";
     std::cout << "[DEBUG] Target ordering of returned eigenvalues (see EPSWhich enum) = " << m_order << "\n";
+    #endif
     //
+    #ifdef DEBUG
     EPSGetIterationNumber(petsc_eps,&its);
     PetscPrintf(PETSC_COMM_WORLD,"[DEBUG] Number of iterations of the method: %D\n",its);
     EPSGetST(petsc_eps,&petsc_st);
@@ -367,6 +369,7 @@ namespace CppNoddy {
     PetscPrintf(PETSC_COMM_WORLD,"[DEBUG] Number of requested eigenvalues: %D\n",m_nev);
     EPSGetTolerances(petsc_eps,&tol,&maxit);
     PetscPrintf(PETSC_COMM_WORLD,"[DEBUG] Stopping condition: tol=%.4g, maxit=%D\n",(double)tol,maxit);
+    #endif
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                       Display solution and clean up
        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

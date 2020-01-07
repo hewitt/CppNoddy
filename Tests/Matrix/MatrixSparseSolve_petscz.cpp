@@ -13,13 +13,16 @@
 #include <Types.h>
 #include <Utility.h>
 #include <SparseLinearSystem.h>
+#include <PetscSession.h>
 
 using namespace CppNoddy;
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
-  PetscInitialize(NULL,NULL,(char*)0,(char*)0);
+  PetscSession::getInstance(argc,argv);
+  //auto session = PetscSession(argc,argv);
+  //PetscInitialize(NULL,NULL,(char*)0,(char*)0);
   //
   cout << "\n";
   cout << "=== Matrix: Example linear sparse solver  ===========\n";
@@ -47,10 +50,13 @@ int main()
   try
   {
     // below is equivalent to small_system.solve();
+    cout << "Prefact\n";
     small_system.factorise();
+    cout << "Postfact\n";
     small_system.solve_using_factorisation();
+    cout << "Postsolve\n";
   }
-  catch ( std::runtime_error )
+  catch ( const std::runtime_error &error )
   {
     cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
     return 1;
@@ -77,7 +83,7 @@ int main()
   {
     small_system.solve_using_factorisation();
   }
-  catch ( std::runtime_error )
+  catch ( const std::runtime_error &error )
   {
     cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
     return 1;
@@ -100,7 +106,6 @@ int main()
   small_system.cleanup();
   // CONCLUDING PASS/FAIL
   //
-  PetscFinalize();
   if ( failed )
   {
     cout << "\033[1;31;48m  * FAILED \033[0m\n";

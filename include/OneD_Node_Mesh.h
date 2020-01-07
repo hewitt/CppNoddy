@@ -8,6 +8,7 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
+#include <cassert>
 
 #include <DenseVector.h>
 
@@ -181,6 +182,39 @@ namespace CppNoddy {
     /// Find the maximum stored absolute value in the mesh for a given variable -- no interpolation is used
     /// \param var The variable index whose maximum is being asked for
     /// \return The value of the maximum (abs value)
+    // template < typename _Type, typename _Xtype >
+    _Type maxAbsLocation(unsigned var) {
+      double max(0.0);
+      std::size_t maxIndex(1);
+      // step through the nodes
+      for(std::size_t node = 0; node < m_X.size(); ++node) {
+        if(std::abs(VARS[ node * m_nv + var ]) > max) {
+	  maxIndex = node;
+	  max = std::abs( VARS[ maxIndex*m_nv + var ]);
+        }
+      }
+      // std::cout << "maxIndex = " << maxIndex << " zeta = " << m_X[maxIndex] 
+      // 		<< "h = " << std::abs( VARS[ maxIndex*m_nv + var ]) << "\n";
+      if ( ( maxIndex == 0 ) || ( maxIndex == m_X.size()-1 ) ) {
+	std::cout << "MaxAbsInterpolated failed. Maximumum absolute nodal value is first/last node. \n";
+	assert(false);
+      }
+      _Type f1,f2,f3;
+      _Xtype x1,x2,x3;
+      f1 = std::abs(VARS[ (maxIndex-1) * m_nv + var ]);
+      f2 = std::abs(VARS[ maxIndex * m_nv + var ]);
+      f3 = std::abs(VARS[ (maxIndex+1) * m_nv + var ]);
+      x1 = m_X[maxIndex-1];
+      x2 = m_X[maxIndex];
+      x3 = m_X[maxIndex+1];
+      return ( f1*(x2+x3)/((x1-x2)*(x1-x3)) + f2*(x1+x3)/((x2-x1)*(x2-x3)) + f3*(x1+x2)/((x3-x1)*(x3-x2)) )
+	/ ( 2.*f1/((x1-x2)*(x1-x3)) + 2.*f2/((x2-x1)*(x2-x3)) + 2.*f3/((x3-x1)*(x3-x2)) );
+    }
+    
+    
+    /// Find the maximum stored absolute value in the mesh for a given variable -- no interpolation is used
+    /// \param var The variable index whose maximum is being asked for
+    /// \return The value of the maximum (abs value)
     double max(unsigned var) {
       double max(0.0);
       // step through the nodes
@@ -224,7 +258,7 @@ namespace CppNoddy {
   inline _Xtype& OneD_Node_Mesh<_Type, _Xtype>::coord(const std::size_t& node) {
     return m_X[ node ];
   }
-
+  
 }
 
 #endif // ONED_NODE_MESH_H

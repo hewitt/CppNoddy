@@ -1,11 +1,11 @@
 
 #if defined(SLEPC)
 
-#include <slepc.h>
-#include <petsc.h>
-
 #ifndef SLEPCSESSION_H
 #define SLEPCSESSION_H
+
+#include <slepc.h>
+#include <petsc.h>
 
 namespace CppNoddy {
   
@@ -13,18 +13,20 @@ namespace CppNoddy {
      Instantiate this object first, then it will only finalize on
      exit of main() */
   class SlepcSession {
-    /// We could be fancy and make this a singleton object
+
+  private:
+    SlepcSession(){
+    };
+
   public:
-    SlepcSession(int argc, char *argv[]){
+
+    static SlepcSession* getInstance(int argc, char *argv[]) {
+      static SlepcSession instance;
       SlepcInitialize(&argc,&argv,(char*)0,(char*)0);
 #if defined(DEBUG)
-      PetscPrintf(PETSC_COMM_WORLD, "[DEBUG] Starting a SLEPc session.\n");
-      PetscMPIInt rank, size;
-      MPI_Comm_size(PETSC_COMM_WORLD, &size);
-      MPI_Comm_rank(PETSC_COMM_WORLD, &rank);
-      PetscPrintf(PETSC_COMM_WORLD, "[DEBUG] Total number of processors = %d.\n",size);
-      PetscSynchronizedPrintf(PETSC_COMM_WORLD, "[DEBUG] Processor %d of %d reporting in.\n",rank,size);
+      PetscPrintf(PETSC_COMM_WORLD, "[DEBUG] Starting a SLEPc session using command line options.\n");
 #endif
+      return &instance;
     }
 
     ~SlepcSession(){

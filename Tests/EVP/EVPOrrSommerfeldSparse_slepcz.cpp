@@ -15,21 +15,24 @@
 
 #include <Generic_bundle.h>
 #include <SparseLinearEigenSystem.h>
+#include <SlepcSession.h>
 
 using namespace CppNoddy;
 using namespace std;
 
-int main()
+
+int main(int argc, char* argv[])
 {
+  SlepcSession::getInstance(argc,argv);
+
   cout << "\n";
   cout << "=== EVP: Temporal spectra of the Orr-Sommerfeld eqn =\n";
   cout << "===  with a matrix problem assembled by hand and \n";
   cout << "===  eigenproblem solved with SLEPc sparse solver.\n";
   cout << "\n";
 
-  SlepcInitialize(NULL,NULL,(char*)0,(char*)0);
   // discretise with these many nodal points
-  const std::size_t nodes( 301 );
+  const std::size_t nodes( 1001 );
   // we'll solve as TWO second order problems
   const std::size_t N( 2 * nodes );
   // domain boundaries
@@ -119,8 +122,6 @@ int main()
   spectrum.push_ptr( &lambdas, "evs" );
   spectrum.update();
 
-  SlepcFinalize();
-
   if ( std::abs( min_growth_rate ) < tol )
   {
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
@@ -130,4 +131,5 @@ int main()
   cout << "\033[1;31;48m  * FAILED \033[0m\n";
   cout << "    Final error = " << min_growth_rate << "\n";
   return 1;
+  
 }

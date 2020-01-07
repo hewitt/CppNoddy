@@ -50,15 +50,6 @@ namespace CppNoddy {
         throw ExceptionRuntime(problem);
       }
     }
-    MPI_Comm_size(MPI_COMM_WORLD,&m_petsc_size);
-    MPI_Comm_rank(MPI_COMM_WORLD,&m_petsc_rank);
-    if(m_petsc_size > 1) {
-      std::string problem;
-      problem = " The SparseLinearSystem/SparseMatrix objects are not written\n";
-      problem += " to make use of MPI. Try the DistributedLinearsystem and\n";
-      problem += " DistributedMatrix objects if MPI is to be used.\n";
-      throw ExceptionRuntime(problem);
-    }
 #endif
   }
 
@@ -83,12 +74,8 @@ namespace CppNoddy {
   template <typename _Type>
   void SparseLinearSystem<_Type>::solve() {
     if("petsc" == m_version) {
-      std::cout << "[DEBUG] Pre-factorise\n";
       factorise();
-      std::cout << "[DEBUG] Post-factorise\n";
-      std::cout << "[DEBUG] Pre-solve using factors\n";
       solve_using_factorisation();
-      std::cout << "[DEBUG] Post-solve using factors\n";
     } else { // we catch incorrect m_version choices in the ctor
       std::string problem;
       problem = "CppNoddy needs to be linked to PETSc to solve sparse\n";
@@ -189,18 +176,18 @@ namespace CppNoddy {
     KSPCreate(PETSC_COMM_WORLD,&m_petsc_ksp);
     KSPSetOperators(m_petsc_ksp,petsc_A,petsc_A);
 
-    
     /////////////////////////////
     // default solver is MUMPS //
     /////////////////////////////
-    KSPSetType(m_petsc_ksp,KSPPREONLY);
+    //KSPSetType(m_petsc_ksp,KSPPREONLY);
     KSPGetPC(m_petsc_ksp,&m_petsc_pc);
     // hardwire a DIRECT SOLVER via MUMPS
-    PCSetType(m_petsc_pc,PCLU);
-    PCFactorSetMatSolverType(m_petsc_pc,MATSOLVERMUMPS);
-    PCFactorSetUpMatSolverType(m_petsc_pc);
+    //PCSetType(m_petsc_pc,PCLU);
+    //PCFactorSetMatSolverType(m_petsc_pc,MATSOLVERMUMPS);
+    //PCFactorSetUpMatSolverType(m_petsc_pc);
     /////////////////////////////
-    
+    KSPSetFromOptions(m_petsc_ksp);
+    KSPSetUp(m_petsc_ksp);
 
     /* create m_petsc_F */
     PCFactorGetMatrix(m_petsc_pc,&m_petsc_F);
@@ -224,8 +211,6 @@ namespace CppNoddy {
     /* not used unless we initialise PETSc using the command line options */
     // KSPSetFromOptions(m_petsc_ksp);
     
-    KSPSetFromOptions(m_petsc_ksp);
-    KSPSetUp(m_petsc_ksp);
 
     // /* determinant calculation */
     // {
@@ -396,20 +381,24 @@ namespace CppNoddy {
     */
     KSPCreate(PETSC_COMM_WORLD,&m_petsc_ksp);
     KSPSetOperators(m_petsc_ksp,A,A);
-    KSPSetType(m_petsc_ksp,KSPPREONLY);
-    PetscInt  ival,icntl;
-    PetscReal val;
+
+    //KSPSetType(m_petsc_ksp,KSPPREONLY);
     KSPGetPC(m_petsc_ksp,&m_petsc_pc);
     // hardwire a DIRECT SOLVER via MUMPS
-    PCSetType(m_petsc_pc,PCLU);
-    PCFactorSetMatSolverType(m_petsc_pc,MATSOLVERMUMPS);
-    PCFactorSetUpMatSolverType(m_petsc_pc);
-    //PCFactorSetMatSolverPackage(m_petsc_pc,MATSOLVERMUMPS);
-    //PCFactorSetUpMatSolverPackage(m_petsc_pc);
+    //PCSetType(m_petsc_pc,PCLU);
+    //PCFactorSetMatSolverType(m_petsc_pc,MATSOLVERSUPERLU_DIST);
+    //PCFactorSetMatSolverType(m_petsc_pc,MATSOLVERMUMPS);
+    //PCFactorSetMatSolverType(m_petsc_pc,MATSOLVERMKL_PARDISO);
+    //PCFactorSetUpMatSolverType(m_petsc_pc);
+
+    KSPSetFromOptions(m_petsc_ksp);
+
+    KSPSetUp(m_petsc_ksp);
     /* call MatGetFactor() to create F */
     PCFactorGetMatrix(m_petsc_pc,&m_petsc_F);
 
     /* sequential ordering */
+    //PetscInt  ival,icntl;
     //icntl = 7;
     //ival = 2;
     //MatMumpsSetIcntl(m_petsc_F,icntl,ival);
@@ -417,6 +406,7 @@ namespace CppNoddy {
     /* threshhold for row pivot detection */
     //MatMumpsSetIcntl(m_petsc_F,24,1);
     //icntl = 3;
+    //PetscReal val;
     //val = 1.e-6;
     //MatMumpsSetCntl(m_petsc_F,icntl,val);
 
@@ -426,7 +416,8 @@ namespace CppNoddy {
     // KSPSetFromOptions(m_petsc_ksp);
 
     /* Get info from matrix factors */
-    KSPSetUp(m_petsc_ksp);
+
+    //KSPView(m_petsc_ksp, PETSC_VIEWER_STDOUT_WORLD);
 
     MatDestroy(&A);
     delete[] all_rows_nnz;

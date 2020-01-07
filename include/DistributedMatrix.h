@@ -28,7 +28,7 @@ namespace CppNoddy {
     /// \param nd   The number of diagonal entries per row
     /// \param od   The number of off-diagonal entries per row
     DistributedMatrix(const PetscInt& rows, const PetscInt& cols,
-                     const PetscInt& nd, const PetscInt& od ) {
+		      const PetscInt& nd, const PetscInt& od ) {
       /* "diagonal" vs "off-diagonal" is as defined by PETSc documentation
          -- it depends on the division of the matrix into processor units
          Any columns outside row_start and row_end are OFF diagonal.
@@ -39,7 +39,7 @@ namespace CppNoddy {
       if(flag != 1) {
         std::string problem;
         problem = "DistributedMatrix<> needs PETSc and therefore you must call \n";
-        problem += "PetscInitialize before instantiating the object.\n";
+        problem += "PetscSession before instantiating the object.\n";
         throw ExceptionRuntime(problem);
       }
 #else  
@@ -48,12 +48,10 @@ namespace CppNoddy {
       throw ExceptionRuntime(problem);
 #endif
 
-      // temp storage for a single row
-      m_temp_row_storage = SparseVector<_Type> (nd+od);
-
       // set A to be an rows x cols matrix
       MatCreate(PETSC_COMM_WORLD,&m_A);
       MatSetType(m_A,MATMPIAIJ);
+      // let petsc decide the local row/col, but specify the global number of rows/cols
       MatSetSizes(m_A,PETSC_DECIDE,PETSC_DECIDE,rows,cols);
       /* getting the preallocation "right" is key to decent performance */
       MatMPIAIJSetPreallocation(m_A, nd, NULL, od, NULL);
@@ -96,9 +94,9 @@ namespace CppNoddy {
       set_elt( row, col, value );
     }
 
-    _Type& operator()(const PetscInt& row, const PetscInt& col) {
-      return m_temp_row_storage[i];
-    }
+    // _Type& operator()(const PetscInt& row, const PetscInt& col) {
+    //   return m_temp_row_storage[i];
+    // }
     
     /// \param row The row of the element to set
     /// \param col The column of the element to set
@@ -147,8 +145,6 @@ namespace CppNoddy {
 
     
   private:
-    // temp storage for building a row at a time
-    SparseVector<_Type> m_temp_row_storage;
     
     // PETSc matrix
     Mat m_A;

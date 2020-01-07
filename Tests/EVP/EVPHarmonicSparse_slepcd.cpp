@@ -17,21 +17,22 @@
 #include <Utility.h>
 #include <Timer.h>
 #include <SparseLinearEigenSystem.h>
+#include <SlepcSession.h>
 
 #include "../Utils_Fill.h"
 
 using namespace CppNoddy;
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
+  SlepcSession::getInstance(argc,argv);
+  
   cout << "\n";
   cout << "=== EVP: Harmonic equation solved using SLEPc  ======\n";
   cout << "===  with a manually assembled matrix problem.\n";
   cout << "\n";
-
-  SlepcInitialize(NULL,NULL,(char*)0,(char*)0);
-
+  
   cout.precision( 12 );
   cout << " Number of nodal points : Leading eigenvalue error : Total CPU time taken (ms) \n";
   bool failed = false;
@@ -102,7 +103,6 @@ int main()
     return 1;
   }
 
-  SlepcFinalize();
   cout << "\033[1;32;48m  * PASSED \033[0m\n";
   return 0;
 }

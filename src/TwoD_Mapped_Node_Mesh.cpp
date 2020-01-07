@@ -50,11 +50,13 @@ namespace CppNoddy {
 
   template <typename _Type>
   void TwoD_Mapped_Node_Mesh<_Type>::init_mapping() {
+    #ifdef DEBUG
     std::cout << "[DEBUG] Physical domain is [" << m_left << "," << m_right
               << "] x [" << m_bottom << "," << m_top << "]\n";
     std::cout << "[DEBUG] Computational domain is ["
               << FnComp_X(m_left) << "," << FnComp_X(m_right)
               << "] x [" << FnComp_Y(m_bottom) << "," << FnComp_Y(m_top) << "]\n";
+    #endif
     {
       // a uniform mesh in the computational coordinates
       double comp_left(FnComp_X(m_left));

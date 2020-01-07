@@ -68,6 +68,12 @@ namespace CppNoddy {
     virtual ~TwoD_Node_Mesh()
     {}
 
+    /// Access operator for a nodal point that returns a vector
+    /// \param nodex The nodal index value in the first direction
+    /// \param nodey The nodal index value in the second direction
+    /// \return The vector of variables stored at the node
+    DenseVector<_Type> operator()(const std::size_t nodex, const std::size_t nodey );
+    
     /// Access operator for a nodal point/variable in the mesh
     /// \param nodex The nodal index value in the first direction
     /// \param nodey The nodal index value in the second direction
@@ -92,7 +98,7 @@ namespace CppNoddy {
     /// \param U The vector of VARIABLES to be written to this nodal point
     void set_nodes_vars(const std::size_t nodex, const std::size_t nodey, const DenseVector<_Type>& U);
 
-    /// Get the variables stored at A SPECIFIED node
+    /// Get the variables stored at A SPECIFIED node -- equivalent to mesh(nodex,nodey).
     /// \param nodex The x nodal index to be returned
     /// \param nodey The y nodal index to be returned
     /// \return The vector of VARIABLES stored at this nodal point
@@ -295,6 +301,21 @@ namespace CppNoddy {
     // store the nodal values
     DenseVector<_Type> m_vars;
   };
+
+
+  template <typename _Type>
+  inline DenseVector<_Type> TwoD_Node_Mesh<_Type>::operator()(const std::size_t nodex, const std::size_t nodey ) {
+#ifdef PARANOID
+    if(nodex > m_nx - 1 || nodey > m_ny - 1) {
+      std::string problem;
+      problem = " The TwoD_Node_Mesh.operator() method is trying to \n";
+      problem += " access a nodal point that is not in the mesh. \n";
+      throw ExceptionRange(problem, m_nx, nodex, m_ny, nodey);
+    }
+#endif
+    return get_nodes_vars(nodex, nodey);
+  }
+
 
   template <typename _Type>
   inline _Type& TwoD_Node_Mesh<_Type>::operator()(const std::size_t nodex, const std::size_t nodey, const std::size_t var) {

@@ -11,8 +11,8 @@ meson configure -Dslepc=true -Dpetscd=true build
 cd build
 ninja reconfigure
 ninja
-#ninja test
-ninja install
+ninja test
+#ninja install
 
 #DESTDIR=/home/hewitt/CURRENT/Projects/CppNoddy/build ninja install
 

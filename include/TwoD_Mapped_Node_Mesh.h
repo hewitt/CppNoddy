@@ -113,6 +113,12 @@ namespace CppNoddy {
     virtual ~TwoD_Mapped_Node_Mesh()
     {}
 
+    /// Access operator for a nodal point that returns a vector
+    /// \param nodex The nodal index value in the first direction
+    /// \param nodey The nodal index value in the second direction
+    /// \return The vector of variables stored at the node
+    DenseVector<_Type> operator()(const std::size_t nodex, const std::size_t nodey);
+    
     /// Access operator for a nodal point/variable in the mesh
     /// \param nodex The nodal index value in the first direction
     /// \param nodey The nodal index value in the second direction
@@ -137,7 +143,7 @@ namespace CppNoddy {
     /// \param U The vector of VARIABLES to be written to this nodal point
     void set_nodes_vars(const std::size_t nodex, const std::size_t nodey, const DenseVector<_Type>& U);
 
-    /// Get the variables stored at A SPECIFIED node
+    /// Get the variables stored at A SPECIFIED node -- equivalent to mesh(nodex,nodey).
     /// \param nodex The x nodal index to be returned
     /// \param nodey The y nodal index to be returned
     /// \return The vector of VARIABLES stored at this nodal point
@@ -201,7 +207,7 @@ namespace CppNoddy {
     {
       double compX = FnComp_X(x);
       double compY = FnComp_Y(y);
-      const double tol(1.e-10);
+      const double tol(1.e-8);
       // check start and end
       if ((compX < m_compX[0] - tol) || (compX > m_compX[m_nx-1] + tol)) {
         std::string problem;
@@ -218,7 +224,7 @@ namespace CppNoddy {
       }
       int bottom_j(-1);
       for (unsigned j = 0; j < m_ny-1; ++j) {
-        if ((compY >= m_Y[j] - tol) && (compY <= m_Y[j+1] + tol)) {
+        if ((compY >= m_compY[j] - tol) && (compY <= m_compY[j+1] + tol)) {
           bottom_j = j;
         }
       }
@@ -237,8 +243,8 @@ namespace CppNoddy {
       const double compY1 = m_compY[ bottom_j ];
       const double compY2 = m_compY[ bottom_j+1 ];
       DenseVector<_Type> result =
-        top_row.get_interpolated_vars(x)*(compY-compY1)/(compY2-compY1)
-        + bottom_row.get_interpolated_vars(x)*(compY2-compY)/(compY2-compY1);
+        top_row.get_interpolated_vars(compX)*(compY-compY1)/(compY2-compY1)
+        + bottom_row.get_interpolated_vars(compX)*(compY2-compY)/(compY2-compY1);
       return result;
     }
 
@@ -264,7 +270,20 @@ namespace CppNoddy {
     DenseVector<_Type> m_vars;
   };
 
+  template <typename _Type>
+  inline DenseVector<_Type> TwoD_Mapped_Node_Mesh<_Type>::operator()(const std::size_t nodex, const std::size_t nodey ) {
+#ifdef PARANOID
+    if(nodex > m_nx - 1 || nodey > m_ny - 1) {
+      std::string problem;
+      problem = " The TwoD_Mapped_Node_Mesh.operator() method is trying to \n";
+      problem += " access a nodal point that is not in the mesh. \n";
+      throw ExceptionRange(problem, m_nx, nodex, m_ny, nodey);
+    }
+#endif
+    return get_nodes_vars(nodex,nodey);
+  }
 
+  
   template <typename _Type>
   inline _Type& TwoD_Mapped_Node_Mesh<_Type>::operator()(const std::size_t nodex, const std::size_t nodey, const std::size_t var) {
 #ifdef PARANOID

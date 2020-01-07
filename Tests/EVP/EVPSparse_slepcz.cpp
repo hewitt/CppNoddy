@@ -15,13 +15,16 @@
 using namespace CppNoddy;
 using namespace std;
 
-int main()
+
+int main(int argc, char* argv[])
 {
+
+  SlepcSession::getInstance(argc,argv);
+
   cout << "\n";
   cout << "=== EVP: complex generalised eigenvalue problem  ====\n";
   cout << "\n";
 
-  SlepcInitialize(NULL,NULL,(char*)0,(char*)0);
   SparseMatrix<D_complex> a( 4, 4 );
 
   a( 0, 0 ) = D_complex( -21.10, -22.50 );
@@ -86,9 +89,6 @@ int main()
   system.tag_eigenvalues_disc( + 1, 0.1 );
   // get those tagged eigenvalues
   lambdas = system.get_tagged_eigenvalues();
-
-  SlepcFinalize();
-
 
   const double tol = 1.e-10;
   if ( std::abs( lambdas[ 0 ] - D_complex( 3.0, -1.0 ) ) < tol )

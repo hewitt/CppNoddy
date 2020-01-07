@@ -2,18 +2,17 @@ c = run_command('ls_all.sh')
 sources = c.stdout().strip().split('\n')
 
 dep = []
+
 if lapack_dep.found()
    dep += lapack_dep
    dep += blas_dep
 endif
-if petscd
+if petscd or petscz
    dep += petsc_dep
    dep += mpich_dep
 endif
 if slepc
-   if petsc
-      dep += slepc_dep
-   endif   
+   dep += slepc_dep
 endif
 
 foreach source : sources
@@ -41,11 +40,28 @@ foreach source : sources
      build = false
   endif
 
+  arguments = ['-omp_num_threads', '1']
+
+  if ( build and stub.contains('_mumps') )
+     message('Adding PETSc arguments to use MUMPS solver')
+     arguments = ['-omp_num_threads', '1', '-ksp_type', 'preonly', '-pc_type', 'lu', '-pc_factor_mat_solver_type', 'mumps' ]
+  endif
+
+  if ( build and stub.contains('_mklpardiso') )
+     message('Adding PETSc arguments to use MKL_PARDISO solver')
+     arguments = ['-omp_num_threads', '1', '-ksp_type', 'preonly', '-pc_type', 'lu', '-pc_factor_mat_solver_type', 'mkl_pardiso' ]
+  endif
+
+if ( build and stub.contains('_superludist') )
+     message('Adding PETSc arguments to use SUPERLU_DIST solver')
+     arguments = ['-omp_num_threads', '1', '-ksp_type', 'preonly', '-pc_type', 'lu', '-pc_factor_mat_solver_type', 'superlu_dist' ]
+  endif
+     
   if build
     message( 'Building test: ' + stub )
     exe = executable(stub, source, include_directories : inc,
       dependencies : dep, link_with : CppNoddy )
-    test(stub, exe, timeout : 300 ) 
+    test(stub, exe, args: arguments, timeout : 300 ) 
   endif  
 
 endforeach

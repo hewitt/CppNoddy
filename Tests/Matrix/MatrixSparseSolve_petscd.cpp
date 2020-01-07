@@ -13,15 +13,14 @@
 #include <Types.h>
 #include <Utility.h>
 #include <SparseLinearSystem.h>
-#include <petsc.h>
-#include <mpi.h>
+#include <PetscSession.h>
 
 using namespace CppNoddy;
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
-  PetscInitialize(NULL,NULL,(char*)0,(char*)0);
+  PetscSession::getInstance(argc,argv);
 
   cout << "\n";
   cout << "=== Matrix: Example linear (double) sparse solver  ===\n";
@@ -78,7 +77,7 @@ int main()
   {
     small_system.solve_using_factorisation();
   }
-  catch ( std::runtime_error )
+  catch (const std::runtime_error &error )
   {
     cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
     assert( false );

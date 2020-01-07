@@ -11,7 +11,7 @@ ninja reconfigure
 ninja
 #ninja test
 #DESTDIR=/home/hewitt/CURRENT/Projects/CppNoddy/build ninja install
-ninja install
+#ninja install
 
 #See:
 #

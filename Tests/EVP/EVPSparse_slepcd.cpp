@@ -10,17 +10,19 @@
 /// requests eigenvalues that satisfy \f$ \vert\lambda\vert < 10\f$.
 
 #include <SparseLinearEigenSystem.h>
+#include <SlepcSession.h>
 
 using namespace CppNoddy;
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
+
+  SlepcSession::getInstance(argc,argv);
+
   cout << "\n";
   cout << "=== EVP: real eigenvalue problem                 ====\n";
   cout << "\n";
-
-  SlepcInitialize(NULL,NULL,(char*)0,(char*)0);
 
   SparseMatrix<double> a( 2, 2 );
   SparseMatrix<double> b( 2, 2 );
@@ -54,8 +56,6 @@ int main()
   lambdas = system.get_tagged_eigenvalues();
   const double tol = 1.e-13;
   //lambdas.dump();
-
-  SlepcFinalize();
 
   if ( std::abs( lambdas[ 0 ] - 5.0 ) < tol )
   {

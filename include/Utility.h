@@ -16,6 +16,7 @@
 #include <Exceptions.h>
 #include <FortranBLAS.h>
 #include <TwoD_Node_Mesh.h>
+#include <TwoD_Mapped_Node_Mesh.h>
 #include <Sequential_Matrix_base.h>
 
 namespace CppNoddy {
@@ -79,6 +80,7 @@ namespace CppNoddy {
     
     template <typename _Type>
     void vels_from_streamfn_Cartesian(const TwoD_Node_Mesh<_Type>& source, TwoD_Node_Mesh<_Type>& uv) {
+      std::cout << "PLAIN MESH version\n";
       std::size_t Nx(source.get_nnodes().first);
       std::size_t Ny(source.get_nnodes().second);
       double dx(source.coord(1,1).first - source.coord(0,0).first);
@@ -158,6 +160,128 @@ namespace CppNoddy {
       }
     }
 
+
+    template <typename _Type>
+    void vels_from_streamfn_Cartesian(const TwoD_Mapped_Node_Mesh<_Type>& source, TwoD_Mapped_Node_Mesh<_Type>& uv) {
+      std::cout << "MAPPED MESH version\n";
+      std::size_t Nx(source.get_nnodes().first);
+      std::size_t Ny(source.get_nnodes().second);
+      double dX( source.get_comp_step_sizes().first );
+      double dY( source.get_comp_step_sizes().second );
+      // differentiate the streamfunction to get the velocity field
+      {
+        // west internal nodes
+        std::size_t i(0);
+        for(std::size_t j = 1; j < Ny - 1; ++j) {
+	  double x = source.coord(i,j).first;
+	  double Xd = source.FnComp_Xd(x);
+	  double y = source.coord(i,j).second;
+	  double Yd = source.FnComp_Yd(y);
+          uv(i, j, 0) = (source(i, j + 1, 0) - source(i, j - 1, 0)) * Yd / (2 * dY);
+          uv(i, j, 1) = -(-source(i + 2, j, 0) + 4. * source(i + 1, j, 0) - 3. * source(i, j, 0)) * Xd / (2 * dX);
+        }
+      }
+      {
+        // east internal nodes
+        std::size_t i(Nx - 1);
+        for(std::size_t j = 1; j < Ny - 1; ++j) {
+	  double x = source.coord(i,j).first;
+	  double Xd = source.FnComp_Xd(x);
+	  double y = source.coord(i,j).second;
+	  double Yd = source.FnComp_Yd(y);
+          uv(i, j, 0) = (source(i, j + 1, 0) - source(i, j - 1, 0)) * Yd / (2 * dY);
+          uv(i, j, 1) = -(source(i - 2, j, 0) - 4. * source(i - 1, j, 0) + 3. * source(i, j, 0)) * Xd / (2 * dX);
+        }
+      }
+      {
+        // south internal nodes
+        std::size_t j(0);
+        for(std::size_t i = 1; i < Nx - 1; ++i) {
+	  double x = source.coord(i,j).first;
+	  double Xd = source.FnComp_Xd(x);
+	  double y = source.coord(i,j).second;
+	  double Yd = source.FnComp_Yd(y);
+          uv(i, j, 0) = (-source(i, j + 2, 0) + 4. *  source(i, j + 1, 0) - 3. * source(i, j, 0))* Yd / (2 * dY);
+          uv(i, j, 1) = -(source(i + 1, j, 0) - source(i - 1, j, 0)) * Xd / (2 * dX);
+        }
+      }
+      {
+        // north internal nodes
+        std::size_t j(Ny - 1);
+        for(std::size_t i = 1; i < Nx - 1; ++i) {
+	  double x = source.coord(i,j).first;
+	  double Xd = source.FnComp_Xd(x);
+	  double y = source.coord(i,j).second;
+	  double Yd = source.FnComp_Yd(y);
+          uv(i, j, 0) = (source(i, j - 2, 0) - 4. *  source(i, j - 1, 0) + 3. * source(i, j, 0)) * Yd / (2 * dY);
+          uv(i, j, 1) = -(source(i + 1, j, 0) - source(i - 1, j, 0)) * Xd / (2 * dX);
+        }
+      }
+      {
+        // corner nodes
+        {
+          // sw
+          std::size_t i(0);
+          std::size_t j(0);
+	  double x = source.coord(i,j).first;
+	  double Xd = source.FnComp_Xd(x);
+	  double y = source.coord(i,j).second;
+	  double Yd = source.FnComp_Yd(y);	  
+          uv(i, j, 0) = (-source(i, j + 2, 0) + 4. *  source(i, j + 1, 0) - 3. * source(i, j, 0))* Xd / (2 * dY);
+          uv(i, j, 1) = -(-source(i + 2, j, 0) + 4. * source(i + 1, j, 0) - 3. * source(i, j, 0))* Yd / (2 * dY);
+        }
+        {
+          // nw
+          std::size_t i(0);
+          std::size_t j(Ny - 1);
+	  double x = source.coord(i,j).first;
+	  double Xd = source.FnComp_Xd(x);
+	  double y = source.coord(i,j).second;
+	  double Yd = source.FnComp_Yd(y);	  
+          uv(i, j, 0) = (source(i, j - 2, 0) - 4. *  source(i, j - 1, 0) + 3. * source(i, j, 0)) * Yd / (2 * dY);
+          uv(i, j, 1) = -(-source(i + 2, j, 0) + 4. * source(i + 1, j, 0) - 3. * source(i, j, 0))* Xd / (2 * dX);
+        }
+        {
+          // ne
+          std::size_t i(Nx - 1);
+          std::size_t j(Ny - 1);
+	  double x = source.coord(i,j).first;
+	  double Xd = source.FnComp_Xd(x);
+	  double y = source.coord(i,j).second;
+	  double Yd = source.FnComp_Yd(y);	  
+          uv(i, j, 0) = (source(i, j - 2, 0) - 4. *  source(i, j - 1, 0) + 3. * source(i, j, 0)) * Yd / (2 * dY);
+          uv(i, j, 1) = -(source(i - 2, j, 0) - 4. * source(i - 1, j, 0) + 3. * source(i, j, 0)) * Xd/ (2 * dX);
+        }
+        {
+          // se
+          std::size_t i(Nx - 1);
+          std::size_t j(0);
+	  double x = source.coord(i,j).first;
+	  double Xd = source.FnComp_Xd(x);
+	  double y = source.coord(i,j).second;
+	  double Yd = source.FnComp_Yd(y);	  
+          uv(i, j, 0) = (-source(i, j + 2, 0) + 4. *  source(i, j + 1, 0) - 3. * source(i, j, 0))* Yd / (2 * dY);
+          uv(i, j, 1) = -(source(i - 2, j, 0) - 4. * source(i - 1, j, 0) + 3. * source(i, j, 0)) * Xd / (2 * dX);
+        }
+      }
+      {
+        // interior nodes
+        for(std::size_t i = 1; i < Nx - 1; ++i) {
+          for(std::size_t j = 1; j < Ny - 1; ++j) {
+	    double x = source.coord(i,j).first;
+	    double Xd = source.FnComp_Xd(x);
+	    double y = source.coord(i,j).second;
+	    double Yd = source.FnComp_Yd(y);	  
+            uv(i, j, 0) = (source(i, j + 1, 0) - source(i, j - 1, 0)) * Yd / (2 * dY);
+            uv(i, j, 1) = -(source(i + 1, j, 0) - source(i - 1, j, 0)) * Xd / (2 * dX);
+          }
+        }
+      }
+    }
+
+
+
+    
     //
     //
     // MATRIX OPERATIONS

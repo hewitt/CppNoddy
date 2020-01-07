@@ -92,7 +92,7 @@ int main()
   Example::FS_residual problem;
 
   // initial conditions
-  problem.eqn -> beta = 0.0;
+  problem.eqn -> beta = -0.11;
   DenseVector<double> stress( 1, 0.4 );
   // Scalar Newton iteration problem
   Newton<double> newton( &problem );
@@ -137,7 +137,7 @@ int main()
     }
     my_file.update();
   }
-  while ( std::abs( problem.eqn -> beta ) > 0.01 );
+  while ( problem.eqn -> beta  < -0.1 );
 
   if ( abs( approx_limit_point + 0.1988 ) > 0.0005 )
   {

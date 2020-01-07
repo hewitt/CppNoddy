@@ -37,7 +37,6 @@ using namespace std;
 
 int main()
 {
-
   cout << "\n";
   cout << "=== Newton: vector residual root test  ==============\n";
   cout << "\n";

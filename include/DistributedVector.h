@@ -1,6 +1,5 @@
 /// \file DistributedVector.h
-/// A matrix class that constructs a SPARSE/DISTRIBUTED vector 
-/// using PETSc
+/// A class that constructs a SPARSE/DISTRIBUTED vector using PETSc
 
 #if defined(PETSC_D) || defined(PETSC_Z)
 
@@ -8,19 +7,20 @@
 #define DISTRIBUTEDVECTOR_H
 
 #include <Exceptions.h>
+#include <DenseVector.h>
+#include <PetscSession.h>
 #include "petsc.h"
 
 
 namespace CppNoddy {
 
-  /// A matrix class that constructs a SPARSE matrix as a
-  /// row major std::vector of SparseVectors.
+  /// A class that constructs a SPARSE/DISTRIBUTED vector 
   template <typename _Type>
   class DistributedVector {
 
    public:
 
-    /// Construct with a set number of rows
+    /// Construct with a set number of elements
     /// \param length The number of elements in the matrix
     DistributedVector(const PetscInt& length) {
 #if defined(PARANOID)
@@ -29,19 +29,19 @@ namespace CppNoddy {
       if(flag != 1) {
         std::string problem;
         problem = "DistributedVector<> needs PETSc and therefore you must call \n";
-        problem += "PetscInitialize before instantiating the object.\n";
+        problem += "PetscSession before instantiating the object.\n";
         throw ExceptionRuntime(problem);
       }
 #endif
-      // set A to be an rows x cols matrix
+      // create and size a vector m_B
       VecCreate(PETSC_COMM_WORLD,&m_B);
       VecSetSizes(m_B,PETSC_DECIDE,length);
       // add any command line configuration
       VecSetFromOptions(m_B);
 
       // store the rank/size in the object
-      MPI_Comm_size(MPI_COMM_WORLD,&m_size);
-      MPI_Comm_rank(MPI_COMM_WORLD,&m_rank);
+      MPI_Comm_size(PETSC_COMM_WORLD,&m_size);
+      MPI_Comm_rank(PETSC_COMM_WORLD,&m_rank);
 
 #if defined(DEBUG)
       PetscPrintf(PETSC_COMM_WORLD, "[DEBUG] Creating a distributed vector\n");
@@ -95,8 +95,8 @@ namespace CppNoddy {
       VecNorm(m_B,NORM_INFINITY,&norm);
       return norm;
     }
-    
-    /// \return A pointer to the PETSc Vector 
+
+    /// \return A pointer to the PETSc Vector
     Vec* get_pVec(){
       return &m_B;
     }     
@@ -118,7 +118,7 @@ namespace CppNoddy {
       PetscInt start, end;
       VecGetOwnershipRange(m_B,&start,&end);
       if ( ( i >= start ) && ( i < end ) ) {
-        VecSetValues(m_B,1,&i,&value,INSERT_VALUES);
+        VecSetValues(m_B,1,&i,&value,INSERT_VALUES); 
       } else {
       }
     }
@@ -129,7 +129,7 @@ namespace CppNoddy {
       PetscInt start, end;
       VecGetOwnershipRange(m_B,&start,&end);
       PetscInt nnz_elts = elts.size();
-      VecSetValues(m_B,nnz_elts,&elts,&values[0],INSERT_VALUES);
+      VecSetValues(m_B,nnz_elts,&elts[0],&values[0],INSERT_VALUES);
     }
 
     /// Assemble the matrix
@@ -147,7 +147,6 @@ namespace CppNoddy {
       PetscSynchronizedFlush(PETSC_COMM_WORLD, PETSC_STDOUT);
       VecView(m_B,PETSC_VIEWER_STDOUT_WORLD);
     }
-
     
   private:
 

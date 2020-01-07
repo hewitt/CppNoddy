@@ -19,6 +19,7 @@ namespace CppNoddy {
       // we add current time interval to that stored
       DELTA_T_STORE += clock() - T_START;
       STOPPED = true;
+      m_deltaWall = get_wall_time() - m_wallStart;
     }
   }
 
@@ -27,6 +28,7 @@ namespace CppNoddy {
     COUNTER = 0;
     STOPPED = true;
     DELTA_T_STORE = 0;
+    m_deltaWall = 0.0;
   }
 
   double Timer::get_time() const {
@@ -59,7 +61,8 @@ namespace CppNoddy {
     std::cout << "  " << HEADER << "\n";
     const double elapsed_time_in_ms(1.e3 * double(DELTA_T_STORE) / CLOCKS_PER_SEC);
     if(elapsed_time_in_ms > 1000) {
-      std::cout << "  TOTAL CPU time taken = " << elapsed_time_in_ms / 1000. << " s\n";
+      std::cout << "  TOTAL CPU time taken  = " << elapsed_time_in_ms / 1000. << " s\n";
+      std::cout << "  TOTAL wall time taken = " << m_deltaWall << " s\n";
     } else {
       std::cout << "  TOTAL CPU time taken = " << elapsed_time_in_ms << " ms\n";
     }

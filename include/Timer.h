@@ -8,6 +8,8 @@
 
 #include <ctime>
 #include <string>
+#include <time.h>
+#include <sys/time.h>
 
 namespace CppNoddy {
 
@@ -19,17 +21,29 @@ namespace CppNoddy {
    public:
     // CONSTRUCTORS
     Timer() : STOPPED(true), COUNTER(0),
-      T_START(clock()), DELTA_T_STORE(0) {
+	      T_START(clock()), DELTA_T_STORE(0), m_deltaWall(0.0) {
       HEADER = "";
+      m_wallStart = get_wall_time();
     }
 
     Timer(std::string name) : STOPPED(true), COUNTER(0),
-      T_START(clock()), DELTA_T_STORE(0) {
+			      T_START(clock()), DELTA_T_STORE(0), m_deltaWall(0.0) {
       HEADER = name;
+      m_wallStart = get_wall_time();
+    }
+
+    // wall timer
+    double get_wall_time(){
+      struct timeval time;
+      if (gettimeofday(&time,NULL)){
+        //  Handle error
+        return 0;
+      }
+      return (double)time.tv_sec + (double)time.tv_usec * .000001;      
     }
 
     // CLASS METHODS
-
+    
     /// Start the timer & reset stored time to zero.
     void start();
 
@@ -62,6 +76,8 @@ namespace CppNoddy {
     int COUNTER;
     // the start time, stop time and time elapsed so far
     clock_t T_START, DELTA_T_STORE;
+    // wall time
+    double m_wallStart, m_deltaWall;
     // a string header for the object
     std::string HEADER;
   };
