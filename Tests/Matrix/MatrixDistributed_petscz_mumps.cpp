@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
   //matA.view();
   //vecB.view();
 
-  DistributedLinearSystem system( &matA, &vecB );
+  DistributedLinearSystem<D_complex> system( &matA, &vecB );
   system.solve();
 
   cout << vecB.two_norm() << "\n";
