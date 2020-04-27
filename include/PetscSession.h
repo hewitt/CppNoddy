@@ -15,8 +15,9 @@ namespace CppNoddy {
      exit of main() */
   class PetscSession {
 
-  private:    
-    PetscSession(){
+  private:
+    /// Constructor is private -- there is only 1 instance
+    PetscSession() {
     };
     
   public:
@@ -30,7 +31,7 @@ namespace CppNoddy {
       return &instance;
     }
 
-     ~PetscSession(){
+     ~PetscSession() {
 #if defined(DEBUG)
        PetscSynchronizedPrintf(PETSC_COMM_WORLD, "[DEBUG] Exiting the PETSc session.\n");
 #endif

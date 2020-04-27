@@ -10,185 +10,185 @@
 namespace CppNoddy {
 
   TrackerFile::TrackerFile(int prec) {
-    this -> PREC = prec;
+    this -> m_precision = prec;
   }
 
   TrackerFile::TrackerFile(std::string filename, int prec) {
-    dumpfile.open(filename.c_str());
-    this -> PREC = prec;
-    dumpfile.precision(prec);
-    dumpfile << std::scientific;
+    m_dumpFile.open(filename.c_str());
+    this -> m_precision = prec;
+    m_dumpFile.precision(prec);
+    m_dumpFile << std::scientific;
   }
 
   TrackerFile::~TrackerFile() {
-    dumpfile.close();
+    m_dumpFile.close();
   }
 
   void TrackerFile::push_ptr(double* scalar, std::string desc) {
-    p_DOUBLES.push_back(scalar);
-    DOUBLE_DESC.push_back(desc);
+    p_doubles.push_back(scalar);
+    m_doubleDesc.push_back(desc);
   }
 
   void TrackerFile::push_ptr(D_complex* scalar, std::string desc) {
-    //p_DOUBLES.push_back( &( scalar -> real() ) );
-    //p_DOUBLES.push_back( &( scalar -> imag() ) );
+    //p_Doubles.push_back( &( scalar -> real() ) );
+    //p_Doubles.push_back( &( scalar -> imag() ) );
     // above is no longer valid for g++-7.2
-    p_DOUBLES.push_back(&reinterpret_cast<double(&)[2]>(*scalar)[0]);
-    p_DOUBLES.push_back(&reinterpret_cast<double(&)[2]>(*scalar)[1]);
-    DOUBLE_DESC.push_back(desc + " (real)");
-    DOUBLE_DESC.push_back(desc + " (imag)");
+    p_doubles.push_back(&reinterpret_cast<double(&)[2]>(*scalar)[0]);
+    p_doubles.push_back(&reinterpret_cast<double(&)[2]>(*scalar)[1]);
+    m_doubleDesc.push_back(desc + " (real)");
+    m_doubleDesc.push_back(desc + " (imag)");
   }
 
   void TrackerFile::push_ptr(DenseVector<double>* ptr_to_vector, std::string desc) {
-    p_DVECTORS.push_back(ptr_to_vector);
-    DVECTOR_DESC.push_back(desc);
+    p_doubleVectors.push_back(ptr_to_vector);
+    m_doubleVectorDesc.push_back(desc);
   }
 
   void TrackerFile::push_ptr(DenseVector<D_complex>* ptr_to_vector, std::string desc) {
-    p_CVECTORS.push_back(ptr_to_vector);
-    CVECTOR_DESC.push_back(desc);
+    p_complexVectors.push_back(ptr_to_vector);
+    m_complexVectorDesc.push_back(desc);
   }
 
   void TrackerFile::push_ptr(OneD_Node_Mesh<double>* ptr_to_mesh, std::string desc) {
-    p_DMESH.push_back(ptr_to_mesh);
-    DMESH_DESC.push_back(desc);
+    p_doubleMesh.push_back(ptr_to_mesh);
+    m_doubleMeshDesc.push_back(desc);
   }
 
   void TrackerFile::push_ptr(OneD_Node_Mesh<D_complex>* ptr_to_mesh, std::string desc) {
-    p_CMESH.push_back(ptr_to_mesh);
-    CMESH_DESC.push_back(desc);
+    p_complexMesh.push_back(ptr_to_mesh);
+    m_complexMeshDesc.push_back(desc);
   }
 
   void TrackerFile::push_ptr(OneD_Node_Mesh<D_complex, D_complex>* ptr_to_mesh, std::string desc) {
-    p_CCMESH.push_back(ptr_to_mesh);
-    CCMESH_DESC.push_back(desc);
+    p_complexComplexMesh.push_back(ptr_to_mesh);
+    m_complexMeshDesc.push_back(desc);
   }
   void TrackerFile::newline() {
-    dumpfile << "\n";
+    m_dumpFile << "\n";
   }
 
   void TrackerFile::set_filename(std::string filename) {
-    dumpfile.close();
-    dumpfile.open(filename.c_str());
-    dumpfile.precision(PREC);
+    m_dumpFile.close();
+    m_dumpFile.open(filename.c_str());
+    m_dumpFile.precision(m_precision);
   }
 
   void TrackerFile::precision(unsigned prec) {
-    this -> PREC = prec;
-    dumpfile.precision(prec);
+    this -> m_precision = prec;
+    m_dumpFile.precision(prec);
   }
 
   void TrackerFile::header() {
     // write the header
-    dumpfile << " # Header : \n # ";
-    for(std::size_t i = 0; i < DOUBLE_DESC.size(); ++i) {
-      dumpfile << DOUBLE_DESC[ i ] << " | ";
+    m_dumpFile << " # Header : \n # ";
+    for(std::size_t i = 0; i < m_doubleDesc.size(); ++i) {
+      m_dumpFile << m_doubleDesc[ i ] << " | ";
     }
-    for(std::size_t i = 0; i < DVECTOR_DESC.size(); ++i) {
-      dumpfile << DVECTOR_DESC[ i ] << " | ";
+    for(std::size_t i = 0; i < m_doubleVectorDesc.size(); ++i) {
+      m_dumpFile << m_doubleVectorDesc[ i ] << " | ";
     }
-    for(std::size_t i = 0; i < CVECTOR_DESC.size(); ++i) {
-      dumpfile << CVECTOR_DESC[ i ] + " (Real)" << " | ";
-      dumpfile << CVECTOR_DESC[ i ] + " (Imag)" << " | ";
+    for(std::size_t i = 0; i < m_complexVectorDesc.size(); ++i) {
+      m_dumpFile << m_complexVectorDesc[ i ] + " (Real)" << " | ";
+      m_dumpFile << m_complexVectorDesc[ i ] + " (Imag)" << " | ";
     }
-    for(std::size_t i = 0; i < DMESH_DESC.size(); ++i) {
-      dumpfile << DMESH_DESC[ i ] + " (nodes)" << " | ";
-      for(unsigned var = 0; var < (*p_DMESH[ i ]).get_nvars(); ++var) {
-        dumpfile << DMESH_DESC[ i ] + " var#" + Utility::stringify(var) + " | ";
+    for(std::size_t i = 0; i < m_doubleMeshDesc.size(); ++i) {
+      m_dumpFile << m_doubleMeshDesc[ i ] + " (nodes)" << " | ";
+      for(unsigned var = 0; var < (*p_doubleMesh[ i ]).get_nvars(); ++var) {
+        m_dumpFile << m_doubleMeshDesc[ i ] + " var#" + Utility::stringify(var) + " | ";
       }
     }
-    for(std::size_t i = 0; i < CMESH_DESC.size(); ++i) {
-      dumpfile << CMESH_DESC[ i ] + "(nodes)" << " | ";
-      for(unsigned var = 0; var < (*p_CMESH[ i ]).get_nvars(); ++var) {
-        dumpfile << CMESH_DESC[ i ] + " var#" + Utility::stringify(var) + " (Real) | ";
-        dumpfile << CMESH_DESC[ i ] + " var#" + Utility::stringify(var) + " (Imag) | ";
+    for(std::size_t i = 0; i < m_complexMeshDesc.size(); ++i) {
+      m_dumpFile << m_complexMeshDesc[ i ] + "(nodes)" << " | ";
+      for(unsigned var = 0; var < (*p_complexMesh[ i ]).get_nvars(); ++var) {
+        m_dumpFile << m_complexMeshDesc[ i ] + " var#" + Utility::stringify(var) + " (Real) | ";
+        m_dumpFile << m_complexMeshDesc[ i ] + " var#" + Utility::stringify(var) + " (Imag) | ";
       }
     }
-    for(std::size_t i = 0; i < CCMESH_DESC.size(); ++i) {
-      dumpfile << CCMESH_DESC[ i ] + "(nodes)_real" << " | ";
-      dumpfile << CCMESH_DESC[ i ] + "(nodes)_imag" << " | ";
-      for(unsigned var = 0; var < (*p_CCMESH[ i ]).get_nvars(); ++var) {
-        dumpfile << CCMESH_DESC[ i ] + " var#" + Utility::stringify(var) + " (Real) | ";
-        dumpfile << CCMESH_DESC[ i ] + " var#" + Utility::stringify(var) + " (Imag) | ";
+    for(std::size_t i = 0; i < m_complexComplexMeshDesc.size(); ++i) {
+      m_dumpFile << m_complexComplexMeshDesc[ i ] + "(nodes)_real" << " | ";
+      m_dumpFile << m_complexComplexMeshDesc[ i ] + "(nodes)_imag" << " | ";
+      for(unsigned var = 0; var < (*p_complexComplexMesh[ i ]).get_nvars(); ++var) {
+        m_dumpFile << m_complexComplexMeshDesc[ i ] + " var#" + Utility::stringify(var) + " (Real) | ";
+        m_dumpFile << m_complexComplexMeshDesc[ i ] + " var#" + Utility::stringify(var) + " (Imag) | ";
       }
     }
-    dumpfile << "\n";
+    m_dumpFile << "\n";
   }
 
   void TrackerFile::update() {
     unsigned block_size(1);
-    if(!p_DVECTORS.empty()) {
-      block_size = p_DVECTORS[ 0 ] -> size();
+    if(!p_doubleVectors.empty()) {
+      block_size = p_doubleVectors[ 0 ] -> size();
     }
-    if(!p_CVECTORS.empty()) {
-      block_size = p_CVECTORS[ 0 ] -> size();
+    if(!p_complexVectors.empty()) {
+      block_size = p_complexVectors[ 0 ] -> size();
     }
-    if(!p_DMESH.empty()) {
-      block_size = p_DMESH[ 0 ] -> get_nnodes();
+    if(!p_doubleMesh.empty()) {
+      block_size = p_doubleMesh[ 0 ] -> get_nnodes();
     }
-    if(!p_CMESH.empty()) {
-      block_size = p_CMESH[ 0 ] -> get_nnodes();
+    if(!p_complexMesh.empty()) {
+      block_size = p_complexMesh[ 0 ] -> get_nnodes();
     }
-    if(!p_CCMESH.empty()) {
-      block_size = p_CCMESH[ 0 ] -> get_nnodes();
+    if(!p_complexComplexMesh.empty()) {
+      block_size = p_complexComplexMesh[ 0 ] -> get_nnodes();
     }
 
     for(unsigned line = 0; line < block_size; ++line) {
       dump_scalar_data();
-      if(!p_DVECTORS.empty()) {
+      if(!p_doubleVectors.empty()) {
         // for each vector ptr
-        for(std::size_t i = 0; i < p_DVECTORS.size(); ++i) {
-          dumpfile << (*p_DVECTORS[ i ]) [ line ] << " ";
+        for(std::size_t i = 0; i < p_doubleVectors.size(); ++i) {
+          m_dumpFile << (*p_doubleVectors[ i ]) [ line ] << " ";
         }
       }
-      if(!p_CVECTORS.empty()) {
+      if(!p_complexVectors.empty()) {
         // for each vector ptr
-        for(std::size_t i = 0; i < p_CVECTORS.size(); ++i) {
-          dumpfile << (*p_CVECTORS[ i ]) [ line ].real() << " ";
-          dumpfile << (*p_CVECTORS[ i ]) [ line ].imag() << " ";
+        for(std::size_t i = 0; i < p_complexVectors.size(); ++i) {
+          m_dumpFile << (*p_complexVectors[ i ]) [ line ].real() << " ";
+          m_dumpFile << (*p_complexVectors[ i ]) [ line ].imag() << " ";
         }
       }
-      if(!p_DMESH.empty()) {
+      if(!p_doubleMesh.empty()) {
         // for each mesh ptr
-        for(std::size_t i = 0; i < p_DMESH.size(); ++i) {
-          dumpfile << (*p_DMESH[ i ]).coord(line) << " ";
-          for(unsigned var = 0; var < p_DMESH[ i ] -> get_nvars(); ++var) {
-            dumpfile << (*p_DMESH[ i ])(line, var) << " ";
+        for(std::size_t i = 0; i < p_doubleMesh.size(); ++i) {
+          m_dumpFile << (*p_doubleMesh[ i ]).coord(line) << " ";
+          for(unsigned var = 0; var < p_doubleMesh[ i ] -> get_nvars(); ++var) {
+            m_dumpFile << (*p_doubleMesh[ i ])(line, var) << " ";
           }
         }
       }
-      if(!p_CMESH.empty()) {
+      if(!p_complexMesh.empty()) {
         // for each mesh ptr
-        for(std::size_t i = 0; i < p_CMESH.size(); ++i) {
-          dumpfile << (*p_CMESH[ i ]).coord(line) << " ";
-          for(unsigned var = 0; var < p_CMESH[ i ] -> get_nvars(); ++var) {
-            dumpfile << (*p_CMESH[ i ])(line, var).real() << " ";
-            dumpfile << (*p_CMESH[ i ])(line, var).imag() << " ";
+        for(std::size_t i = 0; i < p_complexMesh.size(); ++i) {
+          m_dumpFile << (*p_complexMesh[ i ]).coord(line) << " ";
+          for(unsigned var = 0; var < p_complexMesh[ i ] -> get_nvars(); ++var) {
+            m_dumpFile << (*p_complexMesh[ i ])(line, var).real() << " ";
+            m_dumpFile << (*p_complexMesh[ i ])(line, var).imag() << " ";
           }
         }
       }
-      if(!p_CCMESH.empty()) {
+      if(!p_complexComplexMesh.empty()) {
         // for each mesh ptr
-        for(std::size_t i = 0; i < p_CCMESH.size(); ++i) {
-          dumpfile << (*p_CCMESH[ i ]).coord(line).real() << " ";
-          dumpfile << (*p_CCMESH[ i ]).coord(line).imag() << " ";
-          for(unsigned var = 0; var < p_CCMESH[ i ] -> get_nvars(); ++var) {
-            dumpfile << (*p_CCMESH[ i ])(line, var).real() << " ";
-            dumpfile << (*p_CCMESH[ i ])(line, var).imag() << " ";
+        for(std::size_t i = 0; i < p_complexComplexMesh.size(); ++i) {
+          m_dumpFile << (*p_complexComplexMesh[ i ]).coord(line).real() << " ";
+          m_dumpFile << (*p_complexComplexMesh[ i ]).coord(line).imag() << " ";
+          for(unsigned var = 0; var < p_complexComplexMesh[ i ] -> get_nvars(); ++var) {
+            m_dumpFile << (*p_complexComplexMesh[ i ])(line, var).real() << " ";
+            m_dumpFile << (*p_complexComplexMesh[ i ])(line, var).imag() << " ";
           }
         }
       }
-      dumpfile << "\n";
+      m_dumpFile << "\n";
     }
     // flush the buffer
-    dumpfile.flush();
+    m_dumpFile.flush();
   }
 
   void TrackerFile::dump_scalar_data() {
-    if(!p_DOUBLES.empty()) {
+    if(!p_doubles.empty()) {
       // simple flat data file
-      for(std::size_t i = 0; i < p_DOUBLES.size(); ++i) {
-        dumpfile << *p_DOUBLES[ i ] << " ";
+      for(std::size_t i = 0; i < p_doubles.size(); ++i) {
+        m_dumpFile << *p_doubles[ i ] << " ";
       }
     }
   }

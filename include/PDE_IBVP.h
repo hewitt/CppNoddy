@@ -84,7 +84,19 @@ namespace CppNoddy {
       return MAX_ITERATIONS;
     }
 
-   private:
+    Equation_2matrix<_Type>* get_p_equation() {
+      return p_EQUATION;
+    }
+    
+    Residual_with_coords<_Type>* get_p_left() {
+      return p_LEFT_RESIDUAL;
+    }
+
+    Residual_with_coords<_Type>* get_p_right() {
+      return p_RIGHT_RESIDUAL;
+    }
+
+  private:
     /// The solution at the current time level
     OneD_Node_Mesh<_Type> SOLN;
     /// The solution at the previous time step

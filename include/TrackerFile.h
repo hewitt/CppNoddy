@@ -49,35 +49,35 @@ namespace CppNoddy {
 
    protected:
 
-    mutable std::ofstream dumpfile;
+    mutable std::ofstream m_dumpFile;
 
    private:
 
     /// private output method to write all scalar data to dumpfile
     void dump_scalar_data();
 
-    /// a vector of pointers to descriptions
-    std::vector< std::string > DOUBLE_DESC;
-    std::vector< std::string > DVECTOR_DESC;
-    std::vector< std::string > CVECTOR_DESC;
-    std::vector< std::string > DMESH_DESC;
-    std::vector< std::string > CMESH_DESC;
-    std::vector< std::string > CCMESH_DESC;
+    /// a vector of description strings
+    std::vector< std::string > m_doubleDesc;
+    std::vector< std::string > m_doubleVectorDesc;
+    std::vector< std::string > m_complexVectorDesc;
+    std::vector< std::string > m_doubleMeshDesc;
+    std::vector< std::string > m_complexMeshDesc;
+    std::vector< std::string > m_complexComplexMeshDesc;
     /// a vector of pointers to scalars
-    std::vector< double* > p_DOUBLES;
+    std::vector< double* > p_doubles;
     /// a vector of pointers to double dense vectors
-    std::vector< DenseVector<double>* > p_DVECTORS;
+    std::vector< DenseVector<double>* > p_doubleVectors;
     /// a vector of pointers to complex dense vectors
-    std::vector< DenseVector<D_complex>* > p_CVECTORS;
+    std::vector< DenseVector<D_complex>* > p_complexVectors;
     /// a vector of pointers to real 1D meshes
-    std::vector< OneD_Node_Mesh<double>* > p_DMESH;
+    std::vector< OneD_Node_Mesh<double>* > p_doubleMesh;
     /// a vector of pointers to complex 1D meshes
-    std::vector< OneD_Node_Mesh<D_complex>* > p_CMESH;
+    std::vector< OneD_Node_Mesh<D_complex>* > p_complexMesh;
     /// a vector of pointers to complex-complex 1D meshes
-    std::vector< OneD_Node_Mesh<D_complex, D_complex>* > p_CCMESH;
+    std::vector< OneD_Node_Mesh<D_complex, D_complex>* > p_complexComplexMesh;
 
     /// output precision
-    unsigned PREC;
+    unsigned m_precision;
 
   }
   ; //end class

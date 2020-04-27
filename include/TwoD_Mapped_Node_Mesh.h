@@ -90,7 +90,7 @@ namespace CppNoddy {
     TwoD_Mapped_Node_Mesh()
     {}
 
-    /// ctor
+    /// ctor of a blank mesh
     TwoD_Mapped_Node_Mesh(const double left, const double right, const double bottom, const double top, const std::size_t nx, const std::size_t ny, const std::size_t nvars) : m_left(left), m_right(right), m_bottom(bottom), m_top(top), m_nx(nx), m_ny(ny), m_nv(nvars) {
       // initialise the storage, but fill these below in init_mapping()
       m_X = DenseVector<double> (m_nx,0.0);
@@ -99,8 +99,31 @@ namespace CppNoddy {
       m_compY = DenseVector<double> (m_ny,0.0);
       // we'll store the data as ( x, y, v ) ->  x * ny * nv + y * nv + v
       m_vars = DenseVector<_Type>(m_nx * m_ny * m_nv, 0.0);
+      // user needs to call init_mapping() to set up m_compX, m_compY after this
     }
 
+
+    // ctor from a file
+    TwoD_Mapped_Node_Mesh(std::string filename, const std::size_t nx, const std::size_t ny, const std::size_t nv)  :
+      m_nx(nx), m_ny(ny), m_nv(nv) {
+      // need storage for the coordinates
+      m_X = DenseVector<double>(m_nx, 0.0);
+      m_Y = DenseVector<double>(m_ny, 0.0);
+      m_compX = DenseVector<double> (m_nx,0.0);
+      m_compY = DenseVector<double> (m_ny,0.0);
+      // we'll store the data as ( x, y, v ) ->  x * ny * nv + y * nv + v
+      m_vars = DenseVector<_Type>(m_nx * m_ny * m_nv, 0.0);
+      // now read the mesh from the given filename -- this also updates the m_X data
+      read(filename, true);
+      // set up the private member data on the box size.
+      m_left = m_X[0];
+      m_right = m_X[m_nx-1];
+      m_bottom = m_Y[0];
+      m_top = m_Y[m_ny-1];
+      // user needs to call init_mapping() to set up m_compX, m_compY after this
+    }
+    
+    
     // Construct the coordinate mapping. The computational mesh is uniform
     // with m_nx x m_ny nodes. The physical mesh spans the domain m_left to m_right
     // and m_bottom to m_top, and its nodes are non-uniformly spaced. The physical
@@ -165,6 +188,11 @@ namespace CppNoddy {
     /// Access the vector of y-nodal positions
     /// \return A vector of the nodal positions for this mesh
     DenseVector<double>& ynodes();
+
+    /// A simple method for reading data from a file
+    /// \param filename The filename to write the data to (will overwrite)
+    /// \param reset Will reset the nodal positions using those from the file
+    void read(std::string filename, const bool reset = false);
 
     /// A simple method for dumping data to a file for gnuplot surface plotting
     /// \param filename The filename to write the data to (will overwrite)

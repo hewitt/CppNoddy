@@ -368,6 +368,46 @@ namespace CppNoddy {
     return sum;
   }
 
+
+  template < typename _Type, typename _Xtype >
+  void OneD_Node_Mesh<_Type, _Xtype>::read(std::string filename, bool reset )  {
+    std::ifstream dump;
+    dump.open(filename.c_str());
+    if (dump.good() != true) {
+      std::string problem;
+      problem = " The OneD_Node_Mesh.read method is trying to read a \n";
+      problem += " file (" + filename + ") that doesn't exist.\n";
+      throw ExceptionRuntime(problem);
+    }
+    dump.precision(15);
+    dump.setf(std::ios::showpoint);
+    dump.setf(std::ios::showpos);
+    dump.setf(std::ios::scientific);
+    std::size_t N = get_nnodes();
+    for (std::size_t i = 0; i < N; ++i) {
+        double x;
+        dump >> x;
+        for (std::size_t var = 0; var < m_nv; ++var) {
+          double value;
+          dump >> value;
+          VARS[ i * m_nv + var ] = value;
+        }
+        if (reset != true) {
+          // if not reseting the mesh we should check the node positions
+          if (std::fabs(x - m_X[ i ]) > 1.e-6) {
+            std::cout << " Read x = " << x << " Expected x = " << m_X[ i ] << "\n";
+            std::cout << " Absolute differences are " << fabs(x - m_X[i]) <<  "\n";
+            std::string problem;
+            problem = " The TwoD_Node_Mesh.read method is trying to read a \n";
+            problem += " file whose nodal points are in a different position. \n";
+            throw ExceptionRuntime(problem);
+          }
+        } else {
+          m_X[ i ] = x;
+        }
+    }
+  }
+
   template < typename _Type, typename _Xtype >
   void OneD_Node_Mesh<_Type, _Xtype>::dump() const {
     std::cout << "Number of nodes = " << m_X.size() << "\n";
@@ -414,6 +454,9 @@ namespace CppNoddy {
     }
   }
 
+
+  
+  
   //the templated versions we require are:
   template class OneD_Node_Mesh<double>
   ;

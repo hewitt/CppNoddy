@@ -9,6 +9,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <complex>
 
 #include <SparseVector.h>
 #include <DenseVector.h>
@@ -67,15 +68,6 @@ namespace CppNoddy {
 
     /// Access operator
     const _Type& operator()(const std::size_t& row, const std::size_t& col) const;
-
-#if defined(PETSC_D) || defined(PETSC_Z)
-    /// \param row The row of the element to set
-    /// \param col The column of the element to set
-    /// \param value The value to be put into element (row,column)
-    void operator()(const PetscInt& row, const PetscInt& col, const PetscScalar& value) {
-      set( row, col ) = value;
-    }
-#endif
     
     /// Access operator
     _Type& operator()(const std::size_t& row, const std::size_t& col);

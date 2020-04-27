@@ -11,6 +11,7 @@
 /// which in this case is \f$ 3-i \f$.
 
 #include <SparseLinearEigenSystem.h>
+#include <SlepcSession.h>
 
 using namespace CppNoddy;
 using namespace std;

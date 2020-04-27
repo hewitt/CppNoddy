@@ -52,6 +52,18 @@ namespace CppNoddy {
       VARS = DenseVector<_Type>(m_nv * m_X.size(), _Type(0.0));
     }
 
+    /// ctor from an existing file
+    /// \param filename Filename of the data file
+    /// \param nnodes Number of nodes
+    /// \param nvars Number of variables stored at each node
+    OneD_Node_Mesh(std::string filename, const std::size_t nnodes, const std::size_t nvars ) :
+      m_nv(nvars) {
+      m_X = DenseVector<_Xtype>(nnodes, _Xtype(0.0) ); //coordinates, currently empty
+      VARS = DenseVector<_Type>(nvars*nnodes, _Type(0.0) ); // nodal values
+      read(filename, true); // true => reset the nodal coordinates using file
+    }
+    
+
     /// Destructor
     virtual ~OneD_Node_Mesh()
     {}
@@ -226,6 +238,11 @@ namespace CppNoddy {
       return max;
     }
 
+    /// Assign mesh contents using a filename
+    /// \param filename Filename that contains the data
+    /// \param reset A boolean, if true then coordinate data is overwritten using the file data. Default is false.
+    void read( std::string filename, const bool reset = false );
+    
    protected:
 
     // number of variables

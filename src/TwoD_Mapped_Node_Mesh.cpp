@@ -193,6 +193,91 @@ namespace CppNoddy {
   }
 
   template<>
+  void TwoD_Mapped_Node_Mesh<double>::read(std::string filename, bool reset) {
+    std::ifstream dump;
+    dump.open(filename.c_str());
+    if(dump.good() != true) {
+      std::string problem;
+      problem = " The TwoD_Node_Mesh.read method is trying to read a \n";
+      problem += " file (" + filename + ") that doesn't exist.\n";
+      throw ExceptionRuntime(problem);
+    }
+    dump.precision(15);
+    dump.setf(std::ios::showpoint);
+    dump.setf(std::ios::showpos);
+    dump.setf(std::ios::scientific);
+    for(std::size_t i = 0; i < m_nx; ++i) {
+      for(std::size_t j = 0; j < m_ny; ++j) {
+        double x, y;
+        dump >> x;
+        dump >> y;
+        for(std::size_t var = 0; var < m_nv; ++var) {
+          double value;
+          dump >> value;
+          m_vars[(i * m_ny + j) * m_nv + var ] = value;
+        }
+        if(reset != true) {
+          // if not reseting the mesh we should check the node positions
+          if((std::fabs(x - m_X[ i ]) > 1.e-6) || (std::fabs(y - m_Y[ j ]) > 1.e-6)) {
+            std::cout << " Read x = " << x << " Expected x = " << m_X[ i ] << "; Read y = " << y << " Expected y = " << m_Y[ j ] << " \n";
+            std::cout << " Absolute differences are " << fabs(x - m_X[i]) << " and " << fabs(y - m_Y[j]) << "\n";
+            std::string problem;
+            problem = " The TwoD_Node_Mesh.read method is trying to read a \n";
+            problem += " file whose nodal points are in a different position. \n";
+            throw ExceptionRuntime(problem);
+          }
+        } else {
+          m_X[ i ] = x;
+          m_Y[ j ] = y;
+        }
+      }
+    }
+  }
+
+
+  template<>
+  void TwoD_Mapped_Node_Mesh<D_complex>::read(std::string filename, bool reset) {
+    std::ifstream dump;
+    dump.open(filename.c_str());
+    dump.precision(15);
+    dump.setf(std::ios::showpoint);
+    dump.setf(std::ios::showpos);
+    dump.setf(std::ios::scientific);
+    //
+    // 18/06/2017: switched i and j below for consistency with double
+    //
+    for(std::size_t i = 0; i < m_nx; ++i) {
+      for(std::size_t j = 0; j < m_ny; ++j) {
+        double x, y;
+        dump >> x;
+        dump >> y;
+        for(std::size_t var = 0; var < m_nv; ++var) {
+          double value_r, value_i;
+          dump >> value_r;
+          dump >> value_i;
+          m_vars[(i * m_ny + j) * m_nv + var ] = D_complex(value_r, value_i);
+        }
+        if(reset != true) {
+          // if not reseting the mesh we should check the node positions
+          if((std::fabs(x - m_X[ i ]) > 1.e-6) || (std::fabs(y - m_Y[ j ]) > 1.e-6)) {
+            std::cout << " Read x = " << x << " Expected x = " << m_X[ i ] << "; Read y = " << y << " Expected y = " << m_Y[ j ] << " \n";
+            std::cout << " Absolute differences are " << fabs(x - m_X[i]) << " and " << fabs(y - m_Y[j]) << "\n";
+            std::string problem;
+            problem = " The TwoD_Node_Mesh.read method is trying to read a \n";
+            problem += " file whose nodal points are in a different position. \n";
+            throw ExceptionRuntime(problem);
+          }
+        } else {
+          m_X[ i ] = x;
+          m_Y[ j ] = y;
+        }
+      }
+    }
+  }
+
+
+
+  template<>
   void TwoD_Mapped_Node_Mesh<double>::dump_gnu(std::string filename) const {
     std::ofstream dump;
     dump.open(filename.c_str());
