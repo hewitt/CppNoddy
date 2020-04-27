@@ -208,8 +208,8 @@ namespace CppNoddy {
       // std::cout << "maxIndex = " << maxIndex << " zeta = " << m_X[maxIndex] 
       // 		<< "h = " << std::abs( VARS[ maxIndex*m_nv + var ]) << "\n";
       if ( ( maxIndex == 0 ) || ( maxIndex == m_X.size()-1 ) ) {
-	std::cout << "MaxAbsInterpolated failed. Maximumum absolute nodal value is first/last node. \n";
-	assert(false);
+	std::cout << "[WARNING] MaxAbsInterpolated failed. Maximumum absolute nodal value is first/last node. \n";
+	return m_X[ maxIndex ];
       }
       _Type f1,f2,f3;
       _Xtype x1,x2,x3;
