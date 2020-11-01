@@ -1,3 +1,4 @@
+
 /// \file TwoD_TVDLF_Mesh.cpp
 /// Implementation of an object that represents a two dimensional
 /// mesh for TVD LF methods.
@@ -413,12 +414,13 @@ namespace CppNoddy {
         for(std::size_t i = 0; i < ORDER_OF_SYSTEM; ++i) {
           dump << e -> get_Q(s)[i] << " ";
         }
-        for(std::size_t i = 0; i < ORDER_OF_SYSTEM; ++i) {
-          dump << e -> get_slope_x()[i] << " ";
-        }
-        for(std::size_t i = 0; i < ORDER_OF_SYSTEM; ++i) {
-          dump << e -> get_slope_y()[i] << " ";
-        }
+        dump << e -> get_max_dt();
+        // for(std::size_t i = 0; i < ORDER_OF_SYSTEM; ++i) {
+        //   dump << e -> get_slope_x()[i] << " ";
+        // }
+        // for(std::size_t i = 0; i < ORDER_OF_SYSTEM; ++i) {
+        //   dump << e -> get_slope_y()[i] << " ";
+        // }
         dump << "\n";
         if(e -> face_is_external(1))
           dump << "\n";
@@ -472,12 +474,13 @@ namespace CppNoddy {
         for(std::size_t i = 0; i < ORDER_OF_SYSTEM; ++i) {
           dump << e -> get_Q(s)[i] << " ";
         }
-        for(std::size_t i = 0; i < ORDER_OF_SYSTEM; ++i) {
-          dump << e -> get_slope_x()[i] << " ";
-        }
-        for(std::size_t i = 0; i < ORDER_OF_SYSTEM; ++i) {
-          dump << e -> get_slope_y()[i] << " ";
-        }
+        dump << e -> get_max_dt() << " ";
+        // for(std::size_t i = 0; i < ORDER_OF_SYSTEM; ++i) {
+        //   dump << e -> get_slope_x()[i] << " ";
+        // }
+        // for(std::size_t i = 0; i < ORDER_OF_SYSTEM; ++i) {
+        //   dump << e -> get_slope_y()[i] << " ";
+        // }
         dump << "\n";
         ++e;
       }
@@ -497,6 +500,9 @@ namespace CppNoddy {
 
   double TwoD_TVDLF_Mesh::update(const double& CFL, const double& max_dt) {
     // integrate the black mesh data onto the red mesh
+    std::cout << "[DEBUG] in update with MESH_TIME = " << MESH_TIME << "\n";
+    std::cout << "[DEBUG] in update with max_dt = " << max_dt << "\n";
+    
     {
       elt_iter e = RED_ELTS.begin();
       while(e != RED_ELTS.end()) {
@@ -516,11 +522,14 @@ namespace CppNoddy {
         first_dt = std::min(first_dt, e -> get_max_dt());
         ++e;
       }
+      std::cout << "[DEBUG] in update with first_dt = " << first_dt << "\n";
       first_dt *= CFL;
+      std::cout << "[DEBUG] in update with first_dt*CFL = " << first_dt << "\n";
     }
     if(first_dt > max_dt / 2) {
       first_dt = max_dt / 2;
     }
+    std::cout << "[DEBUG] in update with final first_dt = " << first_dt << "\n";
 
     actions_before_time_step1(first_dt);
     // do the time step
@@ -534,6 +543,7 @@ namespace CppNoddy {
     }
     calc_slopes(&RED_ELTS);
     MESH_TIME += first_dt;
+    std::cout << "[DEBUG] in update with MESH_TIME = " << MESH_TIME << "\n";
 
     // integrate the red mesh data onto the black mesh
     {
@@ -555,12 +565,15 @@ namespace CppNoddy {
         second_dt = std::min(second_dt, e -> get_max_dt());
         ++e;
       }
+      std::cout << "[DEBUG] in update with second_dt = " << second_dt << "\n";      
       second_dt *= CFL;
+      std::cout << "[DEBUG] in update with second_dt*CFL = " << second_dt << "\n";
     }
     if(first_dt + second_dt > max_dt) {
       second_dt = max_dt - first_dt;
     }
-
+    std::cout << "[DEBUG] in update with final second_dt = " << second_dt << "\n";
+    
     actions_before_time_step2(second_dt);
     // do the time step
     {
@@ -573,9 +586,8 @@ namespace CppNoddy {
     }
     calc_slopes(&BLACK_ELTS);
     MESH_TIME += second_dt;
-
-    //std::cout << "    currently at " << MESH_TIME << "\n";
-
+    std::cout << "[DEBUG] in update with MESH_TIME = " << MESH_TIME << "\n";
+    
     return first_dt + second_dt;
   }
 

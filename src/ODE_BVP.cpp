@@ -269,7 +269,7 @@ namespace CppNoddy {
         break;
       }
       // too many iterations?
-      if(counter > MAX_ITERATIONS) {
+      if ((counter > MAX_ITERATIONS) || (delta_x.inf_norm() > 100 )) {
         step_succeeded = false;
         break;
       }

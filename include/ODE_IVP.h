@@ -51,7 +51,7 @@ namespace CppNoddy {
     /// Return a handle to the STORE_EVERY object
     /// \return A reference to the STORE_EVERY variable
     unsigned& store_every();
-
+    
    private:
 
     /// initial and final step points

@@ -196,35 +196,30 @@ namespace CppNoddy {
     /// the same amount.
     void normalise(const std::size_t& var);
 
+    /// Calls the vector "scale" method for the whole mesh data
+    /// \param value The value to be used in the scale operation    
     void scale(const _Type& value) {
       m_vars.scale(value);
     }
 
+    /// Normalise the mesh such that the real part of variable 'var'
+    /// has a real part of unity, and is then the largest real part across
+    /// the whole mesh
+    /// \param var The variable to be normalised
     void normalise_real_part(const std::size_t& var) {
-      double maxval(max_real_part(var));
+      double maxval(max_abs_real_part(var));
       m_vars.scale(1./maxval);
     }
 
     /// Find the maximum stored absolute value in the mesh for a given variable -- no interpolation is used
     /// \param var The variable index whose maximum is being asked for
     /// \return The value of the maximum (abs value)
-    double max_real_part(unsigned var) {
-      double max(0.0);
-      // step through the nodes
-      for(unsigned nodex = 0; nodex < m_X.size(); ++nodex) {
-        for(unsigned nodey = 0; nodey < m_Y.size(); ++nodey) {
-          if(std::abs(m_vars[(nodex * m_ny + nodey) * m_nv + var ].real()) > max) {
-            max = std::abs(m_vars[(nodex * m_ny + nodey) * m_nv + var ].real());
-          }
-        }
-      }
-      return max;
-    }
+    double max_abs_real_part(unsigned var);
 
     /// Find the maximum stored absolute value in the mesh for a given variable -- no interpolation is used
     /// \param var The variable index whose maximum is being asked for
     /// \return The value of the maximum (abs value)
-    double max(unsigned var) {
+    double max_abs(unsigned var) {
       double max(0.0);
       // step through the nodes
       for(unsigned nodex = 0; nodex < m_X.size(); ++nodex) {

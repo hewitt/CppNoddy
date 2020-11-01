@@ -1,5 +1,5 @@
 /// \file OneD_Node_Mesh.cpp
-/// Implementation of the one dimensional uniformly distributed mesh object.
+/// Implementation of the one dimensional (non-)uniformly distributed mesh object.
 
 #include <vector>
 #include <string>
@@ -22,7 +22,7 @@ namespace CppNoddy {
     }
 #endif
     for(std::size_t var = 0; var < U.size(); ++var) {
-      VARS[ node * m_nv + var ] = U[ var ];
+      m_vars[ node * m_nv + var ] = U[ var ];
     }
   }
 
@@ -38,7 +38,7 @@ namespace CppNoddy {
 #endif
     DenseVector<_Type> nodes_vars;
     for(std::size_t var = 0; var < m_nv; ++var) {
-      nodes_vars.push_back(VARS[ node * m_nv + var ]);
+      nodes_vars.push_back(m_vars[ node * m_nv + var ]);
     }
     return nodes_vars;
   }
@@ -64,9 +64,9 @@ namespace CppNoddy {
     for(std::size_t node = 0; node < m_X.size() - 1; ++node) {
       std::size_t offset(node * m_nv + var);
       // find bracket nodes
-      if((VARS[ offset ] - value) * (VARS[ offset + m_nv ] - value) < 0.0) {
-        double deriv = (VARS[ offset + m_nv ] - VARS[ offset ]) / (m_X[ node + 1 ] - m_X[ node ]);
-        double x = m_X[ node ] + (value - VARS[ offset ]) / deriv;
+      if((m_vars[ offset ] - value) * (m_vars[ offset + m_nv ] - value) < 0.0) {
+        double deriv = (m_vars[ offset + m_nv ] - m_vars[ offset ]) / (m_X[ node + 1 ] - m_X[ node ]);
+        double x = m_X[ node ] + (value - m_vars[ offset ]) / deriv;
         // add the left hand node to the roots vector
         roots.push_back(x);
       }
@@ -76,7 +76,7 @@ namespace CppNoddy {
 
   template < typename _Type, typename _Xtype >
   const DenseVector<_Type>& OneD_Node_Mesh<_Type, _Xtype>::vars_as_vector() const {
-    return VARS;
+    return m_vars;
   }
 
   template < typename _Type, typename _Xtype >
@@ -89,7 +89,7 @@ namespace CppNoddy {
       throw ExceptionRuntime(problem);
     }
 #endif
-    VARS = vec;
+    m_vars = vec;
   }
 
   template <>
@@ -114,9 +114,9 @@ namespace CppNoddy {
     }
 #endif
     // copy current state of this mesh
-    DenseVector<double> copy_of_vars(VARS);
+    DenseVector<double> copy_of_vars(m_vars);
     // resize the local storage
-    VARS.resize(newX.size() * m_nv);
+    m_vars.resize(newX.size() * m_nv);
 
     // first nodal values are assumed to be untouched
     // loop thru destination mesh node at a time
@@ -128,7 +128,7 @@ namespace CppNoddy {
           for(std::size_t var = 0; var < m_nv; ++var) {
             double dX = newX[ node ] - m_X[ i ];
             double dvarsdX = (copy_of_vars[(i+1)*m_nv + var ] - copy_of_vars[ i*m_nv + var ]) / (m_X[ i + 1 ] - m_X[ i ]);
-            VARS[ node * m_nv + var ] = copy_of_vars[ i * m_nv + var ] + dX * dvarsdX;
+            m_vars[ node * m_nv + var ] = copy_of_vars[ i * m_nv + var ] + dX * dvarsdX;
           }
         }
       }
@@ -136,7 +136,7 @@ namespace CppNoddy {
 
     // add the last nodal values to the resized vector
     for(std::size_t var = 0; var < m_nv; ++var) {
-      VARS[(newX.size() - 1) * m_nv + var ] = copy_of_vars[(m_X.size() - 1) * m_nv + var ];
+      m_vars[(newX.size() - 1) * m_nv + var ] = copy_of_vars[(m_X.size() - 1) * m_nv + var ];
     }
     // replace the old nodes with the new ones
     m_X = newX;
@@ -164,9 +164,9 @@ namespace CppNoddy {
     }
 #endif
     // copy current state of this mesh
-    DenseVector<std::complex<double> > copy_of_vars(VARS);
+    DenseVector<std::complex<double> > copy_of_vars(m_vars);
     // resize the local storage
-    VARS.resize(newX.size() * m_nv);
+    m_vars.resize(newX.size() * m_nv);
 
     // first nodal values are assumed to be untouched
     // loop thru destination mesh node at a time
@@ -179,7 +179,7 @@ namespace CppNoddy {
             double dX = newX[ node ] - m_X[ i ];
             // if the paranoid checks above are satisfied, then the m_X[ i + 1 ] should still be in bounds
             std::complex<double> dvarsdX = (copy_of_vars[(i+1)*m_nv + var ] - copy_of_vars[ i*m_nv + var ]) / (m_X[ i + 1 ] - m_X[ i ]);
-            VARS[ node * m_nv + var ] = copy_of_vars[ i * m_nv + var ] + dX * dvarsdX;
+            m_vars[ node * m_nv + var ] = copy_of_vars[ i * m_nv + var ] + dX * dvarsdX;
           }
         }
       }
@@ -187,7 +187,7 @@ namespace CppNoddy {
 
     // add the last nodal values to the resized vector
     for(std::size_t var = 0; var < m_nv; ++var) {
-      VARS[(newX.size() - 1) * m_nv + var ] = copy_of_vars[(m_X.size() - 1) * m_nv + var ];
+      m_vars[(newX.size() - 1) * m_nv + var ] = copy_of_vars[(m_X.size() - 1) * m_nv + var ];
     }
     // replace the old nodes with the new ones
     m_X = newX;
@@ -314,7 +314,7 @@ namespace CppNoddy {
     // sum interior segments
     for(std::size_t node = 0; node < m_X.size() - 1; ++node) {
       dx = (m_X[ node + 1 ] - m_X[ node ]);
-      sum += 0.5 * dx * (VARS[ node * m_nv + var ] + VARS[(node+1) * m_nv + var ]);
+      sum += 0.5 * dx * (m_vars[ node * m_nv + var ] + m_vars[(node+1) * m_nv + var ]);
     }
     // return the value
     return sum;
@@ -327,8 +327,8 @@ namespace CppNoddy {
     // sum interior segments
     for(std::size_t node = 0; node < m_X.size() - 1; ++node) {
       dx = std::abs(m_X[ node + 1 ] - m_X[ node ]);
-      sum += 0.5 * dx * (std::pow(std::abs(VARS[ node * m_nv + var ]), 2)
-                         + std::pow(std::abs(VARS[(node + 1) * m_nv + var ]), 2));
+      sum += 0.5 * dx * (std::pow(std::abs(m_vars[ node * m_nv + var ]), 2)
+                         + std::pow(std::abs(m_vars[(node + 1) * m_nv + var ]), 2));
     }
     // return the value
     return std::sqrt(sum);
@@ -353,22 +353,53 @@ namespace CppNoddy {
       x0 = m_X[ node ];
       x1 = m_X[ node + 1 ];
       x2 = m_X[ node + 2 ];
-      f0 = VARS[ node * m_nv + var ];
-      f1 = VARS[(node+1) * m_nv + var ];
-      f2 = VARS[(node+2) * m_nv + var ];
+      f0 = m_vars[ node * m_nv + var ];
+      f1 = m_vars[(node+1) * m_nv + var ];
+      f2 = m_vars[(node+2) * m_nv + var ];
       sum += (x2 - x0)
-             * (
-               f1 * pow(x0 - x2, 2) + f0 * (x1 - x2) * (2. * x0 - 3. * x1 + x2)
-               - f2 * (x0 - x1) * (x0 - 3. * x1 + 2. * x2)
-             )
-             / (6. * (x0 - x1) * (x1 - x2));
+        * (
+           f1 * pow(x0 - x2, 2) + f0 * (x1 - x2) * (2. * x0 - 3. * x1 + x2)
+           - f2 * (x0 - x1) * (x0 - 3. * x1 + 2. * x2)
+           )
+        / (6. * (x0 - x1) * (x1 - x2));
       // sum += (x1-x0)*( f0 + 4*f1 + f2 ) / 3.0 for equal spacing
     }
     // return the value
     return sum;
   }
 
-
+  // template<>
+  // double OneD_Node_Mesh<double,double>::maxAbsLocationRange(unsigned var, double left, double right) {
+  //   double max(0.0);
+  //   std::size_t maxIndex(0);
+  //   // step through the nodes
+  //   for(std::size_t node = 0; node < m_X.size(); ++node) {
+  //     //std::cout << "m_X[node]=" << m_X[node] << " left=" << left << " right=" << right << "\n";
+  //     if ( (m_X[node] >= left) && (m_X[node] <=right) ) {
+  //       if(std::abs(m_vars[ node * m_nv + var ]) > max) {
+  //         maxIndex = node;
+  //         max = std::abs( m_vars[ maxIndex*m_nv + var ]);
+  //       }
+  //     }
+  //   }
+  //   if ( ( maxIndex == 0 ) || ( maxIndex == m_X.size()-1 ) ) {
+  //     std::cout << "[WARNING] MaxAbsLocationRange: maximumum absolute nodal value is first/last node. \n";
+  //     return m_X[ maxIndex ];
+  //   }
+  //   double f1,f2,f3;
+  //   double x1,x2,x3;
+  //   f1 = std::abs(m_vars[ (maxIndex-1) * m_nv + var ]);
+  //   f2 = std::abs(m_vars[ maxIndex * m_nv + var ]);
+  //   f3 = std::abs(m_vars[ (maxIndex+1) * m_nv + var ]);
+  //   x1 = m_X[maxIndex-1];
+  //   x2 = m_X[maxIndex];
+  //   x3 = m_X[maxIndex+1];
+  //   return ( f1*(x2+x3)/((x1-x2)*(x1-x3)) + f2*(x1+x3)/((x2-x1)*(x2-x3)) + f3*(x1+x2)/((x3-x1)*(x3-x2)) )
+  //     / ( 2.*f1/((x1-x2)*(x1-x3)) + 2.*f2/((x2-x1)*(x2-x3)) + 2.*f3/((x3-x1)*(x3-x2)) );
+  // }
+  
+  
+  
   template < typename _Type, typename _Xtype >
   void OneD_Node_Mesh<_Type, _Xtype>::read(std::string filename, bool reset )  {
     std::ifstream dump;
@@ -390,7 +421,7 @@ namespace CppNoddy {
         for (std::size_t var = 0; var < m_nv; ++var) {
           double value;
           dump >> value;
-          VARS[ i * m_nv + var ] = value;
+          m_vars[ i * m_nv + var ] = value;
         }
         if (reset != true) {
           // if not reseting the mesh we should check the node positions
@@ -416,7 +447,7 @@ namespace CppNoddy {
     std::cout << "\n";
     std::cout << "Number of vars = " << m_nv << "\n";
     std::cout << "Interleaved mesh data : \n";
-    VARS.dump();
+    m_vars.dump();
     std::cout << "Mesh dump complete\n";
   }
 
@@ -431,7 +462,7 @@ namespace CppNoddy {
     for(std::size_t i = 0; i < m_X.size(); ++i) {
       dump << m_X[ i ] << " ";
       for(std::size_t var = 0; var < m_nv; ++var) {
-        dump << VARS[ i * m_nv + var ] << " ";
+        dump << m_vars[ i * m_nv + var ] << " ";
       }
       dump << "\n";
     }
@@ -448,7 +479,7 @@ namespace CppNoddy {
     for(std::size_t i = 0; i < m_X.size(); ++i) {
       dump << m_X[ i ] << " ";
       for(std::size_t var = 0; var < m_nv; ++var) {
-        dump << real(VARS[ i * m_nv + var ]) << " " << imag(VARS[ i * m_nv + var ]) << " ";
+        dump << real(m_vars[ i * m_nv + var ]) << " " << imag(m_vars[ i * m_nv + var ]) << " ";
       }
       dump << "\n";
     }

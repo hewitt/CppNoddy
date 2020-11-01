@@ -1,6 +1,7 @@
 /// \file FT.cpp
 /// An implementation for a collection of Fourier methods
 
+#include <DenseVector.h>
 #include <Types.h>
 #include <OneD_Node_Mesh.h>
 #include <FT.h>
@@ -28,23 +29,42 @@ namespace CppNoddy {
       // container to return the Fourier spectrum
       OneD_Node_Mesh<D_complex> ft( f.nodes(), f.get_nvars() );
       // slow FT
+      // for ( std::size_t k = 0; k < N; ++k ) {
+      //   // set the frequency
+      //   ft.coord(k) = k*df;  // 0,df,...,(N-1)*df
+      //   for ( std::size_t var = 0; var < ft.get_nvars(); ++var ) {
+      //     // initiate the entry
+      //     ft(k,var) = 0.0;
+      //     // compute the FT
+      //     //
+      //     // t = n*dt
+      //     // omega = k*df
+      //     // df = (2*pi/dt)/N 
+      //     //
+      //     for ( std::size_t n = 0; n < N; ++n ) {
+      //       const double Wn = 2*M_PI/N;
+      //       ft(k,var) += f(n,var)*exp(-I*Wn*double(k*n));
+      //     }
+      //   }
+      // }
+      //
+      const double Wn = 2*M_PI/N;
+      // slow FT
       for ( std::size_t k = 0; k < N; ++k ) {
         // set the frequency
         ft.coord(k) = k*df;  // 0,df,...,(N-1)*df
-        for ( std::size_t var = 0; var < ft.get_nvars(); ++var ) {
-          // initiate the entry
-          ft(k,var) = 0.0;
-          // compute the FT
-          //
-          // t = n*dt
-          // omega = k*df
-          // df = (2*pi/dt)/N 
-          //
-          for ( std::size_t n = 0; n < N; ++n ) {
-            const double Wn = 2*M_PI/N;
-            ft(k,var) += f(n,var)*exp(-I*Wn*double(k*n));
-          }
+        //
+        //
+        // t = n*dt
+        // omega = k*df
+        // df = (2*pi/dt)/N 
+        //
+        // variables are all initialised to zero
+        DenseVector<D_complex> vars( f.get_nvars(), 0.0 );
+        for ( std::size_t n = 0; n < N; ++n ) {
+            vars += f.get_nodes_vars(n)*exp(-I*Wn*double(k*n));
         }
+        ft.set_nodes_vars(k,vars);
       }
       return ft;
     } 

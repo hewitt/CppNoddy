@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SparseVector.h>
 #include <DenseVector.h>
 #include <Sequential_Matrix_base.h>

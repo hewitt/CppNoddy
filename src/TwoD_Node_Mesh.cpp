@@ -322,6 +322,7 @@ namespace CppNoddy {
       for(std::size_t i = 0; i < m_nx; ++i) {
         std::cout << m_X[ i ] << ", ";
       }
+
       std::cout << "\n";
       for(std::size_t j = 0; j < m_ny; ++j) {
         std::cout << " y = " << m_Y[ j ] << "\n";
@@ -336,7 +337,7 @@ namespace CppNoddy {
 
   template<>
   void TwoD_Node_Mesh<double>::normalise(const std::size_t& var) {
-    double maxval(max(var));
+    double maxval(max_abs(var));
     m_vars.scale(1./maxval);
   }
 
@@ -361,8 +362,10 @@ namespace CppNoddy {
     m_vars.scale(1./factor);
   }
 
+  // specialised because obviously a double mesh element won't be able
+  // to call the .real() method.
   template<>
-  double TwoD_Node_Mesh<D_complex>::max_real_part(unsigned var) {
+  double TwoD_Node_Mesh<D_complex>::max_abs_real_part(unsigned var) {
     double max(0.0);
     // step through the nodes
     for(unsigned nodex = 0; nodex < m_X.size(); ++nodex) {
@@ -376,9 +379,16 @@ namespace CppNoddy {
   }
 
   template<>
-  double TwoD_Node_Mesh<double>::max_real_part(unsigned var) {
-    assert(false);
-    return 0.0;
+  double TwoD_Node_Mesh<double>::max_abs_real_part(unsigned var) {
+#ifdef PARANOID
+    // check start & end
+    std::string problem;
+    problem = " The TwoD_Node_Mesh.max_abs_real_part method has been called for \n";
+    problem += " a mesh with element type of double (rather than D_complex).";
+    throw ExceptionRuntime(problem);
+#endif
+    // just call the max_abs
+    return max_abs(var);
   }
 
   template<>

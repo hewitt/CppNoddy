@@ -28,7 +28,7 @@ namespace CppNoddy {
       // default to zero variables
       m_nv = 0;
     }
-
+    
     /// ctor for a given nodal distribution
     /// \param nodes The positions of the nodal points
     /// \param nvars The number of variables to store in the mesh
@@ -37,19 +37,19 @@ namespace CppNoddy {
 #ifdef PARANOID
       for(unsigned i = 1; i < m_X.size(); ++i) {
         /*
-                if ( m_X[i+1] < m_X[i] )
-                {
-                  std::string problem;
-                  problem = "The OneD_Node_Mesh has been passed a vector of nodes that are\n";
-                  problem += "not in INCREASING order. This will screw up some of the methods\n";
-                  problem += "in the class. We should fix this .....\n";
-                  throw ExceptionRuntime( problem );
-                }
+          if ( m_X[i+1] < m_X[i] )
+          {
+          std::string problem;
+          problem = "The OneD_Node_Mesh has been passed a vector of nodes that are\n";
+          problem += "not in INCREASING order. This will screw up some of the methods\n";
+          problem += "in the class. We should fix this .....\n";
+          throw ExceptionRuntime( problem );
+          }
         */
       }
 #endif
       // set the contents to zero
-      VARS = DenseVector<_Type>(m_nv * m_X.size(), _Type(0.0));
+      m_vars = DenseVector<_Type>(m_nv * m_X.size(), _Type(0.0));
     }
 
     /// ctor from an existing file
@@ -59,11 +59,10 @@ namespace CppNoddy {
     OneD_Node_Mesh(std::string filename, const std::size_t nnodes, const std::size_t nvars ) :
       m_nv(nvars) {
       m_X = DenseVector<_Xtype>(nnodes, _Xtype(0.0) ); //coordinates, currently empty
-      VARS = DenseVector<_Type>(nvars*nnodes, _Type(0.0) ); // nodal values
+      m_vars = DenseVector<_Type>(nvars*nnodes, _Type(0.0) ); // nodal values
       read(filename, true); // true => reset the nodal coordinates using file
     }
     
-
     /// Destructor
     virtual ~OneD_Node_Mesh()
     {}
@@ -137,7 +136,7 @@ namespace CppNoddy {
     /// Integrate over the domain with a Simpson rule.
     /// \param var The variable-index to be integrated over the mesh using a
     /// trapezium rule.
-    /// \return The integral value.
+    /// \return The integral value. 
     _Type integral4(std::size_t var = 0) const;
 
     /// For each nodal point we push each variable into a vector
@@ -170,7 +169,7 @@ namespace CppNoddy {
     /// Scale the whole contents of the mesh.
     /// \param x The value to multiply the contents of the mesh by
     void scale(_Type x) {
-      VARS.scale(x);
+      m_vars.scale(x);
     }
 
     /// Normalise all data in the mesh based on one variable.
@@ -178,61 +177,57 @@ namespace CppNoddy {
     /// the normalisation. All other variables will also be rescaled by
     /// the same amount.
     void normalise(const std::size_t& var) {
-      //double max( 0.0 );
-      //// step through the nodes
-      //for ( unsigned node = 0; node < m_X.size(); ++node )
-      //{
-      //if ( std::abs( VARS[ node * m_nv + var ] ) > max )
-      //{
-      //max = std::abs( VARS[ node * m_nv + var ] );
-      //}
-      //}
-      double maxval(max(var));
-      VARS.scale(1./maxval);
+      double maxval(max_abs(var));
+      m_vars.scale(1./maxval);
     }
 
+    /// Find the maximum stored absolute value in the mesh for a given variable
+    /// \param var The variable index whose maximum is being asked for
+    /// \return The value of the maximum (abs value)
+    // double max_abs(unsigned var) {
+    //   double max(0.0);
+    //   std::size_t maxIndex(0);
+    //   // step through the nodes
+    //   for(std::size_t node = 0; node < m_X.size(); ++node) {
+    //     if(std::abs(m_vars[ node * m_nv + var ]) > max) {
+    //       maxIndex = node;
+    //       max = std::abs( m_vars[ maxIndex*m_nv + var ]);
+    //     }
+    //   }
+    //   if ( ( maxIndex == 0 ) || ( maxIndex == m_X.size()-1 ) ) {
+    //     std::cout << "[WARNING] MaxAbsLocation: maximumum absolute nodal value is first/last node. \n";
+    //     return m_X[ maxIndex ];
+    //   }
+    //   double f1,f2,f3;
+    //   double x1,x2,x3;
+    //   f1 = std::abs(m_vars[ (maxIndex-1) * m_nv + var ]);
+    //   f2 = std::abs(m_vars[ maxIndex * m_nv + var ]);
+    //   f3 = std::abs(m_vars[ (maxIndex+1) * m_nv + var ]);
+    //   x1 = m_X[maxIndex-1];
+    //   x2 = m_X[maxIndex];
+    //   x3 = m_X[maxIndex+1];
+    //   return ( f1*(x2+x3)/((x1-x2)*(x1-x3)) + f2*(x1+x3)/((x2-x1)*(x2-x3)) + f3*(x1+x2)/((x3-x1)*(x3-x2)) )
+    //     / ( 2.*f1/((x1-x2)*(x1-x3)) + 2.*f2/((x2-x1)*(x2-x3)) + 2.*f3/((x3-x1)*(x3-x2)) );
+    // }
+    
+    /// Find the maximum stored absolute value in the mesh for a given variable in a range
+    /// of the domain
+    /// \param var The variable index whose maximum is being asked for
+    /// \param left Only examine the sub-range x>left
+    /// \param right Only examine the sub-range x<right
+    /// \return The value of the maximum (abs value)
+    //double max_abs_range(unsigned var, double left, double right);
+
+    
     /// Find the maximum stored absolute value in the mesh for a given variable -- no interpolation is used
     /// \param var The variable index whose maximum is being asked for
     /// \return The value of the maximum (abs value)
-    // template < typename _Type, typename _Xtype >
-    _Type maxAbsLocation(unsigned var) {
-      double max(0.0);
-      std::size_t maxIndex(1);
-      // step through the nodes
-      for(std::size_t node = 0; node < m_X.size(); ++node) {
-        if(std::abs(VARS[ node * m_nv + var ]) > max) {
-	  maxIndex = node;
-	  max = std::abs( VARS[ maxIndex*m_nv + var ]);
-        }
-      }
-      // std::cout << "maxIndex = " << maxIndex << " zeta = " << m_X[maxIndex] 
-      // 		<< "h = " << std::abs( VARS[ maxIndex*m_nv + var ]) << "\n";
-      if ( ( maxIndex == 0 ) || ( maxIndex == m_X.size()-1 ) ) {
-	std::cout << "[WARNING] MaxAbsInterpolated failed. Maximumum absolute nodal value is first/last node. \n";
-	return m_X[ maxIndex ];
-      }
-      _Type f1,f2,f3;
-      _Xtype x1,x2,x3;
-      f1 = std::abs(VARS[ (maxIndex-1) * m_nv + var ]);
-      f2 = std::abs(VARS[ maxIndex * m_nv + var ]);
-      f3 = std::abs(VARS[ (maxIndex+1) * m_nv + var ]);
-      x1 = m_X[maxIndex-1];
-      x2 = m_X[maxIndex];
-      x3 = m_X[maxIndex+1];
-      return ( f1*(x2+x3)/((x1-x2)*(x1-x3)) + f2*(x1+x3)/((x2-x1)*(x2-x3)) + f3*(x1+x2)/((x3-x1)*(x3-x2)) )
-	/ ( 2.*f1/((x1-x2)*(x1-x3)) + 2.*f2/((x2-x1)*(x2-x3)) + 2.*f3/((x3-x1)*(x3-x2)) );
-    }
-    
-    
-    /// Find the maximum stored absolute value in the mesh for a given variable -- no interpolation is used
-    /// \param var The variable index whose maximum is being asked for
-    /// \return The value of the maximum (abs value)
-    double max(unsigned var) {
+    double max_abs(unsigned var) {
       double max(0.0);
       // step through the nodes
       for(unsigned node = 0; node < m_X.size(); ++node) {
-        if(std::abs(VARS[ node * m_nv + var ]) > max) {
-          max = std::abs(VARS[ node * m_nv + var ]);
+        if(std::abs(m_vars[ node * m_nv + var ]) > max) {
+          max = std::abs(m_vars[ node * m_nv + var ]);
         }
       }
       return max;
@@ -250,7 +245,7 @@ namespace CppNoddy {
     // store nodal points
     DenseVector<_Xtype> m_X;
     // store the nodal values
-    DenseVector<_Type> VARS;
+    DenseVector<_Type> m_vars;
 
   };
 
@@ -258,12 +253,12 @@ namespace CppNoddy {
 
   template < typename _Type, typename _Xtype >
   inline _Type& OneD_Node_Mesh<_Type, _Xtype>::operator()(const std::size_t i, const std::size_t var) {
-    return VARS[ i * m_nv + var ];
+    return m_vars[ i * m_nv + var ];
   }
 
   template < typename _Type, typename _Xtype >
   inline const _Type& OneD_Node_Mesh<_Type, _Xtype>::operator()(const std::size_t i, const std::size_t var) const {
-    return VARS[ i * m_nv + var ];
+    return m_vars[ i * m_nv + var ];
   }
 
   template < typename _Type, typename _Xtype >

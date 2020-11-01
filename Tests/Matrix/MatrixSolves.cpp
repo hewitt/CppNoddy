@@ -65,6 +65,48 @@ int main()
     std::cout << "     Simple 2x2 `dense' solver works.\n";
   }
 
+
+  //
+  // SOLVE A SMALL "Dense"(!) 2X2 COMPLEX SYSTEM with LAPACK or native
+  //
+  DenseMatrix<D_complex> Ac( 2, 2, 0.0 );
+  DenseVector<D_complex> Bc( 2, 0.0 );
+  Ac( 0, 0 ) = 1.;
+  Ac( 0, 1 ) = 2.;
+  Ac( 1, 0 ) = 3.;
+  Ac( 1, 1 ) = 4.;
+  Bc[ 0 ] = 5.;
+  Bc[ 1 ] = 11.;
+
+  std::cout << "     Simple 2x2 (dense) complex system solved by native Gauss Jordan routine.\n";
+  DenseLinearSystem<D_complex> small_complex_system( &Ac, &Bc, "native" );
+
+  try
+  {
+    small_complex_system.solve();
+  }
+  catch ( const std::runtime_error &error )
+  {
+    cout << " \033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \033[0m\n";
+    return 1;
+  }
+  DenseVector<D_complex> answer_complex( 2, 0.0 );
+  answer_complex[ 0 ] = 1.0;
+  answer_complex[ 1 ] = 2.0;
+  Bc.sub( answer_complex );
+  if ( Bc.inf_norm() > tol )
+  {
+    std::cout << " Simple 2x2 (complex) system was not solved correctly\n";
+    std::cout << " residual vector's inf_norm = " << Bc.inf_norm() << "\n";
+    failed = true;
+  }
+  else
+  {
+    std::cout << "     Simple 2x2 `dense' complex solver works.\n";
+  }
+
+
+  
   //
   // CONCLUDING PASS/FAIL
   //

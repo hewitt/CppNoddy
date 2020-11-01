@@ -7,6 +7,7 @@
 #define FNQUADRATURE_H
 
 #include <Uncopyable.h>
+#include <DenseVector.h>
 
 namespace CppNoddy {
 

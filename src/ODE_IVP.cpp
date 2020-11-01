@@ -189,19 +189,18 @@ namespace CppNoddy {
 
       e -= z;
 
-      // diff = ||e|| -- here use "abs" to deal with Complex systems
       diff = e.inf_norm();
 
       c = sqrt(sqrt(tol * h / (2 * diff)));
       ok = true;
 
       // is the first step ok? or does it need reducing?
-
       if((step == 1) && (c < 1.0)) {
         // step needs reducing so start from initial value again
         ok = false;
         step = 1;
       }
+
 
       if(ok) {
         x += h;
@@ -215,7 +214,7 @@ namespace CppNoddy {
       }
 
       h *= c;
-
+      
       if(x + h > X_FINAL) {
         h = (X_FINAL - x);
       }
