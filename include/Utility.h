@@ -4,6 +4,7 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
+#include <OneD_Node_Mesh.h>
 #include <string>
 #include <ctime>
 #include <numeric>
@@ -362,6 +363,12 @@ namespace CppNoddy {
     /// \param p Precision to be used in the output
     std::string stringify(const double &val, int p);
 
+
+    
+    double max_abs_location( OneD_Node_Mesh<double> &mesh , unsigned var);
+    
+    double max_abs_location_range( OneD_Node_Mesh<double> &mesh , unsigned var, double left, double right);
+    
   }
 
 } // end namespace

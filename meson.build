@@ -4,12 +4,12 @@ project('CppNoddy', 'cpp',
 
 # this is a Cpp project
 compiler = meson.get_compiler('cpp')
-add_global_arguments( '-O2', language: 'cpp' )
-add_global_arguments( '-std=c++17', language: 'cpp' )
+add_global_arguments( '-O3', language: 'cpp' )
+#add_global_arguments( '-std=c++17', language: 'cpp' )
 add_global_arguments( '-DgFortran', language: 'cpp' )
 add_global_arguments( '-ggdb', language: 'cpp' )
 #add_global_arguments( '-DDEBUG', language: 'cpp' )
-add_global_arguments( '-DPARANOID', language: 'cpp' )
+#add_global_arguments( '-DPARANOID', language: 'cpp' )
 
 lapack_dep = dependency('lapack', required:false)
 blas_dep = dependency('blas', required:false)

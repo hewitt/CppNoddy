@@ -1,6 +1,7 @@
 /// \file OneD_Node_Mesh.cpp
 /// Implementation of the one dimensional (non-)uniformly distributed mesh object.
 
+#include <complex>
 #include <vector>
 #include <string>
 
@@ -10,6 +11,7 @@
 
 namespace CppNoddy {
 
+  
   template < typename _Type, typename _Xtype >
   void OneD_Node_Mesh<_Type, _Xtype>::set_nodes_vars(const std::size_t node, const DenseVector<_Type>& U) {
 #ifdef PARANOID
@@ -368,37 +370,7 @@ namespace CppNoddy {
     return sum;
   }
 
-  // template<>
-  // double OneD_Node_Mesh<double,double>::maxAbsLocationRange(unsigned var, double left, double right) {
-  //   double max(0.0);
-  //   std::size_t maxIndex(0);
-  //   // step through the nodes
-  //   for(std::size_t node = 0; node < m_X.size(); ++node) {
-  //     //std::cout << "m_X[node]=" << m_X[node] << " left=" << left << " right=" << right << "\n";
-  //     if ( (m_X[node] >= left) && (m_X[node] <=right) ) {
-  //       if(std::abs(m_vars[ node * m_nv + var ]) > max) {
-  //         maxIndex = node;
-  //         max = std::abs( m_vars[ maxIndex*m_nv + var ]);
-  //       }
-  //     }
-  //   }
-  //   if ( ( maxIndex == 0 ) || ( maxIndex == m_X.size()-1 ) ) {
-  //     std::cout << "[WARNING] MaxAbsLocationRange: maximumum absolute nodal value is first/last node. \n";
-  //     return m_X[ maxIndex ];
-  //   }
-  //   double f1,f2,f3;
-  //   double x1,x2,x3;
-  //   f1 = std::abs(m_vars[ (maxIndex-1) * m_nv + var ]);
-  //   f2 = std::abs(m_vars[ maxIndex * m_nv + var ]);
-  //   f3 = std::abs(m_vars[ (maxIndex+1) * m_nv + var ]);
-  //   x1 = m_X[maxIndex-1];
-  //   x2 = m_X[maxIndex];
-  //   x3 = m_X[maxIndex+1];
-  //   return ( f1*(x2+x3)/((x1-x2)*(x1-x3)) + f2*(x1+x3)/((x2-x1)*(x2-x3)) + f3*(x1+x2)/((x3-x1)*(x3-x2)) )
-  //     / ( 2.*f1/((x1-x2)*(x1-x3)) + 2.*f2/((x2-x1)*(x2-x3)) + 2.*f3/((x3-x1)*(x3-x2)) );
-  // }
-  
-  
+    
   
   template < typename _Type, typename _Xtype >
   void OneD_Node_Mesh<_Type, _Xtype>::read(std::string filename, bool reset )  {

@@ -67,12 +67,12 @@ namespace CppNoddy {
   }
 
   template <typename _Type>
-  DenseVector<double>& TwoD_Node_Mesh<_Type>::xnodes() {
+  const DenseVector<double>& TwoD_Node_Mesh<_Type>::xnodes() const {
     return m_X;
   }
 
   template <typename _Type>
-  DenseVector<double>& TwoD_Node_Mesh<_Type>::ynodes() {
+  const DenseVector<double>& TwoD_Node_Mesh<_Type>::ynodes() const {
     return m_Y;
   }
 

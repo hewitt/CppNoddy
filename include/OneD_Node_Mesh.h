@@ -4,6 +4,7 @@
 #ifndef ONED_NODE_MESH_H
 #define ONED_NODE_MESH_H
 
+#include <complex>
 #include <vector>
 #include <fstream>
 #include <iostream>
@@ -52,6 +53,10 @@ namespace CppNoddy {
       m_vars = DenseVector<_Type>(m_nv * m_X.size(), _Type(0.0));
     }
 
+    /// implicit conversion ctor for D_complex from double data
+    template <typename _sourceType>
+    OneD_Node_Mesh(const OneD_Node_Mesh<_sourceType>& source);    
+    
     /// ctor from an existing file
     /// \param filename Filename of the data file
     /// \param nnodes Number of nodes
@@ -181,34 +186,32 @@ namespace CppNoddy {
       m_vars.scale(1./maxval);
     }
 
-    /// Find the maximum stored absolute value in the mesh for a given variable
-    /// \param var The variable index whose maximum is being asked for
-    /// \return The value of the maximum (abs value)
-    // double max_abs(unsigned var) {
-    //   double max(0.0);
-    //   std::size_t maxIndex(0);
-    //   // step through the nodes
-    //   for(std::size_t node = 0; node < m_X.size(); ++node) {
-    //     if(std::abs(m_vars[ node * m_nv + var ]) > max) {
-    //       maxIndex = node;
-    //       max = std::abs( m_vars[ maxIndex*m_nv + var ]);
-    //     }
-    //   }
-    //   if ( ( maxIndex == 0 ) || ( maxIndex == m_X.size()-1 ) ) {
-    //     std::cout << "[WARNING] MaxAbsLocation: maximumum absolute nodal value is first/last node. \n";
-    //     return m_X[ maxIndex ];
-    //   }
-    //   double f1,f2,f3;
-    //   double x1,x2,x3;
-    //   f1 = std::abs(m_vars[ (maxIndex-1) * m_nv + var ]);
-    //   f2 = std::abs(m_vars[ maxIndex * m_nv + var ]);
-    //   f3 = std::abs(m_vars[ (maxIndex+1) * m_nv + var ]);
-    //   x1 = m_X[maxIndex-1];
-    //   x2 = m_X[maxIndex];
-    //   x3 = m_X[maxIndex+1];
-    //   return ( f1*(x2+x3)/((x1-x2)*(x1-x3)) + f2*(x1+x3)/((x2-x1)*(x2-x3)) + f3*(x1+x2)/((x3-x1)*(x3-x2)) )
-    //     / ( 2.*f1/((x1-x2)*(x1-x3)) + 2.*f2/((x2-x1)*(x2-x3)) + 2.*f3/((x3-x1)*(x3-x2)) );
-    // }
+    // double maxAbsLocation(unsigned var);
+   // double dep_max_abs_location(unsigned var) {
+   //     double max(0.0);
+   //     std::size_t maxIndex(0);
+   //    // step through the nodes
+   //    for(std::size_t node = 0; node < m_X.size(); ++node) {
+   //      if(std::abs(m_vars[ node * m_nv + var ]) > max) {
+   //        maxIndex = node;
+   //        max = std::abs( m_vars[ maxIndex*m_nv + var ]);
+   //      }
+   //    }
+   //    if ( ( maxIndex == 0 ) || ( maxIndex == m_X.size()-1 ) ) {
+   //      std::cout << "[WARNING] MaxAbsLocation: maximumum absolute nodal value is first/last node. \n";
+   //      return m_X[ maxIndex ];
+   //    }
+   //    double f1,f2,f3;
+   //    double x1,x2,x3;
+   //    f1 = std::abs(m_vars[ (maxIndex-1) * m_nv + var ]);
+   //    f2 = std::abs(m_vars[ maxIndex * m_nv + var ]);
+   //    f3 = std::abs(m_vars[ (maxIndex+1) * m_nv + var ]);
+   //    x1 = m_X[maxIndex-1];
+   //    x2 = m_X[maxIndex];
+   //    x3 = m_X[maxIndex+1];
+   //    return ( f1*(x2+x3)/((x1-x2)*(x1-x3)) + f2*(x1+x3)/((x2-x1)*(x2-x3)) + f3*(x1+x2)/((x3-x1)*(x3-x2)) )
+   //      / ( 2.*f1/((x1-x2)*(x1-x3)) + 2.*f2/((x2-x1)*(x2-x3)) + 2.*f3/((x3-x1)*(x3-x2)) );
+   //  }
     
     /// Find the maximum stored absolute value in the mesh for a given variable in a range
     /// of the domain
@@ -216,7 +219,7 @@ namespace CppNoddy {
     /// \param left Only examine the sub-range x>left
     /// \param right Only examine the sub-range x<right
     /// \return The value of the maximum (abs value)
-    //double max_abs_range(unsigned var, double left, double right);
+    //double dep_max_abs_location_range(unsigned var, double left, double right);
 
     
     /// Find the maximum stored absolute value in the mesh for a given variable -- no interpolation is used
@@ -251,6 +254,16 @@ namespace CppNoddy {
 
   // INLINE THE ACCESS METHODS
 
+  template<typename _Type, typename _Xtype>
+  template<typename _sourceType>
+  inline OneD_Node_Mesh<_Type, _Xtype>::OneD_Node_Mesh(const OneD_Node_Mesh<_sourceType> &source){
+    // there is implicit conversion of DenseVector so this will
+    // allow copy of OneD_Node_Mesh<double> to OneD_Node_Mesh<D_complex>.
+    m_nv = source.get_nvars();
+    m_X = source.nodes();
+    m_vars = source.vars_as_vector();
+  }
+  
   template < typename _Type, typename _Xtype >
   inline _Type& OneD_Node_Mesh<_Type, _Xtype>::operator()(const std::size_t i, const std::size_t var) {
     return m_vars[ i * m_nv + var ];

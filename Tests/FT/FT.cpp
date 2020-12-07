@@ -39,13 +39,21 @@ int main()
   // original (physical) signal
   // h.dump_gnu("./DATA/h.dat");
 
+  OneD_Node_Mesh<D_complex> testft = FT::dft_with_shift(h);
+  testft.dump_gnu("./DATA/testft.dat");
+
+  OneD_Node_Mesh<D_complex> testf = FT::idft_with_ishift(testft);
+  testf.dump_gnu("./DATA/testf.dat");
+
+
+  
   // Fourier transformed signal
   OneD_Node_Mesh<D_complex> hft = FT::dft(h);
   // hft.dump_gnu("./DATA/hft.dat");
 
   // shifted Fourier transformed signal
   // this puts the spectrum in a -k_max to +k_max format
-  OneD_Node_Mesh<D_complex> hft_shifted = FT::ft_shift(hft);
+  OneD_Node_Mesh<D_complex> hft_shifted = FT::shift(hft);
   // hft_shifted.dump_gnu("./DATA/hft_shifted.dat");
   
   // invert the DFT (must be done using the UNshifted spectrum)

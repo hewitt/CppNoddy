@@ -12,7 +12,104 @@
 
 namespace CppNoddy {
   namespace Utility {
+
+
+  //     template<>
+  // double OneD_Node_Mesh<double,double>::maxAbsLocation(unsigned var) {
+  //   unsigned N = m_X.size();
+  //   return dep_max_abs_location_range(var,m_X[0],m_X[N-1]);
+  // }
+  
+  // template<>
+  // double OneD_Node_Mesh<double,double>::dep_max_abs_location_range(unsigned var, double left, double right) {
+  //   double max(0.0);
+  //   std::size_t maxIndex(0);
+  //   // step through the nodes
+  //   for(std::size_t node = 0; node < m_X.size(); ++node) {
+  //     //std::cout << "m_X[node]=" << m_X[node] << " left=" << left << " right=" << right << "\n";
+  //     if ( (m_X[node] >= left) && (m_X[node] <=right) ) {
+  //       if(std::abs(m_vars[ node * m_nv + var ]) > max) {
+  //         maxIndex = node;
+  //         max = std::abs( m_vars[ maxIndex*m_nv + var ]);
+  //       }
+  //     }
+  //   }
+  //   if ( ( maxIndex == 0 ) || ( maxIndex == m_X.size()-1 ) ) {
+  //     std::cout << "[WARNING] MaxAbsLocationRange: maximumum absolute nodal value is first/last node. \n";
+  //     return m_X[ maxIndex ];
+  //   }
+  //   double f1,f2,f3;
+  //   double x1,x2,x3;
+  //   f1 = std::abs(m_vars[ (maxIndex-1) * m_nv + var ]);
+  //   f2 = std::abs(m_vars[ maxIndex * m_nv + var ]);
+  //   f3 = std::abs(m_vars[ (maxIndex+1) * m_nv + var ]);
+  //   x1 = m_X[maxIndex-1];
+  //   x2 = m_X[maxIndex];
+  //   x3 = m_X[maxIndex+1];
+  //   return ( f1*(x2+x3)/((x1-x2)*(x1-x3)) + f2*(x1+x3)/((x2-x1)*(x2-x3)) + f3*(x1+x2)/((x3-x1)*(x3-x2)) )
+  //     / ( 2.*f1/((x1-x2)*(x1-x3)) + 2.*f2/((x2-x1)*(x2-x3)) + 2.*f3/((x3-x1)*(x3-x2)) );
+  // }
+
     
+    double max_abs_location(OneD_Node_Mesh<double> &mesh, unsigned var) {
+      double max(0.0);
+      std::size_t maxIndex(0);
+      // step through the nodes
+      for ( std::size_t node = 0; node < mesh.get_nnodes(); ++node ) {
+        //std::cout << "m_X[node]=" << m_X[node] << " left=" << left << " right=" << right << "\n";
+        if ( std::abs(mesh(node,var)) > max ) {
+          maxIndex = node;
+          max = std::abs( mesh(node,var) );
+        }
+      }
+      if ( ( maxIndex == 0 ) || ( maxIndex == mesh.get_nnodes()-1 ) ) {
+        std::cout << "[WARNING] MaxAbsLocationRange: maximumum absolute nodal value is first/last node. \n";
+        return mesh.coord( maxIndex );
+      }
+      double f1,f2,f3;
+      double x1,x2,x3;
+      f1 = std::abs(mesh(maxIndex-1,var));
+      f2 = std::abs(mesh(maxIndex,var));
+      f3 = std::abs(mesh(maxIndex+1,var));
+      x1 = mesh.coord(maxIndex-1);
+      x2 = mesh.coord(maxIndex);
+      x3 = mesh.coord(maxIndex+1);
+      return ( f1*(x2+x3)/((x1-x2)*(x1-x3)) + f2*(x1+x3)/((x2-x1)*(x2-x3)) + f3*(x1+x2)/((x3-x1)*(x3-x2)) )
+        / ( 2.*f1/((x1-x2)*(x1-x3)) + 2.*f2/((x2-x1)*(x2-x3)) + 2.*f3/((x3-x1)*(x3-x2)) );      
+    }
+
+
+    double max_abs_location_range(OneD_Node_Mesh<double> &mesh, unsigned var, double left, double right ) {
+      double max(0.0);
+      std::size_t maxIndex(0);
+      // step through the nodes
+      for ( std::size_t node = 0; node < mesh.get_nnodes(); ++node ) {
+        //std::cout << "m_X[node]=" << m_X[node] << " left=" << left << " right=" << right << "\n";
+        if ( ( mesh.coord(node) >= left ) && ( mesh.coord(node) <= right ) ) {
+          if ( std::abs(mesh(node,var)) > max ) {
+            maxIndex = node;
+            max = std::abs( mesh(node,var) );
+          }
+        }
+      }
+      if ( ( maxIndex == 0 ) || ( maxIndex == mesh.get_nnodes()-1 ) ) {
+        std::cout << "[WARNING] MaxAbsLocationRange: maximumum absolute nodal value is first/last node. \n";
+        return mesh.coord( maxIndex );
+      }
+      double f1,f2,f3;
+      double x1,x2,x3;
+      f1 = std::abs(mesh(maxIndex-1,var));
+      f2 = std::abs(mesh(maxIndex,var));
+      f3 = std::abs(mesh(maxIndex+1,var));
+      x1 = mesh.coord(maxIndex-1);
+      x2 = mesh.coord(maxIndex);
+      x3 = mesh.coord(maxIndex+1);
+      return ( f1*(x2+x3)/((x1-x2)*(x1-x3)) + f2*(x1+x3)/((x2-x1)*(x2-x3)) + f3*(x1+x2)/((x3-x1)*(x3-x2)) )
+        / ( 2.*f1/((x1-x2)*(x1-x3)) + 2.*f2/((x2-x1)*(x2-x3)) + 2.*f3/((x3-x1)*(x3-x2)) );      
+    }
+
+    
+
     DenseVector<double> uniform_node_vector(const double& lower, const double& upper, const std::size_t& N) {
       DenseVector<double> V;
       V.reserve(N);

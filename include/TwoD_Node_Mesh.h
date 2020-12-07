@@ -92,6 +92,21 @@ namespace CppNoddy {
     /// \return The spatial position of this node as a pair
     std::pair<double, double> coord(const std::size_t nodex, const std::size_t nodey) const;
 
+    /// Access the x-nodal (first index) position
+    /// \param nodex The x nodal index
+    /// \return The x-coordinate of the node
+    double& xcoord(const std::size_t nodex ){
+      return m_X[nodex];
+    }
+
+    /// Access the y-nodal (second index) position
+    /// \param nodex The y nodal index
+    /// \return The y-coordinate of the node
+    double& ycoord(const std::size_t nodey ){
+      return m_Y[nodey];
+    }
+
+    
     /// Set the variables stored at A SPECIFIED node
     /// \param nodex The x nodal index to be set
     /// \param nodey The y nodal index to be set
@@ -149,11 +164,11 @@ namespace CppNoddy {
 
     /// Access the vector of x-nodal positions
     /// \return A vector of the nodal positions for this mesh
-    DenseVector<double>& xnodes();
+    const DenseVector<double>& xnodes() const;
 
     /// Access the vector of y-nodal positions
     /// \return A vector of the nodal positions for this mesh
-    DenseVector<double>& ynodes();
+    const DenseVector<double>& ynodes() const;
 
     /// Return a matrix corresponding to each nodal point in the mesh
     /// Each matrix element will contain a specified variable number
