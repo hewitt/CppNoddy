@@ -1,0 +1,123 @@
+\doxysubsection{Cpp\+Noddy\+::Example\+::Acoustic\+\_\+1d Class Reference}
+\label{classCppNoddy_1_1Example_1_1Acoustic__1d}\index{CppNoddy::Example::Acoustic\_1d@{CppNoddy::Example::Acoustic\_1d}}
+
+
+Define the system.  
+
+
+Inheritance diagram for Cpp\+Noddy\+::Example\+::Acoustic\+\_\+1d\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classCppNoddy_1_1Example_1_1Acoustic__1d}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Acoustic\+\_\+1d} ()
+\begin{DoxyCompactList}\small\item\em One dimemsional constant coefft acoustic problem. \end{DoxyCompactList}\item 
+void \textbf{ flux\+\_\+fn} (const double \&x, const \textbf{ Dense\+Vector}$<$ double $>$ \&q, \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ f}) const
+\begin{DoxyCompactList}\small\item\em Define the vector flux. \end{DoxyCompactList}\item 
+double \textbf{ max\+\_\+charac\+\_\+speed} (const \textbf{ Dense\+Vector}$<$ double $>$ \&q) const
+\begin{DoxyCompactList}\small\item\em Bound the shock speed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+Define the system. 
+
+Definition at line 43 of file H\+Y\+P\+Acoustic\+Impedance.\+cpp.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Acoustic__1d_ad07b305f8b148dbdb2d8e59f39a427db}} 
+\index{CppNoddy::Example::Acoustic\_1d@{CppNoddy::Example::Acoustic\_1d}!Acoustic\_1d@{Acoustic\_1d}}
+\index{Acoustic\_1d@{Acoustic\_1d}!CppNoddy::Example::Acoustic\_1d@{CppNoddy::Example::Acoustic\_1d}}
+\doxyparagraph{Acoustic\_1d()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Acoustic\+\_\+1d\+::\+Acoustic\+\_\+1d (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+One dimemsional constant coefft acoustic problem. 
+
+
+
+Definition at line 49 of file H\+Y\+P\+Acoustic\+Impedance.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49                     : OneD\_Hyperbolic\_System( 2 )}
+\DoxyCodeLine{50       \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Acoustic__1d_a055500f0d1f7afa37cdf0215f2d5e893}} 
+\index{CppNoddy::Example::Acoustic\_1d@{CppNoddy::Example::Acoustic\_1d}!flux\_fn@{flux\_fn}}
+\index{flux\_fn@{flux\_fn}!CppNoddy::Example::Acoustic\_1d@{CppNoddy::Example::Acoustic\_1d}}
+\doxyparagraph{flux\_fn()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Acoustic\+\_\+1d\+::flux\+\_\+fn (\begin{DoxyParamCaption}\item[{const double \&}]{x,  }\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{q,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the vector flux. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System} \doxyref{}{p.}{classCppNoddy_1_1OneD__Hyperbolic__System_a5d80acff28df99e7112edf0ceb0363a7}.
+
+
+
+Definition at line 53 of file H\+Y\+P\+Acoustic\+Impedance.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54       \{}
+\DoxyCodeLine{55         f[ p ] = K * q[ u ];}
+\DoxyCodeLine{56         f[ u ] = q[ p ] / rho( x );}
+\DoxyCodeLine{57       \}}
+
+\end{DoxyCode}
+
+
+References f, Cpp\+Noddy\+::\+Example\+::\+K(), p, Cpp\+Noddy\+::\+Example\+::rho(), and u.
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Acoustic__1d_adfb46339dbbbdf6157f1d0a540c775ce}} 
+\index{CppNoddy::Example::Acoustic\_1d@{CppNoddy::Example::Acoustic\_1d}!max\_charac\_speed@{max\_charac\_speed}}
+\index{max\_charac\_speed@{max\_charac\_speed}!CppNoddy::Example::Acoustic\_1d@{CppNoddy::Example::Acoustic\_1d}}
+\doxyparagraph{max\_charac\_speed()}
+{\footnotesize\ttfamily double Cpp\+Noddy\+::\+Example\+::\+Acoustic\+\_\+1d\+::max\+\_\+charac\+\_\+speed (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{q }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Bound the shock speed. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System} \doxyref{}{p.}{classCppNoddy_1_1OneD__Hyperbolic__System_a6b0a0d9ba53c4d52d8db39ce49cd6e87}.
+
+
+
+Definition at line 60 of file H\+Y\+P\+Acoustic\+Impedance.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{61       \{}
+\DoxyCodeLine{62         \textcolor{comment}{// sound speeds}}
+\DoxyCodeLine{63         \textcolor{keywordtype}{double} c = sqrt( K / rho\_small );}
+\DoxyCodeLine{64         \textcolor{comment}{// maximum shock speed}}
+\DoxyCodeLine{65         \textcolor{keywordflow}{return} c;}
+\DoxyCodeLine{66       \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::\+K(), and Cpp\+Noddy\+::\+Example\+::rho\+\_\+small().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tests/\+H\+Y\+P\+\_\+1\+D/\textbf{ H\+Y\+P\+Acoustic\+Impedance.\+cpp}\end{DoxyCompactItemize}

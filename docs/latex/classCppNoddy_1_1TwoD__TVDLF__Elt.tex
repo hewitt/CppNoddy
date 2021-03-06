@@ -1,0 +1,1757 @@
+\doxysubsection{Cpp\+Noddy\+::Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt Class Reference}
+\label{classCppNoddy_1_1TwoD__TVDLF__Elt}\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+
+
+A Linear Element class.  
+
+
+
+
+{\ttfamily \#include $<$Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt} (double west, double east, double south, double north, \textbf{ Two\+D\+\_\+\+Hyperbolic\+\_\+\+System} $\ast$ptr, bool flag=false, std\+::set$<$ int $>$ faces=std\+::set$<$ int $>$())
+\begin{DoxyCompactList}\small\item\em Construct a linear rectangular element. \end{DoxyCompactList}\item 
+\textbf{ $\sim$\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt} ()
+\begin{DoxyCompactList}\small\item\em An empty destructor. \end{DoxyCompactList}\item 
+bool \textbf{ face\+\_\+is\+\_\+external} (const int \&index) const
+\begin{DoxyCompactList}\small\item\em Test to see if a face index of an element is external to the mesh. \end{DoxyCompactList}\item 
+bool \textbf{ face\+\_\+is\+\_\+internal} (const int \&index) const
+\begin{DoxyCompactList}\small\item\em Test to see if a face index of an element is internal to the mesh. \end{DoxyCompactList}\item 
+void \textbf{ set\+\_\+ptrs} (const int \&index, \textbf{ Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt} $\ast$ptr)
+\begin{DoxyCompactList}\small\item\em Each element stores pointers to any adjacent elements in the four compass directions 0,1,2,3 for S,E,N,W. \end{DoxyCompactList}\item 
+\textbf{ Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt} $\ast$ \textbf{ get\+\_\+ptrs} (const int \&index) const
+\begin{DoxyCompactList}\small\item\em Return a pointer to an element in the given compass direction. \end{DoxyCompactList}\item 
+void \textbf{ add\+\_\+contribution} (\textbf{ Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt} $\ast$ptr, const \textbf{ Dense\+Vector}$<$ double $>$ \&sw, const \textbf{ Dense\+Vector}$<$ double $>$ \&ne, std\+::set$<$ int $>$ indices)
+\begin{DoxyCompactList}\small\item\em Add a contribution to this element from another element. \end{DoxyCompactList}\item 
+void \textbf{ dump} () const
+\begin{DoxyCompactList}\small\item\em Dump the details of this element. \end{DoxyCompactList}\item 
+void \textbf{ clear\+\_\+contributions} ()
+\begin{DoxyCompactList}\small\item\em Reset the contributions to this element. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ contributed\+\_\+Q} () const
+\begin{DoxyCompactList}\small\item\em Find the integral contributions to this black/red element from the corresponding contributing red/black element. \end{DoxyCompactList}\item 
+void \textbf{ add\+\_\+flux\+\_\+contributions} (const double \&dt)
+\begin{DoxyCompactList}\small\item\em Adds the contribution of each face\textquotesingle{}s flux to the correction for this element unless it has already been added by a flux computation across the same face in an adjacent elt. \end{DoxyCompactList}\item 
+void \textbf{ contributed\+\_\+flux\+\_\+in\+\_\+west} (const double \&dt, \textbf{ Dense\+Vector}$<$ double $>$ \&flux\+\_\+in\+\_\+west)
+\begin{DoxyCompactList}\small\item\em Compute the flux into this element across the western face. \end{DoxyCompactList}\item 
+void \textbf{ contributed\+\_\+flux\+\_\+in\+\_\+south} (const double \&dt, \textbf{ Dense\+Vector}$<$ double $>$ \&flux\+\_\+in\+\_\+south)
+\begin{DoxyCompactList}\small\item\em Compute the flux into this element across the southern face. \end{DoxyCompactList}\item 
+void \textbf{ contributed\+\_\+flux\+\_\+out\+\_\+east} (const double \&dt, \textbf{ Dense\+Vector}$<$ double $>$ \&flux\+\_\+out\+\_\+east)
+\begin{DoxyCompactList}\small\item\em Compute the flux out of this element across the eastern face. \end{DoxyCompactList}\item 
+void \textbf{ contributed\+\_\+flux\+\_\+out\+\_\+north} (const double \&dt, \textbf{ Dense\+Vector}$<$ double $>$ \&flux\+\_\+out\+\_\+north)
+\begin{DoxyCompactList}\small\item\em Compute the flux out of this element across the northern face. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+s} (const \textbf{ Dense\+Vector}$<$ double $>$ \&x) const
+\begin{DoxyCompactList}\small\item\em Get the local coordinate that corresponds to a given global coordinate. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+x} (\textbf{ Dense\+Vector}$<$ double $>$ s) const
+\begin{DoxyCompactList}\small\item\em Get the global position of a local coordinate in this element. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+x\+\_\+mid} () const
+\begin{DoxyCompactList}\small\item\em Get the global position of a central node in this element. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+dx} () const
+\begin{DoxyCompactList}\small\item\em Get the size of the element as a vector (delta\+\_\+x, delta\+\_\+y). \end{DoxyCompactList}\item 
+double \textbf{ get\+\_\+dA} () const
+\begin{DoxyCompactList}\small\item\em Get the area of the element. \end{DoxyCompactList}\item 
+void \textbf{ set\+\_\+external\+\_\+flag} (bool flag)
+\begin{DoxyCompactList}\small\item\em Set the external flag. \end{DoxyCompactList}\item 
+bool \textbf{ get\+\_\+external\+\_\+flag} () const
+\begin{DoxyCompactList}\small\item\em Get the external flag. \end{DoxyCompactList}\item 
+std\+::set$<$ int $>$ \textbf{ get\+\_\+external\+\_\+faces} () const
+\begin{DoxyCompactList}\small\item\em Get a set of indices of faces that are external. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+Q} (const \textbf{ Dense\+Vector}$<$ double $>$ \&s) const
+\begin{DoxyCompactList}\small\item\em Get the value of the \textquotesingle{}concentration\textquotesingle{} stored in this element. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+int\+\_\+Q} (const \textbf{ Dense\+Vector}$<$ double $>$ \&sw, const \textbf{ Dense\+Vector}$<$ double $>$ \&ne) const
+\begin{DoxyCompactList}\small\item\em Get the integral of Q over a sub-\/element. \end{DoxyCompactList}\item 
+void \textbf{ add\+\_\+external\+\_\+face} (const int \&i)
+\begin{DoxyCompactList}\small\item\em Add an external face to the stored stl\+::set. \end{DoxyCompactList}\item 
+void \textbf{ remove\+\_\+external\+\_\+face} (const int \&i)
+\begin{DoxyCompactList}\small\item\em Remove an external face to the stored stl\+::set. \end{DoxyCompactList}\item 
+void \textbf{ set\+\_\+\+Q\+\_\+mid} (const \textbf{ Dense\+Vector}$<$ double $>$ \&value)
+\begin{DoxyCompactList}\small\item\em Set the value of the vector \textquotesingle{}concentration\textquotesingle{} stored in this element. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+\+Q\+\_\+mid} () const
+\begin{DoxyCompactList}\small\item\em Get the nodal concentration. \end{DoxyCompactList}\item 
+void \textbf{ set\+\_\+slope\+\_\+x} (const \textbf{ Dense\+Vector}$<$ double $>$ \&value)
+\begin{DoxyCompactList}\small\item\em Set the x-\/slope vector for this element. \end{DoxyCompactList}\item 
+void \textbf{ set\+\_\+slope\+\_\+y} (const \textbf{ Dense\+Vector}$<$ double $>$ \&value)
+\begin{DoxyCompactList}\small\item\em Set the y-\/slope vector for this element. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+slope\+\_\+x} () const
+\begin{DoxyCompactList}\small\item\em The concentration is approximated by a linear function in each element. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+slope\+\_\+y} () const
+\begin{DoxyCompactList}\small\item\em The concentration is approximated by a linear function in each element. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+\+Q\+\_\+\+Taylor\+\_\+series} (const \textbf{ Dense\+Vector}$<$ double $>$ \&s, const double \&dt) const
+\begin{DoxyCompactList}\small\item\em Get the Taylor series expansion of the concentration for a given time step and local coordinate for this element. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+source\+\_\+contribution} (const double \&dt) const
+\begin{DoxyCompactList}\small\item\em Evaluate the contribution to this element by the hyperbolic system\textquotesingle{}s source function over a given time step using a mid-\/point in time evaluation. \end{DoxyCompactList}\item 
+double \textbf{ get\+\_\+max\+\_\+dt} () const
+\begin{DoxyCompactList}\small\item\em Get the maximum allowable time step for this element by using information about the size of the element and the maximum wave speed set in the conservative system. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+flux\+\_\+fn\+\_\+x} (const \textbf{ Dense\+Vector}$<$ double $>$ \&s) const
+\begin{DoxyCompactList}\small\item\em Get the flux function in the x direction evaluated for the concentration value stored in this elt. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+flux\+\_\+fn\+\_\+y} (const \textbf{ Dense\+Vector}$<$ double $>$ \&s) const
+\begin{DoxyCompactList}\small\item\em Get the flux function in the y direction evaluated for the concentration value stored in this elt. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Matrix}$<$ double $>$ \textbf{ get\+\_\+\+Jac\+\_\+flux\+\_\+fn\+\_\+x} (const \textbf{ Dense\+Vector}$<$ double $>$ \&s) const
+\begin{DoxyCompactList}\small\item\em Get the Jacobian of the x flux function evaluated for the concentration value stored in this elt. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Matrix}$<$ double $>$ \textbf{ get\+\_\+\+Jac\+\_\+flux\+\_\+fn\+\_\+y} (const \textbf{ Dense\+Vector}$<$ double $>$ \&s) const
+\begin{DoxyCompactList}\small\item\em Get the Jacobian of the y flux function evaluated for the concentration value stored in this elt. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+source\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ double $>$ \&s) const
+\begin{DoxyCompactList}\small\item\em Get the source function evaluated for the concentration value stored in this elt. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Two\+D\+\_\+\+Hyperbolic\+\_\+\+System} $\ast$ \textbf{ p\+\_\+system}
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+A Linear Element class. 
+
+Definition at line 19 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a22b8b3f1bad67138143c861b5637b1f6}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!TwoD\_TVDLF\_Elt@{TwoD\_TVDLF\_Elt}}
+\index{TwoD\_TVDLF\_Elt@{TwoD\_TVDLF\_Elt}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{TwoD\_TVDLF\_Elt()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt (\begin{DoxyParamCaption}\item[{double}]{west,  }\item[{double}]{east,  }\item[{double}]{south,  }\item[{double}]{north,  }\item[{\textbf{ Two\+D\+\_\+\+Hyperbolic\+\_\+\+System} $\ast$}]{ptr,  }\item[{bool}]{flag = {\ttfamily false},  }\item[{std\+::set$<$ int $>$}]{faces = {\ttfamily std\+:\+:set$<$int$>$()} }\end{DoxyParamCaption})}
+
+
+
+Construct a linear rectangular element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em west} & The western face location \\
+\hline
+{\em east} & The eastern face location \\
+\hline
+{\em south} & The western face location \\
+\hline
+{\em north} & The eastern face location \\
+\hline
+{\em ptr} & A pointer to the hyperbolic system \\
+\hline
+{\em flag} & A boolean indicator to specify an elt with an external face \\
+\hline
+{\em faces} & A set of indices of the external faces \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 17 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{20                                                                \{}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{22     std::cout << \textcolor{stringliteral}{"DEBUG: Constructing a TwoD\_TVDLF\_Elt object over ["}}
+\DoxyCodeLine{23               << west << \textcolor{stringliteral}{", "} << east << \textcolor{stringliteral}{"] X ["} << south << \textcolor{stringliteral}{", "} << north << \textcolor{stringliteral}{"]\(\backslash\)n"};}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{25     p\_system = ptr;}
+\DoxyCodeLine{26     \textcolor{comment}{// south west corner}}
+\DoxyCodeLine{27     \textcolor{keyword}{this} -\/> WEST = west;}
+\DoxyCodeLine{28     \textcolor{keyword}{this} -\/> SOUTH = south;}
+\DoxyCodeLine{29     \textcolor{comment}{// lengths of the element sides}}
+\DoxyCodeLine{30     \textcolor{keyword}{this} -\/> DX = east -\/ west;}
+\DoxyCodeLine{31     \textcolor{keyword}{this} -\/> DY = north -\/ south;}
+\DoxyCodeLine{32     \textcolor{comment}{// is this an elt with an external face?}}
+\DoxyCodeLine{33     EXTERNAL = flag;}
+\DoxyCodeLine{34     \textcolor{comment}{// which faces are external?}}
+\DoxyCodeLine{35     EXTERNAL\_FACES = faces;}
+\DoxyCodeLine{36     \textcolor{comment}{// pointers to the elements on the compass points}}
+\DoxyCodeLine{37     p\_ELTS = std::vector<TwoD\_TVDLF\_Elt*>(4, \textcolor{keyword}{this});}
+\DoxyCodeLine{38     \textcolor{comment}{// linear reconstruction within the elt ... in 2 directions}}
+\DoxyCodeLine{39     SLOPE\_X = DenseVector<double>(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{40     SLOPE\_Y = DenseVector<double>(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{41     \textcolor{comment}{// the concentrations in this elt}}
+\DoxyCodeLine{42     Q = DenseVector<double>(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{43     \textcolor{comment}{// the corrections to be added ... built up in parts}}
+\DoxyCodeLine{44     DELTA\_Q = DenseVector<double>(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{45     \textcolor{comment}{// no fluxes have been added to this elt}}
+\DoxyCodeLine{46     FLUX\_FACE\_DONE = std::vector<bool>(4, \textcolor{keyword}{false});}
+\DoxyCodeLine{47   \}}
+
+\end{DoxyCode}
+
+
+References p\+\_\+system.
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_ad10c1ec4f2f2c29a4262be7a2319c39d}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!````~TwoD\_TVDLF\_Elt@{$\sim$TwoD\_TVDLF\_Elt}}
+\index{````~TwoD\_TVDLF\_Elt@{$\sim$TwoD\_TVDLF\_Elt}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{$\sim$TwoD\_TVDLF\_Elt()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::$\sim$\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+An empty destructor. 
+
+
+
+Definition at line 49 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{50   \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a8466892b3d0bce2ab6470d26dac12f07}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!add\_contribution@{add\_contribution}}
+\index{add\_contribution@{add\_contribution}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{add\_contribution()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::add\+\_\+contribution (\begin{DoxyParamCaption}\item[{\textbf{ Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt} $\ast$}]{ptr,  }\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{sw,  }\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{ne,  }\item[{std\+::set$<$ int $>$}]{indices }\end{DoxyParamCaption})}
+
+
+
+Add a contribution to this element from another element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ptr} & A pointer to the element that contributes to this one \\
+\hline
+{\em sw} & The SW local coordinate in the contributory element \\
+\hline
+{\em ne} & The NE local coordinate in the contributory element \\
+\hline
+{\em indices} & A set of indices of faces that this element contributes to \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 99 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{102                                                                \{}
+\DoxyCodeLine{103     \textcolor{comment}{// if any face indices are external then we ignore them}}
+\DoxyCodeLine{104     std::set< int > internal\_indices;}
+\DoxyCodeLine{105     set\_difference(indices.begin(), indices.end(),}
+\DoxyCodeLine{106                    EXTERNAL\_FACES.begin(), EXTERNAL\_FACES.end(),}
+\DoxyCodeLine{107                    inserter(internal\_indices, internal\_indices.begin()));}
+\DoxyCodeLine{108     \textcolor{comment}{// loop thru the contributions to see if it is already in there}}
+\DoxyCodeLine{109     std::list< contribution >::iterator c = CONT\_LIST.begin();}
+\DoxyCodeLine{110     \textcolor{keywordtype}{bool} found = \textcolor{keyword}{false};}
+\DoxyCodeLine{111     \textcolor{keywordflow}{while}(c != CONT\_LIST.end()) \{}
+\DoxyCodeLine{112       \textcolor{keywordflow}{if}(c -\/> elt\_ptr == ptr) \{}
+\DoxyCodeLine{113         found = \textcolor{keyword}{true};}
+\DoxyCodeLine{114         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{115       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{116         ++c;}
+\DoxyCodeLine{117       \}}
+\DoxyCodeLine{118     \}}
+\DoxyCodeLine{119     \textcolor{keywordflow}{if}(found) \{}
+\DoxyCodeLine{120       \textcolor{comment}{// just add face indices to the existing entry's set of faces}}
+\DoxyCodeLine{121       c -\/> face\_indices.insert(internal\_indices.begin(), internal\_indices.end());}
+\DoxyCodeLine{122     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{123       \textcolor{comment}{// we need to make a new contribution entry}}
+\DoxyCodeLine{124       contribution cont;}
+\DoxyCodeLine{125       cont.elt\_ptr = ptr;}
+\DoxyCodeLine{126       cont.sw = sw;}
+\DoxyCodeLine{127       cont.ne = ne;}
+\DoxyCodeLine{128       cont.face\_indices.insert(internal\_indices.begin(), internal\_indices.end());}
+\DoxyCodeLine{129       \textcolor{comment}{// push the contribution data into a list}}
+\DoxyCodeLine{130       CONT\_LIST.push\_back(cont);}
+\DoxyCodeLine{131     \}}
+\DoxyCodeLine{132   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a445c9741ea4ec95822dc8973e7ccb9ee}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!add\_external\_face@{add\_external\_face}}
+\index{add\_external\_face@{add\_external\_face}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{add\_external\_face()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::add\+\_\+external\+\_\+face (\begin{DoxyParamCaption}\item[{const int \&}]{i }\end{DoxyParamCaption})}
+
+
+
+Add an external face to the stored stl\+::set. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the external face 0,1,2,3 for S,E,N,W. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 460 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{460                                                      \{}
+\DoxyCodeLine{461     EXTERNAL\_FACES.insert(i);}
+\DoxyCodeLine{462   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a9968695726ef64cbc1a930ee4f6ef0db}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!add\_flux\_contributions@{add\_flux\_contributions}}
+\index{add\_flux\_contributions@{add\_flux\_contributions}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{add\_flux\_contributions()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::add\+\_\+flux\+\_\+contributions (\begin{DoxyParamCaption}\item[{const double \&}]{dt }\end{DoxyParamCaption})}
+
+
+
+Adds the contribution of each face\textquotesingle{}s flux to the correction for this element unless it has already been added by a flux computation across the same face in an adjacent elt. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & The time step over which the flux is to be computed \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 72 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72                                                               \{}
+\DoxyCodeLine{73     DenseVector<double> flux(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{74     \textcolor{comment}{// work out the flux into the elt}}
+\DoxyCodeLine{75     \textcolor{keywordflow}{if}(!FLUX\_FACE\_DONE[ 0 ]) \{}
+\DoxyCodeLine{76       contributed\_flux\_in\_south(dt, flux);}
+\DoxyCodeLine{77     \}}
+\DoxyCodeLine{78     \textcolor{keywordflow}{if}(!FLUX\_FACE\_DONE[ 1 ]) \{}
+\DoxyCodeLine{79       contributed\_flux\_out\_east(dt, flux);}
+\DoxyCodeLine{80     \}}
+\DoxyCodeLine{81     \textcolor{keywordflow}{if}(!FLUX\_FACE\_DONE[ 2 ]) \{}
+\DoxyCodeLine{82       contributed\_flux\_out\_north(dt, flux);}
+\DoxyCodeLine{83     \}}
+\DoxyCodeLine{84     \textcolor{keywordflow}{if}(!FLUX\_FACE\_DONE[ 3 ]) \{}
+\DoxyCodeLine{85       contributed\_flux\_in\_west(dt, flux);}
+\DoxyCodeLine{86     \}}
+\DoxyCodeLine{87     \textcolor{comment}{// evaluate the total integral over dt and divide by the area of the elt}}
+\DoxyCodeLine{88     DELTA\_Q *= dt / (DX * DY);}
+\DoxyCodeLine{89     \textcolor{comment}{// include the source contribution}}
+\DoxyCodeLine{90     DELTA\_Q += get\_source\_contribution(dt);}
+\DoxyCodeLine{91     \textcolor{comment}{// update the concentrations}}
+\DoxyCodeLine{92     Q += DELTA\_Q;}
+\DoxyCodeLine{93     \textcolor{comment}{// reset the correction to zero}}
+\DoxyCodeLine{94     DELTA\_Q = DenseVector<double>(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{95     \textcolor{comment}{// reset the elt to having no fluxes added}}
+\DoxyCodeLine{96     FLUX\_FACE\_DONE = std::vector<bool>(4, \textcolor{keyword}{false});}
+\DoxyCodeLine{97   \}}
+
+\end{DoxyCode}
+
+
+References contributed\+\_\+flux\+\_\+in\+\_\+south(), contributed\+\_\+flux\+\_\+in\+\_\+west(), contributed\+\_\+flux\+\_\+out\+\_\+east(), contributed\+\_\+flux\+\_\+out\+\_\+north(), get\+\_\+source\+\_\+contribution(), and p\+\_\+system.
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a01592736897555f13a6803b30a969252}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!clear\_contributions@{clear\_contributions}}
+\index{clear\_contributions@{clear\_contributions}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{clear\_contributions()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::clear\+\_\+contributions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reset the contributions to this element. 
+
+
+
+Definition at line 142 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{142                                            \{}
+\DoxyCodeLine{143     CONT\_LIST.clear();}
+\DoxyCodeLine{144   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_ae34d245d9678b56ad2554308c394d7cf}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!contributed\_flux\_in\_south@{contributed\_flux\_in\_south}}
+\index{contributed\_flux\_in\_south@{contributed\_flux\_in\_south}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{contributed\_flux\_in\_south()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::contributed\+\_\+flux\+\_\+in\+\_\+south (\begin{DoxyParamCaption}\item[{const double \&}]{dt,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{flux\+\_\+in\+\_\+south }\end{DoxyParamCaption})}
+
+
+
+Compute the flux into this element across the southern face. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & The time step over which the flux is to be computed \\
+\hline
+{\em flux\+\_\+in\+\_\+south} & A vector flux that is overwritten by this method and returned containing the appropriate flux values. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 220 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{220                                                                                                      \{}
+\DoxyCodeLine{221     DenseVector<double> flux(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{222     flux\_in\_south = DenseVector<double>(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{223     std::list< contribution >::iterator c = CONT\_LIST.begin();}
+\DoxyCodeLine{224     \textcolor{keywordflow}{if}(face\_is\_internal(0)) \{}
+\DoxyCodeLine{225       \textcolor{comment}{// loop over all contributing elements}}
+\DoxyCodeLine{226       \textcolor{keywordflow}{while}(c != CONT\_LIST.end()) \{}
+\DoxyCodeLine{227         \textcolor{comment}{// true if this makes a contribution to the South face}}
+\DoxyCodeLine{228         \textcolor{keywordflow}{if}(c -\/> face\_indices.find(0) != c -\/> face\_indices.end()) \{}
+\DoxyCodeLine{229           \textcolor{comment}{// get the local coords in the contributing elt, but has to}}
+\DoxyCodeLine{230           \textcolor{comment}{// be at the mid-\/point for the x-\/integration}}
+\DoxyCodeLine{231           DenseVector<double> s\_half(2, 0.0);}
+\DoxyCodeLine{232           s\_half[ 0 ] = (c -\/> sw[ 0 ] + c -\/> ne[ 0 ]) * 0.5;}
+\DoxyCodeLine{233           s\_half[ 1 ] =  c -\/> sw[ 1 ];}
+\DoxyCodeLine{234           \textcolor{comment}{// current concentration value at the mid-\/time point}}
+\DoxyCodeLine{235           DenseVector<double> q\_half\_step(c -\/> elt\_ptr -\/> get\_Q\_Taylor\_series(s\_half, dt / 2));}
+\DoxyCodeLine{236           \textcolor{comment}{// evaluate the flux at this Q value}}
+\DoxyCodeLine{237           c -\/> elt\_ptr -\/> p\_system -\/> flux\_fn\_y(c -\/> elt\_ptr -\/> get\_x(s\_half), q\_half\_step, flux);}
+\DoxyCodeLine{238           \textcolor{comment}{// the length of the elements face that this computation is over (for the x-\/integral)}}
+\DoxyCodeLine{239           \textcolor{keyword}{const} \textcolor{keywordtype}{double} sub\_dx((c -\/> elt\_ptr -\/> get\_x(c -\/> ne) -\/ c -\/> elt\_ptr -\/> get\_x(c -\/> sw))[0]);}
+\DoxyCodeLine{240           flux\_in\_south += flux * sub\_dx;}
+\DoxyCodeLine{241         \}}
+\DoxyCodeLine{242         ++c;}
+\DoxyCodeLine{243       \}}
+\DoxyCodeLine{244       \textcolor{comment}{// flux\_in\_south of this elt = flux\_out\_north of the elt to the south}}
+\DoxyCodeLine{245       p\_ELTS[ 0 ] -\/> add\_to\_delta\_Q(2, -\/flux\_in\_south);}
+\DoxyCodeLine{246     \}}
+\DoxyCodeLine{247     \textcolor{comment}{// if we are computing the flux thru South face and it is external}}
+\DoxyCodeLine{248     \textcolor{comment}{// then we should use the user specified edge values}}
+\DoxyCodeLine{249     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{250       std::list< contribution >::iterator c = CONT\_LIST.begin();}
+\DoxyCodeLine{251       \textcolor{comment}{// loop over all contributing elements}}
+\DoxyCodeLine{252       \textcolor{keywordflow}{while}(c != CONT\_LIST.end()) \{}
+\DoxyCodeLine{253         \textcolor{comment}{// find any contributing elts to this external face}}
+\DoxyCodeLine{254         \textcolor{keywordflow}{if}(c -\/> elt\_ptr -\/> face\_is\_external(0)) \{}
+\DoxyCodeLine{255           \textcolor{comment}{// get the local coords in the contributing elt, but has to}}
+\DoxyCodeLine{256           \textcolor{comment}{// be at the mid-\/point for the x-\/integration}}
+\DoxyCodeLine{257           DenseVector<double> s\_half(2, 0.0);}
+\DoxyCodeLine{258           s\_half[ 0 ] = (c -\/> sw[ 0 ] + c -\/> ne[ 0 ]) * 0.5;}
+\DoxyCodeLine{259           s\_half[ 1 ] =  c -\/> sw[ 1 ];}
+\DoxyCodeLine{260           \textcolor{comment}{// global coordinate}}
+\DoxyCodeLine{261           \textcolor{keyword}{const} DenseVector<double> x(c -\/> elt\_ptr -\/> get\_x(s\_half));}
+\DoxyCodeLine{262           \textcolor{comment}{// get the concentration at the mid-\/time point}}
+\DoxyCodeLine{263           DenseVector<double> q\_half\_step(c -\/> elt\_ptr -\/> get\_Q\_Taylor\_series(s\_half, dt / 2));}
+\DoxyCodeLine{264           \textcolor{comment}{// at this point we have obtained the 'natural' boundary condition}}
+\DoxyCodeLine{265           \textcolor{comment}{// but we now allow the user to overwrite this using the edge\_values}}
+\DoxyCodeLine{266           \textcolor{comment}{// not overwriting q\_half\_step means we keep the natural condition}}
+\DoxyCodeLine{267           p\_system -\/> edge\_values(0, x, q\_half\_step);}
+\DoxyCodeLine{268           \textcolor{comment}{// evaluate the flux at this Q value}}
+\DoxyCodeLine{269           c -\/> elt\_ptr -\/> p\_system -\/> flux\_fn\_y(x, q\_half\_step, flux);}
+\DoxyCodeLine{270           \textcolor{comment}{// the length of the elements face that this computation is over (for the x-\/integral)}}
+\DoxyCodeLine{271           \textcolor{keyword}{const} \textcolor{keywordtype}{double} sub\_dx((c -\/> elt\_ptr -\/> get\_x(c -\/> ne) -\/ c -\/> elt\_ptr -\/> get\_x(c -\/> sw))[0]);}
+\DoxyCodeLine{272           flux\_in\_south += flux * sub\_dx;}
+\DoxyCodeLine{273         \}}
+\DoxyCodeLine{274         ++c;}
+\DoxyCodeLine{275       \}}
+\DoxyCodeLine{276     \}}
+\DoxyCodeLine{277     FLUX\_FACE\_DONE[ 0 ] = \textcolor{keyword}{true};}
+\DoxyCodeLine{278     DELTA\_Q += flux\_in\_south;}
+\DoxyCodeLine{279   \}}
+
+\end{DoxyCode}
+
+
+References face\+\_\+is\+\_\+external(), face\+\_\+is\+\_\+internal(), get\+\_\+\+Q\+\_\+\+Taylor\+\_\+series(), get\+\_\+x(), and p\+\_\+system.
+
+
+
+Referenced by add\+\_\+flux\+\_\+contributions().
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a902c58f512e1eafb49d57521544eb57a}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!contributed\_flux\_in\_west@{contributed\_flux\_in\_west}}
+\index{contributed\_flux\_in\_west@{contributed\_flux\_in\_west}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{contributed\_flux\_in\_west()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::contributed\+\_\+flux\+\_\+in\+\_\+west (\begin{DoxyParamCaption}\item[{const double \&}]{dt,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{flux\+\_\+in\+\_\+west }\end{DoxyParamCaption})}
+
+
+
+Compute the flux into this element across the western face. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & The time step over which the flux is to be computed \\
+\hline
+{\em flux\+\_\+in\+\_\+west} & A vector flux that is overwritten by this method and returned containing the appropriate flux values. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 159 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{159                                                                                                    \{}
+\DoxyCodeLine{160     DenseVector<double> flux(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{161     flux\_in\_west = DenseVector<double>(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{162     std::list< contribution >::iterator c = CONT\_LIST.begin();}
+\DoxyCodeLine{163     \textcolor{keywordflow}{if}(face\_is\_internal(3)) \{}
+\DoxyCodeLine{164       \textcolor{comment}{// loop over all contributing elements}}
+\DoxyCodeLine{165       \textcolor{keywordflow}{while}(c != CONT\_LIST.end()) \{}
+\DoxyCodeLine{166         \textcolor{comment}{// true if this makes a contribution to the West face}}
+\DoxyCodeLine{167         \textcolor{keywordflow}{if}(c -\/> face\_indices.find(3) != c -\/> face\_indices.end()) \{}
+\DoxyCodeLine{168           \textcolor{comment}{// get the local coords in the contributing elt, but has to}}
+\DoxyCodeLine{169           \textcolor{comment}{// be at the mid-\/point for the y-\/integration}}
+\DoxyCodeLine{170           DenseVector<double> s\_half(2, 0.0);}
+\DoxyCodeLine{171           s\_half[ 0 ] = c -\/> sw[ 0 ];}
+\DoxyCodeLine{172           s\_half[ 1 ] = (c -\/> sw[1] + c -\/> ne[1]) * 0.5;}
+\DoxyCodeLine{173           \textcolor{comment}{// current concentration value at the mid-\/time step}}
+\DoxyCodeLine{174           DenseVector<double> q\_half\_step(c -\/> elt\_ptr -\/> get\_Q\_Taylor\_series(s\_half, dt / 2));}
+\DoxyCodeLine{175           \textcolor{comment}{// evaluate the flux at this Q value}}
+\DoxyCodeLine{176           c -\/> elt\_ptr -\/> p\_system -\/> flux\_fn\_x(c -\/> elt\_ptr -\/> get\_x(s\_half), q\_half\_step, flux);}
+\DoxyCodeLine{177           \textcolor{comment}{// the length of the elements face that this computation is over (for the y-\/integral)}}
+\DoxyCodeLine{178           \textcolor{keyword}{const} \textcolor{keywordtype}{double} sub\_dy((c -\/> elt\_ptr -\/> get\_x(c -\/> ne) -\/ c -\/> elt\_ptr -\/> get\_x(c -\/> sw))[1]);}
+\DoxyCodeLine{179           flux\_in\_west += flux * sub\_dy;}
+\DoxyCodeLine{180         \}}
+\DoxyCodeLine{181         ++c;}
+\DoxyCodeLine{182       \}}
+\DoxyCodeLine{183       \textcolor{comment}{// flux\_in\_west of this elt = flux\_out\_east of the elt to the west}}
+\DoxyCodeLine{184       p\_ELTS[ 3 ] -\/> add\_to\_delta\_Q(1, -\/flux\_in\_west);}
+\DoxyCodeLine{185     \}}
+\DoxyCodeLine{186     \textcolor{comment}{// if we are computing the flux thru West face and it is external}}
+\DoxyCodeLine{187     \textcolor{comment}{// then we should use the user specified edge values}}
+\DoxyCodeLine{188     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{189       std::list< contribution >::iterator c = CONT\_LIST.begin();}
+\DoxyCodeLine{190       \textcolor{comment}{// loop over all contributing elements}}
+\DoxyCodeLine{191       \textcolor{keywordflow}{while}(c != CONT\_LIST.end()) \{}
+\DoxyCodeLine{192         \textcolor{comment}{// find any contributing elts to this external face}}
+\DoxyCodeLine{193         \textcolor{keywordflow}{if}(c -\/> elt\_ptr -\/> face\_is\_external(3)) \{}
+\DoxyCodeLine{194           \textcolor{comment}{// get the local coords in the contributing elt, but has to}}
+\DoxyCodeLine{195           \textcolor{comment}{// be at the mid-\/point for the y-\/integration}}
+\DoxyCodeLine{196           DenseVector<double> s\_half(2, 0.0);}
+\DoxyCodeLine{197           s\_half[ 0 ] = c -\/> sw[ 0 ];}
+\DoxyCodeLine{198           s\_half[ 1 ] = (c -\/> sw[1] + c -\/> ne[1]) * 0.5;}
+\DoxyCodeLine{199           \textcolor{comment}{// global coordinate}}
+\DoxyCodeLine{200           \textcolor{keyword}{const} DenseVector<double> x(c -\/> elt\_ptr -\/> get\_x(s\_half));}
+\DoxyCodeLine{201           \textcolor{comment}{// get the concentration at the mid-\/time point}}
+\DoxyCodeLine{202           DenseVector<double> q\_half\_step(c -\/> elt\_ptr -\/> get\_Q\_Taylor\_series(s\_half, dt / 2));}
+\DoxyCodeLine{203           \textcolor{comment}{// at this point we have obtained the 'natural' boundary condition}}
+\DoxyCodeLine{204           \textcolor{comment}{// but we now allow the user to overwrite this using the edge\_values}}
+\DoxyCodeLine{205           \textcolor{comment}{// not overwriting q\_half\_step means we keep the natural condition}}
+\DoxyCodeLine{206           p\_system -\/> edge\_values(3, x, q\_half\_step);}
+\DoxyCodeLine{207           \textcolor{comment}{// evaluate the flux at this Q value}}
+\DoxyCodeLine{208           c -\/> elt\_ptr -\/> p\_system -\/> flux\_fn\_x(x, q\_half\_step, flux);}
+\DoxyCodeLine{209           \textcolor{comment}{// the length of the elements face that this computation is over (for the y-\/integral)}}
+\DoxyCodeLine{210           \textcolor{keyword}{const} \textcolor{keywordtype}{double} sub\_dy((c -\/> elt\_ptr -\/> get\_x(c -\/> ne) -\/ c -\/> elt\_ptr -\/> get\_x(c -\/> sw))[1]);}
+\DoxyCodeLine{211           flux\_in\_west += flux * sub\_dy;}
+\DoxyCodeLine{212         \}}
+\DoxyCodeLine{213         ++c;}
+\DoxyCodeLine{214       \}}
+\DoxyCodeLine{215     \}}
+\DoxyCodeLine{216     FLUX\_FACE\_DONE[ 3 ] = \textcolor{keyword}{true};}
+\DoxyCodeLine{217     DELTA\_Q += flux\_in\_west;}
+\DoxyCodeLine{218   \}}
+
+\end{DoxyCode}
+
+
+References face\+\_\+is\+\_\+external(), face\+\_\+is\+\_\+internal(), get\+\_\+\+Q\+\_\+\+Taylor\+\_\+series(), get\+\_\+x(), and p\+\_\+system.
+
+
+
+Referenced by add\+\_\+flux\+\_\+contributions().
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_aa71f77084d6bff9e5d11e1225e1b9e46}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!contributed\_flux\_out\_east@{contributed\_flux\_out\_east}}
+\index{contributed\_flux\_out\_east@{contributed\_flux\_out\_east}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{contributed\_flux\_out\_east()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::contributed\+\_\+flux\+\_\+out\+\_\+east (\begin{DoxyParamCaption}\item[{const double \&}]{dt,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{flux\+\_\+out\+\_\+east }\end{DoxyParamCaption})}
+
+
+
+Compute the flux out of this element across the eastern face. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & The time step over which the flux is to be computed \\
+\hline
+{\em flux\+\_\+out\+\_\+east} & A vector flux that is overwritten by this method and returned containing the appropriate flux values. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 281 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{281                                                                                                      \{}
+\DoxyCodeLine{282     DenseVector<double> flux(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{283     flux\_out\_east = DenseVector<double>(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{284     std::list< contribution >::iterator c = CONT\_LIST.begin();}
+\DoxyCodeLine{285     \textcolor{keywordflow}{if}(face\_is\_internal(1)) \{}
+\DoxyCodeLine{286       \textcolor{comment}{// loop over all contributing elements}}
+\DoxyCodeLine{287       \textcolor{keywordflow}{while}(c != CONT\_LIST.end()) \{}
+\DoxyCodeLine{288         \textcolor{comment}{// true if this makes a contribution to the East face}}
+\DoxyCodeLine{289         \textcolor{keywordflow}{if}(c -\/> face\_indices.find(1) != c -\/> face\_indices.end()) \{}
+\DoxyCodeLine{290           \textcolor{comment}{// get the local coords in the contributing elt, but has to}}
+\DoxyCodeLine{291           \textcolor{comment}{// be at the mid-\/point for the y-\/integration}}
+\DoxyCodeLine{292           DenseVector<double> s\_half(2, 0.0);}
+\DoxyCodeLine{293           s\_half[ 0 ] = c -\/> ne[ 0 ];}
+\DoxyCodeLine{294           s\_half[ 1 ] = (c -\/> sw[1] + c -\/> ne[1]) * 0.5;}
+\DoxyCodeLine{295           \textcolor{comment}{// current concentration value at the mid-\/time point}}
+\DoxyCodeLine{296           DenseVector<double> q\_half\_step(c -\/> elt\_ptr -\/> get\_Q\_Taylor\_series(s\_half, dt / 2));}
+\DoxyCodeLine{297           \textcolor{comment}{// evaluate the flux at this Q value}}
+\DoxyCodeLine{298           c -\/> elt\_ptr -\/> p\_system -\/> flux\_fn\_x(c -\/> elt\_ptr -\/> get\_x(s\_half), q\_half\_step, flux);}
+\DoxyCodeLine{299           \textcolor{comment}{// the length of the elements face that this computation is over (for the y-\/integral)}}
+\DoxyCodeLine{300           \textcolor{keyword}{const} \textcolor{keywordtype}{double} sub\_dy((c -\/> elt\_ptr -\/> get\_x(c -\/> ne) -\/ c -\/> elt\_ptr -\/> get\_x(c -\/> sw))[1]);}
+\DoxyCodeLine{301           flux\_out\_east += flux * sub\_dy;}
+\DoxyCodeLine{302         \}}
+\DoxyCodeLine{303         ++c;}
+\DoxyCodeLine{304       \}}
+\DoxyCodeLine{305       \textcolor{comment}{// flux\_out\_east of this elt = flux\_in\_west of the elt to the west}}
+\DoxyCodeLine{306       p\_ELTS[ 1 ] -\/> add\_to\_delta\_Q(3, flux\_out\_east);}
+\DoxyCodeLine{307     \}}
+\DoxyCodeLine{308     \textcolor{comment}{// if we are computing the flux thru East face and it is external}}
+\DoxyCodeLine{309     \textcolor{comment}{// then we should use the user specified edge values}}
+\DoxyCodeLine{310     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{311       std::list< contribution >::iterator c = CONT\_LIST.begin();}
+\DoxyCodeLine{312       \textcolor{comment}{// loop over all contributing elements}}
+\DoxyCodeLine{313       \textcolor{keywordflow}{while}(c != CONT\_LIST.end()) \{}
+\DoxyCodeLine{314         \textcolor{comment}{// find any contributing elts to this external face}}
+\DoxyCodeLine{315         \textcolor{keywordflow}{if}(c -\/> elt\_ptr -\/> face\_is\_external(1)) \{}
+\DoxyCodeLine{316           \textcolor{comment}{// get the local coords in the contributing elt, but has to}}
+\DoxyCodeLine{317           \textcolor{comment}{// be at the mid-\/point for the y-\/integration}}
+\DoxyCodeLine{318           DenseVector<double> s\_half(2, 0.0);}
+\DoxyCodeLine{319           s\_half[ 0 ] = c -\/> ne[ 0 ];}
+\DoxyCodeLine{320           s\_half[ 1 ] = (c -\/> sw[1] + c -\/> ne[1]) * 0.5;}
+\DoxyCodeLine{321           \textcolor{comment}{// global coordinate}}
+\DoxyCodeLine{322           \textcolor{keyword}{const} DenseVector<double> x(c -\/> elt\_ptr -\/> get\_x(s\_half));}
+\DoxyCodeLine{323           \textcolor{comment}{// get the concentration at this point mid-\/time point}}
+\DoxyCodeLine{324           DenseVector<double> q\_half\_step(c -\/> elt\_ptr -\/> get\_Q\_Taylor\_series(s\_half, dt / 2));}
+\DoxyCodeLine{325           \textcolor{comment}{// at this point we have obtained the 'natural' boundary condition}}
+\DoxyCodeLine{326           \textcolor{comment}{// but we now allow the user to overwrite this using the edge\_values}}
+\DoxyCodeLine{327           \textcolor{comment}{// not overwriting q\_half\_step means we keep the natural condition}}
+\DoxyCodeLine{328           p\_system -\/> edge\_values(1, x, q\_half\_step);}
+\DoxyCodeLine{329           \textcolor{comment}{// evaluate the flux at this Q value}}
+\DoxyCodeLine{330           c -\/> elt\_ptr -\/> p\_system -\/> flux\_fn\_x(x, q\_half\_step, flux);}
+\DoxyCodeLine{331           \textcolor{comment}{// the length of the elements face that this computation is over (for the y-\/integral)}}
+\DoxyCodeLine{332           \textcolor{keyword}{const} \textcolor{keywordtype}{double} sub\_dy((c -\/> elt\_ptr -\/> get\_x(c -\/> ne) -\/ c -\/> elt\_ptr -\/> get\_x(c -\/> sw))[1]);}
+\DoxyCodeLine{333           flux\_out\_east += flux * sub\_dy;}
+\DoxyCodeLine{334         \}}
+\DoxyCodeLine{335         ++c;}
+\DoxyCodeLine{336       \}}
+\DoxyCodeLine{337     \}}
+\DoxyCodeLine{338     FLUX\_FACE\_DONE[ 1 ] = \textcolor{keyword}{true};}
+\DoxyCodeLine{339     DELTA\_Q -\/= flux\_out\_east;}
+\DoxyCodeLine{340   \}}
+
+\end{DoxyCode}
+
+
+References face\+\_\+is\+\_\+external(), face\+\_\+is\+\_\+internal(), get\+\_\+\+Q\+\_\+\+Taylor\+\_\+series(), get\+\_\+x(), and p\+\_\+system.
+
+
+
+Referenced by add\+\_\+flux\+\_\+contributions().
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a77d5d4794b9af884b6320be16a7747b4}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!contributed\_flux\_out\_north@{contributed\_flux\_out\_north}}
+\index{contributed\_flux\_out\_north@{contributed\_flux\_out\_north}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{contributed\_flux\_out\_north()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::contributed\+\_\+flux\+\_\+out\+\_\+north (\begin{DoxyParamCaption}\item[{const double \&}]{dt,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{flux\+\_\+out\+\_\+north }\end{DoxyParamCaption})}
+
+
+
+Compute the flux out of this element across the northern face. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & The time step over which the flux is to be computed \\
+\hline
+{\em flux\+\_\+out\+\_\+north} & A vector flux that is overwritten by this method and returned containing the appropriate flux values. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 342 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{342                                                                                                        \{}
+\DoxyCodeLine{343     DenseVector<double> flux(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{344     flux\_out\_north = DenseVector<double>(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{345     std::list< contribution >::iterator c = CONT\_LIST.begin();}
+\DoxyCodeLine{346     \textcolor{keywordflow}{if}(face\_is\_internal(2)) \{}
+\DoxyCodeLine{347       \textcolor{comment}{// loop over all contributing elements}}
+\DoxyCodeLine{348       \textcolor{keywordflow}{while}(c != CONT\_LIST.end()) \{}
+\DoxyCodeLine{349         \textcolor{comment}{// true if this makes a contribution to the North face}}
+\DoxyCodeLine{350         \textcolor{keywordflow}{if}(c -\/> face\_indices.find(2) != c -\/> face\_indices.end()) \{}
+\DoxyCodeLine{351           \textcolor{comment}{// get the local coords in the contributing elt, but has to}}
+\DoxyCodeLine{352           \textcolor{comment}{// be at the mid-\/point for the y-\/integration}}
+\DoxyCodeLine{353           DenseVector<double> s\_half(2, 0.0);}
+\DoxyCodeLine{354           s\_half[ 0 ] = (c -\/> sw[ 0 ] + c -\/> ne[ 0 ]) * 0.5;}
+\DoxyCodeLine{355           s\_half[ 1 ] =  c -\/> ne[ 1 ];}
+\DoxyCodeLine{356           \textcolor{comment}{// current concentration value at the mid-\/time point}}
+\DoxyCodeLine{357           DenseVector<double> q\_half\_step(c -\/> elt\_ptr -\/> get\_Q\_Taylor\_series(s\_half, dt / 2));}
+\DoxyCodeLine{358           \textcolor{comment}{// evaluate the flux at this Q value}}
+\DoxyCodeLine{359           c -\/> elt\_ptr -\/> p\_system -\/> flux\_fn\_y(c -\/> elt\_ptr -\/> get\_x(s\_half), q\_half\_step, flux);}
+\DoxyCodeLine{360           \textcolor{comment}{// the length of the elements face that this computation is over (for the y-\/integral)}}
+\DoxyCodeLine{361           \textcolor{keyword}{const} \textcolor{keywordtype}{double} sub\_dx((c -\/> elt\_ptr -\/> get\_x(c -\/> ne) -\/ c -\/> elt\_ptr -\/> get\_x(c -\/> sw))[0]);}
+\DoxyCodeLine{362           flux\_out\_north += flux * sub\_dx;}
+\DoxyCodeLine{363         \}}
+\DoxyCodeLine{364         ++c;}
+\DoxyCodeLine{365       \}}
+\DoxyCodeLine{366       \textcolor{comment}{// flux\_out\_north of this elt = flux\_in\_south of the elt to the north}}
+\DoxyCodeLine{367       p\_ELTS[ 2 ] -\/> add\_to\_delta\_Q(0, flux\_out\_north);}
+\DoxyCodeLine{368     \}}
+\DoxyCodeLine{369     \textcolor{comment}{// if we are computing the flux thru North face and it is external}}
+\DoxyCodeLine{370     \textcolor{comment}{// then we should use the user specified edge values}}
+\DoxyCodeLine{371     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{372       std::list< contribution >::iterator c = CONT\_LIST.begin();}
+\DoxyCodeLine{373       \textcolor{comment}{// loop over all contributing elements}}
+\DoxyCodeLine{374       \textcolor{keywordflow}{while}(c != CONT\_LIST.end()) \{}
+\DoxyCodeLine{375         \textcolor{comment}{// find any contributing elts to this external face}}
+\DoxyCodeLine{376         \textcolor{keywordflow}{if}(c -\/> elt\_ptr -\/> face\_is\_external(2)) \{}
+\DoxyCodeLine{377           \textcolor{comment}{// get the local coords in the contributing elt, but has to}}
+\DoxyCodeLine{378           \textcolor{comment}{// be at the mid-\/point for the x-\/integration}}
+\DoxyCodeLine{379           DenseVector<double> s\_half(2, 0.0);}
+\DoxyCodeLine{380           s\_half[ 0 ] = (c -\/> sw[ 0 ] + c -\/> ne[ 0 ]) * 0.5;}
+\DoxyCodeLine{381           s\_half[ 1 ] =  c -\/> ne[ 1 ];}
+\DoxyCodeLine{382           \textcolor{comment}{// global coordinate}}
+\DoxyCodeLine{383           \textcolor{keyword}{const} DenseVector<double> x(c -\/> elt\_ptr -\/> get\_x(s\_half));}
+\DoxyCodeLine{384           \textcolor{comment}{// get the concentration at this mid-\/time point}}
+\DoxyCodeLine{385           DenseVector<double> q\_half\_step(c -\/> elt\_ptr -\/> get\_Q\_Taylor\_series(s\_half, dt / 2));}
+\DoxyCodeLine{386           \textcolor{comment}{// at this point we have obtained the 'natural' boundary condition}}
+\DoxyCodeLine{387           \textcolor{comment}{// but we now allow the user to overwrite this using the edge\_values}}
+\DoxyCodeLine{388           \textcolor{comment}{// not overwriting q\_half\_step means we keep the natural condition}}
+\DoxyCodeLine{389           p\_system -\/> edge\_values(2, x, q\_half\_step);}
+\DoxyCodeLine{390           \textcolor{comment}{// evaluate the flux at this Q value}}
+\DoxyCodeLine{391           c -\/> elt\_ptr -\/> p\_system -\/> flux\_fn\_y(x, q\_half\_step, flux);}
+\DoxyCodeLine{392           \textcolor{comment}{// the length of the elements face that this computation is over (for the x-\/integral)}}
+\DoxyCodeLine{393           \textcolor{keyword}{const} \textcolor{keywordtype}{double} sub\_dx((c -\/> elt\_ptr -\/> get\_x(c -\/> ne) -\/ c -\/> elt\_ptr -\/> get\_x(c -\/> sw))[0]);}
+\DoxyCodeLine{394           flux\_out\_north += flux * sub\_dx;}
+\DoxyCodeLine{395         \}}
+\DoxyCodeLine{396         ++c;}
+\DoxyCodeLine{397       \}}
+\DoxyCodeLine{398     \}}
+\DoxyCodeLine{399     FLUX\_FACE\_DONE[ 2 ] = \textcolor{keyword}{true};}
+\DoxyCodeLine{400     DELTA\_Q -\/= flux\_out\_north;}
+\DoxyCodeLine{401   \}}
+
+\end{DoxyCode}
+
+
+References face\+\_\+is\+\_\+external(), face\+\_\+is\+\_\+internal(), get\+\_\+\+Q\+\_\+\+Taylor\+\_\+series(), get\+\_\+x(), and p\+\_\+system.
+
+
+
+Referenced by add\+\_\+flux\+\_\+contributions().
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_aec0d39bc99b608403fd208f924dfb6db}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!contributed\_Q@{contributed\_Q}}
+\index{contributed\_Q@{contributed\_Q}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{contributed\_Q()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::contributed\+\_\+Q (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Find the integral contributions to this black/red element from the corresponding contributing red/black element. 
+
+\begin{DoxyReturn}{Returns}
+The integrated value of all components 
+\end{DoxyReturn}
+
+
+Definition at line 146 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{146                                                           \{}
+\DoxyCodeLine{147     std::list< contribution >::const\_iterator c = CONT\_LIST.begin();}
+\DoxyCodeLine{148     \textcolor{comment}{// start with zero}}
+\DoxyCodeLine{149     DenseVector<double> sum(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{150     \textcolor{comment}{// loop over contributions}}
+\DoxyCodeLine{151     \textcolor{keywordflow}{while}(c != CONT\_LIST.end()) \{}
+\DoxyCodeLine{152       \textcolor{comment}{// get integral of each}}
+\DoxyCodeLine{153       sum += c -\/> elt\_ptr -\/> get\_int\_Q(c -\/> sw, c -\/> ne);}
+\DoxyCodeLine{154       ++c;}
+\DoxyCodeLine{155     \}}
+\DoxyCodeLine{156     \textcolor{keywordflow}{return} sum;}
+\DoxyCodeLine{157   \}}
+
+\end{DoxyCode}
+
+
+References get\+\_\+int\+\_\+\+Q(), and p\+\_\+system.
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a1680f385abb66f48a270c29329dfbe60}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!dump@{dump}}
+\index{dump@{dump}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{dump()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::dump (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Dump the details of this element. 
+
+
+
+Definition at line 134 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{134                                   \{}
+\DoxyCodeLine{135     DenseVector<double> s(2, 0.0);}
+\DoxyCodeLine{136     std::cout << WEST + DX / 2 << \textcolor{stringliteral}{" "} << SOUTH + DY / 2 << \textcolor{stringliteral}{" "} << get\_Q(s)[0] << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{137     \textcolor{keywordflow}{if}(EXTERNAL\_FACES.find(1) != EXTERNAL\_FACES.end()) \{}
+\DoxyCodeLine{138       std::cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{139     \}}
+\DoxyCodeLine{140   \}}
+
+\end{DoxyCode}
+
+
+References get\+\_\+\+Q(), and Cpp\+Noddy\+::\+Example\+::s.
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a5099b034871fb140a9a8745f5f9998c4}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!face\_is\_external@{face\_is\_external}}
+\index{face\_is\_external@{face\_is\_external}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{face\_is\_external()}
+{\footnotesize\ttfamily bool Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::face\+\_\+is\+\_\+external (\begin{DoxyParamCaption}\item[{const int \&}]{index }\end{DoxyParamCaption}) const}
+
+
+
+Test to see if a face index of an element is external to the mesh. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The face index to test (0,1,2,3) for (S,E,N,W) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the face is external to the mesh. 
+\end{DoxyReturn}
+
+
+Definition at line 52 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{52                                                               \{}
+\DoxyCodeLine{53     \textcolor{keywordtype}{bool} found(\textcolor{keyword}{true});}
+\DoxyCodeLine{54     \textcolor{keywordflow}{if}(EXTERNAL\_FACES.find(index) == EXTERNAL\_FACES.end()) \{}
+\DoxyCodeLine{55       found = \textcolor{keyword}{false};}
+\DoxyCodeLine{56     \}}
+\DoxyCodeLine{57     \textcolor{keywordflow}{return} found;}
+\DoxyCodeLine{58   \}}
+
+\end{DoxyCode}
+
+
+Referenced by contributed\+\_\+flux\+\_\+in\+\_\+south(), contributed\+\_\+flux\+\_\+in\+\_\+west(), contributed\+\_\+flux\+\_\+out\+\_\+east(), contributed\+\_\+flux\+\_\+out\+\_\+north(), and face\+\_\+is\+\_\+internal().
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a739b55472866c7ff7d8da98e46d9c265}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!face\_is\_internal@{face\_is\_internal}}
+\index{face\_is\_internal@{face\_is\_internal}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{face\_is\_internal()}
+{\footnotesize\ttfamily bool Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::face\+\_\+is\+\_\+internal (\begin{DoxyParamCaption}\item[{const int \&}]{index }\end{DoxyParamCaption}) const}
+
+
+
+Test to see if a face index of an element is internal to the mesh. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The face index to test (0,1,2,3) for (S,E,N,W) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the face is internal to the mesh. 
+\end{DoxyReturn}
+
+
+Definition at line 60 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60                                                               \{}
+\DoxyCodeLine{61     \textcolor{keywordflow}{return} !face\_is\_external(index);}
+\DoxyCodeLine{62   \}}
+
+\end{DoxyCode}
+
+
+References face\+\_\+is\+\_\+external().
+
+
+
+Referenced by contributed\+\_\+flux\+\_\+in\+\_\+south(), contributed\+\_\+flux\+\_\+in\+\_\+west(), contributed\+\_\+flux\+\_\+out\+\_\+east(), and contributed\+\_\+flux\+\_\+out\+\_\+north().
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a36698e8a064c41f3c7ff8640b54f19de}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_dA@{get\_dA}}
+\index{get\_dA@{get\_dA}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_dA()}
+{\footnotesize\ttfamily double Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+dA (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the area of the element. 
+
+\begin{DoxyReturn}{Returns}
+The area of the element 
+\end{DoxyReturn}
+
+
+Definition at line 444 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{444                                       \{}
+\DoxyCodeLine{445     \textcolor{keywordflow}{return} DX * DY;}
+\DoxyCodeLine{446   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a892f69d093090e9e86c17759f17d97b4}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_dx@{get\_dx}}
+\index{get\_dx@{get\_dx}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_dx()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+dx (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the size of the element as a vector (delta\+\_\+x, delta\+\_\+y). 
+
+\begin{DoxyReturn}{Returns}
+The separation of the rectangles faces (delta\+\_\+x, delta\+\_\+y) 
+\end{DoxyReturn}
+
+
+Definition at line 437 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{437                                                    \{}
+\DoxyCodeLine{438     DenseVector<double> delta(2, 0.0);}
+\DoxyCodeLine{439     delta[ 0 ] = DX;}
+\DoxyCodeLine{440     delta[ 1 ] = DY;}
+\DoxyCodeLine{441     \textcolor{keywordflow}{return} delta;}
+\DoxyCodeLine{442   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_aa74b75fbfb485c8d22870a34815a4d9a}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_external\_faces@{get\_external\_faces}}
+\index{get\_external\_faces@{get\_external\_faces}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_external\_faces()}
+{\footnotesize\ttfamily std\+::set$<$ int $>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+external\+\_\+faces (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get a set of indices of faces that are external. 
+
+\begin{DoxyReturn}{Returns}
+A set of integers (0,1,2,3 for south, east, north, west) indicating which faces are external. 
+\end{DoxyReturn}
+
+
+Definition at line 456 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{456                                                        \{}
+\DoxyCodeLine{457     \textcolor{keywordflow}{return} EXTERNAL\_FACES;}
+\DoxyCodeLine{458   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a4d7a07b53362339a222b5142453ef4dc}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_external\_flag@{get\_external\_flag}}
+\index{get\_external\_flag@{get\_external\_flag}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_external\_flag()}
+{\footnotesize\ttfamily bool Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+external\+\_\+flag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the external flag. 
+
+\begin{DoxyReturn}{Returns}
+The value of the flag (true if this is an elt with an external face) 
+\end{DoxyReturn}
+
+
+Definition at line 452 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{452                                                \{}
+\DoxyCodeLine{453     \textcolor{keywordflow}{return} EXTERNAL;}
+\DoxyCodeLine{454   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a2cd4232954d2caefc14a10d72d682bdc}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_flux\_fn\_x@{get\_flux\_fn\_x}}
+\index{get\_flux\_fn\_x@{get\_flux\_fn\_x}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_flux\_fn\_x()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$double$>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+flux\+\_\+fn\+\_\+x (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{s }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the flux function in the x direction evaluated for the concentration value stored in this elt. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The local vector coordinate at which to evaluate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The flux function vector 
+\end{DoxyReturn}
+
+
+Definition at line 233 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{233                                                                           \{}
+\DoxyCodeLine{234       DenseVector<double> f(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{235       p\_system -\/> flux\_fn\_x(get\_x(s), get\_Q(s), f);}
+\DoxyCodeLine{236       \textcolor{keywordflow}{return} f;}
+\DoxyCodeLine{237     \}}
+
+\end{DoxyCode}
+
+
+References f, get\+\_\+\+Q(), get\+\_\+x(), p\+\_\+system, and Cpp\+Noddy\+::\+Example\+::s.
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_afd4e0841864735e1690fb2f0f5bf1913}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_flux\_fn\_y@{get\_flux\_fn\_y}}
+\index{get\_flux\_fn\_y@{get\_flux\_fn\_y}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_flux\_fn\_y()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$double$>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+flux\+\_\+fn\+\_\+y (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{s }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the flux function in the y direction evaluated for the concentration value stored in this elt. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The local vector coordinate at which to evaluate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The flux function vector 
+\end{DoxyReturn}
+
+
+Definition at line 243 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{243                                                                           \{}
+\DoxyCodeLine{244       DenseVector<double> g(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{245       p\_system -\/> flux\_fn\_y(get\_x(s), get\_Q(s), g);}
+\DoxyCodeLine{246       \textcolor{keywordflow}{return} g;}
+\DoxyCodeLine{247     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::g(), get\+\_\+\+Q(), get\+\_\+x(), p\+\_\+system, and Cpp\+Noddy\+::\+Example\+::s.
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_ae37d2537ebfb8501bf72300062873099}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_int\_Q@{get\_int\_Q}}
+\index{get\_int\_Q@{get\_int\_Q}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_int\_Q()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+int\+\_\+Q (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{sw,  }\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{ne }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the integral of Q over a sub-\/element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sw} & A vector containing the SW local coordinates \\
+\hline
+{\em ne} & A vector containing the NE local coordinates \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The integral of the concentration over the local range 
+\end{DoxyReturn}
+
+
+Definition at line 348 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{348                                                                                                                              \{}
+\DoxyCodeLine{349     \textcolor{keyword}{const} \textcolor{keywordtype}{double} sub\_dx(DX * (s\_ne[ 0 ] -\/ s\_sw[ 0 ]) / 2);}
+\DoxyCodeLine{350     \textcolor{keyword}{const} \textcolor{keywordtype}{double} sub\_dy(DY * (s\_ne[ 1 ] -\/ s\_sw[ 1 ]) / 2);}
+\DoxyCodeLine{351     \textcolor{keywordflow}{return} get\_Q((s\_ne + s\_sw) / 2) * sub\_dx * sub\_dy;}
+\DoxyCodeLine{352   \}}
+
+\end{DoxyCode}
+
+
+References get\+\_\+\+Q().
+
+
+
+Referenced by contributed\+\_\+\+Q().
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_ae2db2b0b69f9a54af6905dd8a2e7e671}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_Jac\_flux\_fn\_x@{get\_Jac\_flux\_fn\_x}}
+\index{get\_Jac\_flux\_fn\_x@{get\_Jac\_flux\_fn\_x}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_Jac\_flux\_fn\_x()}
+{\footnotesize\ttfamily \textbf{ Dense\+Matrix}$<$double$>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+\+Jac\+\_\+flux\+\_\+fn\+\_\+x (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{s }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Jacobian of the x flux function evaluated for the concentration value stored in this elt. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The local coordinate at which to evaluate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Jacobian matrix 
+\end{DoxyReturn}
+
+
+Definition at line 253 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{253                                                                               \{}
+\DoxyCodeLine{254       DenseMatrix<double> J(p\_system -\/> get\_order(), p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{255       p\_system -\/> Jac\_flux\_fn\_x(get\_x(s), get\_Q(s), J);}
+\DoxyCodeLine{256       \textcolor{keywordflow}{return} J;}
+\DoxyCodeLine{257     \}}
+
+\end{DoxyCode}
+
+
+References get\+\_\+\+Q(), get\+\_\+x(), p\+\_\+system, and Cpp\+Noddy\+::\+Example\+::s.
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_ab35676604b697c759ab0cfc215ff9153}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_Jac\_flux\_fn\_y@{get\_Jac\_flux\_fn\_y}}
+\index{get\_Jac\_flux\_fn\_y@{get\_Jac\_flux\_fn\_y}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_Jac\_flux\_fn\_y()}
+{\footnotesize\ttfamily \textbf{ Dense\+Matrix}$<$double$>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+\+Jac\+\_\+flux\+\_\+fn\+\_\+y (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{s }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Jacobian of the y flux function evaluated for the concentration value stored in this elt. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The local coordinate at which to evaluate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Jacobian matrix 
+\end{DoxyReturn}
+
+
+Definition at line 263 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{263                                                                               \{}
+\DoxyCodeLine{264       DenseMatrix<double> J(p\_system -\/> get\_order(), p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{265       p\_system -\/> Jac\_flux\_fn\_y(get\_x(s), get\_Q(s), J);}
+\DoxyCodeLine{266       \textcolor{keywordflow}{return} J;}
+\DoxyCodeLine{267     \}}
+
+\end{DoxyCode}
+
+
+References get\+\_\+\+Q(), get\+\_\+x(), p\+\_\+system, and Cpp\+Noddy\+::\+Example\+::s.
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a151c4854214de45b48dcd82bdb27b28d}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_max\_dt@{get\_max\_dt}}
+\index{get\_max\_dt@{get\_max\_dt}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_max\_dt()}
+{\footnotesize\ttfamily double Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+max\+\_\+dt (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the maximum allowable time step for this element by using information about the size of the element and the maximum wave speed set in the conservative system. 
+
+The time step is guranteed to satisfy the C\+FL $<$ 0.\+5 constraint in the two principle directions. \begin{DoxyReturn}{Returns}
+The maximum time step for this element 
+\end{DoxyReturn}
+
+
+Definition at line 354 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{354                                                  \{}
+\DoxyCodeLine{355     DenseVector<double> c(2, 0.0);}
+\DoxyCodeLine{356     DenseVector<double> s(2, 0.0);}
+\DoxyCodeLine{357     p\_system -\/> max\_charac\_speed(get\_x(s), get\_Q\_mid(), c);}
+\DoxyCodeLine{358     \textcolor{keywordflow}{return} std::min(DX / c[ 0 ], DY / c[ 1 ]);}
+\DoxyCodeLine{359   \}}
+
+\end{DoxyCode}
+
+
+References get\+\_\+\+Q\+\_\+mid(), get\+\_\+x(), p\+\_\+system, and Cpp\+Noddy\+::\+Example\+::s.
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_af60a84944620c267ed63a72d6843801c}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_ptrs@{get\_ptrs}}
+\index{get\_ptrs@{get\_ptrs}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_ptrs()}
+{\footnotesize\ttfamily \textbf{ Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt} $\ast$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+ptrs (\begin{DoxyParamCaption}\item[{const int \&}]{index }\end{DoxyParamCaption}) const}
+
+
+
+Return a pointer to an element in the given compass direction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The appropriate index of the direction 0,1,2,3 for S,E,N,W \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The pointer to the element 
+\end{DoxyReturn}
+
+
+Definition at line 68 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{68                                                                  \{}
+\DoxyCodeLine{69     \textcolor{keywordflow}{return} p\_ELTS[ index ];}
+\DoxyCodeLine{70   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a472a6ca378b7207e6b4425f230046e46}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_Q@{get\_Q}}
+\index{get\_Q@{get\_Q}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_Q()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+Q (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{s }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the value of the \textquotesingle{}concentration\textquotesingle{} stored in this element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The local coordinate in the elt at which Q is requested \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The concentration value of the elt for each component 
+\end{DoxyReturn}
+
+
+Definition at line 319 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{319                                                                                      \{}
+\DoxyCodeLine{320     \textcolor{keywordflow}{return} Q + (SLOPE\_X * s[ 0 ] * DX}
+\DoxyCodeLine{321                 + SLOPE\_Y * s[ 1 ] * DY) / 2;}
+\DoxyCodeLine{322   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::s.
+
+
+
+Referenced by dump(), get\+\_\+flux\+\_\+fn\+\_\+x(), get\+\_\+flux\+\_\+fn\+\_\+y(), get\+\_\+int\+\_\+\+Q(), get\+\_\+\+Jac\+\_\+flux\+\_\+fn\+\_\+x(), get\+\_\+\+Jac\+\_\+flux\+\_\+fn\+\_\+y(), get\+\_\+\+Q\+\_\+\+Taylor\+\_\+series(), and get\+\_\+source\+\_\+fn().
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a3a8817c65677ce983645c20bc1e388e8}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_Q\_mid@{get\_Q\_mid}}
+\index{get\_Q\_mid@{get\_Q\_mid}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_Q\_mid()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+\+Q\+\_\+mid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the nodal concentration. 
+
+\begin{DoxyReturn}{Returns}
+The concentration at the central node 
+\end{DoxyReturn}
+
+
+Definition at line 328 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{328                                                              \{}
+\DoxyCodeLine{329     \textcolor{keywordflow}{return} Q;}
+\DoxyCodeLine{330   \}}
+
+\end{DoxyCode}
+
+
+Referenced by get\+\_\+max\+\_\+dt().
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_af111f3b7f71cf17cef6fa46b1b499fd3}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_Q\_Taylor\_series@{get\_Q\_Taylor\_series}}
+\index{get\_Q\_Taylor\_series@{get\_Q\_Taylor\_series}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_Q\_Taylor\_series()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+\+Q\+\_\+\+Taylor\+\_\+series (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{s,  }\item[{const double \&}]{dt }\end{DoxyParamCaption}) const}
+
+
+
+Get the Taylor series expansion of the concentration for a given time step and local coordinate for this element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The local coordinate \\
+\hline
+{\em dt} & The time step \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 468 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{468                                                                                                               \{}
+\DoxyCodeLine{469     \textcolor{keyword}{const} DenseVector<double> x(get\_x(s));}
+\DoxyCodeLine{470     \textcolor{comment}{// value of Q at the current time point}}
+\DoxyCodeLine{471     DenseVector<double> q(get\_Q(s));}
+\DoxyCodeLine{472     \textcolor{comment}{// evaluate the 2nd order Taylor series expansion of Q at the}}
+\DoxyCodeLine{473     \textcolor{comment}{// time step of size dt}}
+\DoxyCodeLine{474     \textcolor{comment}{//}}
+\DoxyCodeLine{475     \textcolor{comment}{// get the RHS from the eqn}}
+\DoxyCodeLine{476     DenseVector<double> r(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{477     p\_system -\/> source\_fn(x, q, r);}
+\DoxyCodeLine{478     \textcolor{comment}{// get the Jacobian of the x-\/flux fn}}
+\DoxyCodeLine{479     DenseMatrix<double> jac(p\_system -\/> get\_order(), p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{480     p\_system -\/> Jac\_flux\_fn\_x(x, q, jac);}
+\DoxyCodeLine{481     r -\/= jac.multiply(SLOPE\_X);}
+\DoxyCodeLine{482     \textcolor{comment}{// get the Jacobian of the y-\/flux fn}}
+\DoxyCodeLine{483     p\_system -\/> Jac\_flux\_fn\_y(x, q, jac);}
+\DoxyCodeLine{484     r -\/= jac.multiply(SLOPE\_Y);}
+\DoxyCodeLine{485     \textcolor{comment}{// add the correction}}
+\DoxyCodeLine{486     q += r * dt;}
+\DoxyCodeLine{487     \textcolor{comment}{// the above should be equivalent to the expression below, but}}
+\DoxyCodeLine{488     \textcolor{comment}{// minimises instantiation of Jacobian matrix}}
+\DoxyCodeLine{489     \textcolor{comment}{// q += ( get\_source\_fn( s )}}
+\DoxyCodeLine{490     \textcolor{comment}{//   -\/ get\_Jac\_flux\_fn\_x( s ).multiply( slope\_x )}}
+\DoxyCodeLine{491     \textcolor{comment}{//   -\/ get\_Jac\_flux\_fn\_y( s ).multiply( slope\_y ) ) * dt;}}
+\DoxyCodeLine{492     \textcolor{keywordflow}{return} q;}
+\DoxyCodeLine{493   \}}
+
+\end{DoxyCode}
+
+
+References get\+\_\+\+Q(), get\+\_\+x(), Cpp\+Noddy\+::\+Dense\+Matrix$<$ \+\_\+\+Type $>$\+::multiply(), p\+\_\+system, Cpp\+Noddy\+::\+Example\+::s, and Cpp\+Noddy\+::\+Example\+::source\+\_\+fn().
+
+
+
+Referenced by contributed\+\_\+flux\+\_\+in\+\_\+south(), contributed\+\_\+flux\+\_\+in\+\_\+west(), contributed\+\_\+flux\+\_\+out\+\_\+east(), contributed\+\_\+flux\+\_\+out\+\_\+north(), and get\+\_\+source\+\_\+contribution().
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_ab3e2e9572ff3b3a976a164c1cbadd859}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_s@{get\_s}}
+\index{get\_s@{get\_s}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_s()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+s (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{x }\end{DoxyParamCaption}) const}
+
+
+
+Get the local coordinate that corresponds to a given global coordinate. 
+
+If the global coordinate is outside this element, an exception is thrown. 
+\begin{DoxyParams}{Parameters}
+{\em x} & The global coordinate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The local coordinate 
+\end{DoxyReturn}
+
+
+Definition at line 408 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{408                                                                               \{}
+\DoxyCodeLine{409 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{410     \textcolor{keywordflow}{if}((x[0] < WEST) || (x[0] > WEST + DX) || (x[1] > SOUTH + DY) || (x[1] < SOUTH)) \{}
+\DoxyCodeLine{411       std::string problem;}
+\DoxyCodeLine{412       problem = \textcolor{stringliteral}{" The TwoD\_TVDLF\_Elt::get\_s method has been called for an element \(\backslash\)n"};}
+\DoxyCodeLine{413       problem += \textcolor{stringliteral}{" whose range does not bracket the given global coordinate.\(\backslash\)n"};}
+\DoxyCodeLine{414       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{415     \}}
+\DoxyCodeLine{416 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{417     DenseVector<double> s(2, 0.0);}
+\DoxyCodeLine{418     s[0] = -\/1 + 2 * (x[0] -\/ WEST) / DX;}
+\DoxyCodeLine{419     s[1] = -\/1 + 2 * (x[1] -\/ SOUTH) / DY;}
+\DoxyCodeLine{420     \textcolor{keywordflow}{return} s;}
+\DoxyCodeLine{421   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::s.
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a2bfc78916e53e681d9015f804f09a32b}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_slope\_x@{get\_slope\_x}}
+\index{get\_slope\_x@{get\_slope\_x}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_slope\_x()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+slope\+\_\+x (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The concentration is approximated by a linear function in each element. 
+
+The slope of this function in the x-\/direction is found through this method. \begin{DoxyReturn}{Returns}
+The value of the \textquotesingle{}slope\+\_\+x\textquotesingle{} member data 
+\end{DoxyReturn}
+
+
+Definition at line 340 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{340                                                                \{}
+\DoxyCodeLine{341     \textcolor{keywordflow}{return} SLOPE\_X;}
+\DoxyCodeLine{342   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a5717d84c6fd6fb870c216c67f1d5216c}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_slope\_y@{get\_slope\_y}}
+\index{get\_slope\_y@{get\_slope\_y}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_slope\_y()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+slope\+\_\+y (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The concentration is approximated by a linear function in each element. 
+
+The slope of this function in the y-\/direction is found through this method. \begin{DoxyReturn}{Returns}
+The value of the \textquotesingle{}slope\+\_\+x\textquotesingle{} member data 
+\end{DoxyReturn}
+
+
+Definition at line 344 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{344                                                                \{}
+\DoxyCodeLine{345     \textcolor{keywordflow}{return} SLOPE\_Y;}
+\DoxyCodeLine{346   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a9a8645e8d7d738c46b48d3ad583f4d17}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_source\_contribution@{get\_source\_contribution}}
+\index{get\_source\_contribution@{get\_source\_contribution}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_source\_contribution()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+source\+\_\+contribution (\begin{DoxyParamCaption}\item[{const double \&}]{dt }\end{DoxyParamCaption}) const}
+
+
+
+Evaluate the contribution to this element by the hyperbolic system\textquotesingle{}s source function over a given time step using a mid-\/point in time evaluation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & The time step over which source function is to be integrated \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The total contribution 
+\end{DoxyReturn}
+
+
+Definition at line 495 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{495                                                                                     \{}
+\DoxyCodeLine{496     \textcolor{keyword}{const} DenseVector<double> s\_mid(2, 0.0);}
+\DoxyCodeLine{497     \textcolor{comment}{// evaluate the Taylor series expansion of the unknowns at the}}
+\DoxyCodeLine{498     \textcolor{comment}{// mid time displacement point dt/2}}
+\DoxyCodeLine{499     DenseVector<double> q(get\_Q\_Taylor\_series(s\_mid, dt / 2));}
+\DoxyCodeLine{500     DenseVector<double> R(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{501     \textcolor{comment}{// work out the source function for this mid-\/point in time q value}}
+\DoxyCodeLine{502     p\_system -\/> source\_fn(get\_x(s\_mid), q, R);}
+\DoxyCodeLine{503     \textcolor{comment}{// return the contribution}}
+\DoxyCodeLine{504     \textcolor{keywordflow}{return} R * dt;}
+\DoxyCodeLine{505   \}}
+
+\end{DoxyCode}
+
+
+References get\+\_\+\+Q\+\_\+\+Taylor\+\_\+series(), get\+\_\+x(), p\+\_\+system, and Cpp\+Noddy\+::\+Example\+::source\+\_\+fn().
+
+
+
+Referenced by add\+\_\+flux\+\_\+contributions().
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a088fb91d70a42e5e113c8e8b5cce3451}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_source\_fn@{get\_source\_fn}}
+\index{get\_source\_fn@{get\_source\_fn}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_source\_fn()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$double$>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+source\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{s }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the source function evaluated for the concentration value stored in this elt. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The local coordinate at which to evaluate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The source function value 
+\end{DoxyReturn}
+
+
+Definition at line 274 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{274                                                                           \{}
+\DoxyCodeLine{275       DenseVector<double> r(p\_system -\/> get\_order(), 0.0);}
+\DoxyCodeLine{276       p\_system -\/> source\_fn(get\_x(s), get\_Q(s), r);}
+\DoxyCodeLine{277       \textcolor{keywordflow}{return} r;}
+\DoxyCodeLine{278     \}}
+
+\end{DoxyCode}
+
+
+References get\+\_\+\+Q(), get\+\_\+x(), p\+\_\+system, Cpp\+Noddy\+::\+Example\+::s, and Cpp\+Noddy\+::\+Example\+::source\+\_\+fn().
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a34c99c4cfd01f34050cd0fc02044ea10}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_x@{get\_x}}
+\index{get\_x@{get\_x}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_x()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+x (\begin{DoxyParamCaption}\item[{\textbf{ Dense\+Vector}$<$ double $>$}]{s }\end{DoxyParamCaption}) const}
+
+
+
+Get the global position of a local coordinate in this element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The local coordinate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The global position 
+\end{DoxyReturn}
+
+
+Definition at line 423 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{423                                                                        \{}
+\DoxyCodeLine{424     DenseVector<double> x(2, 0.0);}
+\DoxyCodeLine{425     x[ 0 ] = WEST + (s[ 0 ] + 1) * DX / 2;}
+\DoxyCodeLine{426     x[ 1 ] = SOUTH + (s[ 1 ] + 1) * DY / 2;}
+\DoxyCodeLine{427     \textcolor{keywordflow}{return} x;}
+\DoxyCodeLine{428   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::s.
+
+
+
+Referenced by contributed\+\_\+flux\+\_\+in\+\_\+south(), contributed\+\_\+flux\+\_\+in\+\_\+west(), contributed\+\_\+flux\+\_\+out\+\_\+east(), contributed\+\_\+flux\+\_\+out\+\_\+north(), get\+\_\+flux\+\_\+fn\+\_\+x(), get\+\_\+flux\+\_\+fn\+\_\+y(), get\+\_\+\+Jac\+\_\+flux\+\_\+fn\+\_\+x(), get\+\_\+\+Jac\+\_\+flux\+\_\+fn\+\_\+y(), get\+\_\+max\+\_\+dt(), get\+\_\+\+Q\+\_\+\+Taylor\+\_\+series(), get\+\_\+source\+\_\+contribution(), and get\+\_\+source\+\_\+fn().
+
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a9496e59a40ac897f34bba406b9d01775}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!get\_x\_mid@{get\_x\_mid}}
+\index{get\_x\_mid@{get\_x\_mid}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{get\_x\_mid()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::get\+\_\+x\+\_\+mid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the global position of a central node in this element. 
+
+\begin{DoxyReturn}{Returns}
+The global position of the central node 
+\end{DoxyReturn}
+
+
+Definition at line 430 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{430                                                       \{}
+\DoxyCodeLine{431     DenseVector<double> x(2, 0.0);}
+\DoxyCodeLine{432     x[ 0 ] = WEST + DX / 2;}
+\DoxyCodeLine{433     x[ 1 ] = SOUTH + DY / 2;}
+\DoxyCodeLine{434     \textcolor{keywordflow}{return} x;}
+\DoxyCodeLine{435   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_aaa0ec8c3242aa041b45ae40f248a49a6}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!remove\_external\_face@{remove\_external\_face}}
+\index{remove\_external\_face@{remove\_external\_face}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{remove\_external\_face()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::remove\+\_\+external\+\_\+face (\begin{DoxyParamCaption}\item[{const int \&}]{i }\end{DoxyParamCaption})}
+
+
+
+Remove an external face to the stored stl\+::set. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the external face 0,1,2,3 for S,E,N,W. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 464 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{464                                                         \{}
+\DoxyCodeLine{465     EXTERNAL\_FACES.erase(i);}
+\DoxyCodeLine{466   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a0151e9510d004ceede1b09f71e445593}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!set\_external\_flag@{set\_external\_flag}}
+\index{set\_external\_flag@{set\_external\_flag}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{set\_external\_flag()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::set\+\_\+external\+\_\+flag (\begin{DoxyParamCaption}\item[{bool}]{flag }\end{DoxyParamCaption})}
+
+
+
+Set the external flag. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em flag} & is the value to set \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 448 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{448                                                   \{}
+\DoxyCodeLine{449     EXTERNAL = flag;}
+\DoxyCodeLine{450   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a10f3f73b200a32c8b6ec192787d48efd}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!set\_ptrs@{set\_ptrs}}
+\index{set\_ptrs@{set\_ptrs}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{set\_ptrs()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::set\+\_\+ptrs (\begin{DoxyParamCaption}\item[{const int \&}]{index,  }\item[{\textbf{ Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt} $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+
+
+Each element stores pointers to any adjacent elements in the four compass directions 0,1,2,3 for S,E,N,W. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The index of the direction to set the pointer for \\
+\hline
+{\em ptr} & A pointer to the element in the chosen direction \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 64 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{64                                                                      \{}
+\DoxyCodeLine{65     p\_ELTS[ index ] = ptr;}
+\DoxyCodeLine{66   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a88e196165ed11d71791c91b1ef9e21b0}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!set\_Q\_mid@{set\_Q\_mid}}
+\index{set\_Q\_mid@{set\_Q\_mid}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{set\_Q\_mid()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::set\+\_\+\+Q\+\_\+mid (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the value of the vector \textquotesingle{}concentration\textquotesingle{} stored in this element. 
+
+To second order, this is the value of the concentration at the mid-\/point of the element. 
+\begin{DoxyParams}{Parameters}
+{\em value} & The vector value to be assigned to the concentration member data Q \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 324 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{324                                                                         \{}
+\DoxyCodeLine{325     Q = value;}
+\DoxyCodeLine{326   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a038527d96d275d8cb25927bfdc631972}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!set\_slope\_x@{set\_slope\_x}}
+\index{set\_slope\_x@{set\_slope\_x}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{set\_slope\_x()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::set\+\_\+slope\+\_\+x (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the x-\/slope vector for this element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The slope vector to be set \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 332 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{332                                                                           \{}
+\DoxyCodeLine{333     SLOPE\_X = value;}
+\DoxyCodeLine{334   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a88e4793bbfb14d85fa462106964a4626}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!set\_slope\_y@{set\_slope\_y}}
+\index{set\_slope\_y@{set\_slope\_y}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{set\_slope\_y()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::set\+\_\+slope\+\_\+y (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the y-\/slope vector for this element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The slope vector to be set \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 336 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{336                                                                           \{}
+\DoxyCodeLine{337     SLOPE\_Y = value;}
+\DoxyCodeLine{338   \}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Data Documentation}
+\mbox{\label{classCppNoddy_1_1TwoD__TVDLF__Elt_a593386c2230b699eb50ff45d2b32e508}} 
+\index{CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}!p\_system@{p\_system}}
+\index{p\_system@{p\_system}!CppNoddy::TwoD\_TVDLF\_Elt@{CppNoddy::TwoD\_TVDLF\_Elt}}
+\doxyparagraph{p\_system}
+{\footnotesize\ttfamily \textbf{ Two\+D\+\_\+\+Hyperbolic\+\_\+\+System}$\ast$ Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt\+::p\+\_\+system}
+
+
+
+Definition at line 281 of file Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h.
+
+
+
+Referenced by add\+\_\+flux\+\_\+contributions(), contributed\+\_\+flux\+\_\+in\+\_\+south(), contributed\+\_\+flux\+\_\+in\+\_\+west(), contributed\+\_\+flux\+\_\+out\+\_\+east(), contributed\+\_\+flux\+\_\+out\+\_\+north(), contributed\+\_\+\+Q(), get\+\_\+flux\+\_\+fn\+\_\+x(), get\+\_\+flux\+\_\+fn\+\_\+y(), get\+\_\+\+Jac\+\_\+flux\+\_\+fn\+\_\+x(), get\+\_\+\+Jac\+\_\+flux\+\_\+fn\+\_\+y(), get\+\_\+max\+\_\+dt(), get\+\_\+\+Q\+\_\+\+Taylor\+\_\+series(), get\+\_\+source\+\_\+contribution(), get\+\_\+source\+\_\+fn(), and Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+h}\item 
+src/\textbf{ Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Elt.\+cpp}\end{DoxyCompactItemize}

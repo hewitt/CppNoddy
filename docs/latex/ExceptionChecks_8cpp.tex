@@ -1,0 +1,133 @@
+\doxysubsection{Tests/\+Generic/\+Exception\+Checks.cpp File Reference}
+\label{ExceptionChecks_8cpp}\index{Tests/Generic/ExceptionChecks.cpp@{Tests/Generic/ExceptionChecks.cpp}}
+{\ttfamily \#include $<$Newton\+\_\+bundle.\+h$>$}\newline
+{\ttfamily \#include $<$Dense\+Linear\+System.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+Cube\+\_\+root\+\_\+problem}
+\begin{DoxyCompactList}\small\item\em The problem to be solved, here z$^\wedge$3 -\/1 in complex form. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\item 
+ \textbf{ Cpp\+Noddy\+::\+Example}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+We do some obviously dumb things to induce a handful of common failures. The failures should result in exceptions being thrown, which should be caught. The test is passed if the required number of exceptions are successfully caught. 
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{ExceptionChecks_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{ExceptionChecks.cpp@{ExceptionChecks.cpp}!main@{main}}
+\index{main@{main}!ExceptionChecks.cpp@{ExceptionChecks.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 39 of file Exception\+Checks.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{43   cout << \textcolor{stringliteral}{"=== Exception checks: testing forced failures =======\(\backslash\)n"};}
+\DoxyCodeLine{44   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47   \textcolor{keywordtype}{int} exceptions\_caught( 0 );}
+\DoxyCodeLine{48   \textcolor{keywordtype}{int} tests( 0 );}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50   \{}
+\DoxyCodeLine{51     ++tests;}
+\DoxyCodeLine{52     \textcolor{comment}{// set up noddy singular 2x2 problem}}
+\DoxyCodeLine{53     DenseMatrix<double> A( 2, 2, 0.0 );}
+\DoxyCodeLine{54     DenseVector<double> B( 2, 0.0 );}
+\DoxyCodeLine{55     A( 0, 0 ) = 1.;}
+\DoxyCodeLine{56     A( 0, 1 ) = 2.;}
+\DoxyCodeLine{57     A( 1, 0 ) = 2.; \textcolor{comment}{// row 1 = 2 * row 0 -\/-\/ so singular}}
+\DoxyCodeLine{58     A( 1, 1 ) = 4.;}
+\DoxyCodeLine{59     B[ 0 ] = 5.;}
+\DoxyCodeLine{60     B[ 1 ] = 11.;}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62     DenseLinearSystem<double> system( \&A, \&B, \textcolor{stringliteral}{"native"} );}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64     \textcolor{comment}{// singular matrix should be caught in the native solver}}
+\DoxyCodeLine{65     \textcolor{keywordflow}{try}}
+\DoxyCodeLine{66     \{}
+\DoxyCodeLine{67       system.solve();}
+\DoxyCodeLine{68     \}}
+\DoxyCodeLine{69     \textcolor{keywordflow}{catch} ( \textcolor{keyword}{const} std::exception \& e )}
+\DoxyCodeLine{70     \{}
+\DoxyCodeLine{71       ++exceptions\_caught;}
+\DoxyCodeLine{72       cout << \textcolor{stringliteral}{"  Caught a runtime exception in the native linear solver \(\backslash\)n\(\backslash\)n"};}
+\DoxyCodeLine{73     \}}
+\DoxyCodeLine{74   \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76   \{}
+\DoxyCodeLine{77     \textcolor{comment}{// too many potential geometry errors to test ... just the add method here}}
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{79     ++tests;}
+\DoxyCodeLine{80     \textcolor{comment}{// geometry checkes are only made under PARANOID flags}}
+\DoxyCodeLine{81     DenseMatrix<double> C( 3, 3, 1.0 );}
+\DoxyCodeLine{82     DenseMatrix<double> D( 2, 2, 1.0 );}
+\DoxyCodeLine{83     \textcolor{keywordflow}{try}}
+\DoxyCodeLine{84     \{}
+\DoxyCodeLine{85       C.add( D );}
+\DoxyCodeLine{86     \}}
+\DoxyCodeLine{87     \textcolor{keywordflow}{catch} ( std::exception \& e )}
+\DoxyCodeLine{88     \{}
+\DoxyCodeLine{89       ++exceptions\_caught;}
+\DoxyCodeLine{90       cout << \textcolor{stringliteral}{"  Caught a geometry exception when adding two matrices. \(\backslash\)n\(\backslash\)n"};}
+\DoxyCodeLine{91     \}}
+\DoxyCodeLine{92 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94   \}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96   \{}
+\DoxyCodeLine{97     ++tests;}
+\DoxyCodeLine{98     \textcolor{comment}{// set the tolerance \& max iteration number too low}}
+\DoxyCodeLine{99     Example::Cube\_root\_problem problem;}
+\DoxyCodeLine{100     Newton<D\_complex> newton( \&problem, 8, 1.e-\/12 );}
+\DoxyCodeLine{101     D\_complex half( 0.5, 0.5 );}
+\DoxyCodeLine{102     DenseVector<D\_complex> guess( 1, half );}
+\DoxyCodeLine{103     \textcolor{keywordflow}{try}}
+\DoxyCodeLine{104     \{}
+\DoxyCodeLine{105       newton.iterate( guess );}
+\DoxyCodeLine{106     \}}
+\DoxyCodeLine{107     \textcolor{keywordflow}{catch} ( std::exception \& e )}
+\DoxyCodeLine{108     \{}
+\DoxyCodeLine{109       ++exceptions\_caught;}
+\DoxyCodeLine{110       cout << \textcolor{stringliteral}{"  Caught an iteration exception in a scalar Newton problem. \(\backslash\)n\(\backslash\)n"};}
+\DoxyCodeLine{111     \}}
+\DoxyCodeLine{112   \}}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114   \textcolor{keywordflow}{if} ( tests != exceptions\_caught )}
+\DoxyCodeLine{115   \{}
+\DoxyCodeLine{116     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{117     cout << tests << \textcolor{stringliteral}{" checks were run but only "} << exceptions\_caught}
+\DoxyCodeLine{118          << \textcolor{stringliteral}{" exceptions were caught!\(\backslash\)n"};}
+\DoxyCodeLine{119     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{120   \}}
+\DoxyCodeLine{121   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{122   \{}
+\DoxyCodeLine{123     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{124     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{125   \}}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::\+A(), Cpp\+Noddy\+::\+Dense\+Matrix$<$ \+\_\+\+Type $>$\+::add(), Cpp\+Noddy\+::\+Newton$<$ \+\_\+\+Type $>$\+::iterate(), and Cpp\+Noddy\+::\+Dense\+Linear\+System$<$ \+\_\+\+Type $>$\+::solve().
+

@@ -1,0 +1,252 @@
+\doxysubsection{Cpp\+Noddy\+::Banded\+Linear\+System$<$ \+\_\+\+Type $>$ Class Template Reference}
+\label{classCppNoddy_1_1BandedLinearSystem}\index{CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}}
+
+
+A linear system class for vector right-\/hand sides.  
+
+
+
+
+{\ttfamily \#include $<$Banded\+Linear\+System.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Banded\+Linear\+System} (\textbf{ Banded\+Matrix}$<$ \+\_\+\+Type $>$ $\ast$Aptr, \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ $\ast$Bptr, std\+::string which=\char`\"{}native\char`\"{})
+\begin{DoxyCompactList}\small\item\em Constructor for a banded linear system object. \end{DoxyCompactList}\item 
+\textbf{ $\sim$\+Banded\+Linear\+System} ()
+\begin{DoxyCompactList}\small\item\em Destructor for a linear system object. \end{DoxyCompactList}\item 
+void \textbf{ solve} ()
+\begin{DoxyCompactList}\small\item\em Solve the banded system. \end{DoxyCompactList}\item 
+void \textbf{ re\+\_\+solve\+\_\+lapack} ()
+\begin{DoxyCompactList}\small\item\em Resolve the banded system. \end{DoxyCompactList}\item 
+int \textbf{ get\+\_\+det\+\_\+sign} () const
+\begin{DoxyCompactList}\small\item\em Get the sign of the determinant of the L\+HS matrix from the linear system just computed. \end{DoxyCompactList}\item 
+void \textbf{ set\+\_\+monitor\+\_\+det} (bool flag)
+\begin{DoxyCompactList}\small\item\em Store the sign of the determinant of the L\+HS matrix every time a solve is requested on a real system. \end{DoxyCompactList}\item 
+void \textbf{ re\+\_\+solve\+\_\+lapack} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type$>$\newline
+class Cpp\+Noddy\+::\+Banded\+Linear\+System$<$ \+\_\+\+Type $>$}
+
+A linear system class for vector right-\/hand sides. 
+
+The class is constructed for dense typed problems of the form \[ A_{NxN} \,{\underline x}_i = B_{1xN} \]. 
+
+Definition at line 15 of file Banded\+Linear\+System.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1BandedLinearSystem_ae14d67f159b4b4a8702122fd8eac8314}} 
+\index{CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}!BandedLinearSystem@{BandedLinearSystem}}
+\index{BandedLinearSystem@{BandedLinearSystem}!CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}}
+\doxyparagraph{BandedLinearSystem()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Banded\+Linear\+System}$<$ \+\_\+\+Type $>$\+::\textbf{ Banded\+Linear\+System} (\begin{DoxyParamCaption}\item[{\textbf{ Banded\+Matrix}$<$ \+\_\+\+Type $>$ $\ast$}]{Aptr,  }\item[{\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ $\ast$}]{Bptr,  }\item[{std\+::string}]{which = {\ttfamily \char`\"{}native\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Constructor for a banded linear system object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Aptr} & A pointer to the \textquotesingle{}A matrix\textquotesingle{}, an NxN double/complex banded matrix \\
+\hline
+{\em Bptr} & A pointer to the \textquotesingle{}B vector\textquotesingle{} a size N double/complex dense vector \\
+\hline
+{\em which} & A string that indicates which solver to use \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 19 of file Banded\+Linear\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19                                                                          :}
+\DoxyCodeLine{20     m\_detSign(0), m\_monitorDet(\textcolor{keyword}{false}) \{}
+\DoxyCodeLine{21     m\_pA = Aptr;}
+\DoxyCodeLine{22     m\_pB = Bptr;}
+\DoxyCodeLine{23     m\_version = which;}
+\DoxyCodeLine{24     \textcolor{keywordflow}{if}((m\_version != \textcolor{stringliteral}{"lapack"}) \&\& (m\_version != \textcolor{stringliteral}{"native"})) \{}
+\DoxyCodeLine{25       std::string problem;}
+\DoxyCodeLine{26       problem = \textcolor{stringliteral}{"The BandedLinearSystem has been instantiated with an unrecognised\(\backslash\)n"};}
+\DoxyCodeLine{27       problem += \textcolor{stringliteral}{"request for a solver type. Options are 'native' or 'lapack'. \(\backslash\)n"};}
+\DoxyCodeLine{28       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{29     \}}
+\DoxyCodeLine{30   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedLinearSystem_ae818b07fd6ebe999fa8415c6a34adc6f}} 
+\index{CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}!````~BandedLinearSystem@{$\sim$BandedLinearSystem}}
+\index{````~BandedLinearSystem@{$\sim$BandedLinearSystem}!CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}}
+\doxyparagraph{$\sim$BandedLinearSystem()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Banded\+Linear\+System}$<$ \+\_\+\+Type $>$\+::$\sim$\textbf{ Banded\+Linear\+System} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Destructor for a linear system object. 
+
+
+
+Definition at line 26 of file Banded\+Linear\+System.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{27     \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1BandedLinearSystem_ad0ce4e0dcd43770774fc474f57a2a4e4}} 
+\index{CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}!get\_det\_sign@{get\_det\_sign}}
+\index{get\_det\_sign@{get\_det\_sign}!CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}}
+\doxyparagraph{get\_det\_sign()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+int \textbf{ Cpp\+Noddy\+::\+Banded\+Linear\+System}$<$ \+\_\+\+Type $>$\+::get\+\_\+det\+\_\+sign}
+
+
+
+Get the sign of the determinant of the L\+HS matrix from the linear system just computed. 
+
+\begin{DoxyReturn}{Returns}
+The sign of the determinant of the L\+A\+ST solved system. 
+\end{DoxyReturn}
+
+
+Definition at line 239 of file Banded\+Linear\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{239                                                     \{}
+\DoxyCodeLine{240     \textcolor{keywordflow}{return} m\_detSign;}
+\DoxyCodeLine{241   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ D\+\_\+complex $>$\+::arclength\+\_\+solve(), and Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ D\+\_\+complex $>$\+::solve2().
+
+\mbox{\label{classCppNoddy_1_1BandedLinearSystem_a69b4e49be86481b23504bfb221621694}} 
+\index{CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}!re\_solve\_lapack@{re\_solve\_lapack}}
+\index{re\_solve\_lapack@{re\_solve\_lapack}!CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}}
+\doxyparagraph{re\_solve\_lapack()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Banded\+Linear\+System}$<$ \+\_\+\+Type $>$\+::re\+\_\+solve\+\_\+lapack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Resolve the banded system. 
+
+\mbox{\label{classCppNoddy_1_1BandedLinearSystem_aba5482209c71c8d2711c25827e8f98b5}} 
+\index{CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}!re\_solve\_lapack@{re\_solve\_lapack}}
+\index{re\_solve\_lapack@{re\_solve\_lapack}!CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}}
+\doxyparagraph{re\_solve\_lapack()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void \textbf{ Cpp\+Noddy\+::\+Banded\+Linear\+System}$<$ double $>$\+::re\+\_\+solve\+\_\+lapack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 89 of file Banded\+Linear\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{89                                                    \{}
+\DoxyCodeLine{90 \textcolor{preprocessor}{\#ifndef LAPACK}}
+\DoxyCodeLine{91     std::string problem = \textcolor{stringliteral}{"The BandedLinearSystem<double>::re\_solve\_lapack method has been called\(\backslash\)n"};}
+\DoxyCodeLine{92     problem += \textcolor{stringliteral}{"but the compiler option -\/DLAPACK was not provided when\(\backslash\)n"};}
+\DoxyCodeLine{93     problem += \textcolor{stringliteral}{"the library was built and so LAPACK support is not available."};}
+\DoxyCodeLine{94     \textcolor{keywordflow}{throw} ExceptionExternal(problem);}
+\DoxyCodeLine{95 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{96     \textcolor{keyword}{const} std::size\_t N = m\_pA -\/> nrows();}
+\DoxyCodeLine{97     \textcolor{keyword}{const} std::size\_t K = 1;}
+\DoxyCodeLine{98     \textcolor{keyword}{const} std::size\_t L = m\_pA -\/> noffdiag();}
+\DoxyCodeLine{99     \textcolor{keyword}{const} std::size\_t LDAB = 3 * L + 1;}
+\DoxyCodeLine{100     \textcolor{comment}{// warning info}}
+\DoxyCodeLine{101     \textcolor{keywordtype}{int} info(0);}
+\DoxyCodeLine{102     \textcolor{comment}{// LAPACK\_DGBSV( N, L, L, K, m\_pA -\/> base(), LDAB, \&pivots[ 0 ], \&( m\_pB -\/> operator[] ( 0 ) ), N, info );}}
+\DoxyCodeLine{103     LAPACK\_DGBTRS((\textcolor{keywordtype}{char}*) \textcolor{stringliteral}{"N"}, N, L, L, K, m\_pA -\/> base(), LDAB, \&m\_pivots[ 0 ], \&(m\_pB -\/> \textcolor{keyword}{operator}[](0)), N, info);}
+\DoxyCodeLine{104     \textcolor{keywordflow}{if}(0 != info) \{}
+\DoxyCodeLine{105       std::string problem(\textcolor{stringliteral}{" The BandedLinearSystem::re\_solve\_lapack method has detected a failure. \(\backslash\)n"});}
+\DoxyCodeLine{106       \textcolor{keywordflow}{throw} ExceptionExternal(problem, info);}
+\DoxyCodeLine{107     \}}
+\DoxyCodeLine{108 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{109   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::\+K().
+
+\mbox{\label{classCppNoddy_1_1BandedLinearSystem_ac8cbd0d61e7eccd31471fb42dc2c6d24}} 
+\index{CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}!set\_monitor\_det@{set\_monitor\_det}}
+\index{set\_monitor\_det@{set\_monitor\_det}!CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}}
+\doxyparagraph{set\_monitor\_det()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Banded\+Linear\+System}$<$ \+\_\+\+Type $>$\+::set\+\_\+monitor\+\_\+det (\begin{DoxyParamCaption}\item[{bool}]{flag }\end{DoxyParamCaption})}
+
+
+
+Store the sign of the determinant of the L\+HS matrix every time a solve is requested on a real system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em flag} & The boolean value to set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 244 of file Banded\+Linear\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{244                                                            \{}
+\DoxyCodeLine{245     m\_monitorDet = flag;}
+\DoxyCodeLine{246   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ D\+\_\+complex $>$\+::arclength\+\_\+solve(), and Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ D\+\_\+complex $>$\+::solve2().
+
+\mbox{\label{classCppNoddy_1_1BandedLinearSystem_aa5b9bd80bb5da5c8e049cb099583857f}} 
+\index{CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}!solve@{solve}}
+\index{solve@{solve}!CppNoddy::BandedLinearSystem$<$ \_Type $>$@{CppNoddy::BandedLinearSystem$<$ \_Type $>$}}
+\doxyparagraph{solve()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Banded\+Linear\+System}$<$ \+\_\+\+Type $>$\+::solve}
+
+
+
+Solve the banded system. 
+
+
+
+Definition at line 34 of file Banded\+Linear\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34                                         \{}
+\DoxyCodeLine{35     \textcolor{keywordflow}{if}(\textcolor{stringliteral}{"lapack"} == m\_version) \{}
+\DoxyCodeLine{36       solve\_lapack();}
+\DoxyCodeLine{37     \} \textcolor{keywordflow}{else} \{ \textcolor{comment}{// we catch incorrect m\_version choices in the ctor}}
+\DoxyCodeLine{38       solve\_native();}
+\DoxyCodeLine{39     \}}
+\DoxyCodeLine{40   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ D\+\_\+complex $>$\+::arclength\+\_\+solve(), Cpp\+Noddy\+::reversed\+\_\+\+B\+L$<$ \+\_\+\+Type $>$\+::bidirectional\+\_\+step2(), main(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ D\+\_\+complex $>$\+::solve2(), Cpp\+Noddy\+::reversed\+\_\+\+B\+L$<$ \+\_\+\+Type $>$\+::step2(), Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$\+::step2(), and Cpp\+Noddy\+::\+P\+D\+E\+\_\+double\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$\+::step2().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Banded\+Linear\+System.\+h}\item 
+src/\textbf{ Banded\+Linear\+System.\+cpp}\end{DoxyCompactItemize}

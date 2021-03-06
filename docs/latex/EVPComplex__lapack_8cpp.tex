@@ -1,0 +1,115 @@
+\doxysubsection{Tests/\+E\+V\+P/\+E\+V\+P\+Complex\+\_\+lapack.cpp File Reference}
+\label{EVPComplex__lapack_8cpp}\index{Tests/EVP/EVPComplex\_lapack.cpp@{Tests/EVP/EVPComplex\_lapack.cpp}}
+{\ttfamily \#include $<$E\+V\+P\+\_\+bundle.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Solves a 4x4 complex generalised eigenvalue problem \[ A_{4x4} \,{\underline x}_i = \lambda_i\, B_{4x4}\, {\underline x}_i \] for the 4 eigenvalues $ \lambda_i $, $i=1,2,3,4.$. In this case $ A_{4x4} $ and $ B_{4x4} $ are such that the eigenvalues are $ 3-9i,\, 2-5i,\, 3-i,\, 4-5i $. The computation requests eigenvalues that satisfy $ \vert\lambda\vert < 4$, which in this case is $ 3-i $. 
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{EVPComplex__lapack_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{EVPComplex\_lapack.cpp@{EVPComplex\_lapack.cpp}!main@{main}}
+\index{main@{main}!EVPComplex\_lapack.cpp@{EVPComplex\_lapack.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 17 of file E\+V\+P\+Complex\+\_\+lapack.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{20   cout << \textcolor{stringliteral}{"=== EVP: complex generalised eigenvalue problem  ====\(\backslash\)n"};}
+\DoxyCodeLine{21   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23   DenseMatrix<D\_complex> a( 4, 4, 0.0 );}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25   a( 0, 0 ) = D\_complex( -\/21.10, -\/22.50 );}
+\DoxyCodeLine{26   a( 0, 1 ) = D\_complex( 53.50, -\/50.50 );}
+\DoxyCodeLine{27   a( 0, 2 ) = D\_complex( -\/34.50, 127.50 );}
+\DoxyCodeLine{28   a( 0, 3 ) = D\_complex( 7.50, 0.50 );}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30   a( 1, 0 ) = D\_complex( -\/0.46, -\/7.78 );}
+\DoxyCodeLine{31   a( 1, 1 ) = D\_complex( -\/3.50, -\/37.50 );}
+\DoxyCodeLine{32   a( 1, 2 ) = D\_complex( -\/15.50, 58.50 );}
+\DoxyCodeLine{33   a( 1, 3 ) = D\_complex( -\/10.50, -\/1.50 );}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35   a( 2, 0 ) = D\_complex( 4.30, -\/5.50 );}
+\DoxyCodeLine{36   a( 2, 1 ) = D\_complex( 39.70, -\/17.10 );}
+\DoxyCodeLine{37   a( 2, 2 ) = D\_complex( -\/68.50, 12.50 );}
+\DoxyCodeLine{38   a( 2, 3 ) = D\_complex( -\/7.50, -\/3.50 );}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40   a( 3, 0 ) = D\_complex( 5.50, 4.40 );}
+\DoxyCodeLine{41   a( 3, 1 ) = D\_complex( 14.40, 43.30 );}
+\DoxyCodeLine{42   a( 3, 2 ) = D\_complex( -\/32.50, -\/46.00 );}
+\DoxyCodeLine{43   a( 3, 3 ) = D\_complex( -\/19.00, -\/32.50 );}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   DenseMatrix<D\_complex> b( 4, 4, 0.0 );}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47   b( 0, 0 ) = D\_complex( 1.00, -\/5.00 );}
+\DoxyCodeLine{48   b( 0, 1 ) = D\_complex( 1.60, 1.20 );}
+\DoxyCodeLine{49   b( 0, 2 ) = D\_complex( -\/3.00, 0.00 );}
+\DoxyCodeLine{50   b( 0, 3 ) = D\_complex( 0.00, -\/1.00 );}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   b( 1, 0 ) = D\_complex( 0.80, -\/0.60 );}
+\DoxyCodeLine{53   b( 1, 1 ) = D\_complex( 3.00, -\/5.00 );}
+\DoxyCodeLine{54   b( 1, 2 ) = D\_complex( -\/4.00, 3.00 );}
+\DoxyCodeLine{55   b( 1, 3 ) = D\_complex( -\/2.40, -\/3.20 );}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   b( 2, 0 ) = D\_complex( 1.00, 0.00 );}
+\DoxyCodeLine{58   b( 2, 1 ) = D\_complex( 2.40, 1.80 );}
+\DoxyCodeLine{59   b( 2, 2 ) = D\_complex( -\/4.00, -\/5.00 );}
+\DoxyCodeLine{60   b( 2, 3 ) = D\_complex( 0.00, -\/3.00 );}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62   b( 3, 0 ) = D\_complex( 0.00, 1.00 );}
+\DoxyCodeLine{63   b( 3, 1 ) = D\_complex( -\/1.80, 2.40 );}
+\DoxyCodeLine{64   b( 3, 2 ) = D\_complex( 0.00, -\/4.00 );}
+\DoxyCodeLine{65   b( 3, 3 ) = D\_complex( 4.00, -\/5.00 );}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67   \textcolor{comment}{// a vector for the eigenvalues}}
+\DoxyCodeLine{68   DenseVector<D\_complex> lambdas;}
+\DoxyCodeLine{69   \textcolor{comment}{// eigenvalues are: (3,-\/9), (2,-\/5), (3,-\/1), (4,-\/5)}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71   DenseLinearEigenSystem<D\_complex> system( \&a, \&b );}
+\DoxyCodeLine{72   \textcolor{keywordflow}{try}}
+\DoxyCodeLine{73   \{}
+\DoxyCodeLine{74     system.eigensolve();}
+\DoxyCodeLine{75   \}}
+\DoxyCodeLine{76   \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::runtime\_error \&error )}
+\DoxyCodeLine{77   \{}
+\DoxyCodeLine{78     cout << \textcolor{stringliteral}{" \(\backslash\)033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{79     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{80   \}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82   \textcolor{comment}{// tag any eigenvalues within a distance of 0.1 of the point 3-\/i}}
+\DoxyCodeLine{83   system.set\_shift( D\_complex( 3.0, -\/1.0 ) );}
+\DoxyCodeLine{84   system.tag\_eigenvalues\_disc( + 1, 0.1 );}
+\DoxyCodeLine{85   \textcolor{comment}{// get those tagged eigenvalues}}
+\DoxyCodeLine{86   lambdas = system.get\_tagged\_eigenvalues();}
+\DoxyCodeLine{87   \textcolor{keyword}{const} \textcolor{keywordtype}{double} tol = 1.e-\/14;}
+\DoxyCodeLine{88   \textcolor{keywordflow}{if} ( std::abs( lambdas[ 0 ] -\/ D\_complex( 3.0, -\/1.0 ) ) > tol )}
+\DoxyCodeLine{89   \{}
+\DoxyCodeLine{90     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{91     cout.precision( 12 );}
+\DoxyCodeLine{92     cout << \textcolor{stringliteral}{"    Final error = "} << std::abs( lambdas[ 0 ] -\/ D\_complex( 3.0, -\/1.0 ) ) << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{93     lambdas.dump();}
+\DoxyCodeLine{94     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{95   \}}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97   cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{98   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::dump(), Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::eigensolve(), Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::get\+\_\+tagged\+\_\+eigenvalues(), Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base\+::set\+\_\+shift(), and Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::tag\+\_\+eigenvalues\+\_\+disc().
+

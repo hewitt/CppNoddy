@@ -1,0 +1,631 @@
+\doxysubsection{Cpp\+Noddy\+::Example\+::Karman\+\_\+equations Class Reference}
+\label{classCppNoddy_1_1Example_1_1Karman__equations}\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+
+
+Define the Karman equations.  
+
+
+Inheritance diagram for Cpp\+Noddy\+::Example\+::Karman\+\_\+equations\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classCppNoddy_1_1Example_1_1Karman__equations}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Karman\+\_\+equations} ()
+\begin{DoxyCompactList}\small\item\em The Karman system is a 5th order real system of O\+D\+Es. \end{DoxyCompactList}\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ f}) const
+\begin{DoxyCompactList}\small\item\em Define the Karman system. \end{DoxyCompactList}\item 
+void \textbf{ matrix0} (const \textbf{ Dense\+Vector}$<$ double $>$ \&x, \textbf{ Dense\+Matrix}$<$ double $>$ \&\textbf{ m}) const
+\begin{DoxyCompactList}\small\item\em Define the matrix in terms of the current state vector. \end{DoxyCompactList}\item 
+\textbf{ Karman\+\_\+equations} ()
+\begin{DoxyCompactList}\small\item\em The Karman system is a 5th order real system of O\+D\+Es. \end{DoxyCompactList}\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ f}) const
+\begin{DoxyCompactList}\small\item\em Define the Karman system. \end{DoxyCompactList}\item 
+void \textbf{ matrix0} (const \textbf{ Dense\+Vector}$<$ double $>$ \&x, \textbf{ Dense\+Matrix}$<$ double $>$ \&\textbf{ m}) const
+\begin{DoxyCompactList}\small\item\em Define the matrix in terms of the current state vector. \end{DoxyCompactList}\item 
+\textbf{ Karman\+\_\+equations} ()
+\begin{DoxyCompactList}\small\item\em The Karman system is a 5th order real system of O\+D\+Es. \end{DoxyCompactList}\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ f}) const
+\begin{DoxyCompactList}\small\item\em Define the Karman system. \end{DoxyCompactList}\item 
+void \textbf{ matrix0} (const \textbf{ Dense\+Vector}$<$ double $>$ \&x, \textbf{ Dense\+Matrix}$<$ double $>$ \&\textbf{ m}) const
+\begin{DoxyCompactList}\small\item\em Define the matrix in terms of the current state vector. \end{DoxyCompactList}\item 
+\textbf{ Karman\+\_\+equations} ()
+\begin{DoxyCompactList}\small\item\em The Karman system is a 5th order real system of O\+D\+Es. \end{DoxyCompactList}\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ f}) const
+\begin{DoxyCompactList}\small\item\em Define the Karman system. \end{DoxyCompactList}\item 
+void \textbf{ jacobian} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Matrix}$<$ double $>$ \&jac) const
+\begin{DoxyCompactList}\small\item\em Provide the exact Jacobian of above R\+HS rather than using finite-\/differences. \end{DoxyCompactList}\item 
+void \textbf{ matrix0} (const \textbf{ Dense\+Vector}$<$ double $>$ \&x, \textbf{ Dense\+Matrix}$<$ double $>$ \&\textbf{ m}) const
+\begin{DoxyCompactList}\small\item\em Define the matrix in terms of the current state vector. \end{DoxyCompactList}\item 
+\textbf{ Karman\+\_\+equations} ()
+\begin{DoxyCompactList}\small\item\em The problem is 5th order and real. \end{DoxyCompactList}\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ f}) const
+\begin{DoxyCompactList}\small\item\em Define the Karman equations. \end{DoxyCompactList}\item 
+void \textbf{ matrix0} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Matrix}$<$ double $>$ \&\textbf{ m}) const
+\begin{DoxyCompactList}\small\item\em Define the B\+VP deriv by providing the matrix. \end{DoxyCompactList}\item 
+void \textbf{ get\+\_\+jacobian\+\_\+of\+\_\+matrix0\+\_\+mult\+\_\+vector} (const \textbf{ Dense\+Vector}$<$ double $>$ \&state, const \textbf{ Dense\+Vector}$<$ double $>$ \&vec, \textbf{ Dense\+Matrix}$<$ double $>$ \&\textbf{ h}) const
+\begin{DoxyCompactList}\small\item\em To speed things up we\textquotesingle{}ll overload this to say the mass matrix is constant. \end{DoxyCompactList}\item 
+void \textbf{ matrix1} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Matrix}$<$ double $>$ \&\textbf{ m}) const
+\begin{DoxyCompactList}\small\item\em Define the unsteady terms by providing the mass matrix. \end{DoxyCompactList}\item 
+void \textbf{ get\+\_\+jacobian\+\_\+of\+\_\+matrix1\+\_\+mult\+\_\+vector} (const \textbf{ Dense\+Vector}$<$ double $>$ \&state, const \textbf{ Dense\+Vector}$<$ double $>$ \&vec, \textbf{ Dense\+Matrix}$<$ double $>$ \&\textbf{ h}) const
+\begin{DoxyCompactList}\small\item\em To speed things up we\textquotesingle{}ll overload this to say the mass matrix is constant. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+Define the Karman equations. 
+
+Definition at line 27 of file B\+V\+P\+Karman.\+cpp.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_a444548ecad3c6eed82c3d6b8368901e4}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!Karman\_equations@{Karman\_equations}}
+\index{Karman\_equations@{Karman\_equations}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{Karman\_equations()\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::\+Karman\+\_\+equations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The Karman system is a 5th order real system of O\+D\+Es. 
+
+
+
+Definition at line 32 of file B\+V\+P\+Karman.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{32 : Equation\_1matrix<double>( 5 ) \{\}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_a444548ecad3c6eed82c3d6b8368901e4}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!Karman\_equations@{Karman\_equations}}
+\index{Karman\_equations@{Karman\_equations}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{Karman\_equations()\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::\+Karman\+\_\+equations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The Karman system is a 5th order real system of O\+D\+Es. 
+
+
+
+Definition at line 31 of file B\+V\+P\+Karman\+Adaptive.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31 : Equation\_1matrix<double>( 5 ) \{\}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_a444548ecad3c6eed82c3d6b8368901e4}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!Karman\_equations@{Karman\_equations}}
+\index{Karman\_equations@{Karman\_equations}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{Karman\_equations()\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::\+Karman\+\_\+equations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The Karman system is a 5th order real system of O\+D\+Es. 
+
+
+
+Definition at line 38 of file B\+V\+P\+Karman\+Arclength.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{38 : Equation\_1matrix<double>( 5 ) \{\}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_a444548ecad3c6eed82c3d6b8368901e4}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!Karman\_equations@{Karman\_equations}}
+\index{Karman\_equations@{Karman\_equations}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{Karman\_equations()\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::\+Karman\+\_\+equations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The Karman system is a 5th order real system of O\+D\+Es. 
+
+
+
+Definition at line 30 of file B\+V\+P\+Karman\+Jacobian.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30 : Equation\_1matrix<double>( 5 ) \{\}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_a444548ecad3c6eed82c3d6b8368901e4}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!Karman\_equations@{Karman\_equations}}
+\index{Karman\_equations@{Karman\_equations}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{Karman\_equations()\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::\+Karman\+\_\+equations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The problem is 5th order and real. 
+
+
+
+Definition at line 37 of file I\+B\+V\+P\+Karman.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{37 : Equation\_2matrix<double> ( 5 ) \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_ab8167c2360738732b2406be80488d585}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!get\_jacobian\_of\_matrix0\_mult\_vector@{get\_jacobian\_of\_matrix0\_mult\_vector}}
+\index{get\_jacobian\_of\_matrix0\_mult\_vector@{get\_jacobian\_of\_matrix0\_mult\_vector}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{get\_jacobian\_of\_matrix0\_mult\_vector()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::get\+\_\+jacobian\+\_\+of\+\_\+matrix0\+\_\+mult\+\_\+vector (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{state,  }\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{vec,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{h }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+To speed things up we\textquotesingle{}ll overload this to say the mass matrix is constant. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Equation__1matrix_a293c22844ca906668d9c13945438fa09}.
+
+
+
+Definition at line 62 of file I\+B\+V\+P\+Karman.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{63       \{}
+\DoxyCodeLine{64         \textcolor{comment}{// blank definition leads to a zero result}}
+\DoxyCodeLine{65       \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_aacb78185ac536525e5e88e1bce8949d7}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!get\_jacobian\_of\_matrix1\_mult\_vector@{get\_jacobian\_of\_matrix1\_mult\_vector}}
+\index{get\_jacobian\_of\_matrix1\_mult\_vector@{get\_jacobian\_of\_matrix1\_mult\_vector}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{get\_jacobian\_of\_matrix1\_mult\_vector()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::get\+\_\+jacobian\+\_\+of\+\_\+matrix1\+\_\+mult\+\_\+vector (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{state,  }\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{vec,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{h }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+To speed things up we\textquotesingle{}ll overload this to say the mass matrix is constant. 
+
+
+
+Definition at line 75 of file I\+B\+V\+P\+Karman.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{76       \{}
+\DoxyCodeLine{77         \textcolor{comment}{// blank definition leads to a zero result}}
+\DoxyCodeLine{78       \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_a5f069673f5530507a78e694fa19a8ca0}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!jacobian@{jacobian}}
+\index{jacobian@{jacobian}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{jacobian()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::jacobian (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{z,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{jac }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Provide the exact Jacobian of above R\+HS rather than using finite-\/differences. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a663b7f936049d9b47e9ae2e18ea3d926}.
+
+
+
+Definition at line 44 of file B\+V\+P\+Karman\+Jacobian.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{45       \{}
+\DoxyCodeLine{46         jac( 0, Ud ) = 1.0;}
+\DoxyCodeLine{47         jac( 1, U ) = 2 * z[ U ];}
+\DoxyCodeLine{48         jac( 1, Ud ) = z[ V ];}
+\DoxyCodeLine{49         jac( 1, V ) = z[ Ud ];}
+\DoxyCodeLine{50         jac( 1, W ) = -\/2 * z[ W ];}
+\DoxyCodeLine{51         jac( 2, U ) = -\/2.0;}
+\DoxyCodeLine{52         jac( 3, Wd ) = 1.0;}
+\DoxyCodeLine{53         jac( 4, U ) = 2 * z[ W ];}
+\DoxyCodeLine{54         jac( 4, V ) = z[ Wd ];}
+\DoxyCodeLine{55         jac( 4, W ) = 2 * z[ U ];}
+\DoxyCodeLine{56         jac( 4, Wd ) = z[ V ];}
+\DoxyCodeLine{57       \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::\+U(), Ud, V, W, Wd, and Cpp\+Noddy\+::\+Example\+::z().
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_a73dab2f7c34ccdee7660e33376e62668}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!matrix0@{matrix0}}
+\index{matrix0@{matrix0}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{matrix0()\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::matrix0 (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{x,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{m }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the matrix in terms of the current state vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The current state vector. \\
+\hline
+{\em m} & The matrix. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Equation__1matrix_af3f73a36fb2ec75a03f0298874d30e4c}.
+
+
+
+Definition at line 44 of file B\+V\+P\+Karman\+Adaptive.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{45       \{}
+\DoxyCodeLine{46         Utils\_Fill::fill\_identity(m);}
+\DoxyCodeLine{47       \}}
+
+\end{DoxyCode}
+
+
+References Utils\+\_\+\+Fill\+::fill\+\_\+identity(), and m.
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_a73dab2f7c34ccdee7660e33376e62668}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!matrix0@{matrix0}}
+\index{matrix0@{matrix0}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{matrix0()\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::matrix0 (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{x,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{m }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the matrix in terms of the current state vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The current state vector. \\
+\hline
+{\em m} & The matrix. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Equation__1matrix_af3f73a36fb2ec75a03f0298874d30e4c}.
+
+
+
+Definition at line 45 of file B\+V\+P\+Karman.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{46       \{}
+\DoxyCodeLine{47         Utils\_Fill::fill\_identity(m);}
+\DoxyCodeLine{48       \}}
+
+\end{DoxyCode}
+
+
+References Utils\+\_\+\+Fill\+::fill\+\_\+identity(), and m.
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_a73dab2f7c34ccdee7660e33376e62668}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!matrix0@{matrix0}}
+\index{matrix0@{matrix0}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{matrix0()\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::matrix0 (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{x,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{m }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the matrix in terms of the current state vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The current state vector. \\
+\hline
+{\em m} & The matrix. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Equation__1matrix_af3f73a36fb2ec75a03f0298874d30e4c}.
+
+
+
+Definition at line 51 of file B\+V\+P\+Karman\+Arclength.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{52       \{}
+\DoxyCodeLine{53         Utils\_Fill::fill\_identity(m);}
+\DoxyCodeLine{54       \}}
+
+\end{DoxyCode}
+
+
+References Utils\+\_\+\+Fill\+::fill\+\_\+identity(), and m.
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_a73dab2f7c34ccdee7660e33376e62668}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!matrix0@{matrix0}}
+\index{matrix0@{matrix0}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{matrix0()\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::matrix0 (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{x,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{m }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the matrix in terms of the current state vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The current state vector. \\
+\hline
+{\em m} & The matrix. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Equation__1matrix_af3f73a36fb2ec75a03f0298874d30e4c}.
+
+
+
+Definition at line 59 of file B\+V\+P\+Karman\+Jacobian.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60       \{}
+\DoxyCodeLine{61         Utils\_Fill::fill\_identity(m);}
+\DoxyCodeLine{62       \}}
+
+\end{DoxyCode}
+
+
+References Utils\+\_\+\+Fill\+::fill\+\_\+identity(), and m.
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_a0e407f7bad6a552c67378e05afeaa33e}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!matrix0@{matrix0}}
+\index{matrix0@{matrix0}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{matrix0()\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::matrix0 (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{z,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{m }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the B\+VP deriv by providing the matrix. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Equation__1matrix_af3f73a36fb2ec75a03f0298874d30e4c}.
+
+
+
+Definition at line 51 of file I\+B\+V\+P\+Karman.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{52       \{}
+\DoxyCodeLine{53         \textcolor{comment}{// identity matrix}}
+\DoxyCodeLine{54         m( 0, 0 ) = 1.0;}
+\DoxyCodeLine{55         m( 1, 1 ) = 1.0;}
+\DoxyCodeLine{56         m( 2, 2 ) = 1.0;}
+\DoxyCodeLine{57         m( 3, 3 ) = 1.0;        }
+\DoxyCodeLine{58         m( 4, 4 ) = 1.0;        }
+\DoxyCodeLine{59       \}}
+
+\end{DoxyCode}
+
+
+References m.
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_a44683f1e2d3263826a50f569bfc7e4f7}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!matrix1@{matrix1}}
+\index{matrix1@{matrix1}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{matrix1()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::matrix1 (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{z,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{m }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Define the unsteady terms by providing the mass matrix. 
+
+
+
+Definition at line 68 of file I\+B\+V\+P\+Karman.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{69       \{}
+\DoxyCodeLine{70         m( 1, 0 ) = -\/1.0;}
+\DoxyCodeLine{71         m( 4, 3 ) = -\/1.0;}
+\DoxyCodeLine{72       \}}
+
+\end{DoxyCode}
+
+
+References m.
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_af3abe22d98ac8b1d23c76fbb0a9f096c}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{residual\_fn()\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{z,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the Karman system. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 33 of file B\+V\+P\+Karman\+Jacobian.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34       \{}
+\DoxyCodeLine{35         \textcolor{comment}{// The 5th order system for ( U, U', V, W, W' )}}
+\DoxyCodeLine{36         f[ U ] = z[ Ud ];}
+\DoxyCodeLine{37         f[ Ud ] = z[ U ] * z[ U ] + z[ V ] * z[ Ud ] -\/ z[ W ] * z[ W ];}
+\DoxyCodeLine{38         f[ V ] = -\/2 * z[ U ];}
+\DoxyCodeLine{39         f[ W ] = z[ Wd ];}
+\DoxyCodeLine{40         f[ Wd ] = 2 * z[ U ] * z[ W ] + z[ V ] * z[ Wd ];}
+\DoxyCodeLine{41       \}}
+
+\end{DoxyCode}
+
+
+References f, Cpp\+Noddy\+::\+Example\+::\+U(), Ud, V, W, Wd, and Cpp\+Noddy\+::\+Example\+::z().
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_af3abe22d98ac8b1d23c76fbb0a9f096c}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{residual\_fn()\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{z,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the Karman system. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 34 of file B\+V\+P\+Karman\+Adaptive.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{35       \{}
+\DoxyCodeLine{36         \textcolor{comment}{// The 5th order system for ( U, U', V, W, W' )}}
+\DoxyCodeLine{37         f[ U ] = z[ Ud ];}
+\DoxyCodeLine{38         f[ Ud ] = z[ U ] * z[ U ] + z[ V ] * z[ Ud ] -\/ z[ W ] * z[ W ];}
+\DoxyCodeLine{39         f[ V ] = -\/2 * z[ U ];}
+\DoxyCodeLine{40         f[ W ] = z[ Wd ];}
+\DoxyCodeLine{41         f[ Wd ] = 2 * z[ U ] * z[ W ] + z[ V ] * z[ Wd ];}
+\DoxyCodeLine{42       \}}
+
+\end{DoxyCode}
+
+
+References f, Cpp\+Noddy\+::\+Example\+::\+U(), Ud, V, W, Wd, and Cpp\+Noddy\+::\+Example\+::z().
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_af3abe22d98ac8b1d23c76fbb0a9f096c}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{residual\_fn()\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{z,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the Karman system. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 35 of file B\+V\+P\+Karman.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{36       \{}
+\DoxyCodeLine{37         \textcolor{comment}{// The 5th order system for ( U, U', V, W, W' )}}
+\DoxyCodeLine{38         f[ U ] = z[ Ud ];}
+\DoxyCodeLine{39         f[ Ud ] = z[ U ] * z[ U ] + z[ V ] * z[ Ud ] -\/ z[ W ] * z[ W ];}
+\DoxyCodeLine{40         f[ V ] = -\/2 * z[ U ];}
+\DoxyCodeLine{41         f[ W ] = z[ Wd ];}
+\DoxyCodeLine{42         f[ Wd ] = 2 * z[ U ] * z[ W ] + z[ V ] * z[ Wd ];}
+\DoxyCodeLine{43       \}}
+
+\end{DoxyCode}
+
+
+References f, Cpp\+Noddy\+::\+Example\+::\+U(), Ud, V, W, Wd, and Cpp\+Noddy\+::\+Example\+::z().
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_af3abe22d98ac8b1d23c76fbb0a9f096c}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{residual\_fn()\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{z,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the Karman equations. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 40 of file I\+B\+V\+P\+Karman.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{41       \{}
+\DoxyCodeLine{42         \textcolor{comment}{// The 5th order system for ( U, U', V, W, W' )}}
+\DoxyCodeLine{43         f[ 0 ] = z[ 1 ];}
+\DoxyCodeLine{44         f[ 1 ] = z[ 0 ] * z[ 0 ] + z[ 2 ] * z[ 1 ] -\/ z[ 3 ] * z[ 3 ] + W\_inf * W\_inf;}
+\DoxyCodeLine{45         f[ 2 ] = -\/2 * z[ 0 ];}
+\DoxyCodeLine{46         f[ 3 ] = z[ 4 ];}
+\DoxyCodeLine{47         f[ 4 ] = 2 * z[ 0 ] * z[ 3 ] + z[ 2 ] * z[ 4 ];}
+\DoxyCodeLine{48       \}}
+
+\end{DoxyCode}
+
+
+References f, Cpp\+Noddy\+::\+Example\+::\+W\+\_\+inf(), and Cpp\+Noddy\+::\+Example\+::z().
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Karman__equations_af3abe22d98ac8b1d23c76fbb0a9f096c}} 
+\index{CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::Karman\_equations@{CppNoddy::Example::Karman\_equations}}
+\doxyparagraph{residual\_fn()\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{z,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the Karman system. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 41 of file B\+V\+P\+Karman\+Arclength.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{42       \{}
+\DoxyCodeLine{43         \textcolor{comment}{// The 5th order system for ( U, U', V, W, W' )}}
+\DoxyCodeLine{44         f[ U ] = z[ Ud ];}
+\DoxyCodeLine{45         f[ Ud ] = z[ U ] * z[ U ] + z[ V ] * z[ Ud ] -\/ z[ W ] * z[ W ] + s * s;}
+\DoxyCodeLine{46         f[ V ] = -\/2 * z[ U ];}
+\DoxyCodeLine{47         f[ W ] = z[ Wd ];}
+\DoxyCodeLine{48         f[ Wd ] = 2 * z[ U ] * z[ W ] + z[ V ] * z[ Wd ];}
+\DoxyCodeLine{49       \}}
+
+\end{DoxyCode}
+
+
+References f, Cpp\+Noddy\+::\+Example\+::s, Cpp\+Noddy\+::\+Example\+::\+U(), Ud, V, W, Wd, and Cpp\+Noddy\+::\+Example\+::z().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Tests/\+B\+V\+P/\textbf{ B\+V\+P\+Karman.\+cpp}\item 
+Tests/\+B\+V\+P/\textbf{ B\+V\+P\+Karman\+Adaptive.\+cpp}\item 
+Tests/\+B\+V\+P/\textbf{ B\+V\+P\+Karman\+Arclength.\+cpp}\item 
+Tests/\+B\+V\+P/\textbf{ B\+V\+P\+Karman\+Jacobian.\+cpp}\item 
+Tests/\+I\+B\+V\+P/\textbf{ I\+B\+V\+P\+Karman.\+cpp}\end{DoxyCompactItemize}

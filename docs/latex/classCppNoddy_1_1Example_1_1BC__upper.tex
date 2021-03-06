@@ -1,0 +1,145 @@
+\doxysubsection{Cpp\+Noddy\+::Example\+::B\+C\+\_\+upper Class Reference}
+\label{classCppNoddy_1_1Example_1_1BC__upper}\index{CppNoddy::Example::BC\_upper@{CppNoddy::Example::BC\_upper}}
+Inheritance diagram for Cpp\+Noddy\+::Example\+::B\+C\+\_\+upper\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classCppNoddy_1_1Example_1_1BC__upper}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ B\+C\+\_\+upper} ()
+\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ double $>$ \&b) const
+\begin{DoxyCompactList}\small\item\em A blank virtual residual function method. \end{DoxyCompactList}\item 
+\textbf{ B\+C\+\_\+upper} ()
+\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ double $>$ \&b) const
+\begin{DoxyCompactList}\small\item\em A blank virtual residual function method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+
+
+Definition at line 103 of file I\+B\+V\+P\+Nonlinear\+Fast.\+cpp.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1BC__upper_a7335ced78b3c5e49eb32a2915d9c3c32}} 
+\index{CppNoddy::Example::BC\_upper@{CppNoddy::Example::BC\_upper}!BC\_upper@{BC\_upper}}
+\index{BC\_upper@{BC\_upper}!CppNoddy::Example::BC\_upper@{CppNoddy::Example::BC\_upper}}
+\doxyparagraph{BC\_upper()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+B\+C\+\_\+upper\+::\+B\+C\+\_\+upper (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 107 of file I\+B\+V\+P\+Nonlinear\+Fast.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{107 : Residual\_with\_coords<double> ( 1, 2, 2 ) \{\}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Example_1_1BC__upper_a7335ced78b3c5e49eb32a2915d9c3c32}} 
+\index{CppNoddy::Example::BC\_upper@{CppNoddy::Example::BC\_upper}!BC\_upper@{BC\_upper}}
+\index{BC\_upper@{BC\_upper}!CppNoddy::Example::BC\_upper@{CppNoddy::Example::BC\_upper}}
+\doxyparagraph{BC\_upper()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+B\+C\+\_\+upper\+::\+B\+C\+\_\+upper (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 84 of file I\+B\+V\+P\+Nonlinear\+Slower.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{84 : Residual\_with\_coords<double> ( 1, 2, 2 ) \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1BC__upper_a9164126d4ceb5455b929719d47f679e6}} 
+\index{CppNoddy::Example::BC\_upper@{CppNoddy::Example::BC\_upper}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::BC\_upper@{CppNoddy::Example::BC\_upper}}
+\doxyparagraph{residual\_fn()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+B\+C\+\_\+upper\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{state,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+A blank virtual residual function method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The unknown variable. \\
+\hline
+{\em f} & The residual function f(x). \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 86 of file I\+B\+V\+P\+Nonlinear\+Slower.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{87       \{}
+\DoxyCodeLine{88         \textcolor{keyword}{const} \textcolor{keywordtype}{double} x = coord( 0 );}
+\DoxyCodeLine{89         \textcolor{keyword}{const} \textcolor{keywordtype}{double} t = coord( 1 );}
+\DoxyCodeLine{90         b[ 0 ] = z[ U ] -\/ t * std::exp( -\/ x );}
+\DoxyCodeLine{91       \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Residual\+\_\+with\+\_\+coords$<$ double $>$\+::coord(), Cpp\+Noddy\+::\+Example\+::\+U(), and Cpp\+Noddy\+::\+Example\+::z().
+
+\mbox{\label{classCppNoddy_1_1Example_1_1BC__upper_a9164126d4ceb5455b929719d47f679e6}} 
+\index{CppNoddy::Example::BC\_upper@{CppNoddy::Example::BC\_upper}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::BC\_upper@{CppNoddy::Example::BC\_upper}}
+\doxyparagraph{residual\_fn()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+B\+C\+\_\+upper\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{state,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+A blank virtual residual function method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The unknown variable. \\
+\hline
+{\em f} & The residual function f(x). \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 109 of file I\+B\+V\+P\+Nonlinear\+Fast.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{110       \{}
+\DoxyCodeLine{111         \textcolor{keyword}{const} \textcolor{keywordtype}{double} x = coord( 0 );}
+\DoxyCodeLine{112         \textcolor{keyword}{const} \textcolor{keywordtype}{double} t = coord( 1 );}
+\DoxyCodeLine{113         b[ 0 ] = z[ U ] -\/ t * std::exp( -\/ x );}
+\DoxyCodeLine{114       \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Residual\+\_\+with\+\_\+coords$<$ double $>$\+::coord(), Cpp\+Noddy\+::\+Example\+::\+U(), and Cpp\+Noddy\+::\+Example\+::z().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Tests/double\+\_\+\+I\+B\+V\+P/\textbf{ I\+B\+V\+P\+Nonlinear\+Fast.\+cpp}\item 
+Tests/double\+\_\+\+I\+B\+V\+P/\textbf{ I\+B\+V\+P\+Nonlinear\+Slower.\+cpp}\end{DoxyCompactItemize}

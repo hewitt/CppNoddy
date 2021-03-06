@@ -1,0 +1,899 @@
+\doxysubsection{Cpp\+Noddy\+::Utility Namespace Reference}
+\label{namespaceCppNoddy_1_1Utility}\index{CppNoddy::Utility@{CppNoddy::Utility}}
+
+
+Some utility methods associated with \doxyref{Cpp\+Noddy}{p.}{namespaceCppNoddy} containers.  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ uniform\+\_\+node\+\_\+vector} (const double \&lower, const double \&upper, const std\+::size\+\_\+t \&N)
+\begin{DoxyCompactList}\small\item\em Return a D\+E\+N\+SE vector with the nodal points of a uniform mesh distributed between the upper/lower bounds as specified. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ power\+\_\+node\+\_\+vector} (const double \&lower, const double \&upper, const std\+::size\+\_\+t \&N, const double \&power)
+\begin{DoxyCompactList}\small\item\em Return a D\+E\+N\+SE vector with the nodal points of a non-\/uniform mesh distributed between the upper/lower bounds as specified with more nodes clustered near lower or upper depending upon the differencee of the power from unity. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ two\+\_\+uniform\+\_\+node\+\_\+vector} (const double \&lower, const double \&mid, const double \&upper, const std\+::size\+\_\+t \&N1, const std\+::size\+\_\+t \&N2)
+\begin{DoxyCompactList}\small\item\em Return a dense vector with two uniform distributions in two separate regions. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ three\+\_\+uniform\+\_\+node\+\_\+vector} (const double \&lower, const double \&mid1, const double \&mid2, const double \&upper, const std\+::size\+\_\+t \&N1, const std\+::size\+\_\+t \&N2, const std\+::size\+\_\+t \&N3)
+\begin{DoxyCompactList}\small\item\em Return a dense vector with two uniform distributions in two separate regions. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ mid\+\_\+weighted\+\_\+node\+\_\+vector} (const double \&lower, const double \&upper, const std\+::size\+\_\+t \&N, const double \&power)
+\begin{DoxyCompactList}\small\item\em Return a dense vector of nodal positions with more nodes concentrated at the mid point of the range. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename \+\_\+\+Type $>$ }\\void \textbf{ vels\+\_\+from\+\_\+streamfn\+\_\+\+Cartesian} (const \textbf{ Two\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$ \&source, \textbf{ Two\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$ \&uv)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Type $>$ }\\void \textbf{ vels\+\_\+from\+\_\+streamfn\+\_\+\+Cartesian} (const \textbf{ Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$ \&source, \textbf{ Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$ \&uv)
+\item 
+\textbf{ Dense\+Matrix}$<$ double $>$ \textbf{ multiply} (\textbf{ Dense\+Matrix}$<$ double $>$ \&A, \textbf{ Dense\+Matrix}$<$ double $>$ \&B)
+\begin{DoxyCompactList}\small\item\em B\+L\+AS wrapper to do D\+O\+U\+B\+LE D\+E\+N\+SE A\+\_\+\{MxK\} $\ast$ B\+\_\+\{KxN\} = C\+\_\+\{MxN\} Since this is a Fortran library, it assumes a column\+\_\+major format, but \doxyref{Cpp\+Noddy}{p.}{namespaceCppNoddy} uses row\+\_\+major. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename \+\_\+\+Type $>$ }\\\+\_\+\+Type \textbf{ dot} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&X, const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&Y)
+\begin{DoxyCompactList}\small\item\em Templated dot product. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename \+\_\+\+Type $>$ }\\int \textbf{ sgn} (const \+\_\+\+Type \&a)
+\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ real} (const \textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ \&X)
+\begin{DoxyCompactList}\small\item\em Return a double D\+E\+N\+SE vector containing the real part of a complex D\+E\+N\+SE vector. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ imag} (const \textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ \&X)
+\begin{DoxyCompactList}\small\item\em Return a double D\+E\+N\+SE vector containing the imaginary part of a complex D\+E\+N\+SE vector. \end{DoxyCompactList}\item 
+std\+::string \textbf{ stringify} (const int \&val)
+\begin{DoxyCompactList}\small\item\em Return an integer value as a string -\/ useful for file naming. \end{DoxyCompactList}\item 
+std\+::string \textbf{ stringify} (const double \&val, int \textbf{ p})
+\begin{DoxyCompactList}\small\item\em Return a double value as a string -\/ useful for file naming. \end{DoxyCompactList}\item 
+double \textbf{ max\+\_\+abs\+\_\+location} (\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ double $>$ \&mesh, unsigned var)
+\item 
+double \textbf{ max\+\_\+abs\+\_\+location\+\_\+range} (\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ double $>$ \&mesh, unsigned var, double left, double right)
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Some utility methods associated with \doxyref{Cpp\+Noddy}{p.}{namespaceCppNoddy} containers. 
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{namespaceCppNoddy_1_1Utility_a4ef891e4e1b6f5bf7c5d588fd8868f1d}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!dot@{dot}}
+\index{dot@{dot}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{dot()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\+\_\+\+Type Cpp\+Noddy\+::\+Utility\+::dot (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{X,  }\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{Y }\end{DoxyParamCaption})}
+
+
+
+Templated dot product. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em X} & First dense vector \\
+\hline
+{\em Y} & Second dense vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The dot product 
+\end{DoxyReturn}
+
+
+Definition at line 314 of file Utility.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{314                                                                         \{}
+\DoxyCodeLine{315       \textcolor{keywordflow}{if}(X.size() != Y.size()) \{}
+\DoxyCodeLine{316         std::string problem;}
+\DoxyCodeLine{317         problem = \textcolor{stringliteral}{"The Utilities::dot method has been called \(\backslash\)n"};}
+\DoxyCodeLine{318         problem += \textcolor{stringliteral}{"with two unequal length vectors."};}
+\DoxyCodeLine{319         \textcolor{keywordflow}{throw} ExceptionGeom(problem, X.size(), Y.size());}
+\DoxyCodeLine{320       \}}
+\DoxyCodeLine{321       \textcolor{keywordflow}{return} inner\_product(X.begin(), X.end(), Y.begin(), \_Type(0.0));}
+\DoxyCodeLine{322     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::begin(), Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::end(), and Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::size().
+
+
+
+Referenced by Cpp\+Noddy\+::\+Newton$<$ \+\_\+\+Type $>$\+::arclength\+\_\+solve(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ D\+\_\+complex $>$\+::arclength\+\_\+solve(), Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$\+::assemble\+\_\+matrix\+\_\+problem(), Cpp\+Noddy\+::\+Equation\+\_\+1matrix$<$ D\+\_\+complex $>$\+::get\+\_\+jacobian\+\_\+of\+\_\+matrix0\+\_\+mult\+\_\+vector(), Cpp\+Noddy\+::\+Equation\+\_\+2matrix$<$ D\+\_\+complex $>$\+::get\+\_\+jacobian\+\_\+of\+\_\+matrix1\+\_\+mult\+\_\+vector(), Cpp\+Noddy\+::\+Equation\+\_\+3matrix$<$ \+\_\+\+Type $>$\+::get\+\_\+jacobian\+\_\+of\+\_\+matrix2\+\_\+mult\+\_\+vector(), main(), and Cpp\+Noddy\+::\+Dense\+Matrix$<$ D\+\_\+complex $>$\+::multiply().
+
+\mbox{\label{namespaceCppNoddy_1_1Utility_aa91e621301363a552d19136f48bc7b52}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!imag@{imag}}
+\index{imag@{imag}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{imag()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Utility\+::imag (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ \&}]{X }\end{DoxyParamCaption})}
+
+
+
+Return a double D\+E\+N\+SE vector containing the imaginary part of a complex D\+E\+N\+SE vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em X} & The complex vector to take the imaginary part of \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 185 of file Utility.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{185                                                               \{}
+\DoxyCodeLine{186       DenseVector<double> temp(X.size(), 0.0);}
+\DoxyCodeLine{187       \textcolor{keywordflow}{for}(std::size\_t i = 0; i < X.size(); ++i) \{}
+\DoxyCodeLine{188         temp[ i ] = X[ i ].imag();}
+\DoxyCodeLine{189       \}}
+\DoxyCodeLine{190       \textcolor{keywordflow}{return} temp;}
+\DoxyCodeLine{191     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::size().
+
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::dump\+\_\+gnu(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::dump\+\_\+gnu(), Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::dump\+\_\+gnu(), Cpp\+Noddy\+::\+H\+S\+T\+::\+Rayleigh$<$ \+\_\+\+Type $>$\+::iterate\+\_\+to\+\_\+neutral(), main(), Cpp\+Noddy\+::\+Dense\+Matrix$<$ D\+\_\+complex $>$\+::matrix\+\_\+to\+\_\+vector(), Cpp\+Noddy\+::\+Example\+::\+Neutral\+\_\+residual\+::residual\+\_\+fn(), Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::tag\+\_\+eigenvalues\+\_\+lower(), Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base\+::tag\+\_\+eigenvalues\+\_\+lower(), Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::tag\+\_\+eigenvalues\+\_\+upper(), Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base\+::tag\+\_\+eigenvalues\+\_\+upper(), and Cpp\+Noddy\+::\+Tracker\+File\+::update().
+
+\mbox{\label{namespaceCppNoddy_1_1Utility_aa0c590458feea9483b1ad5467b71bd80}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!max\_abs\_location@{max\_abs\_location}}
+\index{max\_abs\_location@{max\_abs\_location}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{max\_abs\_location()}
+{\footnotesize\ttfamily double Cpp\+Noddy\+::\+Utility\+::max\+\_\+abs\+\_\+location (\begin{DoxyParamCaption}\item[{\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ double $>$ \&}]{mesh,  }\item[{unsigned}]{var }\end{DoxyParamCaption})}
+
+
+
+Definition at line 54 of file Utility.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54                                                                         \{}
+\DoxyCodeLine{55       \textcolor{keywordtype}{double} max(0.0);}
+\DoxyCodeLine{56       std::size\_t maxIndex(0);}
+\DoxyCodeLine{57       \textcolor{comment}{// step through the nodes}}
+\DoxyCodeLine{58       \textcolor{keywordflow}{for} ( std::size\_t node = 0; node < mesh.get\_nnodes(); ++node ) \{}
+\DoxyCodeLine{59         \textcolor{comment}{//std::cout << "m\_X[node]=" << m\_X[node] << " left=" << left << " right=" << right << "\(\backslash\)n";}}
+\DoxyCodeLine{60         \textcolor{keywordflow}{if} ( std::abs(mesh(node,var)) > max ) \{}
+\DoxyCodeLine{61           maxIndex = node;}
+\DoxyCodeLine{62           max = std::abs( mesh(node,var) );}
+\DoxyCodeLine{63         \}}
+\DoxyCodeLine{64       \}}
+\DoxyCodeLine{65       \textcolor{keywordflow}{if} ( ( maxIndex == 0 ) || ( maxIndex == mesh.get\_nnodes()-\/1 ) ) \{}
+\DoxyCodeLine{66         std::cout << \textcolor{stringliteral}{"[WARNING] MaxAbsLocationRange: maximumum absolute nodal value is first/last node. \(\backslash\)n"};}
+\DoxyCodeLine{67         \textcolor{keywordflow}{return} mesh.coord( maxIndex );}
+\DoxyCodeLine{68       \}}
+\DoxyCodeLine{69       \textcolor{keywordtype}{double} f1,f2,f3;}
+\DoxyCodeLine{70       \textcolor{keywordtype}{double} x1,x2,x3;}
+\DoxyCodeLine{71       f1 = std::abs(mesh(maxIndex-\/1,var));}
+\DoxyCodeLine{72       f2 = std::abs(mesh(maxIndex,var));}
+\DoxyCodeLine{73       f3 = std::abs(mesh(maxIndex+1,var));}
+\DoxyCodeLine{74       x1 = mesh.coord(maxIndex-\/1);}
+\DoxyCodeLine{75       x2 = mesh.coord(maxIndex);}
+\DoxyCodeLine{76       x3 = mesh.coord(maxIndex+1);}
+\DoxyCodeLine{77       \textcolor{keywordflow}{return} ( f1*(x2+x3)/((x1-\/x2)*(x1-\/x3)) + f2*(x1+x3)/((x2-\/x1)*(x2-\/x3)) + f3*(x1+x2)/((x3-\/x1)*(x3-\/x2)) )}
+\DoxyCodeLine{78         / ( 2.*f1/((x1-\/x2)*(x1-\/x3)) + 2.*f2/((x2-\/x1)*(x2-\/x3)) + 2.*f3/((x3-\/x1)*(x3-\/x2)) );      }
+\DoxyCodeLine{79     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::coord(), and Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::get\+\_\+nnodes().
+
+\mbox{\label{namespaceCppNoddy_1_1Utility_aa9453526ccd8587f9de557a2a43dad24}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!max\_abs\_location\_range@{max\_abs\_location\_range}}
+\index{max\_abs\_location\_range@{max\_abs\_location\_range}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{max\_abs\_location\_range()}
+{\footnotesize\ttfamily double Cpp\+Noddy\+::\+Utility\+::max\+\_\+abs\+\_\+location\+\_\+range (\begin{DoxyParamCaption}\item[{\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ double $>$ \&}]{mesh,  }\item[{unsigned}]{var,  }\item[{double}]{left,  }\item[{double}]{right }\end{DoxyParamCaption})}
+
+
+
+Definition at line 82 of file Utility.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{82                                                                                                           \{}
+\DoxyCodeLine{83       \textcolor{keywordtype}{double} max(0.0);}
+\DoxyCodeLine{84       std::size\_t maxIndex(0);}
+\DoxyCodeLine{85       \textcolor{comment}{// step through the nodes}}
+\DoxyCodeLine{86       \textcolor{keywordflow}{for} ( std::size\_t node = 0; node < mesh.get\_nnodes(); ++node ) \{}
+\DoxyCodeLine{87         \textcolor{comment}{//std::cout << "m\_X[node]=" << m\_X[node] << " left=" << left << " right=" << right << "\(\backslash\)n";}}
+\DoxyCodeLine{88         \textcolor{keywordflow}{if} ( ( mesh.coord(node) >= left ) \&\& ( mesh.coord(node) <= right ) ) \{}
+\DoxyCodeLine{89           \textcolor{keywordflow}{if} ( std::abs(mesh(node,var)) > max ) \{}
+\DoxyCodeLine{90             maxIndex = node;}
+\DoxyCodeLine{91             max = std::abs( mesh(node,var) );}
+\DoxyCodeLine{92           \}}
+\DoxyCodeLine{93         \}}
+\DoxyCodeLine{94       \}}
+\DoxyCodeLine{95       \textcolor{keywordflow}{if} ( ( maxIndex == 0 ) || ( maxIndex == mesh.get\_nnodes()-\/1 ) ) \{}
+\DoxyCodeLine{96         std::cout << \textcolor{stringliteral}{"[WARNING] MaxAbsLocationRange: maximumum absolute nodal value is first/last node. \(\backslash\)n"};}
+\DoxyCodeLine{97         \textcolor{keywordflow}{return} mesh.coord( maxIndex );}
+\DoxyCodeLine{98       \}}
+\DoxyCodeLine{99       \textcolor{keywordtype}{double} f1,f2,f3;}
+\DoxyCodeLine{100       \textcolor{keywordtype}{double} x1,x2,x3;}
+\DoxyCodeLine{101       f1 = std::abs(mesh(maxIndex-\/1,var));}
+\DoxyCodeLine{102       f2 = std::abs(mesh(maxIndex,var));}
+\DoxyCodeLine{103       f3 = std::abs(mesh(maxIndex+1,var));}
+\DoxyCodeLine{104       x1 = mesh.coord(maxIndex-\/1);}
+\DoxyCodeLine{105       x2 = mesh.coord(maxIndex);}
+\DoxyCodeLine{106       x3 = mesh.coord(maxIndex+1);}
+\DoxyCodeLine{107       \textcolor{keywordflow}{return} ( f1*(x2+x3)/((x1-\/x2)*(x1-\/x3)) + f2*(x1+x3)/((x2-\/x1)*(x2-\/x3)) + f3*(x1+x2)/((x3-\/x1)*(x3-\/x2)) )}
+\DoxyCodeLine{108         / ( 2.*f1/((x1-\/x2)*(x1-\/x3)) + 2.*f2/((x2-\/x1)*(x2-\/x3)) + 2.*f3/((x3-\/x1)*(x3-\/x2)) );      }
+\DoxyCodeLine{109     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::coord(), and Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::get\+\_\+nnodes().
+
+\mbox{\label{namespaceCppNoddy_1_1Utility_a92464e84de1c4369114da4ce8ac326f4}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!mid\_weighted\_node\_vector@{mid\_weighted\_node\_vector}}
+\index{mid\_weighted\_node\_vector@{mid\_weighted\_node\_vector}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{mid\_weighted\_node\_vector()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Utility\+::mid\+\_\+weighted\+\_\+node\+\_\+vector (\begin{DoxyParamCaption}\item[{const double \&}]{lower,  }\item[{const double \&}]{upper,  }\item[{const std\+::size\+\_\+t \&}]{N,  }\item[{const double \&}]{power }\end{DoxyParamCaption})}
+
+
+
+Return a dense vector of nodal positions with more nodes concentrated at the mid point of the range. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lower} & The first nodal position. \\
+\hline
+{\em upper} & The final nodal position. \\
+\hline
+{\em N} & The number of nodes required. \\
+\hline
+{\em power} & A measure of the non-\/uniformity, power = 1 =$>$ uniform distribution \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 155 of file Utility.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{155                                                                                                                                      \{}
+\DoxyCodeLine{156       DenseVector<double> node\_vector(N, 0.0);}
+\DoxyCodeLine{157       \textcolor{comment}{// make a center weighted distribution over -\/1 to 1}}
+\DoxyCodeLine{158       \textcolor{keywordflow}{for}(std::size\_t i = 0; i < N; ++i) \{}
+\DoxyCodeLine{159         \textcolor{keywordtype}{double} s(-\/1.0 + 2.0 * i / (N -\/ 1));}
+\DoxyCodeLine{160         node\_vector[ i ] = (weight * std::pow(s, 3) + s) / (weight + 1);}
+\DoxyCodeLine{161       \}}
+\DoxyCodeLine{162       \textcolor{comment}{// map the -\/1 to 1 range to lower to upper}}
+\DoxyCodeLine{163       \textcolor{keywordflow}{for}(std::size\_t i = 0; i < N; ++i) \{}
+\DoxyCodeLine{164         \textcolor{comment}{// move the range to 0-\/>2}}
+\DoxyCodeLine{165         node\_vector[ i ] += 1.0;}
+\DoxyCodeLine{166         \textcolor{comment}{// move the range tp 0-\/>1}}
+\DoxyCodeLine{167         node\_vector[ i ] /= 2.0;}
+\DoxyCodeLine{168         \textcolor{comment}{// move the range to lower -\/> upper}}
+\DoxyCodeLine{169         node\_vector[ i ] *= (upper -\/ lower);}
+\DoxyCodeLine{170         node\_vector[ i ] += lower;}
+\DoxyCodeLine{171       \}}
+\DoxyCodeLine{172       \textcolor{keywordflow}{return} node\_vector;}
+\DoxyCodeLine{173     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::s.
+
+\mbox{\label{namespaceCppNoddy_1_1Utility_a2c522ef07028953631e113860caa9996}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!multiply@{multiply}}
+\index{multiply@{multiply}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{multiply()}
+{\footnotesize\ttfamily \textbf{ Dense\+Matrix}$<$ double $>$ Cpp\+Noddy\+::\+Utility\+::multiply (\begin{DoxyParamCaption}\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{A,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{B }\end{DoxyParamCaption})}
+
+
+
+B\+L\+AS wrapper to do D\+O\+U\+B\+LE D\+E\+N\+SE A\+\_\+\{MxK\} $\ast$ B\+\_\+\{KxN\} = C\+\_\+\{MxN\} Since this is a Fortran library, it assumes a column\+\_\+major format, but \doxyref{Cpp\+Noddy}{p.}{namespaceCppNoddy} uses row\+\_\+major. 
+
+To be consistent we\textquotesingle{}ll simply do (B$^\wedge$T)\+\_\+\{NxK\} $\ast$ (A$^\wedge$T)\+\_\+\{KxM\} = (C$^\wedge$T)\+\_\+\{NxM\} instead. Note that inversion of the transpose of the result C$^\wedge$T is handled implicitly via the construction of C. 
+\begin{DoxyParams}{Parameters}
+{\em A} & First dense double matrix to be multiplied \\
+\hline
+{\em B} & Second dense double matrix to be multiplied \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The result of the multiplication C=A$\ast$B 
+\end{DoxyReturn}
+
+
+Definition at line 225 of file Utility.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{225                                                                                  \{}
+\DoxyCodeLine{226 \textcolor{preprocessor}{\#ifndef LAPACK}}
+\DoxyCodeLine{227       std::string problem;}
+\DoxyCodeLine{228       problem = \textcolor{stringliteral}{"The Utilities::multiply method has been called\(\backslash\)n"};}
+\DoxyCodeLine{229       problem += \textcolor{stringliteral}{"but the compiler option -\/DLAPACK was not provided when\(\backslash\)n"};}
+\DoxyCodeLine{230       problem += \textcolor{stringliteral}{"the library was built. This non-\/member function requires BLAS."};}
+\DoxyCodeLine{231       \textcolor{keywordflow}{throw} ExceptionExternal(problem);}
+\DoxyCodeLine{232 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{233       \textcolor{comment}{// set the matrix geometries}}
+\DoxyCodeLine{234       std::size\_t M = A.nrows();}
+\DoxyCodeLine{235       std::size\_t N = B.ncols();}
+\DoxyCodeLine{236       std::size\_t K = A.ncols();}
+\DoxyCodeLine{237       \textcolor{comment}{// No need to transpose first, because we will in fact do B\string^T * A\string^T = C\string^T}}
+\DoxyCodeLine{238       \textcolor{comment}{// New the memory for the result}}
+\DoxyCodeLine{239       FortranData Af(A, \textcolor{keyword}{false});}
+\DoxyCodeLine{240       FortranData Bf(B, \textcolor{keyword}{false});}
+\DoxyCodeLine{241       FortranData Cf(M * N);}
+\DoxyCodeLine{242 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{243 }
+\DoxyCodeLine{244       \textcolor{keywordflow}{if}(K != B.nrows()) \{}
+\DoxyCodeLine{245         std::string problem(\textcolor{stringliteral}{" The LAPACK::multiply method has detected a failure \(\backslash\)n"});}
+\DoxyCodeLine{246         \textcolor{keywordflow}{throw} ExceptionGeom(problem, A.nrows(), A.ncols(), B.nrows(), B.ncols());}
+\DoxyCodeLine{247       \}}
+\DoxyCodeLine{248 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{249       \textcolor{comment}{// call Fortran BLAS}}
+\DoxyCodeLine{250       \textcolor{comment}{// call Fortran BLAS}}
+\DoxyCodeLine{251       BLAS\_DGEMM((\textcolor{keywordtype}{char}*) \textcolor{stringliteral}{"N"}, (\textcolor{keywordtype}{char}*) \textcolor{stringliteral}{"N"}, N, M, K, 1.0, Bf.base(), N, Af.base(), K, 0.0, Cf.base(), N);}
+\DoxyCodeLine{252       \textcolor{comment}{// Return a DenseMatrix<double> from the results -\/-\/ since Cf is in column\_major}}
+\DoxyCodeLine{253       \textcolor{comment}{// format, this will actually transpose the Cf data to provide C as required}}
+\DoxyCodeLine{254       \textcolor{keywordflow}{return} (Cf.to\_dense\_matrix(M, N));}
+\DoxyCodeLine{255 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{256 }
+\DoxyCodeLine{257     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::\+A(), Cpp\+Noddy\+::\+Fortran\+Data\+::base(), B\+L\+A\+S\+\_\+\+D\+G\+E\+MM, Cpp\+Noddy\+::\+Example\+::\+K(), Cpp\+Noddy\+::\+Dense\+Matrix$<$ \+\_\+\+Type $>$\+::ncols(), Cpp\+Noddy\+::\+Dense\+Matrix$<$ \+\_\+\+Type $>$\+::nrows(), and Cpp\+Noddy\+::\+Fortran\+Data\+::to\+\_\+dense\+\_\+matrix().
+
+
+
+Referenced by main(), and Cpp\+Noddy\+::\+Dense\+Matrix$<$ D\+\_\+complex $>$\+::multiply().
+
+\mbox{\label{namespaceCppNoddy_1_1Utility_a87ee242cf7c965a3eb25a1889428f6b4}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!power\_node\_vector@{power\_node\_vector}}
+\index{power\_node\_vector@{power\_node\_vector}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{power\_node\_vector()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Utility\+::power\+\_\+node\+\_\+vector (\begin{DoxyParamCaption}\item[{const double \&}]{lower,  }\item[{const double \&}]{upper,  }\item[{const std\+::size\+\_\+t \&}]{N,  }\item[{const double \&}]{power }\end{DoxyParamCaption})}
+
+
+
+Return a D\+E\+N\+SE vector with the nodal points of a non-\/uniform mesh distributed between the upper/lower bounds as specified with more nodes clustered near lower or upper depending upon the differencee of the power from unity. 
+
+When power=1 this should provide a uniform mesh. 
+\begin{DoxyParams}{Parameters}
+{\em lower} & The lower bound of the uniform nodal distribution \\
+\hline
+{\em upper} & The upper bound of the uniform nodal distribution \\
+\hline
+{\em N} & The number of nodal points \\
+\hline
+{\em power} & A measure of the non-\/uniformity \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of nodal positions with a power law distribution 
+\end{DoxyReturn}
+
+
+Definition at line 123 of file Utility.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{123                                                                                                                              \{}
+\DoxyCodeLine{124       DenseVector<double> V(N, 0.0);}
+\DoxyCodeLine{125       \textcolor{keywordflow}{for}(std::size\_t i = 0; i < N; ++i) \{}
+\DoxyCodeLine{126         V[ i ] = lower + (upper -\/ lower) * std::pow((\textcolor{keywordtype}{double})i / (N -\/ 1), power);}
+\DoxyCodeLine{127       \}}
+\DoxyCodeLine{128       \textcolor{keywordflow}{return} V;}
+\DoxyCodeLine{129     \}}
+
+\end{DoxyCode}
+
+
+References V.
+
+
+
+Referenced by main().
+
+\mbox{\label{namespaceCppNoddy_1_1Utility_a2922d8dcab4bc1de742e62ccd54f68c5}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!real@{real}}
+\index{real@{real}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{real()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Utility\+::real (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ \&}]{X }\end{DoxyParamCaption})}
+
+
+
+Return a double D\+E\+N\+SE vector containing the real part of a complex D\+E\+N\+SE vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em X} & The complex vector to take the real part of \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 177 of file Utility.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{177                                                               \{}
+\DoxyCodeLine{178       DenseVector<double> temp(X.size(), 0.0);}
+\DoxyCodeLine{179       \textcolor{keywordflow}{for}(std::size\_t i = 0; i < X.size(); ++i) \{}
+\DoxyCodeLine{180         temp[ i ] = X[ i ].real();}
+\DoxyCodeLine{181       \}}
+\DoxyCodeLine{182       \textcolor{keywordflow}{return} temp;}
+\DoxyCodeLine{183     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::size().
+
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::dump\+\_\+gnu(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::dump\+\_\+gnu(), Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::dump\+\_\+gnu(), Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::get\+\_\+interpolated\+\_\+vars(), Cpp\+Noddy\+::\+H\+S\+T\+::\+Rayleigh$<$ \+\_\+\+Type $>$\+::global\+\_\+evp(), main(), Cpp\+Noddy\+::\+Dense\+Matrix$<$ D\+\_\+complex $>$\+::matrix\+\_\+to\+\_\+vector(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::max\+\_\+abs\+\_\+real\+\_\+part(), Cpp\+Noddy\+::\+Example\+::\+Neutral\+\_\+residual\+::residual\+\_\+fn(), Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::tag\+\_\+eigenvalues\+\_\+left(), Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base\+::tag\+\_\+eigenvalues\+\_\+left(), Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::tag\+\_\+eigenvalues\+\_\+right(), Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base\+::tag\+\_\+eigenvalues\+\_\+right(), and Cpp\+Noddy\+::\+Tracker\+File\+::update().
+
+\mbox{\label{namespaceCppNoddy_1_1Utility_a612a1c9f3ca0a2e7ad6c0d557c3bed50}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!sgn@{sgn}}
+\index{sgn@{sgn}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{sgn()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+int Cpp\+Noddy\+::\+Utility\+::sgn (\begin{DoxyParamCaption}\item[{const \+\_\+\+Type \&}]{a }\end{DoxyParamCaption})}
+
+
+
+Definition at line 325 of file Utility.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{325                             \{}
+\DoxyCodeLine{326       \textcolor{keywordflow}{if}(a > (\_Type)0) \{}
+\DoxyCodeLine{327         \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{328       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(a < (\_Type)0) \{}
+\DoxyCodeLine{329         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{330       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{331         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{332       \}}
+\DoxyCodeLine{333     \}}
+
+\end{DoxyCode}
+\mbox{\label{namespaceCppNoddy_1_1Utility_ae1a2cfa863d8a930419109d4adc2f46c}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!stringify@{stringify}}
+\index{stringify@{stringify}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{stringify()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::string Cpp\+Noddy\+::\+Utility\+::stringify (\begin{DoxyParamCaption}\item[{const double \&}]{val,  }\item[{int}]{p }\end{DoxyParamCaption})}
+
+
+
+Return a double value as a string -\/ useful for file naming. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & The double value to be stringified \\
+\hline
+{\em p} & Precision to be used in the output \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 199 of file Utility.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{199                                                   \{}
+\DoxyCodeLine{200       std::stringstream temp;}
+\DoxyCodeLine{201       temp.precision(p);}
+\DoxyCodeLine{202       temp << val;}
+\DoxyCodeLine{203       \textcolor{keywordflow}{return} temp.str();}
+\DoxyCodeLine{204     \}}
+
+\end{DoxyCode}
+
+
+References p.
+
+\mbox{\label{namespaceCppNoddy_1_1Utility_aabb40224e3a9ba7d2bf450f742ee0739}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!stringify@{stringify}}
+\index{stringify@{stringify}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{stringify()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily std\+::string Cpp\+Noddy\+::\+Utility\+::stringify (\begin{DoxyParamCaption}\item[{const int \&}]{val }\end{DoxyParamCaption})}
+
+
+
+Return an integer value as a string -\/ useful for file naming. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & The integer value to be stringified. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 193 of file Utility.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{193                                         \{}
+\DoxyCodeLine{194       std::stringstream temp;}
+\DoxyCodeLine{195       temp << val;}
+\DoxyCodeLine{196       \textcolor{keywordflow}{return} temp.str();}
+\DoxyCodeLine{197     \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+Tracker\+File\+::header(), main(), and Cpp\+Noddy\+::\+Two\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::remesh1().
+
+\mbox{\label{namespaceCppNoddy_1_1Utility_a6938fb9a3adbbc351cc455c053ba5216}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!three\_uniform\_node\_vector@{three\_uniform\_node\_vector}}
+\index{three\_uniform\_node\_vector@{three\_uniform\_node\_vector}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{three\_uniform\_node\_vector()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Utility\+::three\+\_\+uniform\+\_\+node\+\_\+vector (\begin{DoxyParamCaption}\item[{const double \&}]{lower,  }\item[{const double \&}]{mid1,  }\item[{const double \&}]{mid2,  }\item[{const double \&}]{upper,  }\item[{const std\+::size\+\_\+t \&}]{N1,  }\item[{const std\+::size\+\_\+t \&}]{N2,  }\item[{const std\+::size\+\_\+t \&}]{N3 }\end{DoxyParamCaption})}
+
+
+
+Return a dense vector with two uniform distributions in two separate regions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lower} & The first node \\
+\hline
+{\em mid1} & The node that defines the first interior boundary \\
+\hline
+{\em mid2} & The node that defines the second interior boundary \\
+\hline
+{\em upper} & The final node \\
+\hline
+{\em N1} & The number of nodes in the first region \\
+\hline
+{\em N2} & The number of nodes in the second region \\
+\hline
+{\em N3} & The number of nodes in the third region \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A combined vector of nodes of length N1+\+N2+\+N3 
+\end{DoxyReturn}
+
+
+Definition at line 141 of file Utility.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{141                                                                                                                                                                                                    \{}
+\DoxyCodeLine{142       DenseVector<double> first = uniform\_node\_vector(lower, mid1, N1);}
+\DoxyCodeLine{143       DenseVector<double> second = uniform\_node\_vector(mid1, mid2, N2+1);}
+\DoxyCodeLine{144       DenseVector<double> third = uniform\_node\_vector(mid2, upper, N3+1);}
+\DoxyCodeLine{145       \textcolor{comment}{// skip the common elt by starting at 1 not 0}}
+\DoxyCodeLine{146       \textcolor{keywordflow}{for}(std::size\_t i = 1; i < N2+1; ++i) \{}
+\DoxyCodeLine{147         first.push\_back(second[ i ]);}
+\DoxyCodeLine{148       \}}
+\DoxyCodeLine{149       \textcolor{keywordflow}{for}(std::size\_t i = 1; i < N3+1; ++i) \{}
+\DoxyCodeLine{150         first.push\_back(third[ i ]);}
+\DoxyCodeLine{151       \}}
+\DoxyCodeLine{152       \textcolor{keywordflow}{return} first;}
+\DoxyCodeLine{153     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::push\+\_\+back(), and uniform\+\_\+node\+\_\+vector().
+
+\mbox{\label{namespaceCppNoddy_1_1Utility_a9e3763ad8bb63214b06e809a66c90f08}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!two\_uniform\_node\_vector@{two\_uniform\_node\_vector}}
+\index{two\_uniform\_node\_vector@{two\_uniform\_node\_vector}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{two\_uniform\_node\_vector()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Utility\+::two\+\_\+uniform\+\_\+node\+\_\+vector (\begin{DoxyParamCaption}\item[{const double \&}]{lower,  }\item[{const double \&}]{mid,  }\item[{const double \&}]{upper,  }\item[{const std\+::size\+\_\+t \&}]{N1,  }\item[{const std\+::size\+\_\+t \&}]{N2 }\end{DoxyParamCaption})}
+
+
+
+Return a dense vector with two uniform distributions in two separate regions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lower} & The first node \\
+\hline
+{\em mid} & The node that defines the boundary between the uniform meshes \\
+\hline
+{\em upper} & The final node \\
+\hline
+{\em N1} & The number of nodes in the first region \\
+\hline
+{\em N2} & The number of nodes in the second region \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A combined vector of nodes of length N1+\+N2 
+\end{DoxyReturn}
+
+
+Definition at line 131 of file Utility.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{131                                                                                                                                                        \{}
+\DoxyCodeLine{132       DenseVector<double> first = uniform\_node\_vector(lower, mid, N1);}
+\DoxyCodeLine{133       DenseVector<double> second = uniform\_node\_vector(mid, upper, N2 + 1);}
+\DoxyCodeLine{134       \textcolor{comment}{// skip the common elt by starting at 1 not 0}}
+\DoxyCodeLine{135       \textcolor{keywordflow}{for}(std::size\_t i = 1; i < N2+1; ++i) \{}
+\DoxyCodeLine{136         first.push\_back(second[ i ]);}
+\DoxyCodeLine{137       \}}
+\DoxyCodeLine{138       \textcolor{keywordflow}{return} first;}
+\DoxyCodeLine{139     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::push\+\_\+back(), and uniform\+\_\+node\+\_\+vector().
+
+\mbox{\label{namespaceCppNoddy_1_1Utility_afd0e606fc3cc8f0e001b68758c930cd6}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!uniform\_node\_vector@{uniform\_node\_vector}}
+\index{uniform\_node\_vector@{uniform\_node\_vector}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{uniform\_node\_vector()}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ Cpp\+Noddy\+::\+Utility\+::uniform\+\_\+node\+\_\+vector (\begin{DoxyParamCaption}\item[{const double \&}]{lower,  }\item[{const double \&}]{upper,  }\item[{const std\+::size\+\_\+t \&}]{N }\end{DoxyParamCaption})}
+
+
+
+Return a D\+E\+N\+SE vector with the nodal points of a uniform mesh distributed between the upper/lower bounds as specified. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lower} & The lower bound of the uniform nodal distribution \\
+\hline
+{\em upper} & The upper bound of the uniform nodal distribution \\
+\hline
+{\em N} & The number of nodal points \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 113 of file Utility.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{113                                                                                                           \{}
+\DoxyCodeLine{114       DenseVector<double> V;}
+\DoxyCodeLine{115       V.reserve(N);}
+\DoxyCodeLine{116       \textcolor{keyword}{const} \textcolor{keywordtype}{double} delta = (upper -\/ lower) / (N -\/ 1);}
+\DoxyCodeLine{117       \textcolor{keywordflow}{for}(std::size\_t i = 0; i < N; ++i) \{}
+\DoxyCodeLine{118         V.push\_back(lower + delta * i);}
+\DoxyCodeLine{119       \}}
+\DoxyCodeLine{120       \textcolor{keywordflow}{return} V;}
+\DoxyCodeLine{121     \}}
+
+\end{DoxyCode}
+
+
+References V.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Fn\+Quadrature\+::\+Fn\+Quadrature(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::init\+\_\+mapping(), main(), Cpp\+Noddy\+::\+Example\+::\+Neutral\+\_\+residual\+::\+Neutral\+\_\+residual(), Cpp\+Noddy\+::\+Fn\+Quadrature\+::set\+\_\+subintervals(), three\+\_\+uniform\+\_\+node\+\_\+vector(), and two\+\_\+uniform\+\_\+node\+\_\+vector().
+
+\mbox{\label{namespaceCppNoddy_1_1Utility_abc1623b15bf881a80df8897a7f58a67f}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!vels\_from\_streamfn\_Cartesian@{vels\_from\_streamfn\_Cartesian}}
+\index{vels\_from\_streamfn\_Cartesian@{vels\_from\_streamfn\_Cartesian}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{vels\_from\_streamfn\_Cartesian()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void Cpp\+Noddy\+::\+Utility\+::vels\+\_\+from\+\_\+streamfn\+\_\+\+Cartesian (\begin{DoxyParamCaption}\item[{const \textbf{ Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$ \&}]{source,  }\item[{\textbf{ Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$ \&}]{uv }\end{DoxyParamCaption})}
+
+
+
+Definition at line 166 of file Utility.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{166                                                                                                                     \{}
+\DoxyCodeLine{167       std::cout << \textcolor{stringliteral}{"MAPPED MESH version\(\backslash\)n"};}
+\DoxyCodeLine{168       std::size\_t Nx(source.get\_nnodes().first);}
+\DoxyCodeLine{169       std::size\_t Ny(source.get\_nnodes().second);}
+\DoxyCodeLine{170       \textcolor{keywordtype}{double} dX( source.get\_comp\_step\_sizes().first );}
+\DoxyCodeLine{171       \textcolor{keywordtype}{double} dY( source.get\_comp\_step\_sizes().second );}
+\DoxyCodeLine{172       \textcolor{comment}{// differentiate the streamfunction to get the velocity field}}
+\DoxyCodeLine{173       \{}
+\DoxyCodeLine{174         \textcolor{comment}{// west internal nodes}}
+\DoxyCodeLine{175         std::size\_t i(0);}
+\DoxyCodeLine{176         \textcolor{keywordflow}{for}(std::size\_t j = 1; j < Ny -\/ 1; ++j) \{}
+\DoxyCodeLine{177       \textcolor{keywordtype}{double} x = source.coord(i,j).first;}
+\DoxyCodeLine{178       \textcolor{keywordtype}{double} Xd = source.FnComp\_Xd(x);}
+\DoxyCodeLine{179       \textcolor{keywordtype}{double} y = source.coord(i,j).second;}
+\DoxyCodeLine{180       \textcolor{keywordtype}{double} Yd = source.FnComp\_Yd(y);}
+\DoxyCodeLine{181           uv(i, j, 0) = (source(i, j + 1, 0) -\/ source(i, j -\/ 1, 0)) * Yd / (2 * dY);}
+\DoxyCodeLine{182           uv(i, j, 1) = -\/(-\/source(i + 2, j, 0) + 4. * source(i + 1, j, 0) -\/ 3. * source(i, j, 0)) * Xd / (2 * dX);}
+\DoxyCodeLine{183         \}}
+\DoxyCodeLine{184       \}}
+\DoxyCodeLine{185       \{}
+\DoxyCodeLine{186         \textcolor{comment}{// east internal nodes}}
+\DoxyCodeLine{187         std::size\_t i(Nx -\/ 1);}
+\DoxyCodeLine{188         \textcolor{keywordflow}{for}(std::size\_t j = 1; j < Ny -\/ 1; ++j) \{}
+\DoxyCodeLine{189       \textcolor{keywordtype}{double} x = source.coord(i,j).first;}
+\DoxyCodeLine{190       \textcolor{keywordtype}{double} Xd = source.FnComp\_Xd(x);}
+\DoxyCodeLine{191       \textcolor{keywordtype}{double} y = source.coord(i,j).second;}
+\DoxyCodeLine{192       \textcolor{keywordtype}{double} Yd = source.FnComp\_Yd(y);}
+\DoxyCodeLine{193           uv(i, j, 0) = (source(i, j + 1, 0) -\/ source(i, j -\/ 1, 0)) * Yd / (2 * dY);}
+\DoxyCodeLine{194           uv(i, j, 1) = -\/(source(i -\/ 2, j, 0) -\/ 4. * source(i -\/ 1, j, 0) + 3. * source(i, j, 0)) * Xd / (2 * dX);}
+\DoxyCodeLine{195         \}}
+\DoxyCodeLine{196       \}}
+\DoxyCodeLine{197       \{}
+\DoxyCodeLine{198         \textcolor{comment}{// south internal nodes}}
+\DoxyCodeLine{199         std::size\_t j(0);}
+\DoxyCodeLine{200         \textcolor{keywordflow}{for}(std::size\_t i = 1; i < Nx -\/ 1; ++i) \{}
+\DoxyCodeLine{201       \textcolor{keywordtype}{double} x = source.coord(i,j).first;}
+\DoxyCodeLine{202       \textcolor{keywordtype}{double} Xd = source.FnComp\_Xd(x);}
+\DoxyCodeLine{203       \textcolor{keywordtype}{double} y = source.coord(i,j).second;}
+\DoxyCodeLine{204       \textcolor{keywordtype}{double} Yd = source.FnComp\_Yd(y);}
+\DoxyCodeLine{205           uv(i, j, 0) = (-\/source(i, j + 2, 0) + 4. *  source(i, j + 1, 0) -\/ 3. * source(i, j, 0))* Yd / (2 * dY);}
+\DoxyCodeLine{206           uv(i, j, 1) = -\/(source(i + 1, j, 0) -\/ source(i -\/ 1, j, 0)) * Xd / (2 * dX);}
+\DoxyCodeLine{207         \}}
+\DoxyCodeLine{208       \}}
+\DoxyCodeLine{209       \{}
+\DoxyCodeLine{210         \textcolor{comment}{// north internal nodes}}
+\DoxyCodeLine{211         std::size\_t j(Ny -\/ 1);}
+\DoxyCodeLine{212         \textcolor{keywordflow}{for}(std::size\_t i = 1; i < Nx -\/ 1; ++i) \{}
+\DoxyCodeLine{213       \textcolor{keywordtype}{double} x = source.coord(i,j).first;}
+\DoxyCodeLine{214       \textcolor{keywordtype}{double} Xd = source.FnComp\_Xd(x);}
+\DoxyCodeLine{215       \textcolor{keywordtype}{double} y = source.coord(i,j).second;}
+\DoxyCodeLine{216       \textcolor{keywordtype}{double} Yd = source.FnComp\_Yd(y);}
+\DoxyCodeLine{217           uv(i, j, 0) = (source(i, j -\/ 2, 0) -\/ 4. *  source(i, j -\/ 1, 0) + 3. * source(i, j, 0)) * Yd / (2 * dY);}
+\DoxyCodeLine{218           uv(i, j, 1) = -\/(source(i + 1, j, 0) -\/ source(i -\/ 1, j, 0)) * Xd / (2 * dX);}
+\DoxyCodeLine{219         \}}
+\DoxyCodeLine{220       \}}
+\DoxyCodeLine{221       \{}
+\DoxyCodeLine{222         \textcolor{comment}{// corner nodes}}
+\DoxyCodeLine{223         \{}
+\DoxyCodeLine{224           \textcolor{comment}{// sw}}
+\DoxyCodeLine{225           std::size\_t i(0);}
+\DoxyCodeLine{226           std::size\_t j(0);}
+\DoxyCodeLine{227       \textcolor{keywordtype}{double} x = source.coord(i,j).first;}
+\DoxyCodeLine{228       \textcolor{keywordtype}{double} Xd = source.FnComp\_Xd(x);}
+\DoxyCodeLine{229       \textcolor{keywordtype}{double} y = source.coord(i,j).second;}
+\DoxyCodeLine{230       \textcolor{keywordtype}{double} Yd = source.FnComp\_Yd(y);      }
+\DoxyCodeLine{231           uv(i, j, 0) = (-\/source(i, j + 2, 0) + 4. *  source(i, j + 1, 0) -\/ 3. * source(i, j, 0))* Xd / (2 * dY);}
+\DoxyCodeLine{232           uv(i, j, 1) = -\/(-\/source(i + 2, j, 0) + 4. * source(i + 1, j, 0) -\/ 3. * source(i, j, 0))* Yd / (2 * dY);}
+\DoxyCodeLine{233         \}}
+\DoxyCodeLine{234         \{}
+\DoxyCodeLine{235           \textcolor{comment}{// nw}}
+\DoxyCodeLine{236           std::size\_t i(0);}
+\DoxyCodeLine{237           std::size\_t j(Ny -\/ 1);}
+\DoxyCodeLine{238       \textcolor{keywordtype}{double} x = source.coord(i,j).first;}
+\DoxyCodeLine{239       \textcolor{keywordtype}{double} Xd = source.FnComp\_Xd(x);}
+\DoxyCodeLine{240       \textcolor{keywordtype}{double} y = source.coord(i,j).second;}
+\DoxyCodeLine{241       \textcolor{keywordtype}{double} Yd = source.FnComp\_Yd(y);      }
+\DoxyCodeLine{242           uv(i, j, 0) = (source(i, j -\/ 2, 0) -\/ 4. *  source(i, j -\/ 1, 0) + 3. * source(i, j, 0)) * Yd / (2 * dY);}
+\DoxyCodeLine{243           uv(i, j, 1) = -\/(-\/source(i + 2, j, 0) + 4. * source(i + 1, j, 0) -\/ 3. * source(i, j, 0))* Xd / (2 * dX);}
+\DoxyCodeLine{244         \}}
+\DoxyCodeLine{245         \{}
+\DoxyCodeLine{246           \textcolor{comment}{// ne}}
+\DoxyCodeLine{247           std::size\_t i(Nx -\/ 1);}
+\DoxyCodeLine{248           std::size\_t j(Ny -\/ 1);}
+\DoxyCodeLine{249       \textcolor{keywordtype}{double} x = source.coord(i,j).first;}
+\DoxyCodeLine{250       \textcolor{keywordtype}{double} Xd = source.FnComp\_Xd(x);}
+\DoxyCodeLine{251       \textcolor{keywordtype}{double} y = source.coord(i,j).second;}
+\DoxyCodeLine{252       \textcolor{keywordtype}{double} Yd = source.FnComp\_Yd(y);      }
+\DoxyCodeLine{253           uv(i, j, 0) = (source(i, j -\/ 2, 0) -\/ 4. *  source(i, j -\/ 1, 0) + 3. * source(i, j, 0)) * Yd / (2 * dY);}
+\DoxyCodeLine{254           uv(i, j, 1) = -\/(source(i -\/ 2, j, 0) -\/ 4. * source(i -\/ 1, j, 0) + 3. * source(i, j, 0)) * Xd/ (2 * dX);}
+\DoxyCodeLine{255         \}}
+\DoxyCodeLine{256         \{}
+\DoxyCodeLine{257           \textcolor{comment}{// se}}
+\DoxyCodeLine{258           std::size\_t i(Nx -\/ 1);}
+\DoxyCodeLine{259           std::size\_t j(0);}
+\DoxyCodeLine{260       \textcolor{keywordtype}{double} x = source.coord(i,j).first;}
+\DoxyCodeLine{261       \textcolor{keywordtype}{double} Xd = source.FnComp\_Xd(x);}
+\DoxyCodeLine{262       \textcolor{keywordtype}{double} y = source.coord(i,j).second;}
+\DoxyCodeLine{263       \textcolor{keywordtype}{double} Yd = source.FnComp\_Yd(y);      }
+\DoxyCodeLine{264           uv(i, j, 0) = (-\/source(i, j + 2, 0) + 4. *  source(i, j + 1, 0) -\/ 3. * source(i, j, 0))* Yd / (2 * dY);}
+\DoxyCodeLine{265           uv(i, j, 1) = -\/(source(i -\/ 2, j, 0) -\/ 4. * source(i -\/ 1, j, 0) + 3. * source(i, j, 0)) * Xd / (2 * dX);}
+\DoxyCodeLine{266         \}}
+\DoxyCodeLine{267       \}}
+\DoxyCodeLine{268       \{}
+\DoxyCodeLine{269         \textcolor{comment}{// interior nodes}}
+\DoxyCodeLine{270         \textcolor{keywordflow}{for}(std::size\_t i = 1; i < Nx -\/ 1; ++i) \{}
+\DoxyCodeLine{271           \textcolor{keywordflow}{for}(std::size\_t j = 1; j < Ny -\/ 1; ++j) \{}
+\DoxyCodeLine{272         \textcolor{keywordtype}{double} x = source.coord(i,j).first;}
+\DoxyCodeLine{273         \textcolor{keywordtype}{double} Xd = source.FnComp\_Xd(x);}
+\DoxyCodeLine{274         \textcolor{keywordtype}{double} y = source.coord(i,j).second;}
+\DoxyCodeLine{275         \textcolor{keywordtype}{double} Yd = source.FnComp\_Yd(y);    }
+\DoxyCodeLine{276             uv(i, j, 0) = (source(i, j + 1, 0) -\/ source(i, j -\/ 1, 0)) * Yd / (2 * dY);}
+\DoxyCodeLine{277             uv(i, j, 1) = -\/(source(i + 1, j, 0) -\/ source(i -\/ 1, j, 0)) * Xd / (2 * dX);}
+\DoxyCodeLine{278           \}}
+\DoxyCodeLine{279         \}}
+\DoxyCodeLine{280       \}}
+\DoxyCodeLine{281     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::source().
+
+\mbox{\label{namespaceCppNoddy_1_1Utility_a9424a9a15dc12dec1cebe8d5dd39b973}} 
+\index{CppNoddy::Utility@{CppNoddy::Utility}!vels\_from\_streamfn\_Cartesian@{vels\_from\_streamfn\_Cartesian}}
+\index{vels\_from\_streamfn\_Cartesian@{vels\_from\_streamfn\_Cartesian}!CppNoddy::Utility@{CppNoddy::Utility}}
+\doxyparagraph{vels\_from\_streamfn\_Cartesian()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void Cpp\+Noddy\+::\+Utility\+::vels\+\_\+from\+\_\+streamfn\+\_\+\+Cartesian (\begin{DoxyParamCaption}\item[{const \textbf{ Two\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$ \&}]{source,  }\item[{\textbf{ Two\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$ \&}]{uv }\end{DoxyParamCaption})}
+
+
+
+Definition at line 83 of file Utility.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{83                                                                                                       \{}
+\DoxyCodeLine{84       std::cout << \textcolor{stringliteral}{"PLAIN MESH version\(\backslash\)n"};}
+\DoxyCodeLine{85       std::size\_t Nx(source.get\_nnodes().first);}
+\DoxyCodeLine{86       std::size\_t Ny(source.get\_nnodes().second);}
+\DoxyCodeLine{87       \textcolor{keywordtype}{double} dx(source.coord(1,1).first -\/ source.coord(0,0).first);}
+\DoxyCodeLine{88       \textcolor{keywordtype}{double} dy(source.coord(1,1).second -\/ source.coord(0,0).second);}
+\DoxyCodeLine{89       \textcolor{comment}{// differentiate the streamfunction to get the velocity field}}
+\DoxyCodeLine{90       \{}
+\DoxyCodeLine{91         \textcolor{comment}{// west internal nodes}}
+\DoxyCodeLine{92         std::size\_t i(0);}
+\DoxyCodeLine{93         \textcolor{keywordflow}{for}(std::size\_t j = 1; j < Ny -\/ 1; ++j) \{}
+\DoxyCodeLine{94           uv(i, j, 0) = (source(i, j + 1, 0) -\/ source(i, j -\/ 1, 0)) / (2 * dy);}
+\DoxyCodeLine{95           uv(i, j, 1) = -\/(-\/source(i + 2, j, 0) + 4. * source(i + 1, j, 0) -\/ 3. * source(i, j, 0)) / (2 * dx);}
+\DoxyCodeLine{96         \}}
+\DoxyCodeLine{97       \}}
+\DoxyCodeLine{98       \{}
+\DoxyCodeLine{99         \textcolor{comment}{// east internal nodes}}
+\DoxyCodeLine{100         std::size\_t i(Nx -\/ 1);}
+\DoxyCodeLine{101         \textcolor{keywordflow}{for}(std::size\_t j = 1; j < Ny -\/ 1; ++j) \{}
+\DoxyCodeLine{102           uv(i, j, 0) = (source(i, j + 1, 0) -\/ source(i, j -\/ 1, 0)) / (2 * dy);}
+\DoxyCodeLine{103           uv(i, j, 1) = -\/(source(i -\/ 2, j, 0) -\/ 4. * source(i -\/ 1, j, 0) + 3. * source(i, j, 0)) / (2 * dx);}
+\DoxyCodeLine{104         \}}
+\DoxyCodeLine{105       \}}
+\DoxyCodeLine{106       \{}
+\DoxyCodeLine{107         \textcolor{comment}{// south internal nodes}}
+\DoxyCodeLine{108         std::size\_t j(0);}
+\DoxyCodeLine{109         \textcolor{keywordflow}{for}(std::size\_t i = 1; i < Nx -\/ 1; ++i) \{}
+\DoxyCodeLine{110           uv(i, j, 0) = (-\/source(i, j + 2, 0) + 4. *  source(i, j + 1, 0) -\/ 3. * source(i, j, 0)) / (2 * dy);}
+\DoxyCodeLine{111           uv(i, j, 1) = -\/(source(i + 1, j, 0) -\/ source(i -\/ 1, j, 0)) / (2 * dx);}
+\DoxyCodeLine{112         \}}
+\DoxyCodeLine{113       \}}
+\DoxyCodeLine{114       \{}
+\DoxyCodeLine{115         \textcolor{comment}{// north internal nodes}}
+\DoxyCodeLine{116         std::size\_t j(Ny -\/ 1);}
+\DoxyCodeLine{117         \textcolor{keywordflow}{for}(std::size\_t i = 1; i < Nx -\/ 1; ++i) \{}
+\DoxyCodeLine{118           uv(i, j, 0) = (source(i, j -\/ 2, 0) -\/ 4. *  source(i, j -\/ 1, 0) + 3. * source(i, j, 0)) / (2 * dy);}
+\DoxyCodeLine{119           uv(i, j, 1) = -\/(source(i + 1, j, 0) -\/ source(i -\/ 1, j, 0)) / (2 * dx);}
+\DoxyCodeLine{120         \}}
+\DoxyCodeLine{121       \}}
+\DoxyCodeLine{122       \{}
+\DoxyCodeLine{123         \textcolor{comment}{// corner nodes}}
+\DoxyCodeLine{124         \{}
+\DoxyCodeLine{125           \textcolor{comment}{// sw}}
+\DoxyCodeLine{126           std::size\_t i(0);}
+\DoxyCodeLine{127           std::size\_t j(0);}
+\DoxyCodeLine{128           uv(i, j, 0) = (-\/source(i, j + 2, 0) + 4. *  source(i, j + 1, 0) -\/ 3. * source(i, j, 0)) / (2 * dy);}
+\DoxyCodeLine{129           uv(i, j, 1) = -\/(-\/source(i + 2, j, 0) + 4. * source(i + 1, j, 0) -\/ 3. * source(i, j, 0)) / (2 * dx);}
+\DoxyCodeLine{130         \}}
+\DoxyCodeLine{131         \{}
+\DoxyCodeLine{132           \textcolor{comment}{// nw}}
+\DoxyCodeLine{133           std::size\_t i(0);}
+\DoxyCodeLine{134           std::size\_t j(Ny -\/ 1);}
+\DoxyCodeLine{135           uv(i, j, 0) = (source(i, j -\/ 2, 0) -\/ 4. *  source(i, j -\/ 1, 0) + 3. * source(i, j, 0)) / (2 * dy);}
+\DoxyCodeLine{136           uv(i, j, 1) = -\/(-\/source(i + 2, j, 0) + 4. * source(i + 1, j, 0) -\/ 3. * source(i, j, 0)) / (2 * dx);}
+\DoxyCodeLine{137         \}}
+\DoxyCodeLine{138         \{}
+\DoxyCodeLine{139           \textcolor{comment}{// ne}}
+\DoxyCodeLine{140           std::size\_t i(Nx -\/ 1);}
+\DoxyCodeLine{141           std::size\_t j(Ny -\/ 1);}
+\DoxyCodeLine{142           uv(i, j, 0) = (source(i, j -\/ 2, 0) -\/ 4. *  source(i, j -\/ 1, 0) + 3. * source(i, j, 0)) / (2 * dy);}
+\DoxyCodeLine{143           uv(i, j, 1) = -\/(source(i -\/ 2, j, 0) -\/ 4. * source(i -\/ 1, j, 0) + 3. * source(i, j, 0)) / (2 * dx);}
+\DoxyCodeLine{144         \}}
+\DoxyCodeLine{145         \{}
+\DoxyCodeLine{146           \textcolor{comment}{// se}}
+\DoxyCodeLine{147           std::size\_t i(Nx -\/ 1);}
+\DoxyCodeLine{148           std::size\_t j(0);}
+\DoxyCodeLine{149           uv(i, j, 0) = (-\/source(i, j + 2, 0) + 4. *  source(i, j + 1, 0) -\/ 3. * source(i, j, 0)) / (2 * dy);}
+\DoxyCodeLine{150           uv(i, j, 1) = -\/(source(i -\/ 2, j, 0) -\/ 4. * source(i -\/ 1, j, 0) + 3. * source(i, j, 0)) / (2 * dx);}
+\DoxyCodeLine{151         \}}
+\DoxyCodeLine{152       \}}
+\DoxyCodeLine{153       \{}
+\DoxyCodeLine{154         \textcolor{comment}{// interior nodes}}
+\DoxyCodeLine{155         \textcolor{keywordflow}{for}(std::size\_t i = 1; i < Nx -\/ 1; ++i) \{}
+\DoxyCodeLine{156           \textcolor{keywordflow}{for}(std::size\_t j = 1; j < Ny -\/ 1; ++j) \{}
+\DoxyCodeLine{157             uv(i, j, 0) = (source(i, j + 1, 0) -\/ source(i, j -\/ 1, 0)) / (2 * dy);}
+\DoxyCodeLine{158             uv(i, j, 1) = -\/(source(i + 1, j, 0) -\/ source(i -\/ 1, j, 0)) / (2 * dx);}
+\DoxyCodeLine{159           \}}
+\DoxyCodeLine{160         \}}
+\DoxyCodeLine{161       \}}
+\DoxyCodeLine{162     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::source().
+

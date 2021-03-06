@@ -1,0 +1,94 @@
+\doxysubsection{Cpp\+Noddy\+::Equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$ Class Template Reference}
+\label{classCppNoddy_1_1Equation}\index{CppNoddy::Equation$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation$<$ \_Type, \_Xtype $>$}}
+
+
+An equation object base class used in the B\+V\+P/\+I\+VP classes.  
+
+
+
+
+{\ttfamily \#include $<$Equation.\+h$>$}
+
+Inheritance diagram for Cpp\+Noddy\+::Equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classCppNoddy_1_1Equation}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Equation} (const unsigned \&order)
+\begin{DoxyCompactList}\small\item\em Constructor for equation class. \end{DoxyCompactList}\item 
+virtual \textbf{ $\sim$\+Equation} ()
+\begin{DoxyCompactList}\small\item\em An empty destructor, virtual since we have virtual methods. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type, typename \+\_\+\+Xtype = double$>$\newline
+class Cpp\+Noddy\+::\+Equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$}
+
+An equation object base class used in the B\+V\+P/\+I\+VP classes. 
+
+An equation object is essentially a (\textquotesingle{}square\textquotesingle{}) residual object with an independent variable data member and access methods. By \textquotesingle{}square\textquotesingle{} we mean that it defines N residuals and N state variables. 
+
+Definition at line 22 of file Equation.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Equation_aa772cd64d9de2ef645c0607da633a008}} 
+\index{CppNoddy::Equation$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation$<$ \_Type, \_Xtype $>$}!Equation@{Equation}}
+\index{Equation@{Equation}!CppNoddy::Equation$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{Equation()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Equation}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::\textbf{ Equation} (\begin{DoxyParamCaption}\item[{const unsigned \&}]{order }\end{DoxyParamCaption})}
+
+
+
+Constructor for equation class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em order} & The order of the system \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 11 of file Equation.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11                                                          :}
+\DoxyCodeLine{12     Residual\_with\_coords<\_Type, \_Xtype>(order, 1) \{}
+\DoxyCodeLine{13   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Equation_acdddf7cc21b3c8b84d0034e990cb7bd6}} 
+\index{CppNoddy::Equation$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation$<$ \_Type, \_Xtype $>$}!````~Equation@{$\sim$Equation}}
+\index{````~Equation@{$\sim$Equation}!CppNoddy::Equation$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{$\sim$Equation()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Equation}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::$\sim$\textbf{ Equation}\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+An empty destructor, virtual since we have virtual methods. 
+
+
+
+Definition at line 16 of file Equation.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16                                      \{}
+\DoxyCodeLine{17   \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Equation.\+h}\item 
+src/\textbf{ Equation.\+cpp}\end{DoxyCompactItemize}

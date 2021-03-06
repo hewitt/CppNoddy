@@ -1,0 +1,1401 @@
+\doxysubsection{Cpp\+Noddy\+::Sparse\+Vector$<$ \+\_\+\+Type $>$ Class Template Reference}
+\label{classCppNoddy_1_1SparseVector}\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+
+
+An \doxyref{Sparse\+Vector}{p.}{classCppNoddy_1_1SparseVector} class -- a sparse vector object.  
+
+
+
+
+{\ttfamily \#include $<$Sparse\+Vector.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Sparse\+Vector} (const std\+::size\+\_\+t \&max)
+\begin{DoxyCompactList}\small\item\em Constructor for a non-\/filled vector, to be filled by the user. \end{DoxyCompactList}\item 
+\textbf{ Sparse\+Vector} (const \textbf{ Sparse\+Vector} \&source)
+\begin{DoxyCompactList}\small\item\em Copy constructor. \end{DoxyCompactList}\item 
+\textbf{ Sparse\+Vector} \& \textbf{ operator=} (const \textbf{ Sparse\+Vector} \&source)
+\begin{DoxyCompactList}\small\item\em Assignment operator. \end{DoxyCompactList}\item 
+iter \textbf{ begin} ()
+\begin{DoxyCompactList}\small\item\em Not a full iterator implementation -- just a pass through to the storage container. \end{DoxyCompactList}\item 
+citer \textbf{ begin} () const
+\begin{DoxyCompactList}\small\item\em Not a full iterator implementation -- just a pass through to the storage container. \end{DoxyCompactList}\item 
+iter \textbf{ end} ()
+\begin{DoxyCompactList}\small\item\em Not a full iterator implementation -- just a pass through to the storage container. \end{DoxyCompactList}\item 
+citer \textbf{ end} () const
+\begin{DoxyCompactList}\small\item\em Not a full iterator implementation -- just a pass through to the storage container. \end{DoxyCompactList}\item 
+void \textbf{ resize} (const std\+::size\+\_\+t \&length)
+\begin{DoxyCompactList}\small\item\em Resize the maximum length of the sparse vector. \end{DoxyCompactList}\item 
+void \textbf{ clear} ()
+\begin{DoxyCompactList}\small\item\em Remove all elements from the sparse vector. \end{DoxyCompactList}\item 
+void \textbf{ erase} (const iter \&pos)
+\begin{DoxyCompactList}\small\item\em Erase an element from the vector. \end{DoxyCompactList}\item 
+void \textbf{ erase} (const std\+::size\+\_\+t \&index)
+\begin{DoxyCompactList}\small\item\em Erase an element from th vector. \end{DoxyCompactList}\item 
+void \textbf{ swap} (const std\+::size\+\_\+t \&i, const std\+::size\+\_\+t \&j)
+\begin{DoxyCompactList}\small\item\em Swap elements i and j. \end{DoxyCompactList}\item 
+void \textbf{ swap} (\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&X)
+\begin{DoxyCompactList}\small\item\em Swap A\+LL elements with those of another \doxyref{Sparse\+Vector}{p.}{classCppNoddy_1_1SparseVector}. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ size} () const
+\begin{DoxyCompactList}\small\item\em Find the (max) size of the vector. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ nelts} () const
+\begin{DoxyCompactList}\small\item\em Find the number of non-\/zero elements in the vector. \end{DoxyCompactList}\item 
+\+\_\+\+Type \& \textbf{ set} (const std\+::size\+\_\+t \&i)
+\begin{DoxyCompactList}\small\item\em Set an element of the vector. \end{DoxyCompactList}\item 
+const \+\_\+\+Type \& \textbf{ get} (const std\+::size\+\_\+t \&i) const
+\begin{DoxyCompactList}\small\item\em Get an element of the vector. \end{DoxyCompactList}\item 
+const \+\_\+\+Type \& \textbf{ operator[$\,$]} (const std\+::size\+\_\+t \&i) const
+\begin{DoxyCompactList}\small\item\em Equivalent to the \textquotesingle{}get\textquotesingle{} method. \end{DoxyCompactList}\item 
+\+\_\+\+Type \& \textbf{ operator[$\,$]} (const std\+::size\+\_\+t \&i)
+\begin{DoxyCompactList}\small\item\em Equivalent to the \textquotesingle{}set\textquotesingle{} method. \end{DoxyCompactList}\item 
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ operator+} (const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&X) const
+\begin{DoxyCompactList}\small\item\em Operator overloading for sparse vector addition. \end{DoxyCompactList}\item 
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ operator+} () const
+\begin{DoxyCompactList}\small\item\em Overloading for +. \end{DoxyCompactList}\item 
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ operator-\/} (const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&X) const
+\begin{DoxyCompactList}\small\item\em Operator overloading for sparse vector subtraction. \end{DoxyCompactList}\item 
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ operator-\/} () const
+\begin{DoxyCompactList}\small\item\em Overloading for -\/. \end{DoxyCompactList}\item 
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ operator$\ast$} (const \+\_\+\+Type \&\textbf{ m}) const
+\begin{DoxyCompactList}\small\item\em Overloading multiplication for a scalar. \end{DoxyCompactList}\item 
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ operator$\ast$=} (const \+\_\+\+Type \&\textbf{ m})
+\begin{DoxyCompactList}\small\item\em Overloading $\ast$= for scalar multiplication. \end{DoxyCompactList}\item 
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ operator-\/=} (const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&X)
+\begin{DoxyCompactList}\small\item\em Overloading -\/= for sparse vectors. \end{DoxyCompactList}\item 
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ operator+=} (const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&X)
+\begin{DoxyCompactList}\small\item\em Overloading += for sparse vectors. \end{DoxyCompactList}\item 
+citer \textbf{ find} (std\+::size\+\_\+t i) const
+\begin{DoxyCompactList}\small\item\em Look for an element index. \end{DoxyCompactList}\item 
+const \+\_\+\+Type \textbf{ dot} (const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&x) const
+\begin{DoxyCompactList}\small\item\em A dot product. \end{DoxyCompactList}\item 
+double \textbf{ one\+\_\+norm} () const
+\begin{DoxyCompactList}\small\item\em l1-\/norm. \end{DoxyCompactList}\item 
+double \textbf{ two\+\_\+norm} () const
+\begin{DoxyCompactList}\small\item\em l2-\/norm. \end{DoxyCompactList}\item 
+double \textbf{ inf\+\_\+norm} () const
+\begin{DoxyCompactList}\small\item\em Infinity norm. \end{DoxyCompactList}\item 
+void \textbf{ scale} (const \+\_\+\+Type \&scale)
+\begin{DoxyCompactList}\small\item\em Scale each element of the vector. \end{DoxyCompactList}\item 
+void \textbf{ add} (const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&X)
+\begin{DoxyCompactList}\small\item\em Add a vector, element wise. \end{DoxyCompactList}\item 
+void \textbf{ sub} (const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&X)
+\begin{DoxyCompactList}\small\item\em Subtract a vector, element wise. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ nearest\+\_\+index} (const \+\_\+\+Type \&value) const
+\begin{DoxyCompactList}\small\item\em Find the index of the element N\+E\+A\+R\+E\+ST in value to that specified. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ maxabs\+\_\+index} () const
+\begin{DoxyCompactList}\small\item\em Find the index of the maximum element in the vector. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ minabs\+\_\+index} () const
+\begin{DoxyCompactList}\small\item\em Find the index of the maximum element in the vector. \end{DoxyCompactList}\item 
+void \textbf{ dump} () const
+\begin{DoxyCompactList}\small\item\em Output the sparse vector\textquotesingle{}s contents. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type$>$\newline
+class Cpp\+Noddy\+::\+Sparse\+Vector$<$ \+\_\+\+Type $>$}
+
+An \doxyref{Sparse\+Vector}{p.}{classCppNoddy_1_1SparseVector} class -- a sparse vector object. 
+
+This is templated but intended O\+N\+LY for double or std\+::complex$<$double$>$. 
+
+Definition at line 20 of file Sparse\+Vector.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1SparseVector_a071832852944a57f9fc041b6c0df59c6}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!SparseVector@{SparseVector}}
+\index{SparseVector@{SparseVector}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{SparseVector()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::\textbf{ Sparse\+Vector} (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{max }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for a non-\/filled vector, to be filled by the user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em max} & A maximum size for the sparse vector, used in geometry checking. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 18 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18                                                         : ZERO(0.0), MAX\_SIZE(max)}
+\DoxyCodeLine{19   \{\}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_ab0835f53d71413421129d720dcd25eff}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!SparseVector@{SparseVector}}
+\index{SparseVector@{SparseVector}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{SparseVector()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::\textbf{ Sparse\+Vector} (\begin{DoxyParamCaption}\item[{const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&}]{source }\end{DoxyParamCaption})}
+
+
+
+Copy constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The source object to be copied \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 22 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{22                                                                      \{}
+\DoxyCodeLine{23     *\textcolor{keyword}{this} = source;}
+\DoxyCodeLine{24   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::source().
+
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1SparseVector_a9ee7291ef6dbd746f81ac36de7b5f7b5}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!add@{add}}
+\index{add@{add}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{add()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::add (\begin{DoxyParamCaption}\item[{const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&}]{X }\end{DoxyParamCaption})}
+
+
+
+Add a vector, element wise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em X} & The vector to be added to this object. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 250 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{250                                  \{}
+\DoxyCodeLine{251     *\textcolor{keyword}{this} += X;}
+\DoxyCodeLine{252   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_a223be5ddc6ba9e526e969b68f991112f}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!begin@{begin}}
+\index{begin@{begin}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{begin()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::map$<$ std\+::size\+\_\+t, \+\_\+\+Type $>$\+::const\+\_\+iterator \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::begin\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Not a full iterator implementation -- just a pass through to the storage container. 
+
+Return an iterator pointing to the beginning of the encpsulated S\+TL map storage 
+
+Definition at line 240 of file Sparse\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{240                                                                                 \{}
+\DoxyCodeLine{241     \textcolor{keywordflow}{return} MAP\_VEC.begin();}
+\DoxyCodeLine{242   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_a86001aada524380df51da7b359b50930}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!begin@{begin}}
+\index{begin@{begin}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{begin()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+citer \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Not a full iterator implementation -- just a pass through to the storage container. 
+
+Return a constant iterator pointing to the beginning of the encapsulated S\+TL map storage \mbox{\label{classCppNoddy_1_1SparseVector_af18b5411204996cb0ddeaf1c13447e12}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!clear@{clear}}
+\index{clear@{clear}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{clear()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::clear}
+
+
+
+Remove all elements from the sparse vector. 
+
+
+
+Definition at line 181 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{181                                   \{}
+\DoxyCodeLine{182     MAP\_VEC.clear();}
+\DoxyCodeLine{183   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_a7aef6956498e43ef859c42af0948c20c}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!dot@{dot}}
+\index{dot@{dot}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{dot()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+const \+\_\+\+Type \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::dot (\begin{DoxyParamCaption}\item[{const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&}]{x }\end{DoxyParamCaption}) const}
+
+
+
+A dot product. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The vector to be \char`\"{}dotted\char`\"{} with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\textbf{ Todo}]Using a \textquotesingle{}get\textquotesingle{} (aka find) here is slooow
+\begin{DoxyItemize}
+\item obviously this can be improved. 
+\end{DoxyItemize}\end{DoxyRefDesc}
+
+
+Definition at line 186 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{186                                                                          \{}
+\DoxyCodeLine{187 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{188     \textcolor{keywordflow}{if}(X.size() != size()) \{}
+\DoxyCodeLine{189       std::string problem;}
+\DoxyCodeLine{190       problem = \textcolor{stringliteral}{" The SparseVector.dot method is trying to use \(\backslash\)n"};}
+\DoxyCodeLine{191       problem += \textcolor{stringliteral}{" two vectors of unequal length \(\backslash\)n"};}
+\DoxyCodeLine{192       \textcolor{keywordflow}{throw} ExceptionGeom(problem, size(), X.size());}
+\DoxyCodeLine{193     \}}
+\DoxyCodeLine{194 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{195     SparseVector<\_Type> temp(X);}
+\DoxyCodeLine{196     \_Type sum(0.0);}
+\DoxyCodeLine{197     \textcolor{keywordflow}{for}(iter pos = temp.MAP\_VEC.begin(); pos != temp.MAP\_VEC.end(); ++pos) \{}
+\DoxyCodeLine{198       std::size\_t index = pos -\/> first;\textcolor{comment}{}}
+\DoxyCodeLine{199 \textcolor{comment}{      /// \(\backslash\)todo Using a 'get' (aka find) here is slooow}}
+\DoxyCodeLine{200 \textcolor{comment}{      /// -\/ obviously this can be improved.}}
+\DoxyCodeLine{201 \textcolor{comment}{}      \textcolor{comment}{// the get method returns 0.0 if not stored}}
+\DoxyCodeLine{202       temp[ index ] *= get(index);}
+\DoxyCodeLine{203     \}}
+\DoxyCodeLine{204     \textcolor{keywordflow}{return} sum;}
+\DoxyCodeLine{205   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Sparse\+Vector$<$ \+\_\+\+Type $>$\+::size().
+
+\mbox{\label{classCppNoddy_1_1SparseVector_a39440af7fa3b4cd969748325c5a1113d}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!dump@{dump}}
+\index{dump@{dump}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{dump()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::dump}
+
+
+
+Output the sparse vector\textquotesingle{}s contents. 
+
+
+
+Definition at line 317 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{317                                        \{}
+\DoxyCodeLine{318     \textcolor{keywordflow}{if}(MAP\_VEC.begin() == MAP\_VEC.end()) \{}
+\DoxyCodeLine{319       std::cout << \textcolor{stringliteral}{"[ Empty vector ]\(\backslash\)n"};}
+\DoxyCodeLine{320     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{321       \textcolor{keywordflow}{for}(citer pos = MAP\_VEC.begin(); pos != MAP\_VEC.end(); ++pos) \{}
+\DoxyCodeLine{322         std::cout << \textcolor{stringliteral}{"[ "} << pos -\/> first << \textcolor{stringliteral}{" ]"} << \textcolor{stringliteral}{" = "} << pos -\/> second << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{323       \}}
+\DoxyCodeLine{324       std::cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{325     \}}
+\DoxyCodeLine{326   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_ad00993d042a58325ce50857e041e1a38}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!end@{end}}
+\index{end@{end}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{end()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::map$<$ std\+::size\+\_\+t, \+\_\+\+Type $>$\+::const\+\_\+iterator \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::end\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Not a full iterator implementation -- just a pass through to the storage container. 
+
+Return an iterator pointing to the end of the encapsulated S\+TL map storage 
+
+Definition at line 250 of file Sparse\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{250                                                                               \{}
+\DoxyCodeLine{251     \textcolor{keywordflow}{return} MAP\_VEC.end();}
+\DoxyCodeLine{252   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_ae9364647fd7f0f85e63b489ea8ac97d6}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!end@{end}}
+\index{end@{end}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{end()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+citer \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Not a full iterator implementation -- just a pass through to the storage container. 
+
+Return a constant iterator pointing to the end of the encapsulated S\+TL map storage \mbox{\label{classCppNoddy_1_1SparseVector_a3c1d9245c75eb0cf7313490c55b82420}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!erase@{erase}}
+\index{erase@{erase}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{erase()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::erase (\begin{DoxyParamCaption}\item[{const iter \&}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Erase an element from the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & An std\+::map$<$ std\+::size\+\_\+t, \+\_\+\+Type $>$\+::iterator to the map element \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 333 of file Sparse\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{333                                                         \{}
+\DoxyCodeLine{334     MAP\_VEC.erase(pos);}
+\DoxyCodeLine{335   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_ab0c6cc96d9faf21a2083ee8f7be25333}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!erase@{erase}}
+\index{erase@{erase}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{erase()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::erase (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Erase an element from th vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The index of the element to be erased \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 328 of file Sparse\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{328                                                                \{}
+\DoxyCodeLine{329     MAP\_VEC.erase(index);}
+\DoxyCodeLine{330   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_a0187c60bd7e302bca0a92a68c5102699}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!find@{find}}
+\index{find@{find}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{find()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+citer \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::find (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Look for an element index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the element to search for \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 151 of file Sparse\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{151                                   \{}
+\DoxyCodeLine{152       citer pos;}
+\DoxyCodeLine{153       pos = MAP\_VEC.find(i);}
+\DoxyCodeLine{154       \textcolor{keywordflow}{return} pos;}
+\DoxyCodeLine{155     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_aead74a2c1b75ba9092e7361f17bae2a3}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!get@{get}}
+\index{get@{get}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{get()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+const \+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::get (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get an element of the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index to be accessed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The contents of the element, including a zero if the element has not been set 
+\end{DoxyReturn}
+
+
+Definition at line 299 of file Sparse\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{299                                                                        \{}
+\DoxyCodeLine{300 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{301     \textcolor{keywordflow}{if}(i >= size()) \{}
+\DoxyCodeLine{302       std::string problem;}
+\DoxyCodeLine{303       problem = \textcolor{stringliteral}{" The SparseVector.get method is trying to access \(\backslash\)n"};}
+\DoxyCodeLine{304       problem += \textcolor{stringliteral}{" outside the container. \(\backslash\)n"};}
+\DoxyCodeLine{305       \textcolor{keywordflow}{throw} ExceptionRange(problem, size(), i);}
+\DoxyCodeLine{306     \}}
+\DoxyCodeLine{307 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{308     citer pos;}
+\DoxyCodeLine{309     pos = MAP\_VEC.find(i);}
+\DoxyCodeLine{310     \textcolor{keywordflow}{if}(pos != MAP\_VEC.end()) \{}
+\DoxyCodeLine{311       \textcolor{keywordflow}{return} pos -\/> second;}
+\DoxyCodeLine{312     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{313       \textcolor{keywordflow}{return} ZERO;}
+\DoxyCodeLine{314     \}}
+\DoxyCodeLine{315   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_a0b39432d16e8c7a4cb710b5dc3c71eaf}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!inf\_norm@{inf\_norm}}
+\index{inf\_norm@{inf\_norm}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{inf\_norm()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::inf\+\_\+norm}
+
+
+
+Infinity norm. 
+
+\begin{DoxyReturn}{Returns}
+The maximum (abs) element in the vector. 
+\end{DoxyReturn}
+
+
+Definition at line 230 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{230                                              \{}
+\DoxyCodeLine{231     \textcolor{keywordtype}{double} max(0.0);}
+\DoxyCodeLine{232     \textcolor{comment}{// Return the maximum (abs) element in the vector}}
+\DoxyCodeLine{233     \textcolor{keywordflow}{for}(citer pos = MAP\_VEC.begin(); pos != MAP\_VEC.end(); ++pos) \{}
+\DoxyCodeLine{234       \textcolor{keywordflow}{if}(std::abs(pos -\/> second) > max) \{}
+\DoxyCodeLine{235         max = std::abs(pos -\/> second);}
+\DoxyCodeLine{236       \}}
+\DoxyCodeLine{237     \}}
+\DoxyCodeLine{238     \textcolor{keywordflow}{return} max;}
+\DoxyCodeLine{239   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_ac04969f96964cd55c8955fc33599aec2}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!maxabs\_index@{maxabs\_index}}
+\index{maxabs\_index@{maxabs\_index}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{maxabs\_index()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::maxabs\+\_\+index}
+
+
+
+Find the index of the maximum element in the vector. 
+
+\begin{DoxyReturn}{Returns}
+The index of the maximum element. 
+\end{DoxyReturn}
+
+
+Definition at line 275 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{275                                                     \{}
+\DoxyCodeLine{276     citer location(MAP\_VEC.begin());}
+\DoxyCodeLine{277     \textcolor{keywordtype}{double} max(std::abs(location -\/> second));}
+\DoxyCodeLine{278     citer start(++location);}
+\DoxyCodeLine{279     \textcolor{keywordflow}{for}(citer pos = start; pos != MAP\_VEC.end(); ++pos) \{}
+\DoxyCodeLine{280       \textcolor{keywordflow}{if}(std::abs(pos -\/> second) > max) \{}
+\DoxyCodeLine{281         max = std::abs(pos -\/> second);}
+\DoxyCodeLine{282         location = pos;}
+\DoxyCodeLine{283       \}}
+\DoxyCodeLine{284     \}}
+\DoxyCodeLine{285     \textcolor{keywordflow}{return} location -\/> first;}
+\DoxyCodeLine{286   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_ae1ef592e070d2b907fed1c5b0b5d7196}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!minabs\_index@{minabs\_index}}
+\index{minabs\_index@{minabs\_index}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{minabs\_index()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::minabs\+\_\+index}
+
+
+
+Find the index of the maximum element in the vector. 
+
+\begin{DoxyReturn}{Returns}
+The index of the maximum element. 
+\end{DoxyReturn}
+
+
+Definition at line 289 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{289                                                     \{}
+\DoxyCodeLine{290     citer location(MAP\_VEC.begin());}
+\DoxyCodeLine{291     \textcolor{keywordtype}{double} min(std::abs(location -\/> second));}
+\DoxyCodeLine{292     citer start(++location);}
+\DoxyCodeLine{293     \textcolor{keywordflow}{for}(citer pos = start; pos != MAP\_VEC.end(); ++pos) \{}
+\DoxyCodeLine{294       \textcolor{keywordflow}{if}(std::abs(pos -\/> second) < min) \{}
+\DoxyCodeLine{295         min = std::abs(pos -\/> second);}
+\DoxyCodeLine{296         location = pos;}
+\DoxyCodeLine{297       \}}
+\DoxyCodeLine{298     \}}
+\DoxyCodeLine{299     \textcolor{keywordflow}{return} location -\/> first;}
+\DoxyCodeLine{300   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_ae3022018003aef276f6e3b408cd136a8}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!nearest\_index@{nearest\_index}}
+\index{nearest\_index@{nearest\_index}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{nearest\_index()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::nearest\+\_\+index (\begin{DoxyParamCaption}\item[{const \+\_\+\+Type \&}]{value }\end{DoxyParamCaption}) const}
+
+
+
+Find the index of the element N\+E\+A\+R\+E\+ST in value to that specified. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The value to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the element with value that minimises the difference. 
+\end{DoxyReturn}
+
+
+Definition at line 260 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{260                                                                        \{}
+\DoxyCodeLine{261     citer location(MAP\_VEC.begin());}
+\DoxyCodeLine{262     \_Type min\_diff(location -\/> second -\/ value);}
+\DoxyCodeLine{263     citer start(++location);}
+\DoxyCodeLine{264     \textcolor{keywordflow}{for}(citer pos = start; pos != MAP\_VEC.end(); ++pos) \{}
+\DoxyCodeLine{265       \_Type diff(pos -\/> second -\/ value);}
+\DoxyCodeLine{266       \textcolor{keywordflow}{if}(std::abs(diff) < std::abs(min\_diff)) \{}
+\DoxyCodeLine{267         min\_diff = diff;}
+\DoxyCodeLine{268         location = pos;}
+\DoxyCodeLine{269       \}}
+\DoxyCodeLine{270     \}}
+\DoxyCodeLine{271     \textcolor{keywordflow}{return} location -\/> first;}
+\DoxyCodeLine{272   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_a3c3ac241219ddf3a14261c6b4be6cf9e}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!nelts@{nelts}}
+\index{nelts@{nelts}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{nelts()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::nelts\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Find the number of non-\/zero elements in the vector. 
+
+
+
+Definition at line 323 of file Sparse\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{323                                                     \{}
+\DoxyCodeLine{324     \textcolor{keywordflow}{return} MAP\_VEC.size();}
+\DoxyCodeLine{325   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_aec394c9b08ec143c3af9f9d2fef3972e}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!one\_norm@{one\_norm}}
+\index{one\_norm@{one\_norm}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{one\_norm()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::one\+\_\+norm}
+
+
+
+l1-\/norm. 
+
+\begin{DoxyReturn}{Returns}
+The square-\/root of the sum of the squares divided by number of elts. 
+\end{DoxyReturn}
+
+
+Definition at line 208 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{208                                              \{}
+\DoxyCodeLine{209     \textcolor{comment}{// Accumulate the ABS values of the container entries}}
+\DoxyCodeLine{210     \textcolor{comment}{// using a fuction object.}}
+\DoxyCodeLine{211     \textcolor{keywordtype}{double} sum(0.0);}
+\DoxyCodeLine{212     \textcolor{keywordflow}{for}(citer pos = MAP\_VEC.begin(); pos != MAP\_VEC.end(); ++pos) \{}
+\DoxyCodeLine{213       sum += std::abs(pos -\/> second);}
+\DoxyCodeLine{214     \}}
+\DoxyCodeLine{215     \textcolor{keywordflow}{return} sum;}
+\DoxyCodeLine{216   \}}
+
+\end{DoxyCode}
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1SparseVector_ab882929e841172689138872a2684b5bf}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{operator$\ast$()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{const \+\_\+\+Type \&}]{m }\end{DoxyParamCaption}) const}
+
+
+
+Overloading multiplication for a scalar. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & The scalar to multiply by \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The scalar multiplication of the vector 
+\end{DoxyReturn}
+
+
+Definition at line 168 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{168                                                                          \{}
+\DoxyCodeLine{169     SparseVector<\_Type> temp(*\textcolor{keyword}{this});}
+\DoxyCodeLine{170     temp *= m;}
+\DoxyCodeLine{171     \textcolor{keywordflow}{return} temp;}
+\DoxyCodeLine{172   \}}
+
+\end{DoxyCode}
+
+
+References m.
+
+\mbox{\label{classCppNoddy_1_1SparseVector_a2cf0debd7f6898286793d5971f3d93ba}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!operator$\ast$=@{operator$\ast$=}}
+\index{operator$\ast$=@{operator$\ast$=}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{operator$\ast$=()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::operator$\ast$= (\begin{DoxyParamCaption}\item[{const \+\_\+\+Type \&}]{m }\end{DoxyParamCaption})}
+
+
+
+Overloading $\ast$= for scalar multiplication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & The scalar to multiply by \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 37 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{37                                                                      \{}
+\DoxyCodeLine{38     \textcolor{keywordflow}{for}(iter pos = MAP\_VEC.begin(); pos != MAP\_VEC.end(); ++pos) \{}
+\DoxyCodeLine{39       pos -\/> second *= m;}
+\DoxyCodeLine{40     \}}
+\DoxyCodeLine{41     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{42   \}}
+
+\end{DoxyCode}
+
+
+References m.
+
+\mbox{\label{classCppNoddy_1_1SparseVector_adece0fbfd6a1fb09ec96d758510f2185}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!operator+@{operator+}}
+\index{operator+@{operator+}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{operator+()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::operator+\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading for +. 
+
+\begin{DoxyReturn}{Returns}
++this 
+\end{DoxyReturn}
+
+
+Definition at line 351 of file Sparse\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{351                                                                   \{}
+\DoxyCodeLine{352     \textcolor{keywordflow}{return} * \textcolor{keyword}{this};}
+\DoxyCodeLine{353   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_ad47d9b963f3bff691865b16d9b15ddec}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!operator+@{operator+}}
+\index{operator+@{operator+}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{operator+()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::operator+ (\begin{DoxyParamCaption}\item[{const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&}]{X }\end{DoxyParamCaption}) const}
+
+
+
+Operator overloading for sparse vector addition. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em X} & A sparse vector to be added \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The sum of this and the passed vector X 
+\end{DoxyReturn}
+
+
+Definition at line 131 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{131                                                                                        \{}
+\DoxyCodeLine{132 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{133     \textcolor{keywordflow}{if}(X.size() != size()) \{}
+\DoxyCodeLine{134       std::string problem;}
+\DoxyCodeLine{135       problem = \textcolor{stringliteral}{" The SparseVector.operator+ method is trying to use \(\backslash\)n"};}
+\DoxyCodeLine{136       problem += \textcolor{stringliteral}{" two vectors of unequal length \(\backslash\)n"};}
+\DoxyCodeLine{137       \textcolor{keywordflow}{throw} ExceptionGeom(problem, size(), X.size());}
+\DoxyCodeLine{138     \}}
+\DoxyCodeLine{139 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{140     SparseVector<\_Type> temp(*\textcolor{keyword}{this});}
+\DoxyCodeLine{141     temp += X;}
+\DoxyCodeLine{142     \textcolor{keywordflow}{return} temp;}
+\DoxyCodeLine{143   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Sparse\+Vector$<$ \+\_\+\+Type $>$\+::size().
+
+\mbox{\label{classCppNoddy_1_1SparseVector_abfe0537b3cffc4311f4490854b18ef98}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{operator+=()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::operator+= (\begin{DoxyParamCaption}\item[{const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&}]{X }\end{DoxyParamCaption})}
+
+
+
+Overloading += for sparse vectors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em X} & The sparse vector to be added \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Adds X to the \textquotesingle{}this\textquotesingle{} vector 
+\end{DoxyReturn}
+
+
+Definition at line 88 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{88                                                                                    \{}
+\DoxyCodeLine{89 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{90     \textcolor{keywordflow}{if}(X.size() != size()) \{}
+\DoxyCodeLine{91       std::string problem;}
+\DoxyCodeLine{92       problem = \textcolor{stringliteral}{" The SparseVector.operator+= method is trying to use \(\backslash\)n"};}
+\DoxyCodeLine{93       problem += \textcolor{stringliteral}{" two vectors of unequal length \(\backslash\)n"};}
+\DoxyCodeLine{94       \textcolor{keywordflow}{throw} ExceptionGeom(problem, size(), X.size());}
+\DoxyCodeLine{95     \}}
+\DoxyCodeLine{96 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{97     citer pos\_ro = X.MAP\_VEC.begin();}
+\DoxyCodeLine{98     iter pos\_rw = MAP\_VEC.begin();}
+\DoxyCodeLine{99     \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{100       std::size\_t index\_rw = pos\_rw -\/> first;}
+\DoxyCodeLine{101       std::size\_t index\_ro = pos\_ro -\/> first;}
+\DoxyCodeLine{102       \textcolor{keywordflow}{if}(index\_rw == index\_ro) \{}
+\DoxyCodeLine{103         \textcolor{comment}{// element in both vectors}}
+\DoxyCodeLine{104         pos\_rw -\/> second += pos\_ro -\/> second;}
+\DoxyCodeLine{105         ++pos\_rw;}
+\DoxyCodeLine{106         ++pos\_ro;}
+\DoxyCodeLine{107       \}}
+\DoxyCodeLine{108       \textcolor{keywordflow}{if}(index\_rw > index\_ro) \{}
+\DoxyCodeLine{109         \textcolor{comment}{// element is in X but not 'this'}}
+\DoxyCodeLine{110         set}
+\DoxyCodeLine{111         (index\_ro) = pos\_ro -\/> second;}
+\DoxyCodeLine{112         ++pos\_ro;}
+\DoxyCodeLine{113       \}}
+\DoxyCodeLine{114       \textcolor{keywordflow}{if}(index\_rw < index\_ro) \{}
+\DoxyCodeLine{115         \textcolor{comment}{// element is in 'this' but not X}}
+\DoxyCodeLine{116         ++pos\_rw;}
+\DoxyCodeLine{117       \}}
+\DoxyCodeLine{118     \} \textcolor{keywordflow}{while}(pos\_ro != X.MAP\_VEC.end() \&\& pos\_rw != MAP\_VEC.end());}
+\DoxyCodeLine{119     \textcolor{keywordflow}{if}(pos\_ro != X.MAP\_VEC.end()) \{}
+\DoxyCodeLine{120       \textcolor{comment}{// need to finish the X data}}
+\DoxyCodeLine{121       \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{122         set}
+\DoxyCodeLine{123         (pos\_ro -\/> first) = pos\_ro -\/> second;}
+\DoxyCodeLine{124         ++pos\_ro;}
+\DoxyCodeLine{125       \} \textcolor{keywordflow}{while}(pos\_ro != X.MAP\_VEC.end());}
+\DoxyCodeLine{126     \}}
+\DoxyCodeLine{127     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{128   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Sparse\+Vector$<$ \+\_\+\+Type $>$\+::size().
+
+\mbox{\label{classCppNoddy_1_1SparseVector_ae549e8d1b6e63e1be457d61cf9d6223c}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{operator-\/()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::operator-\/}
+
+
+
+Overloading for -\/. 
+
+\begin{DoxyReturn}{Returns}
+The negative of the vector 
+\end{DoxyReturn}
+
+
+Definition at line 161 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{161                                                            \{}
+\DoxyCodeLine{162     SparseVector<\_Type> temp(*\textcolor{keyword}{this});}
+\DoxyCodeLine{163     temp *= -\/1.0;}
+\DoxyCodeLine{164     \textcolor{keywordflow}{return} temp;}
+\DoxyCodeLine{165   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_ace202bf2bf92d906a2db598e6b285efe}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{operator-\/()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::operator-\/ (\begin{DoxyParamCaption}\item[{const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&}]{X }\end{DoxyParamCaption}) const}
+
+
+
+Operator overloading for sparse vector subtraction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em X} & A sparse vector to be subtracted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The subtraction of this and the passed vector X 
+\end{DoxyReturn}
+
+
+Definition at line 146 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{146                                                                                        \{}
+\DoxyCodeLine{147 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{148     \textcolor{keywordflow}{if}(X.size() != size()) \{}
+\DoxyCodeLine{149       std::string problem;}
+\DoxyCodeLine{150       problem = \textcolor{stringliteral}{" The SparseVector.operator-\/ method is trying to use \(\backslash\)n"};}
+\DoxyCodeLine{151       problem += \textcolor{stringliteral}{" two vectors of unequal length \(\backslash\)n"};}
+\DoxyCodeLine{152       \textcolor{keywordflow}{throw} ExceptionGeom(problem, size(), X.size());}
+\DoxyCodeLine{153     \}}
+\DoxyCodeLine{154 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{155     SparseVector<\_Type> temp(*\textcolor{keyword}{this});}
+\DoxyCodeLine{156     temp -\/= X;}
+\DoxyCodeLine{157     \textcolor{keywordflow}{return} temp;}
+\DoxyCodeLine{158   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Sparse\+Vector$<$ \+\_\+\+Type $>$\+::size().
+
+\mbox{\label{classCppNoddy_1_1SparseVector_aa6672b14fbdf77da915d0925cd532ee3}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!operator-\/=@{operator-\/=}}
+\index{operator-\/=@{operator-\/=}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{operator-\/=()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::operator-\/= (\begin{DoxyParamCaption}\item[{const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&}]{X }\end{DoxyParamCaption})}
+
+
+
+Overloading -\/= for sparse vectors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em X} & The sparse vector to be subtracted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Subtracts X from the \textquotesingle{}this\textquotesingle{} vector 
+\end{DoxyReturn}
+
+
+Definition at line 45 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{45                                                                                    \{}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{47     \textcolor{keywordflow}{if}(X.size() != size()) \{}
+\DoxyCodeLine{48       std::string problem;}
+\DoxyCodeLine{49       problem = \textcolor{stringliteral}{" The SparseVector.operator-\/= method is trying to use \(\backslash\)n"};}
+\DoxyCodeLine{50       problem += \textcolor{stringliteral}{" two vectors of unequal length \(\backslash\)n"};}
+\DoxyCodeLine{51       \textcolor{keywordflow}{throw} ExceptionGeom(problem, size(), X.size());}
+\DoxyCodeLine{52     \}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{54     citer pos\_ro = X.MAP\_VEC.begin();}
+\DoxyCodeLine{55     iter pos\_rw = MAP\_VEC.begin();}
+\DoxyCodeLine{56     \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{57       std::size\_t index\_rw = pos\_rw -\/> first;}
+\DoxyCodeLine{58       std::size\_t index\_ro = pos\_ro -\/> first;}
+\DoxyCodeLine{59       \textcolor{keywordflow}{if}(index\_rw == index\_ro) \{}
+\DoxyCodeLine{60         \textcolor{comment}{// element in both vectors}}
+\DoxyCodeLine{61         pos\_rw -\/> second -\/= pos\_ro -\/> second;}
+\DoxyCodeLine{62         ++pos\_rw;}
+\DoxyCodeLine{63         ++pos\_ro;}
+\DoxyCodeLine{64       \}}
+\DoxyCodeLine{65       \textcolor{keywordflow}{if}(index\_rw > index\_ro) \{}
+\DoxyCodeLine{66         \textcolor{comment}{// element is in X but not 'this'}}
+\DoxyCodeLine{67         set}
+\DoxyCodeLine{68         (index\_ro) = -\/(pos\_ro -\/> second);}
+\DoxyCodeLine{69         ++pos\_ro;}
+\DoxyCodeLine{70       \}}
+\DoxyCodeLine{71       \textcolor{keywordflow}{if}(index\_rw < index\_ro) \{}
+\DoxyCodeLine{72         \textcolor{comment}{// element is in 'this' but not X}}
+\DoxyCodeLine{73         ++pos\_rw;}
+\DoxyCodeLine{74       \}}
+\DoxyCodeLine{75     \} \textcolor{keywordflow}{while}(pos\_ro != X.MAP\_VEC.end() \&\& pos\_rw != MAP\_VEC.end());}
+\DoxyCodeLine{76     \textcolor{keywordflow}{if}(pos\_ro != X.MAP\_VEC.end()) \{}
+\DoxyCodeLine{77       \textcolor{comment}{// need to finish the X data}}
+\DoxyCodeLine{78       \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{79         set}
+\DoxyCodeLine{80         (pos\_ro -\/> first) = -\/(pos\_ro -\/> second);}
+\DoxyCodeLine{81         ++pos\_ro;}
+\DoxyCodeLine{82       \} \textcolor{keywordflow}{while}(pos\_ro != X.MAP\_VEC.end());}
+\DoxyCodeLine{83     \}}
+\DoxyCodeLine{84     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{85   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Sparse\+Vector$<$ \+\_\+\+Type $>$\+::size().
+
+\mbox{\label{classCppNoddy_1_1SparseVector_ac9d79e0d6e230bdf29ae167183464f2c}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{operator=()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&}]{source }\end{DoxyParamCaption})}
+
+
+
+Assignment operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The source object for the assignment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The newly assigned object 
+\end{DoxyReturn}
+
+
+Definition at line 27 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{27                                                                                        \{}
+\DoxyCodeLine{28     \textcolor{keywordflow}{if}(\textcolor{keyword}{this} == \&source)}
+\DoxyCodeLine{29       \textcolor{keywordflow}{return} * \textcolor{keyword}{this};}
+\DoxyCodeLine{30     MAP\_VEC = source.MAP\_VEC;}
+\DoxyCodeLine{31     ZERO = source.ZERO;}
+\DoxyCodeLine{32     MAX\_SIZE = source.MAX\_SIZE;}
+\DoxyCodeLine{33     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{34   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::source().
+
+\mbox{\label{classCppNoddy_1_1SparseVector_afed7588550c6a281723a2f2bc59b7ca9}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!operator[]@{operator[]}}
+\index{operator[]@{operator[]}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{operator[]()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::operator[$\,$] (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Equivalent to the \textquotesingle{}set\textquotesingle{} method. 
+
+
+
+Definition at line 260 of file Sparse\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{260                                                                   \{}
+\DoxyCodeLine{261 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{262     \textcolor{keywordflow}{if}(i >= size()) \{}
+\DoxyCodeLine{263       std::string problem;}
+\DoxyCodeLine{264       problem = \textcolor{stringliteral}{" The SparseVector.operator[] method is trying to access \(\backslash\)n"};}
+\DoxyCodeLine{265       problem += \textcolor{stringliteral}{" outside the container. \(\backslash\)n"};}
+\DoxyCodeLine{266       \textcolor{keywordflow}{throw} ExceptionRange(problem, size(), i);}
+\DoxyCodeLine{267     \}}
+\DoxyCodeLine{268 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{269     \textcolor{keywordflow}{return} MAP\_VEC[ i ];}
+\DoxyCodeLine{270   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_a323a26abed3ab11a2b6efb2b3fc465fa}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!operator[]@{operator[]}}
+\index{operator[]@{operator[]}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{operator[]()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+const \+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::operator[$\,$] (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Equivalent to the \textquotesingle{}get\textquotesingle{} method. 
+
+
+
+Definition at line 273 of file Sparse\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{273                                                                               \{}
+\DoxyCodeLine{274 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{275     \textcolor{keywordflow}{if}(i >= size()) \{}
+\DoxyCodeLine{276       std::string problem;}
+\DoxyCodeLine{277       problem = \textcolor{stringliteral}{" The SparseVector.operator[] method is trying to access \(\backslash\)n"};}
+\DoxyCodeLine{278       problem += \textcolor{stringliteral}{" outside the container. \(\backslash\)n"};}
+\DoxyCodeLine{279       \textcolor{keywordflow}{throw} ExceptionRange(problem, size(), i);}
+\DoxyCodeLine{280     \}}
+\DoxyCodeLine{281 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{282     \textcolor{keywordflow}{return} get(i);}
+\DoxyCodeLine{283   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_a2965b88aaa9f36b8df6eaed73a5b51e1}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!resize@{resize}}
+\index{resize@{resize}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{resize()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::resize (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{length }\end{DoxyParamCaption})}
+
+
+
+Resize the maximum length of the sparse vector. 
+
+The maximum length is used in geometry checking. 
+\begin{DoxyParams}{Parameters}
+{\em length} & The new maximum length of the vector \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 176 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{176                                                           \{}
+\DoxyCodeLine{177     MAX\_SIZE = length;}
+\DoxyCodeLine{178   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_a0b5266d94ec7454a38fa71db3217f464}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!scale@{scale}}
+\index{scale@{scale}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{scale()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::scale (\begin{DoxyParamCaption}\item[{const \+\_\+\+Type \&}]{scale }\end{DoxyParamCaption})}
+
+
+
+Scale each element of the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scale} & The value to scale each element by. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 242 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{242                                                     \{}
+\DoxyCodeLine{243     \textcolor{keywordflow}{for}(iter pos = MAP\_VEC.begin(); pos != MAP\_VEC.end(); ++pos) \{}
+\DoxyCodeLine{244       pos -\/> second *= scale;}
+\DoxyCodeLine{245     \}}
+\DoxyCodeLine{246   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_a47d00871a08942507cb37037fc8d5bac}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!set@{set}}
+\index{set@{set}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{set()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::set (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set an element of the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index to be accessed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the element 
+\end{DoxyReturn}
+
+
+Definition at line 286 of file Sparse\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{286                                                            \{}
+\DoxyCodeLine{287 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{288     \textcolor{keywordflow}{if}(i >= size()) \{}
+\DoxyCodeLine{289       std::string problem;}
+\DoxyCodeLine{290       problem = \textcolor{stringliteral}{" The SparseVector.set method is trying to access \(\backslash\)n"};}
+\DoxyCodeLine{291       problem += \textcolor{stringliteral}{" outside the container. \(\backslash\)n"};}
+\DoxyCodeLine{292       \textcolor{keywordflow}{throw} ExceptionRange(problem, size(), i);}
+\DoxyCodeLine{293     \}}
+\DoxyCodeLine{294 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{295     \textcolor{keywordflow}{return} MAP\_VEC[ i ];}
+\DoxyCodeLine{296   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_a6252ebf12ff454f204d019f305ad0dac}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!size@{size}}
+\index{size@{size}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{size()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::size\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Find the (max) size of the vector. 
+
+
+
+Definition at line 318 of file Sparse\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{318                                                    \{}
+\DoxyCodeLine{319     \textcolor{keywordflow}{return} MAX\_SIZE;}
+\DoxyCodeLine{320   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+Sparse\+Vector$<$ \+\_\+\+Type $>$\+::dot(), Cpp\+Noddy\+::\+Sparse\+Vector$<$ \+\_\+\+Type $>$\+::operator+(), Cpp\+Noddy\+::\+Sparse\+Vector$<$ \+\_\+\+Type $>$\+::operator+=(), Cpp\+Noddy\+::\+Sparse\+Vector$<$ \+\_\+\+Type $>$\+::operator-\/(), Cpp\+Noddy\+::\+Sparse\+Vector$<$ \+\_\+\+Type $>$\+::operator-\/=(), and Cpp\+Noddy\+::\+Sparse\+Vector$<$ \+\_\+\+Type $>$\+::swap().
+
+\mbox{\label{classCppNoddy_1_1SparseVector_a01a615c52a00387430644462f334d6d3}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!sub@{sub}}
+\index{sub@{sub}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{sub()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::sub (\begin{DoxyParamCaption}\item[{const \textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&}]{X }\end{DoxyParamCaption})}
+
+
+
+Subtract a vector, element wise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em X} & The vector to be subtracted from this object. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 255 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{255                                                             \{}
+\DoxyCodeLine{256     *\textcolor{keyword}{this} -\/= X;}
+\DoxyCodeLine{257   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_a95fd65d1180077817e18c446a9d2ba09}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!swap@{swap}}
+\index{swap@{swap}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{swap()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::swap (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{i,  }\item[{const std\+::size\+\_\+t \&}]{j }\end{DoxyParamCaption})}
+
+
+
+Swap elements i and j. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the element to swap. \\
+\hline
+{\em j} & The index of the other element to swap. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 303 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{304                                                      \{}
+\DoxyCodeLine{305 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{306     \textcolor{keywordflow}{if}(i >= size() || j >= size()) \{}
+\DoxyCodeLine{307       std::string problem;}
+\DoxyCodeLine{308       problem = \textcolor{stringliteral}{" The SparseVector.swap method is trying to access \(\backslash\)n"};}
+\DoxyCodeLine{309       problem += \textcolor{stringliteral}{" outside the container. \(\backslash\)n"};}
+\DoxyCodeLine{310       \textcolor{keywordflow}{throw} ExceptionRange(problem, size(), std::max(i, j));}
+\DoxyCodeLine{311     \}}
+\DoxyCodeLine{312 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{313     std::swap<\_Type>(MAP\_VEC[ i ], MAP\_VEC[ j ]);}
+\DoxyCodeLine{314   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1SparseVector_ac16e66fcc358384e960b62164e4fee9e}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!swap@{swap}}
+\index{swap@{swap}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{swap()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::swap (\begin{DoxyParamCaption}\item[{\textbf{ Sparse\+Vector}$<$ \+\_\+\+Type $>$ \&}]{X }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Swap A\+LL elements with those of another \doxyref{Sparse\+Vector}{p.}{classCppNoddy_1_1SparseVector}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em X} & The sparse vector to exchange with \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 338 of file Sparse\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{338                                                               \{}
+\DoxyCodeLine{339 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{340     \textcolor{keywordflow}{if}(X.size() != size()) \{}
+\DoxyCodeLine{341       std::string problem;}
+\DoxyCodeLine{342       problem = \textcolor{stringliteral}{" The SparseVector.swap method is trying to use \(\backslash\)n"};}
+\DoxyCodeLine{343       problem += \textcolor{stringliteral}{" two vectors of unequal length \(\backslash\)n"};}
+\DoxyCodeLine{344       \textcolor{keywordflow}{throw} ExceptionGeom(problem, size(), X.size());}
+\DoxyCodeLine{345     \}}
+\DoxyCodeLine{346 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{347     MAP\_VEC.swap(X.MAP\_VEC);}
+\DoxyCodeLine{348   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Sparse\+Vector$<$ \+\_\+\+Type $>$\+::size().
+
+\mbox{\label{classCppNoddy_1_1SparseVector_a3c8ca1f0f721ade67704ffe397c034aa}} 
+\index{CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}!two\_norm@{two\_norm}}
+\index{two\_norm@{two\_norm}!CppNoddy::SparseVector$<$ \_Type $>$@{CppNoddy::SparseVector$<$ \_Type $>$}}
+\doxyparagraph{two\_norm()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Sparse\+Vector}$<$ \+\_\+\+Type $>$\+::two\+\_\+norm}
+
+
+
+l2-\/norm. 
+
+No attention paid to possible overflow for large vectors. \begin{DoxyReturn}{Returns}
+The square-\/root of the sum of the squares divided by number of elts. 
+\end{DoxyReturn}
+
+
+Definition at line 219 of file Sparse\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{219                                              \{}
+\DoxyCodeLine{220     \textcolor{comment}{// Accumulate the ABS values of the container entries SQUARED}}
+\DoxyCodeLine{221     \textcolor{comment}{// using a fuction object.}}
+\DoxyCodeLine{222     \textcolor{keywordtype}{double} sum(0.0);}
+\DoxyCodeLine{223     \textcolor{keywordflow}{for}(citer pos = MAP\_VEC.begin(); pos != MAP\_VEC.end(); ++pos) \{}
+\DoxyCodeLine{224       sum += std::pow(std::abs(pos -\/> second), 2);}
+\DoxyCodeLine{225     \}}
+\DoxyCodeLine{226     \textcolor{keywordflow}{return} sum;}
+\DoxyCodeLine{227   \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Sparse\+Vector.\+h}\item 
+src/\textbf{ Sparse\+Vector.\+cpp}\end{DoxyCompactItemize}

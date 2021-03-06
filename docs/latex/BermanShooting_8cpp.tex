@@ -1,0 +1,96 @@
+\doxysubsection{Tests/\+B\+V\+P/\+Berman\+Shooting.cpp File Reference}
+\label{BermanShooting_8cpp}\index{Tests/BVP/BermanShooting.cpp@{Tests/BVP/BermanShooting.cpp}}
+{\ttfamily \#include $<$I\+V\+P\+\_\+bundle.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../\+Utils\+\_\+\+Fill.\+h\char`\"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+Berman\+\_\+equation}
+\begin{DoxyCompactList}\small\item\em Define the Berman equation by inheriting \doxyref{Equation}{p.}{classCppNoddy_1_1Equation} base class. \end{DoxyCompactList}\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+Berman\+\_\+residual}
+\begin{DoxyCompactList}\small\item\em Define a residual function using the boundary conditions for the Berman equation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\item 
+ \textbf{ Cpp\+Noddy\+::\+Example}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Solving the fourth-\/order Berman (porous channel) similarity equation \[ f\textnormal{\textquotesingle}\textnormal{\textquotesingle}\textnormal{\textquotesingle}(y) = Re \left ( f(y)f\textnormal{\textquotesingle}\textnormal{\textquotesingle}(y) - f\textnormal{\textquotesingle}(y)^2 - K \right )\] where $y\in [-1,1]$ and $K$ is a pressure constant and $Re$ is the Reynolds number based on the channel half-\/height and the wall suction. The boundary conditions are that $f(\pm 1) = \pm 1$ and $f\textnormal{\textquotesingle}(\pm 1 ) = 0$. This B\+VP is solved via Runge-\/\+Kutta and (vector) Newton iteration. This similarity form is an exact reduction of the Navier-\/\+Stokes equations.
+
+Solving a B\+VP by converting it to an I\+VP like this is generally not a smart move! 
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{BermanShooting_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{BermanShooting.cpp@{BermanShooting.cpp}!main@{main}}
+\index{main@{main}!BermanShooting.cpp@{BermanShooting.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 100 of file Berman\+Shooting.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{101 \{}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{104   cout << \textcolor{stringliteral}{"=== BVP\_Shoot: vector Newton solution of Berman eqn =\(\backslash\)n"};}
+\DoxyCodeLine{105   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107   Example::Berman\_residual problem;}
+\DoxyCodeLine{108   \textcolor{comment}{// instantiate a Vector Newton class for the Biharmonic}}
+\DoxyCodeLine{109   Newton<double> Berman( \&problem );}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111   DenseVector<double> guess( 2, 0.0 );}
+\DoxyCodeLine{112   guess[ 0 ] = -\/2.0;}
+\DoxyCodeLine{113   guess[ 1 ] = 1.0;}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115   \textcolor{keywordflow}{try}}
+\DoxyCodeLine{116   \{}
+\DoxyCodeLine{117     Berman.iterate( guess );}
+\DoxyCodeLine{118   \}}
+\DoxyCodeLine{119   \textcolor{keywordflow}{catch} ( \textcolor{keyword}{const} std::runtime\_error \&error )}
+\DoxyCodeLine{120   \{}
+\DoxyCodeLine{121     cout << \textcolor{stringliteral}{" \(\backslash\)033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{122     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{123   \}}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125   \textcolor{comment}{// output the data}}
+\DoxyCodeLine{126   std::string dirname(\textcolor{stringliteral}{"./DATA"});}
+\DoxyCodeLine{127   mkdir( dirname.c\_str(), S\_IRWXU );}
+\DoxyCodeLine{128   TrackerFile my\_file( \textcolor{stringliteral}{"./DATA/Berman.dat"} );}
+\DoxyCodeLine{129   my\_file.push\_ptr( \&( problem.ode -\/> get\_mesh() ) );}
+\DoxyCodeLine{130   my\_file.update();}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132   \textcolor{comment}{// check against the known pressure constant K for Re=1.}}
+\DoxyCodeLine{133   \textcolor{keywordflow}{if} ( std::abs( guess[ 1 ] -\/ 0.70457 ) > 1.e-\/5 )}
+\DoxyCodeLine{134   \{}
+\DoxyCodeLine{135     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{136     cout.precision( 14 );}
+\DoxyCodeLine{137     cout << guess[ 0 ] << \textcolor{stringliteral}{" "} << guess[ 1 ] << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{138     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{139   \}}
+\DoxyCodeLine{140   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{141   \{}
+\DoxyCodeLine{142     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{143     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{144   \}}
+\DoxyCodeLine{145 }
+\DoxyCodeLine{146 }
+\DoxyCodeLine{147 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Newton$<$ \+\_\+\+Type $>$\+::iterate(), Cpp\+Noddy\+::\+Tracker\+File\+::push\+\_\+ptr(), and Cpp\+Noddy\+::\+Tracker\+File\+::update().
+

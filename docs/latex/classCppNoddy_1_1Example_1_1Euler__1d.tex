@@ -1,0 +1,128 @@
+\doxysubsection{Cpp\+Noddy\+::Example\+::Euler\+\_\+1d Class Reference}
+\label{classCppNoddy_1_1Example_1_1Euler__1d}\index{CppNoddy::Example::Euler\_1d@{CppNoddy::Example::Euler\_1d}}
+
+
+Define the system.  
+
+
+Inheritance diagram for Cpp\+Noddy\+::Example\+::Euler\+\_\+1d\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classCppNoddy_1_1Example_1_1Euler__1d}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Euler\+\_\+1d} ()
+\begin{DoxyCompactList}\small\item\em One dimemsional Euler problem, so 3rd order. \end{DoxyCompactList}\item 
+void \textbf{ flux\+\_\+fn} (const double \&x, const \textbf{ Dense\+Vector}$<$ double $>$ \&q, \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ f}) const
+\begin{DoxyCompactList}\small\item\em Define the vector flux. \end{DoxyCompactList}\item 
+double \textbf{ max\+\_\+charac\+\_\+speed} (const \textbf{ Dense\+Vector}$<$ double $>$ \&q) const
+\begin{DoxyCompactList}\small\item\em Bound the shock speed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+Define the system. 
+
+Definition at line 28 of file H\+Y\+P\+Sods\+Shocktube.\+cpp.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Euler__1d_a1566b5df90abc109e33137cc1ac45f3c}} 
+\index{CppNoddy::Example::Euler\_1d@{CppNoddy::Example::Euler\_1d}!Euler\_1d@{Euler\_1d}}
+\index{Euler\_1d@{Euler\_1d}!CppNoddy::Example::Euler\_1d@{CppNoddy::Example::Euler\_1d}}
+\doxyparagraph{Euler\_1d()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Euler\+\_\+1d\+::\+Euler\+\_\+1d (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+One dimemsional Euler problem, so 3rd order. 
+
+
+
+Definition at line 34 of file H\+Y\+P\+Sods\+Shocktube.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34                  : OneD\_Hyperbolic\_System( 3 )}
+\DoxyCodeLine{35       \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Euler__1d_a8f5d833288c9387015ec57676baabf88}} 
+\index{CppNoddy::Example::Euler\_1d@{CppNoddy::Example::Euler\_1d}!flux\_fn@{flux\_fn}}
+\index{flux\_fn@{flux\_fn}!CppNoddy::Example::Euler\_1d@{CppNoddy::Example::Euler\_1d}}
+\doxyparagraph{flux\_fn()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Euler\+\_\+1d\+::flux\+\_\+fn (\begin{DoxyParamCaption}\item[{const double \&}]{x,  }\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{q,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the vector flux. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System} \doxyref{}{p.}{classCppNoddy_1_1OneD__Hyperbolic__System_a5d80acff28df99e7112edf0ceb0363a7}.
+
+
+
+Definition at line 38 of file H\+Y\+P\+Sods\+Shocktube.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39       \{}
+\DoxyCodeLine{40         \textcolor{keywordtype}{double} u = q[ m ] / q[ rho ];}
+\DoxyCodeLine{41         \textcolor{keywordtype}{double} p = ( gamma -\/ 1. ) * ( q[ E ] -\/ 0.5 * q[ rho ] * u * u );}
+\DoxyCodeLine{42         f[ rho ] = q[ m ];}
+\DoxyCodeLine{43         f[ m ]   = q[ rho ] * u * u + p;}
+\DoxyCodeLine{44         f[ E ]   = u * ( q[ E ] + p );}
+\DoxyCodeLine{45       \}}
+
+\end{DoxyCode}
+
+
+References E, f, Cpp\+Noddy\+::\+Example\+::gamma(), m, p, Cpp\+Noddy\+::\+Example\+::rho(), and u.
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Euler__1d_adfc992d3ad6ef61bbe8851dd6dbd467e}} 
+\index{CppNoddy::Example::Euler\_1d@{CppNoddy::Example::Euler\_1d}!max\_charac\_speed@{max\_charac\_speed}}
+\index{max\_charac\_speed@{max\_charac\_speed}!CppNoddy::Example::Euler\_1d@{CppNoddy::Example::Euler\_1d}}
+\doxyparagraph{max\_charac\_speed()}
+{\footnotesize\ttfamily double Cpp\+Noddy\+::\+Example\+::\+Euler\+\_\+1d\+::max\+\_\+charac\+\_\+speed (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{q }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Bound the shock speed. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System} \doxyref{}{p.}{classCppNoddy_1_1OneD__Hyperbolic__System_a6b0a0d9ba53c4d52d8db39ce49cd6e87}.
+
+
+
+Definition at line 48 of file H\+Y\+P\+Sods\+Shocktube.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49       \{}
+\DoxyCodeLine{50         \textcolor{comment}{// sound speeds}}
+\DoxyCodeLine{51         \textcolor{keywordtype}{double} u = q[ m ] / q[ rho ];}
+\DoxyCodeLine{52         \textcolor{keywordtype}{double} p = ( gamma -\/ 1. ) * ( q[ E ] -\/ 0.5 * q[ rho ] * u * u );}
+\DoxyCodeLine{53         \textcolor{keywordtype}{double} c = sqrt( gamma *  p / q[ rho ] );}
+\DoxyCodeLine{54         \textcolor{comment}{// maximum shock speed}}
+\DoxyCodeLine{55         \textcolor{keywordflow}{return} std::max(  u + c, u -\/ c );}
+\DoxyCodeLine{56       \}}
+
+\end{DoxyCode}
+
+
+References E, Cpp\+Noddy\+::\+Example\+::gamma(), m, p, Cpp\+Noddy\+::\+Example\+::rho(), and u.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tests/\+H\+Y\+P\+\_\+1\+D/\textbf{ H\+Y\+P\+Sods\+Shocktube.\+cpp}\end{DoxyCompactItemize}

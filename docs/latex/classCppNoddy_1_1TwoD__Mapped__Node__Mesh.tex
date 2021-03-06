@@ -1,0 +1,1595 @@
+\doxysubsection{Cpp\+Noddy\+::Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$ Class Template Reference}
+\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh}\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+
+
+A two dimensional (mapped) mesh utility object.  
+
+
+
+
+{\ttfamily \#include $<$Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h$>$}
+
+Inheritance diagram for Cpp\+Noddy\+::Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCppNoddy_1_1TwoD__Mapped__Node__Mesh}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual double \textbf{ Fn\+Comp\+\_\+X} (const double \&zeta) const
+\begin{DoxyCompactList}\small\item\em Mapping function that provides a computational X coordinate from a physical coordinate. \end{DoxyCompactList}\item 
+virtual double \textbf{ Fn\+Comp\+\_\+\+Xd} (const double \&zeta) const
+\begin{DoxyCompactList}\small\item\em Mapping function that provides the first derivative of the computational m\+\_\+X coordinate as a function of the physical coordinate. \end{DoxyCompactList}\item 
+virtual double \textbf{ Fn\+Comp\+\_\+\+Xdd} (const double \&zeta) const
+\begin{DoxyCompactList}\small\item\em Mapping function that provides the second derivative of the computational X coordinate as a function of the physical coordinate. \end{DoxyCompactList}\item 
+virtual double \textbf{ Fn\+Comp\+\_\+Y} (const double \&eta) const
+\begin{DoxyCompactList}\small\item\em Mapping function that provides the computational Y coordinate as a function of the physical coordinate. \end{DoxyCompactList}\item 
+virtual double \textbf{ Fn\+Comp\+\_\+\+Yd} (const double \&eta) const
+\begin{DoxyCompactList}\small\item\em Mapping function that provides the first derivative of the computational Y coordinate as a function of the physical coordinate. \end{DoxyCompactList}\item 
+virtual double \textbf{ Fn\+Comp\+\_\+\+Ydd} (const double \&eta) const
+\begin{DoxyCompactList}\small\item\em Mapping function that provides the second derivative of the computational Y coordinate as a function of the physical coordinate. \end{DoxyCompactList}\item 
+\textbf{ Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh} ()
+\item 
+\textbf{ Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh} (const double left, const double right, const double bottom, const double top, const std\+::size\+\_\+t nx, const std\+::size\+\_\+t ny, const std\+::size\+\_\+t nvars)
+\begin{DoxyCompactList}\small\item\em ctor of a blank mesh \end{DoxyCompactList}\item 
+\textbf{ Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh} (std\+::string filename, const std\+::size\+\_\+t nx, const std\+::size\+\_\+t ny, const std\+::size\+\_\+t nv)
+\item 
+void \textbf{ init\+\_\+mapping} ()
+\item 
+std\+::pair$<$ double, double $>$ \textbf{ get\+\_\+comp\+\_\+step\+\_\+sizes} () const
+\item 
+virtual \textbf{ $\sim$\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh} ()
+\begin{DoxyCompactList}\small\item\em dtor \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ operator()} (const std\+::size\+\_\+t nodex, const std\+::size\+\_\+t nodey)
+\begin{DoxyCompactList}\small\item\em Access operator for a nodal point that returns a vector. \end{DoxyCompactList}\item 
+\+\_\+\+Type \& \textbf{ operator()} (const std\+::size\+\_\+t nodex, const std\+::size\+\_\+t nodey, const std\+::size\+\_\+t var)
+\begin{DoxyCompactList}\small\item\em Access operator for a nodal point/variable in the mesh. \end{DoxyCompactList}\item 
+const \+\_\+\+Type \& \textbf{ operator()} (const std\+::size\+\_\+t nodex, const std\+::size\+\_\+t nodey, const std\+::size\+\_\+t var) const
+\begin{DoxyCompactList}\small\item\em Const access operator for a nodal point/variable in the mesh. \end{DoxyCompactList}\item 
+std\+::pair$<$ double, double $>$ \textbf{ coord} (const std\+::size\+\_\+t nodex, const std\+::size\+\_\+t nodey) const
+\begin{DoxyCompactList}\small\item\em Access the physical nodal position -\/ as a pair. \end{DoxyCompactList}\item 
+void \textbf{ set\+\_\+nodes\+\_\+vars} (const std\+::size\+\_\+t nodex, const std\+::size\+\_\+t nodey, const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&\textbf{ U})
+\begin{DoxyCompactList}\small\item\em Set the variables stored at A S\+P\+E\+C\+I\+F\+I\+ED node. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ get\+\_\+nodes\+\_\+vars} (const std\+::size\+\_\+t nodex, const std\+::size\+\_\+t nodey) const
+\begin{DoxyCompactList}\small\item\em Get the variables stored at A S\+P\+E\+C\+I\+F\+I\+ED node -- equivalent to mesh(nodex,nodey). \end{DoxyCompactList}\item 
+std\+::pair$<$ std\+::size\+\_\+t, std\+::size\+\_\+t $>$ \textbf{ get\+\_\+nnodes} () const
+\begin{DoxyCompactList}\small\item\em Get the number of nodes in the two directions of the 2D mesh. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ get\+\_\+nvars} () const
+\begin{DoxyCompactList}\small\item\em Get the number of variables that are stored at each node. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \& \textbf{ xnodes} ()
+\begin{DoxyCompactList}\small\item\em Access the vector of x-\/nodal positions. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \& \textbf{ ynodes} ()
+\begin{DoxyCompactList}\small\item\em Access the vector of y-\/nodal positions. \end{DoxyCompactList}\item 
+void \textbf{ read} (std\+::string filename, const bool reset=false)
+\begin{DoxyCompactList}\small\item\em A simple method for reading data from a file. \end{DoxyCompactList}\item 
+void \textbf{ dump\+\_\+gnu} (std\+::string filename) const
+\begin{DoxyCompactList}\small\item\em A simple method for dumping data to a file for gnuplot surface plotting. \end{DoxyCompactList}\item 
+void \textbf{ normalise} (const std\+::size\+\_\+t \&var)
+\begin{DoxyCompactList}\small\item\em Normalise all data in the mesh based on one variable. \end{DoxyCompactList}\item 
+void \textbf{ scale} (const \+\_\+\+Type \&value)
+\begin{DoxyCompactList}\small\item\em Rescale all values stored in the mapped mesh by a scalar. \end{DoxyCompactList}\item 
+double \textbf{ max} (unsigned var)
+\begin{DoxyCompactList}\small\item\em Find the maximum stored absolute value in the mesh for a given variable -- no interpolation is used. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ get\+\_\+interpolated\+\_\+vars} (const double \&x, const double \&y)
+\begin{DoxyCompactList}\small\item\em Get a bilinearly interpolated value at a specified point. \end{DoxyCompactList}\item 
+void \textbf{ normalise} (const std\+::size\+\_\+t \&var)
+\item 
+void \textbf{ normalise} (const std\+::size\+\_\+t \&var)
+\item 
+void \textbf{ read} (std\+::string filename, bool reset)
+\item 
+void \textbf{ read} (std\+::string filename, bool reset)
+\item 
+void \textbf{ dump\+\_\+gnu} (std\+::string filename) const
+\item 
+void \textbf{ dump\+\_\+gnu} (std\+::string filename) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \textbf{ m\+\_\+left}
+\item 
+double \textbf{ m\+\_\+right}
+\item 
+double \textbf{ m\+\_\+bottom}
+\item 
+double \textbf{ m\+\_\+top}
+\item 
+std\+::size\+\_\+t \textbf{ m\+\_\+nx}
+\item 
+std\+::size\+\_\+t \textbf{ m\+\_\+ny}
+\item 
+std\+::size\+\_\+t \textbf{ m\+\_\+nv}
+\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ m\+\_\+compX}
+\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ m\+\_\+compY}
+\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ m\+\_\+X}
+\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ m\+\_\+Y}
+\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ m\+\_\+vars}
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type$>$\newline
+class Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$}
+
+A two dimensional (mapped) mesh utility object. 
+
+Definition at line 21 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a3898d8f7dd6c01c62dd91e522ce2dfe4}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!TwoD\_Mapped\_Node\_Mesh@{TwoD\_Mapped\_Node\_Mesh}}
+\index{TwoD\_Mapped\_Node\_Mesh@{TwoD\_Mapped\_Node\_Mesh}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{TwoD\_Mapped\_Node\_Mesh()\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::\textbf{ Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 90 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{91     \{\}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_aaca1e11e2a37b477765735a691cb0469}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!TwoD\_Mapped\_Node\_Mesh@{TwoD\_Mapped\_Node\_Mesh}}
+\index{TwoD\_Mapped\_Node\_Mesh@{TwoD\_Mapped\_Node\_Mesh}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{TwoD\_Mapped\_Node\_Mesh()\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::\textbf{ Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh} (\begin{DoxyParamCaption}\item[{const double}]{left,  }\item[{const double}]{right,  }\item[{const double}]{bottom,  }\item[{const double}]{top,  }\item[{const std\+::size\+\_\+t}]{nx,  }\item[{const std\+::size\+\_\+t}]{ny,  }\item[{const std\+::size\+\_\+t}]{nvars }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ctor of a blank mesh 
+
+
+
+Definition at line 94 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{94                                                                                                                                                                        : m\_left(left), m\_right(right), m\_bottom(bottom), m\_top(top), m\_nx(nx), m\_ny(ny), m\_nv(nvars) \{}
+\DoxyCodeLine{95       \textcolor{comment}{// initialise the storage, but fill these below in init\_mapping()}}
+\DoxyCodeLine{96       m\_X = DenseVector<double> (m\_nx,0.0);}
+\DoxyCodeLine{97       m\_Y = DenseVector<double> (m\_ny,0.0);}
+\DoxyCodeLine{98       m\_compX = DenseVector<double> (m\_nx,0.0);}
+\DoxyCodeLine{99       m\_compY = DenseVector<double> (m\_ny,0.0);}
+\DoxyCodeLine{100       \textcolor{comment}{// we'll store the data as ( x, y, v ) -\/>  x * ny * nv + y * nv + v}}
+\DoxyCodeLine{101       m\_vars = DenseVector<\_Type>(m\_nx * m\_ny * m\_nv, 0.0);}
+\DoxyCodeLine{102       \textcolor{comment}{// user needs to call init\_mapping() to set up m\_compX, m\_compY after this}}
+\DoxyCodeLine{103     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+compX, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+compY, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+nv, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+nx, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+ny, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+vars, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+X, and Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+Y.
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a8e193ae294417cc1d7d189988069792c}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!TwoD\_Mapped\_Node\_Mesh@{TwoD\_Mapped\_Node\_Mesh}}
+\index{TwoD\_Mapped\_Node\_Mesh@{TwoD\_Mapped\_Node\_Mesh}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{TwoD\_Mapped\_Node\_Mesh()\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::\textbf{ Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh} (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{const std\+::size\+\_\+t}]{nx,  }\item[{const std\+::size\+\_\+t}]{ny,  }\item[{const std\+::size\+\_\+t}]{nv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 107 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{107                                                                                                            :}
+\DoxyCodeLine{108       m\_nx(nx), m\_ny(ny), m\_nv(nv) \{}
+\DoxyCodeLine{109       \textcolor{comment}{// need storage for the coordinates}}
+\DoxyCodeLine{110       m\_X = DenseVector<double>(m\_nx, 0.0);}
+\DoxyCodeLine{111       m\_Y = DenseVector<double>(m\_ny, 0.0);}
+\DoxyCodeLine{112       m\_compX = DenseVector<double> (m\_nx,0.0);}
+\DoxyCodeLine{113       m\_compY = DenseVector<double> (m\_ny,0.0);}
+\DoxyCodeLine{114       \textcolor{comment}{// we'll store the data as ( x, y, v ) -\/>  x * ny * nv + y * nv + v}}
+\DoxyCodeLine{115       m\_vars = DenseVector<\_Type>(m\_nx * m\_ny * m\_nv, 0.0);}
+\DoxyCodeLine{116       \textcolor{comment}{// now read the mesh from the given filename -\/-\/ this also updates the m\_X data}}
+\DoxyCodeLine{117       read(filename, \textcolor{keyword}{true});}
+\DoxyCodeLine{118       \textcolor{comment}{// set up the private member data on the box size.}}
+\DoxyCodeLine{119       m\_left = m\_X[0];}
+\DoxyCodeLine{120       m\_right = m\_X[m\_nx-\/1];}
+\DoxyCodeLine{121       m\_bottom = m\_Y[0];}
+\DoxyCodeLine{122       m\_top = m\_Y[m\_ny-\/1];}
+\DoxyCodeLine{123       \textcolor{comment}{// user needs to call init\_mapping() to set up m\_compX, m\_compY after this}}
+\DoxyCodeLine{124     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+bottom, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+compX, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+compY, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+left, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+nv, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+nx, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+ny, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+right, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+top, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+vars, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+X, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+Y, and Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::read().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_ae480b38334ae39321811519feb73fbbc}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!````~TwoD\_Mapped\_Node\_Mesh@{$\sim$TwoD\_Mapped\_Node\_Mesh}}
+\index{````~TwoD\_Mapped\_Node\_Mesh@{$\sim$TwoD\_Mapped\_Node\_Mesh}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{$\sim$TwoD\_Mapped\_Node\_Mesh()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+virtual \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::$\sim$\textbf{ Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+dtor 
+
+
+
+Definition at line 136 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{137     \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_ac95b6fb907a0dd0c1a0deb8e9b0a4026}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!coord@{coord}}
+\index{coord@{coord}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{coord()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::pair$<$ double, double $>$ \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::coord (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{nodex,  }\item[{const std\+::size\+\_\+t}]{nodey }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the physical nodal position -\/ as a pair. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodex} & The x nodal position to return \\
+\hline
+{\em nodey} & The y nodal position to return \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The spatial position of this node as a pair 
+\end{DoxyReturn}
+
+
+Definition at line 354 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{354                                                                                                                        \{}
+\DoxyCodeLine{355 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{356     \textcolor{keywordflow}{if}(nodex > m\_nx -\/ 1 || nodey > m\_ny -\/ 1) \{}
+\DoxyCodeLine{357       std::string problem;}
+\DoxyCodeLine{358       problem = \textcolor{stringliteral}{" The TwoD\_Mapped\_Node\_Mesh.coord method is trying to \(\backslash\)n"};}
+\DoxyCodeLine{359       problem += \textcolor{stringliteral}{" access a nodal point that is not in the mesh. \(\backslash\)n"};}
+\DoxyCodeLine{360       \textcolor{keywordflow}{throw} ExceptionRange(problem, m\_nx, nodex, m\_ny, nodey);}
+\DoxyCodeLine{361     \}}
+\DoxyCodeLine{362 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{363     std::pair< double, double > pos;}
+\DoxyCodeLine{364     pos.first = m\_X[ nodex ];}
+\DoxyCodeLine{365     pos.second = m\_Y[ nodey ];}
+\DoxyCodeLine{366     \textcolor{keywordflow}{return} pos;}
+\DoxyCodeLine{367   \}}
+
+\end{DoxyCode}
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_abd660a69dddd1d4491dc98b3e8c038c3}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!dump\_gnu@{dump\_gnu}}
+\index{dump\_gnu@{dump\_gnu}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{dump\_gnu()\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::dump\+\_\+gnu (\begin{DoxyParamCaption}\item[{std\+::string}]{filename }\end{DoxyParamCaption}) const}
+
+
+
+A simple method for dumping data to a file for gnuplot surface plotting. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The filename to write the data to (will overwrite) \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a85a4bbc4bce8cf0298413c663e0e7d8e}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!dump\_gnu@{dump\_gnu}}
+\index{dump\_gnu@{dump\_gnu}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{dump\_gnu()\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ double $>$\+::dump\+\_\+gnu (\begin{DoxyParamCaption}\item[{std\+::string}]{filename }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 281 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{281                                                                        \{}
+\DoxyCodeLine{282     std::ofstream dump;}
+\DoxyCodeLine{283     dump.open(filename.c\_str());}
+\DoxyCodeLine{284     dump.precision(15);}
+\DoxyCodeLine{285     dump.setf(std::ios::showpoint);}
+\DoxyCodeLine{286     dump.setf(std::ios::showpos);}
+\DoxyCodeLine{287     dump.setf(std::ios::scientific);}
+\DoxyCodeLine{288     \textcolor{comment}{//}}
+\DoxyCodeLine{289     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_nx; ++i) \{}
+\DoxyCodeLine{290       \textcolor{keywordflow}{for}(std::size\_t j = 0; j < m\_ny; ++j) \{}
+\DoxyCodeLine{291         dump << m\_X[ i ] << \textcolor{stringliteral}{" "} << m\_Y[ j ] << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{292         \textcolor{keywordflow}{for}(std::size\_t var = 0; var < m\_nv; ++var) \{}
+\DoxyCodeLine{293           dump << m\_vars[(i * m\_ny + j) * m\_nv + var ] << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{294         \}}
+\DoxyCodeLine{295         dump << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{296       \}}
+\DoxyCodeLine{297       dump << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{298     \}}
+\DoxyCodeLine{299     dump.close();}
+\DoxyCodeLine{300   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a420fa0c11d46f37e0bcf847ab9f29f20}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!dump\_gnu@{dump\_gnu}}
+\index{dump\_gnu@{dump\_gnu}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{dump\_gnu()\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \textbf{ D\+\_\+complex} $>$\+::dump\+\_\+gnu (\begin{DoxyParamCaption}\item[{std\+::string}]{filename }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 303 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{303                                                                           \{}
+\DoxyCodeLine{304     std::ofstream dump;}
+\DoxyCodeLine{305     dump.open(filename.c\_str());}
+\DoxyCodeLine{306     dump.precision(15);}
+\DoxyCodeLine{307     dump.setf(std::ios::showpoint);}
+\DoxyCodeLine{308     dump.setf(std::ios::showpos);}
+\DoxyCodeLine{309     dump.setf(std::ios::scientific);}
+\DoxyCodeLine{310     \textcolor{comment}{//}}
+\DoxyCodeLine{311     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_nx; ++i) \{}
+\DoxyCodeLine{312       \textcolor{keywordflow}{for}(std::size\_t j = 0; j < m\_ny; ++j) \{}
+\DoxyCodeLine{313         dump << m\_X[ i ] << \textcolor{stringliteral}{" "} << m\_Y[ j ] << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{314         \textcolor{keywordflow}{for}(std::size\_t var = 0; var < m\_nv; ++var) \{}
+\DoxyCodeLine{315           dump << real(m\_vars[(i * m\_ny + j) * m\_nv + var ]) << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{316           dump << imag(m\_vars[(i * m\_ny + j) * m\_nv + var ]) << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{317         \}}
+\DoxyCodeLine{318         dump << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{319       \}}
+\DoxyCodeLine{320       dump << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{321     \}}
+\DoxyCodeLine{322     dump.close();}
+\DoxyCodeLine{323   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Utility\+::imag(), and Cpp\+Noddy\+::\+Utility\+::real().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a05d25c1566f2700681ad86615d527b34}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!FnComp\_X@{FnComp\_X}}
+\index{FnComp\_X@{FnComp\_X}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{FnComp\_X()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+virtual double \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::Fn\+Comp\+\_\+X (\begin{DoxyParamCaption}\item[{const double \&}]{zeta }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Mapping function that provides a computational X coordinate from a physical coordinate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em zeta} & The physical coordinate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The corresponding computational coordinate 
+\end{DoxyReturn}
+
+
+Reimplemented in \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_aa9d4c1a56722838a0262dbf3a287f877}, \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_aa9d4c1a56722838a0262dbf3a287f877}, and \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_aa9d4c1a56722838a0262dbf3a287f877}.
+
+
+
+Definition at line 28 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{28                                                       \{}
+\DoxyCodeLine{29       std::string problem;}
+\DoxyCodeLine{30       problem = \textcolor{stringliteral}{"The TwoD\_Mapped\_Node\_Mesh::FnComp\_X method has not been implemented.\(\backslash\)n"};}
+\DoxyCodeLine{31       problem += \textcolor{stringliteral}{"You have to implement this method to define the mesh.\(\backslash\)n"};}
+\DoxyCodeLine{32       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{33     \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+interpolated\+\_\+vars().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_ab4447343f7deca09044b1dfb081a9ba8}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!FnComp\_Xd@{FnComp\_Xd}}
+\index{FnComp\_Xd@{FnComp\_Xd}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{FnComp\_Xd()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+virtual double \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::Fn\+Comp\+\_\+\+Xd (\begin{DoxyParamCaption}\item[{const double \&}]{zeta }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Mapping function that provides the first derivative of the computational m\+\_\+X coordinate as a function of the physical coordinate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em zeta} & The physical coordinate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The corresponding derivative of the computational coordinate 
+\end{DoxyReturn}
+
+
+Reimplemented in \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_aa92fc4844f1353c3b174090d9c31e7cb}, \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_aa92fc4844f1353c3b174090d9c31e7cb}, and \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_aa92fc4844f1353c3b174090d9c31e7cb}.
+
+
+
+Definition at line 39 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39                                                        \{}
+\DoxyCodeLine{40       std::string problem;}
+\DoxyCodeLine{41       problem = \textcolor{stringliteral}{"The TwoD\_Mapped\_Node\_Mesh::FnComp\_Xd method has not been implemented.\(\backslash\)n"};}
+\DoxyCodeLine{42       problem += \textcolor{stringliteral}{"You have to implement this method to define the mesh.\(\backslash\)n"};}
+\DoxyCodeLine{43       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{44     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a8b56f46a6d4fc56ca92144179eb1284d}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!FnComp\_Xdd@{FnComp\_Xdd}}
+\index{FnComp\_Xdd@{FnComp\_Xdd}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{FnComp\_Xdd()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+virtual double \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::Fn\+Comp\+\_\+\+Xdd (\begin{DoxyParamCaption}\item[{const double \&}]{zeta }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Mapping function that provides the second derivative of the computational X coordinate as a function of the physical coordinate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em zeta} & The physical coordinate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The corresponding derivative of the computational coordinate 
+\end{DoxyReturn}
+
+
+Reimplemented in \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_ac2b98b46a66a19965997e71671453531}, \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_ac2b98b46a66a19965997e71671453531}, and \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_ac2b98b46a66a19965997e71671453531}.
+
+
+
+Definition at line 50 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{50                                                         \{}
+\DoxyCodeLine{51       std::string problem;}
+\DoxyCodeLine{52       problem = \textcolor{stringliteral}{"The TwoD\_Mapped\_Node\_Mesh::FnComp\_Xdd method has not been implemented.\(\backslash\)n"};}
+\DoxyCodeLine{53       problem += \textcolor{stringliteral}{"You have to implement this method to define the mesh.\(\backslash\)n"};}
+\DoxyCodeLine{54       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{55     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a9fe3b9dd7885f4f1cfd9093818b98824}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!FnComp\_Y@{FnComp\_Y}}
+\index{FnComp\_Y@{FnComp\_Y}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{FnComp\_Y()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+virtual double \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::Fn\+Comp\+\_\+Y (\begin{DoxyParamCaption}\item[{const double \&}]{eta }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Mapping function that provides the computational Y coordinate as a function of the physical coordinate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em eta} & The physical coordinate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The corresponding derivative of the computational coordinate 
+\end{DoxyReturn}
+
+
+Reimplemented in \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_ad28a40fcf4ebd3112ba2e799955b508a}, \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_ad28a40fcf4ebd3112ba2e799955b508a}, and \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_ad28a40fcf4ebd3112ba2e799955b508a}.
+
+
+
+Definition at line 61 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{61                                                      \{}
+\DoxyCodeLine{62       std::string problem;}
+\DoxyCodeLine{63       problem = \textcolor{stringliteral}{"The TwoD\_Mapped\_Node\_Mesh::FnComp\_Y method has not been implemented.\(\backslash\)n"};}
+\DoxyCodeLine{64       problem += \textcolor{stringliteral}{"You have to implement this method to define the mesh.\(\backslash\)n"};}
+\DoxyCodeLine{65       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{66     \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+interpolated\+\_\+vars().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a8603e98bf6662e270a6422fd3548676c}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!FnComp\_Yd@{FnComp\_Yd}}
+\index{FnComp\_Yd@{FnComp\_Yd}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{FnComp\_Yd()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+virtual double \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::Fn\+Comp\+\_\+\+Yd (\begin{DoxyParamCaption}\item[{const double \&}]{eta }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Mapping function that provides the first derivative of the computational Y coordinate as a function of the physical coordinate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em eta} & The physical coordinate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The corresponding derivative of the computational coordinate 
+\end{DoxyReturn}
+
+
+Reimplemented in \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_acbc72370f7977f0a2415c8b2e2965c61}, \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_acbc72370f7977f0a2415c8b2e2965c61}, and \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_acbc72370f7977f0a2415c8b2e2965c61}.
+
+
+
+Definition at line 72 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72                                                       \{}
+\DoxyCodeLine{73       std::string problem;}
+\DoxyCodeLine{74       problem = \textcolor{stringliteral}{"The TwoD\_Mapped\_Node\_Mesh::FnComp\_Yd method has not been implemented.\(\backslash\)n"};}
+\DoxyCodeLine{75       problem += \textcolor{stringliteral}{"You have to implement this method to define the mesh.\(\backslash\)n"};}
+\DoxyCodeLine{76       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{77     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a5451c698e28d3bf515a1a545a728be5a}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!FnComp\_Ydd@{FnComp\_Ydd}}
+\index{FnComp\_Ydd@{FnComp\_Ydd}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{FnComp\_Ydd()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+virtual double \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::Fn\+Comp\+\_\+\+Ydd (\begin{DoxyParamCaption}\item[{const double \&}]{eta }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Mapping function that provides the second derivative of the computational Y coordinate as a function of the physical coordinate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em eta} & The physical coordinate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The corresponding derivative of the computational coordinate 
+\end{DoxyReturn}
+
+
+Reimplemented in \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_a1d758d7f944bd49280ce90a17e7d179b}, \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_a1d758d7f944bd49280ce90a17e7d179b}, and \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classExample_1_1My__Mesh_a1d758d7f944bd49280ce90a17e7d179b}.
+
+
+
+Definition at line 83 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{83                                                        \{}
+\DoxyCodeLine{84       std::string problem;}
+\DoxyCodeLine{85       problem = \textcolor{stringliteral}{"The TwoD\_Mapped\_Node\_Mesh::FnComp\_Ydd method has not been implemented.\(\backslash\)n"};}
+\DoxyCodeLine{86       problem += \textcolor{stringliteral}{"You have to implement this method to define the mesh.\(\backslash\)n"};}
+\DoxyCodeLine{87       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{88     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a4adff1c767a0ec7871fdad145cebd5ef}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!get\_comp\_step\_sizes@{get\_comp\_step\_sizes}}
+\index{get\_comp\_step\_sizes@{get\_comp\_step\_sizes}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{get\_comp\_step\_sizes()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::pair$<$ double, double $>$ \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::get\+\_\+comp\+\_\+step\+\_\+sizes}
+
+
+
+Definition at line 138 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{138                                                                                    \{}
+\DoxyCodeLine{139     std::pair<double,double> steps;}
+\DoxyCodeLine{140     steps.first = m\_compX[1]-\/m\_compX[0];}
+\DoxyCodeLine{141     steps.second = m\_compY[1]-\/m\_compY[0];}
+\DoxyCodeLine{142     \textcolor{keywordflow}{return} steps;}
+\DoxyCodeLine{143   \}}
+
+\end{DoxyCode}
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_af7a9badbbc53829718240cc37d2175e7}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!get\_interpolated\_vars@{get\_interpolated\_vars}}
+\index{get\_interpolated\_vars@{get\_interpolated\_vars}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{get\_interpolated\_vars()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$\+\_\+\+Type$>$ \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::get\+\_\+interpolated\+\_\+vars (\begin{DoxyParamCaption}\item[{const double \&}]{x,  }\item[{const double \&}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get a bilinearly interpolated value at a specified point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Physical (unmapped) x-\/coordinate in the 2D mesh \\
+\hline
+{\em y} & Physical (unmapped) y-\/coordinate in the 2D mesh \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of bilinearly interpolated values 
+\end{DoxyReturn}
+
+
+Definition at line 234 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{235     \{}
+\DoxyCodeLine{236       \textcolor{keywordtype}{double} compX = FnComp\_X(x);}
+\DoxyCodeLine{237       \textcolor{keywordtype}{double} compY = FnComp\_Y(y);}
+\DoxyCodeLine{238       \textcolor{keyword}{const} \textcolor{keywordtype}{double} tol(1.e-\/8);}
+\DoxyCodeLine{239       \textcolor{comment}{// check start and end}}
+\DoxyCodeLine{240       \textcolor{keywordflow}{if} ((compX < m\_compX[0] -\/ tol) || (compX > m\_compX[m\_nx-\/1] + tol)) \{}
+\DoxyCodeLine{241         std::string problem;}
+\DoxyCodeLine{242         problem = \textcolor{stringliteral}{" The TwoD\_Node\_Mesh.get\_interpolated\_vars method has been called with \(\backslash\)n"};}
+\DoxyCodeLine{243         problem += \textcolor{stringliteral}{" an x coordinate that lies outside the mesh. \(\backslash\)n"};}
+\DoxyCodeLine{244         \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{245       \}}
+\DoxyCodeLine{246       \textcolor{comment}{// check start and end}}
+\DoxyCodeLine{247       \textcolor{keywordflow}{if} ((compY < m\_compY[0] -\/ tol) || (compY > m\_compY[m\_ny-\/1] + tol)) \{}
+\DoxyCodeLine{248         std::string problem;}
+\DoxyCodeLine{249         problem = \textcolor{stringliteral}{" The TwoD\_Node\_Mesh.get\_interpolated\_vars method has been called with \(\backslash\)n"};}
+\DoxyCodeLine{250         problem += \textcolor{stringliteral}{" a y coordinate that lies outside the mesh. \(\backslash\)n"};}
+\DoxyCodeLine{251         \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{252       \}}
+\DoxyCodeLine{253       \textcolor{keywordtype}{int} bottom\_j(-\/1);}
+\DoxyCodeLine{254       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} j = 0; j < m\_ny-\/1; ++j) \{}
+\DoxyCodeLine{255         \textcolor{keywordflow}{if} ((compY >= m\_compY[j] -\/ tol) \&\& (compY <= m\_compY[j+1] + tol)) \{}
+\DoxyCodeLine{256           bottom\_j = j;}
+\DoxyCodeLine{257         \}}
+\DoxyCodeLine{258       \}}
+\DoxyCodeLine{259       \textcolor{keywordflow}{if} (bottom\_j == -\/1) \{}
+\DoxyCodeLine{260         std::string problem;}
+\DoxyCodeLine{261         problem = \textcolor{stringliteral}{" The TwoD\_Node\_Mesh.get\_interpolated\_vars method is broken.\(\backslash\)n"};}
+\DoxyCodeLine{262         \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{263       \}}
+\DoxyCodeLine{264       \textcolor{comment}{//}}
+\DoxyCodeLine{265       OneD\_Node\_Mesh<\_Type> bottom\_row( m\_compX, m\_nv );}
+\DoxyCodeLine{266       OneD\_Node\_Mesh<\_Type> top\_row( m\_compX, m\_nv );}
+\DoxyCodeLine{267       \textcolor{keywordflow}{for} (std::size\_t i = 0; i < m\_nx; ++i ) \{}
+\DoxyCodeLine{268         bottom\_row.set\_nodes\_vars(i, \textcolor{keyword}{this} -\/> get\_nodes\_vars(i, bottom\_j));}
+\DoxyCodeLine{269         top\_row.set\_nodes\_vars(i, \textcolor{keyword}{this} -\/> get\_nodes\_vars(i, bottom\_j+1));}
+\DoxyCodeLine{270       \}}
+\DoxyCodeLine{271       \textcolor{keyword}{const} \textcolor{keywordtype}{double} compY1 = m\_compY[ bottom\_j ];}
+\DoxyCodeLine{272       \textcolor{keyword}{const} \textcolor{keywordtype}{double} compY2 = m\_compY[ bottom\_j+1 ];}
+\DoxyCodeLine{273       DenseVector<\_Type> result =}
+\DoxyCodeLine{274         top\_row.get\_interpolated\_vars(compX)*(compY-\/compY1)/(compY2-\/compY1)}
+\DoxyCodeLine{275         + bottom\_row.get\_interpolated\_vars(compX)*(compY2-\/compY)/(compY2-\/compY1);}
+\DoxyCodeLine{276       \textcolor{keywordflow}{return} result;}
+\DoxyCodeLine{277     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Fn\+Comp\+\_\+\+X(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Fn\+Comp\+\_\+\+Y(), Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::get\+\_\+interpolated\+\_\+vars(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+nodes\+\_\+vars(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+compX, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+compY, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+nv, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+nx, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+ny, and Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::set\+\_\+nodes\+\_\+vars().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a774335c76d53749e5e712575a1761910}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!get\_nnodes@{get\_nnodes}}
+\index{get\_nnodes@{get\_nnodes}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{get\_nnodes()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::pair$<$ std\+::size\+\_\+t, std\+::size\+\_\+t $>$ \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::get\+\_\+nnodes}
+
+
+
+Get the number of nodes in the two directions of the 2D mesh. 
+
+\begin{DoxyReturn}{Returns}
+A pair consisting of the number of nodes in the 2 directions 
+\end{DoxyReturn}
+
+
+Definition at line 146 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{146                                                                                  \{}
+\DoxyCodeLine{147     std::pair< std::size\_t, std::size\_t > nodes;}
+\DoxyCodeLine{148     nodes.first = m\_nx;}
+\DoxyCodeLine{149     nodes.second = m\_ny;}
+\DoxyCodeLine{150     \textcolor{keywordflow}{return} nodes;}
+\DoxyCodeLine{151   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a29affa8d9bf56a749f1633c2818f2373}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!get\_nodes\_vars@{get\_nodes\_vars}}
+\index{get\_nodes\_vars@{get\_nodes\_vars}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{get\_nodes\_vars()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::get\+\_\+nodes\+\_\+vars (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{nodex,  }\item[{const std\+::size\+\_\+t}]{nodey }\end{DoxyParamCaption}) const}
+
+
+
+Get the variables stored at A S\+P\+E\+C\+I\+F\+I\+ED node -- equivalent to mesh(nodex,nodey). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodex} & The x nodal index to be returned \\
+\hline
+{\em nodey} & The y nodal index to be returned \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The vector of V\+A\+R\+I\+A\+B\+L\+ES stored at this nodal point 
+\end{DoxyReturn}
+
+
+Definition at line 37 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{37                                                                                                                     \{}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{39     \textcolor{keywordflow}{if}(nodex > m\_nx -\/ 1 || nodey > m\_ny -\/ 1) \{}
+\DoxyCodeLine{40       std::string problem;}
+\DoxyCodeLine{41       problem = \textcolor{stringliteral}{" The TwoD\_Mapped\_Node\_Mesh.get\_nodes\_vars method is trying to \(\backslash\)n"};}
+\DoxyCodeLine{42       problem += \textcolor{stringliteral}{" access a nodal point that is not in the mesh. \(\backslash\)n"};}
+\DoxyCodeLine{43       \textcolor{keywordflow}{throw} ExceptionRange(problem, m\_nx, nodex, m\_ny, nodey);}
+\DoxyCodeLine{44     \}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{46     \textcolor{comment}{// construct a vector with m\_nv elements starting from a pointer}}
+\DoxyCodeLine{47     DenseVector<\_Type> nodes\_vars(m\_nv, \&m\_vars[(nodex * m\_ny + nodey) * m\_nv ]);}
+\DoxyCodeLine{48     \textcolor{keywordflow}{return} nodes\_vars;}
+\DoxyCodeLine{49   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+interpolated\+\_\+vars().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a9b536ce7b185a916de9866e8957429eb}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!get\_nvars@{get\_nvars}}
+\index{get\_nvars@{get\_nvars}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{get\_nvars()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::get\+\_\+nvars}
+
+
+
+Get the number of variables that are stored at each node. 
+
+\begin{DoxyReturn}{Returns}
+The number of variables that have data stored at each nodal point 
+\end{DoxyReturn}
+
+
+Definition at line 154 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{154                                                           \{}
+\DoxyCodeLine{155     \textcolor{keywordflow}{return} m\_nv;}
+\DoxyCodeLine{156   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a5182d7de2b6f24cd1c4ed07b5ed7ab54}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!init\_mapping@{init\_mapping}}
+\index{init\_mapping@{init\_mapping}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{init\_mapping()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::init\+\_\+mapping}
+
+
+
+Definition at line 52 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{52                                                   \{}
+\DoxyCodeLine{53 \textcolor{preprocessor}{    \#ifdef DEBUG}}
+\DoxyCodeLine{54     std::cout << \textcolor{stringliteral}{"[DEBUG] Physical domain is ["} << m\_left << \textcolor{stringliteral}{","} << m\_right}
+\DoxyCodeLine{55               << \textcolor{stringliteral}{"] x ["} << m\_bottom << \textcolor{stringliteral}{","} << m\_top << \textcolor{stringliteral}{"]\(\backslash\)n"};}
+\DoxyCodeLine{56     std::cout << \textcolor{stringliteral}{"[DEBUG] Computational domain is ["}}
+\DoxyCodeLine{57               << FnComp\_X(m\_left) << \textcolor{stringliteral}{","} << FnComp\_X(m\_right)}
+\DoxyCodeLine{58               << \textcolor{stringliteral}{"] x ["} << FnComp\_Y(m\_bottom) << \textcolor{stringliteral}{","} << FnComp\_Y(m\_top) << \textcolor{stringliteral}{"]\(\backslash\)n"};}
+\DoxyCodeLine{59 \textcolor{preprocessor}{    \#endif}}
+\DoxyCodeLine{60     \{}
+\DoxyCodeLine{61       \textcolor{comment}{// a uniform mesh in the computational coordinates}}
+\DoxyCodeLine{62       \textcolor{keywordtype}{double} comp\_left(FnComp\_X(m\_left));}
+\DoxyCodeLine{63       \textcolor{keywordtype}{double} comp\_right(FnComp\_X(m\_right));}
+\DoxyCodeLine{64       \textcolor{keyword}{const} \textcolor{keywordtype}{double} comp\_delta\_x = (comp\_right -\/ comp\_left) / (m\_nx -\/ 1);}
+\DoxyCodeLine{65       \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_nx; ++i) \{}
+\DoxyCodeLine{66         m\_compX[i] = comp\_left + comp\_delta\_x * i;}
+\DoxyCodeLine{67       \}}
+\DoxyCodeLine{68     \}}
+\DoxyCodeLine{69     \{}
+\DoxyCodeLine{70       \textcolor{comment}{// a uniform mesh in the computational coordinates}}
+\DoxyCodeLine{71       \textcolor{keywordtype}{double} comp\_bottom(FnComp\_Y(m\_bottom));}
+\DoxyCodeLine{72       \textcolor{keywordtype}{double} comp\_top(FnComp\_Y(m\_top));}
+\DoxyCodeLine{73       \textcolor{keyword}{const} \textcolor{keywordtype}{double} comp\_delta\_y = (comp\_top -\/ comp\_bottom) / (m\_ny -\/ 1);}
+\DoxyCodeLine{74       \textcolor{keywordflow}{for}(std::size\_t j = 0; j < m\_ny; ++j) \{}
+\DoxyCodeLine{75         m\_compY[j] = comp\_bottom + comp\_delta\_y * j;}
+\DoxyCodeLine{76       \}}
+\DoxyCodeLine{77     \}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79     \textcolor{comment}{// temporary fill to span the domain -\/-\/ corrected below}}
+\DoxyCodeLine{80     m\_X = Utility::uniform\_node\_vector(m\_left,m\_right,m\_nx);}
+\DoxyCodeLine{81     m\_Y = Utility::uniform\_node\_vector(m\_bottom,m\_top,m\_ny);}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83     \textcolor{comment}{// we now need the corresponding m\_Y coordinates in the physical domain}}
+\DoxyCodeLine{84     \{}
+\DoxyCodeLine{85       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} j = 1; j < m\_ny; ++j) \{}
+\DoxyCodeLine{86         \textcolor{comment}{// for each node in m\_compY}}
+\DoxyCodeLine{87         \textcolor{keywordtype}{unsigned} kmin(0);}
+\DoxyCodeLine{88         \textcolor{keywordtype}{double} min(99e9);}
+\DoxyCodeLine{89         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} k = 0; k < m\_ny; ++k) \{}
+\DoxyCodeLine{90           \textcolor{comment}{// find the y value that is closest to it}}
+\DoxyCodeLine{91           \textcolor{keywordflow}{if}(std::abs(FnComp\_Y(m\_Y[k]) -\/ m\_compY[j]) < min) \{}
+\DoxyCodeLine{92             min = std::abs(FnComp\_Y(m\_Y[k]) -\/ m\_compY[j]);}
+\DoxyCodeLine{93             kmin = k;}
+\DoxyCodeLine{94           \}}
+\DoxyCodeLine{95         \}}
+\DoxyCodeLine{96         \textcolor{keywordtype}{double} y = m\_Y[kmin];}
+\DoxyCodeLine{97         \textcolor{keywordtype}{double} delta = 1.e-\/8;}
+\DoxyCodeLine{98         \textcolor{keywordtype}{double} correction = 1.0;}
+\DoxyCodeLine{99         \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{100           \textcolor{keywordtype}{double} newY = FnComp\_Y(y + delta) -\/ m\_compY[j];}
+\DoxyCodeLine{101           \textcolor{keywordtype}{double} oldY = FnComp\_Y(y) -\/ m\_compY[j];}
+\DoxyCodeLine{102           \textcolor{keywordtype}{double} deriv = (newY-\/oldY)/delta;}
+\DoxyCodeLine{103           correction = -\/oldY/deriv;}
+\DoxyCodeLine{104           y += correction;}
+\DoxyCodeLine{105         \} \textcolor{keywordflow}{while}(fabs(correction) > 1.e-\/8);}
+\DoxyCodeLine{106         m\_Y[ j ] = y;}
+\DoxyCodeLine{107       \}}
+\DoxyCodeLine{108     \}}
+\DoxyCodeLine{109     \textcolor{comment}{// we now need the corresponding m\_X coordinates in the physical domain}}
+\DoxyCodeLine{110     \{}
+\DoxyCodeLine{111       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} i = 1; i < m\_nx; ++i) \{}
+\DoxyCodeLine{112         \textcolor{comment}{// for each node in m\_compY}}
+\DoxyCodeLine{113         \textcolor{keywordtype}{unsigned} kmin(0);}
+\DoxyCodeLine{114         \textcolor{keywordtype}{double} min(99e9);}
+\DoxyCodeLine{115         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} k = 0; k < m\_ny; ++k) \{}
+\DoxyCodeLine{116           \textcolor{comment}{// find the y value that is closest to it}}
+\DoxyCodeLine{117           \textcolor{keywordflow}{if}(std::abs(FnComp\_X(m\_X[k]) -\/ m\_compX[i]) < min) \{}
+\DoxyCodeLine{118             min = std::abs(FnComp\_X(m\_X[k]) -\/ m\_compX[i]);}
+\DoxyCodeLine{119             kmin = k;}
+\DoxyCodeLine{120           \}}
+\DoxyCodeLine{121         \}}
+\DoxyCodeLine{122         \textcolor{keywordtype}{double} x = m\_X[kmin];}
+\DoxyCodeLine{123         \textcolor{keywordtype}{double} delta = 1.e-\/8;}
+\DoxyCodeLine{124         \textcolor{keywordtype}{double} correction = 1.0;}
+\DoxyCodeLine{125         \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{126           \textcolor{keywordtype}{double} newX = FnComp\_X(x + delta) -\/ m\_compX[i];}
+\DoxyCodeLine{127           \textcolor{keywordtype}{double} oldX = FnComp\_X(x) -\/ m\_compX[i];}
+\DoxyCodeLine{128           \textcolor{keywordtype}{double} deriv = (newX-\/oldX)/delta;}
+\DoxyCodeLine{129           correction = -\/oldX/deriv;}
+\DoxyCodeLine{130           x += correction;}
+\DoxyCodeLine{131         \} \textcolor{keywordflow}{while}(fabs(correction) > 1.e-\/8);}
+\DoxyCodeLine{132         m\_X[ i ] = x;}
+\DoxyCodeLine{133       \}}
+\DoxyCodeLine{134     \}}
+\DoxyCodeLine{135   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Utility\+::uniform\+\_\+node\+\_\+vector().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a5cc133cefd0f53121aad03019c0b21c8}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!max@{max}}
+\index{max@{max}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{max()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::max (\begin{DoxyParamCaption}\item[{unsigned}]{var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Find the maximum stored absolute value in the mesh for a given variable -- no interpolation is used. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em var} & The variable index whose maximum is being asked for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the maximum (abs value) 
+\end{DoxyReturn}
+
+
+Definition at line 217 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{217                              \{}
+\DoxyCodeLine{218       \textcolor{keywordtype}{double} max(0.0);}
+\DoxyCodeLine{219       \textcolor{comment}{// step through the nodes}}
+\DoxyCodeLine{220       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} nodex = 0; nodex < m\_nx; ++nodex) \{}
+\DoxyCodeLine{221         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} nodey = 0; nodey < m\_ny; ++nodey) \{}
+\DoxyCodeLine{222           \textcolor{keywordflow}{if}(std::abs(m\_vars[(nodex * m\_ny + nodey) * m\_nv + var ]) > max) \{}
+\DoxyCodeLine{223             max = std::abs(m\_vars[(nodex * m\_ny + nodey) * m\_nv + var ]);}
+\DoxyCodeLine{224           \}}
+\DoxyCodeLine{225         \}}
+\DoxyCodeLine{226       \}}
+\DoxyCodeLine{227       \textcolor{keywordflow}{return} max;}
+\DoxyCodeLine{228     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+nv, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+nx, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+ny, and Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+vars.
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a3aa3bd5f38073e298cf2fa9ae2ebf553}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!normalise@{normalise}}
+\index{normalise@{normalise}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{normalise()\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ double $>$\+::normalise (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{var }\end{DoxyParamCaption})}
+
+
+
+Definition at line 169 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{169                                                                     \{}
+\DoxyCodeLine{170     \textcolor{keywordtype}{double} maxval(max(var));}
+\DoxyCodeLine{171     m\_vars.scale(1./maxval);}
+\DoxyCodeLine{172   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_aa003f619a15b691de8dd050ab98b216d}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!normalise@{normalise}}
+\index{normalise@{normalise}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{normalise()\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \textbf{ D\+\_\+complex} $>$\+::normalise (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{var }\end{DoxyParamCaption})}
+
+
+
+Definition at line 175 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{175                                                                        \{}
+\DoxyCodeLine{176     \textcolor{comment}{//std::cout << "[DEBUG] asked to normalise a complex mesh\(\backslash\)n";}}
+\DoxyCodeLine{177     \textcolor{keywordtype}{unsigned} max\_nx(0);}
+\DoxyCodeLine{178     \textcolor{keywordtype}{unsigned} max\_ny(0);}
+\DoxyCodeLine{179     \textcolor{keywordtype}{double} max(0.0);}
+\DoxyCodeLine{180     \textcolor{comment}{// step through the nodes}}
+\DoxyCodeLine{181     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} nodex = 0; nodex < m\_X.size(); ++nodex) \{}
+\DoxyCodeLine{182       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} nodey = 0; nodey < m\_Y.size(); ++nodey) \{}
+\DoxyCodeLine{183         \textcolor{keywordflow}{if}(std::abs(m\_vars[(nodex * m\_ny + nodey) * m\_nv + var ]) > max) \{}
+\DoxyCodeLine{184           max = std::abs(m\_vars[(nodex * m\_ny + nodey) * m\_nv + var ]);}
+\DoxyCodeLine{185           max\_nx = nodex;}
+\DoxyCodeLine{186           max\_ny = nodey;}
+\DoxyCodeLine{187         \}}
+\DoxyCodeLine{188       \}}
+\DoxyCodeLine{189     \}}
+\DoxyCodeLine{190     D\_complex factor(m\_vars[(max\_nx * m\_ny + max\_ny) * m\_nv + var ]);}
+\DoxyCodeLine{191     \textcolor{comment}{//std::cout << "[DEBUG] MAX |variable| had complex value of " << factor << "\(\backslash\)n";}}
+\DoxyCodeLine{192     m\_vars.scale(1./factor);}
+\DoxyCodeLine{193   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a79ea81d89effc1cd4f2131dd02ae18c7}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!normalise@{normalise}}
+\index{normalise@{normalise}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{normalise()\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::normalise (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{var }\end{DoxyParamCaption})}
+
+
+
+Normalise all data in the mesh based on one variable. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em var} & This var will have its peak (absolute) value as +/-\/unity following the normalisation. All other variables will also be rescaled by the same amount. \\
+\hline
+\end{DoxyParams}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a998068d3cedfb1d93b0abb5f62179b9b}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{operator()()\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::operator() (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{nodex,  }\item[{const std\+::size\+\_\+t}]{nodey }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access operator for a nodal point that returns a vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodex} & The nodal index value in the first direction \\
+\hline
+{\em nodey} & The nodal index value in the second direction \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The vector of variables stored at the node 
+\end{DoxyReturn}
+
+
+Definition at line 302 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{302                                                                                                                   \{}
+\DoxyCodeLine{303 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{304     \textcolor{keywordflow}{if}(nodex > m\_nx -\/ 1 || nodey > m\_ny -\/ 1) \{}
+\DoxyCodeLine{305       std::string problem;}
+\DoxyCodeLine{306       problem = \textcolor{stringliteral}{" The TwoD\_Mapped\_Node\_Mesh.operator() method is trying to \(\backslash\)n"};}
+\DoxyCodeLine{307       problem += \textcolor{stringliteral}{" access a nodal point that is not in the mesh. \(\backslash\)n"};}
+\DoxyCodeLine{308       \textcolor{keywordflow}{throw} ExceptionRange(problem, m\_nx, nodex, m\_ny, nodey);}
+\DoxyCodeLine{309     \}}
+\DoxyCodeLine{310 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{311     \textcolor{keywordflow}{return} get\_nodes\_vars(nodex,nodey);}
+\DoxyCodeLine{312   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a8ba16773439a2cfa3aea5f90bd96042a}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{operator()()\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::operator() (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{nodex,  }\item[{const std\+::size\+\_\+t}]{nodey,  }\item[{const std\+::size\+\_\+t}]{var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access operator for a nodal point/variable in the mesh. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodex} & The nodal index value in the first direction \\
+\hline
+{\em nodey} & The nodal index value in the second direction \\
+\hline
+{\em var} & The variable index to be accessed \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 316 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{316                                                                                                                           \{}
+\DoxyCodeLine{317 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{318     \textcolor{keywordflow}{if}(nodex > m\_nx -\/ 1 || nodey > m\_ny -\/ 1) \{}
+\DoxyCodeLine{319       std::string problem;}
+\DoxyCodeLine{320       problem = \textcolor{stringliteral}{" The TwoD\_Mapped\_Node\_Mesh.operator() method is trying to \(\backslash\)n"};}
+\DoxyCodeLine{321       problem += \textcolor{stringliteral}{" access a nodal point that is not in the mesh. \(\backslash\)n"};}
+\DoxyCodeLine{322       \textcolor{keywordflow}{throw} ExceptionRange(problem, m\_nx, nodex, m\_ny, nodey);}
+\DoxyCodeLine{323     \}}
+\DoxyCodeLine{324     \textcolor{keywordflow}{if}(var > m\_nv -\/ 1) \{}
+\DoxyCodeLine{325       std::string problem;}
+\DoxyCodeLine{326       problem = \textcolor{stringliteral}{" The TwoD\_Mapped\_Node\_Mesh.operator() method is trying to \(\backslash\)n"};}
+\DoxyCodeLine{327       problem += \textcolor{stringliteral}{" access a variable index that is not in the mesh. \(\backslash\)n"};}
+\DoxyCodeLine{328       \textcolor{keywordflow}{throw} ExceptionRange(problem, m\_nv, var);}
+\DoxyCodeLine{329     \}}
+\DoxyCodeLine{330 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{331     \textcolor{keywordflow}{return} m\_vars[(nodex * m\_ny + nodey) * m\_nv + var ];}
+\DoxyCodeLine{332   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_ab3d6cb9a7f9e7d9c0f963f4222cc5999}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{operator()()\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+const \+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::operator() (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{nodex,  }\item[{const std\+::size\+\_\+t}]{nodey,  }\item[{const std\+::size\+\_\+t}]{var }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Const access operator for a nodal point/variable in the mesh. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodex} & The nodal index value in the first direction \\
+\hline
+{\em nodey} & The nodal index value in the second direction \\
+\hline
+{\em var} & The variable index to be accessed \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 335 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{335                                                                                                                                       \{}
+\DoxyCodeLine{336 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{337     \textcolor{keywordflow}{if}(nodex > m\_nx -\/ 1 || nodey > m\_ny -\/ 1) \{}
+\DoxyCodeLine{338       std::string problem;}
+\DoxyCodeLine{339       problem = \textcolor{stringliteral}{" The TwoD\_Mapped\_Node\_Mesh.operator() method is trying to \(\backslash\)n"};}
+\DoxyCodeLine{340       problem += \textcolor{stringliteral}{" access a nodal point that is not in the mesh. \(\backslash\)n"};}
+\DoxyCodeLine{341       \textcolor{keywordflow}{throw} ExceptionRange(problem, m\_nx, nodex, m\_ny, nodey);}
+\DoxyCodeLine{342     \}}
+\DoxyCodeLine{343     \textcolor{keywordflow}{if}(var > m\_nv -\/ 1) \{}
+\DoxyCodeLine{344       std::string problem;}
+\DoxyCodeLine{345       problem = \textcolor{stringliteral}{" The TwoD\_Mapped\_Node\_Mesh.operator() method is trying to \(\backslash\)n"};}
+\DoxyCodeLine{346       problem += \textcolor{stringliteral}{" access a variable index that is not in the mesh. \(\backslash\)n"};}
+\DoxyCodeLine{347       \textcolor{keywordflow}{throw} ExceptionRange(problem, m\_nv, var);}
+\DoxyCodeLine{348     \}}
+\DoxyCodeLine{349 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{350     \textcolor{keywordflow}{return} m\_vars[(nodex * m\_ny + nodey) * m\_nv + var ];}
+\DoxyCodeLine{351   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_aee6ca42ca1ce33b82539888013c5207c}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!read@{read}}
+\index{read@{read}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{read()\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ double $>$\+::read (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{bool}]{reset }\end{DoxyParamCaption})}
+
+
+
+Definition at line 196 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{196                                                                          \{}
+\DoxyCodeLine{197     std::ifstream dump;}
+\DoxyCodeLine{198     dump.open(filename.c\_str());}
+\DoxyCodeLine{199     \textcolor{keywordflow}{if}(dump.good() != \textcolor{keyword}{true}) \{}
+\DoxyCodeLine{200       std::string problem;}
+\DoxyCodeLine{201       problem = \textcolor{stringliteral}{" The TwoD\_Node\_Mesh.read method is trying to read a \(\backslash\)n"};}
+\DoxyCodeLine{202       problem += \textcolor{stringliteral}{" file ("} + filename + \textcolor{stringliteral}{") that doesn't exist.\(\backslash\)n"};}
+\DoxyCodeLine{203       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{204     \}}
+\DoxyCodeLine{205     dump.precision(15);}
+\DoxyCodeLine{206     dump.setf(std::ios::showpoint);}
+\DoxyCodeLine{207     dump.setf(std::ios::showpos);}
+\DoxyCodeLine{208     dump.setf(std::ios::scientific);}
+\DoxyCodeLine{209     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_nx; ++i) \{}
+\DoxyCodeLine{210       \textcolor{keywordflow}{for}(std::size\_t j = 0; j < m\_ny; ++j) \{}
+\DoxyCodeLine{211         \textcolor{keywordtype}{double} x, y;}
+\DoxyCodeLine{212         dump >> x;}
+\DoxyCodeLine{213         dump >> y;}
+\DoxyCodeLine{214         \textcolor{keywordflow}{for}(std::size\_t var = 0; var < m\_nv; ++var) \{}
+\DoxyCodeLine{215           \textcolor{keywordtype}{double} value;}
+\DoxyCodeLine{216           dump >> value;}
+\DoxyCodeLine{217           m\_vars[(i * m\_ny + j) * m\_nv + var ] = value;}
+\DoxyCodeLine{218         \}}
+\DoxyCodeLine{219         \textcolor{keywordflow}{if}(reset != \textcolor{keyword}{true}) \{}
+\DoxyCodeLine{220           \textcolor{comment}{// if not reseting the mesh we should check the node positions}}
+\DoxyCodeLine{221           \textcolor{keywordflow}{if}((std::fabs(x -\/ m\_X[ i ]) > 1.e-\/6) || (std::fabs(y -\/ m\_Y[ j ]) > 1.e-\/6)) \{}
+\DoxyCodeLine{222             std::cout << \textcolor{stringliteral}{" Read x = "} << x << \textcolor{stringliteral}{" Expected x = "} << m\_X[ i ] << \textcolor{stringliteral}{"; Read y = "} << y << \textcolor{stringliteral}{" Expected y = "} << m\_Y[ j ] << \textcolor{stringliteral}{" \(\backslash\)n"};}
+\DoxyCodeLine{223             std::cout << \textcolor{stringliteral}{" Absolute differences are "} << fabs(x -\/ m\_X[i]) << \textcolor{stringliteral}{" and "} << fabs(y -\/ m\_Y[j]) << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{224             std::string problem;}
+\DoxyCodeLine{225             problem = \textcolor{stringliteral}{" The TwoD\_Node\_Mesh.read method is trying to read a \(\backslash\)n"};}
+\DoxyCodeLine{226             problem += \textcolor{stringliteral}{" file whose nodal points are in a different position. \(\backslash\)n"};}
+\DoxyCodeLine{227             \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{228           \}}
+\DoxyCodeLine{229         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{230           m\_X[ i ] = x;}
+\DoxyCodeLine{231           m\_Y[ j ] = y;}
+\DoxyCodeLine{232         \}}
+\DoxyCodeLine{233       \}}
+\DoxyCodeLine{234     \}}
+\DoxyCodeLine{235   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a312a92f971b2d291c8e14f858f24f805}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!read@{read}}
+\index{read@{read}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{read()\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \textbf{ D\+\_\+complex} $>$\+::read (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{bool}]{reset }\end{DoxyParamCaption})}
+
+
+
+Definition at line 239 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{239                                                                             \{}
+\DoxyCodeLine{240     std::ifstream dump;}
+\DoxyCodeLine{241     dump.open(filename.c\_str());}
+\DoxyCodeLine{242     dump.precision(15);}
+\DoxyCodeLine{243     dump.setf(std::ios::showpoint);}
+\DoxyCodeLine{244     dump.setf(std::ios::showpos);}
+\DoxyCodeLine{245     dump.setf(std::ios::scientific);}
+\DoxyCodeLine{246     \textcolor{comment}{//}}
+\DoxyCodeLine{247     \textcolor{comment}{// 18/06/2017: switched i and j below for consistency with double}}
+\DoxyCodeLine{248     \textcolor{comment}{//}}
+\DoxyCodeLine{249     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_nx; ++i) \{}
+\DoxyCodeLine{250       \textcolor{keywordflow}{for}(std::size\_t j = 0; j < m\_ny; ++j) \{}
+\DoxyCodeLine{251         \textcolor{keywordtype}{double} x, y;}
+\DoxyCodeLine{252         dump >> x;}
+\DoxyCodeLine{253         dump >> y;}
+\DoxyCodeLine{254         \textcolor{keywordflow}{for}(std::size\_t var = 0; var < m\_nv; ++var) \{}
+\DoxyCodeLine{255           \textcolor{keywordtype}{double} value\_r, value\_i;}
+\DoxyCodeLine{256           dump >> value\_r;}
+\DoxyCodeLine{257           dump >> value\_i;}
+\DoxyCodeLine{258           m\_vars[(i * m\_ny + j) * m\_nv + var ] = D\_complex(value\_r, value\_i);}
+\DoxyCodeLine{259         \}}
+\DoxyCodeLine{260         \textcolor{keywordflow}{if}(reset != \textcolor{keyword}{true}) \{}
+\DoxyCodeLine{261           \textcolor{comment}{// if not reseting the mesh we should check the node positions}}
+\DoxyCodeLine{262           \textcolor{keywordflow}{if}((std::fabs(x -\/ m\_X[ i ]) > 1.e-\/6) || (std::fabs(y -\/ m\_Y[ j ]) > 1.e-\/6)) \{}
+\DoxyCodeLine{263             std::cout << \textcolor{stringliteral}{" Read x = "} << x << \textcolor{stringliteral}{" Expected x = "} << m\_X[ i ] << \textcolor{stringliteral}{"; Read y = "} << y << \textcolor{stringliteral}{" Expected y = "} << m\_Y[ j ] << \textcolor{stringliteral}{" \(\backslash\)n"};}
+\DoxyCodeLine{264             std::cout << \textcolor{stringliteral}{" Absolute differences are "} << fabs(x -\/ m\_X[i]) << \textcolor{stringliteral}{" and "} << fabs(y -\/ m\_Y[j]) << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{265             std::string problem;}
+\DoxyCodeLine{266             problem = \textcolor{stringliteral}{" The TwoD\_Node\_Mesh.read method is trying to read a \(\backslash\)n"};}
+\DoxyCodeLine{267             problem += \textcolor{stringliteral}{" file whose nodal points are in a different position. \(\backslash\)n"};}
+\DoxyCodeLine{268             \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{269           \}}
+\DoxyCodeLine{270         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{271           m\_X[ i ] = x;}
+\DoxyCodeLine{272           m\_Y[ j ] = y;}
+\DoxyCodeLine{273         \}}
+\DoxyCodeLine{274       \}}
+\DoxyCodeLine{275     \}}
+\DoxyCodeLine{276   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a26d38787e4aab9803324d80a932b8745}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!read@{read}}
+\index{read@{read}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{read()\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::read (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{const bool}]{reset = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+A simple method for reading data from a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The filename to write the data to (will overwrite) \\
+\hline
+{\em reset} & Will reset the nodal positions using those from the file \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a6cae07896201dcb7c4f27d9a54b2d146}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!scale@{scale}}
+\index{scale@{scale}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{scale()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::scale (\begin{DoxyParamCaption}\item[{const \+\_\+\+Type \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Rescale all values stored in the mapped mesh by a scalar. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The scalar that is to multiply all mesh content \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 209 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{209                                    \{}
+\DoxyCodeLine{210       m\_vars.scale(value);}
+\DoxyCodeLine{211     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::m\+\_\+vars.
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a6c89c92b6f0cf84a1c6a76ed7ebc5b9a}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!set\_nodes\_vars@{set\_nodes\_vars}}
+\index{set\_nodes\_vars@{set\_nodes\_vars}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{set\_nodes\_vars()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::set\+\_\+nodes\+\_\+vars (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{nodex,  }\item[{const std\+::size\+\_\+t}]{nodey,  }\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{U }\end{DoxyParamCaption})}
+
+
+
+Set the variables stored at A S\+P\+E\+C\+I\+F\+I\+ED node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodex} & The x nodal index to be set \\
+\hline
+{\em nodey} & The y nodal index to be set \\
+\hline
+{\em U} & The vector of V\+A\+R\+I\+A\+B\+L\+ES to be written to this nodal point \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 20 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{20                                                                                                                              \{}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{22     \textcolor{keywordflow}{if}(U.size() > m\_nv) \{}
+\DoxyCodeLine{23       std::string problem;}
+\DoxyCodeLine{24       problem = \textcolor{stringliteral}{" The TwoD\_Mapped\_Node\_Mesh.set\_nodes\_vars method is trying to use a \(\backslash\)n"};}
+\DoxyCodeLine{25       problem += \textcolor{stringliteral}{" vector that has more entries than variables stored in the mesh. \(\backslash\)n"};}
+\DoxyCodeLine{26       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{27     \}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{29     \textcolor{comment}{// assign contents of U to the member data}}
+\DoxyCodeLine{30     std::size\_t offset((nodex * m\_ny + nodey) * m\_nv);}
+\DoxyCodeLine{31     \textcolor{keywordflow}{for}(std::size\_t var = 0; var < m\_nv; ++var) \{}
+\DoxyCodeLine{32       m\_vars[ offset++ ] = U[ var ];}
+\DoxyCodeLine{33     \}}
+\DoxyCodeLine{34   \}}
+
+\end{DoxyCode}
+
+
+References U.
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a2bf7861f53c587d8b7daee58cb75369e}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!xnodes@{xnodes}}
+\index{xnodes@{xnodes}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{xnodes()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ double $>$ \& \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::xnodes}
+
+
+
+Access the vector of x-\/nodal positions. 
+
+\begin{DoxyReturn}{Returns}
+A vector of the nodal positions for this mesh 
+\end{DoxyReturn}
+
+
+Definition at line 159 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{159                                                             \{}
+\DoxyCodeLine{160     \textcolor{keywordflow}{return} m\_X;}
+\DoxyCodeLine{161   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a839798aad2a7c4f8eabcca9b633f7ea1}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!ynodes@{ynodes}}
+\index{ynodes@{ynodes}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{ynodes()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ double $>$ \& \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::ynodes}
+
+
+
+Access the vector of y-\/nodal positions. 
+
+\begin{DoxyReturn}{Returns}
+A vector of the nodal positions for this mesh 
+\end{DoxyReturn}
+
+
+Definition at line 164 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{164                                                             \{}
+\DoxyCodeLine{165     \textcolor{keywordflow}{return} m\_Y;}
+\DoxyCodeLine{166   \}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Data Documentation}
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a8f843893472a8aaed864ce4971903f42}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!m\_bottom@{m\_bottom}}
+\index{m\_bottom@{m\_bottom}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{m\_bottom}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::m\+\_\+bottom\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 284 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_ad62888667b10ecf9cadd07e163ea8daa}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!m\_compX@{m\_compX}}
+\index{m\_compX@{m\_compX}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{m\_compX}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$double$>$ \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::m\+\_\+compX\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 289 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+interpolated\+\_\+vars(), and Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a2a9f644a430f76fdb7366f378aeb1ac9}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!m\_compY@{m\_compY}}
+\index{m\_compY@{m\_compY}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{m\_compY}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$double$>$ \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::m\+\_\+compY\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 292 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+interpolated\+\_\+vars(), and Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a093a234595c7ec6941b74c674d684591}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!m\_left@{m\_left}}
+\index{m\_left@{m\_left}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{m\_left}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::m\+\_\+left\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 284 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_aeeccff63d218685cdcdf8cfdf869d062}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!m\_nv@{m\_nv}}
+\index{m\_nv@{m\_nv}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{m\_nv}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::m\+\_\+nv\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 286 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+interpolated\+\_\+vars(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::max(), and Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a71c9b76c573e90242d647421398cf598}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!m\_nx@{m\_nx}}
+\index{m\_nx@{m\_nx}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{m\_nx}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::m\+\_\+nx\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 286 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+interpolated\+\_\+vars(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::max(), and Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a7fb66196db60a828016610f6ad36b1a9}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!m\_ny@{m\_ny}}
+\index{m\_ny@{m\_ny}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{m\_ny}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::m\+\_\+ny\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 286 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+interpolated\+\_\+vars(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::max(), and Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a328bd75c0ad7cb26e96bd5f97c7fd382}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!m\_right@{m\_right}}
+\index{m\_right@{m\_right}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{m\_right}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::m\+\_\+right\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 284 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a9a135f3532998205519b21cc68dfd173}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!m\_top@{m\_top}}
+\index{m\_top@{m\_top}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{m\_top}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::m\+\_\+top\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 284 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_a8c3aaa3facc92fcb76bfa9ef783b69c1}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!m\_vars@{m\_vars}}
+\index{m\_vars@{m\_vars}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{m\_vars}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$\+\_\+\+Type$>$ \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::m\+\_\+vars\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 298 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::max(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::scale(), and Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_afc80397118d44f0c7a058b93606d35e0}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!m\_X@{m\_X}}
+\index{m\_X@{m\_X}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{m\_X}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$double$>$ \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::m\+\_\+X\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 294 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1TwoD__Mapped__Node__Mesh_abd77368e2cf33edfcb2d525f6787a927}} 
+\index{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}!m\_Y@{m\_Y}}
+\index{m\_Y@{m\_Y}!CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$@{CppNoddy::TwoD\_Mapped\_Node\_Mesh$<$ \_Type $>$}}
+\doxyparagraph{m\_Y}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$double$>$ \textbf{ Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$\+::m\+\_\+Y\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 296 of file Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h}\item 
+src/\textbf{ Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+cpp}\end{DoxyCompactItemize}

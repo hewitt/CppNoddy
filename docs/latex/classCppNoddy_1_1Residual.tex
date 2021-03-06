@@ -1,0 +1,515 @@
+\doxysubsection{Cpp\+Noddy\+::Residual$<$ \+\_\+\+Type $>$ Class Template Reference}
+\label{classCppNoddy_1_1Residual}\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+
+
+A base class to be inherited by objects that define residuals.  
+
+
+
+
+{\ttfamily \#include $<$Residual.\+h$>$}
+
+Inheritance diagram for Cpp\+Noddy\+::Residual$<$ \+\_\+\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=8.832808cm]{classCppNoddy_1_1Residual}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Residual} (const unsigned \&order)
+\begin{DoxyCompactList}\small\item\em Constructor for a \textquotesingle{}square\textquotesingle{} residual object that is, N residuals for N unknowns. \end{DoxyCompactList}\item 
+\textbf{ Residual} (const unsigned \&order, const unsigned \&nvars)
+\begin{DoxyCompactList}\small\item\em Constructor for a \textquotesingle{}non-\/square\textquotesingle{} residual object that is, there are less residual constraints than unknowns. \end{DoxyCompactList}\item 
+virtual \textbf{ $\sim$\+Residual} ()
+\begin{DoxyCompactList}\small\item\em An empty destructor, virtual since we have virtual methods. \end{DoxyCompactList}\item 
+void \textbf{ update} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&state)
+\begin{DoxyCompactList}\small\item\em Update the \doxyref{Residual}{p.}{classCppNoddy_1_1Residual} object for the current set of state variables. \end{DoxyCompactList}\item 
+const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ residual} () const
+\begin{DoxyCompactList}\small\item\em Return a handle to the residuals corresponding to the last update state. \end{DoxyCompactList}\item 
+const \textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ \& \textbf{ jacobian} () const
+\begin{DoxyCompactList}\small\item\em Retrun a handle to the Jacobian of the residual corresponding to the last update state. \end{DoxyCompactList}\item 
+\+\_\+\+Type \& \textbf{ delta} ()
+\item 
+const \+\_\+\+Type \& \textbf{ delta} () const
+\item 
+unsigned \textbf{ get\+\_\+order} () const
+\begin{DoxyCompactList}\small\item\em Get the order of the residual vector. \end{DoxyCompactList}\item 
+unsigned \textbf{ get\+\_\+number\+\_\+of\+\_\+vars} () const
+\begin{DoxyCompactList}\small\item\em Get the number of variables that this residual condition is defined for. \end{DoxyCompactList}\item 
+virtual void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&state, \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&\textbf{ f}) const
+\begin{DoxyCompactList}\small\item\em A blank virtual residual function method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \textbf{ jacobian} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&state, \textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ \&jac) const
+\begin{DoxyCompactList}\small\item\em Because the residual evaluation at the current state is assumed to have already been done by the \textquotesingle{}update\textquotesingle{} method, this routine is protected. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ \textbf{ J\+A\+C\+\_\+\+A\+T\+\_\+\+L\+A\+S\+T\+\_\+\+S\+T\+A\+TE}
+\begin{DoxyCompactList}\small\item\em Jacobian for the last state vector. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ F\+N\+\_\+\+A\+T\+\_\+\+L\+A\+S\+T\+\_\+\+S\+T\+A\+TE}
+\begin{DoxyCompactList}\small\item\em \doxyref{Residual}{p.}{classCppNoddy_1_1Residual} for the last state vector. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ L\+A\+S\+T\+\_\+\+S\+T\+A\+TE}
+\begin{DoxyCompactList}\small\item\em The last state vector. \end{DoxyCompactList}\item 
+\+\_\+\+Type \textbf{ D\+E\+L\+TA}
+\begin{DoxyCompactList}\small\item\em A default step for FD computation of the Jacobian. \end{DoxyCompactList}\item 
+unsigned \textbf{ O\+R\+D\+E\+R\+\_\+\+O\+F\+\_\+\+S\+Y\+S\+T\+EM}
+\begin{DoxyCompactList}\small\item\em The order of the system of equations. \end{DoxyCompactList}\item 
+unsigned \textbf{ N\+U\+M\+B\+E\+R\+\_\+\+O\+F\+\_\+\+V\+A\+RS}
+\begin{DoxyCompactList}\small\item\em The number of elements in the state vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type$>$\newline
+class Cpp\+Noddy\+::\+Residual$<$ \+\_\+\+Type $>$}
+
+A base class to be inherited by objects that define residuals. 
+
+Definition at line 15 of file Residual.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Residual_aa47a9ad20f64d8145487cf737da3545e}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!Residual@{Residual}}
+\index{Residual@{Residual}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{Residual()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::\textbf{ Residual} (\begin{DoxyParamCaption}\item[{const unsigned \&}]{order }\end{DoxyParamCaption})}
+
+
+
+Constructor for a \textquotesingle{}square\textquotesingle{} residual object that is, N residuals for N unknowns. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em order} & The order of the residual vector \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 9 of file Residual.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9                                                  : DELTA(1.e-\/8) \{}
+\DoxyCodeLine{10     \textcolor{comment}{// set the order of the vector system and initialise the member data}}
+\DoxyCodeLine{11     ORDER\_OF\_SYSTEM = order;}
+\DoxyCodeLine{12     NUMBER\_OF\_VARS = order;}
+\DoxyCodeLine{13     LAST\_STATE = DenseVector<\_Type>(NUMBER\_OF\_VARS, 0.0);}
+\DoxyCodeLine{14     FN\_AT\_LAST\_STATE = DenseVector<\_Type>(ORDER\_OF\_SYSTEM, 0.0);}
+\DoxyCodeLine{15     JAC\_AT\_LAST\_STATE = DenseMatrix<\_Type>(ORDER\_OF\_SYSTEM, NUMBER\_OF\_VARS, 0.0);}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{17     \textcolor{comment}{// timer}}
+\DoxyCodeLine{18     T\_UPDATER = Timer(\textcolor{stringliteral}{"Updating of the residual object:"});}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{20   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Residual_a3a4fe2e2f12ce3c71e7455ff990c45cd}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!Residual@{Residual}}
+\index{Residual@{Residual}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{Residual()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::\textbf{ Residual} (\begin{DoxyParamCaption}\item[{const unsigned \&}]{order,  }\item[{const unsigned \&}]{nvars }\end{DoxyParamCaption})}
+
+
+
+Constructor for a \textquotesingle{}non-\/square\textquotesingle{} residual object that is, there are less residual constraints than unknowns. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em order} & The number of residuals \\
+\hline
+{\em nvars} & The number of unknowns/variables \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 23 of file Residual.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23                                                                          : DELTA(1.e-\/8) \{}
+\DoxyCodeLine{24     \textcolor{comment}{// stet the order of the vector system and initialise the member data}}
+\DoxyCodeLine{25     ORDER\_OF\_SYSTEM = order;}
+\DoxyCodeLine{26     NUMBER\_OF\_VARS = nstate;}
+\DoxyCodeLine{27     LAST\_STATE = DenseVector<\_Type>(NUMBER\_OF\_VARS, 0.0);}
+\DoxyCodeLine{28     FN\_AT\_LAST\_STATE = DenseVector<\_Type>(ORDER\_OF\_SYSTEM, 0.0);}
+\DoxyCodeLine{29     JAC\_AT\_LAST\_STATE = DenseMatrix<\_Type>(ORDER\_OF\_SYSTEM, NUMBER\_OF\_VARS, 0.0);}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{31     \textcolor{comment}{// timer}}
+\DoxyCodeLine{32     T\_UPDATER = Timer(\textcolor{stringliteral}{"Updating of the residual object:"});}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{34   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Residual_a9b0296d0a7c3c9f0b967b6a39a257a59}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!````~Residual@{$\sim$Residual}}
+\index{````~Residual@{$\sim$Residual}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{$\sim$Residual()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::$\sim$\textbf{ Residual}\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+An empty destructor, virtual since we have virtual methods. 
+
+
+
+Definition at line 37 of file Residual.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{37                              \{}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{39     std::cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{40     T\_UPDATER.stop();}
+\DoxyCodeLine{41     T\_UPDATER.print();}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{43   \}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Residual_a5a8506b73ba6540cd22c7b66a3ad4d6c}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!delta@{delta}}
+\index{delta@{delta}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{delta()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+const \+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::delta\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+A handle to the step size used when finite-\/differencing the residual vector to obtain the Jacobian 
+\end{DoxyReturn}
+
+
+Definition at line 133 of file Residual.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{133                                        \{}
+\DoxyCodeLine{134     \textcolor{keywordflow}{return} DELTA;}
+\DoxyCodeLine{135   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Residual_a7fcc3b48236b459c8a45158b53aa0883}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!delta@{delta}}
+\index{delta@{delta}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{delta()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+const \+\_\+\+Type\& \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::delta (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+A handle to the step size used when finite-\/differencing the residual vector to obtain the Jacobian 
+\end{DoxyReturn}
+\mbox{\label{classCppNoddy_1_1Residual_a3c58ec3c600060ae3c9045599ece71ef}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!get\_number\_of\_vars@{get\_number\_of\_vars}}
+\index{get\_number\_of\_vars@{get\_number\_of\_vars}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{get\_number\_of\_vars()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+unsigned \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::get\+\_\+number\+\_\+of\+\_\+vars\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the number of variables that this residual condition is defined for. 
+
+\begin{DoxyReturn}{Returns}
+The number of variables for the residual 
+\end{DoxyReturn}
+
+
+Definition at line 128 of file Residual.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{128                                                             \{}
+\DoxyCodeLine{129     \textcolor{keywordflow}{return} NUMBER\_OF\_VARS;}
+\DoxyCodeLine{130   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Residual_a9910e469542b7cf1da10c89c8a4ef466}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!get\_order@{get\_order}}
+\index{get\_order@{get\_order}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{get\_order()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+unsigned \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::get\+\_\+order\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the order of the residual vector. 
+
+\begin{DoxyReturn}{Returns}
+The order/length of the residual vector 
+\end{DoxyReturn}
+
+
+Definition at line 123 of file Residual.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{123                                                    \{}
+\DoxyCodeLine{124     \textcolor{keywordflow}{return} ORDER\_OF\_SYSTEM;}
+\DoxyCodeLine{125   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Residual_a13873fad2834c5f0f8ab73a8e08af78c}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!jacobian@{jacobian}}
+\index{jacobian@{jacobian}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{jacobian()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+const \textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::jacobian\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retrun a handle to the Jacobian of the residual corresponding to the last update state. 
+
+
+
+Definition at line 118 of file Residual.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{118                                                                    \{}
+\DoxyCodeLine{119     \textcolor{keywordflow}{return} JAC\_AT\_LAST\_STATE;}
+\DoxyCodeLine{120   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Residual_a663b7f936049d9b47e9ae2e18ea3d926}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!jacobian@{jacobian}}
+\index{jacobian@{jacobian}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{jacobian()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::jacobian (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{state,  }\item[{\textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ \&}]{jac }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Because the residual evaluation at the current state is assumed to have already been done by the \textquotesingle{}update\textquotesingle{} method, this routine is protected. 
+
+This default uses a finite-\/differenced Jacobian. You can overload this to provide an analytic Jacobian if you wish 
+\begin{DoxyParams}{Parameters}
+{\em state} & Dummy state vector ... this is only here to make overloading easier, the \textquotesingle{}last\+\_\+x\textquotesingle{} member data is assumed in the default FD method. \\
+\hline
+{\em jac} & The NxN matrix Jacobian where the equation\+\_\+fn is a vector function of length N. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \textbf{ Cpp\+Noddy\+::\+Example\+::nonlinear} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1nonlinear_a8e1a92697c7693e1886e07cbcfd20461}, \textbf{ Cpp\+Noddy\+::\+Example\+::diffusion\+\_\+double} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1diffusion__double_a090549efbd12f282fe7419894d817c8c}, and \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__equations_a5f069673f5530507a78e694fa19a8ca0}.
+
+
+
+Definition at line 46 of file Residual.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{46                                                                                                \{}
+\DoxyCodeLine{47     DenseVector<\_Type> new\_state(state);}
+\DoxyCodeLine{48     \textcolor{comment}{// evaluation of the function}}
+\DoxyCodeLine{49     DenseVector<\_Type> f\_at\_new\_state(ORDER\_OF\_SYSTEM, 0.0);}
+\DoxyCodeLine{50     \textcolor{comment}{// default is to FD the Jacobian}}
+\DoxyCodeLine{51     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < NUMBER\_OF\_VARS; ++i) \{}
+\DoxyCodeLine{52       new\_state[ i ] += DELTA;}
+\DoxyCodeLine{53       residual\_fn(new\_state, f\_at\_new\_state);}
+\DoxyCodeLine{54       new\_state[ i ] -\/= DELTA;}
+\DoxyCodeLine{55       jac.set\_col(i, (f\_at\_new\_state -\/ FN\_AT\_LAST\_STATE) / DELTA);}
+\DoxyCodeLine{56     \}}
+\DoxyCodeLine{57   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Residual_a3ac5349c23a973b1119bf9ffcc6a1d43}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!residual@{residual}}
+\index{residual@{residual}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{residual()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::residual\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return a handle to the residuals corresponding to the last update state. 
+
+
+
+Definition at line 113 of file Residual.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{113                                                                    \{}
+\DoxyCodeLine{114     \textcolor{keywordflow}{return} FN\_AT\_LAST\_STATE;}
+\DoxyCodeLine{115   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{residual\_fn()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+virtual void \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{state,  }\item[{\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+A blank virtual residual function method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The unknown variable. \\
+\hline
+{\em f} & The residual function f(x). \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \textbf{ Cpp\+Noddy\+::\+Example\+::\+Blasius\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Blasius__equation_ad1bd7a18ca8f8b68bcfe8f56312a7e59}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Diff\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Diff__equation_ade3bcee499827d9fba0cd9b94b8fd74c}, \textbf{ Cpp\+Noddy\+::\+Example\+::harmonic\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1harmonic__equation_a1ea9fba8cfb2b48551944c4a1d076b8c}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Berman\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Berman__equation_ace447d16fe867ff4f19f1056f7870dc3}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Neutral\+\_\+residual} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Neutral__residual_ad8b939b4d60c6b21daf96b3bf2e7fb7d}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+F\+S\+\_\+residual} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1FS__residual_af193ba7212c458c6846be4092937a0a1}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Nlin\+\_\+adv\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Nlin__adv__equation_a338d541e09760023f032f46bc897778b}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__equations_af3abe22d98ac8b1d23c76fbb0a9f096c}, \textbf{ Cpp\+Noddy\+::\+Example\+::nonlinear} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1nonlinear_a07abb97b6277535018b895d2c62d0520}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__equations_af3abe22d98ac8b1d23c76fbb0a9f096c}, \textbf{ Cpp\+Noddy\+::\+Example\+::diffusion\+\_\+double} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1diffusion__double_a3c589cdb6a54a3639e7362b7b0f258bb}, \textbf{ Cpp\+Noddy\+::\+Example\+::nonlinear} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1nonlinear_a07abb97b6277535018b895d2c62d0520}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__equations_af3abe22d98ac8b1d23c76fbb0a9f096c}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__equations_af3abe22d98ac8b1d23c76fbb0a9f096c}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Blasius\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Blasius__equation_ac5312f60b3e086ee5e5651734bb7f679}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__equations_af3abe22d98ac8b1d23c76fbb0a9f096c}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+F\+S\+\_\+eqn} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1FS__eqn_abe670271dad7901345a4437a56548536}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Berman\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Berman__equation_a440ead9f72891bd1d1ad465af11cec47}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Diffusion\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Diffusion__equations_a8d5e3803842c2238e0e9d2bb24d23d88}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Arc\+\_\+problem} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Arc__problem_a589cf0cc5714eebd276c9a8510b84494}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Arc\+\_\+problem} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Arc__problem_a589cf0cc5714eebd276c9a8510b84494}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Arc\+\_\+problem} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Arc__problem_a589cf0cc5714eebd276c9a8510b84494}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+V\+Cube\+\_\+root\+\_\+problem} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1VCube__root__problem_a6755f25ca4a56ba774b93a2e4dd35ed8}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Lorenz\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Lorenz__equations_a79de51cd89e634d7a12a780ec063dd9b}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+B\+C\+\_\+upper} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1BC__upper_a9164126d4ceb5455b929719d47f679e6}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+right\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__right__BC_a538192317bd7a66b9d002ed195e6875a}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+B\+C\+\_\+lower} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1BC__lower_afd1f383d60abfa051d68514d32bfd84b}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Nlin\+\_\+adv\+\_\+right\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Nlin__adv__right__BC_ad126c338e295c6fdf2b49b77d0b09438}, \textbf{ Cpp\+Noddy\+::\+Example\+::dd\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1dd__BC_aa344f9b23b0143ce04efb2b2c104e3ef}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+left\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__left__BC_a3d962f8b1d5e9f7c6fa4b3fe34eaf012}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Diffusion\+\_\+right\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Diffusion__right__BC_a1cc2bc5ef74dc43318d26c8df580318c}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+B\+C\+\_\+upper} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1BC__upper_a9164126d4ceb5455b929719d47f679e6}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+right\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__right__BC_a43ac207102b17b4825f294d20248e8e6}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Nlin\+\_\+adv\+\_\+left\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Nlin__adv__left__BC_a712b74571e7cd719e8c9af381288723f}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+right\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__right__BC_a43ac207102b17b4825f294d20248e8e6}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Diffusion\+\_\+left\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Diffusion__left__BC_a2d766a4d078ee676ce41acbbfa3fc21f}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+B\+C\+\_\+lower} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1BC__lower_afd1f383d60abfa051d68514d32bfd84b}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+right\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__right__BC_a43ac207102b17b4825f294d20248e8e6}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Diff\+\_\+both\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Diff__both__BC_ab584b00a6355e4cad4f43f0f24304cad}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+right\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__right__BC_a43ac207102b17b4825f294d20248e8e6}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+left\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__left__BC_aa67d50166b3e6433fb6be463cffa2022}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Berman\+\_\+right\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Berman__right__BC_aabf64f5cbaf8c38e55b81d5590fbe1a0}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Blasius\+\_\+right\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Blasius__right__BC_ae00fd378063a905c3d4a123e97edd496}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+left\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__left__BC_aa67d50166b3e6433fb6be463cffa2022}, \textbf{ Cpp\+Noddy\+::\+Example\+::harmonic\+\_\+both\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1harmonic__both__BC_a710c9a5d98c4321190cb11a7b1898694}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+left\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__left__BC_aa67d50166b3e6433fb6be463cffa2022}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+left\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__left__BC_aa67d50166b3e6433fb6be463cffa2022}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Berman\+\_\+left\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Berman__left__BC_a647866df102ca058cf9fe50978dbca24}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Blasius\+\_\+left\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Blasius__left__BC_a9f517597ac4581ce6c66c28ab56ba1ab}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Berman\+\_\+residual} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Berman__residual_ad1c7893ead9f8b5f536b78a4be7db1c5}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Blasius\+\_\+residual} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Blasius__residual_abcec1f83b1853ecd3fe9766a02440cbd}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+bvp\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1OS__bvp__equation_ae95d26c30ede9afa2ee8d776889150fb}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+bvp\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1OS__bvp__equation_ae95d26c30ede9afa2ee8d776889150fb}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+evp\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1OS__evp__equation_a3e6f589f84eb517fac09b7890f8ea1f3}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+evp\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1OS__evp__equation_a3e6f589f84eb517fac09b7890f8ea1f3}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Biharmonic\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Biharmonic__equation_a4d1ab2522790879055512a6dafc2890c}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Cube\+\_\+root\+\_\+problem} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Cube__root__problem_a93b04732f5f39305f4c08de0cb8bbd7b}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+bvp\+\_\+right\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1OS__bvp__right__BC_a5ee50aeeb59fdaccdab384494d375a35}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+bvp\+\_\+right\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1OS__bvp__right__BC_a5ee50aeeb59fdaccdab384494d375a35}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+bvp\+\_\+left\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1OS__bvp__left__BC_aa09f6be99050246146169f0750d4833b}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+bvp\+\_\+left\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1OS__bvp__left__BC_aa09f6be99050246146169f0750d4833b}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+evp\+\_\+both\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1OS__evp__both__BC_ab79cfa454328d344879fa4d156d1ced0}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+evp\+\_\+both\+\_\+\+BC} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1OS__evp__both__BC_ab79cfa454328d344879fa4d156d1ced0}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Biharmonic\+\_\+residual} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Biharmonic__residual_a2942efc3e4e4f8dcf5b24097b1466740}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Nonidentity\+\_\+equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Nonidentity__equation_afbc8066faaeb87d47dc97e01272f8b8e}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Harmonic\+\_\+equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Harmonic__equation_a0d81e2e2b04ff371e5e463f89b1c0ef6}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Troesch\+\_\+equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Troesch__equation_a35de9e1e78917e20ad23be02b8530de9}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Nonidentity\+\_\+right\+\_\+\+B\+C$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Nonidentity__right__BC_a759ac91ff4ad5df141a2c582a3141aa4}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Harmonic\+\_\+right\+\_\+\+B\+C$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Harmonic__right__BC_a6839d48defdce43361daebe2a08fa5d3}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Troesch\+\_\+right\+\_\+\+B\+C$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Troesch__right__BC_a41c5013426f74a26225327126a6c501e}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Nonidentity\+\_\+left\+\_\+\+B\+C$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Nonidentity__left__BC_a197456db3d16ce9b567ef7cd0d7ffa58}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Harmonic\+\_\+left\+\_\+\+B\+C$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Harmonic__left__BC_a7c2edc241753b2a936d0cbb12162cf21}, and \textbf{ Cpp\+Noddy\+::\+Example\+::\+Troesch\+\_\+left\+\_\+\+B\+C$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Troesch__left__BC_a0ef8ea69849769eaa3247bf9d9c8d24d}.
+
+
+
+Definition at line 63 of file Residual.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{63                                                                                            \{}
+\DoxyCodeLine{64       std::string problem;}
+\DoxyCodeLine{65       problem = \textcolor{stringliteral}{"The Residual::residual\_fn method has not been implemented.\(\backslash\)n"};}
+\DoxyCodeLine{66       problem += \textcolor{stringliteral}{"You have to implement this method to define the residual.\(\backslash\)n"};}
+\DoxyCodeLine{67       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{68     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Residual_adeaecbfa388016b84911ab1d7c89a42c}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!update@{update}}
+\index{update@{update}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{update()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::update (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Update the \doxyref{Residual}{p.}{classCppNoddy_1_1Residual} object for the current set of state variables. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The state at which to set the residual object \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 100 of file Residual.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{100                                                                  \{}
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{102     T\_UPDATER.start();}
+\DoxyCodeLine{103 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{104     LAST\_STATE = x;}
+\DoxyCodeLine{105     residual\_fn(LAST\_STATE, FN\_AT\_LAST\_STATE);}
+\DoxyCodeLine{106     jacobian(LAST\_STATE, JAC\_AT\_LAST\_STATE);}
+\DoxyCodeLine{107 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{108     T\_UPDATER.stop();}
+\DoxyCodeLine{109 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{110   \}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Data Documentation}
+\mbox{\label{classCppNoddy_1_1Residual_a1a72710f6b3c556581921046899c580b}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!DELTA@{DELTA}}
+\index{DELTA@{DELTA}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{DELTA}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\+\_\+\+Type \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::D\+E\+L\+TA\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+A default step for FD computation of the Jacobian. 
+
+
+
+Definition at line 88 of file Residual.\+h.
+
+\mbox{\label{classCppNoddy_1_1Residual_a9b076fcedeccedb65d5d2b9f4998c0ca}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!FN\_AT\_LAST\_STATE@{FN\_AT\_LAST\_STATE}}
+\index{FN\_AT\_LAST\_STATE@{FN\_AT\_LAST\_STATE}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{FN\_AT\_LAST\_STATE}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$\+\_\+\+Type$>$ \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::F\+N\+\_\+\+A\+T\+\_\+\+L\+A\+S\+T\+\_\+\+S\+T\+A\+TE\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\doxyref{Residual}{p.}{classCppNoddy_1_1Residual} for the last state vector. 
+
+
+
+Definition at line 84 of file Residual.\+h.
+
+\mbox{\label{classCppNoddy_1_1Residual_ad2b2721ad7d1c6ac707b52772f766ef1}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!JAC\_AT\_LAST\_STATE@{JAC\_AT\_LAST\_STATE}}
+\index{JAC\_AT\_LAST\_STATE@{JAC\_AT\_LAST\_STATE}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{JAC\_AT\_LAST\_STATE}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Matrix}$<$\+\_\+\+Type$>$ \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::J\+A\+C\+\_\+\+A\+T\+\_\+\+L\+A\+S\+T\+\_\+\+S\+T\+A\+TE\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Jacobian for the last state vector. 
+
+
+
+Definition at line 82 of file Residual.\+h.
+
+\mbox{\label{classCppNoddy_1_1Residual_ac78dcb4a483f304b7c40d2a21a13e518}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!LAST\_STATE@{LAST\_STATE}}
+\index{LAST\_STATE@{LAST\_STATE}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{LAST\_STATE}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$\+\_\+\+Type$>$ \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::L\+A\+S\+T\+\_\+\+S\+T\+A\+TE\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The last state vector. 
+
+
+
+Definition at line 86 of file Residual.\+h.
+
+\mbox{\label{classCppNoddy_1_1Residual_ab0cc8f67f0ca051639db20c8b18a5f12}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!NUMBER\_OF\_VARS@{NUMBER\_OF\_VARS}}
+\index{NUMBER\_OF\_VARS@{NUMBER\_OF\_VARS}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{NUMBER\_OF\_VARS}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+unsigned \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::N\+U\+M\+B\+E\+R\+\_\+\+O\+F\+\_\+\+V\+A\+RS\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The number of elements in the state vector. 
+
+
+
+Definition at line 92 of file Residual.\+h.
+
+\mbox{\label{classCppNoddy_1_1Residual_ad4c5a46ea01ec5b56289308a262fba32}} 
+\index{CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}!ORDER\_OF\_SYSTEM@{ORDER\_OF\_SYSTEM}}
+\index{ORDER\_OF\_SYSTEM@{ORDER\_OF\_SYSTEM}!CppNoddy::Residual$<$ \_Type $>$@{CppNoddy::Residual$<$ \_Type $>$}}
+\doxyparagraph{ORDER\_OF\_SYSTEM}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+unsigned \textbf{ Cpp\+Noddy\+::\+Residual}$<$ \+\_\+\+Type $>$\+::O\+R\+D\+E\+R\+\_\+\+O\+F\+\_\+\+S\+Y\+S\+T\+EM\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The order of the system of equations. 
+
+
+
+Definition at line 90 of file Residual.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Residual.\+h}\item 
+src/\textbf{ Residual.\+cpp}\end{DoxyCompactItemize}

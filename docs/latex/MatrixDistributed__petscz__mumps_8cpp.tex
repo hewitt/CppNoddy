@@ -1,0 +1,95 @@
+\doxysubsection{Tests/\+Matrix/\+Matrix\+Distributed\+\_\+petscz\+\_\+mumps.cpp File Reference}
+\label{MatrixDistributed__petscz__mumps_8cpp}\index{Tests/Matrix/MatrixDistributed\_petscz\_mumps.cpp@{Tests/Matrix/MatrixDistributed\_petscz\_mumps.cpp}}
+{\ttfamily \#include $<$Distributed\+Matrix.\+h$>$}\newline
+{\ttfamily \#include $<$Distributed\+Vector.\+h$>$}\newline
+{\ttfamily \#include $<$Distributed\+Linear\+System.\+h$>$}\newline
+{\ttfamily \#include $<$Petsc\+Session.\+h$>$}\newline
+{\ttfamily \#include $<$Types.\+h$>$}\newline
+{\ttfamily \#include $<$mpi.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ main} (int argc, char $\ast$argv[$\,$])
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{MatrixDistributed__petscz__mumps_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{MatrixDistributed\_petscz\_mumps.cpp@{MatrixDistributed\_petscz\_mumps.cpp}!main@{main}}
+\index{main@{main}!MatrixDistributed\_petscz\_mumps.cpp@{MatrixDistributed\_petscz\_mumps.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv[$\,$] }\end{DoxyParamCaption})}
+
+
+
+Definition at line 17 of file Matrix\+Distributed\+\_\+petscz\+\_\+mumps.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19   PetscSession::getInstance(argc,argv);}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21   PetscPrintf(PETSC\_COMM\_WORLD, \textcolor{stringliteral}{"\(\backslash\)n=== Vector: A distributed (complex) example =========\(\backslash\)n\(\backslash\)n"});}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23   std::size\_t Nx(801);}
+\DoxyCodeLine{24   std::size\_t Ny(801);}
+\DoxyCodeLine{25   std::size\_t N(Nx*Ny);}
+\DoxyCodeLine{26   \textcolor{keywordtype}{double} deltax = 1.0/(Nx-\/1);}
+\DoxyCodeLine{27   \textcolor{keywordtype}{double} deltaxSq = deltax*deltax;}
+\DoxyCodeLine{28   \textcolor{keywordtype}{double} deltay = 1.0/(Ny-\/1);}
+\DoxyCodeLine{29   \textcolor{keywordtype}{double} deltaySq = deltay*deltay;}
+\DoxyCodeLine{30   DistributedMatrix<D\_complex> matA( N, N, 5, 4 );}
+\DoxyCodeLine{31   DistributedVector<D\_complex> vecB( N );}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33   \textcolor{keywordflow}{for}(std::size\_t j = 0; j < Ny; ++j ) \{}
+\DoxyCodeLine{34     matA.set\_elt(j,j,1.0);}
+\DoxyCodeLine{35     vecB.set\_elt(j,0.0);   }
+\DoxyCodeLine{36   \}}
+\DoxyCodeLine{37   \textcolor{comment}{//}}
+\DoxyCodeLine{38   \textcolor{keywordflow}{for}(std::size\_t i = 1; i < Nx-\/1; ++i ) \{}
+\DoxyCodeLine{39     matA.set\_elt( i*Ny, i*Ny, 1.0 );}
+\DoxyCodeLine{40     vecB.set\_elt( i*Ny, 0.0 );   }
+\DoxyCodeLine{41     \textcolor{keywordflow}{for}(std::size\_t j = 1; j < Ny-\/1; ++j ) \{ }
+\DoxyCodeLine{42       DenseVector<int> index;}
+\DoxyCodeLine{43       DenseVector<D\_complex> value;}
+\DoxyCodeLine{44       index.push\_back( i*Ny+j-\/1 );}
+\DoxyCodeLine{45       value.push\_back( 1./deltaySq );}
+\DoxyCodeLine{46       index.push\_back( i*Ny+j );}
+\DoxyCodeLine{47       value.push\_back( -\/2.0/deltaySq -\/ 2.0/deltaxSq);}
+\DoxyCodeLine{48       index.push\_back( i*Ny+j+1 );}
+\DoxyCodeLine{49       value.push\_back( 1./deltaySq );}
+\DoxyCodeLine{50       index.push\_back( (i-\/1)*Ny + j );}
+\DoxyCodeLine{51       value.push\_back( 1./deltaxSq );}
+\DoxyCodeLine{52       index.push\_back( (i+1)*Ny + j );}
+\DoxyCodeLine{53       value.push\_back( 1./deltaxSq );      }
+\DoxyCodeLine{54       matA.set\_row( i*Ny+j, index, value );}
+\DoxyCodeLine{55       vecB.set\_elt( i*Ny+j, 1.0 );}
+\DoxyCodeLine{56     \}}
+\DoxyCodeLine{57     matA.set\_elt( i*Ny+Ny-\/1, i*Ny+Ny-\/1, 1.0 );}
+\DoxyCodeLine{58     vecB.set\_elt( i*Ny+Ny-\/1, 0.0 );   }
+\DoxyCodeLine{59   \}}
+\DoxyCodeLine{60   \textcolor{keywordflow}{for}(std::size\_t j = 0; j < Ny; ++j ) \{}
+\DoxyCodeLine{61     matA.set\_elt( Ny*(Nx-\/1) + j , Ny*(Nx-\/1) + j, 1.0 );}
+\DoxyCodeLine{62     vecB.set\_elt( Ny*(Nx-\/1) + j, 0.0 );   }
+\DoxyCodeLine{63   \}}
+\DoxyCodeLine{64   }
+\DoxyCodeLine{65   matA.final\_assembly();}
+\DoxyCodeLine{66   vecB.final\_assembly();}
+\DoxyCodeLine{67   }
+\DoxyCodeLine{68   \textcolor{comment}{//matA.view();}}
+\DoxyCodeLine{69   \textcolor{comment}{//vecB.view();}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71   DistributedLinearSystem<D\_complex> system( \&matA, \&vecB );}
+\DoxyCodeLine{72   system.solve();}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74   cout << vecB.two\_norm() << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{75   }
+\DoxyCodeLine{76   \textcolor{comment}{//vecB.view();}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::push\+\_\+back().
+

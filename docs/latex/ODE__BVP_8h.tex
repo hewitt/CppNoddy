@@ -1,0 +1,28 @@
+\doxysubsection{include/\+O\+D\+E\+\_\+\+B\+VP.h File Reference}
+\label{ODE__BVP_8h}\index{include/ODE\_BVP.h@{include/ODE\_BVP.h}}
+{\ttfamily \#include $<$Dense\+Vector.\+h$>$}\newline
+{\ttfamily \#include $<$Dense\+Matrix.\+h$>$}\newline
+{\ttfamily \#include $<$Equation\+\_\+1matrix.\+h$>$}\newline
+{\ttfamily \#include $<$One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h$>$}\newline
+{\ttfamily \#include $<$Uncopyable.\+h$>$}\newline
+{\ttfamily \#include $<$Residual.\+h$>$}\newline
+{\ttfamily \#include $<$Timer.\+h$>$}\newline
+{\ttfamily \#include $<$Arc\+Length\+\_\+base.\+h$>$}\newline
+{\ttfamily \#include $<$Banded\+Linear\+System.\+h$>$}\newline
+{\ttfamily \#include $<$Utility.\+h$>$}\newline
+{\ttfamily \#include $<$Linear\+Eigen\+System\+\_\+base.\+h$>$}\newline
+{\ttfamily \#include $<$Dense\+Linear\+Eigen\+System.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$}
+\begin{DoxyCompactList}\small\item\em A templated object for real/complex vector system of first-\/order ordinary differential equations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+A specification of a class for an $ n^{th} $-\/order O\+DE B\+VP defined by \[ {\underline f}^\prime (y) = {\underline R}( {\underline f}(y), y )\,, \] subject to $ n $ Dirichlet conditions defined at $ y = y_{left} $ or $ y_{right} $ for some components of $ {\underline f}(y) $. The system is solved by applying Newton iteration, with the intermediate problem\+: \[ {\underline g}^\prime (y) - \frac{\partial {\underline R}}{\partial \underline f} \Big \vert_{\underline F} \,\,{\underline g}(y) = {\underline R}( {\underline F}(y), y) - {\underline F}^\prime (y) \,, \] for the corrections $ \underline g(y) $ to the current approximation to the solution $ {\underline F}(y) $. The numerical scheme can be run for any given distribution of nodes and can adapt the nodal positions based on residual evaluations (including both refinement and unrefinement). 

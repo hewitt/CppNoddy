@@ -1,0 +1,90 @@
+\doxysubsection{Cpp\+Noddy\+::Example\+::Nonidentity\+\_\+right\+\_\+\+BC$<$ \+\_\+\+Type $>$ Class Template Reference}
+\label{classCppNoddy_1_1Example_1_1Nonidentity__right__BC}\index{CppNoddy::Example::Nonidentity\_right\_BC$<$ \_Type $>$@{CppNoddy::Example::Nonidentity\_right\_BC$<$ \_Type $>$}}
+Inheritance diagram for Cpp\+Noddy\+::Example\+::Nonidentity\+\_\+right\+\_\+\+BC$<$ \+\_\+\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCppNoddy_1_1Example_1_1Nonidentity__right__BC}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Nonidentity\+\_\+right\+\_\+\+BC} ()
+\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&B) const
+\begin{DoxyCompactList}\small\item\em A blank virtual residual function method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type$>$\newline
+class Cpp\+Noddy\+::\+Example\+::\+Nonidentity\+\_\+right\+\_\+\+B\+C$<$ \+\_\+\+Type $>$}
+
+
+
+Definition at line 62 of file B\+V\+P\+Non\+Identity\+Matrix0.\+cpp.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Nonidentity__right__BC_a26163fcf22d8bf2bc8ffddaea2fd0c35}} 
+\index{CppNoddy::Example::Nonidentity\_right\_BC$<$ \_Type $>$@{CppNoddy::Example::Nonidentity\_right\_BC$<$ \_Type $>$}!Nonidentity\_right\_BC@{Nonidentity\_right\_BC}}
+\index{Nonidentity\_right\_BC@{Nonidentity\_right\_BC}!CppNoddy::Example::Nonidentity\_right\_BC$<$ \_Type $>$@{CppNoddy::Example::Nonidentity\_right\_BC$<$ \_Type $>$}}
+\doxyparagraph{Nonidentity\_right\_BC()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Example\+::\+Nonidentity\+\_\+right\+\_\+\+BC}$<$ \+\_\+\+Type $>$\+::\textbf{ Nonidentity\+\_\+right\+\_\+\+BC} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 65 of file B\+V\+P\+Non\+Identity\+Matrix0.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{65 : Residual<\_Type> ( 1, 2 ) \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Nonidentity__right__BC_a759ac91ff4ad5df141a2c582a3141aa4}} 
+\index{CppNoddy::Example::Nonidentity\_right\_BC$<$ \_Type $>$@{CppNoddy::Example::Nonidentity\_right\_BC$<$ \_Type $>$}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::Nonidentity\_right\_BC$<$ \_Type $>$@{CppNoddy::Example::Nonidentity\_right\_BC$<$ \_Type $>$}}
+\doxyparagraph{residual\_fn()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Example\+::\+Nonidentity\+\_\+right\+\_\+\+BC}$<$ \+\_\+\+Type $>$\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{state,  }\item[{\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+A blank virtual residual function method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The unknown variable. \\
+\hline
+{\em f} & The residual function f(x). \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 67 of file B\+V\+P\+Non\+Identity\+Matrix0.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{68       \{}
+\DoxyCodeLine{69         B[ 0 ] = z[ f ] -\/ 2;}
+\DoxyCodeLine{70       \}}
+
+\end{DoxyCode}
+
+
+References f, and Cpp\+Noddy\+::\+Example\+::z().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tests/\+B\+V\+P/\textbf{ B\+V\+P\+Non\+Identity\+Matrix0.\+cpp}\end{DoxyCompactItemize}

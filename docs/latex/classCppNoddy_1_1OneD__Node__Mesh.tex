@@ -1,0 +1,1500 @@
+\doxysubsection{Cpp\+Noddy\+::One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$ Class Template Reference}
+\label{classCppNoddy_1_1OneD__Node__Mesh}\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+
+
+A one dimensional mesh utility object.  
+
+
+
+
+{\ttfamily \#include $<$One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Xtype $>$ \&\textbf{ nodes}, const std\+::size\+\_\+t nvars)
+\begin{DoxyCompactList}\small\item\em ctor for a given nodal distribution \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename \+\_\+source\+Type $>$ }\\\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh} (const \textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+source\+Type $>$ \&source)
+\begin{DoxyCompactList}\small\item\em implicit conversion ctor for D\+\_\+complex from double data \end{DoxyCompactList}\item 
+\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh} (std\+::string filename, const std\+::size\+\_\+t nnodes, const std\+::size\+\_\+t nvars)
+\begin{DoxyCompactList}\small\item\em ctor from an existing file \end{DoxyCompactList}\item 
+virtual \textbf{ $\sim$\+One\+D\+\_\+\+Node\+\_\+\+Mesh} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+\+\_\+\+Type \& \textbf{ operator()} (const std\+::size\+\_\+t i, const std\+::size\+\_\+t var)
+\begin{DoxyCompactList}\small\item\em Access a variable at a node. \end{DoxyCompactList}\item 
+const \+\_\+\+Type \& \textbf{ operator()} (const std\+::size\+\_\+t i, const std\+::size\+\_\+t var) const
+\begin{DoxyCompactList}\small\item\em Access a variable at a node. \end{DoxyCompactList}\item 
+const \+\_\+\+Xtype \& \textbf{ coord} (const std\+::size\+\_\+t \&node) const
+\begin{DoxyCompactList}\small\item\em Access a nodal position. \end{DoxyCompactList}\item 
+\+\_\+\+Xtype \& \textbf{ coord} (const std\+::size\+\_\+t \&node)
+\begin{DoxyCompactList}\small\item\em Access a nodal position. \end{DoxyCompactList}\item 
+void \textbf{ set\+\_\+nodes\+\_\+vars} (const std\+::size\+\_\+t node, const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&\textbf{ u})
+\begin{DoxyCompactList}\small\item\em Set the variables stored at A S\+P\+E\+C\+I\+F\+I\+ED node. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ get\+\_\+nodes\+\_\+vars} (const std\+::size\+\_\+t \&node) const
+\begin{DoxyCompactList}\small\item\em Get the variables stored at A S\+P\+E\+C\+I\+F\+I\+ED node. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ get\+\_\+interpolated\+\_\+vars} (const \+\_\+\+Xtype \&pos) const
+\begin{DoxyCompactList}\small\item\em Get the variable data at an interpolated position using a first order scheme. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ get\+\_\+nnodes} () const
+\item 
+std\+::size\+\_\+t \textbf{ get\+\_\+nvars} () const
+\item 
+const \textbf{ Dense\+Vector}$<$ \+\_\+\+Xtype $>$ \& \textbf{ nodes} () const
+\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ find\+\_\+roots1} (const std\+::size\+\_\+t \&var, double value=0.\+0) const
+\begin{DoxyCompactList}\small\item\em Find a list of approximate locations at which a specified variable attains a given value. \end{DoxyCompactList}\item 
+\+\_\+\+Type \textbf{ integral2} (std\+::size\+\_\+t var=0) const
+\begin{DoxyCompactList}\small\item\em Integrate over the domain. \end{DoxyCompactList}\item 
+\+\_\+\+Xtype \textbf{ squared\+\_\+integral2} (std\+::size\+\_\+t var=0) const
+\begin{DoxyCompactList}\small\item\em Compute the integral of the absolute variable squared\+: $\vert$variable$\vert$$^\wedge$2. \end{DoxyCompactList}\item 
+\+\_\+\+Type \textbf{ integral4} (std\+::size\+\_\+t var=0) const
+\begin{DoxyCompactList}\small\item\em Integrate over the domain with a Simpson rule. \end{DoxyCompactList}\item 
+const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ vars\+\_\+as\+\_\+vector} () const
+\begin{DoxyCompactList}\small\item\em For each nodal point we push each variable into a vector in sequence. \end{DoxyCompactList}\item 
+void \textbf{ set\+\_\+vars\+\_\+from\+\_\+vector} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&vec)
+\begin{DoxyCompactList}\small\item\em Set the variables of this mesh from a vector. \end{DoxyCompactList}\item 
+const std\+::vector$<$ \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ $>$ \& \textbf{ get\+\_\+vars} () const
+\item 
+void \textbf{ dump} () const
+\begin{DoxyCompactList}\small\item\em A simple method for dumping data to std\+::cout. \end{DoxyCompactList}\item 
+void \textbf{ dump\+\_\+gnu} (std\+::string filename, int precision=10) const
+\begin{DoxyCompactList}\small\item\em A simple method for dumping data to a file for gnuplot. \end{DoxyCompactList}\item 
+void \textbf{ remesh1} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Xtype $>$ \&z)
+\begin{DoxyCompactList}\small\item\em Interpolate this mesh data (linearly) into a new mesh with nodal points defined in the argument list. \end{DoxyCompactList}\item 
+void \textbf{ scale} (\+\_\+\+Type x)
+\begin{DoxyCompactList}\small\item\em Scale the whole contents of the mesh. \end{DoxyCompactList}\item 
+void \textbf{ normalise} (const std\+::size\+\_\+t \&var)
+\begin{DoxyCompactList}\small\item\em Normalise all data in the mesh based on one variable. \end{DoxyCompactList}\item 
+double \textbf{ max\+\_\+abs} (unsigned var)
+\begin{DoxyCompactList}\small\item\em Find the maximum stored absolute value in the mesh for a given variable in a range of the domain. \end{DoxyCompactList}\item 
+void \textbf{ read} (std\+::string filename, const bool reset=false)
+\begin{DoxyCompactList}\small\item\em Assign mesh contents using a filename. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ find\+\_\+roots1} (const std\+::size\+\_\+t \&var, double value) const
+\item 
+void \textbf{ remesh1} (const \textbf{ Dense\+Vector}$<$ double $>$ \&newX)
+\item 
+void \textbf{ remesh1} (const \textbf{ Dense\+Vector}$<$ double $>$ \&newX)
+\item 
+void \textbf{ remesh1} (const \textbf{ Dense\+Vector}$<$ std\+::complex$<$ double $>$ $>$ \&z)
+\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ get\+\_\+interpolated\+\_\+vars} (const double \&x\+\_\+pos) const
+\item 
+\textbf{ Dense\+Vector}$<$ std\+::complex$<$ double $>$ $>$ \textbf{ get\+\_\+interpolated\+\_\+vars} (const double \&x\+\_\+pos) const
+\item 
+\textbf{ Dense\+Vector}$<$ std\+::complex$<$ double $>$ $>$ \textbf{ get\+\_\+interpolated\+\_\+vars} (const std\+::complex$<$ double $>$ \&pos) const
+\item 
+\textbf{ Dense\+Vector}$<$ double $>$ \textbf{ find\+\_\+roots1} (const std\+::size\+\_\+t \&var, double value) const
+\item 
+void \textbf{ dump\+\_\+gnu} (std\+::string filename, int precision) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::size\+\_\+t \textbf{ m\+\_\+nv}
+\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Xtype $>$ \textbf{ m\+\_\+X}
+\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ m\+\_\+vars}
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type, typename \+\_\+\+Xtype = double$>$\newline
+class Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$}
+
+A one dimensional mesh utility object. 
+
+Data can be placed into the mesh for interpolation to a new mesh or computation of integrals of the data. The default typing assumes that the mesh is along the real line. You can store (complex) data across a set of points in the complex plane using the second typename. 
+
+Definition at line 24 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a7fb7914e532d52f92d60b56bdd306c43}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!OneD\_Node\_Mesh@{OneD\_Node\_Mesh}}
+\index{OneD\_Node\_Mesh@{OneD\_Node\_Mesh}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{OneD\_Node\_Mesh()\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+\textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default constructor. 
+
+
+
+Definition at line 28 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{28                      \{}
+\DoxyCodeLine{29       \textcolor{comment}{// default to zero variables}}
+\DoxyCodeLine{30       m\_nv = 0;}
+\DoxyCodeLine{31     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a4c245a6be96e987080bff1588857b850}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!OneD\_Node\_Mesh@{OneD\_Node\_Mesh}}
+\index{OneD\_Node\_Mesh@{OneD\_Node\_Mesh}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{OneD\_Node\_Mesh()\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+\textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh} (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Xtype $>$ \&}]{nodes,  }\item[{const std\+::size\+\_\+t}]{nvars }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ctor for a given nodal distribution 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodes} & The positions of the nodal points \\
+\hline
+{\em nvars} & The number of variables to store in the mesh \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 36 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{36                                                                             :}
+\DoxyCodeLine{37       m\_nv(nvars), m\_X(nodes) \{}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{39       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} i = 1; i < m\_X.size(); ++i) \{}
+\DoxyCodeLine{40         \textcolor{comment}{/*}}
+\DoxyCodeLine{41 \textcolor{comment}{          if ( m\_X[i+1] < m\_X[i] )}}
+\DoxyCodeLine{42 \textcolor{comment}{          \{}}
+\DoxyCodeLine{43 \textcolor{comment}{          std::string problem;}}
+\DoxyCodeLine{44 \textcolor{comment}{          problem = "The OneD\_Node\_Mesh has been passed a vector of nodes that are\(\backslash\)n";}}
+\DoxyCodeLine{45 \textcolor{comment}{          problem += "not in INCREASING order. This will screw up some of the methods\(\backslash\)n";}}
+\DoxyCodeLine{46 \textcolor{comment}{          problem += "in the class. We should fix this .....\(\backslash\)n";}}
+\DoxyCodeLine{47 \textcolor{comment}{          throw ExceptionRuntime( problem );}}
+\DoxyCodeLine{48 \textcolor{comment}{          \}}}
+\DoxyCodeLine{49 \textcolor{comment}{        */}}
+\DoxyCodeLine{50       \}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{52       \textcolor{comment}{// set the contents to zero}}
+\DoxyCodeLine{53       m\_vars = DenseVector<\_Type>(m\_nv * m\_X.size(), \_Type(0.0));}
+\DoxyCodeLine{54     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_abeb258f850560827778efdb633e13f5c}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!OneD\_Node\_Mesh@{OneD\_Node\_Mesh}}
+\index{OneD\_Node\_Mesh@{OneD\_Node\_Mesh}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{OneD\_Node\_Mesh()\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+template$<$typename \+\_\+source\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh} (\begin{DoxyParamCaption}\item[{const \textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+source\+Type $>$ \&}]{source }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+implicit conversion ctor for D\+\_\+complex from double data 
+
+
+
+Definition at line 259 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{259                                                                                                \{}
+\DoxyCodeLine{260     \textcolor{comment}{// there is implicit conversion of DenseVector so this will}}
+\DoxyCodeLine{261     \textcolor{comment}{// allow copy of OneD\_Node\_Mesh<double> to OneD\_Node\_Mesh<D\_complex>.}}
+\DoxyCodeLine{262     m\_nv = source.get\_nvars();}
+\DoxyCodeLine{263     m\_X = source.nodes();}
+\DoxyCodeLine{264     m\_vars = source.vars\_as\_vector();}
+\DoxyCodeLine{265   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a06d324403b6c08fc5c03f3ee9c613c55}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!OneD\_Node\_Mesh@{OneD\_Node\_Mesh}}
+\index{OneD\_Node\_Mesh@{OneD\_Node\_Mesh}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{OneD\_Node\_Mesh()\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+\textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh} (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{const std\+::size\+\_\+t}]{nnodes,  }\item[{const std\+::size\+\_\+t}]{nvars }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ctor from an existing file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Filename of the data file \\
+\hline
+{\em nnodes} & Number of nodes \\
+\hline
+{\em nvars} & Number of variables stored at each node \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 64 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{64                                                                                        :}
+\DoxyCodeLine{65       m\_nv(nvars) \{}
+\DoxyCodeLine{66       m\_X = DenseVector<\_Xtype>(nnodes, \_Xtype(0.0) ); \textcolor{comment}{//coordinates, currently empty}}
+\DoxyCodeLine{67       m\_vars = DenseVector<\_Type>(nvars*nnodes, \_Type(0.0) ); \textcolor{comment}{// nodal values}}
+\DoxyCodeLine{68       read(filename, \textcolor{keyword}{true}); \textcolor{comment}{// true => reset the nodal coordinates using file}}
+\DoxyCodeLine{69     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a5a6a6cfdc7871d8c43dea6a726e3e612}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!````~OneD\_Node\_Mesh@{$\sim$OneD\_Node\_Mesh}}
+\index{````~OneD\_Node\_Mesh@{$\sim$OneD\_Node\_Mesh}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{$\sim$OneD\_Node\_Mesh()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+virtual \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::$\sim$\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Destructor. 
+
+
+
+Definition at line 72 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{73     \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_aa5a73ae29586d5b9a7e83e2cd15ce625}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!coord@{coord}}
+\index{coord@{coord}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{coord()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\+\_\+\+Xtype \& \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::coord (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access a nodal position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & The nodal position to return \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The spatial position of this node 
+\end{DoxyReturn}
+
+
+Definition at line 283 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{283                                                                            \{}
+\DoxyCodeLine{284     \textcolor{keywordflow}{return} m\_X[ node ];}
+\DoxyCodeLine{285   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a7e8230b179667f28ff5aab470cdad809}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!coord@{coord}}
+\index{coord@{coord}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{coord()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+const \+\_\+\+Xtype \& \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::coord (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{node }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access a nodal position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & The nodal position to return \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The spatial position of this node 
+\end{DoxyReturn}
+
+
+Definition at line 278 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{278                                                                                        \{}
+\DoxyCodeLine{279     \textcolor{keywordflow}{return} m\_X[ node ];}
+\DoxyCodeLine{280   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+F\+T\+::dft(), Cpp\+Noddy\+::\+F\+T\+::dft\+\_\+with\+\_\+shift(), Cpp\+Noddy\+::\+H\+S\+T\+::\+Orr\+\_\+\+Sommerfeld\+::global\+\_\+evp(), Cpp\+Noddy\+::\+F\+T\+::idft(), Cpp\+Noddy\+::\+F\+T\+::idft\+\_\+with\+\_\+ishift(), Cpp\+Noddy\+::\+F\+T\+::ishift(), main(), Cpp\+Noddy\+::\+Utility\+::max\+\_\+abs\+\_\+location(), Cpp\+Noddy\+::\+Utility\+::max\+\_\+abs\+\_\+location\+\_\+range(), and Cpp\+Noddy\+::\+F\+T\+::shift().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a49e6945e2c4eb5086306aa8a709b373e}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!dump@{dump}}
+\index{dump@{dump}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{dump()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::dump}
+
+
+
+A simple method for dumping data to std\+::cout. 
+
+
+
+Definition at line 415 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{415                                                  \{}
+\DoxyCodeLine{416     std::cout << \textcolor{stringliteral}{"Number of nodes = "} << m\_X.size() << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{417     std::cout << \textcolor{stringliteral}{"Nodal positions :\(\backslash\)n"};}
+\DoxyCodeLine{418     m\_X.dump();}
+\DoxyCodeLine{419     std::cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{420     std::cout << \textcolor{stringliteral}{"Number of vars = "} << m\_nv << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{421     std::cout << \textcolor{stringliteral}{"Interleaved mesh data : \(\backslash\)n"};}
+\DoxyCodeLine{422     m\_vars.dump();}
+\DoxyCodeLine{423     std::cout << \textcolor{stringliteral}{"Mesh dump complete\(\backslash\)n"};}
+\DoxyCodeLine{424   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a90783703364f2c593650035ceeb75dc7}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!dump\_gnu@{dump\_gnu}}
+\index{dump\_gnu@{dump\_gnu}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{dump\_gnu()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ std\+::complex$<$ double $>$, double $>$\+::dump\+\_\+gnu (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{int}]{precision }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 444 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{444                                                                                                      \{}
+\DoxyCodeLine{445     std::ofstream dump;}
+\DoxyCodeLine{446     dump.open(filename.c\_str());}
+\DoxyCodeLine{447     dump.precision(precision);}
+\DoxyCodeLine{448     dump.setf(std::ios::showpoint);}
+\DoxyCodeLine{449     dump.setf(std::ios::showpos);}
+\DoxyCodeLine{450     dump.setf(std::ios::scientific);}
+\DoxyCodeLine{451     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_X.size(); ++i) \{}
+\DoxyCodeLine{452       dump << m\_X[ i ] << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{453       \textcolor{keywordflow}{for}(std::size\_t var = 0; var < m\_nv; ++var) \{}
+\DoxyCodeLine{454         dump << real(m\_vars[ i * m\_nv + var ]) << \textcolor{stringliteral}{" "} << imag(m\_vars[ i * m\_nv + var ]) << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{455       \}}
+\DoxyCodeLine{456       dump << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{457     \}}
+\DoxyCodeLine{458   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_affbfd2a8ef3f5852f45681486a58298a}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!dump\_gnu@{dump\_gnu}}
+\index{dump\_gnu@{dump\_gnu}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{dump\_gnu()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::dump\+\_\+gnu (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{int}]{precision = {\ttfamily 10} }\end{DoxyParamCaption}) const}
+
+
+
+A simple method for dumping data to a file for gnuplot. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The filename to write the data to (will overwrite) \\
+\hline
+{\em precision} & Precision of the output strings \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 427 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{427                                                                                       \{}
+\DoxyCodeLine{428     std::ofstream dump;}
+\DoxyCodeLine{429     dump.open(filename.c\_str());}
+\DoxyCodeLine{430     dump.precision(precision);}
+\DoxyCodeLine{431     dump.setf(std::ios::showpoint);}
+\DoxyCodeLine{432     dump.setf(std::ios::showpos);}
+\DoxyCodeLine{433     dump.setf(std::ios::scientific);}
+\DoxyCodeLine{434     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_X.size(); ++i) \{}
+\DoxyCodeLine{435       dump << m\_X[ i ] << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{436       \textcolor{keywordflow}{for}(std::size\_t var = 0; var < m\_nv; ++var) \{}
+\DoxyCodeLine{437         dump << m\_vars[ i * m\_nv + var ] << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{438       \}}
+\DoxyCodeLine{439       dump << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{440     \}}
+\DoxyCodeLine{441   \}}
+
+\end{DoxyCode}
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a0e86d76edbfaa07f0b4fe228d0fe3a8e}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!find\_roots1@{find\_roots1}}
+\index{find\_roots1@{find\_roots1}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{find\_roots1()\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ double, double $>$\+::find\+\_\+roots1 (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{var,  }\item[{double}]{value }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 64 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{64                                                                                                           \{}
+\DoxyCodeLine{65     DenseVector<double> roots;}
+\DoxyCodeLine{66     \textcolor{keywordflow}{for}(std::size\_t node = 0; node < m\_X.size() -\/ 1; ++node) \{}
+\DoxyCodeLine{67       std::size\_t offset(node * m\_nv + var);}
+\DoxyCodeLine{68       \textcolor{comment}{// find bracket nodes}}
+\DoxyCodeLine{69       \textcolor{keywordflow}{if}((m\_vars[ offset ] -\/ value) * (m\_vars[ offset + m\_nv ] -\/ value) < 0.0) \{}
+\DoxyCodeLine{70         \textcolor{keywordtype}{double} deriv = (m\_vars[ offset + m\_nv ] -\/ m\_vars[ offset ]) / (m\_X[ node + 1 ] -\/ m\_X[ node ]);}
+\DoxyCodeLine{71         \textcolor{keywordtype}{double} x = m\_X[ node ] + (value -\/ m\_vars[ offset ]) / deriv;}
+\DoxyCodeLine{72         \textcolor{comment}{// add the left hand node to the roots vector}}
+\DoxyCodeLine{73         roots.push\_back(x);}
+\DoxyCodeLine{74       \}}
+\DoxyCodeLine{75     \}}
+\DoxyCodeLine{76     \textcolor{keywordflow}{return} roots;}
+\DoxyCodeLine{77   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a10ece9b3cefdad2ffd5d2cf2c46894f9}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!find\_roots1@{find\_roots1}}
+\index{find\_roots1@{find\_roots1}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{find\_roots1()\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ std\+::complex$<$ double $>$, double $>$\+::find\+\_\+roots1 (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{var,  }\item[{double}]{value }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 305 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{305                                                                                                                        \{}
+\DoxyCodeLine{306     std::string problem;}
+\DoxyCodeLine{307     problem = \textcolor{stringliteral}{" The OneD\_Node\_Mesh.find\_roots1 method has been called with \(\backslash\)n"};}
+\DoxyCodeLine{308     problem += \textcolor{stringliteral}{" a mesh containing complex data.\(\backslash\)n"};}
+\DoxyCodeLine{309     \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{310   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_afa98f287fc363b2dea1729cf10929d2a}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!find\_roots1@{find\_roots1}}
+\index{find\_roots1@{find\_roots1}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{find\_roots1()\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+\textbf{ Dense\+Vector}$<$double$>$ \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::find\+\_\+roots1 (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{var,  }\item[{double}]{value = {\ttfamily 0.0} }\end{DoxyParamCaption}) const}
+
+
+
+Find a list of approximate locations at which a specified variable attains a given value. 
+
+First order only. 
+\begin{DoxyParams}{Parameters}
+{\em var} & The variable to be examined for zeros \\
+\hline
+{\em value} & The value to find \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a0ede982227b33e643dbd41a51890ca21}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!get\_interpolated\_vars@{get\_interpolated\_vars}}
+\index{get\_interpolated\_vars@{get\_interpolated\_vars}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{get\_interpolated\_vars()\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+\textbf{ Dense\+Vector}$<$\+\_\+\+Type$>$ \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::get\+\_\+interpolated\+\_\+vars (\begin{DoxyParamCaption}\item[{const \+\_\+\+Xtype \&}]{pos }\end{DoxyParamCaption}) const}
+
+
+
+Get the variable data at an interpolated position using a first order scheme. 
+
+Doesn\textquotesingle{}t really make sense unless the data is along the real line. 
+\begin{DoxyParams}{Parameters}
+{\em pos} & The position to interpolate at. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of interpolated variables. 
+\end{DoxyReturn}
+
+
+Referenced by Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+interpolated\+\_\+vars(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+interpolated\+\_\+vars(), and main().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a7a7c00d26da73db872a9cad89d651ba1}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!get\_interpolated\_vars@{get\_interpolated\_vars}}
+\index{get\_interpolated\_vars@{get\_interpolated\_vars}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{get\_interpolated\_vars()\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ double $>$ \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ double, double $>$\+::get\+\_\+interpolated\+\_\+vars (\begin{DoxyParamCaption}\item[{const double \&}]{x\+\_\+pos }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 208 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{208                                                                                                      \{}
+\DoxyCodeLine{209     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} node = 0; node < m\_X.size() -\/ 1; ++node) \{}
+\DoxyCodeLine{210       \textcolor{comment}{// find bracketing nodes -\/ incl shameless hack for evaluations at the boundary}}
+\DoxyCodeLine{211       \textcolor{comment}{//if ( ( m\_X[ node ] < x\_pos  || std::abs( m\_X[ node ] -\/ x\_pos ) < 1.e-\/7 ) \&\&}}
+\DoxyCodeLine{212       \textcolor{comment}{//( m\_X[ node + 1 ] > x\_pos || std::abs( m\_X[ node + 1 ] -\/ x\_pos ) < 1.e-\/7 ) )}}
+\DoxyCodeLine{213       \textcolor{keywordflow}{if}(((m\_X[ node ] < x\_pos) \&\& (m\_X[ node + 1 ] > x\_pos))}
+\DoxyCodeLine{214           || (std::abs(m\_X[ node ] -\/ x\_pos) < 1.e-\/7) || (std::abs(m\_X[ node + 1 ] -\/ x\_pos) < 1.e-\/7)) \{}
+\DoxyCodeLine{215         \textcolor{comment}{// distance from left node}}
+\DoxyCodeLine{216         \textcolor{keywordtype}{double} delta\_x(x\_pos -\/ m\_X[ node ]);}
+\DoxyCodeLine{217         \textcolor{comment}{// empty data to return}}
+\DoxyCodeLine{218         DenseVector<double> left;}
+\DoxyCodeLine{219         DenseVector<double> right;}
+\DoxyCodeLine{220         DenseVector<double> deriv;}
+\DoxyCodeLine{221         \textcolor{comment}{// interpolate data linearly}}
+\DoxyCodeLine{222         left = get\_nodes\_vars(node);}
+\DoxyCodeLine{223         right = get\_nodes\_vars(node + 1);}
+\DoxyCodeLine{224         deriv = (right -\/ left) / (m\_X[ node + 1 ] -\/ m\_X[ node ]);}
+\DoxyCodeLine{225         \textcolor{comment}{// overwrite right}}
+\DoxyCodeLine{226         right = left + deriv * delta\_x;}
+\DoxyCodeLine{227         \textcolor{keywordflow}{return} right;}
+\DoxyCodeLine{228       \}}
+\DoxyCodeLine{229     \}}
+\DoxyCodeLine{230     std::cout << \textcolor{stringliteral}{"You asked for a position of "} << x\_pos << \textcolor{stringliteral}{" in a range "} << m\_X[ 0 ] << \textcolor{stringliteral}{" to "} << m\_X[ m\_X.size() -\/ 1 ] << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{231     std::string problem;}
+\DoxyCodeLine{232     problem = \textcolor{stringliteral}{"You have asked the OneD\_Node\_Mesh class to interpolate data at\(\backslash\)n"};}
+\DoxyCodeLine{233     problem += \textcolor{stringliteral}{"a point that is outside the range covered by the mesh object.\(\backslash\)n"};}
+\DoxyCodeLine{234     \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{235   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_ad4e0d5a76c13ad839c96a65ff7961e26}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!get\_interpolated\_vars@{get\_interpolated\_vars}}
+\index{get\_interpolated\_vars@{get\_interpolated\_vars}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{get\_interpolated\_vars()\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ std\+::complex$<$ double $>$ $>$ \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ std\+::complex$<$ double $>$, double $>$\+::get\+\_\+interpolated\+\_\+vars (\begin{DoxyParamCaption}\item[{const double \&}]{x\+\_\+pos }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 239 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{239                                                                                                                               \{}
+\DoxyCodeLine{240     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} node = 0; node < m\_X.size() -\/ 1; ++node) \{}
+\DoxyCodeLine{241       \textcolor{comment}{// find bracketing nodes -\/ incl shameless hack for evaluations at the boundary}}
+\DoxyCodeLine{242       \textcolor{keywordflow}{if}((m\_X[ node ] < x\_pos  || std::abs(m\_X[ node ] -\/ x\_pos) < 1.e-\/7) \&\&}
+\DoxyCodeLine{243           (m\_X[ node + 1 ] > x\_pos || std::abs(m\_X[ node + 1 ] -\/ x\_pos) < 1.e-\/7)) \{}
+\DoxyCodeLine{244         \textcolor{comment}{// distance from left node}}
+\DoxyCodeLine{245         \textcolor{keywordtype}{double} delta\_x(x\_pos -\/ m\_X[ node ]);}
+\DoxyCodeLine{246         \textcolor{comment}{// empty data to return}}
+\DoxyCodeLine{247         DenseVector<std::complex<double> > left;}
+\DoxyCodeLine{248         DenseVector<std::complex<double> > right;}
+\DoxyCodeLine{249         DenseVector<std::complex<double> > deriv;}
+\DoxyCodeLine{250         \textcolor{comment}{// interpolate data linearly}}
+\DoxyCodeLine{251         left = get\_nodes\_vars(node);}
+\DoxyCodeLine{252         right = get\_nodes\_vars(node + 1);}
+\DoxyCodeLine{253         deriv = (right -\/ left) / (m\_X[ node + 1 ] -\/ m\_X[ node ]);}
+\DoxyCodeLine{254         \textcolor{comment}{// overwrite right}}
+\DoxyCodeLine{255         right = left + deriv * delta\_x;}
+\DoxyCodeLine{256         \textcolor{keywordflow}{return} right;}
+\DoxyCodeLine{257       \}}
+\DoxyCodeLine{258     \}}
+\DoxyCodeLine{259     std::cout << \textcolor{stringliteral}{"You asked for a position of "} << x\_pos << \textcolor{stringliteral}{" in a range "} << m\_X[ 0 ] << \textcolor{stringliteral}{" to "} << m\_X[ m\_X.size() -\/ 1 ] << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{260     std::string problem;}
+\DoxyCodeLine{261     problem = \textcolor{stringliteral}{"You have asked the OneD\_Node\_Mesh class to interpolate data at\(\backslash\)n"};}
+\DoxyCodeLine{262     problem += \textcolor{stringliteral}{"a point that is outside the range covered by the mesh object.\(\backslash\)n"};}
+\DoxyCodeLine{263     \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{264   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_acad4605df13a7be01b782bdee659a262}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!get\_interpolated\_vars@{get\_interpolated\_vars}}
+\index{get\_interpolated\_vars@{get\_interpolated\_vars}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{get\_interpolated\_vars()\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \textbf{ Dense\+Vector}$<$ std\+::complex$<$ double $>$ $>$ \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ std\+::complex$<$ double $>$, std\+::complex$<$ double $>$ $>$\+::get\+\_\+interpolated\+\_\+vars (\begin{DoxyParamCaption}\item[{const std\+::complex$<$ double $>$ \&}]{pos }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 268 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{268                                                                                                                                                      \{}
+\DoxyCodeLine{269     \textcolor{keywordtype}{double} x\_pos(pos.real());}
+\DoxyCodeLine{270 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{271     std::cout << \textcolor{stringliteral}{"WARNING: You are interpolating complex data on a complex mesh with 'get\_interpolated\_vars'.\(\backslash\)n"};}
+\DoxyCodeLine{272     std::cout << \textcolor{stringliteral}{" This does a simple piecewise linear interpolating assuming a single valued path. \(\backslash\)n"};}
+\DoxyCodeLine{273 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{274     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} node = 0; node < m\_X.size() -\/ 1; ++node) \{}
+\DoxyCodeLine{275       \textcolor{comment}{// find bracketing nodes -\/ incl shameless hack for evaluations at the boundary}}
+\DoxyCodeLine{276       \textcolor{keywordflow}{if}((m\_X[ node ].real() < x\_pos  || std::abs(m\_X[ node ].real() -\/ x\_pos) < 1.e-\/7) \&\&}
+\DoxyCodeLine{277           (m\_X[ node + 1 ].real() > x\_pos || std::abs(m\_X[ node + 1 ].real() -\/ x\_pos) < 1.e-\/7)) \{}
+\DoxyCodeLine{278         \textcolor{comment}{// distance from left node -\/-\/ real coordinate is given. We also need to}}
+\DoxyCodeLine{279         \textcolor{comment}{// interpolate between the two complex nodes -\/-\/ hence imaginary coordinate is implict from}}
+\DoxyCodeLine{280         \textcolor{comment}{// bracketing (complex) nodes}}
+\DoxyCodeLine{281         std::complex<double> delta\_z = (m\_X[ node + 1 ] -\/ m\_X[ node ]) * (x\_pos -\/ m\_X[ node ].real()) / (m\_X[ node + 1 ].real() -\/ m\_X[ node ].real());}
+\DoxyCodeLine{282         \textcolor{comment}{// empty data to return}}
+\DoxyCodeLine{283         DenseVector<std::complex<double> > left;}
+\DoxyCodeLine{284         DenseVector<std::complex<double> > right;}
+\DoxyCodeLine{285         DenseVector<std::complex<double> > deriv;}
+\DoxyCodeLine{286         \textcolor{comment}{// interpolate data linearly}}
+\DoxyCodeLine{287         left = get\_nodes\_vars(node);}
+\DoxyCodeLine{288         right = get\_nodes\_vars(node + 1);}
+\DoxyCodeLine{289         \textcolor{comment}{// derivative of the data}}
+\DoxyCodeLine{290         deriv = (right -\/ left) / (m\_X[ node + 1 ] -\/ m\_X[ node ]);}
+\DoxyCodeLine{291         \textcolor{comment}{// overwrite right}}
+\DoxyCodeLine{292         right = left + deriv * delta\_z;}
+\DoxyCodeLine{293         \textcolor{keywordflow}{return} right;}
+\DoxyCodeLine{294       \}}
+\DoxyCodeLine{295     \}}
+\DoxyCodeLine{296     std::cout << \textcolor{stringliteral}{"You asked for a position of "} << x\_pos << \textcolor{stringliteral}{" in a range "} << m\_X[ 0 ] << \textcolor{stringliteral}{" to "} << m\_X[ m\_X.size() -\/ 1 ] << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{297     std::string problem;}
+\DoxyCodeLine{298     problem = \textcolor{stringliteral}{"You have asked the OneD\_Node\_Mesh class to interpolate data at\(\backslash\)n"};}
+\DoxyCodeLine{299     problem += \textcolor{stringliteral}{"a point that is outside the range covered by the mesh object.\(\backslash\)n"};}
+\DoxyCodeLine{300     problem += \textcolor{stringliteral}{"Even for complex nodes we assume the path is single valued.\(\backslash\)n"};}
+\DoxyCodeLine{301     \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{302   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_aa2bfed064391a7b95e0cde7aa8170f7e}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!get\_nnodes@{get\_nnodes}}
+\index{get\_nnodes@{get\_nnodes}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{get\_nnodes()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::get\+\_\+nnodes}
+
+\begin{DoxyReturn}{Returns}
+The number of nodal points in the mesh 
+\end{DoxyReturn}
+
+
+Definition at line 49 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49                                                             \{}
+\DoxyCodeLine{50     \textcolor{keywordflow}{return} m\_X.size();}
+\DoxyCodeLine{51   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+H\+S\+T\+::\+Rayleigh$<$ \+\_\+\+Type $>$\+::eigenvector(), Cpp\+Noddy\+::\+H\+S\+T\+::\+Orr\+\_\+\+Sommerfeld\+::global\+\_\+evp(), Cpp\+Noddy\+::\+F\+T\+::idft(), Cpp\+Noddy\+::\+F\+T\+::ishift(), main(), Cpp\+Noddy\+::\+Utility\+::max\+\_\+abs\+\_\+location(), Cpp\+Noddy\+::\+Utility\+::max\+\_\+abs\+\_\+location\+\_\+range(), and Cpp\+Noddy\+::\+F\+T\+::shift().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a414b6ea67aff4b20b22d4ab00042c6d5}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!get\_nodes\_vars@{get\_nodes\_vars}}
+\index{get\_nodes\_vars@{get\_nodes\_vars}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{get\_nodes\_vars()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::get\+\_\+nodes\+\_\+vars (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{node }\end{DoxyParamCaption}) const}
+
+
+
+Get the variables stored at A S\+P\+E\+C\+I\+F\+I\+ED node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & The nodal index to be returned \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The vector of V\+A\+R\+I\+A\+B\+L\+ES stored at this nodal point 
+\end{DoxyReturn}
+
+
+Definition at line 32 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{32                                                                                               \{}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{34     \textcolor{keywordflow}{if}((node >= m\_X.size()) || (node < 0)) \{}
+\DoxyCodeLine{35       std::string problem;}
+\DoxyCodeLine{36       problem = \textcolor{stringliteral}{" The OneD\_Node\_Mesh.get\_nodes\_vars method is trying to access \(\backslash\)n"};}
+\DoxyCodeLine{37       problem += \textcolor{stringliteral}{" a nodal point outside of the range stored. \(\backslash\)n"};}
+\DoxyCodeLine{38       \textcolor{keywordflow}{throw} ExceptionRange(problem, m\_X.size(), node);}
+\DoxyCodeLine{39     \}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{41     DenseVector<\_Type> nodes\_vars;}
+\DoxyCodeLine{42     \textcolor{keywordflow}{for}(std::size\_t var = 0; var < m\_nv; ++var) \{}
+\DoxyCodeLine{43       nodes\_vars.push\_back(m\_vars[ node * m\_nv + var ]);}
+\DoxyCodeLine{44     \}}
+\DoxyCodeLine{45     \textcolor{keywordflow}{return} nodes\_vars;}
+\DoxyCodeLine{46   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+F\+T\+::dft\+\_\+with\+\_\+shift(), Cpp\+Noddy\+::\+F\+T\+::idft(), and Cpp\+Noddy\+::\+F\+T\+::idft\+\_\+with\+\_\+ishift().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a33e94bdf5f68e903ee58e414250be684}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!get\_nvars@{get\_nvars}}
+\index{get\_nvars@{get\_nvars}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{get\_nvars()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::get\+\_\+nvars}
+
+\begin{DoxyReturn}{Returns}
+The number of variables that have data stored at each nodal point 
+\end{DoxyReturn}
+
+
+Definition at line 54 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54                                                            \{}
+\DoxyCodeLine{55     \textcolor{keywordflow}{return} m\_nv;}
+\DoxyCodeLine{56   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+F\+T\+::idft(), Cpp\+Noddy\+::\+F\+T\+::ishift(), and Cpp\+Noddy\+::\+F\+T\+::shift().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a49c5b5f4ac1c04609c73da841a15a72f}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!get\_vars@{get\_vars}}
+\index{get\_vars@{get\_vars}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{get\_vars()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+const std\+::vector$<$\textbf{ Dense\+Vector}$<$\+\_\+\+Type$>$ $>$\& \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::get\+\_\+vars (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+An S\+TL vector of dense vectors of the variables in the mesh 
+\end{DoxyReturn}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_acd60331c7da8985973f831111b3a2b3a}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!integral2@{integral2}}
+\index{integral2@{integral2}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{integral2()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\+\_\+\+Type \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::integral2 (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{var = {\ttfamily 0} }\end{DoxyParamCaption}) const}
+
+
+
+Integrate over the domain. 
+
+Typically useful for finite volume methods. 
+\begin{DoxyParams}{Parameters}
+{\em var} & The variable-\/index to be integrated over the mesh using a trapezium rule. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The integral value. 
+\end{DoxyReturn}
+
+
+Definition at line 313 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{313                                                                     \{}
+\DoxyCodeLine{314     \_Type sum = 0.0;}
+\DoxyCodeLine{315     \_Xtype dx = 0.0;}
+\DoxyCodeLine{316     \textcolor{comment}{// sum interior segments}}
+\DoxyCodeLine{317     \textcolor{keywordflow}{for}(std::size\_t node = 0; node < m\_X.size() -\/ 1; ++node) \{}
+\DoxyCodeLine{318       dx = (m\_X[ node + 1 ] -\/ m\_X[ node ]);}
+\DoxyCodeLine{319       sum += 0.5 * dx * (m\_vars[ node * m\_nv + var ] + m\_vars[(node+1) * m\_nv + var ]);}
+\DoxyCodeLine{320     \}}
+\DoxyCodeLine{321     \textcolor{comment}{// return the value}}
+\DoxyCodeLine{322     \textcolor{keywordflow}{return} sum;}
+\DoxyCodeLine{323   \}}
+
+\end{DoxyCode}
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_ab2bd4f155e5f8801467a6b838d677609}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!integral4@{integral4}}
+\index{integral4@{integral4}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{integral4()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\+\_\+\+Type \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::integral4 (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{var = {\ttfamily 0} }\end{DoxyParamCaption}) const}
+
+
+
+Integrate over the domain with a Simpson rule. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em var} & The variable-\/index to be integrated over the mesh using a trapezium rule. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The integral value. ~\newline
+ 
+\end{DoxyReturn}
+
+
+Definition at line 340 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{340                                                                     \{}
+\DoxyCodeLine{341     \textcolor{keywordflow}{if}((m\_X.size()) \% 2 == 0) \{}
+\DoxyCodeLine{342       std::string problem;}
+\DoxyCodeLine{343       problem = \textcolor{stringliteral}{" The OneD\_Node\_Mesh.Simpson\_integral method is trying to run \(\backslash\)n"};}
+\DoxyCodeLine{344       problem += \textcolor{stringliteral}{" on a mesh with an even number of points. \(\backslash\)n"};}
+\DoxyCodeLine{345       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{346     \}}
+\DoxyCodeLine{347 }
+\DoxyCodeLine{348     \_Type f0, f1, f2;}
+\DoxyCodeLine{349     \_Xtype x0, x1, x2;}
+\DoxyCodeLine{350 }
+\DoxyCodeLine{351     \_Type sum = 0.0;}
+\DoxyCodeLine{352 }
+\DoxyCodeLine{353     \textcolor{comment}{// sum interior segments}}
+\DoxyCodeLine{354     \textcolor{keywordflow}{for}(std::size\_t node = 0; node < m\_X.size() -\/ 2; node += 2) \{}
+\DoxyCodeLine{355       x0 = m\_X[ node ];}
+\DoxyCodeLine{356       x1 = m\_X[ node + 1 ];}
+\DoxyCodeLine{357       x2 = m\_X[ node + 2 ];}
+\DoxyCodeLine{358       f0 = m\_vars[ node * m\_nv + var ];}
+\DoxyCodeLine{359       f1 = m\_vars[(node+1) * m\_nv + var ];}
+\DoxyCodeLine{360       f2 = m\_vars[(node+2) * m\_nv + var ];}
+\DoxyCodeLine{361       sum += (x2 -\/ x0)}
+\DoxyCodeLine{362         * (}
+\DoxyCodeLine{363            f1 * pow(x0 -\/ x2, 2) + f0 * (x1 -\/ x2) * (2. * x0 -\/ 3. * x1 + x2)}
+\DoxyCodeLine{364            -\/ f2 * (x0 -\/ x1) * (x0 -\/ 3. * x1 + 2. * x2)}
+\DoxyCodeLine{365            )}
+\DoxyCodeLine{366         / (6. * (x0 -\/ x1) * (x1 -\/ x2));}
+\DoxyCodeLine{367       \textcolor{comment}{// sum += (x1-\/x0)*( f0 + 4*f1 + f2 ) / 3.0 for equal spacing}}
+\DoxyCodeLine{368     \}}
+\DoxyCodeLine{369     \textcolor{comment}{// return the value}}
+\DoxyCodeLine{370     \textcolor{keywordflow}{return} sum;}
+\DoxyCodeLine{371   \}}
+
+\end{DoxyCode}
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a8baa9f89969a0a5224176875fd0cdf08}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!max\_abs@{max\_abs}}
+\index{max\_abs@{max\_abs}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{max\_abs()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+double \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::max\+\_\+abs (\begin{DoxyParamCaption}\item[{unsigned}]{var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Find the maximum stored absolute value in the mesh for a given variable in a range of the domain. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em var} & The variable index whose maximum is being asked for \\
+\hline
+{\em left} & Only examine the sub-\/range x$>$left \\
+\hline
+{\em right} & Only examine the sub-\/range x$<$right \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the maximum (abs value) Find the maximum stored absolute value in the mesh for a given variable -- no interpolation is used 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em var} & The variable index whose maximum is being asked for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the maximum (abs value) 
+\end{DoxyReturn}
+
+
+Definition at line 228 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{228                                  \{}
+\DoxyCodeLine{229       \textcolor{keywordtype}{double} max(0.0);}
+\DoxyCodeLine{230       \textcolor{comment}{// step through the nodes}}
+\DoxyCodeLine{231       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} node = 0; node < m\_X.size(); ++node) \{}
+\DoxyCodeLine{232         \textcolor{keywordflow}{if}(std::abs(m\_vars[ node * m\_nv + var ]) > max) \{}
+\DoxyCodeLine{233           max = std::abs(m\_vars[ node * m\_nv + var ]);}
+\DoxyCodeLine{234         \}}
+\DoxyCodeLine{235       \}}
+\DoxyCodeLine{236       \textcolor{keywordflow}{return} max;}
+\DoxyCodeLine{237     \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::normalise().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a38598aba1f15ce712a490d1e188fa997}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!nodes@{nodes}}
+\index{nodes@{nodes}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{nodes()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+const \textbf{ Dense\+Vector}$<$ \+\_\+\+Xtype $>$ \& \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::nodes}
+
+\begin{DoxyReturn}{Returns}
+A vector of the nodal positions for this mesh 
+\end{DoxyReturn}
+
+
+Definition at line 59 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{59                                                                         \{}
+\DoxyCodeLine{60     \textcolor{keywordflow}{return} m\_X;}
+\DoxyCodeLine{61   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+H\+S\+T\+::\+Rayleigh$<$ \+\_\+\+Type $>$\+::eigenvector().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a05bdbc25a63311a3ae8f5837de72e15c}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!normalise@{normalise}}
+\index{normalise@{normalise}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{normalise()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+void \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::normalise (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Normalise all data in the mesh based on one variable. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em var} & This var will have its peak (absolute) value as +/-\/unity following the normalisation. All other variables will also be rescaled by the same amount. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 184 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{184                                          \{}
+\DoxyCodeLine{185       \textcolor{keywordtype}{double} maxval(max\_abs(var));}
+\DoxyCodeLine{186       m\_vars.scale(1./maxval);}
+\DoxyCodeLine{187     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a8437e327e94252ca8ac64965df7ed05b}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{operator()()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::operator() (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{i,  }\item[{const std\+::size\+\_\+t}]{var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access a variable at a node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the node to be accessed \\
+\hline
+{\em var} & The variable to return the data for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The variable stored at the node 
+\end{DoxyReturn}
+
+
+Definition at line 268 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{268                                                                                                 \{}
+\DoxyCodeLine{269     \textcolor{keywordflow}{return} m\_vars[ i * m\_nv + var ];}
+\DoxyCodeLine{270   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_af47101e93263762124981e58029f88f5}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{operator()()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+const \+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::operator() (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{i,  }\item[{const std\+::size\+\_\+t}]{var }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access a variable at a node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the node to be accessed \\
+\hline
+{\em var} & The variable to return the data for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The variable stored at the node 
+\end{DoxyReturn}
+
+
+Definition at line 273 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{273                                                                                                             \{}
+\DoxyCodeLine{274     \textcolor{keywordflow}{return} m\_vars[ i * m\_nv + var ];}
+\DoxyCodeLine{275   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a40b8d791ad387241bf12dabe939b36e9}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!read@{read}}
+\index{read@{read}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{read()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::read (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{const bool}]{reset = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Assign mesh contents using a filename. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Filename that contains the data \\
+\hline
+{\em reset} & A boolean, if true then coordinate data is overwritten using the file data. Default is false. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 376 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{376                                                                            \{}
+\DoxyCodeLine{377     std::ifstream dump;}
+\DoxyCodeLine{378     dump.open(filename.c\_str());}
+\DoxyCodeLine{379     \textcolor{keywordflow}{if} (dump.good() != \textcolor{keyword}{true}) \{}
+\DoxyCodeLine{380       std::string problem;}
+\DoxyCodeLine{381       problem = \textcolor{stringliteral}{" The OneD\_Node\_Mesh.read method is trying to read a \(\backslash\)n"};}
+\DoxyCodeLine{382       problem += \textcolor{stringliteral}{" file ("} + filename + \textcolor{stringliteral}{") that doesn't exist.\(\backslash\)n"};}
+\DoxyCodeLine{383       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{384     \}}
+\DoxyCodeLine{385     dump.precision(15);}
+\DoxyCodeLine{386     dump.setf(std::ios::showpoint);}
+\DoxyCodeLine{387     dump.setf(std::ios::showpos);}
+\DoxyCodeLine{388     dump.setf(std::ios::scientific);}
+\DoxyCodeLine{389     std::size\_t N = get\_nnodes();}
+\DoxyCodeLine{390     \textcolor{keywordflow}{for} (std::size\_t i = 0; i < N; ++i) \{}
+\DoxyCodeLine{391         \textcolor{keywordtype}{double} x;}
+\DoxyCodeLine{392         dump >> x;}
+\DoxyCodeLine{393         \textcolor{keywordflow}{for} (std::size\_t var = 0; var < m\_nv; ++var) \{}
+\DoxyCodeLine{394           \textcolor{keywordtype}{double} value;}
+\DoxyCodeLine{395           dump >> value;}
+\DoxyCodeLine{396           m\_vars[ i * m\_nv + var ] = value;}
+\DoxyCodeLine{397         \}}
+\DoxyCodeLine{398         \textcolor{keywordflow}{if} (reset != \textcolor{keyword}{true}) \{}
+\DoxyCodeLine{399           \textcolor{comment}{// if not reseting the mesh we should check the node positions}}
+\DoxyCodeLine{400           \textcolor{keywordflow}{if} (std::fabs(x -\/ m\_X[ i ]) > 1.e-\/6) \{}
+\DoxyCodeLine{401             std::cout << \textcolor{stringliteral}{" Read x = "} << x << \textcolor{stringliteral}{" Expected x = "} << m\_X[ i ] << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{402             std::cout << \textcolor{stringliteral}{" Absolute differences are "} << fabs(x -\/ m\_X[i]) <<  \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{403             std::string problem;}
+\DoxyCodeLine{404             problem = \textcolor{stringliteral}{" The TwoD\_Node\_Mesh.read method is trying to read a \(\backslash\)n"};}
+\DoxyCodeLine{405             problem += \textcolor{stringliteral}{" file whose nodal points are in a different position. \(\backslash\)n"};}
+\DoxyCodeLine{406             \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{407           \}}
+\DoxyCodeLine{408         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{409           m\_X[ i ] = x;}
+\DoxyCodeLine{410         \}}
+\DoxyCodeLine{411     \}}
+\DoxyCodeLine{412   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_ae5d42a1e1ac9b2780dcc4f6537474d7f}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!remesh1@{remesh1}}
+\index{remesh1@{remesh1}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{remesh1()\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+void \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::remesh1 (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Xtype $>$ \&}]{z }\end{DoxyParamCaption})}
+
+
+
+Interpolate this mesh data (linearly) into a new mesh with nodal points defined in the argument list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em z} & The nodal coordinates to be used in the new mesh. \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by main(), and Cpp\+Noddy\+::\+H\+S\+T\+::\+Rayleigh$<$ \+\_\+\+Type $>$\+::remesh1().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a9611ffe3af39ad6b3b186ba4e6d91e91}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!remesh1@{remesh1}}
+\index{remesh1@{remesh1}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{remesh1()\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily void \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ double, double $>$\+::remesh1 (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{newX }\end{DoxyParamCaption})}
+
+
+
+Definition at line 98 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{98                                                                               \{}
+\DoxyCodeLine{99 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{100     \textcolor{keywordflow}{if}(std::abs(m\_X[ 0 ] -\/ newX[ 0 ]) > 1.e-\/10 ||}
+\DoxyCodeLine{101         std::abs(m\_X[ m\_X.size() -\/ 1 ] -\/ newX[ newX.size() -\/ 1 ]) > 1.e-\/10) \{}
+\DoxyCodeLine{102       std::string problem;}
+\DoxyCodeLine{103       problem = \textcolor{stringliteral}{" The OneD\_Node\_Mesh.remesh method has been called with \(\backslash\)n"};}
+\DoxyCodeLine{104       problem += \textcolor{stringliteral}{" a passed coordinate vector that has different start and/or \(\backslash\)n"};}
+\DoxyCodeLine{105       problem += \textcolor{stringliteral}{" end points from the instantiated object. \(\backslash\)n"};}
+\DoxyCodeLine{106       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{107     \}}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < newX.size() -\/ 1; ++i) \{}
+\DoxyCodeLine{110       \textcolor{keywordflow}{if}(newX[ i ] >= newX[ i + 1 ]) \{}
+\DoxyCodeLine{111         std::string problem;}
+\DoxyCodeLine{112         problem = \textcolor{stringliteral}{" The OneD\_Node\_Mesh.remesh method has been passed \(\backslash\)n"};}
+\DoxyCodeLine{113         problem += \textcolor{stringliteral}{" a non-\/monotonic coordinate vector. \(\backslash\)n"};}
+\DoxyCodeLine{114         \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{115       \}}
+\DoxyCodeLine{116     \}}
+\DoxyCodeLine{117 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{118     \textcolor{comment}{// copy current state of this mesh}}
+\DoxyCodeLine{119     DenseVector<double> copy\_of\_vars(m\_vars);}
+\DoxyCodeLine{120     \textcolor{comment}{// resize the local storage}}
+\DoxyCodeLine{121     m\_vars.resize(newX.size() * m\_nv);}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{123     \textcolor{comment}{// first nodal values are assumed to be untouched}}
+\DoxyCodeLine{124     \textcolor{comment}{// loop thru destination mesh node at a time}}
+\DoxyCodeLine{125     \textcolor{keywordflow}{for}(std::size\_t node = 1; node < newX.size() -\/ 1; ++node) \{}
+\DoxyCodeLine{126       \textcolor{comment}{// loop through the source mesh and find the bracket-\/nodes}}
+\DoxyCodeLine{127       \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_X.size(); ++i) \{}
+\DoxyCodeLine{128         \textcolor{keywordflow}{if}((m\_X[ i ] <= newX[ node ]) \&\& (newX[ node ] < m\_X[ i + 1 ])) \{}
+\DoxyCodeLine{129           \textcolor{comment}{// linearly interpolate each variable in the mesh}}
+\DoxyCodeLine{130           \textcolor{keywordflow}{for}(std::size\_t var = 0; var < m\_nv; ++var) \{}
+\DoxyCodeLine{131             \textcolor{keywordtype}{double} dX = newX[ node ] -\/ m\_X[ i ];}
+\DoxyCodeLine{132             \textcolor{keywordtype}{double} dvarsdX = (copy\_of\_vars[(i+1)*m\_nv + var ] -\/ copy\_of\_vars[ i*m\_nv + var ]) / (m\_X[ i + 1 ] -\/ m\_X[ i ]);}
+\DoxyCodeLine{133             m\_vars[ node * m\_nv + var ] = copy\_of\_vars[ i * m\_nv + var ] + dX * dvarsdX;}
+\DoxyCodeLine{134           \}}
+\DoxyCodeLine{135         \}}
+\DoxyCodeLine{136       \}}
+\DoxyCodeLine{137     \}}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139     \textcolor{comment}{// add the last nodal values to the resized vector}}
+\DoxyCodeLine{140     \textcolor{keywordflow}{for}(std::size\_t var = 0; var < m\_nv; ++var) \{}
+\DoxyCodeLine{141       m\_vars[(newX.size() -\/ 1) * m\_nv + var ] = copy\_of\_vars[(m\_X.size() -\/ 1) * m\_nv + var ];}
+\DoxyCodeLine{142     \}}
+\DoxyCodeLine{143     \textcolor{comment}{// replace the old nodes with the new ones}}
+\DoxyCodeLine{144     m\_X = newX;}
+\DoxyCodeLine{145   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_aceff95892127a5e8a3a3dde97379343d}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!remesh1@{remesh1}}
+\index{remesh1@{remesh1}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{remesh1()\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily void \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ std\+::complex$<$ double $>$, double $>$\+::remesh1 (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{newX }\end{DoxyParamCaption})}
+
+
+
+Definition at line 148 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{148                                                                                           \{}
+\DoxyCodeLine{149 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{150     \textcolor{keywordflow}{if}(std::abs(m\_X[ 0 ] -\/ newX[ 0 ]) > 1.e-\/10 ||}
+\DoxyCodeLine{151         std::abs(m\_X[ m\_X.size() -\/ 1 ] -\/ newX[ newX.size() -\/ 1 ]) > 1.e-\/10) \{}
+\DoxyCodeLine{152       std::string problem;}
+\DoxyCodeLine{153       problem = \textcolor{stringliteral}{" The OneD\_Node\_Mesh.remesh method has been called with \(\backslash\)n"};}
+\DoxyCodeLine{154       problem += \textcolor{stringliteral}{" a passed coordinate vector that has different start and/or \(\backslash\)n"};}
+\DoxyCodeLine{155       problem += \textcolor{stringliteral}{" end points from the instantiated object. \(\backslash\)n"};}
+\DoxyCodeLine{156       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{157     \}}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{159     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < newX.size() -\/ 1; ++i) \{}
+\DoxyCodeLine{160       \textcolor{keywordflow}{if}(newX[ i ] >= newX[ i + 1 ]) \{}
+\DoxyCodeLine{161         std::string problem;}
+\DoxyCodeLine{162         problem = \textcolor{stringliteral}{" The OneD\_Node\_Mesh.remesh method has been passed \(\backslash\)n"};}
+\DoxyCodeLine{163         problem += \textcolor{stringliteral}{" a non-\/monotonic coordinate vector. \(\backslash\)n"};}
+\DoxyCodeLine{164         \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{165       \}}
+\DoxyCodeLine{166     \}}
+\DoxyCodeLine{167 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{168     \textcolor{comment}{// copy current state of this mesh}}
+\DoxyCodeLine{169     DenseVector<std::complex<double> > copy\_of\_vars(m\_vars);}
+\DoxyCodeLine{170     \textcolor{comment}{// resize the local storage}}
+\DoxyCodeLine{171     m\_vars.resize(newX.size() * m\_nv);}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173     \textcolor{comment}{// first nodal values are assumed to be untouched}}
+\DoxyCodeLine{174     \textcolor{comment}{// loop thru destination mesh node at a time}}
+\DoxyCodeLine{175     \textcolor{keywordflow}{for}(std::size\_t node = 1; node < newX.size() -\/ 1; ++node) \{}
+\DoxyCodeLine{176       \textcolor{comment}{// loop through the source mesh and find the bracket-\/nodes}}
+\DoxyCodeLine{177       \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_X.size(); ++i) \{}
+\DoxyCodeLine{178         \textcolor{keywordflow}{if}((m\_X[ i ] <= newX[ node ]) \&\& (newX[ node ] < m\_X[ i + 1 ])) \{}
+\DoxyCodeLine{179           \textcolor{comment}{// linearly interpolate each variable in the mesh}}
+\DoxyCodeLine{180           \textcolor{keywordflow}{for}(std::size\_t var = 0; var < m\_nv; ++var) \{}
+\DoxyCodeLine{181             \textcolor{keywordtype}{double} dX = newX[ node ] -\/ m\_X[ i ];}
+\DoxyCodeLine{182             \textcolor{comment}{// if the paranoid checks above are satisfied, then the m\_X[ i + 1 ] should still be in bounds}}
+\DoxyCodeLine{183             std::complex<double> dvarsdX = (copy\_of\_vars[(i+1)*m\_nv + var ] -\/ copy\_of\_vars[ i*m\_nv + var ]) / (m\_X[ i + 1 ] -\/ m\_X[ i ]);}
+\DoxyCodeLine{184             m\_vars[ node * m\_nv + var ] = copy\_of\_vars[ i * m\_nv + var ] + dX * dvarsdX;}
+\DoxyCodeLine{185           \}}
+\DoxyCodeLine{186         \}}
+\DoxyCodeLine{187       \}}
+\DoxyCodeLine{188     \}}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190     \textcolor{comment}{// add the last nodal values to the resized vector}}
+\DoxyCodeLine{191     \textcolor{keywordflow}{for}(std::size\_t var = 0; var < m\_nv; ++var) \{}
+\DoxyCodeLine{192       m\_vars[(newX.size() -\/ 1) * m\_nv + var ] = copy\_of\_vars[(m\_X.size() -\/ 1) * m\_nv + var ];}
+\DoxyCodeLine{193     \}}
+\DoxyCodeLine{194     \textcolor{comment}{// replace the old nodes with the new ones}}
+\DoxyCodeLine{195     m\_X = newX;}
+\DoxyCodeLine{196 }
+\DoxyCodeLine{197   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a88506e458eb593dfb7ea25845a05741b}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!remesh1@{remesh1}}
+\index{remesh1@{remesh1}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{remesh1()\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily void \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ std\+::complex$<$ double $>$, std\+::complex$<$ double $>$ $>$\+::remesh1 (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ std\+::complex$<$ double $>$ $>$ \&}]{z }\end{DoxyParamCaption})}
+
+
+
+Definition at line 200 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{200                                                                                                                  \{}
+\DoxyCodeLine{201     std::string problem;}
+\DoxyCodeLine{202     problem = \textcolor{stringliteral}{" The OneD\_Node\_Mesh.remesh method has been called with \(\backslash\)n"};}
+\DoxyCodeLine{203     problem += \textcolor{stringliteral}{" a complex data set on a complex mesh.\(\backslash\)n"};}
+\DoxyCodeLine{204     \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{205   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_aa7643365d842a084fd9a71699789d39c}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!scale@{scale}}
+\index{scale@{scale}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{scale()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+void \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::scale (\begin{DoxyParamCaption}\item[{\+\_\+\+Type}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Scale the whole contents of the mesh. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The value to multiply the contents of the mesh by \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 176 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{176                         \{}
+\DoxyCodeLine{177       m\_vars.scale(x);}
+\DoxyCodeLine{178     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a7ef85d118f9737b345087da72be5eb49}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!set\_nodes\_vars@{set\_nodes\_vars}}
+\index{set\_nodes\_vars@{set\_nodes\_vars}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{set\_nodes\_vars()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::set\+\_\+nodes\+\_\+vars (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{node,  }\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{u }\end{DoxyParamCaption})}
+
+
+
+Set the variables stored at A S\+P\+E\+C\+I\+F\+I\+ED node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & The nodal index to be set \\
+\hline
+{\em u} & The vector of V\+A\+R\+I\+A\+B\+L\+ES to be written to this nodal point \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 16 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16                                                                                                       \{}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{18     \textcolor{keywordflow}{if}(U.size() != m\_nv) \{}
+\DoxyCodeLine{19       std::string problem;}
+\DoxyCodeLine{20       problem = \textcolor{stringliteral}{" The OneD\_Node\_Mesh.set\_node method is trying to add \(\backslash\)n"};}
+\DoxyCodeLine{21       problem += \textcolor{stringliteral}{" an DenseVector of variables of a different size to that \(\backslash\)n"};}
+\DoxyCodeLine{22       problem += \textcolor{stringliteral}{" stored at other nodal points. \(\backslash\)n"};}
+\DoxyCodeLine{23       \textcolor{keywordflow}{throw} ExceptionGeom(problem, m\_nv, U.size());}
+\DoxyCodeLine{24     \}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{26     \textcolor{keywordflow}{for}(std::size\_t var = 0; var < U.size(); ++var) \{}
+\DoxyCodeLine{27       m\_vars[ node * m\_nv + var ] = U[ var ];}
+\DoxyCodeLine{28     \}}
+\DoxyCodeLine{29   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+E\+V\+P$<$ \+\_\+\+Type $>$\+::add\+\_\+tagged\+\_\+to\+\_\+mesh(), Cpp\+Noddy\+::\+F\+T\+::dft(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+interpolated\+\_\+vars(), Cpp\+Noddy\+::\+One\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh\+::get\+\_\+slope(), Cpp\+Noddy\+::\+One\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh\+::get\+\_\+soln(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+xsection\+\_\+at\+\_\+xnode(), and Cpp\+Noddy\+::\+Two\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+xsection\+\_\+at\+\_\+ynode().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a3734eddce493a01f1be2d03750e33906}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!set\_vars\_from\_vector@{set\_vars\_from\_vector}}
+\index{set\_vars\_from\_vector@{set\_vars\_from\_vector}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{set\_vars\_from\_vector()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::set\+\_\+vars\+\_\+from\+\_\+vector (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{vec }\end{DoxyParamCaption})}
+
+
+
+Set the variables of this mesh from a vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec} & The vector to be used. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 85 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{85                                                                                         \{}
+\DoxyCodeLine{86 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{87     \textcolor{keywordflow}{if}(vec.size() != m\_nv * m\_X.size()) \{}
+\DoxyCodeLine{88       std::string problem;}
+\DoxyCodeLine{89       problem = \textcolor{stringliteral}{"The set\_vars\_from\_vector method has been passed a vector\(\backslash\)n"};}
+\DoxyCodeLine{90       problem += \textcolor{stringliteral}{"of a length that is of an incompatible size for this mesh object\(\backslash\)n"};}
+\DoxyCodeLine{91       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{92     \}}
+\DoxyCodeLine{93 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{94     m\_vars = vec;}
+\DoxyCodeLine{95   \}}
+
+\end{DoxyCode}
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a0c68f553ef3f1b218bf6052f3c1e9ad3}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!squared\_integral2@{squared\_integral2}}
+\index{squared\_integral2@{squared\_integral2}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{squared\_integral2()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\+\_\+\+Xtype \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::squared\+\_\+integral2 (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{var = {\ttfamily 0} }\end{DoxyParamCaption}) const}
+
+
+
+Compute the integral of the absolute variable squared\+: $\vert$variable$\vert$$^\wedge$2. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em var} & The variable-\/index to be integrated \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The integral of the square of the absolute value. 
+\end{DoxyReturn}
+
+
+Definition at line 326 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{326                                                                              \{}
+\DoxyCodeLine{327     \_Xtype sum = 0.0;}
+\DoxyCodeLine{328     \textcolor{keywordtype}{double} dx = 0.0;}
+\DoxyCodeLine{329     \textcolor{comment}{// sum interior segments}}
+\DoxyCodeLine{330     \textcolor{keywordflow}{for}(std::size\_t node = 0; node < m\_X.size() -\/ 1; ++node) \{}
+\DoxyCodeLine{331       dx = std::abs(m\_X[ node + 1 ] -\/ m\_X[ node ]);}
+\DoxyCodeLine{332       sum += 0.5 * dx * (std::pow(std::abs(m\_vars[ node * m\_nv + var ]), 2)}
+\DoxyCodeLine{333                          + std::pow(std::abs(m\_vars[(node + 1) * m\_nv + var ]), 2));}
+\DoxyCodeLine{334     \}}
+\DoxyCodeLine{335     \textcolor{comment}{// return the value}}
+\DoxyCodeLine{336     \textcolor{keywordflow}{return} std::sqrt(sum);}
+\DoxyCodeLine{337   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_a9327d2da960604856dd96f9e79e7b612}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!vars\_as\_vector@{vars\_as\_vector}}
+\index{vars\_as\_vector@{vars\_as\_vector}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{vars\_as\_vector()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::vars\+\_\+as\+\_\+vector}
+
+
+
+For each nodal point we push each variable into a vector in sequence. 
+
+So the returned vector has the data v\+\_\+00,,...,v\+\_\+0n,v\+\_\+10,...,v1n,....v\+\_\+mn, where the first index denotes the nodal point 0-\/m and the second the variable 0-\/n. \begin{DoxyReturn}{Returns}
+A vector of the variables stored in the mesh 
+\end{DoxyReturn}
+
+
+Definition at line 80 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{80                                                                                 \{}
+\DoxyCodeLine{81     \textcolor{keywordflow}{return} m\_vars;}
+\DoxyCodeLine{82   \}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Data Documentation}
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_ad5681d554f73be2557a7c424f4b65602}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!m\_nv@{m\_nv}}
+\index{m\_nv@{m\_nv}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{m\_nv}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::m\+\_\+nv\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 247 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::max\+\_\+abs(), and Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_ab1243a20ce38c2c0d20fbc63672fb4d5}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!m\_vars@{m\_vars}}
+\index{m\_vars@{m\_vars}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{m\_vars}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+\textbf{ Dense\+Vector}$<$\+\_\+\+Type$>$ \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::m\+\_\+vars\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 251 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::max\+\_\+abs(), Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::normalise(), Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh(), and Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::scale().
+
+\mbox{\label{classCppNoddy_1_1OneD__Node__Mesh_ab3ac1b3223fb98c4385b1d2a33685420}} 
+\index{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}!m\_X@{m\_X}}
+\index{m\_X@{m\_X}!CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$@{CppNoddy::OneD\_Node\_Mesh$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{m\_X}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+\textbf{ Dense\+Vector}$<$\+\_\+\+Xtype$>$ \textbf{ Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::m\+\_\+X\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 249 of file One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::max\+\_\+abs(), and Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h}\item 
+src/\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh.\+cpp}\end{DoxyCompactItemize}

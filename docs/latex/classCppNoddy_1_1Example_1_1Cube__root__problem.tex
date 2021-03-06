@@ -1,0 +1,91 @@
+\doxysubsection{Cpp\+Noddy\+::Example\+::Cube\+\_\+root\+\_\+problem Class Reference}
+\label{classCppNoddy_1_1Example_1_1Cube__root__problem}\index{CppNoddy::Example::Cube\_root\_problem@{CppNoddy::Example::Cube\_root\_problem}}
+
+
+The problem to be solved, here z$^\wedge$3 -\/1 in complex form.  
+
+
+Inheritance diagram for Cpp\+Noddy\+::Example\+::Cube\+\_\+root\+\_\+problem\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCppNoddy_1_1Example_1_1Cube__root__problem}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Cube\+\_\+root\+\_\+problem} ()
+\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ \&\textbf{ f}) const
+\begin{DoxyCompactList}\small\item\em The residual function for z$^\wedge$3 -\/1. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+The problem to be solved, here z$^\wedge$3 -\/1 in complex form. 
+
+Definition at line 17 of file Exception\+Checks.\+cpp.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Cube__root__problem_ac0e1d73f647cd40d2fe7a22659466cbb}} 
+\index{CppNoddy::Example::Cube\_root\_problem@{CppNoddy::Example::Cube\_root\_problem}!Cube\_root\_problem@{Cube\_root\_problem}}
+\index{Cube\_root\_problem@{Cube\_root\_problem}!CppNoddy::Example::Cube\_root\_problem@{CppNoddy::Example::Cube\_root\_problem}}
+\doxyparagraph{Cube\_root\_problem()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Cube\+\_\+root\+\_\+problem\+::\+Cube\+\_\+root\+\_\+problem (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 21 of file Exception\+Checks.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21                           : Residual<D\_complex>( 1 )}
+\DoxyCodeLine{22       \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Cube__root__problem_a93b04732f5f39305f4c08de0cb8bbd7b}} 
+\index{CppNoddy::Example::Cube\_root\_problem@{CppNoddy::Example::Cube\_root\_problem}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::Cube\_root\_problem@{CppNoddy::Example::Cube\_root\_problem}}
+\doxyparagraph{residual\_fn()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Cube\+\_\+root\+\_\+problem\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ \&}]{z,  }\item[{\textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+The residual function for z$^\wedge$3 -\/1. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em z} & The independent variable. \\
+\hline
+{\em f} & The value of the residual f(z). \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ D\+\_\+complex $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 27 of file Exception\+Checks.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{28       \{}
+\DoxyCodeLine{29         f[ 0 ] = z[ 0 ] * z[ 0 ] * z[ 0 ] -\/ 1.0;}
+\DoxyCodeLine{30       \}}
+
+\end{DoxyCode}
+
+
+References f, and Cpp\+Noddy\+::\+Example\+::z().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tests/\+Generic/\textbf{ Exception\+Checks.\+cpp}\end{DoxyCompactItemize}

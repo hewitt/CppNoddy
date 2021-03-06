@@ -1,0 +1,91 @@
+\doxysubsection{Cpp\+Noddy\+::Exception\+Range Class Reference}
+\label{classCppNoddy_1_1ExceptionRange}\index{CppNoddy::ExceptionRange@{CppNoddy::ExceptionRange}}
+
+
+An exception to indicate that a \doxyref{Cpp\+Noddy}{p.}{namespaceCppNoddy} container has been accessed with index/indices outside the maximum range for the container.  
+
+
+
+
+{\ttfamily \#include $<$Exceptions.\+h$>$}
+
+Inheritance diagram for Cpp\+Noddy\+::Exception\+Range\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classCppNoddy_1_1ExceptionRange}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Exception\+Range} (const std\+::string \&problem, const std\+::size\+\_\+t \&size1, const std\+::size\+\_\+t \&index1)
+\item 
+\textbf{ Exception\+Range} (const std\+::string \&problem, const std\+::size\+\_\+t \&size1, const std\+::size\+\_\+t \&index1, const std\+::size\+\_\+t \&size2, const std\+::size\+\_\+t \&index2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+An exception to indicate that a \doxyref{Cpp\+Noddy}{p.}{namespaceCppNoddy} container has been accessed with index/indices outside the maximum range for the container. 
+
+Definition at line 117 of file Exceptions.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1ExceptionRange_a766334c90bbe0d08fb421d3d16e76c3b}} 
+\index{CppNoddy::ExceptionRange@{CppNoddy::ExceptionRange}!ExceptionRange@{ExceptionRange}}
+\index{ExceptionRange@{ExceptionRange}!CppNoddy::ExceptionRange@{CppNoddy::ExceptionRange}}
+\doxyparagraph{ExceptionRange()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Exception\+Range\+::\+Exception\+Range (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{problem,  }\item[{const std\+::size\+\_\+t \&}]{size1,  }\item[{const std\+::size\+\_\+t \&}]{index1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 120 of file Exceptions.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{120                                                                                               :}
+\DoxyCodeLine{121       std::runtime\_error(problem) \{}
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#ifdef WHAT}}
+\DoxyCodeLine{123       error\_header();}
+\DoxyCodeLine{124       std::cout << problem << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{125       std::cout << \textcolor{stringliteral}{" Range error for one-\/dimensional container.\(\backslash\)n"};}
+\DoxyCodeLine{126       std::cout << \textcolor{stringliteral}{" Size 1 of container = "} << size1 << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{127       std::cout << \textcolor{stringliteral}{" Index 1 being accessed = "} << index1 << \textcolor{stringliteral}{"\(\backslash\)n\(\backslash\)n"};}
+\DoxyCodeLine{128 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1ExceptionRange_a604aaa91144d6e1eedcb488232a121c9}} 
+\index{CppNoddy::ExceptionRange@{CppNoddy::ExceptionRange}!ExceptionRange@{ExceptionRange}}
+\index{ExceptionRange@{ExceptionRange}!CppNoddy::ExceptionRange@{CppNoddy::ExceptionRange}}
+\doxyparagraph{ExceptionRange()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Exception\+Range\+::\+Exception\+Range (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{problem,  }\item[{const std\+::size\+\_\+t \&}]{size1,  }\item[{const std\+::size\+\_\+t \&}]{index1,  }\item[{const std\+::size\+\_\+t \&}]{size2,  }\item[{const std\+::size\+\_\+t \&}]{index2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 132 of file Exceptions.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{133                                                                     :}
+\DoxyCodeLine{134       std::runtime\_error(problem) \{}
+\DoxyCodeLine{135 \textcolor{preprocessor}{\#ifdef WHAT}}
+\DoxyCodeLine{136       error\_header();}
+\DoxyCodeLine{137       std::cout << problem << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{138       std::cout << \textcolor{stringliteral}{" Range error for two-\/dimensional container.\(\backslash\)n"};}
+\DoxyCodeLine{139       std::cout << \textcolor{stringliteral}{" Size 1 of container = "} << size1 << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{140       std::cout << \textcolor{stringliteral}{" Size 2 of container = "} << size2 << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{141       std::cout << \textcolor{stringliteral}{" Index 1 being accessed = "} << index1 << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{142       std::cout << \textcolor{stringliteral}{" Index 2 being accessed = "} << index2 << \textcolor{stringliteral}{"\(\backslash\)n\(\backslash\)n"};}
+\DoxyCodeLine{143 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145     \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Exceptions.\+h}\end{DoxyCompactItemize}

@@ -4,14 +4,7 @@
 /// verbose, but perhaps also a little less obfuscated.
 
 /*! \mainpage Overview
- * \image html http://hewitt.ddns.net/images/CppNoddy-logo-small.gif
  *
- * \htmlonly
-
- <a href="http://hewitt.ddns.net/Dev/CppNoddy/CHANGELOG"> CHANGELOG </a>
-
-
- * \endhtmlonly
  * \section intro0 Introduction
  * \subsection intro1 What is it?
  *
@@ -43,8 +36,6 @@
  * - Initial-value problems ( eg., the Lorenz equations ).
  * - Poisson problems in Cartesian and cylindrical geometries.
  *
- * Example output: pressure contours of a linear acoustic wave hitting a body of differing acoustic properties.
- * \image html http://hewitt.ddns.net/images/inclusion.jpg
  *
  *
  * A breakdown of examples into groups is found under the 'Modules' link above.

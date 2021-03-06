@@ -1,0 +1,264 @@
+\doxysubsection{Cpp\+Noddy\+::Equation\+\_\+1matrix$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$ Class Template Reference}
+\label{classCppNoddy_1_1Equation__1matrix}\index{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$}}
+
+
+An equation object base class used in the I\+B\+VP classes (and others).  
+
+
+
+
+{\ttfamily \#include $<$Equation\+\_\+1matrix.\+h$>$}
+
+Inheritance diagram for Cpp\+Noddy\+::Equation\+\_\+1matrix$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.051282cm]{classCppNoddy_1_1Equation__1matrix}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Equation\+\_\+1matrix} (const unsigned \&order)
+\begin{DoxyCompactList}\small\item\em Constructor for equation class. \end{DoxyCompactList}\item 
+virtual \textbf{ $\sim$\+Equation\+\_\+1matrix} ()
+\begin{DoxyCompactList}\small\item\em An empty destructor, virtual since we have virtual methods. \end{DoxyCompactList}\item 
+void \textbf{ update} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&state)
+\begin{DoxyCompactList}\small\item\em Update the \doxyref{Equation}{p.}{classCppNoddy_1_1Equation} object for the current set of state variables. \end{DoxyCompactList}\item 
+const \textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ \& \textbf{ matrix0} () const
+\begin{DoxyCompactList}\small\item\em Return a handle to the matrix. \end{DoxyCompactList}\item 
+virtual void \textbf{ get\+\_\+jacobian\+\_\+of\+\_\+matrix0\+\_\+mult\+\_\+vector} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&state, const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&vec, \textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ \&\textbf{ h}) const
+\begin{DoxyCompactList}\small\item\em Return the product of the Jacobian-\/of-\/the-\/matrix and a vector \textquotesingle{}vec\textquotesingle{} when the equation has a given \textquotesingle{}state\textquotesingle{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \textbf{ matrix0} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&x, \textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ \&\textbf{ m}) const
+\begin{DoxyCompactList}\small\item\em Define the matrix in terms of the current state vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type, typename \+\_\+\+Xtype = double$>$\newline
+class Cpp\+Noddy\+::\+Equation\+\_\+1matrix$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$}
+
+An equation object base class used in the I\+B\+VP classes (and others). 
+
+An equation object is essentially a (\textquotesingle{}square\textquotesingle{}) residual object with an independent variable data member and access methods. By \textquotesingle{}square\textquotesingle{} we mean that it defines N residuals and N state variables. The equation is defined using an NxN matrix that multiplies the derivative of unknowns and a residual R\+HS. 
+
+Definition at line 18 of file Equation\+\_\+1matrix.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Equation__1matrix_a6df01411711dbcba77bae9873b6d65b4}} 
+\index{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$}!Equation\_1matrix@{Equation\_1matrix}}
+\index{Equation\_1matrix@{Equation\_1matrix}!CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{Equation\_1matrix()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::\textbf{ Equation\+\_\+1matrix} (\begin{DoxyParamCaption}\item[{const unsigned \&}]{order }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for equation class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em order} & The order of the system \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 12 of file Equation\+\_\+1matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{12                                                                          :}
+\DoxyCodeLine{13     Residual\_with\_coords<\_Type, \_Xtype>(order, 1) \{}
+\DoxyCodeLine{14     MATRIX0\_AT\_LAST\_STATE = DenseMatrix<\_Type>(\textcolor{keyword}{this} -\/> ORDER\_OF\_SYSTEM, \textcolor{keyword}{this} -\/> ORDER\_OF\_SYSTEM, 0.0);}
+\DoxyCodeLine{15   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Equation__1matrix_aa5bccfb68b24924a475c7390864a0f9c}} 
+\index{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$}!````~Equation\_1matrix@{$\sim$Equation\_1matrix}}
+\index{````~Equation\_1matrix@{$\sim$Equation\_1matrix}!CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{$\sim$Equation\_1matrix()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::$\sim$\textbf{ Equation\+\_\+1matrix}\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+An empty destructor, virtual since we have virtual methods. 
+
+
+
+Definition at line 18 of file Equation\+\_\+1matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18                                                      \{}
+\DoxyCodeLine{19     \textcolor{comment}{// timer reporting is done via the Equation class this inherits from}}
+\DoxyCodeLine{20   \}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Equation__1matrix_a293c22844ca906668d9c13945438fa09}} 
+\index{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$}!get\_jacobian\_of\_matrix0\_mult\_vector@{get\_jacobian\_of\_matrix0\_mult\_vector}}
+\index{get\_jacobian\_of\_matrix0\_mult\_vector@{get\_jacobian\_of\_matrix0\_mult\_vector}!CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{get\_jacobian\_of\_matrix0\_mult\_vector()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::get\+\_\+jacobian\+\_\+of\+\_\+matrix0\+\_\+mult\+\_\+vector (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{state,  }\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{vec,  }\item[{\textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ \&}]{h }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Return the product of the Jacobian-\/of-\/the-\/matrix and a vector \textquotesingle{}vec\textquotesingle{} when the equation has a given \textquotesingle{}state\textquotesingle{}. 
+
+The user should overload this if concerned about performance of the solver. If not overloaded, the default is to finite difference the Jacobian-\/of-\/the-\/matrix. 
+\begin{DoxyParams}{Parameters}
+{\em state} & The current state variables -- used for clarity when overloaded by the user instead of expecting the user to access the member data. \\
+\hline
+{\em vec} & The vector that will be multiplied by the Jacobian-\/of-\/the-\/matrix \\
+\hline
+{\em h} & The resulting 2D matrix \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \textbf{ Cpp\+Noddy\+::\+Example\+::nonlinear} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1nonlinear_a08d16156ee4407ae319b71d10ad20c91}, \textbf{ Cpp\+Noddy\+::\+Example\+::diffusion\+\_\+double} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1diffusion__double_a133f3b9ca63244fc1e55988aa840b0a5}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__equations_ab8167c2360738732b2406be80488d585}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Nlin\+\_\+adv\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Nlin__adv__equation_aaf26a8674b9b502a2ed0bf8c85a22b6a}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Diffusion\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Diffusion__equations_af8dea4dca8bd0c8359ab76903d804abf}, and \textbf{ Cpp\+Noddy\+::\+Example\+::\+Diff\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Diff__equation_a4c8451bcd00e55b3d7300ea74cf7f250}.
+
+
+
+Definition at line 23 of file Equation\+\_\+1matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23                                                                                                                                                                        \{}
+\DoxyCodeLine{24     \textcolor{comment}{// we dont need state in the default implementation as its already been set by the update method. You do need it for the user}}
+\DoxyCodeLine{25     \textcolor{comment}{// to overload this method with an explicit analytical version however.}}
+\DoxyCodeLine{26     \textcolor{comment}{//}}
+\DoxyCodeLine{27     \textcolor{comment}{// copy some items for FD computation of Jacobian of matrix}}
+\DoxyCodeLine{28     DenseVector<\_Type> copy\_of\_state(\textcolor{keyword}{this} -\/> LAST\_STATE);}
+\DoxyCodeLine{29     DenseMatrix<\_Type> copy\_of\_matrix(MATRIX0\_AT\_LAST\_STATE);}
+\DoxyCodeLine{30     std::vector< DenseMatrix<\_Type> > jacmatrix;}
+\DoxyCodeLine{31     \textcolor{comment}{// update the Jacobian of the mass matrix}}
+\DoxyCodeLine{32     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < \textcolor{keyword}{this} -\/> ORDER\_OF\_SYSTEM; ++i) \{}
+\DoxyCodeLine{33       copy\_of\_state[ i ] += \textcolor{keyword}{this} -\/> DELTA;}
+\DoxyCodeLine{34       matrix0(copy\_of\_state, copy\_of\_matrix);}
+\DoxyCodeLine{35       copy\_of\_state[ i ] -\/= \textcolor{keyword}{this} -\/> DELTA;}
+\DoxyCodeLine{36       copy\_of\_matrix.sub(MATRIX0\_AT\_LAST\_STATE);}
+\DoxyCodeLine{37       copy\_of\_matrix.scale(1. / \textcolor{keyword}{this} -\/> DELTA);}
+\DoxyCodeLine{38       \textcolor{comment}{// the 3D object that represents the Jacobian of the mass matrix}}
+\DoxyCodeLine{39       jacmatrix.push\_back(copy\_of\_matrix);}
+\DoxyCodeLine{40     \}}
+\DoxyCodeLine{41     \textcolor{comment}{// evaluate the jacabian of mass contribution}}
+\DoxyCodeLine{42     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} i = 0; i < \textcolor{keyword}{this} -\/> ORDER\_OF\_SYSTEM; ++i) \{}
+\DoxyCodeLine{43       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} j = 0; j < \textcolor{keyword}{this} -\/> ORDER\_OF\_SYSTEM; ++j) \{}
+\DoxyCodeLine{44         h(i, j) = Utility::dot(jacmatrix[ j ][ i ], vec);}
+\DoxyCodeLine{45       \}}
+\DoxyCodeLine{46     \}}
+\DoxyCodeLine{47   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Equation__1matrix_acbd4b5a5c8160f3e4ea51811e991a8db}} 
+\index{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$}!matrix0@{matrix0}}
+\index{matrix0@{matrix0}!CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{matrix0()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+const \textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::matrix0\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return a handle to the matrix. 
+
+
+
+Definition at line 66 of file Equation\+\_\+1matrix.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66                                                                                   \{}
+\DoxyCodeLine{67     \textcolor{keywordflow}{return} MATRIX0\_AT\_LAST\_STATE;}
+\DoxyCodeLine{68   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Equation__1matrix_af3f73a36fb2ec75a03f0298874d30e4c}} 
+\index{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$}!matrix0@{matrix0}}
+\index{matrix0@{matrix0}!CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{matrix0()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+virtual void \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::matrix0 (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{x,  }\item[{\textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ \&}]{m }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Define the matrix in terms of the current state vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The current state vector. \\
+\hline
+{\em m} & The matrix. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \textbf{ Cpp\+Noddy\+::\+Example\+::\+Nlin\+\_\+adv\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Nlin__adv__equation_a336c5cb00dedb30f5ccfe8ce3ae16434}, \textbf{ Cpp\+Noddy\+::\+Example\+::diffusion\+\_\+double} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1diffusion__double_ae04037119d03387bbe088b72d3da3cc5}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__equations_a0e407f7bad6a552c67378e05afeaa33e}, \textbf{ Cpp\+Noddy\+::\+Example\+::nonlinear} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1nonlinear_ad373fdea6aef7a588aab7a782797331e}, \textbf{ Cpp\+Noddy\+::\+Example\+::nonlinear} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1nonlinear_ad373fdea6aef7a588aab7a782797331e}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Diffusion\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Diffusion__equations_ad9659c96fd9538ab432a6b187950b7e2}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Diff\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Diff__equation_a6ca272ec1b9a1f0cfbb0d12a953ae806}, \textbf{ Cpp\+Noddy\+::\+Example\+::harmonic\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1harmonic__equation_a0bae43d28803d522c2efa0a70d8b8736}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__equations_a73dab2f7c34ccdee7660e33376e62668}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__equations_a73dab2f7c34ccdee7660e33376e62668}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__equations_a73dab2f7c34ccdee7660e33376e62668}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Karman\+\_\+equations} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Karman__equations_a73dab2f7c34ccdee7660e33376e62668}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+bvp\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1OS__bvp__equation_a959fe386911322e0d850e7e5f78c891e}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+bvp\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1OS__bvp__equation_a959fe386911322e0d850e7e5f78c891e}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+evp\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1OS__evp__equation_a7b6623585a69947a32866810f499d706}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+evp\+\_\+equation} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1OS__evp__equation_a7b6623585a69947a32866810f499d706}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Nonidentity\+\_\+equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Nonidentity__equation_a59a04ad8c53cfc7b563be0c44b359c94}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Harmonic\+\_\+equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Harmonic__equation_a40044f39f2ba941dfa4bb35aa19d8970}, and \textbf{ Cpp\+Noddy\+::\+Example\+::\+Troesch\+\_\+equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Troesch__equation_ab2cda655be68dc16b12aa2c8b4ecf4ab}.
+
+
+
+Definition at line 51 of file Equation\+\_\+1matrix.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{51                                                                                    \{}
+\DoxyCodeLine{52       std::string problem;}
+\DoxyCodeLine{53       problem = \textcolor{stringliteral}{"The equation::matrix0 method has not been implemented!\(\backslash\)n"};}
+\DoxyCodeLine{54       problem += \textcolor{stringliteral}{"You have to implement this method to define the equation.\(\backslash\)n"};}
+\DoxyCodeLine{55       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{56     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Equation__1matrix_a40bc67bf894412de7570f67b6c371af9}} 
+\index{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$}!update@{update}}
+\index{update@{update}!CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$@{CppNoddy::Equation\_1matrix$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{update()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::update (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{state }\end{DoxyParamCaption})}
+
+
+
+Update the \doxyref{Equation}{p.}{classCppNoddy_1_1Equation} object for the current set of state variables. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The state vector at which to set the equation object \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 50 of file Equation\+\_\+1matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{50                                                                               \{}
+\DoxyCodeLine{51     \textcolor{comment}{// use the base class update to set LAST\_STATE, FN\_AT\_LAST\_STATE and JAC\_AT\_LAST\_STATE}}
+\DoxyCodeLine{52     Residual\_with\_coords<\_Type, \_Xtype>::update(state);}
+\DoxyCodeLine{53     \textcolor{comment}{// this has TIME ifdef to go after the base class update -\/ otherwise we'll be}}
+\DoxyCodeLine{54     \textcolor{comment}{// resuming the timer twice in a row}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{56     \textcolor{keyword}{this} -\/> T\_UPDATER.start();}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{58     \textcolor{comment}{// now we deal with the mass matrix separately to set MATRIX0\_AT\_LAST\_STATE}}
+\DoxyCodeLine{59     \textcolor{comment}{// and JAC\_OF\_MATRIX}}
+\DoxyCodeLine{60     matrix0(state, MATRIX0\_AT\_LAST\_STATE);}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{62     \textcolor{keyword}{this} -\/> T\_UPDATER.stop();}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{64   \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Equation\+\_\+1matrix.\+h}\item 
+src/\textbf{ Equation\+\_\+1matrix.\+cpp}\end{DoxyCompactItemize}

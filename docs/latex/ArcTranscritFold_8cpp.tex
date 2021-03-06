@@ -1,0 +1,109 @@
+\doxysubsection{Tests/\+Arclength/\+Arc\+Transcrit\+Fold.cpp File Reference}
+\label{ArcTranscritFold_8cpp}\index{Tests/Arclength/ArcTranscritFold.cpp@{Tests/Arclength/ArcTranscritFold.cpp}}
+{\ttfamily \#include $<$cassert$>$}\newline
+{\ttfamily \#include $<$Newton\+\_\+bundle.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+Arc\+\_\+problem}
+\begin{DoxyCompactList}\small\item\em Define the residual for arc-\/length continuation of a circle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\item 
+ \textbf{ Cpp\+Noddy\+::\+Example}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Solve the nonlinear scalar residual problem \[ R \equiv (x - 3)( (x-2)^2 + (p-4) ) = 0 \] by arc-\/length continuation from the starting solution $ x=0, p=0 $. There is a limit point $ x=2, p =4 $ and a transcritical bifurcation $ x =3, p=3 $ on the computed branch of solutions, both of which should be flagged through an exception being raised. The \doxyref{Example}{p.}{namespaceExample} will fail if two bifurcations are not found. 
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{ArcTranscritFold_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{ArcTranscritFold.cpp@{ArcTranscritFold.cpp}!main@{main}}
+\index{main@{main}!ArcTranscritFold.cpp@{ArcTranscritFold.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 43 of file Arc\+Transcrit\+Fold.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{47   cout << \textcolor{stringliteral}{"=== ARC: Scalar continuation and bifn detection =====\(\backslash\)n"};}
+\DoxyCodeLine{48   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50   \textcolor{comment}{// Instantiate the problem}}
+\DoxyCodeLine{51   Example::Arc\_problem residual\_problem;}
+\DoxyCodeLine{52   residual\_problem.p = 0.0;}
+\DoxyCodeLine{53   residual\_problem.eps = 0.0;}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55   \textcolor{keyword}{const} \textcolor{keywordtype}{double} tol = 1.e-\/10;}
+\DoxyCodeLine{56   \textcolor{comment}{// Scalar Newton iteration problem}}
+\DoxyCodeLine{57   Newton<double> newton( \&residual\_problem, 8, tol );}
+\DoxyCodeLine{58   newton.set\_monitor\_det( \textcolor{keyword}{true} );}
+\DoxyCodeLine{59   \textcolor{comment}{// initial guess}}
+\DoxyCodeLine{60   DenseVector<double> state( 1, 0.1 );}
+\DoxyCodeLine{61   \textcolor{comment}{// initialise a state for arc length cont.}}
+\DoxyCodeLine{62   newton.init\_arc( state, \&residual\_problem.p, 0.01, 0.5 );}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   \textcolor{comment}{// output for the data}}
+\DoxyCodeLine{65   std::string dirname(\textcolor{stringliteral}{"./DATA"});}
+\DoxyCodeLine{66   mkdir( dirname.c\_str(), S\_IRWXU );}
+\DoxyCodeLine{67   TrackerFile my\_file( \textcolor{stringliteral}{"./DATA/Trans\_Fold.dat"} );}
+\DoxyCodeLine{68   my\_file.push\_ptr( \&residual\_problem.p, \textcolor{stringliteral}{"parameter"} );}
+\DoxyCodeLine{69   my\_file.push\_ptr( \&state, \textcolor{stringliteral}{"system state"} );}
+\DoxyCodeLine{70   my\_file.header();}
+\DoxyCodeLine{71   my\_file.precision( 8 );}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73   \textcolor{keywordtype}{unsigned} n\_bif( 0 );}
+\DoxyCodeLine{74   \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{int} i = 0; i < 100; ++i )}
+\DoxyCodeLine{75   \{}
+\DoxyCodeLine{76     \textcolor{keywordflow}{try}}
+\DoxyCodeLine{77     \{}
+\DoxyCodeLine{78       \textcolor{keywordflow}{try}}
+\DoxyCodeLine{79       \{}
+\DoxyCodeLine{80         newton.arclength\_solve( state );}
+\DoxyCodeLine{81       \}}
+\DoxyCodeLine{82       \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::runtime\_error \&error )}
+\DoxyCodeLine{83       \{}
+\DoxyCodeLine{84         cout << \textcolor{stringliteral}{" \(\backslash\)033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{85         \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{86       \}}
+\DoxyCodeLine{87     \}}
+\DoxyCodeLine{88     \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} ExceptionBifurcation \&bifn )}
+\DoxyCodeLine{89     \{}
+\DoxyCodeLine{90       cout << \textcolor{stringliteral}{" Bifurcation detected near x = "} << state[0] <<}
+\DoxyCodeLine{91            \textcolor{stringliteral}{" p = "} << residual\_problem.p << \textcolor{stringliteral}{"\(\backslash\)n\(\backslash\)n"};}
+\DoxyCodeLine{92       ++n\_bif;}
+\DoxyCodeLine{93     \}}
+\DoxyCodeLine{94     my\_file.update();}
+\DoxyCodeLine{95   \}}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97   \textcolor{keywordflow}{if} ( n\_bif != 2 )}
+\DoxyCodeLine{98   \{}
+\DoxyCodeLine{99     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{100     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{101   \}}
+\DoxyCodeLine{102   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{103   \{}
+\DoxyCodeLine{104     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{105     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{106   \}}
+\DoxyCodeLine{107 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Newton$<$ \+\_\+\+Type $>$\+::arclength\+\_\+solve(), Cpp\+Noddy\+::\+Tracker\+File\+::header(), Cpp\+Noddy\+::\+Arc\+Length\+\_\+base$<$ \+\_\+\+Type $>$\+::init\+\_\+arc(), Cpp\+Noddy\+::\+Tracker\+File\+::precision(), Cpp\+Noddy\+::\+Tracker\+File\+::push\+\_\+ptr(), Cpp\+Noddy\+::\+Newton$<$ \+\_\+\+Type $>$\+::set\+\_\+monitor\+\_\+det(), and Cpp\+Noddy\+::\+Tracker\+File\+::update().
+

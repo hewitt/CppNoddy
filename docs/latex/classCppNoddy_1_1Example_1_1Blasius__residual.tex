@@ -1,0 +1,149 @@
+\doxysubsection{Cpp\+Noddy\+::Example\+::Blasius\+\_\+residual Class Reference}
+\label{classCppNoddy_1_1Example_1_1Blasius__residual}\index{CppNoddy::Example::Blasius\_residual@{CppNoddy::Example::Blasius\_residual}}
+
+
+Define a residual function using the boundary conditions for the Blasius profile.  
+
+
+Inheritance diagram for Cpp\+Noddy\+::Example\+::Blasius\+\_\+residual\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCppNoddy_1_1Example_1_1Blasius__residual}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Blasius\+\_\+residual} ()
+\item 
+\textbf{ $\sim$\+Blasius\+\_\+residual} ()
+\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ double $>$ \&unknown, \textbf{ Dense\+Vector}$<$ double $>$ \&BC) const
+\begin{DoxyCompactList}\small\item\em implement a residual function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ O\+D\+E\+\_\+\+I\+VP}$<$ double $>$ $\ast$ \textbf{ ode}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+Define a residual function using the boundary conditions for the Blasius profile. 
+
+Definition at line 48 of file Blasius\+Shooting.\+cpp.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Blasius__residual_a554faf0ab10ca5431e435062d396bcdf}} 
+\index{CppNoddy::Example::Blasius\_residual@{CppNoddy::Example::Blasius\_residual}!Blasius\_residual@{Blasius\_residual}}
+\index{Blasius\_residual@{Blasius\_residual}!CppNoddy::Example::Blasius\_residual@{CppNoddy::Example::Blasius\_residual}}
+\doxyparagraph{Blasius\_residual()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Blasius\+\_\+residual\+::\+Blasius\+\_\+residual (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 53 of file Blasius\+Shooting.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{53                          : Residual<double> ( 1 )}
+\DoxyCodeLine{54       \{}
+\DoxyCodeLine{55         \textcolor{comment}{// instantiate the Blasius equation as our problem}}
+\DoxyCodeLine{56         eqn = \textcolor{keyword}{new} Blasius\_equation;}
+\DoxyCodeLine{57         \textcolor{comment}{// instantiate an ODE in [0,20] with a maximum of}}
+\DoxyCodeLine{58         \textcolor{comment}{// 1000 integrator steps, using this problem equation}}
+\DoxyCodeLine{59         ode = \textcolor{keyword}{new} ODE\_IVP<double>( eqn, 0.0, 20.0, 1000 );}
+\DoxyCodeLine{60         \textcolor{comment}{// let's keep the history of the IVP for output in main}}
+\DoxyCodeLine{61       \}}
+
+\end{DoxyCode}
+
+
+References ode.
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Blasius__residual_a27d5038f950123e5d594021eb59eff83}} 
+\index{CppNoddy::Example::Blasius\_residual@{CppNoddy::Example::Blasius\_residual}!````~Blasius\_residual@{$\sim$Blasius\_residual}}
+\index{````~Blasius\_residual@{$\sim$Blasius\_residual}!CppNoddy::Example::Blasius\_residual@{CppNoddy::Example::Blasius\_residual}}
+\doxyparagraph{$\sim$Blasius\_residual()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Blasius\+\_\+residual\+::$\sim$\+Blasius\+\_\+residual (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 63 of file Blasius\+Shooting.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{64       \{}
+\DoxyCodeLine{65         \textcolor{comment}{// clean up the created objects}}
+\DoxyCodeLine{66         \textcolor{keyword}{delete} ode;}
+\DoxyCodeLine{67         \textcolor{keyword}{delete} eqn;}
+\DoxyCodeLine{68       \}}
+
+\end{DoxyCode}
+
+
+References ode.
+
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Blasius__residual_abcec1f83b1853ecd3fe9766a02440cbd}} 
+\index{CppNoddy::Example::Blasius\_residual@{CppNoddy::Example::Blasius\_residual}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::Blasius\_residual@{CppNoddy::Example::Blasius\_residual}}
+\doxyparagraph{residual\_fn()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Blasius\+\_\+residual\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{unknown,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{BC }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+implement a residual function. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 71 of file Blasius\+Shooting.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72       \{}
+\DoxyCodeLine{73         DenseVector<double> u( 3, 0.0 ); \textcolor{comment}{// 3 variables of Blasius problem}}
+\DoxyCodeLine{74         u[ 0 ] = 0.0;          \textcolor{comment}{// f = 0}}
+\DoxyCodeLine{75         u[ 1 ] = 0.0;          \textcolor{comment}{// f' = 0}}
+\DoxyCodeLine{76         u[ 2 ] = unknown[ 0 ];      \textcolor{comment}{// f'' = unknown}}
+\DoxyCodeLine{77         \textcolor{comment}{// shoot with the RKF method, tolerance of 1.e-\/9}}
+\DoxyCodeLine{78         u = ode -\/> shoot45( u, 1.e-\/7, 0.01 );}
+\DoxyCodeLine{79         \textcolor{comment}{// return the residual of f'(infty) = 1 condition}}
+\DoxyCodeLine{80         BC[ 0 ] = u[ 1 ] -\/ 1.;}
+\DoxyCodeLine{81       \}}
+
+\end{DoxyCode}
+
+
+References ode, and u.
+
+
+
+\doxysubsubsection{Member Data Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Blasius__residual_a3d142f292c2a51ecf4edd59d7fb04ef5}} 
+\index{CppNoddy::Example::Blasius\_residual@{CppNoddy::Example::Blasius\_residual}!ode@{ode}}
+\index{ode@{ode}!CppNoddy::Example::Blasius\_residual@{CppNoddy::Example::Blasius\_residual}}
+\doxyparagraph{ode}
+{\footnotesize\ttfamily \textbf{ O\+D\+E\+\_\+\+I\+VP}$<$double$>$$\ast$ Cpp\+Noddy\+::\+Example\+::\+Blasius\+\_\+residual\+::ode}
+
+
+
+Definition at line 51 of file Blasius\+Shooting.\+cpp.
+
+
+
+Referenced by Blasius\+\_\+residual(), residual\+\_\+fn(), and $\sim$\+Blasius\+\_\+residual().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tests/\+B\+V\+P/\textbf{ Blasius\+Shooting.\+cpp}\end{DoxyCompactItemize}

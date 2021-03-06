@@ -1,0 +1,587 @@
+\doxysubsection{Cpp\+Noddy\+::P\+D\+E\+\_\+\+I\+B\+VP$<$ \+\_\+\+Type $>$ Class Template Reference}
+\label{classCppNoddy_1_1PDE__IBVP}\index{CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}}
+
+
+A templated object for real/complex vector system of unsteady equations.  
+
+
+
+
+{\ttfamily \#include $<$P\+D\+E\+\_\+\+I\+B\+V\+P.\+h$>$}
+
+Inheritance diagram for Cpp\+Noddy\+::P\+D\+E\+\_\+\+I\+B\+VP$<$ \+\_\+\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCppNoddy_1_1PDE__IBVP}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ P\+D\+E\+\_\+\+I\+B\+VP} (\textbf{ Equation\+\_\+2matrix}$<$ \+\_\+\+Type $>$ $\ast$equation\+\_\+ptr, const \textbf{ Dense\+Vector}$<$ double $>$ \&nodes, \textbf{ Residual\+\_\+with\+\_\+coords}$<$ \+\_\+\+Type $>$ $\ast$ptr\+\_\+to\+\_\+left\+\_\+residual, \textbf{ Residual\+\_\+with\+\_\+coords}$<$ \+\_\+\+Type $>$ $\ast$ptr\+\_\+to\+\_\+right\+\_\+residual)
+\begin{DoxyCompactList}\small\item\em The class is defined by a vector function for the system. \end{DoxyCompactList}\item 
+\textbf{ $\sim$\+P\+D\+E\+\_\+\+I\+B\+VP} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \textbf{ step2} (const double \&dt)
+\begin{DoxyCompactList}\small\item\em A Crank-\/\+Nicolson \textquotesingle{}time\textquotesingle{} stepper. \end{DoxyCompactList}\item 
+void \textbf{ assemble\+\_\+matrix\+\_\+problem} (\textbf{ Banded\+Matrix}$<$ \+\_\+\+Type $>$ \&a, \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&b, const double \&dt)
+\begin{DoxyCompactList}\small\item\em Assembles the matrix problem for a B\+VP solve at the current time level. \end{DoxyCompactList}\item 
+double \& \textbf{ coord} ()
+\begin{DoxyCompactList}\small\item\em Return a reference to the current value of the \textquotesingle{}timelike/parabolic\textquotesingle{} coordinate. \end{DoxyCompactList}\item 
+\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$ \& \textbf{ solution} ()
+\item 
+\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$ \& \textbf{ previous\+\_\+solution} ()
+\item 
+double \& \textbf{ tolerance} ()
+\begin{DoxyCompactList}\small\item\em Access method to the tolerance. \end{DoxyCompactList}\item 
+int \& \textbf{ max\+\_\+itns} ()
+\begin{DoxyCompactList}\small\item\em Access method to the maximum number of iterations. \end{DoxyCompactList}\item 
+\textbf{ Equation\+\_\+2matrix}$<$ \+\_\+\+Type $>$ $\ast$ \textbf{ get\+\_\+p\+\_\+equation} ()
+\item 
+\textbf{ Residual\+\_\+with\+\_\+coords}$<$ \+\_\+\+Type $>$ $\ast$ \textbf{ get\+\_\+p\+\_\+left} ()
+\item 
+\textbf{ Residual\+\_\+with\+\_\+coords}$<$ \+\_\+\+Type $>$ $\ast$ \textbf{ get\+\_\+p\+\_\+right} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type$>$\newline
+class Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$}
+
+A templated object for real/complex vector system of unsteady equations. 
+
+Definition at line 37 of file P\+D\+E\+\_\+\+I\+B\+V\+P.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1PDE__IBVP_a95c752721bae6217e32ee755062a08f7}} 
+\index{CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}!PDE\_IBVP@{PDE\_IBVP}}
+\index{PDE\_IBVP@{PDE\_IBVP}!CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}}
+\doxyparagraph{PDE\_IBVP()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+VP}$<$ \+\_\+\+Type $>$\+::\textbf{ P\+D\+E\+\_\+\+I\+B\+VP} (\begin{DoxyParamCaption}\item[{\textbf{ Equation\+\_\+2matrix}$<$ \+\_\+\+Type $>$ $\ast$}]{equation\+\_\+ptr,  }\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{nodes,  }\item[{\textbf{ Residual\+\_\+with\+\_\+coords}$<$ \+\_\+\+Type $>$ $\ast$}]{ptr\+\_\+to\+\_\+left\+\_\+residual,  }\item[{\textbf{ Residual\+\_\+with\+\_\+coords}$<$ \+\_\+\+Type $>$ $\ast$}]{ptr\+\_\+to\+\_\+right\+\_\+residual }\end{DoxyParamCaption})}
+
+
+
+The class is defined by a vector function for the system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em equation\+\_\+ptr} & A pointer to an inherited \doxyref{Equation}{p.}{classCppNoddy_1_1Equation} object. \\
+\hline
+{\em nodes} & A vector that defines the nodal positions. \\
+\hline
+{\em ptr\+\_\+to\+\_\+left\+\_\+residual} & A pointer to a residual object that defines the L\+HS boundary conditions. \\
+\hline
+{\em ptr\+\_\+to\+\_\+right\+\_\+residual} & A pointer to a residual object that defines the R\+HS boundary conditions. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 34 of file P\+D\+E\+\_\+\+I\+B\+V\+P.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{37                                                                                 :}
+\DoxyCodeLine{38     TOL(1.e-\/8),}
+\DoxyCodeLine{39     T(0.0),}
+\DoxyCodeLine{40     MAX\_ITERATIONS(12),}
+\DoxyCodeLine{41     p\_EQUATION(ptr\_to\_equation),}
+\DoxyCodeLine{42     p\_LEFT\_RESIDUAL(ptr\_to\_left\_residual),}
+\DoxyCodeLine{43     p\_RIGHT\_RESIDUAL(ptr\_to\_right\_residual) \{}
+\DoxyCodeLine{44     SOLN = OneD\_Node\_Mesh<\_Type>(nodes, p\_EQUATION -\/> get\_order());}
+\DoxyCodeLine{45     PREV\_SOLN = SOLN;}
+\DoxyCodeLine{46     \textcolor{comment}{//}}
+\DoxyCodeLine{47     p\_EQUATION -\/> coord(1) = T;}
+\DoxyCodeLine{48     \textcolor{keywordflow}{if}(p\_EQUATION -\/> get\_order() -\/ p\_LEFT\_RESIDUAL -\/> get\_order() -\/ p\_RIGHT\_RESIDUAL -\/> get\_order() != 0) \{}
+\DoxyCodeLine{49       std::string problem(\textcolor{stringliteral}{"\(\backslash\)n The PDE\_IBVP class has been constructed, but the order of the \(\backslash\)n"});}
+\DoxyCodeLine{50       problem += \textcolor{stringliteral}{"system does not match the number of boundary conditions.\(\backslash\)n"};}
+\DoxyCodeLine{51       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{52     \}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{54     \textcolor{comment}{// timers}}
+\DoxyCodeLine{55     T\_ASSEMBLE = Timer(\textcolor{stringliteral}{"Assembling of the matrix (incl. equation updates):"});}
+\DoxyCodeLine{56     T\_SOLVE = Timer(\textcolor{stringliteral}{"Solving of the matrix:"});}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{58   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$\+::coord().
+
+\mbox{\label{classCppNoddy_1_1PDE__IBVP_a9495b169d985c3c5c32c247c30b698cc}} 
+\index{CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}!````~PDE\_IBVP@{$\sim$PDE\_IBVP}}
+\index{````~PDE\_IBVP@{$\sim$PDE\_IBVP}!CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}}
+\doxyparagraph{$\sim$PDE\_IBVP()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+VP}$<$ \+\_\+\+Type $>$\+::$\sim$\textbf{ P\+D\+E\+\_\+\+I\+B\+VP}}
+
+
+
+Destructor. 
+
+
+
+Definition at line 61 of file P\+D\+E\+\_\+\+I\+B\+V\+P.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{61                              \{}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{63     std::cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{64     T\_ASSEMBLE.stop();}
+\DoxyCodeLine{65     T\_ASSEMBLE.print();}
+\DoxyCodeLine{66     T\_SOLVE.stop();}
+\DoxyCodeLine{67     T\_SOLVE.print();}
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{69   \}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1PDE__IBVP_a6b43a589de263e30d63cc00b97455a18}} 
+\index{CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}!assemble\_matrix\_problem@{assemble\_matrix\_problem}}
+\index{assemble\_matrix\_problem@{assemble\_matrix\_problem}!CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}}
+\doxyparagraph{assemble\_matrix\_problem()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+VP}$<$ \+\_\+\+Type $>$\+::assemble\+\_\+matrix\+\_\+problem (\begin{DoxyParamCaption}\item[{\textbf{ Banded\+Matrix}$<$ \+\_\+\+Type $>$ \&}]{a,  }\item[{\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{b,  }\item[{const double \&}]{dt }\end{DoxyParamCaption})}
+
+
+
+Assembles the matrix problem for a B\+VP solve at the current time level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The L\+HS (banded) matrix. \\
+\hline
+{\em b} & The R\+HS (dense) vector. \\
+\hline
+{\em dt} & The \textquotesingle{}time step\textquotesingle{} to be taken. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 143 of file P\+D\+E\+\_\+\+I\+B\+V\+P.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{143                                                                                                                \{}
+\DoxyCodeLine{144     \textcolor{comment}{// clear the Jacobian matrix}}
+\DoxyCodeLine{145     a.assign(0.0);}
+\DoxyCodeLine{146     \textcolor{comment}{// inverse of the time step}}
+\DoxyCodeLine{147     \textcolor{keyword}{const} \textcolor{keywordtype}{double} inv\_dt(1. / dt);}
+\DoxyCodeLine{148     \textcolor{comment}{// the order of the problem}}
+\DoxyCodeLine{149     \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} order(p\_EQUATION -\/> get\_order());}
+\DoxyCodeLine{150     \textcolor{comment}{// number of spatial nodes}}
+\DoxyCodeLine{151     \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} ny(SOLN.get\_nnodes());}
+\DoxyCodeLine{152     \textcolor{comment}{// row counter}}
+\DoxyCodeLine{153     std::size\_t row(0);}
+\DoxyCodeLine{154     \textcolor{comment}{// a matrix that is used in the Jacobian of the mass matrix terms}}
+\DoxyCodeLine{155     DenseMatrix<\_Type> h0(order, order, 0.0);}
+\DoxyCodeLine{156     DenseMatrix<\_Type> h1(order, order, 0.0);}
+\DoxyCodeLine{157     \textcolor{comment}{// local state variable and functions}}
+\DoxyCodeLine{158     DenseVector<\_Type> F\_midpt(order, 0.0);}
+\DoxyCodeLine{159     DenseVector<\_Type> O\_midpt(order, 0.0);}
+\DoxyCodeLine{160     DenseVector<\_Type> state(order, 0.0);}
+\DoxyCodeLine{161     DenseVector<\_Type> state\_dt(order, 0.0);}
+\DoxyCodeLine{162     DenseVector<\_Type> state\_dy(order, 0.0);}
+\DoxyCodeLine{163     \textcolor{comment}{// BCn equation is evaluated at the next time step}}
+\DoxyCodeLine{164     p\_LEFT\_RESIDUAL -\/> coord(0) = T + dt;}
+\DoxyCodeLine{165     \textcolor{comment}{// update the BC residuals for the current iteration}}
+\DoxyCodeLine{166     p\_LEFT\_RESIDUAL -\/> update(SOLN.get\_nodes\_vars(0));}
+\DoxyCodeLine{167     \textcolor{comment}{// add the (linearised) LHS BCs to the matrix problem}}
+\DoxyCodeLine{168     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} i = 0; i < p\_LEFT\_RESIDUAL -\/> get\_order(); ++i) \{}
+\DoxyCodeLine{169       \textcolor{comment}{// loop thru variables at LHS of the domain}}
+\DoxyCodeLine{170       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} var = 0; var < order; ++var) \{}
+\DoxyCodeLine{171         a(row, var) = p\_LEFT\_RESIDUAL -\/> jacobian()(i, var);}
+\DoxyCodeLine{172       \}}
+\DoxyCodeLine{173       b[ row ] = -\/ p\_LEFT\_RESIDUAL -\/> residual()[ i ];}
+\DoxyCodeLine{174       ++row;}
+\DoxyCodeLine{175     \}}
+\DoxyCodeLine{176     \textcolor{comment}{// inner nodes of the mesh, node = 0,1,2,...,N-\/2}}
+\DoxyCodeLine{177     \textcolor{keywordflow}{for}(std::size\_t node = 0; node <= ny -\/ 2; ++node) \{}
+\DoxyCodeLine{178       \textcolor{keyword}{const} std::size\_t l\_node = node;}
+\DoxyCodeLine{179       \textcolor{keyword}{const} std::size\_t r\_node = node + 1;}
+\DoxyCodeLine{180       \textcolor{comment}{// inverse of step size}}
+\DoxyCodeLine{181       \textcolor{keyword}{const} \textcolor{keywordtype}{double} inv\_dy = 1. / (SOLN.coord(r\_node) -\/ SOLN.coord(l\_node));}
+\DoxyCodeLine{182       \textcolor{comment}{// set the current solution at this node by 2nd order evaluation at mid point}}
+\DoxyCodeLine{183       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} var = 0; var < order; ++var) \{}
+\DoxyCodeLine{184         \textcolor{keyword}{const} \_Type F\_midpt = (SOLN(l\_node, var) + SOLN(r\_node, var)) / 2.;}
+\DoxyCodeLine{185         \textcolor{keyword}{const} \_Type O\_midpt = (PREV\_SOLN(l\_node, var) + PREV\_SOLN(r\_node, var)) / 2.;}
+\DoxyCodeLine{186         state\_dy[ var ] = (SOLN(r\_node, var) -\/ SOLN(l\_node, var)}
+\DoxyCodeLine{187                            + PREV\_SOLN(r\_node, var) -\/ PREV\_SOLN(l\_node, var)) * inv\_dy / 2.;}
+\DoxyCodeLine{188         state[ var ] = (F\_midpt + O\_midpt) / 2.;}
+\DoxyCodeLine{189         state\_dt[ var ] = (F\_midpt -\/ O\_midpt) * inv\_dt;}
+\DoxyCodeLine{190       \}}
+\DoxyCodeLine{191       \textcolor{comment}{// set the equation's y \& t values to be mid points}}
+\DoxyCodeLine{192       \textcolor{comment}{// y}}
+\DoxyCodeLine{193       p\_EQUATION -\/> coord(0) = 0.5 * (SOLN.coord(l\_node) + SOLN.coord(r\_node));}
+\DoxyCodeLine{194       \textcolor{comment}{// t}}
+\DoxyCodeLine{195       p\_EQUATION -\/> coord(1) = T + dt / 2;}
+\DoxyCodeLine{196       \textcolor{comment}{// Update the equation to the mid point position}}
+\DoxyCodeLine{197       p\_EQUATION -\/> update(state);}
+\DoxyCodeLine{198       \textcolor{comment}{// evaluate the Jacobian of mass contribution multiplied by state\_dy}}
+\DoxyCodeLine{199       p\_EQUATION -\/> get\_jacobian\_of\_matrix0\_mult\_vector(state, state\_dy, h0);}
+\DoxyCodeLine{200       \textcolor{comment}{// evaluate the Jacobian of mass contribution multiplied by state\_dt}}
+\DoxyCodeLine{201       p\_EQUATION -\/> get\_jacobian\_of\_matrix1\_mult\_vector(state, state\_dt, h1);}
+\DoxyCodeLine{202       \textcolor{comment}{// loop over all the variables}}
+\DoxyCodeLine{203       \textcolor{comment}{//}}
+\DoxyCodeLine{204       \textcolor{comment}{// to avoid repeated mapping arithmetic within operator() of the}}
+\DoxyCodeLine{205       \textcolor{comment}{// BandedMatrix class we'll access the matrix with the iterator.}}
+\DoxyCodeLine{206       \textcolor{comment}{//}}
+\DoxyCodeLine{207       \textcolor{comment}{// il = position for (0, lnode*order)}}
+\DoxyCodeLine{208       \textcolor{keyword}{typename} BandedMatrix<\_Type>::elt\_iter l\_iter(a.get\_elt\_iter(0, l\_node * order));}
+\DoxyCodeLine{209       \textcolor{comment}{// ir = position for (0, rnode*order)}}
+\DoxyCodeLine{210       \textcolor{keyword}{typename} BandedMatrix<\_Type>::elt\_iter r\_iter(a.get\_elt\_iter(0, r\_node * order));}
+\DoxyCodeLine{211       \textcolor{comment}{//}}
+\DoxyCodeLine{212       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} var = 0; var < order; ++var) \{}
+\DoxyCodeLine{213         \textcolor{comment}{// add the matrix mult terms to the linearised problem}}
+\DoxyCodeLine{214         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} i = 0; i < order; ++i) \{   \textcolor{comment}{// dummy index}}
+\DoxyCodeLine{215           \textcolor{comment}{// add the Jacobian terms}}
+\DoxyCodeLine{216           \textcolor{comment}{// indirect access: a( row, order * l\_node + i ) -\/= jac\_midpt( var, i ) * 0.5;}}
+\DoxyCodeLine{217           \textcolor{keyword}{const} std::size\_t offset(i * a.noffdiag() * 3 + row);}
+\DoxyCodeLine{218           \textcolor{keyword}{const} \textcolor{keyword}{typename} BandedMatrix<\_Type>::elt\_iter left(l\_iter + offset);}
+\DoxyCodeLine{219           \textcolor{keyword}{const} \textcolor{keyword}{typename} BandedMatrix<\_Type>::elt\_iter right(r\_iter + offset);}
+\DoxyCodeLine{220           \textcolor{comment}{//}}
+\DoxyCodeLine{221           *left -\/= p\_EQUATION -\/> jacobian()(var, i) * 0.5;}
+\DoxyCodeLine{222           \textcolor{comment}{// indirect access: a( row, order * r\_node + i ) -\/= jac\_midpt( var, i ) * 0.5;}}
+\DoxyCodeLine{223           *right -\/= p\_EQUATION -\/> jacobian()(var, i) * 0.5;}
+\DoxyCodeLine{224           \textcolor{comment}{// add the Jacobian of mass terms for dt terms}}
+\DoxyCodeLine{225           \textcolor{comment}{// indirect access: a( row, order * l\_node + i ) += h1( var, i ) * 0.5;}}
+\DoxyCodeLine{226           *left += h0(var, i) * 0.5;}
+\DoxyCodeLine{227           \textcolor{comment}{// indirect access: a( row, order * r\_node + i ) += h1( var, i ) * 0.5;}}
+\DoxyCodeLine{228           *right += h0(var, i) * 0.5;}
+\DoxyCodeLine{229           \textcolor{comment}{// add the Jacobian of mass terms for dt terms}}
+\DoxyCodeLine{230           \textcolor{comment}{// indirect access: a( row, order * l\_node + i ) += h2( var, i ) * 0.5;}}
+\DoxyCodeLine{231           *left += h1(var, i) * 0.5;}
+\DoxyCodeLine{232           \textcolor{comment}{// indirect access: a( row, order * r\_node + i ) += h2( var, i ) * 0.5;}}
+\DoxyCodeLine{233           *right += h1(var, i) * 0.5;}
+\DoxyCodeLine{234           \textcolor{comment}{// add the mass matrix terms}}
+\DoxyCodeLine{235           \textcolor{comment}{// indirect access: a( row, order * l\_node + i ) -\/= mass\_midpt( var, i ) * inv\_dy;}}
+\DoxyCodeLine{236           *left -\/= p\_EQUATION -\/> matrix0()(var, i) * inv\_dy;}
+\DoxyCodeLine{237           \textcolor{comment}{// indirect access: a( row, order * r\_node + i ) += mass\_midpt( var, i ) * inv\_dy;}}
+\DoxyCodeLine{238           *right += p\_EQUATION -\/> matrix0()(var, i) * inv\_dy;}
+\DoxyCodeLine{239           \textcolor{comment}{// indirect access: a( row, order * l\_node + i ) += mass\_midpt( var, i ) * inv\_dt;}}
+\DoxyCodeLine{240           *left += p\_EQUATION -\/> matrix1()(var, i) * inv\_dt;}
+\DoxyCodeLine{241           \textcolor{comment}{// indirect access: a( row, order * r\_node + i ) += mass\_midpt( var, i ) * inv\_dt;}}
+\DoxyCodeLine{242           *right += p\_EQUATION -\/> matrix1()(var, i) * inv\_dt;}
+\DoxyCodeLine{243         \}}
+\DoxyCodeLine{244         \textcolor{comment}{// RHS}}
+\DoxyCodeLine{245         b[ row ] = p\_EQUATION -\/> residual()[ var ];}
+\DoxyCodeLine{246         b[ row ] -\/= Utility::dot(p\_EQUATION -\/> matrix0()[ var ], state\_dy);}
+\DoxyCodeLine{247         b[ row ] -\/= Utility::dot(p\_EQUATION -\/> matrix1()[ var ], state\_dt);}
+\DoxyCodeLine{248         b[ row ] *= 2;}
+\DoxyCodeLine{249         \textcolor{comment}{// increment the row}}
+\DoxyCodeLine{250         row += 1;}
+\DoxyCodeLine{251       \}}
+\DoxyCodeLine{252     \}}
+\DoxyCodeLine{253     \textcolor{comment}{// BCn equation is evaluated at the next step time point as}}
+\DoxyCodeLine{254     \textcolor{comment}{// they cannot depend on d/dt terms}}
+\DoxyCodeLine{255     p\_RIGHT\_RESIDUAL -\/> coord(0) = T + dt;}
+\DoxyCodeLine{256     \textcolor{comment}{// update the BC residuals for the current iteration}}
+\DoxyCodeLine{257     p\_RIGHT\_RESIDUAL -\/> update(SOLN.get\_nodes\_vars(ny -\/ 1));}
+\DoxyCodeLine{258     \textcolor{comment}{// add the (linearised) RHS BCs to the matrix problem}}
+\DoxyCodeLine{259     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} i = 0; i < p\_RIGHT\_RESIDUAL -\/> get\_order(); ++i) \{}
+\DoxyCodeLine{260       \textcolor{comment}{// loop thru variables at RHS of the domain}}
+\DoxyCodeLine{261       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} var = 0; var < order; ++var) \{}
+\DoxyCodeLine{262         a(row, order * (ny -\/ 1) + var) = p\_RIGHT\_RESIDUAL -\/> jacobian()(i, var);}
+\DoxyCodeLine{263       \}}
+\DoxyCodeLine{264       b[ row ] = -\/ p\_RIGHT\_RESIDUAL -\/> residual()[ i ];}
+\DoxyCodeLine{265       ++row;}
+\DoxyCodeLine{266     \}}
+\DoxyCodeLine{267 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{268     \textcolor{keywordflow}{if}(row != ny * order) \{}
+\DoxyCodeLine{269       std::string problem(\textcolor{stringliteral}{"\(\backslash\)n The ODE\_BVP has an incorrect number of boundary conditions. \(\backslash\)n"});}
+\DoxyCodeLine{270       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{271     \}}
+\DoxyCodeLine{272 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{273   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::assign(), Cpp\+Noddy\+::\+Utility\+::dot(), Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::get\+\_\+elt\+\_\+iter(), and Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::noffdiag().
+
+\mbox{\label{classCppNoddy_1_1PDE__IBVP_a37250fced560774581e2977889fb3409}} 
+\index{CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}!coord@{coord}}
+\index{coord@{coord}!CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}}
+\doxyparagraph{coord()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double\& \textbf{ Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+VP}$<$ \+\_\+\+Type $>$\+::coord (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return a reference to the current value of the \textquotesingle{}timelike/parabolic\textquotesingle{} coordinate. 
+
+\begin{DoxyReturn}{Returns}
+A handle to the current time stored in the object 
+\end{DoxyReturn}
+
+
+Definition at line 65 of file P\+D\+E\+\_\+\+I\+B\+V\+P.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{65                     \{}
+\DoxyCodeLine{66       \textcolor{keywordflow}{return} T;}
+\DoxyCodeLine{67     \}}
+
+\end{DoxyCode}
+
+
+Referenced by main(), and Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$\+::\+P\+D\+E\+\_\+\+I\+B\+V\+P().
+
+\mbox{\label{classCppNoddy_1_1PDE__IBVP_aa45009e70414d3b29b4a53e41025e9a8}} 
+\index{CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}!get\_p\_equation@{get\_p\_equation}}
+\index{get\_p\_equation@{get\_p\_equation}!CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}}
+\doxyparagraph{get\_p\_equation()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Equation\+\_\+2matrix}$<$\+\_\+\+Type$>$$\ast$ \textbf{ Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+VP}$<$ \+\_\+\+Type $>$\+::get\+\_\+p\+\_\+equation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 87 of file P\+D\+E\+\_\+\+I\+B\+V\+P.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{87                                               \{}
+\DoxyCodeLine{88       \textcolor{keywordflow}{return} p\_EQUATION;}
+\DoxyCodeLine{89     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1PDE__IBVP_ab1173ef3df58be20e36e626898afad0c}} 
+\index{CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}!get\_p\_left@{get\_p\_left}}
+\index{get\_p\_left@{get\_p\_left}!CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}}
+\doxyparagraph{get\_p\_left()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Residual\+\_\+with\+\_\+coords}$<$\+\_\+\+Type$>$$\ast$ \textbf{ Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+VP}$<$ \+\_\+\+Type $>$\+::get\+\_\+p\+\_\+left (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 91 of file P\+D\+E\+\_\+\+I\+B\+V\+P.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{91                                               \{}
+\DoxyCodeLine{92       \textcolor{keywordflow}{return} p\_LEFT\_RESIDUAL;}
+\DoxyCodeLine{93     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1PDE__IBVP_a46e8bdb4116caeba963f8a878529471e}} 
+\index{CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}!get\_p\_right@{get\_p\_right}}
+\index{get\_p\_right@{get\_p\_right}!CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}}
+\doxyparagraph{get\_p\_right()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Residual\+\_\+with\+\_\+coords}$<$\+\_\+\+Type$>$$\ast$ \textbf{ Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+VP}$<$ \+\_\+\+Type $>$\+::get\+\_\+p\+\_\+right (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 95 of file P\+D\+E\+\_\+\+I\+B\+V\+P.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{95                                                \{}
+\DoxyCodeLine{96       \textcolor{keywordflow}{return} p\_RIGHT\_RESIDUAL;}
+\DoxyCodeLine{97     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1PDE__IBVP_aeed2b418d978ec82af7889b5b0c23787}} 
+\index{CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}!max\_itns@{max\_itns}}
+\index{max\_itns@{max\_itns}!CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}}
+\doxyparagraph{max\_itns()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+int\& \textbf{ Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+VP}$<$ \+\_\+\+Type $>$\+::max\+\_\+itns (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access method to the maximum number of iterations. 
+
+\begin{DoxyReturn}{Returns}
+A handle to the private member data M\+A\+X\+\_\+\+I\+T\+E\+R\+A\+T\+I\+O\+NS 
+\end{DoxyReturn}
+
+
+Definition at line 83 of file P\+D\+E\+\_\+\+I\+B\+V\+P.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{83                     \{}
+\DoxyCodeLine{84       \textcolor{keywordflow}{return} MAX\_ITERATIONS;}
+\DoxyCodeLine{85     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1PDE__IBVP_ab3308413d03680a07a97af97fa6dcc95}} 
+\index{CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}!previous\_solution@{previous\_solution}}
+\index{previous\_solution@{previous\_solution}!CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}}
+\doxyparagraph{previous\_solution()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+VP}$<$ \+\_\+\+Type $>$\+::previous\+\_\+solution\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+A handle to the previous step\textquotesingle{}s solution mesh 
+\end{DoxyReturn}
+
+
+Definition at line 132 of file P\+D\+E\+\_\+\+I\+B\+V\+P.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{132                                                                    \{}
+\DoxyCodeLine{133     \textcolor{keywordflow}{return} PREV\_SOLN;}
+\DoxyCodeLine{134   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1PDE__IBVP_a38acb48b3ecaa3428a431a514380229b}} 
+\index{CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}!solution@{solution}}
+\index{solution@{solution}!CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}}
+\doxyparagraph{solution()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+VP}$<$ \+\_\+\+Type $>$\+::solution\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+A handle to the solution mesh 
+\end{DoxyReturn}
+
+
+Definition at line 127 of file P\+D\+E\+\_\+\+I\+B\+V\+P.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{127                                                           \{}
+\DoxyCodeLine{128     \textcolor{keywordflow}{return} SOLN;}
+\DoxyCodeLine{129   \}}
+
+\end{DoxyCode}
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1PDE__IBVP_a0618965e1c3cb6444891762f29c88742}} 
+\index{CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}!step2@{step2}}
+\index{step2@{step2}!CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}}
+\doxyparagraph{step2()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+VP}$<$ \+\_\+\+Type $>$\+::step2 (\begin{DoxyParamCaption}\item[{const double \&}]{dt }\end{DoxyParamCaption})}
+
+
+
+A Crank-\/\+Nicolson \textquotesingle{}time\textquotesingle{} stepper. 
+
+
+
+Definition at line 72 of file P\+D\+E\+\_\+\+I\+B\+V\+P.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72                                               \{}
+\DoxyCodeLine{73     \textcolor{comment}{// the order of the problem}}
+\DoxyCodeLine{74     \textcolor{keywordtype}{unsigned} order(p\_EQUATION -\/> get\_order());}
+\DoxyCodeLine{75     \textcolor{comment}{// get the number of nodes in the mesh}}
+\DoxyCodeLine{76     \textcolor{comment}{// -\/-\/ this may have been refined by the user since the last call.}}
+\DoxyCodeLine{77     \textcolor{keywordtype}{unsigned} ny(SOLN.get\_nnodes());}
+\DoxyCodeLine{78     \textcolor{comment}{// measure of maximum residual}}
+\DoxyCodeLine{79     \textcolor{keywordtype}{double} max\_residual(1.0);}
+\DoxyCodeLine{80     \textcolor{comment}{// iteration counter}}
+\DoxyCodeLine{81     \textcolor{keywordtype}{int} counter = 0;}
+\DoxyCodeLine{82     \textcolor{comment}{// store this soln as the 'previous SOLUTION'}}
+\DoxyCodeLine{83     PREV\_SOLN = SOLN;}
+\DoxyCodeLine{84     \textcolor{comment}{// ANY LARGE STORAGE USED IN THE MAIN LOOP IS}}
+\DoxyCodeLine{85     \textcolor{comment}{// DEFINED HERE TO AVOID REPEATED CONSTRUCTION.}}
+\DoxyCodeLine{86     \textcolor{comment}{// Note we blank the A matrix after every iteration.}}
+\DoxyCodeLine{87     \textcolor{comment}{//}}
+\DoxyCodeLine{88     \textcolor{comment}{// Banded LHS matrix -\/ max obove diagonal band width is}}
+\DoxyCodeLine{89     \textcolor{comment}{// from first variable at node i to last variable at node i+1}}
+\DoxyCodeLine{90     BandedMatrix<\_Type> a(ny * order, 2 * order -\/ 1, 0.0);}
+\DoxyCodeLine{91     \textcolor{comment}{// RHS}}
+\DoxyCodeLine{92     DenseVector<\_Type> b(ny * order, 0.0);}
+\DoxyCodeLine{93     \textcolor{comment}{// linear solver definition}}
+\DoxyCodeLine{94 \textcolor{preprocessor}{\#ifdef LAPACK}}
+\DoxyCodeLine{95     BandedLinearSystem<\_Type> system(\&a, \&b, \textcolor{stringliteral}{"lapack"});}
+\DoxyCodeLine{96 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{97     BandedLinearSystem<\_Type> system(\&a, \&b, \textcolor{stringliteral}{"native"});}
+\DoxyCodeLine{98 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{99     \textcolor{comment}{// loop until converged or too many iterations}}
+\DoxyCodeLine{100     \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{101       \textcolor{comment}{// iteration counter}}
+\DoxyCodeLine{102       ++counter;}
+\DoxyCodeLine{103 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{104       T\_ASSEMBLE.start();}
+\DoxyCodeLine{105 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{106       assemble\_matrix\_problem(a, b, dt);}
+\DoxyCodeLine{107       max\_residual = b.inf\_norm();}
+\DoxyCodeLine{108 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{109       std::cout << \textcolor{stringliteral}{" PDE\_IBVP.solve : Residual\_max = "} << max\_residual << \textcolor{stringliteral}{" tol = "} << TOL << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{111 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{112       T\_ASSEMBLE.stop();}
+\DoxyCodeLine{113       T\_SOLVE.start();}
+\DoxyCodeLine{114 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{115       \textcolor{comment}{// linear solver}}
+\DoxyCodeLine{116       system.solve();}
+\DoxyCodeLine{117       \textcolor{comment}{// keep the solution in a OneD\_GenMesh object}}
+\DoxyCodeLine{118       \textcolor{keywordflow}{for}(std::size\_t var = 0; var < order; ++var) \{}
+\DoxyCodeLine{119         \textcolor{keywordflow}{for}(std::size\_t i = 0; i < ny; ++i) \{}
+\DoxyCodeLine{120           SOLN(i, var) += b[ i * order + var ];}
+\DoxyCodeLine{121         \}}
+\DoxyCodeLine{122       \}}
+\DoxyCodeLine{123 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{124       T\_SOLVE.stop();}
+\DoxyCodeLine{125 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{126     \} \textcolor{keywordflow}{while}((max\_residual > TOL) \&\& (counter < MAX\_ITERATIONS));}
+\DoxyCodeLine{127     \textcolor{keywordflow}{if}(max\_residual > TOL) \{}
+\DoxyCodeLine{128       \textcolor{comment}{// restore to previous state because this step failed}}
+\DoxyCodeLine{129       SOLN = PREV\_SOLN;}
+\DoxyCodeLine{130       std::string problem(\textcolor{stringliteral}{"\(\backslash\)n The PDE\_IBVP.step2 method took too many iterations.\(\backslash\)n"});}
+\DoxyCodeLine{131       problem += \textcolor{stringliteral}{"Solution has been restored to the previous accurate state.\(\backslash\)n"};}
+\DoxyCodeLine{132       \textcolor{keywordflow}{throw} ExceptionItn(problem, counter, max\_residual);}
+\DoxyCodeLine{133     \}}
+\DoxyCodeLine{134 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{135     std::cout << \textcolor{stringliteral}{"[DEBUG] time-\/like variable = "} << T << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{136 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{137     \textcolor{comment}{// set the time to the updated level}}
+\DoxyCodeLine{138     T += dt;}
+\DoxyCodeLine{139   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::inf\+\_\+norm(), and Cpp\+Noddy\+::\+Banded\+Linear\+System$<$ \+\_\+\+Type $>$\+::solve().
+
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1PDE__IBVP_aaa00e808dc8f39c28210ee0b390834f2}} 
+\index{CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}!tolerance@{tolerance}}
+\index{tolerance@{tolerance}!CppNoddy::PDE\_IBVP$<$ \_Type $>$@{CppNoddy::PDE\_IBVP$<$ \_Type $>$}}
+\doxyparagraph{tolerance()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double\& \textbf{ Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+VP}$<$ \+\_\+\+Type $>$\+::tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access method to the tolerance. 
+
+\begin{DoxyReturn}{Returns}
+A handle to the private member data T\+OL 
+\end{DoxyReturn}
+
+
+Definition at line 77 of file P\+D\+E\+\_\+\+I\+B\+V\+P.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{77                         \{}
+\DoxyCodeLine{78       \textcolor{keywordflow}{return} TOL;}
+\DoxyCodeLine{79     \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ P\+D\+E\+\_\+\+I\+B\+V\+P.\+h}\item 
+src/\textbf{ P\+D\+E\+\_\+\+I\+B\+V\+P.\+cpp}\end{DoxyCompactItemize}

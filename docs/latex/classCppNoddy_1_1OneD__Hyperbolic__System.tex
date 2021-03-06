@@ -1,0 +1,324 @@
+\doxysubsection{Cpp\+Noddy\+::One\+D\+\_\+\+Hyperbolic\+\_\+\+System Class Reference}
+\label{classCppNoddy_1_1OneD__Hyperbolic__System}\index{CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}}
+
+
+A class to represent a one dimensional hyperbolic system of equations.  
+
+
+
+
+{\ttfamily \#include $<$One\+D\+\_\+\+Hyperbolic\+\_\+\+System.\+h$>$}
+
+Inheritance diagram for Cpp\+Noddy\+::One\+D\+\_\+\+Hyperbolic\+\_\+\+System\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.429787cm]{classCppNoddy_1_1OneD__Hyperbolic__System}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ One\+D\+\_\+\+Hyperbolic\+\_\+\+System} (const unsigned \&order)
+\item 
+virtual \textbf{ $\sim$\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System} ()
+\begin{DoxyCompactList}\small\item\em An empty destructor, virtual since we have virtual methods. \end{DoxyCompactList}\item 
+virtual void \textbf{ flux\+\_\+fn} (const double \&x, const \textbf{ Dense\+Vector}$<$ double $>$ \&q, \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ f}) const
+\begin{DoxyCompactList}\small\item\em A virtual flux function. \end{DoxyCompactList}\item 
+virtual void \textbf{ Jac\+\_\+flux\+\_\+fn} (const double \&x, const \textbf{ Dense\+Vector}$<$ double $>$ \&q, \textbf{ Dense\+Matrix}$<$ double $>$ \&J) const
+\begin{DoxyCompactList}\small\item\em A virtual function function to define the Jacobian of the flux function. \end{DoxyCompactList}\item 
+virtual double \textbf{ max\+\_\+charac\+\_\+speed} (const \textbf{ Dense\+Vector}$<$ double $>$ \&q) const
+\begin{DoxyCompactList}\small\item\em A virtual method that is used to bound the shock speed and must be implemented by the user. \end{DoxyCompactList}\item 
+virtual bool\+\_\+vec \textbf{ edge\+\_\+values} (const int face\+\_\+index, const double \&x, \textbf{ Dense\+Vector}$<$ double $>$ \&q, const double \&t=0.\+0) const
+\begin{DoxyCompactList}\small\item\em Define the edge boundary conditions. \end{DoxyCompactList}\item 
+virtual void \textbf{ source\+\_\+fn} (const double \&x, const \textbf{ Dense\+Vector}$<$ double $>$ \&q, const \textbf{ Dense\+Vector}$<$ double $>$ \&slope, \textbf{ Dense\+Vector}$<$ double $>$ \&r) const
+\item 
+unsigned \textbf{ get\+\_\+order} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::size\+\_\+t \textbf{ O\+R\+D\+E\+R\+\_\+\+O\+F\+\_\+\+S\+Y\+S\+T\+EM}
+\begin{DoxyCompactList}\small\item\em The order of the system of equations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+A class to represent a one dimensional hyperbolic system of equations. 
+
+Definition at line 13 of file One\+D\+\_\+\+Hyperbolic\+\_\+\+System.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1OneD__Hyperbolic__System_aa3f766d2e0d0382b0cc24e68e9973e8e}} 
+\index{CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}!OneD\_Hyperbolic\_System@{OneD\_Hyperbolic\_System}}
+\index{OneD\_Hyperbolic\_System@{OneD\_Hyperbolic\_System}!CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}}
+\doxyparagraph{OneD\_Hyperbolic\_System()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System\+::\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System (\begin{DoxyParamCaption}\item[{const unsigned \&}]{order }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em order} & The order of the hyperbolic system \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 20 of file One\+D\+\_\+\+Hyperbolic\+\_\+\+System.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{20                                                            : ORDER\_OF\_SYSTEM(order) \{}
+\DoxyCodeLine{21     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Hyperbolic__System_a1507b76066c9d6349ef3da2e588829f1}} 
+\index{CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}!````~OneD\_Hyperbolic\_System@{$\sim$OneD\_Hyperbolic\_System}}
+\index{````~OneD\_Hyperbolic\_System@{$\sim$OneD\_Hyperbolic\_System}!CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}}
+\doxyparagraph{$\sim$OneD\_Hyperbolic\_System()}
+{\footnotesize\ttfamily virtual Cpp\+Noddy\+::\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System\+::$\sim$\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+An empty destructor, virtual since we have virtual methods. 
+
+
+
+Definition at line 24 of file One\+D\+\_\+\+Hyperbolic\+\_\+\+System.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{25     \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1OneD__Hyperbolic__System_af1b37110dd0dff74b95cad8998285a90}} 
+\index{CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}!edge\_values@{edge\_values}}
+\index{edge\_values@{edge\_values}!CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}}
+\doxyparagraph{edge\_values()}
+{\footnotesize\ttfamily virtual bool\+\_\+vec Cpp\+Noddy\+::\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System\+::edge\+\_\+values (\begin{DoxyParamCaption}\item[{const int}]{face\+\_\+index,  }\item[{const double \&}]{x,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{q,  }\item[{const double \&}]{t = {\ttfamily 0.0} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the edge boundary conditions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em face\+\_\+index} & An index for the face\+: -\/1=left +1=right for \doxyref{One\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh}{p.}{classCppNoddy_1_1OneD__TVDLF__Mesh} \\
+\hline
+{\em x} & The position vector along the face \\
+\hline
+{\em q} & The unknowns specified along the face \\
+\hline
+{\em t} & A time for unsteady edge conditions \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \textbf{ Cpp\+Noddy\+::\+Example\+::\+Acoustic\+\_\+1d\+\_\+ref} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Acoustic__1d__ref_a836443763c1e6e70941e826261793400}, and \textbf{ Cpp\+Noddy\+::\+Example\+::\+Nlin\+Adv} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1NlinAdv_a6da70f34222cdecda5a498f6d595b8ef}.
+
+
+
+Definition at line 78 of file One\+D\+\_\+\+Hyperbolic\+\_\+\+System.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{78                                                                                                                              \{}
+\DoxyCodeLine{79       \textcolor{keywordflow}{return} std::vector<bool>(ORDER\_OF\_SYSTEM, \textcolor{keyword}{false});}
+\DoxyCodeLine{80     \}}
+
+\end{DoxyCode}
+
+
+References O\+R\+D\+E\+R\+\_\+\+O\+F\+\_\+\+S\+Y\+S\+T\+EM.
+
+\mbox{\label{classCppNoddy_1_1OneD__Hyperbolic__System_a5d80acff28df99e7112edf0ceb0363a7}} 
+\index{CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}!flux\_fn@{flux\_fn}}
+\index{flux\_fn@{flux\_fn}!CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}}
+\doxyparagraph{flux\_fn()}
+{\footnotesize\ttfamily virtual void Cpp\+Noddy\+::\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System\+::flux\+\_\+fn (\begin{DoxyParamCaption}\item[{const double \&}]{x,  }\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{q,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+A virtual flux function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The spatial coordinate \\
+\hline
+{\em q} & The unknowns \\
+\hline
+{\em f} & The flux function \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \textbf{ Cpp\+Noddy\+::\+Example\+::\+Acoustic\+\_\+1d} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Acoustic__1d_a055500f0d1f7afa37cdf0215f2d5e893}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Euler\+\_\+1d} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Euler__1d_a8f5d833288c9387015ec57676baabf88}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Acoustic\+\_\+1d\+\_\+ref} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Acoustic__1d__ref_a83d894070f4f752da1f9a5751a38c55d}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Shallow\+\_\+1d\+\_\+rad} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Shallow__1d__rad_a89094e8f9bb33ccd0f4a86272a6df032}, and \textbf{ Cpp\+Noddy\+::\+Example\+::\+Nlin\+Adv} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1NlinAdv_a0d332b468f8f193d533586786a6e5d5b}.
+
+
+
+Definition at line 31 of file One\+D\+\_\+\+Hyperbolic\+\_\+\+System.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31                                                                                                       \{}
+\DoxyCodeLine{32       std::string problem;}
+\DoxyCodeLine{33       problem = \textcolor{stringliteral}{"The Hyperbolic\_Conservative\_System::flux\_fn method has not been implemented.\(\backslash\)n"};}
+\DoxyCodeLine{34       problem += \textcolor{stringliteral}{"You have to implement this method to define the system.\(\backslash\)n"};}
+\DoxyCodeLine{35       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{36     \}}
+
+\end{DoxyCode}
+
+
+Referenced by Jac\+\_\+flux\+\_\+fn().
+
+\mbox{\label{classCppNoddy_1_1OneD__Hyperbolic__System_a99854a537bccb1fc9e8b8866bfc1f4e3}} 
+\index{CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}!get\_order@{get\_order}}
+\index{get\_order@{get\_order}!CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}}
+\doxyparagraph{get\_order()}
+{\footnotesize\ttfamily unsigned Cpp\+Noddy\+::\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System\+::get\+\_\+order (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 85 of file One\+D\+\_\+\+Hyperbolic\+\_\+\+System.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{85                          \{}
+\DoxyCodeLine{86       \textcolor{keywordflow}{return} ORDER\_OF\_SYSTEM;}
+\DoxyCodeLine{87     \}}
+
+\end{DoxyCode}
+
+
+References O\+R\+D\+E\+R\+\_\+\+O\+F\+\_\+\+S\+Y\+S\+T\+EM.
+
+\mbox{\label{classCppNoddy_1_1OneD__Hyperbolic__System_abc35bc9caf9cab67a5778a7a762f8ba9}} 
+\index{CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}!Jac\_flux\_fn@{Jac\_flux\_fn}}
+\index{Jac\_flux\_fn@{Jac\_flux\_fn}!CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}}
+\doxyparagraph{Jac\_flux\_fn()}
+{\footnotesize\ttfamily virtual void Cpp\+Noddy\+::\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System\+::\+Jac\+\_\+flux\+\_\+fn (\begin{DoxyParamCaption}\item[{const double \&}]{x,  }\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{q,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{J }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+A virtual function function to define the Jacobian of the flux function. 
+
+The default method uses first-\/order finite differencing to compute the Jacobian if not otherwise specified by the user. 
+\begin{DoxyParams}{Parameters}
+{\em x} & The position \\
+\hline
+{\em q} & The unknowns \\
+\hline
+{\em J} & The Jacobian of the flux function \\
+\hline
+\end{DoxyParams}
+first order differencing is the default unless overloaded
+
+Definition at line 45 of file One\+D\+\_\+\+Hyperbolic\+\_\+\+System.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{45                                                                                                           \{\textcolor{comment}{}}
+\DoxyCodeLine{46 \textcolor{comment}{      /// first order differencing is the default unless overloaded}}
+\DoxyCodeLine{47 \textcolor{comment}{}      \textcolor{keywordtype}{double} delta(1.e-\/8);}
+\DoxyCodeLine{48       DenseVector<double> state(q);}
+\DoxyCodeLine{49       DenseVector<double> temp1(ORDER\_OF\_SYSTEM, 0.0);}
+\DoxyCodeLine{50       DenseVector<double> temp2(ORDER\_OF\_SYSTEM, 0.0);}
+\DoxyCodeLine{51       flux\_fn(x, q, temp1);}
+\DoxyCodeLine{52       \textcolor{comment}{// default is to FD the Jacobian}}
+\DoxyCodeLine{53       \textcolor{keywordflow}{for}(std::size\_t i = 0; i < ORDER\_OF\_SYSTEM; ++i) \{}
+\DoxyCodeLine{54         state[ i ] += delta;}
+\DoxyCodeLine{55         flux\_fn(x, state, temp2);}
+\DoxyCodeLine{56         state[ i ] -\/= delta;}
+\DoxyCodeLine{57         J.set\_col(i, (temp2 -\/ temp1) / delta);}
+\DoxyCodeLine{58       \}}
+\DoxyCodeLine{59     \}}
+
+\end{DoxyCode}
+
+
+References flux\+\_\+fn(), O\+R\+D\+E\+R\+\_\+\+O\+F\+\_\+\+S\+Y\+S\+T\+EM, and Cpp\+Noddy\+::\+Dense\+Matrix$<$ \+\_\+\+Type $>$\+::set\+\_\+col().
+
+\mbox{\label{classCppNoddy_1_1OneD__Hyperbolic__System_a6b0a0d9ba53c4d52d8db39ce49cd6e87}} 
+\index{CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}!max\_charac\_speed@{max\_charac\_speed}}
+\index{max\_charac\_speed@{max\_charac\_speed}!CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}}
+\doxyparagraph{max\_charac\_speed()}
+{\footnotesize\ttfamily virtual double Cpp\+Noddy\+::\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System\+::max\+\_\+charac\+\_\+speed (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{q }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+A virtual method that is used to bound the shock speed and must be implemented by the user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & The unknowns \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A bound on the maximum wave speed 
+\end{DoxyReturn}
+
+
+Reimplemented in \textbf{ Cpp\+Noddy\+::\+Example\+::\+Acoustic\+\_\+1d} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Acoustic__1d_adfb46339dbbbdf6157f1d0a540c775ce}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Euler\+\_\+1d} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Euler__1d_adfc992d3ad6ef61bbe8851dd6dbd467e}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Acoustic\+\_\+1d\+\_\+ref} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Acoustic__1d__ref_a576adcc7aad4e7e1c8b0815781ad4c91}, \textbf{ Cpp\+Noddy\+::\+Example\+::\+Shallow\+\_\+1d\+\_\+rad} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Shallow__1d__rad_a99c78745b18135f1cf1b7515d4bf2c4e}, and \textbf{ Cpp\+Noddy\+::\+Example\+::\+Nlin\+Adv} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1NlinAdv_a396ec3fd4851fdb33da923377fc8b83a}.
+
+
+
+Definition at line 65 of file One\+D\+\_\+\+Hyperbolic\+\_\+\+System.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{65                                                                         \{}
+\DoxyCodeLine{66       std::string problem;}
+\DoxyCodeLine{67       problem = \textcolor{stringliteral}{"The Hyperbolic\_Conservative\_System::max\_shock\_speed method has not\(\backslash\)n"};}
+\DoxyCodeLine{68       problem += \textcolor{stringliteral}{"been implemented. You have to implement this method to define the system.\(\backslash\)n"};}
+\DoxyCodeLine{69       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{70     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1OneD__Hyperbolic__System_a30a74d024fc4b4466a1538467bbaaabf}} 
+\index{CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}!source\_fn@{source\_fn}}
+\index{source\_fn@{source\_fn}!CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}}
+\doxyparagraph{source\_fn()}
+{\footnotesize\ttfamily virtual void Cpp\+Noddy\+::\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System\+::source\+\_\+fn (\begin{DoxyParamCaption}\item[{const double \&}]{x,  }\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{q,  }\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{slope,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{r }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \textbf{ Cpp\+Noddy\+::\+Example\+::\+Shallow\+\_\+1d\+\_\+rad} \doxyref{}{p.}{classCppNoddy_1_1Example_1_1Shallow__1d__rad_aa69aed8e307e83fd013230f01cacf6c1}.
+
+
+
+Definition at line 82 of file One\+D\+\_\+\+Hyperbolic\+\_\+\+System.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{82                                                                                                                                           \{}
+\DoxyCodeLine{83     \}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Data Documentation}
+\mbox{\label{classCppNoddy_1_1OneD__Hyperbolic__System_a6279cbe362168aa2b21a2540b445ab3f}} 
+\index{CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}!ORDER\_OF\_SYSTEM@{ORDER\_OF\_SYSTEM}}
+\index{ORDER\_OF\_SYSTEM@{ORDER\_OF\_SYSTEM}!CppNoddy::OneD\_Hyperbolic\_System@{CppNoddy::OneD\_Hyperbolic\_System}}
+\doxyparagraph{ORDER\_OF\_SYSTEM}
+{\footnotesize\ttfamily const std\+::size\+\_\+t Cpp\+Noddy\+::\+One\+D\+\_\+\+Hyperbolic\+\_\+\+System\+::\+O\+R\+D\+E\+R\+\_\+\+O\+F\+\_\+\+S\+Y\+S\+T\+EM\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The order of the system of equations. 
+
+
+
+Definition at line 92 of file One\+D\+\_\+\+Hyperbolic\+\_\+\+System.\+h.
+
+
+
+Referenced by edge\+\_\+values(), get\+\_\+order(), and Jac\+\_\+flux\+\_\+fn().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ One\+D\+\_\+\+Hyperbolic\+\_\+\+System.\+h}\end{DoxyCompactItemize}

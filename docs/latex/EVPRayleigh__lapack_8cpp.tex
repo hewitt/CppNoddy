@@ -1,0 +1,106 @@
+\doxysubsection{Tests/\+E\+V\+P/\+E\+V\+P\+Rayleigh\+\_\+lapack.cpp File Reference}
+\label{EVPRayleigh__lapack_8cpp}\index{Tests/EVP/EVPRayleigh\_lapack.cpp@{Tests/EVP/EVPRayleigh\_lapack.cpp}}
+{\ttfamily \#include $<$E\+V\+P\+\_\+bundle.\+h$>$}\newline
+{\ttfamily \#include $<$H\+S\+T.\+h$>$}\newline
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\item 
+ \textbf{ Cpp\+Noddy\+::\+Example}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ D\+\_\+complex} \textbf{ Cpp\+Noddy\+::\+Example\+::U} (const \textbf{ D\+\_\+complex} \&y)
+\item 
+\textbf{ D\+\_\+complex} \textbf{ Cpp\+Noddy\+::\+Example\+::\+Udd} (const \textbf{ D\+\_\+complex} \&y)
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \textbf{ D\+\_\+complex}, \textbf{ D\+\_\+complex} $>$ \textbf{ Cpp\+Noddy\+::\+Example\+::baseflow}
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Solves the Rayleigh problem for values $ c $ that satisfy \+: \[ (U_B(y)-c) (\phi\textnormal{\textquotesingle}\textnormal{\textquotesingle}(y) - \alpha^2 \phi(y)) - U_B\textnormal{\textquotesingle}\textnormal{\textquotesingle}(y) \phi(y) = 0\,, \] subject to $ \phi( 0 ) = \phi( 2\pi ) = 0 $; it determines the critical wavenumber $\alpha $ such that $ c_i=0 $ for $ U_B(y)=\sin(y) $. The test compares the critical wavenumber with the predicted value of $ \sqrt(3)/2 $. 
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{EVPRayleigh__lapack_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{EVPRayleigh\_lapack.cpp@{EVPRayleigh\_lapack.cpp}!main@{main}}
+\index{main@{main}!EVPRayleigh\_lapack.cpp@{EVPRayleigh\_lapack.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 38 of file E\+V\+P\+Rayleigh\+\_\+lapack.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{42   cout << \textcolor{stringliteral}{"=== EVP: Rayleigh modes, Tollmien's example =========\(\backslash\)n"};}
+\DoxyCodeLine{43   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   Example::alpha = 0.8;    \textcolor{comment}{// the wavenumber}}
+\DoxyCodeLine{46   \textcolor{keywordtype}{double} tol = 1.e-\/5;      \textcolor{comment}{// tolerance for the test}}
+\DoxyCodeLine{47   \textcolor{keywordtype}{double} left = 0.0;       \textcolor{comment}{// from y = 0}}
+\DoxyCodeLine{48   \textcolor{keywordtype}{double} right = 2 * M\_PI; \textcolor{comment}{// to y= 2*pi}}
+\DoxyCodeLine{49   \textcolor{keywordtype}{unsigned} N( 801 );}
+\DoxyCodeLine{50   \textcolor{comment}{// a real distribution of nodes}}
+\DoxyCodeLine{51   DenseVector<double> r\_nodes( Utility::power\_node\_vector( left, right, N, 1.0 ) );}
+\DoxyCodeLine{52   DenseVector<D\_complex> c\_nodes( r\_nodes );}
+\DoxyCodeLine{53   \textcolor{comment}{// make a distribution of nodes in the complex plane}}
+\DoxyCodeLine{54   \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{unsigned} i = 0; i < N; ++i )}
+\DoxyCodeLine{55   \{}
+\DoxyCodeLine{56     D\_complex y( r\_nodes[ i ] );}
+\DoxyCodeLine{57     c\_nodes[ i ] -\/= .2 * D\_complex( 0.0, 1.0 ) * y * std::exp( -\/ y );}
+\DoxyCodeLine{58   \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \textcolor{comment}{// make a base flow on the complex distribution of nodes}}
+\DoxyCodeLine{61   OneD\_Node\_Mesh<D\_complex, D\_complex> base( c\_nodes, 2 );}
+\DoxyCodeLine{62   \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{unsigned} i = 0; i < c\_nodes.size(); ++i )}
+\DoxyCodeLine{63   \{}
+\DoxyCodeLine{64     D\_complex y = c\_nodes[ i ];}
+\DoxyCodeLine{65     base( i, 0 ) = Example::U( y );}
+\DoxyCodeLine{66     base( i, 1 ) = Example::Udd( y );}
+\DoxyCodeLine{67   \}}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69   \textcolor{comment}{// make the Rayleigh EVP, with 'CHANNEL' boundary conditions}}
+\DoxyCodeLine{70   HST::Rayleigh<D\_complex> my\_ray( base, Example::alpha, \textcolor{stringliteral}{"CHANNEL"} );}
+\DoxyCodeLine{71   \textcolor{comment}{// do a global solve}}
+\DoxyCodeLine{72   my\_ray.global\_evp();}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74   \textcolor{keywordtype}{unsigned} i\_ev = 0;}
+\DoxyCodeLine{75   \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{unsigned} i = 0; i < my\_ray.eigenvalues().size(); ++i )}
+\DoxyCodeLine{76   \{}
+\DoxyCodeLine{77     \textcolor{keywordflow}{if} ( my\_ray.eigenvalues()[ i ].imag() > 0.05 )}
+\DoxyCodeLine{78     \{}
+\DoxyCodeLine{79       \textcolor{comment}{// there should be only one}}
+\DoxyCodeLine{80       i\_ev = i;}
+\DoxyCodeLine{81     \}}
+\DoxyCodeLine{82   \}}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84   my\_ray.iterate\_to\_neutral( i\_ev );}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86   \textcolor{keywordflow}{if} ( std::abs( my\_ray.alpha() -\/ .5*sqrt( 3. ) ) < tol )}
+\DoxyCodeLine{87   \{}
+\DoxyCodeLine{88     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{89     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{90   \}}
+\DoxyCodeLine{91   cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{92   cout << \textcolor{stringliteral}{"    Final error in critical wavenumber = "} << std::abs( my\_ray.alpha() -\/ .5*sqrt( 3. ) ) << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{93   \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::alpha, Cpp\+Noddy\+::\+H\+S\+T\+::\+Rayleigh$<$ \+\_\+\+Type $>$\+::alpha(), Cpp\+Noddy\+::\+H\+S\+T\+::\+Rayleigh$<$ \+\_\+\+Type $>$\+::eigenvalues(), Cpp\+Noddy\+::\+H\+S\+T\+::\+Rayleigh$<$ \+\_\+\+Type $>$\+::global\+\_\+evp(), Cpp\+Noddy\+::\+H\+S\+T\+::\+Rayleigh$<$ \+\_\+\+Type $>$\+::iterate\+\_\+to\+\_\+neutral(), Cpp\+Noddy\+::\+Utility\+::power\+\_\+node\+\_\+vector(), Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::size(), Cpp\+Noddy\+::\+Example\+::\+U(), and Cpp\+Noddy\+::\+Example\+::\+Udd().
+

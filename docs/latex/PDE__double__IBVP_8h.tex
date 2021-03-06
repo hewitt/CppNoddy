@@ -1,0 +1,24 @@
+\doxysubsection{include/\+P\+D\+E\+\_\+double\+\_\+\+I\+B\+VP.h File Reference}
+\label{PDE__double__IBVP_8h}\index{include/PDE\_double\_IBVP.h@{include/PDE\_double\_IBVP.h}}
+{\ttfamily \#include $<$Dense\+Vector.\+h$>$}\newline
+{\ttfamily \#include $<$Dense\+Matrix.\+h$>$}\newline
+{\ttfamily \#include $<$Banded\+Matrix.\+h$>$}\newline
+{\ttfamily \#include $<$Equation\+\_\+3matrix.\+h$>$}\newline
+{\ttfamily \#include $<$Residual\+\_\+with\+\_\+coords.\+h$>$}\newline
+{\ttfamily \#include $<$Two\+D\+\_\+\+Node\+\_\+\+Mesh.\+h$>$}\newline
+{\ttfamily \#include $<$Uncopyable.\+h$>$}\newline
+{\ttfamily \#include $<$Timer.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+P\+D\+E\+\_\+double\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$}
+\begin{DoxyCompactList}\small\item\em A templated object for real/complex vector system of unsteady equations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+A specification of a class for an $ n^{th} $-\/order I\+B\+VP of the form \[ M_2( {\underline f}(y,x,t), y, x, t )\cdot {\underline f}_x (y,x,t) + M_1( {\underline f}(y,x,t), y,x, t )\cdot {\underline f}_t (y,x,t) + M_0( {\underline f}(y,x,t), y,x, t )\cdot {\underline f}_y (y,x,t) = {\underline R}( {\underline f}(y,x,t), y,x, t )\,, \] subject to $ n $ conditions defined at $ y = y_{bottom} $ and $ y_{top} $ for some components of $ {\underline f}(y,x,t) $. Here $ M_2 $ is a matrix for the x-\/variation and $ M_1 $ is the mass matrix for the t-\/variation, whilst $ M_0 $ is not restricted to be an identity matrix (though it often will be). The solution at the new time step $ t+\Delta t $ and spatial location $ x = x_j $ is \[ {\underline f}^{new} = {\underline F}_{j} + {\underline g} \] where $ {\underline F}_{j} $ is the current guess at the solution at this point and $ {\underline g} $ is the linearised correction. The solution at the previous time $ t $ at $ x = x_{j} $ is \[ {\underline f}^{old} = {\underline O}_{j} \] A Crank-\/\+Nicolson method is employed with the linearised problem at the mid-\/t-\/point $ t + \Delta t /2 $ and mid-\/x-\/point $ ( x_{j+1} + x_{j} ) / 2 $ being\+: \[ \frac{2}{x_{j+1} - x_{j}}\, M_2 \cdot {\underline g } + \frac{2}{\Delta t}\, M_1 \cdot {\underline g } + M_0 \cdot {\underline g}_y - J \cdot {\underline g} \] \[ + J_{2} \cdot \frac{ ( \underline F_{j+1} + \underline O_{j+1} - \underline F_j - \underline O_j) }{ 2(x_{j+1} - x_j) } \cdot {\underline g} \] \[ + J_{1} \cdot \frac{(\underline F_{j+1} + \underline F_j - \underline O_j - \underline O_{j+1})}{2\Delta t} \cdot {\underline g} \] \[ + J_{0} \cdot \frac{( \underline F_{j+1} + \underline F_j + \underline O_j + \underline O_{j+1})_y}{4} \cdot {\underline g} \] \[ = 4 {\underline R} - M_0 \cdot \biggl ({\underline F_j}_y + {\underline O_j}_y + {\underline F_{j+1}}_y + {\underline O_{j+1}}_y \biggr ) - \frac{2}{x_{j+1}-x_j} M_1 \cdot \biggl ( {\underline F}_{j+1} + {\underline O}_{j+1} - {\underline F}_{j} - {\underline O}_{j} \biggr ) - \frac{2}{\Delta t} M_2 \cdot \biggl ( {\underline F}_{j+1} + {\underline F}_{j} - {\underline O}_{j+1} - {\underline O}_{j} \biggr ) \] Where $ M_{0,1,2}, J, J_{0,1,2}, R $ are evaluated at the mid-\/t/mid-\/x step with arguments $ \left ( \frac{\underline F_{j} + \underline O_{j} + \underline F_{j+1} + \underline O_{j+1} }{4}, y, ( x_{j+1} + x_{j} ) / 2, t + \frac{\Delta t}{2} \right ) $, with $ J_{0,1,2} $ denoting the Jacobian of the mass matrices $ \partial {M_{0,1,2}}_{ij} / \partial f_k $. This problem is solved by second-\/order central differencing the equation at the spatial ( $ y $) inter-\/node mid points. 

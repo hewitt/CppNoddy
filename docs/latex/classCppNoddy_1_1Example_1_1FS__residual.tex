@@ -1,0 +1,161 @@
+\doxysubsection{Cpp\+Noddy\+::Example\+::F\+S\+\_\+residual Class Reference}
+\label{classCppNoddy_1_1Example_1_1FS__residual}\index{CppNoddy::Example::FS\_residual@{CppNoddy::Example::FS\_residual}}
+
+
+Define a residual function using the boundary conditions for the Blasius profile.  
+
+
+Inheritance diagram for Cpp\+Noddy\+::Example\+::F\+S\+\_\+residual\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCppNoddy_1_1Example_1_1FS__residual}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ F\+S\+\_\+residual} ()
+\item 
+\textbf{ $\sim$\+F\+S\+\_\+residual} ()
+\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ f}) const
+\begin{DoxyCompactList}\small\item\em implement a residual function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ O\+D\+E\+\_\+\+I\+VP}$<$ double $>$ $\ast$ \textbf{ ode}
+\item 
+\textbf{ F\+S\+\_\+eqn} $\ast$ \textbf{ eqn}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+Define a residual function using the boundary conditions for the Blasius profile. 
+
+Definition at line 46 of file Arc\+Shoot\+Falkner\+Skan.\+cpp.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1FS__residual_adaa3272bc37507678f6a2c1aebf60e22}} 
+\index{CppNoddy::Example::FS\_residual@{CppNoddy::Example::FS\_residual}!FS\_residual@{FS\_residual}}
+\index{FS\_residual@{FS\_residual}!CppNoddy::Example::FS\_residual@{CppNoddy::Example::FS\_residual}}
+\doxyparagraph{FS\_residual()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+F\+S\+\_\+residual\+::\+F\+S\+\_\+residual (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 52 of file Arc\+Shoot\+Falkner\+Skan.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{52                     : Residual<double> ( 1 )}
+\DoxyCodeLine{53       \{}
+\DoxyCodeLine{54         eqn = \textcolor{keyword}{new} FS\_eqn;}
+\DoxyCodeLine{55         eqn -\/> beta = 0.0; \textcolor{comment}{// init the Hartree parameter}}
+\DoxyCodeLine{56         ode = \textcolor{keyword}{new} ODE\_IVP<double> ( eqn, 0.0, 20.0, 2000 );}
+\DoxyCodeLine{57       \}}
+
+\end{DoxyCode}
+
+
+References eqn, and ode.
+
+\mbox{\label{classCppNoddy_1_1Example_1_1FS__residual_a0339811699fa6c84b3ec4b5754ddc6af}} 
+\index{CppNoddy::Example::FS\_residual@{CppNoddy::Example::FS\_residual}!````~FS\_residual@{$\sim$FS\_residual}}
+\index{````~FS\_residual@{$\sim$FS\_residual}!CppNoddy::Example::FS\_residual@{CppNoddy::Example::FS\_residual}}
+\doxyparagraph{$\sim$FS\_residual()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+F\+S\+\_\+residual\+::$\sim$\+F\+S\+\_\+residual (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 59 of file Arc\+Shoot\+Falkner\+Skan.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60       \{}
+\DoxyCodeLine{61         \textcolor{keyword}{delete} ode;}
+\DoxyCodeLine{62         \textcolor{keyword}{delete} eqn;}
+\DoxyCodeLine{63       \}}
+
+\end{DoxyCode}
+
+
+References eqn, and ode.
+
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1FS__residual_af193ba7212c458c6846be4092937a0a1}} 
+\index{CppNoddy::Example::FS\_residual@{CppNoddy::Example::FS\_residual}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::FS\_residual@{CppNoddy::Example::FS\_residual}}
+\doxyparagraph{residual\_fn()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+F\+S\+\_\+residual\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{z,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+implement a residual function. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 66 of file Arc\+Shoot\+Falkner\+Skan.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{67       \{}
+\DoxyCodeLine{68         DenseVector<double> u( 3, 0.0 ); \textcolor{comment}{// 3 variables of FS problem}}
+\DoxyCodeLine{69         u[ 0 ] = 0.0;          \textcolor{comment}{// f = 0}}
+\DoxyCodeLine{70         u[ 1 ] = 0.0;          \textcolor{comment}{// f' = 0}}
+\DoxyCodeLine{71         u[ 2 ] = z[ 0 ];       \textcolor{comment}{// f'' = unknown}}
+\DoxyCodeLine{72         \textcolor{comment}{// shoot the ODE}}
+\DoxyCodeLine{73         u = ode -\/> shoot4( u );}
+\DoxyCodeLine{74         \textcolor{comment}{// return the residual of f'(infty) = 1 condition}}
+\DoxyCodeLine{75         f[ 0 ] = u[ 1 ] -\/ 1.;}
+\DoxyCodeLine{76       \}}
+
+\end{DoxyCode}
+
+
+References f, ode, u, and Cpp\+Noddy\+::\+Example\+::z().
+
+
+
+\doxysubsubsection{Member Data Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1FS__residual_a9fbd5b7804133a5584ea001fe7ff5a72}} 
+\index{CppNoddy::Example::FS\_residual@{CppNoddy::Example::FS\_residual}!eqn@{eqn}}
+\index{eqn@{eqn}!CppNoddy::Example::FS\_residual@{CppNoddy::Example::FS\_residual}}
+\doxyparagraph{eqn}
+{\footnotesize\ttfamily \textbf{ F\+S\+\_\+eqn}$\ast$ Cpp\+Noddy\+::\+Example\+::\+F\+S\+\_\+residual\+::eqn}
+
+
+
+Definition at line 50 of file Arc\+Shoot\+Falkner\+Skan.\+cpp.
+
+
+
+Referenced by F\+S\+\_\+residual(), and $\sim$\+F\+S\+\_\+residual().
+
+\mbox{\label{classCppNoddy_1_1Example_1_1FS__residual_ad701f0c8fc2fe8d9e9750299fc65e1f0}} 
+\index{CppNoddy::Example::FS\_residual@{CppNoddy::Example::FS\_residual}!ode@{ode}}
+\index{ode@{ode}!CppNoddy::Example::FS\_residual@{CppNoddy::Example::FS\_residual}}
+\doxyparagraph{ode}
+{\footnotesize\ttfamily \textbf{ O\+D\+E\+\_\+\+I\+VP}$<$double$>$$\ast$ Cpp\+Noddy\+::\+Example\+::\+F\+S\+\_\+residual\+::ode}
+
+
+
+Definition at line 49 of file Arc\+Shoot\+Falkner\+Skan.\+cpp.
+
+
+
+Referenced by F\+S\+\_\+residual(), residual\+\_\+fn(), and $\sim$\+F\+S\+\_\+residual().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tests/\+Arclength/\textbf{ Arc\+Shoot\+Falkner\+Skan.\+cpp}\end{DoxyCompactItemize}

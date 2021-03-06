@@ -1,0 +1,61 @@
+\doxysubsection{Tests/\+Generic/\+Trivial\+Complex.cpp File Reference}
+\label{TrivialComplex_8cpp}\index{Tests/Generic/TrivialComplex.cpp@{Tests/Generic/TrivialComplex.cpp}}
+{\ttfamily \#include $<$Types.\+h$>$}\newline
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\item 
+ \textbf{ Cpp\+Noddy\+::\+Example}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ D\+\_\+complex} \textbf{ Cpp\+Noddy\+::\+Example\+::\+Cfn} (const \textbf{ D\+\_\+complex} \&z)
+\begin{DoxyCompactList}\small\item\em A std\+::complex function for z$^\wedge$3 -\/ 1. \end{DoxyCompactList}\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+A sanity test for std\+::complex class. 
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{TrivialComplex_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{TrivialComplex.cpp@{TrivialComplex.cpp}!main@{main}}
+\index{main@{main}!TrivialComplex.cpp@{TrivialComplex.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 23 of file Trivial\+Complex.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24 \{}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{27   cout << \textcolor{stringliteral}{"=== Complex: simple test ============================\(\backslash\)n"};}
+\DoxyCodeLine{28   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30   D\_complex Z( 0.0, 0.0 );}
+\DoxyCodeLine{31   Z = Example::Cfn( D\_complex( 0.5, 0.5 ) );}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33   \textcolor{keyword}{const} \textcolor{keywordtype}{double} tol = 1.e-\/14;}
+\DoxyCodeLine{34   \textcolor{keyword}{const} D\_complex answer( -\/1.25, 0.25 );}
+\DoxyCodeLine{35   \textcolor{keywordflow}{if} ( abs( Z -\/ answer ) > tol )}
+\DoxyCodeLine{36   \{}
+\DoxyCodeLine{37     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{38   \}}
+\DoxyCodeLine{39   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{40   \{}
+\DoxyCodeLine{41     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{42   \}}
+\DoxyCodeLine{43 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::\+Cfn().
+

@@ -1,0 +1,130 @@
+\doxysubsection{Tests/\+E\+V\+P/\+E\+V\+P\+Orr\+Sommerfeld\+\_\+lapack.cpp File Reference}
+\label{EVPOrrSommerfeld__lapack_8cpp}\index{Tests/EVP/EVPOrrSommerfeld\_lapack.cpp@{Tests/EVP/EVPOrrSommerfeld\_lapack.cpp}}
+{\ttfamily \#include $<$E\+V\+P\+\_\+bundle.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Solves the following linear eigenvalue problem for values $ c $ that satisfy \+: \[ \phi\textnormal{\textquotesingle}\textnormal{\textquotesingle}(y) - \alpha^2 \phi(y) - \psi(y) = 0\,, \] \[ \psi\textnormal{\textquotesingle}\textnormal{\textquotesingle}(y) - \alpha^2 \psi(y) - i \alpha Re \left \{ ( U(y) - c ) \psi(y) - U\textnormal{\textquotesingle}\textnormal{\textquotesingle}(y) \phi \right \} = 0\,, \] subject to $ \phi(\pm 1) = \phi\textnormal{\textquotesingle}(\pm 1) = 0 $ where $ \alpha = 1.02 $, $ Re = 5772.2 $ and $ U(y) = 1 - y^2 $. The matrix problem is constructed manually in this case, using second-\/order finite differences. These values approximately correspond to the first neutral temporal mode in plane Poiseuille flow, therefore the test to be satisfied is that an eigenvalue exists with $ \Im ( c ) \approx 0 $. 
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{EVPOrrSommerfeld__lapack_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{EVPOrrSommerfeld\_lapack.cpp@{EVPOrrSommerfeld\_lapack.cpp}!main@{main}}
+\index{main@{main}!EVPOrrSommerfeld\_lapack.cpp@{EVPOrrSommerfeld\_lapack.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 21 of file E\+V\+P\+Orr\+Sommerfeld\+\_\+lapack.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{24   cout << \textcolor{stringliteral}{"=== EVP: Temporal spectra of the Orr-\/Sommerfeld eqn =\(\backslash\)n"};}
+\DoxyCodeLine{25   cout << \textcolor{stringliteral}{"===  with a matrix problem assembled by hand.\(\backslash\)n"};}
+\DoxyCodeLine{26   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29   \textcolor{comment}{// discretise with these many nodal points}}
+\DoxyCodeLine{30   \textcolor{keyword}{const} std::size\_t nodes( 301 );}
+\DoxyCodeLine{31   \textcolor{comment}{// we'll solve as TWO second order problems}}
+\DoxyCodeLine{32   \textcolor{keyword}{const} std::size\_t N( 2 * nodes );}
+\DoxyCodeLine{33   \textcolor{comment}{// domain boundaries}}
+\DoxyCodeLine{34   \textcolor{keyword}{const} \textcolor{keywordtype}{double} left = -\/1.0;}
+\DoxyCodeLine{35   \textcolor{keyword}{const} \textcolor{keywordtype}{double} right = 1.0;}
+\DoxyCodeLine{36   \textcolor{comment}{// spatial step for a uniform mesh}}
+\DoxyCodeLine{37   \textcolor{keyword}{const} \textcolor{keywordtype}{double} d = ( right -\/ left ) / ( nodes -\/ 1 );}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39   \textcolor{comment}{// matrices for the EVP, initialised with zeroes}}
+\DoxyCodeLine{40   DenseMatrix<D\_complex> a( N, N, 0.0 );}
+\DoxyCodeLine{41   DenseMatrix<D\_complex> b( N, N, 0.0 );}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43   \textcolor{comment}{// streamwise wavenumber and Reynolds number}}
+\DoxyCodeLine{44   \textcolor{keyword}{const} \textcolor{keywordtype}{double} alpha ( 1.02 );}
+\DoxyCodeLine{45   \textcolor{keyword}{const} \textcolor{keywordtype}{double} Re ( 5772.2 );}
+\DoxyCodeLine{46   \textcolor{keyword}{const} D\_complex I( 0.0, 1.0 );}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48   \textcolor{comment}{// boundary conditions at the left boundary}}
+\DoxyCodeLine{49   a( 0, 0 ) = 1.0;           \textcolor{comment}{// phi( left ) = 0}}
+\DoxyCodeLine{50   a( 1, 0 ) = -\/1.5 / d;      \textcolor{comment}{// phi'( left ) = 0}}
+\DoxyCodeLine{51   a( 1, 2 ) = 2.0 / d;}
+\DoxyCodeLine{52   a( 1, 4 ) = -\/0.5 / d;}
+\DoxyCodeLine{53   \textcolor{comment}{// fill the interior nodes}}
+\DoxyCodeLine{54   \textcolor{keywordflow}{for} ( std::size\_t i = 1; i <= nodes -\/ 2; ++i )}
+\DoxyCodeLine{55   \{}
+\DoxyCodeLine{56     \textcolor{comment}{// position in the channel}}
+\DoxyCodeLine{57     \textcolor{keyword}{const} \textcolor{keywordtype}{double} y = left + i * d;}
+\DoxyCodeLine{58     \textcolor{comment}{// Poiseuille flow profile}}
+\DoxyCodeLine{59     \textcolor{keyword}{const} \textcolor{keywordtype}{double} U = ( 1.0 -\/ y * y );}
+\DoxyCodeLine{60     \textcolor{keyword}{const} \textcolor{keywordtype}{double} Udd = -\/2.0;}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62     \textcolor{comment}{// the first quation at the i'th nodal point}}
+\DoxyCodeLine{63     std::size\_t row = 2 * i;}
+\DoxyCodeLine{64     a( row, row ) = -\/2.0 / ( d * d ) -\/ alpha * alpha;}
+\DoxyCodeLine{65     a( row, row -\/ 2 ) = 1.0 / ( d * d );}
+\DoxyCodeLine{66     a( row, row + 2 ) = 1.0 / ( d * d );}
+\DoxyCodeLine{67     a( row, row + 1 ) = -\/1.0;}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     row += 1;}
+\DoxyCodeLine{70     \textcolor{comment}{// the second equation at the i'th nodal point}}
+\DoxyCodeLine{71     a( row, row ) = -\/2.0 / ( d * d ) -\/ alpha * alpha -\/ I * alpha * Re * U;}
+\DoxyCodeLine{72     a( row, row -\/ 2 ) = 1.0 / ( d * d );}
+\DoxyCodeLine{73     a( row, row + 2 ) = 1.0 / ( d * d );}
+\DoxyCodeLine{74     a( row, row -\/ 1 ) = I * alpha * Re * Udd;}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76     b( row, row ) = -\/ I * alpha * Re;}
+\DoxyCodeLine{77   \}}
+\DoxyCodeLine{78   \textcolor{comment}{// boundary conditions at right boundary}}
+\DoxyCodeLine{79   a( N -\/ 2, N -\/ 2 ) = 1.5 / d;}
+\DoxyCodeLine{80   a( N -\/ 2, N -\/ 4 ) = -\/2.0 / d;}
+\DoxyCodeLine{81   a( N -\/ 2, N -\/ 6 ) = 0.5 / d; \textcolor{comment}{// psi'( right ) = 0}}
+\DoxyCodeLine{82   a( N -\/ 1, N -\/ 2 ) = 1.0;     \textcolor{comment}{// psi( right ) = 0}}
+\DoxyCodeLine{83   \textcolor{comment}{// a vector for the eigenvalues}}
+\DoxyCodeLine{84   DenseVector<D\_complex> lambdas;}
+\DoxyCodeLine{85   DenseLinearEigenSystem<D\_complex> system( \&a, \&b );}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87   \textcolor{keywordflow}{try}}
+\DoxyCodeLine{88   \{}
+\DoxyCodeLine{89     system.eigensolve();}
+\DoxyCodeLine{90   \}}
+\DoxyCodeLine{91   \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::runtime\_error \&error )}
+\DoxyCodeLine{92   \{}
+\DoxyCodeLine{93     cout << \textcolor{stringliteral}{" \(\backslash\)033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{94     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{95   \}}
+\DoxyCodeLine{96   \textcolor{comment}{// tag any eigenvalues with imaginary part > -\/0.1}}
+\DoxyCodeLine{97   system.set\_shift( D\_complex( 0.0, -\/0.1 ) );}
+\DoxyCodeLine{98   system.tag\_eigenvalues\_upper( + 1 );}
+\DoxyCodeLine{99   lambdas = system.get\_tagged\_eigenvalues();}
+\DoxyCodeLine{100   \textcolor{comment}{//lambdas.dump();}}
+\DoxyCodeLine{101   \textcolor{keywordtype}{double} min\_growth\_rate( lambdas[ 0 ].imag() );}
+\DoxyCodeLine{102   \textcolor{comment}{// make sure we have a near neutral mode}}
+\DoxyCodeLine{103   \textcolor{keyword}{const} \textcolor{keywordtype}{double} tol = 1.e-\/3;}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105   std::string dirname(\textcolor{stringliteral}{"./DATA"});}
+\DoxyCodeLine{106   mkdir( dirname.c\_str(), S\_IRWXU );}
+\DoxyCodeLine{107   TrackerFile spectrum( \textcolor{stringliteral}{"./DATA/spectrum.dat"} );}
+\DoxyCodeLine{108   spectrum.push\_ptr( \&lambdas, \textcolor{stringliteral}{"evs"} );}
+\DoxyCodeLine{109   spectrum.update();}
+\DoxyCodeLine{110   \textcolor{keywordflow}{if} ( std::abs( min\_growth\_rate ) < tol )}
+\DoxyCodeLine{111   \{}
+\DoxyCodeLine{112     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{113     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{114   \}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116   cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{117   cout << \textcolor{stringliteral}{"    Final error = "} << min\_growth\_rate << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{118   \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{119 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::alpha, Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::eigensolve(), Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::get\+\_\+tagged\+\_\+eigenvalues(), Cpp\+Noddy\+::\+Utility\+::imag(), Cpp\+Noddy\+::\+Tracker\+File\+::push\+\_\+ptr(), Cpp\+Noddy\+::\+Example\+::\+Re, Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base\+::set\+\_\+shift(), Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::tag\+\_\+eigenvalues\+\_\+upper(), U, Cpp\+Noddy\+::\+Example\+::\+Udd(), and Cpp\+Noddy\+::\+Tracker\+File\+::update().
+

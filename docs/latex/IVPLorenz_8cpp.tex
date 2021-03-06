@@ -1,0 +1,103 @@
+\doxysubsection{Tests/\+I\+V\+P/\+I\+V\+P\+Lorenz.cpp File Reference}
+\label{IVPLorenz_8cpp}\index{Tests/IVP/IVPLorenz.cpp@{Tests/IVP/IVPLorenz.cpp}}
+{\ttfamily \#include $<$I\+V\+P\+\_\+bundle.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+Lorenz\+\_\+equations}
+\begin{DoxyCompactList}\small\item\em Define the Lorenz equations by inheriting \doxyref{Equation}{p.}{classCppNoddy_1_1Equation} base class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\item 
+ \textbf{ Cpp\+Noddy\+::\+Example}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Integrate the Lorenz equations \[ \dot x = a( y - x )\,,\quad \dot y = x ( b - z ) - y\,, \quad \dot z = -c z + xy\,, \] forward in time using an adaptive Runge-\/\+Kutta-\/\+Fehlberg routine. The parameters are chosen to be $ a=10 $, $ b = 7 $, $ c = 8/3 $. There is a fixed point solution $ (x,y,z) = (4,4,6) $, which is tested here. 
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{IVPLorenz_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{IVPLorenz.cpp@{IVPLorenz.cpp}!main@{main}}
+\index{main@{main}!IVPLorenz.cpp@{IVPLorenz.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 42 of file I\+V\+P\+Lorenz.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{45   cout << \textcolor{stringliteral}{"=== IVP: integrating the Lorenz system ==============\(\backslash\)n"};}
+\DoxyCodeLine{46   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{47   cout << \textcolor{stringliteral}{"   Running shoot method -\/ fixed step choice \(\backslash\)n"};}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   DenseVector<double> u( 3, 0.0 ), u\_init( 3, 0.0 );}
+\DoxyCodeLine{50   \textcolor{comment}{// initialise}}
+\DoxyCodeLine{51   u\_init[ 0 ] = 1.0;}
+\DoxyCodeLine{52   u\_init[ 1 ] = 1.0;}
+\DoxyCodeLine{53   u\_init[ 2 ] = 1.0;}
+\DoxyCodeLine{54   \textcolor{keyword}{const} \textcolor{keywordtype}{int} num\_of\_steps( 5000000 );}
+\DoxyCodeLine{55   \textcolor{comment}{// set up the problem.}}
+\DoxyCodeLine{56   Example::Lorenz\_equations problem;}
+\DoxyCodeLine{57   problem.a = 10.0;}
+\DoxyCodeLine{58   problem.b = 7.0;}
+\DoxyCodeLine{59   problem.c = 8.0 / 3.0;}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61   \textcolor{comment}{// Construct an ODE from the problem.}}
+\DoxyCodeLine{62   ODE\_IVP<double> ode( \&problem, 0.0, 200.0, num\_of\_steps );}
+\DoxyCodeLine{63   ode.store\_every() = 10;}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \textcolor{keyword}{const} \textcolor{keywordtype}{double} tol = 1.e-\/7;}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{67   Timer timer;}
+\DoxyCodeLine{68   timer.start();}
+\DoxyCodeLine{69   \textcolor{keywordflow}{do}}
+\DoxyCodeLine{70   \{}
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{72     \textcolor{keywordflow}{try}}
+\DoxyCodeLine{73     \{}
+\DoxyCodeLine{74       u = ode.shoot45( u\_init, tol, 0.1 );}
+\DoxyCodeLine{75     \}}
+\DoxyCodeLine{76     \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::runtime\_error \&error )}
+\DoxyCodeLine{77     \{}
+\DoxyCodeLine{78       cout << \textcolor{stringliteral}{" \(\backslash\)033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{79       \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{80     \}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{83     timer.counter()++;}
+\DoxyCodeLine{84   \}}
+\DoxyCodeLine{85   \textcolor{keywordflow}{while} ( timer.get\_time() < 5000.0 );}
+\DoxyCodeLine{86   timer.stop();}
+\DoxyCodeLine{87   timer.print();}
+\DoxyCodeLine{88 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90   cout.precision( 12 );}
+\DoxyCodeLine{91   \textcolor{keywordflow}{if} ( abs( u[ 0 ] -\/ 4.0 ) > tol )}
+\DoxyCodeLine{92   \{}
+\DoxyCodeLine{93     cout << \textcolor{stringliteral}{"    Difference = "} << abs( u[ 0 ] -\/ 4.0 ) << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{94     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{95   \}}
+\DoxyCodeLine{96   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{97   \{}
+\DoxyCodeLine{98     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{99   \}}
+\DoxyCodeLine{100   ode.get\_mesh().dump\_gnu(\textcolor{stringliteral}{"./DATA/test.dat"});}
+\DoxyCodeLine{101 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Timer\+::counter(), Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::dump\+\_\+gnu(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+I\+V\+P$<$ \+\_\+\+Type $>$\+::get\+\_\+mesh(), Cpp\+Noddy\+::\+Timer\+::get\+\_\+time(), Cpp\+Noddy\+::\+Timer\+::print(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+I\+V\+P$<$ \+\_\+\+Type $>$\+::shoot45(), Cpp\+Noddy\+::\+Timer\+::start(), Cpp\+Noddy\+::\+Timer\+::stop(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+I\+V\+P$<$ \+\_\+\+Type $>$\+::store\+\_\+every(), and u.
+

@@ -1,0 +1,169 @@
+\doxysubsection{Tests/\+E\+V\+P/\+E\+V\+P\+Orr\+Sommerfeld\+Neutral\+Curve\+\_\+lapack.cpp File Reference}
+\label{EVPOrrSommerfeldNeutralCurve__lapack_8cpp}\index{Tests/EVP/EVPOrrSommerfeldNeutralCurve\_lapack.cpp@{Tests/EVP/EVPOrrSommerfeldNeutralCurve\_lapack.cpp}}
+{\ttfamily \#include $<$cassert$>$}\newline
+{\ttfamily \#include $<$E\+V\+P\+\_\+bundle.\+h$>$}\newline
+{\ttfamily \#include $<$B\+V\+P\+\_\+bundle.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../\+Utils\+\_\+\+Fill.\+h\char`\"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+evp\+\_\+equation}
+\begin{DoxyCompactList}\small\item\em Define the OS equation for the global QZ E\+VP. \end{DoxyCompactList}\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+bvp\+\_\+equation}
+\begin{DoxyCompactList}\small\item\em Define the O\+SE for the local refinement procedure. \end{DoxyCompactList}\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+evp\+\_\+both\+\_\+\+BC}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+bvp\+\_\+left\+\_\+\+BC}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+O\+S\+\_\+bvp\+\_\+right\+\_\+\+BC}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+Neutral\+\_\+residual}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\item 
+ \textbf{ Cpp\+Noddy\+::\+Example}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \newline
+\textbf{ phi}, 
+\textbf{ phid}, 
+\textbf{ psi}, 
+\textbf{ psid}, 
+\newline
+\textbf{ eval}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \textbf{ Cpp\+Noddy\+::\+Example\+::U} (double y)
+\begin{DoxyCompactList}\small\item\em Globally define the base flow. \end{DoxyCompactList}\item 
+double \textbf{ Cpp\+Noddy\+::\+Example\+::\+Udd} (double y)
+\begin{DoxyCompactList}\small\item\em Globally define the base flow curvature. \end{DoxyCompactList}\item 
+int \textbf{ Cpp\+Noddy\+::\+Example\+::\+M\+A\+X\+\_\+\+R\+E\+F\+I\+NE} (3)
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+double \textbf{ Cpp\+Noddy\+::\+Example\+::wave\+\_\+speed}
+\begin{DoxyCompactList}\small\item\em The phase speed of the instability. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Enumeration Type Documentation}
+\mbox{\label{EVPOrrSommerfeldNeutralCurve__lapack_8cpp_aaf105ae5beaca1dee30ae54530691fce}} 
+\doxyparagraph{anonymous enum}
+{\footnotesize\ttfamily anonymous enum}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{phi@{phi}!EVPOrrSommerfeldNeutralCurve\_lapack.cpp@{EVPOrrSommerfeldNeutralCurve\_lapack.cpp}}\index{EVPOrrSommerfeldNeutralCurve\_lapack.cpp@{EVPOrrSommerfeldNeutralCurve\_lapack.cpp}!phi@{phi}}}\mbox{\label{EVPOrrSommerfeldNeutralCurve__lapack_8cpp_aaf105ae5beaca1dee30ae54530691fceacc026b1a09b99cfe9d1eefb44256d4ec}} 
+phi&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{phid@{phid}!EVPOrrSommerfeldNeutralCurve\_lapack.cpp@{EVPOrrSommerfeldNeutralCurve\_lapack.cpp}}\index{EVPOrrSommerfeldNeutralCurve\_lapack.cpp@{EVPOrrSommerfeldNeutralCurve\_lapack.cpp}!phid@{phid}}}\mbox{\label{EVPOrrSommerfeldNeutralCurve__lapack_8cpp_aaf105ae5beaca1dee30ae54530691fcea565f63fd5fe9d086011a6489ab4369b4}} 
+phid&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{psi@{psi}!EVPOrrSommerfeldNeutralCurve\_lapack.cpp@{EVPOrrSommerfeldNeutralCurve\_lapack.cpp}}\index{EVPOrrSommerfeldNeutralCurve\_lapack.cpp@{EVPOrrSommerfeldNeutralCurve\_lapack.cpp}!psi@{psi}}}\mbox{\label{EVPOrrSommerfeldNeutralCurve__lapack_8cpp_aaf105ae5beaca1dee30ae54530691fcea9be8e27151f60f2ba6b17564b7e49c20}} 
+psi&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{psid@{psid}!EVPOrrSommerfeldNeutralCurve\_lapack.cpp@{EVPOrrSommerfeldNeutralCurve\_lapack.cpp}}\index{EVPOrrSommerfeldNeutralCurve\_lapack.cpp@{EVPOrrSommerfeldNeutralCurve\_lapack.cpp}!psid@{psid}}}\mbox{\label{EVPOrrSommerfeldNeutralCurve__lapack_8cpp_aaf105ae5beaca1dee30ae54530691fcea96c3bbc1cc198199156c725dbecfa8c2}} 
+psid&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{eval@{eval}!EVPOrrSommerfeldNeutralCurve\_lapack.cpp@{EVPOrrSommerfeldNeutralCurve\_lapack.cpp}}\index{EVPOrrSommerfeldNeutralCurve\_lapack.cpp@{EVPOrrSommerfeldNeutralCurve\_lapack.cpp}!eval@{eval}}}\mbox{\label{EVPOrrSommerfeldNeutralCurve__lapack_8cpp_aaf105ae5beaca1dee30ae54530691fcea821ca3ef81ef548a3d66c69bc183e647}} 
+eval&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 24 of file E\+V\+P\+Orr\+Sommerfeld\+Neutral\+Curve\+\_\+lapack.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24 \{ phi, phid, psi, psid, eval \};}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{EVPOrrSommerfeldNeutralCurve__lapack_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{EVPOrrSommerfeldNeutralCurve\_lapack.cpp@{EVPOrrSommerfeldNeutralCurve\_lapack.cpp}!main@{main}}
+\index{main@{main}!EVPOrrSommerfeldNeutralCurve\_lapack.cpp@{EVPOrrSommerfeldNeutralCurve\_lapack.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 244 of file E\+V\+P\+Orr\+Sommerfeld\+Neutral\+Curve\+\_\+lapack.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{245 \{}
+\DoxyCodeLine{246   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{247   cout << \textcolor{stringliteral}{"=== EVP: Temporal OSE via the equation interface ====\(\backslash\)n"};}
+\DoxyCodeLine{248   cout << \textcolor{stringliteral}{"===  followed by local refinement of the eigenvalue  \(\backslash\)n"};}
+\DoxyCodeLine{249   cout << \textcolor{stringliteral}{"===  and arclength continuation of the neutral curve.\(\backslash\)n"};}
+\DoxyCodeLine{250   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{251 }
+\DoxyCodeLine{252   \textcolor{keywordtype}{double} tol = 1.e-\/8;}
+\DoxyCodeLine{253   \textcolor{keywordtype}{unsigned} initial\_QZ\_mesh = 121;}
+\DoxyCodeLine{254   DenseVector<double> Re( 1, 5750.0 );}
+\DoxyCodeLine{255   Example::alpha = 1.0;}
+\DoxyCodeLine{256   Example::Re = Re[0];}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{258   Example::Neutral\_residual residual\_problem( initial\_QZ\_mesh );}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260   Newton<double> newton( \&residual\_problem, 20, tol );}
+\DoxyCodeLine{261   newton.set\_monitor\_det( \textcolor{keyword}{false} );}
+\DoxyCodeLine{262   newton.rescale\_theta() = \textcolor{keyword}{true};}
+\DoxyCodeLine{263   newton.theta() = 0.00001;}
+\DoxyCodeLine{264   newton.init\_arc( Re, \&Example::alpha, 0.001, 0.01 );}
+\DoxyCodeLine{265 }
+\DoxyCodeLine{266   \textcolor{comment}{// set up the output file}}
+\DoxyCodeLine{267   std::string dirname(\textcolor{stringliteral}{"./DATA"});}
+\DoxyCodeLine{268   mkdir( dirname.c\_str(), S\_IRWXU );}
+\DoxyCodeLine{269   TrackerFile my\_file( \textcolor{stringliteral}{"DATA/neutral.dat"} );}
+\DoxyCodeLine{270   my\_file.precision( 8 );}
+\DoxyCodeLine{271   my\_file.push\_ptr( \&Re, \textcolor{stringliteral}{"Reynolds number"} );}
+\DoxyCodeLine{272   my\_file.push\_ptr( \&Example::alpha, \textcolor{stringliteral}{"Wavenumber"} );}
+\DoxyCodeLine{273   my\_file.push\_ptr( \&Example::wave\_speed, \textcolor{stringliteral}{"Phase speed"} );}
+\DoxyCodeLine{274   my\_file.header();}
+\DoxyCodeLine{275 }
+\DoxyCodeLine{276   \textcolor{keywordtype}{double} min\_Re( Re[ 0 ] );}
+\DoxyCodeLine{277   \textcolor{keywordflow}{do}}
+\DoxyCodeLine{278   \{}
+\DoxyCodeLine{279     \textcolor{keywordflow}{try} \{}
+\DoxyCodeLine{280       newton.arclength\_solve( Re );}
+\DoxyCodeLine{281     \} \textcolor{keywordflow}{catch} ( \textcolor{keyword}{const} ExceptionBifurcation \&bifn ) \{}
+\DoxyCodeLine{282     \}}
+\DoxyCodeLine{283     my\_file.update();}
+\DoxyCodeLine{284     min\_Re = std::min( Re[ 0 ], min\_Re );}
+\DoxyCodeLine{285   \}}
+\DoxyCodeLine{286   \textcolor{keywordflow}{while} ( Re[ 0 ] < 5820.0 );}
+\DoxyCodeLine{287 }
+\DoxyCodeLine{288   std::cout << \textcolor{stringliteral}{" Minimum Reynolds number (for this spatial resolution ) = "} << min\_Re << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{289   \textcolor{comment}{// the known minimum critical Re is approx 5772 at alpha =1.02}}
+\DoxyCodeLine{290   \textcolor{comment}{// increase MAX\_REFINE to get a closer value to 5772.}}
+\DoxyCodeLine{291   \textcolor{keywordflow}{if} ( std::abs( min\_Re -\/ 5772. ) < 30.0 )}
+\DoxyCodeLine{292   \{}
+\DoxyCodeLine{293     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{294     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{295   \}}
+\DoxyCodeLine{296   cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{297   \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{298 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::alpha, Cpp\+Noddy\+::\+Newton$<$ \+\_\+\+Type $>$\+::arclength\+\_\+solve(), Cpp\+Noddy\+::\+Tracker\+File\+::header(), Cpp\+Noddy\+::\+Arc\+Length\+\_\+base$<$ \+\_\+\+Type $>$\+::init\+\_\+arc(), Cpp\+Noddy\+::\+Tracker\+File\+::precision(), Cpp\+Noddy\+::\+Tracker\+File\+::push\+\_\+ptr(), Cpp\+Noddy\+::\+Example\+::\+Re, Cpp\+Noddy\+::\+Arc\+Length\+\_\+base$<$ \+\_\+\+Type $>$\+::rescale\+\_\+theta(), Cpp\+Noddy\+::\+Newton$<$ \+\_\+\+Type $>$\+::set\+\_\+monitor\+\_\+det(), Cpp\+Noddy\+::\+Arc\+Length\+\_\+base$<$ \+\_\+\+Type $>$\+::theta(), Cpp\+Noddy\+::\+Tracker\+File\+::update(), and Cpp\+Noddy\+::\+Example\+::wave\+\_\+speed.
+

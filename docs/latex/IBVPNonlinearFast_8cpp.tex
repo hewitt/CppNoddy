@@ -1,0 +1,167 @@
+\doxysubsection{Tests/double\+\_\+\+I\+B\+V\+P/\+I\+B\+V\+P\+Nonlinear\+Fast.cpp File Reference}
+\label{IBVPNonlinearFast_8cpp}\index{Tests/double\_IBVP/IBVPNonlinearFast.cpp@{Tests/double\_IBVP/IBVPNonlinearFast.cpp}}
+{\ttfamily \#include $<$I\+B\+V\+P\+\_\+double\+\_\+bundle.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../\+Utils\+\_\+\+Fill.\+h\char`\"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::nonlinear}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+B\+C\+\_\+lower}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+B\+C\+\_\+upper}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\item 
+ \textbf{ Cpp\+Noddy\+::\+Example}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \textbf{ U}, 
+\textbf{ Ud}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \textbf{ Cpp\+Noddy\+::\+Example\+::source} (const double \&x, const double \&y, const double \&t)
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Solving the nonlinear problem \[ -u u_x - u_t + u_{yy} = y^2 t^2 e^{-2x} - y e^{-x}\,, \] subject to $ u(x=0,y,t) = ty $, $ u(x,t=0,y) = 0 $ and $ f(x, y = 0,t ) = 0 $, $ f(x, y = 1,t ) = t $. The solution is computed over a range of $ t $ for $ (x,y) \in [0,10]\times [0,1] $ and the maximum deviation away from the exact solution $ u = yte^{-x} $ is found. The test fails if this deviation is larger than a set tolerance $ \tau $. The example is solved using the P\+D\+E\+\_\+double\+\_\+\+I\+B\+VP for problems that are parabolic in 2 coordinates $ (x,t) $ with a B\+VP in $ y $. This is the `fast' version in which a number of default finite-\/differenced methods are overloaded with their analytic versions. 
+
+\doxysubsubsection{Enumeration Type Documentation}
+\mbox{\label{IBVPNonlinearFast_8cpp_abc5c98fcc1211af2b80116dd6e0a035d}} 
+\doxyparagraph{anonymous enum}
+{\footnotesize\ttfamily anonymous enum}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U@{U}!IBVPNonlinearFast.cpp@{IBVPNonlinearFast.cpp}}\index{IBVPNonlinearFast.cpp@{IBVPNonlinearFast.cpp}!U@{U}}}\mbox{\label{IBVPNonlinearFast_8cpp_abc5c98fcc1211af2b80116dd6e0a035dac461e84f27bbb236874e1011cd66031f}} 
+U&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Ud@{Ud}!IBVPNonlinearFast.cpp@{IBVPNonlinearFast.cpp}}\index{IBVPNonlinearFast.cpp@{IBVPNonlinearFast.cpp}!Ud@{Ud}}}\mbox{\label{IBVPNonlinearFast_8cpp_abc5c98fcc1211af2b80116dd6e0a035dae3fe7b6f745ea6be7e92f8c854abfb4f}} 
+Ud&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 20 of file I\+B\+V\+P\+Nonlinear\+Fast.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{20 \{ U, Ud \};}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{IBVPNonlinearFast_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{IBVPNonlinearFast.cpp@{IBVPNonlinearFast.cpp}!main@{main}}
+\index{main@{main}!IBVPNonlinearFast.cpp@{IBVPNonlinearFast.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 123 of file I\+B\+V\+P\+Nonlinear\+Fast.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{124 \{}
+\DoxyCodeLine{125   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{126   cout << \textcolor{stringliteral}{"=== double\_IBVP: non-\/constant mass matrix example ===\(\backslash\)n"};}
+\DoxyCodeLine{127   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129   \textcolor{comment}{// instantiate the problem}}
+\DoxyCodeLine{130   Example::nonlinear problem;}
+\DoxyCodeLine{131   Example::BC\_lower BC\_bottom;}
+\DoxyCodeLine{132   Example::BC\_upper BC\_top;}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134   \textcolor{comment}{// domain definition}}
+\DoxyCodeLine{135   \textcolor{keywordtype}{double} top = 1.0;}
+\DoxyCodeLine{136   \textcolor{keywordtype}{double} bottom = 0.0;}
+\DoxyCodeLine{137   \textcolor{keywordtype}{double} left = 0.0;}
+\DoxyCodeLine{138   \textcolor{keywordtype}{double} right = 10.0;}
+\DoxyCodeLine{139   \textcolor{comment}{// number of (spatial) nodal points}}
+\DoxyCodeLine{140   \textcolor{keywordtype}{unsigned} ny = 11;}
+\DoxyCodeLine{141   \textcolor{keywordtype}{unsigned} nx = 1001;}
+\DoxyCodeLine{142   \textcolor{comment}{// time and time step}}
+\DoxyCodeLine{143   \textcolor{keywordtype}{double} t\_end = 1.;}
+\DoxyCodeLine{144   \textcolor{keywordtype}{double} dt = 0.01;}
+\DoxyCodeLine{145 }
+\DoxyCodeLine{146   \textcolor{comment}{// construct our IBVP}}
+\DoxyCodeLine{147   PDE\_double\_IBVP<double> nlin( \&problem,}
+\DoxyCodeLine{148                                 Utility::uniform\_node\_vector( left, right, nx ),}
+\DoxyCodeLine{149                                 Utility::uniform\_node\_vector( bottom, top, ny ),}
+\DoxyCodeLine{150                                 \&BC\_bottom, \&BC\_top );}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152   \textcolor{comment}{// initial conditions}}
+\DoxyCodeLine{153   \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{unsigned} i = 0; i < nx; ++i )}
+\DoxyCodeLine{154   \{}
+\DoxyCodeLine{155     \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{unsigned} j = 0; j < ny; ++j )}
+\DoxyCodeLine{156     \{}
+\DoxyCodeLine{157       nlin.solution()( i, j, U ) = 0.0;}
+\DoxyCodeLine{158       nlin.solution()( i, j, Ud ) = 0.0;}
+\DoxyCodeLine{159     \}}
+\DoxyCodeLine{160   \}}
+\DoxyCodeLine{161 }
+\DoxyCodeLine{162   \textcolor{keywordtype}{double} max\_error( 0.0 );}
+\DoxyCodeLine{163   \textcolor{keywordtype}{int} counter( 0 );}
+\DoxyCodeLine{164   \textcolor{keywordflow}{do}}
+\DoxyCodeLine{165   \{}
+\DoxyCodeLine{166     \textcolor{comment}{// inlet profile is time dependent, so we set it here for the next time level}}
+\DoxyCodeLine{167     nlin.update\_previous\_solution();}
+\DoxyCodeLine{168     \textcolor{comment}{// now we can alter the solution stored in the double\_IBVP class to define}}
+\DoxyCodeLine{169     \textcolor{comment}{// the desired x=0 'initial' conditions at the next time step}}
+\DoxyCodeLine{170     \textcolor{keywordtype}{double} t\_next = nlin.t() + dt;}
+\DoxyCodeLine{171     \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{unsigned} j = 0; j < ny; ++j )}
+\DoxyCodeLine{172     \{}
+\DoxyCodeLine{173       \textcolor{keywordtype}{double} y = nlin.solution().coord( 0, j ).second;}
+\DoxyCodeLine{174       nlin.solution()( 0, j, U ) = t\_next * y;}
+\DoxyCodeLine{175       nlin.solution()( 0, j, Ud ) = t\_next;}
+\DoxyCodeLine{176     \}}
+\DoxyCodeLine{177     nlin.step2( dt );}
+\DoxyCodeLine{178     \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{unsigned} i = 0; i < nx; ++i )}
+\DoxyCodeLine{179     \{}
+\DoxyCodeLine{180       \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{unsigned} j = 0; j < ny; ++j )}
+\DoxyCodeLine{181       \{}
+\DoxyCodeLine{182         \textcolor{keywordtype}{double} x = nlin.solution().coord( i, j ).first;}
+\DoxyCodeLine{183         \textcolor{keywordtype}{double} y = nlin.solution().coord( i, j ).second;}
+\DoxyCodeLine{184         \textcolor{keywordtype}{double} exact\_u = y * nlin.t() * exp( -\/ x );}
+\DoxyCodeLine{185         max\_error = max( max\_error, abs( exact\_u -\/ nlin.solution()( i, j, U ) ) );}
+\DoxyCodeLine{186       \}}
+\DoxyCodeLine{187     \}}
+\DoxyCodeLine{188     ++counter;}
+\DoxyCodeLine{189   \}}
+\DoxyCodeLine{190   \textcolor{keywordflow}{while} ( nlin.t() < t\_end );}
+\DoxyCodeLine{191 }
+\DoxyCodeLine{192   \textcolor{keyword}{const} \textcolor{keywordtype}{double} tol( 1.e-\/4 );}
+\DoxyCodeLine{193   \textcolor{comment}{// check the error from the exact solution}}
+\DoxyCodeLine{194   \textcolor{keywordflow}{if} ( max\_error > tol )}
+\DoxyCodeLine{195   \{}
+\DoxyCodeLine{196     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{197     cout << \textcolor{stringliteral}{" Difference = "} << max\_error << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{198     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{199   \}}
+\DoxyCodeLine{200   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{201   \{}
+\DoxyCodeLine{202     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{203     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{204   \}}
+\DoxyCodeLine{205 }
+\DoxyCodeLine{206 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+P\+D\+E\+\_\+double\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$\+::solution(), Cpp\+Noddy\+::\+P\+D\+E\+\_\+double\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$\+::step2(), Cpp\+Noddy\+::\+P\+D\+E\+\_\+double\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$\+::t(), U, Ud, Cpp\+Noddy\+::\+Utility\+::uniform\+\_\+node\+\_\+vector(), and Cpp\+Noddy\+::\+P\+D\+E\+\_\+double\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$\+::update\+\_\+previous\+\_\+solution().
+

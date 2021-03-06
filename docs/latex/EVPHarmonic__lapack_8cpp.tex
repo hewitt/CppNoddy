@@ -1,0 +1,109 @@
+\doxysubsection{Tests/\+E\+V\+P/\+E\+V\+P\+Harmonic\+\_\+lapack.cpp File Reference}
+\label{EVPHarmonic__lapack_8cpp}\index{Tests/EVP/EVPHarmonic\_lapack.cpp@{Tests/EVP/EVPHarmonic\_lapack.cpp}}
+{\ttfamily \#include $<$Utility.\+h$>$}\newline
+{\ttfamily \#include $<$E\+V\+P\+\_\+bundle.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../\+Utils\+\_\+\+Fill.\+h\char`\"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Solves the harmonic equation \[ f\textnormal{\textquotesingle}\textnormal{\textquotesingle}(x) + \lambda f(x) = 0 \] as an eigenvalue problem for $ \lambda $ over the unit domain with homogeneous boundary conditions for $ f(x) $, returning any eigenvalue(s) with absolute value less than 10. The resulting eigenvalues should approach $ m^2 \pi^2 $ as $n \to \infty $ with $ O(\Delta^2)$ corrections where $ \Delta = 1/(n-1) $ and $ n $ is the number of nodal points in the FD representation; a 2nd order central difference representation of \[ f\textnormal{\textquotesingle}\textnormal{\textquotesingle}(x_i) + \lambda f(x_i) = \frac{ f_{i-1} - 2f_i + f_{i+1} }{ \Delta^2 } + \lambda f_i + O(\Delta^2) \] is used. The matrix problem is solved for all eigenvalues within a specified distance of the origin of the comlplex plane by calling the L\+A\+P\+A\+CK generalised eigenvalue routine. 
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{EVPHarmonic__lapack_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{EVPHarmonic\_lapack.cpp@{EVPHarmonic\_lapack.cpp}!main@{main}}
+\index{main@{main}!EVPHarmonic\_lapack.cpp@{EVPHarmonic\_lapack.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 25 of file E\+V\+P\+Harmonic\+\_\+lapack.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{28   cout << \textcolor{stringliteral}{"=== EVP: Harmonic equation solved using LAPACK  =====\(\backslash\)n"};}
+\DoxyCodeLine{29   cout << \textcolor{stringliteral}{"===  with a manually assembled matrix problem.\(\backslash\)n"};}
+\DoxyCodeLine{30   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32   cout.precision( 12 );}
+\DoxyCodeLine{33   cout << \textcolor{stringliteral}{" Number of nodal points : Leading eigenvalue error : Total CPU time taken (ms) \(\backslash\)n"};}
+\DoxyCodeLine{34   \textcolor{keywordtype}{bool} failed = \textcolor{keyword}{false};}
+\DoxyCodeLine{35   \textcolor{keywordtype}{size\_t} N = 4;}
+\DoxyCodeLine{36   \textcolor{comment}{// a vector for the eigenvalues}}
+\DoxyCodeLine{37   DenseVector<D\_complex> lambdas;}
+\DoxyCodeLine{38   Timer timer;}
+\DoxyCodeLine{39   \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{int} i = 2; i < 11; ++i )}
+\DoxyCodeLine{40   \{}
+\DoxyCodeLine{41     N = ( size\_t ) ( std::pow( 2., i ) );}
+\DoxyCodeLine{42     \textcolor{keyword}{const} \textcolor{keywordtype}{double} delta = 1. / ( N -\/ 1 );}
+\DoxyCodeLine{43     \textcolor{keyword}{const} \textcolor{keywordtype}{double} delta2 = delta * delta;}
+\DoxyCodeLine{44     \textcolor{comment}{// matrix problem}}
+\DoxyCodeLine{45     DenseMatrix<double> a( N, N, 0.0 );}
+\DoxyCodeLine{46     \textcolor{comment}{// Finite difference representation of f''(x)}}
+\DoxyCodeLine{47     \textcolor{comment}{// here it's a a tri-\/diagonal system}}
+\DoxyCodeLine{48     Utils\_Fill::fill\_band(a,-\/1, 1.0/delta2);}
+\DoxyCodeLine{49     Utils\_Fill::fill\_band(a, 0,-\/2.0/delta2);}
+\DoxyCodeLine{50     Utils\_Fill::fill\_band(a, 1, 1.0/delta2);}
+\DoxyCodeLine{51     \textcolor{comment}{// overwrite with boundary conditions at f(0) = f(1) = 0}}
+\DoxyCodeLine{52     a( 0, 0 ) = 1.0;}
+\DoxyCodeLine{53     a( 0, 1 ) = 0.0;}
+\DoxyCodeLine{54     a( N -\/ 1, N -\/ 1 ) = 1.0;}
+\DoxyCodeLine{55     a( N -\/ 1, N -\/ 2 ) = 0.0;}
+\DoxyCodeLine{56     \textcolor{comment}{// not a generalised problem -\/ but we'll apply that routine anyway}}
+\DoxyCodeLine{57     \textcolor{comment}{// b is the RHS matrix, so it's -\/I}}
+\DoxyCodeLine{58     DenseMatrix<double> b( N, N, 0.0 );}
+\DoxyCodeLine{59     Utils\_Fill::fill\_identity( b );}
+\DoxyCodeLine{60     b.scale( -\/1.0 );}
+\DoxyCodeLine{61     b( 0, 0 ) = 0.0;}
+\DoxyCodeLine{62     b( N -\/ 1, N -\/ 1 ) = 0.0;}
+\DoxyCodeLine{63     \textcolor{comment}{// a vector for the eigenvectors -\/ although we won't use them}}
+\DoxyCodeLine{64     DenseMatrix<D\_complex> eigenvectors;}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66     DenseLinearEigenSystem<double> system( \&a, \&b );}
+\DoxyCodeLine{67     system.set\_calc\_eigenvectors( \textcolor{keyword}{true} );}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     timer.start();}
+\DoxyCodeLine{70     \textcolor{keywordflow}{try}}
+\DoxyCodeLine{71     \{}
+\DoxyCodeLine{72       system.eigensolve();}
+\DoxyCodeLine{73     \}}
+\DoxyCodeLine{74     \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::runtime\_error \&error )}
+\DoxyCodeLine{75     \{}
+\DoxyCodeLine{76       cout << \textcolor{stringliteral}{" \(\backslash\)033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{77       \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{78     \}}
+\DoxyCodeLine{79     system.tag\_eigenvalues\_disc( + 1, 10. );}
+\DoxyCodeLine{80     lambdas = system.get\_tagged\_eigenvalues();}
+\DoxyCodeLine{81     eigenvectors = system.get\_tagged\_eigenvectors();}
+\DoxyCodeLine{82     cout << \textcolor{stringliteral}{"    "} << N << \textcolor{stringliteral}{" : "} << lambdas[ 0 ].real() -\/ M\_PI * M\_PI}
+\DoxyCodeLine{83          << \textcolor{stringliteral}{" : "} << timer.get\_time() << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{84     timer.stop();}
+\DoxyCodeLine{85   \}}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87   \textcolor{keyword}{const} \textcolor{keywordtype}{double} tol = 1.e-\/4;}
+\DoxyCodeLine{88   \textcolor{keywordflow}{if} ( abs( lambdas[ 0 ].real() -\/ M\_PI * M\_PI ) > tol )}
+\DoxyCodeLine{89     failed = \textcolor{keyword}{true};}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91   \textcolor{keywordflow}{if} ( failed )}
+\DoxyCodeLine{92   \{}
+\DoxyCodeLine{93     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{94     cout << \textcolor{stringliteral}{"    Final error = "} << abs( lambdas[ 0 ].real() -\/ M\_PI * M\_PI ) << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{95     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{96   \}}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98   cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{99   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{100 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::eigensolve(), Cpp\+Noddy\+::\+Example\+::failed, Utils\+\_\+\+Fill\+::fill\+\_\+band(), Utils\+\_\+\+Fill\+::fill\+\_\+identity(), Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::get\+\_\+tagged\+\_\+eigenvalues(), Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::get\+\_\+tagged\+\_\+eigenvectors(), Cpp\+Noddy\+::\+Timer\+::get\+\_\+time(), Cpp\+Noddy\+::\+Utility\+::real(), Cpp\+Noddy\+::\+Dense\+Matrix$<$ \+\_\+\+Type $>$\+::scale(), Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base\+::set\+\_\+calc\+\_\+eigenvectors(), Cpp\+Noddy\+::\+Timer\+::start(), Cpp\+Noddy\+::\+Timer\+::stop(), and Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::tag\+\_\+eigenvalues\+\_\+disc().
+

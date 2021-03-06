@@ -99,6 +99,14 @@ int main()
 
   delete[] B;
 
+
+  cout << "The % slow-down for a DenseMatrix was " <<
+    100.0 * ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) << "\n";
+
+  cout << "The % slow-down for a TwoD_Node_Mesh was " <<
+    100.0 * ( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) << "\n";
+
+  
   bool failed( false );
   // fail if there is more than a 5% overhead between DenseMatrix & native
   if ( ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) > 0.05 )
@@ -118,10 +126,12 @@ int main()
   if ( failed )
   {
     cout << "\033[1;31;48m  * FAILED \033[0m\n";
+    return 1;
   }
   else
   {
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
+    return 0;
   }
 
 }

@@ -1,0 +1,90 @@
+\doxysubsection{Cpp\+Noddy\+::Example\+::Troesch\+\_\+right\+\_\+\+BC$<$ \+\_\+\+Type $>$ Class Template Reference}
+\label{classCppNoddy_1_1Example_1_1Troesch__right__BC}\index{CppNoddy::Example::Troesch\_right\_BC$<$ \_Type $>$@{CppNoddy::Example::Troesch\_right\_BC$<$ \_Type $>$}}
+Inheritance diagram for Cpp\+Noddy\+::Example\+::Troesch\+\_\+right\+\_\+\+BC$<$ \+\_\+\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCppNoddy_1_1Example_1_1Troesch__right__BC}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Troesch\+\_\+right\+\_\+\+BC} ()
+\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&B) const
+\begin{DoxyCompactList}\small\item\em A blank virtual residual function method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type$>$\newline
+class Cpp\+Noddy\+::\+Example\+::\+Troesch\+\_\+right\+\_\+\+B\+C$<$ \+\_\+\+Type $>$}
+
+
+
+Definition at line 57 of file B\+V\+P\+Troesch.\+cpp.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Troesch__right__BC_a132ff81ac6b6ca9e83afd4484bf68c5d}} 
+\index{CppNoddy::Example::Troesch\_right\_BC$<$ \_Type $>$@{CppNoddy::Example::Troesch\_right\_BC$<$ \_Type $>$}!Troesch\_right\_BC@{Troesch\_right\_BC}}
+\index{Troesch\_right\_BC@{Troesch\_right\_BC}!CppNoddy::Example::Troesch\_right\_BC$<$ \_Type $>$@{CppNoddy::Example::Troesch\_right\_BC$<$ \_Type $>$}}
+\doxyparagraph{Troesch\_right\_BC()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Example\+::\+Troesch\+\_\+right\+\_\+\+BC}$<$ \+\_\+\+Type $>$\+::\textbf{ Troesch\+\_\+right\+\_\+\+BC} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 60 of file B\+V\+P\+Troesch.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60 : Residual<\_Type> ( 1, 2 ) \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Troesch__right__BC_a41c5013426f74a26225327126a6c501e}} 
+\index{CppNoddy::Example::Troesch\_right\_BC$<$ \_Type $>$@{CppNoddy::Example::Troesch\_right\_BC$<$ \_Type $>$}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::Troesch\_right\_BC$<$ \_Type $>$@{CppNoddy::Example::Troesch\_right\_BC$<$ \_Type $>$}}
+\doxyparagraph{residual\_fn()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Example\+::\+Troesch\+\_\+right\+\_\+\+BC}$<$ \+\_\+\+Type $>$\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{state,  }\item[{\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+A blank virtual residual function method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The unknown variable. \\
+\hline
+{\em f} & The residual function f(x). \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 62 of file B\+V\+P\+Troesch.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{63       \{}
+\DoxyCodeLine{64         B[ 0 ] = z[ f ] -\/ 1.;}
+\DoxyCodeLine{65       \}}
+
+\end{DoxyCode}
+
+
+References f, and Cpp\+Noddy\+::\+Example\+::z().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tests/\+B\+V\+P/\textbf{ B\+V\+P\+Troesch.\+cpp}\end{DoxyCompactItemize}

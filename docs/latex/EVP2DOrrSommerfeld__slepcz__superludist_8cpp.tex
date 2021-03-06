@@ -1,0 +1,504 @@
+\doxysubsection{Tests/\+E\+V\+P/\+E\+V\+P2\+D\+Orr\+Sommerfeld\+\_\+slepcz\+\_\+superludist.cpp File Reference}
+\label{EVP2DOrrSommerfeld__slepcz__superludist_8cpp}\index{Tests/EVP/EVP2DOrrSommerfeld\_slepcz\_superludist.cpp@{Tests/EVP/EVP2DOrrSommerfeld\_slepcz\_superludist.cpp}}
+{\ttfamily \#include $<$cassert$>$}\newline
+{\ttfamily \#include $<$Utility.\+h$>$}\newline
+{\ttfamily \#include $<$Sparse\+Matrix.\+h$>$}\newline
+{\ttfamily \#include $<$Sparse\+Linear\+Eigen\+System.\+h$>$}\newline
+{\ttfamily \#include $<$Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh.\+h$>$}\newline
+{\ttfamily \#include $<$Two\+D\+\_\+\+Node\+\_\+\+Mesh.\+h$>$}\newline
+{\ttfamily \#include $<$Slepc\+Session.\+h$>$}\newline
+{\ttfamily \#include $<$Tracker\+File.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Example}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ T\+Y\+P\+EI}
+\item 
+\#define \textbf{ V\+\_\+\+E\+V\+E\+N\+\_\+Y}
+\item 
+\#define \textbf{ V\+\_\+\+E\+V\+E\+N\+\_\+Z}
+\item 
+\#define \textbf{ W\+\_\+\+O\+D\+D\+\_\+Y}
+\item 
+\#define \textbf{ W\+\_\+\+O\+D\+D\+\_\+Z}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ main} (int argc, char $\ast$argv[$\,$])
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Macro Definition Documentation}
+\mbox{\label{EVP2DOrrSommerfeld__slepcz__superludist_8cpp_a78bf92bd2e6c14cd11647383311f59da}} 
+\index{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp@{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp}!TYPEI@{TYPEI}}
+\index{TYPEI@{TYPEI}!EVP2DOrrSommerfeld\_slepcz\_superludist.cpp@{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp}}
+\doxyparagraph{TYPEI}
+{\footnotesize\ttfamily \#define T\+Y\+P\+EI}
+
+
+
+Definition at line 24 of file E\+V\+P2\+D\+Orr\+Sommerfeld\+\_\+slepcz\+\_\+superludist.\+cpp.
+
+\mbox{\label{EVP2DOrrSommerfeld__slepcz__superludist_8cpp_a75fc0aed004b1316beb2d002e4c5d8af}} 
+\index{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp@{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp}!V\_EVEN\_Y@{V\_EVEN\_Y}}
+\index{V\_EVEN\_Y@{V\_EVEN\_Y}!EVP2DOrrSommerfeld\_slepcz\_superludist.cpp@{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp}}
+\doxyparagraph{V\_EVEN\_Y}
+{\footnotesize\ttfamily \#define V\+\_\+\+E\+V\+E\+N\+\_\+Y}
+
+
+
+Definition at line 27 of file E\+V\+P2\+D\+Orr\+Sommerfeld\+\_\+slepcz\+\_\+superludist.\+cpp.
+
+\mbox{\label{EVP2DOrrSommerfeld__slepcz__superludist_8cpp_a89a5ba068b590cdc0fe47f914dd1f030}} 
+\index{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp@{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp}!V\_EVEN\_Z@{V\_EVEN\_Z}}
+\index{V\_EVEN\_Z@{V\_EVEN\_Z}!EVP2DOrrSommerfeld\_slepcz\_superludist.cpp@{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp}}
+\doxyparagraph{V\_EVEN\_Z}
+{\footnotesize\ttfamily \#define V\+\_\+\+E\+V\+E\+N\+\_\+Z}
+
+
+
+Definition at line 28 of file E\+V\+P2\+D\+Orr\+Sommerfeld\+\_\+slepcz\+\_\+superludist.\+cpp.
+
+\mbox{\label{EVP2DOrrSommerfeld__slepcz__superludist_8cpp_a0d0c52f517e4047a738c68e3bc2ffdfd}} 
+\index{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp@{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp}!W\_ODD\_Y@{W\_ODD\_Y}}
+\index{W\_ODD\_Y@{W\_ODD\_Y}!EVP2DOrrSommerfeld\_slepcz\_superludist.cpp@{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp}}
+\doxyparagraph{W\_ODD\_Y}
+{\footnotesize\ttfamily \#define W\+\_\+\+O\+D\+D\+\_\+Y}
+
+
+
+Definition at line 46 of file E\+V\+P2\+D\+Orr\+Sommerfeld\+\_\+slepcz\+\_\+superludist.\+cpp.
+
+\mbox{\label{EVP2DOrrSommerfeld__slepcz__superludist_8cpp_a8cf24c76def71c78058c6fe90f7e3662}} 
+\index{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp@{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp}!W\_ODD\_Z@{W\_ODD\_Z}}
+\index{W\_ODD\_Z@{W\_ODD\_Z}!EVP2DOrrSommerfeld\_slepcz\_superludist.cpp@{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp}}
+\doxyparagraph{W\_ODD\_Z}
+{\footnotesize\ttfamily \#define W\+\_\+\+O\+D\+D\+\_\+Z}
+
+
+
+Definition at line 50 of file E\+V\+P2\+D\+Orr\+Sommerfeld\+\_\+slepcz\+\_\+superludist.\+cpp.
+
+
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{EVP2DOrrSommerfeld__slepcz__superludist_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp@{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp}!main@{main}}
+\index{main@{main}!EVP2DOrrSommerfeld\_slepcz\_superludist.cpp@{EVP2DOrrSommerfeld\_slepcz\_superludist.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv[$\,$] }\end{DoxyParamCaption})}
+
+
+
+Definition at line 139 of file E\+V\+P2\+D\+Orr\+Sommerfeld\+\_\+slepcz\+\_\+superludist.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{140 \{}
+\DoxyCodeLine{141   SlepcSession::getInstance(argc,argv);}
+\DoxyCodeLine{142   }
+\DoxyCodeLine{143   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{144   cout << \textcolor{stringliteral}{"=== EVP: Temporal spectra of the 2D Orr-\/Sommerfeld eqn =\(\backslash\)n"};}
+\DoxyCodeLine{145   cout << \textcolor{stringliteral}{"===  with a matrix problem assembled by hand using     =\(\backslash\)n"};}
+\DoxyCodeLine{146   cout << \textcolor{stringliteral}{"===  the formulation of Tatsumi and Yoshimura (1990).  =\(\backslash\)n"};}
+\DoxyCodeLine{147   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{149   \textcolor{keyword}{enum} \{v,w,F,G\};}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{151   \textcolor{comment}{// duct aspect ratio}}
+\DoxyCodeLine{152   \textcolor{keyword}{const} \textcolor{keywordtype}{double} A(6.0);}
+\DoxyCodeLine{153   \textcolor{comment}{// streamwise wavenumber and Reynolds number}}
+\DoxyCodeLine{154   \textcolor{keyword}{const} \textcolor{keywordtype}{double} alpha ( 0.94 );}
+\DoxyCodeLine{155   \textcolor{keywordtype}{double} Re ( 8200.0 ); }
+\DoxyCodeLine{156   \textcolor{keyword}{const} D\_complex eye( 0.0, 1.0 );}
+\DoxyCodeLine{157   }
+\DoxyCodeLine{158   \textcolor{comment}{// discretise with these many nodal points}}
+\DoxyCodeLine{159   \textcolor{keyword}{const} std::size\_t NZ( 251 );}
+\DoxyCodeLine{160   \textcolor{keyword}{const} std::size\_t NY( 251 );}
+\DoxyCodeLine{161   \textcolor{comment}{//}}
+\DoxyCodeLine{162   \textcolor{comment}{//}}
+\DoxyCodeLine{163   Example::My\_Mesh<double> base( -\/A, 0.0, -\/1.0, 0.0, NZ, NY, 1 );}
+\DoxyCodeLine{164   \textcolor{comment}{//}}
+\DoxyCodeLine{165   \textcolor{keywordflow}{for} ( std::size\_t i = 0; i < NZ; ++i )}
+\DoxyCodeLine{166     \{}
+\DoxyCodeLine{167       \textcolor{keywordflow}{for} ( std::size\_t j = 0; j < NY; ++j )}
+\DoxyCodeLine{168         \{}
+\DoxyCodeLine{169           \textcolor{keywordtype}{double} Z = base.coord(i,j).first;}
+\DoxyCodeLine{170           \textcolor{keywordtype}{double} Y = base.coord(i,j).second;}
+\DoxyCodeLine{171           \textcolor{keywordtype}{double} sum = 1.0 -\/ Y*Y;}
+\DoxyCodeLine{172           \textcolor{keywordflow}{for} ( std::size\_t n = 0; n < 1000; ++n )}
+\DoxyCodeLine{173             \{}
+\DoxyCodeLine{174               \textcolor{keywordtype}{double} C = (2*n+1)*M\_PI/2.0;}
+\DoxyCodeLine{175               \textcolor{keywordtype}{double} term = cos(C*Y)*(exp(C*(Z-\/A))+exp(-\/C*(Z+A)))/(1+exp(-\/2*C*A));}
+\DoxyCodeLine{176               sum -\/= 4*std::pow(2./M\_PI,3)*std::pow(-\/1.0,n)*term/std::pow(2*n+1,3);}
+\DoxyCodeLine{177             \}}
+\DoxyCodeLine{178           base(i,j,0) = sum;}
+\DoxyCodeLine{179         \}}
+\DoxyCodeLine{180     \}}
+\DoxyCodeLine{181   base.dump\_gnu(\textcolor{stringliteral}{"./DATA/U.dat"});}
+\DoxyCodeLine{182   }
+\DoxyCodeLine{183 }
+\DoxyCodeLine{184   \textcolor{comment}{// we'll solve as FOUR equations}}
+\DoxyCodeLine{185   \textcolor{keyword}{const} std::size\_t N( 4*NZ*NY  );}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187   cout << \textcolor{stringliteral}{"There are "} << N << \textcolor{stringliteral}{" degrees of freedom in this problem.\(\backslash\)n"};}
+\DoxyCodeLine{188   }
+\DoxyCodeLine{189   \textcolor{comment}{// spatial step for the uniform computational-\/domain mesh}}
+\DoxyCodeLine{190   \textcolor{keyword}{const} \textcolor{keywordtype}{double} DZ = base.get\_comp\_step\_sizes().first;}
+\DoxyCodeLine{191   \textcolor{keyword}{const} \textcolor{keywordtype}{double} DY = base.get\_comp\_step\_sizes().second;}
+\DoxyCodeLine{192   \textcolor{comment}{//std::cout << " DZ = " << DZ << " DY = " << DY << "\(\backslash\)n";}}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{194   \textcolor{comment}{// matrices for the EVP, initialised with zeroes}}
+\DoxyCodeLine{195 \textcolor{preprocessor}{\#ifdef DENSE}}
+\DoxyCodeLine{196   DenseMatrix<D\_complex> a( N, N, 0.0 );}
+\DoxyCodeLine{197   DenseMatrix<D\_complex> b( N, N, 0.0 );}
+\DoxyCodeLine{198 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{199   SparseMatrix<D\_complex> a( N, N );}
+\DoxyCodeLine{200   SparseMatrix<D\_complex> b( N, N );}
+\DoxyCodeLine{201 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{202   }
+\DoxyCodeLine{203   std::size\_t dof\_per\_i( 4*NY );}
+\DoxyCodeLine{204   \textcolor{comment}{//}}
+\DoxyCodeLine{205   \textcolor{keywordflow}{for} ( std::size\_t j = 0; j < NY; ++j )}
+\DoxyCodeLine{206     \{}
+\DoxyCodeLine{207       \textcolor{keyword}{const} std::size\_t i(0);}
+\DoxyCodeLine{208       \textcolor{comment}{// left boundary conditions for the duct}}
+\DoxyCodeLine{209       \textcolor{keyword}{const} std::size\_t O( i*4*NY );}
+\DoxyCodeLine{210       std::size\_t k( j*4 );}
+\DoxyCodeLine{211       \textcolor{comment}{// coordinate mapping}}
+\DoxyCodeLine{212       \textcolor{keywordtype}{double} Z( base.coord(i,j).first );}
+\DoxyCodeLine{213       \textcolor{keywordtype}{double} KZd( base.FnComp\_Xd( Z ) );}
+\DoxyCodeLine{214       \textcolor{keywordtype}{double} KZdd( base.FnComp\_Xdd( Z ) );}
+\DoxyCodeLine{215       \textcolor{comment}{// v = 0}}
+\DoxyCodeLine{216       a( O+k+0, O+k + v ) = 1.0;}
+\DoxyCodeLine{217       \textcolor{comment}{// w = 0}}
+\DoxyCodeLine{218       a( O+k+1, O+k + w ) = 1.0;}
+\DoxyCodeLine{219       \textcolor{comment}{// definition of F with w=0 for all y and 2nd order 1-\/sided diff.}}
+\DoxyCodeLine{220       a( O+k+2, O+k + dof\_per\_i + v ) = -\/5.0*(eye/(alpha*Re))*KZd*KZd/(DZ*DZ)}
+\DoxyCodeLine{221         + 4.0*(eye/(alpha*Re))*KZdd/(2.0*DZ); }
+\DoxyCodeLine{222       a( O+k+2, O+k + 2*dof\_per\_i + v ) = 4.0*(eye/(alpha*Re))*KZd*KZd/(DZ*DZ)}
+\DoxyCodeLine{223         -\/ 1.0*(eye/(alpha*Re))*KZdd/(2.0*DZ); }
+\DoxyCodeLine{224       a( O+k+2, O+k + 3*dof\_per\_i + v ) = -\/1.0*(eye/(alpha*Re))*KZd*KZd/(DZ*DZ);}
+\DoxyCodeLine{225       a( O+k+2, O+k + F ) = -\/1.0;}
+\DoxyCodeLine{226       \textcolor{comment}{// definition of G -\/-\/ building in w\_z = 0 with high order scheme}}
+\DoxyCodeLine{227       a( O+k+3, O+k + dof\_per\_i + w ) = 10.0*(eye/(alpha*Re))*KZd*KZd/(3*DZ*DZ);}
+\DoxyCodeLine{228       a( O+k+3, O+k + 2*dof\_per\_i + w ) = -\/1.0*(eye/(alpha*Re))*KZd*KZd/(3*DZ*DZ);}
+\DoxyCodeLine{229       a( O+k+3, O+k + G ) = -\/1.0;}
+\DoxyCodeLine{230     \}}
+\DoxyCodeLine{231   \textcolor{comment}{//}}
+\DoxyCodeLine{232   \textcolor{keywordflow}{for} ( std::size\_t i = 1; i <= NZ -\/ 2; ++i )}
+\DoxyCodeLine{233   \{}
+\DoxyCodeLine{234     \{}
+\DoxyCodeLine{235       \textcolor{keyword}{const} std::size\_t j(0);}
+\DoxyCodeLine{236       \textcolor{comment}{// bottom boundary conditions for the duct}}
+\DoxyCodeLine{237       std::size\_t O( i*4*NY );}
+\DoxyCodeLine{238       std::size\_t k( j*4 );}
+\DoxyCodeLine{239       \textcolor{comment}{// coordinate mapping}}
+\DoxyCodeLine{240       \textcolor{keywordtype}{double} Y( base.coord(i,j).second );}
+\DoxyCodeLine{241       \textcolor{keywordtype}{double} KYd( base.FnComp\_Yd( Y ) );}
+\DoxyCodeLine{242       \textcolor{keywordtype}{double} KYdd( base.FnComp\_Ydd( Y ) );}
+\DoxyCodeLine{243       \textcolor{comment}{// v=0 on y=0}}
+\DoxyCodeLine{244       a( O+k+0, O+k + v ) = 1.0;}
+\DoxyCodeLine{245       \textcolor{comment}{// w=0 on y=0}}
+\DoxyCodeLine{246       a( O+k+1, O+k + w ) = 1.0;}
+\DoxyCodeLine{247       \textcolor{comment}{// definition of F, building in v\_y=0 with high order scheme}}
+\DoxyCodeLine{248       a( O+k+2, O+k + 4 + v ) = 10.0*(eye/(alpha*Re))*KYd*KYd/(3*DY*DY);}
+\DoxyCodeLine{249       a( O+k+2, O+k + 8 + v ) = -\/1.0*(eye/(alpha*Re))*KYd*KYd/(3*DY*DY);}
+\DoxyCodeLine{250       a( O+k+2, O+k + F ) = -\/1.0;}
+\DoxyCodeLine{251       \textcolor{comment}{// definition of G with w=0 for all y and 2nd order 1-\/sided diff.}}
+\DoxyCodeLine{252       a( O+k+3, O+k + 4 + w ) = -\/5.0*(eye/(alpha*Re))*KYd*KYd/(DY*DY)}
+\DoxyCodeLine{253         + 4.0*(eye/(alpha*Re))*KYdd/(2.0*DY);}
+\DoxyCodeLine{254       a( O+k+3, O+k + 8 + w ) = 4.0*(eye/(alpha*Re))*KYd*KYd/(DY*DY)}
+\DoxyCodeLine{255         -\/ 1.0*(eye/(alpha*Re))*KYdd/(2.0*DY);}
+\DoxyCodeLine{256       a( O+k+3, O+k + 12 + w ) = -\/1.0*(eye/(alpha*Re))*KYd*KYd/(DY*DY);}
+\DoxyCodeLine{257       a( O+k+3, O+k + G ) = -\/1.0; }
+\DoxyCodeLine{258     \}}
+\DoxyCodeLine{259     \textcolor{keywordflow}{for} ( std::size\_t j = 1; j < NY-\/1; ++j )}
+\DoxyCodeLine{260       \{}
+\DoxyCodeLine{261         \textcolor{comment}{// coordinate mapping}}
+\DoxyCodeLine{262         \textcolor{keywordtype}{double} Z( base.coord(i,j).first );}
+\DoxyCodeLine{263         \textcolor{keywordtype}{double} KZd( base.FnComp\_Xd( Z ) );}
+\DoxyCodeLine{264         \textcolor{keywordtype}{double} KZdd( base.FnComp\_Xdd( Z ) );}
+\DoxyCodeLine{265         \textcolor{keywordtype}{double} Y( base.coord(i,j).second );}
+\DoxyCodeLine{266         \textcolor{keywordtype}{double} KYd( base.FnComp\_Yd( Y ) );}
+\DoxyCodeLine{267         \textcolor{keywordtype}{double} KYdd( base.FnComp\_Ydd( Y ) );}
+\DoxyCodeLine{268         \textcolor{comment}{//}}
+\DoxyCodeLine{269         \textcolor{keywordtype}{double} Uy  = (base(i,j+1,0)-\/base(i,j-\/1,0))*KYd/(2*DY);}
+\DoxyCodeLine{270         \textcolor{keywordtype}{double} Uz  = (base(i+1,j,0)-\/base(i-\/1,j,0))*KZd/(2*DZ);}
+\DoxyCodeLine{271         \textcolor{keywordtype}{double} Uyy = (base(i,j+1,0)-\/2*base(i,j,0)+base(i,j-\/1,0))*KYd*KYd/(DY*DY)}
+\DoxyCodeLine{272           + (base(i,j+1,0)-\/base(i,j-\/1,0))*KYdd/(2*DY);}
+\DoxyCodeLine{273         \textcolor{keywordtype}{double} Uzz = (base(i+1,j,0)-\/2*base(i,j,0)+base(i-\/1,j,0))*KZd*KZd/(DZ*DZ)}
+\DoxyCodeLine{274           + (base(i+1,j,0)-\/base(i-\/1,j,0))*KZdd/(2*DZ);}
+\DoxyCodeLine{275         \textcolor{keywordtype}{double} Uyz = (base(i+1,j+1,0)-\/base(i+1,j-\/1,0)}
+\DoxyCodeLine{276                       -\/ base(i-\/1,j+1,0)+base(i-\/1,j-\/1,0))*KYd*KZd/(4*DY*DZ);}
+\DoxyCodeLine{277         \textcolor{comment}{// interior equations within the duct}}
+\DoxyCodeLine{278         std::size\_t O( i*4*NY );}
+\DoxyCodeLine{279         std::size\_t k( j*4 );}
+\DoxyCodeLine{280         \textcolor{comment}{//}}
+\DoxyCodeLine{281         \textcolor{comment}{// L\{v\}=F}}
+\DoxyCodeLine{282         \textcolor{comment}{//}}
+\DoxyCodeLine{283         \textcolor{comment}{// v\_i,j}}
+\DoxyCodeLine{284         a( O+k+0, O+k + v ) = (eye/(alpha*Re))*( -\/ 2.0*KYd*KYd/(DY*DY)}
+\DoxyCodeLine{285                                                  -\/ 2.0*KZd*KZd/(DZ*DZ)}
+\DoxyCodeLine{286                                                  -\/ alpha*alpha ) + base(i,j,0);}
+\DoxyCodeLine{287         \textcolor{comment}{// v\_i+1,j}}
+\DoxyCodeLine{288         a( O+k+0, O+k + dof\_per\_i + v ) = (eye/(alpha*Re))*KZd*KZd/(DZ*DZ)}
+\DoxyCodeLine{289           + (eye/(alpha*Re))*KZdd/(2.0*DZ);}
+\DoxyCodeLine{290         \textcolor{comment}{// v\_i-\/1,j}}
+\DoxyCodeLine{291         a( O+k+0, O+k -\/ dof\_per\_i + v ) = (eye/(alpha*Re))*KZd*KZd/(DZ*DZ)}
+\DoxyCodeLine{292           -\/ (eye/(alpha*Re))*KZdd/(2.0*DZ);}
+\DoxyCodeLine{293         \textcolor{comment}{// v\_i,j+1}}
+\DoxyCodeLine{294         a( O+k+0, O+k + 4 + v ) = (eye/(alpha*Re))*KYd*KYd/(DY*DY)}
+\DoxyCodeLine{295           + (eye/(alpha*Re))*KYdd/(2.0*DY);}
+\DoxyCodeLine{296         \textcolor{comment}{// v\_i,j-\/1}}
+\DoxyCodeLine{297         a( O+k+0, O+k -\/ 4 + v ) = (eye/(alpha*Re))*KYd*KYd/(DY*DY)}
+\DoxyCodeLine{298           -\/ (eye/(alpha*Re))*KYdd/(2.0*DY);}
+\DoxyCodeLine{299         \textcolor{comment}{// F\_i,j}}
+\DoxyCodeLine{300         a( O+k+0, O+k + F ) = -\/1.0;}
+\DoxyCodeLine{301         \textcolor{comment}{// ev -\/-\/ wave speed c}}
+\DoxyCodeLine{302         b( O+k+0, O+k + v ) = 1.0;}
+\DoxyCodeLine{303         \textcolor{comment}{//}}
+\DoxyCodeLine{304         \textcolor{comment}{// L\{w\}=G}}
+\DoxyCodeLine{305         \textcolor{comment}{//}}
+\DoxyCodeLine{306         \textcolor{comment}{// w\_i,j}}
+\DoxyCodeLine{307         a( O+k+1, O+k + w ) = (eye/(alpha*Re))*( -\/ 2.0*KYd*KYd/(DY*DY)}
+\DoxyCodeLine{308                                                  -\/ 2.0*KZd*KZd/(DZ*DZ)}
+\DoxyCodeLine{309                                                  -\/ alpha*alpha ) + base(i,j,0);}
+\DoxyCodeLine{310         \textcolor{comment}{// w\_i+1,j}}
+\DoxyCodeLine{311         a( O+k+1, O+k + dof\_per\_i + w ) = (eye/(alpha*Re))*KZd*KZd/(DZ*DZ)}
+\DoxyCodeLine{312           + (eye/(alpha*Re))*KZdd/(2.0*DZ);}
+\DoxyCodeLine{313         \textcolor{comment}{// w\_i-\/1,j}}
+\DoxyCodeLine{314         a( O+k+1, O+k -\/ dof\_per\_i + w ) = (eye/(alpha*Re))*KZd*KZd/(DZ*DZ)}
+\DoxyCodeLine{315           -\/ (eye/(alpha*Re))*KZdd/(2.0*DZ);}
+\DoxyCodeLine{316         \textcolor{comment}{// w\_i,j+1}}
+\DoxyCodeLine{317         a( O+k+1, O+k + 4 + w ) = (eye/(alpha*Re))*KYd*KYd/(DY*DY)}
+\DoxyCodeLine{318           + (eye/(alpha*Re))*KYdd/(2.0*DY);}
+\DoxyCodeLine{319         \textcolor{comment}{// w\_i,j-\/1}}
+\DoxyCodeLine{320         a( O+k+1, O+k -\/ 4 + w ) = (eye/(alpha*Re))*KYd*KYd/(DY*DY)}
+\DoxyCodeLine{321           -\/ (eye/(alpha*Re))*KYdd/(2.0*DY);}
+\DoxyCodeLine{322         \textcolor{comment}{// G\_i,j}}
+\DoxyCodeLine{323         a( O+k+1, O+k + G ) = -\/1.0;}
+\DoxyCodeLine{324         \textcolor{comment}{// ev -\/-\/ wave speed c}}
+\DoxyCodeLine{325         b( O+k+1, O+k + w ) = 1.0;}
+\DoxyCodeLine{326         \textcolor{comment}{//}}
+\DoxyCodeLine{327         \textcolor{comment}{// E(y,z)\{v\} = O(y,z)\{w\}}}
+\DoxyCodeLine{328         \textcolor{comment}{//}}
+\DoxyCodeLine{329         \textcolor{comment}{// F\_i,j}}
+\DoxyCodeLine{330         a( O+k+2, O+k + F ) = -\/2.0*KYd*KYd/(DY*DY) -\/ alpha*alpha;}
+\DoxyCodeLine{331         \textcolor{comment}{// F\_i,j+1}}
+\DoxyCodeLine{332         a( O+k+2, O+k + 4 + F ) = 1.0*KYd*KYd/(DY*DY) + KYdd/(2.0*DY);}
+\DoxyCodeLine{333         \textcolor{comment}{// F\_i,j-\/1}}
+\DoxyCodeLine{334         a( O+k+2, O+k -\/ 4 + F ) = 1.0*KYd*KYd/(DY*DY) -\/ KYdd/(2.0*DY);}
+\DoxyCodeLine{335         \textcolor{comment}{//}}
+\DoxyCodeLine{336         \textcolor{comment}{// G\_i+1,j+1}}
+\DoxyCodeLine{337         a( O+k+2, O+k + dof\_per\_i + 4 + G ) = 0.25*KYd*KZd/(DY*DZ);}
+\DoxyCodeLine{338         \textcolor{comment}{// G\_i+1,j-\/1}}
+\DoxyCodeLine{339         a( O+k+2, O+k + dof\_per\_i -\/ 4 + G ) = -\/0.25*KYd*KZd/(DY*DZ);}
+\DoxyCodeLine{340         \textcolor{comment}{// G\_i-\/1,j-\/1}}
+\DoxyCodeLine{341         a( O+k+2, O+k -\/ dof\_per\_i -\/ 4 + G ) = 0.25*KYd*KZd/(DY*DZ);}
+\DoxyCodeLine{342         \textcolor{comment}{// G\_i-\/1,j+1}}
+\DoxyCodeLine{343         a( O+k+2, O+k -\/ dof\_per\_i + 4 + G ) = -\/0.25*KYd*KZd/(DY*DZ);}
+\DoxyCodeLine{344         \textcolor{comment}{//}}
+\DoxyCodeLine{345         \textcolor{comment}{// v\_i,j}}
+\DoxyCodeLine{346         a( O+k+2, O+k + v ) = -\/2.0*Uyy;}
+\DoxyCodeLine{347         \textcolor{comment}{// v\_i,j+1}}
+\DoxyCodeLine{348         a( O+k+2, O+k + 4 + v ) = -\/2.0*Uy*KYd/(2.0*DY);}
+\DoxyCodeLine{349         \textcolor{comment}{// v\_i,j-\/1}}
+\DoxyCodeLine{350         a( O+k+2, O+k -\/ 4 + v ) = +2.0*Uy*KYd/(2.0*DY);}
+\DoxyCodeLine{351         \textcolor{comment}{//}}
+\DoxyCodeLine{352         \textcolor{comment}{// w\_i,j}}
+\DoxyCodeLine{353         a( O+k+2, O+k + w ) = -\/2.0*Uyz;}
+\DoxyCodeLine{354         \textcolor{comment}{// w\_i,j+1}}
+\DoxyCodeLine{355         a( O+k+2, O+k + 4 + w ) = -\/2.0*Uz*KYd/(2.0*DY);}
+\DoxyCodeLine{356         \textcolor{comment}{// w\_i,j-\/1}}
+\DoxyCodeLine{357         a( O+k+2, O+k -\/ 4 + w ) = +2.0*Uz*KYd/(2.0*DY);}
+\DoxyCodeLine{358         \textcolor{comment}{//}}
+\DoxyCodeLine{359         \textcolor{comment}{//}}
+\DoxyCodeLine{360         \textcolor{comment}{// E(z,y)\{w\} = O(z,y)\{v\}}}
+\DoxyCodeLine{361         \textcolor{comment}{//}}
+\DoxyCodeLine{362         \textcolor{comment}{// G\_i,j}}
+\DoxyCodeLine{363         a( O+k+3, O+k + G ) = -\/2.0*KZd*KZd/(DZ*DZ) -\/ alpha*alpha; }
+\DoxyCodeLine{364         \textcolor{comment}{// G\_i+1,j}}
+\DoxyCodeLine{365         a( O+k+3, O+k + dof\_per\_i + G ) = 1.0*KZd*KZd/(DZ*DZ) + KZdd/(2.0*DZ);}
+\DoxyCodeLine{366         \textcolor{comment}{// G\_i-\/1,j}}
+\DoxyCodeLine{367         a( O+k+3, O+k -\/ dof\_per\_i + G ) = 1.0*KZd*KZd/(DZ*DZ) -\/ KZdd/(2.0*DZ);}
+\DoxyCodeLine{368         \textcolor{comment}{//}}
+\DoxyCodeLine{369         \textcolor{comment}{// F\_i+1,j+1}}
+\DoxyCodeLine{370         a( O+k+3, O+k + dof\_per\_i + 4 + F ) = 0.25*KYd*KZd/(DY*DZ);}
+\DoxyCodeLine{371         \textcolor{comment}{// F\_i+1,j-\/1}}
+\DoxyCodeLine{372         a( O+k+3, O+k + dof\_per\_i -\/ 4 + F ) = -\/0.25*KYd*KZd/(DY*DZ);}
+\DoxyCodeLine{373         \textcolor{comment}{// F\_i-\/1,j-\/1}}
+\DoxyCodeLine{374         a( O+k+3, O+k -\/ dof\_per\_i -\/ 4 + F ) = 0.25*KYd*KZd/(DY*DZ);}
+\DoxyCodeLine{375         \textcolor{comment}{// F\_i-\/1,j+1}}
+\DoxyCodeLine{376         a( O+k+3, O+k -\/ dof\_per\_i + 4 + F ) = -\/0.25*KYd*KZd/(DY*DZ);}
+\DoxyCodeLine{377         \textcolor{comment}{//}}
+\DoxyCodeLine{378         \textcolor{comment}{// v\_i,j}}
+\DoxyCodeLine{379         a( O+k+3, O+k + v ) = -\/2.0*Uyz;}
+\DoxyCodeLine{380         \textcolor{comment}{// v\_i+1,j}}
+\DoxyCodeLine{381         a( O+k+3, O+k + dof\_per\_i + v ) = -\/2.0*Uy*KZd/(2.0*DZ);}
+\DoxyCodeLine{382         \textcolor{comment}{// v\_i-\/1,j}}
+\DoxyCodeLine{383         a( O+k+3, O+k -\/ dof\_per\_i + v ) = +2.0*Uy*KZd/(2.0*DZ);}
+\DoxyCodeLine{384         \textcolor{comment}{// }}
+\DoxyCodeLine{385         \textcolor{comment}{// w\_i,j}}
+\DoxyCodeLine{386         a( O+k+3, O+k + w  ) = -\/2.0*Uzz;}
+\DoxyCodeLine{387         \textcolor{comment}{// w\_i+1,j}}
+\DoxyCodeLine{388         a( O+k+3, O+k + dof\_per\_i + w ) = -\/2.0*Uz*KZd/(2.0*DZ);}
+\DoxyCodeLine{389         \textcolor{comment}{// w\_i-\/1,j}}
+\DoxyCodeLine{390         a( O+k+3, O+k -\/ dof\_per\_i + w ) = +2.0*Uz*KZd/(2.0*DZ);}
+\DoxyCodeLine{391       \}}
+\DoxyCodeLine{392     \{}
+\DoxyCodeLine{393       \textcolor{comment}{// top boundary}}
+\DoxyCodeLine{394       \textcolor{comment}{//}}
+\DoxyCodeLine{395       \textcolor{keyword}{const} std::size\_t j(NY-\/1);}
+\DoxyCodeLine{396       std::size\_t O( i*4*NY );}
+\DoxyCodeLine{397       \textcolor{keyword}{const} std::size\_t k( j*4 );}
+\DoxyCodeLine{398       \textcolor{comment}{// coordinate mapping}}
+\DoxyCodeLine{399       \textcolor{keywordtype}{double} Y( base.coord(i,j).second );}
+\DoxyCodeLine{400       \textcolor{keywordtype}{double} KYd( base.FnComp\_Yd( Y ) );}
+\DoxyCodeLine{401       \textcolor{comment}{//double KYdd( base.FnComp\_Ydd( Y ) );}}
+\DoxyCodeLine{402       \textcolor{comment}{//}}
+\DoxyCodeLine{403 \textcolor{preprocessor}{\#ifdef V\_EVEN\_Y}}
+\DoxyCodeLine{404       \textcolor{comment}{// v\_y = 0}}
+\DoxyCodeLine{405       a( O+k+0, O+k + v ) = 3.0*KYd/(2.0*DY);}
+\DoxyCodeLine{406       a( O+k+0, O+k -\/ 4 + v ) = -\/4.0*KYd/(2.0*DY);}
+\DoxyCodeLine{407       a( O+k+0, O+k -\/ 8 + v ) = 1.0*KYd/(2.0*DY);}
+\DoxyCodeLine{408       \textcolor{comment}{// v\_yyy = 0  => F\_y = 0}}
+\DoxyCodeLine{409       a( O+k+2, O+k + F ) = 3.0*KYd/(2.0*DY);}
+\DoxyCodeLine{410       a( O+k+2, O+k -\/ 4 + F ) = -\/4.0*KYd/(2.0*DY); }
+\DoxyCodeLine{411       a( O+k+2, O+k -\/ 8 + F ) = 1.0*KYd/(2.0*DY);}
+\DoxyCodeLine{412 \textcolor{preprocessor}{\#elif defined(V\_ODD\_Y)}}
+\DoxyCodeLine{413       \textcolor{comment}{// v=0}}
+\DoxyCodeLine{414       a( O+k+0, O+k + v ) = 1.0;}
+\DoxyCodeLine{415       \textcolor{comment}{// v\_yy =0 => F=0}}
+\DoxyCodeLine{416       a( O+k+2, O+k + F ) = 1.0;}
+\DoxyCodeLine{417 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{418       }
+\DoxyCodeLine{419 \textcolor{preprocessor}{\#ifdef W\_EVEN\_Y}}
+\DoxyCodeLine{420       \textcolor{comment}{// w\_y = 0}}
+\DoxyCodeLine{421       a( O+k+1, O+k + w ) = 3.0*KYd/(2.0*DY);}
+\DoxyCodeLine{422       a( O+k+1, O+k -\/ 4 + w ) = -\/4.0*KYd/(2.0*DY);}
+\DoxyCodeLine{423       a( O+k+1, O+k -\/ 8 + w ) = 1.0*KYd/(2.0*DY);}
+\DoxyCodeLine{424       \textcolor{comment}{// w\_yyy = 0  => G\_y = 0}}
+\DoxyCodeLine{425       a( O+k+3, O+k + G ) = 3.0*KYd/(2.0*DY);}
+\DoxyCodeLine{426       a( O+k+3, O+k -\/ 4 + G ) = -\/4.0*KYd/(2.0*DY); }
+\DoxyCodeLine{427       a( O+k+3, O+k -\/ 8 + G ) = 1.0*KYd/(2.0*DY);}
+\DoxyCodeLine{428 \textcolor{preprocessor}{\#elif defined(W\_ODD\_Y)}}
+\DoxyCodeLine{429       \textcolor{comment}{// w = 0}}
+\DoxyCodeLine{430       a( O+k+1, O+k + w ) = 1.0;}
+\DoxyCodeLine{431       \textcolor{comment}{// G = 0}}
+\DoxyCodeLine{432       a( O+k+3, O+k + G ) = 1.0;}
+\DoxyCodeLine{433 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{434     \}}
+\DoxyCodeLine{435   \}}
+\DoxyCodeLine{436   \{}
+\DoxyCodeLine{437     \textcolor{keywordflow}{for} ( std::size\_t j = 0; j < NY; ++j )}
+\DoxyCodeLine{438       \{}
+\DoxyCodeLine{439         \textcolor{comment}{// right hand boundary}}
+\DoxyCodeLine{440         \textcolor{keyword}{const} std::size\_t i(NZ-\/1);}
+\DoxyCodeLine{441         \textcolor{comment}{// left boundary conditions for the duct}}
+\DoxyCodeLine{442         \textcolor{keyword}{const} std::size\_t O( i*4*NY );}
+\DoxyCodeLine{443         std::size\_t k( j*4 );}
+\DoxyCodeLine{444         \textcolor{comment}{// coordinate mapping}}
+\DoxyCodeLine{445         \textcolor{keywordtype}{double} Z( base.coord(i,j).first );}
+\DoxyCodeLine{446         \textcolor{keywordtype}{double} KZd( base.FnComp\_Xd( Z ) );}
+\DoxyCodeLine{447         \textcolor{comment}{//double KZdd( base.FnComp\_Xdd( Z ) );}}
+\DoxyCodeLine{448 \textcolor{preprocessor}{\#ifdef V\_EVEN\_Z}}
+\DoxyCodeLine{449         \textcolor{comment}{// v\_z = 0}}
+\DoxyCodeLine{450         a( O+k+0, O+k + v ) = 3.0*KZd/(2.0*DZ);}
+\DoxyCodeLine{451         a( O+k+0, O+k -\/ dof\_per\_i + v ) = -\/4.0*KZd/(2.0*DZ);}
+\DoxyCodeLine{452         a( O+k+0, O+k -\/ 2*dof\_per\_i + v ) = 1.0*KZd/(2.0*DZ);}
+\DoxyCodeLine{453         \textcolor{comment}{// v\_zzz = 0  => F\_z = 0}}
+\DoxyCodeLine{454         a( O+k+2, O+k + F ) = 3.0*KZd/(2.0*DZ);}
+\DoxyCodeLine{455         a( O+k+2, O+k -\/ dof\_per\_i + F ) = -\/4.0*KZd/(2.0*DZ); }
+\DoxyCodeLine{456         a( O+k+2, O+k -\/ 2*dof\_per\_i + F ) = 1.0*KZd/(2.0*DZ);}
+\DoxyCodeLine{457 \textcolor{preprocessor}{\#elif defined(V\_ODD\_Z)}}
+\DoxyCodeLine{458         \textcolor{comment}{// v=0}}
+\DoxyCodeLine{459         a( O+k+0, O+k + v ) = 1.0;}
+\DoxyCodeLine{460         \textcolor{comment}{// v\_zz =0 => F=0}}
+\DoxyCodeLine{461         a( O+k+2, O+k + F ) = 1.0;}
+\DoxyCodeLine{462 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{463         }
+\DoxyCodeLine{464 \textcolor{preprocessor}{\#ifdef W\_EVEN\_Z}}
+\DoxyCodeLine{465         \textcolor{comment}{// w\_z = 0}}
+\DoxyCodeLine{466         a( O+k+1, O+k + w ) = 3.0*KZd/(2.0*DZ);}
+\DoxyCodeLine{467         a( O+k+1, O+k -\/ dof\_per\_i + w ) = -\/4.0*KZd/(2.0*DZ);}
+\DoxyCodeLine{468         a( O+k+1, O+k -\/ 2*dof\_per\_i + w ) = 1.0*KZd/(2.0*DZ);}
+\DoxyCodeLine{469         \textcolor{comment}{// w\_zzz = 0  => G\_z = 0}}
+\DoxyCodeLine{470         a( O+k+3, O+k + G ) = 3.0*KZd/(2.0*DZ);}
+\DoxyCodeLine{471         a( O+k+3, O+k -\/ dof\_per\_i + G ) = -\/4.0*KZd/(2.0*DZ); }
+\DoxyCodeLine{472         a( O+k+3, O+k -\/ 2*dof\_per\_i + G ) = 1.0*KZd/(2.0*DZ);}
+\DoxyCodeLine{473 \textcolor{preprocessor}{\#elif defined(W\_ODD\_Z)}}
+\DoxyCodeLine{474         \textcolor{comment}{// w = 0}}
+\DoxyCodeLine{475         a( O+k+1, O+k + w ) = 1.0;}
+\DoxyCodeLine{476         \textcolor{comment}{// w\_zz = 0  => G = 0}}
+\DoxyCodeLine{477         a( O+k+3, O+k + G ) = 1.0;}
+\DoxyCodeLine{478 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{479       \}}
+\DoxyCodeLine{480   \}}
+\DoxyCodeLine{481   }
+\DoxyCodeLine{482   \textcolor{comment}{// a vector for the eigenvalues}}
+\DoxyCodeLine{483   DenseVector<D\_complex> ev\_c;}
+\DoxyCodeLine{484 \textcolor{preprocessor}{\#ifdef DENSE}}
+\DoxyCodeLine{485   DenseLinearEigenSystem<D\_complex> system( \&a, \&b );}
+\DoxyCodeLine{486 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{487   SparseLinearEigenSystem<D\_complex> system( \&a, \&b );}
+\DoxyCodeLine{488   system.set\_nev(1);}
+\DoxyCodeLine{489   system.set\_region(0.0, 1.0, -\/1.0, 1.0);}
+\DoxyCodeLine{490   system.set\_target( D\_complex( 0.244, 0.0 ) );}
+\DoxyCodeLine{491   system.set\_order(\textcolor{stringliteral}{"EPS\_TARGET\_IMAGINARY"});}
+\DoxyCodeLine{492 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{493   }
+\DoxyCodeLine{494   system.eigensolve();}
+\DoxyCodeLine{495   }
+\DoxyCodeLine{496   system.tag\_eigenvalues\_disc( + 1, 1.0 );}
+\DoxyCodeLine{497   ev\_c = system.get\_tagged\_eigenvalues();}
+\DoxyCodeLine{498   TrackerFile spectrum( \textcolor{stringliteral}{"./DATA/spectrum\_disc\_2d.dat"} );}
+\DoxyCodeLine{499   spectrum.push\_ptr( \&ev\_c, \textcolor{stringliteral}{"evs"} );}
+\DoxyCodeLine{500   spectrum.update();}
+\DoxyCodeLine{501   ev\_c.dump();}
+\DoxyCodeLine{502   }
+\DoxyCodeLine{503   DenseMatrix<D\_complex> vec\_mtx = system.get\_tagged\_eigenvectors();  }
+\DoxyCodeLine{504   Example::My\_Mesh<D\_complex> eigfn( -\/A, 0.0, -\/1.0, 0.0, NZ, NY, 4 );}
+\DoxyCodeLine{505 }
+\DoxyCodeLine{506   \textcolor{keywordflow}{for} ( std::size\_t n = 0; n < ev\_c.size(); ++n )}
+\DoxyCodeLine{507     \{}
+\DoxyCodeLine{508       \textcolor{keywordflow}{for} ( std::size\_t i = 0; i < NZ; ++i )}
+\DoxyCodeLine{509         \{}
+\DoxyCodeLine{510           \textcolor{keywordflow}{for} ( std::size\_t j = 0; j < NY; ++j )}
+\DoxyCodeLine{511             \{}
+\DoxyCodeLine{512               eigfn(i,j,v) = vec\_mtx(n, i*4*NY + 4*j + v );}
+\DoxyCodeLine{513               eigfn(i,j,w) = vec\_mtx(n, i*4*NY + 4*j + w );}
+\DoxyCodeLine{514               eigfn(i,j,F) = vec\_mtx(n, i*4*NY + 4*j + F );}
+\DoxyCodeLine{515               eigfn(i,j,G) = vec\_mtx(n, i*4*NY + 4*j + G );}
+\DoxyCodeLine{516             \}}
+\DoxyCodeLine{517         \}}
+\DoxyCodeLine{518       eigfn.dump\_gnu(\textcolor{stringliteral}{"./DATA/eigfn\_"}+Utility::stringify(n,4)+\textcolor{stringliteral}{".dat"});}
+\DoxyCodeLine{519     \}}
+\DoxyCodeLine{520   }
+\DoxyCodeLine{521   \textcolor{keywordflow}{if} ( std::abs( ev\_c[0].imag() ) < 1.e-\/4 )}
+\DoxyCodeLine{522     \{}
+\DoxyCodeLine{523       cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{524       \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{525     \}}
+\DoxyCodeLine{526 }
+\DoxyCodeLine{527   cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{528   cout << \textcolor{stringliteral}{"    Final error = "} << ev\_c[0].imag() << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{529   \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{530   }
+\DoxyCodeLine{531 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::\+A(), Cpp\+Noddy\+::\+Example\+::alpha, Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::coord(), Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::dump(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::dump\+\_\+gnu(), Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Fn\+Comp\+\_\+\+Xd(), Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Fn\+Comp\+\_\+\+Xdd(), Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Fn\+Comp\+\_\+\+Yd(), Example\+::\+My\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Fn\+Comp\+\_\+\+Ydd(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Mapped\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::get\+\_\+comp\+\_\+step\+\_\+sizes(), Cpp\+Noddy\+::\+Utility\+::imag(), Cpp\+Noddy\+::\+Tracker\+File\+::push\+\_\+ptr(), Cpp\+Noddy\+::\+Example\+::\+Re, Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::size(), Cpp\+Noddy\+::\+Utility\+::stringify(), and Cpp\+Noddy\+::\+Tracker\+File\+::update().
+

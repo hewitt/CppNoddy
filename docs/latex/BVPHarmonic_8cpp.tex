@@ -1,0 +1,157 @@
+\doxysubsection{Tests/\+B\+V\+P/\+B\+V\+P\+Harmonic.cpp File Reference}
+\label{BVPHarmonic_8cpp}\index{Tests/BVP/BVPHarmonic.cpp@{Tests/BVP/BVPHarmonic.cpp}}
+{\ttfamily \#include $<$B\+V\+P\+\_\+bundle.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../\+Utils\+\_\+\+Fill.\+h\char`\"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+Harmonic\+\_\+equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$}
+\begin{DoxyCompactList}\small\item\em Define the harmonic equation by inheriting the \doxyref{Equation}{p.}{classCppNoddy_1_1Equation} base class. \end{DoxyCompactList}\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+Harmonic\+\_\+left\+\_\+\+B\+C$<$ \+\_\+\+Type $>$}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+Harmonic\+\_\+right\+\_\+\+B\+C$<$ \+\_\+\+Type $>$}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\item 
+ \textbf{ Cpp\+Noddy\+::\+Example}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \textbf{ f}, 
+\textbf{ fd}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Enumeration Type Documentation}
+\mbox{\label{BVPHarmonic_8cpp_abc6126af1d45847bc59afa0aa3216b04}} 
+\doxyparagraph{anonymous enum}
+{\footnotesize\ttfamily anonymous enum}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{f@{f}!BVPHarmonic.cpp@{BVPHarmonic.cpp}}\index{BVPHarmonic.cpp@{BVPHarmonic.cpp}!f@{f}}}\mbox{\label{BVPHarmonic_8cpp_abc6126af1d45847bc59afa0aa3216b04a7ce756344023b99e5ab27b804feb765c}} 
+f&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{fd@{fd}!BVPHarmonic.cpp@{BVPHarmonic.cpp}}\index{BVPHarmonic.cpp@{BVPHarmonic.cpp}!fd@{fd}}}\mbox{\label{BVPHarmonic_8cpp_abc6126af1d45847bc59afa0aa3216b04a1e4d60e5b05464d07a30096747025a42}} 
+fd&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 17 of file B\+V\+P\+Harmonic.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17 \{f, fd \};}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{BVPHarmonic_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{BVPHarmonic.cpp@{BVPHarmonic.cpp}!main@{main}}
+\index{main@{main}!BVPHarmonic.cpp@{BVPHarmonic.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 77 of file B\+V\+P\+Harmonic.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{78 \{}
+\DoxyCodeLine{79   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{80   cout << \textcolor{stringliteral}{"=== BVP: finite-\/difference solution of Harmonic eqn =\(\backslash\)n"};}
+\DoxyCodeLine{81   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83   Example::Harmonic\_equation<double, double> real\_problem;}
+\DoxyCodeLine{84   Example::Harmonic\_left\_BC <double> real\_BC\_left;}
+\DoxyCodeLine{85   Example::Harmonic\_right\_BC<double> real\_BC\_right;}
+\DoxyCodeLine{86   Example::Harmonic\_equation<D\_complex, D\_complex> complex\_problem;}
+\DoxyCodeLine{87   Example::Harmonic\_left\_BC <D\_complex> complex\_BC\_left;}
+\DoxyCodeLine{88   Example::Harmonic\_right\_BC<D\_complex> complex\_BC\_right;}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90   \textcolor{keywordtype}{double} left =  0.0;}
+\DoxyCodeLine{91   \textcolor{keywordtype}{double} right = 1.0;}
+\DoxyCodeLine{92   \textcolor{comment}{// number of nodal points}}
+\DoxyCodeLine{93   \textcolor{keywordtype}{unsigned} N = 21;}
+\DoxyCodeLine{94   \textcolor{comment}{// a real mesh -\/-\/ along real axis}}
+\DoxyCodeLine{95   DenseVector<double> real\_nodes( Utility::uniform\_node\_vector( left, right, N ) );}
+\DoxyCodeLine{96   \textcolor{comment}{// a complex mesh -\/-\/ along imaginary axis}}
+\DoxyCodeLine{97   D\_complex eye( 0.0, 1.0 );}
+\DoxyCodeLine{98   DenseVector<D\_complex> complex\_nodes( real\_nodes );}
+\DoxyCodeLine{99   complex\_nodes *= eye;}
+\DoxyCodeLine{100   \textcolor{comment}{// Example tolerance}}
+\DoxyCodeLine{101   \textcolor{keyword}{const} \textcolor{keywordtype}{double} tol = 1.e-\/4;}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103   \textcolor{comment}{// a real ODE BVP}}
+\DoxyCodeLine{104   ODE\_BVP<double> real\_ode( \&real\_problem, real\_nodes, \&real\_BC\_left, \&real\_BC\_right );}
+\DoxyCodeLine{105   \textcolor{comment}{// a complex ODE BVP solved on a line in the complex plane}}
+\DoxyCodeLine{106   ODE\_BVP<D\_complex, D\_complex> complex\_ode( \&complex\_problem, complex\_nodes, \&complex\_BC\_left, \&complex\_BC\_right );}
+\DoxyCodeLine{107   complex\_ode.set\_monitor\_det( \textcolor{keyword}{false} );}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109   \textcolor{comment}{// our initial guess}}
+\DoxyCodeLine{110   \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{unsigned} i = 0; i < N; ++i )}
+\DoxyCodeLine{111   \{}
+\DoxyCodeLine{112     \textcolor{keywordtype}{double} y = real\_ode.solution().coord( i );}
+\DoxyCodeLine{113     \textcolor{comment}{// set f(y)}}
+\DoxyCodeLine{114     real\_ode.solution()( i, f ) = y;}
+\DoxyCodeLine{115     complex\_ode.solution()( i, f ) = y;}
+\DoxyCodeLine{116     \textcolor{comment}{// set f'(y)}}
+\DoxyCodeLine{117     real\_ode.solution()( i, fd ) = 1;}
+\DoxyCodeLine{118     complex\_ode.solution()( i, fd ) = 1;}
+\DoxyCodeLine{119   \}}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121   \textcolor{comment}{// solve the problem using 2nd order finite-\/difference}}
+\DoxyCodeLine{122   \textcolor{keywordflow}{try}}
+\DoxyCodeLine{123   \{}
+\DoxyCodeLine{124     real\_ode.solve2();}
+\DoxyCodeLine{125     complex\_ode.solve2();}
+\DoxyCodeLine{126   \}}
+\DoxyCodeLine{127   \textcolor{keywordflow}{catch} ( \textcolor{keyword}{const} std::runtime\_error \&error )}
+\DoxyCodeLine{128   \{}
+\DoxyCodeLine{129     cout << \textcolor{stringliteral}{" \(\backslash\)033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{130     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{131   \}}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133   \textcolor{comment}{// find the maximum deviation from the analytical solutions of sin(x)/sin(1) and sinh(z)/sinh(1)}}
+\DoxyCodeLine{134   \textcolor{keywordtype}{double} real\_diff = 0;}
+\DoxyCodeLine{135   \textcolor{keywordtype}{double} complex\_diff = 0;}
+\DoxyCodeLine{136   \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{unsigned} i = 0; i < N; ++i )}
+\DoxyCodeLine{137   \{}
+\DoxyCodeLine{138     real\_diff = std::max( std::abs( real\_ode.solution()( i, f ) -\/ sin( real\_ode.solution().coord( i ) ) / sin( 1 ) ), real\_diff );}
+\DoxyCodeLine{139     complex\_diff = std::max( std::abs( complex\_ode.solution()( i, f ) -\/ sin( complex\_ode.solution().coord( i ) ) / sin( eye ) ), complex\_diff );}
+\DoxyCodeLine{140   \}}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{142   \textcolor{comment}{// validation test}}
+\DoxyCodeLine{143   \textcolor{keywordflow}{if} ( real\_diff > tol || complex\_diff > tol )}
+\DoxyCodeLine{144   \{}
+\DoxyCodeLine{145     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{146     cout << \textcolor{stringliteral}{"Real problem error "} << real\_diff << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{147     cout << \textcolor{stringliteral}{"Complex problem error "} << complex\_diff << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{148     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{149   \}}
+\DoxyCodeLine{150   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{151   \{}
+\DoxyCodeLine{152     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{153     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{154   \}}
+\DoxyCodeLine{155 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::coord(), f, fd, Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::set\+\_\+monitor\+\_\+det(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::solution(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::solve2(), and Cpp\+Noddy\+::\+Utility\+::uniform\+\_\+node\+\_\+vector().
+

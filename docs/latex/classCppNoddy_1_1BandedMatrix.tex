@@ -1,0 +1,1011 @@
+\doxysubsection{Cpp\+Noddy\+::Banded\+Matrix$<$ \+\_\+\+Type $>$ Class Template Reference}
+\label{classCppNoddy_1_1BandedMatrix}\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+
+
+A matrix class that constructs a B\+A\+N\+D\+ED matrix.  
+
+
+
+
+{\ttfamily \#include $<$Banded\+Matrix.\+h$>$}
+
+Inheritance diagram for Cpp\+Noddy\+::Banded\+Matrix$<$ \+\_\+\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCppNoddy_1_1BandedMatrix}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$\+::\textbf{ elt\+\_\+iter} \textbf{ elt\+\_\+iter}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Banded\+Matrix} ()
+\begin{DoxyCompactList}\small\item\em Empty constructor .. should we stop this? \end{DoxyCompactList}\item 
+void \textbf{ blank} ()
+\item 
+\textbf{ Banded\+Matrix} (const std\+::size\+\_\+t \&rows, const std\+::size\+\_\+t \&offdiag, const \+\_\+\+Type \&fill)
+\begin{DoxyCompactList}\small\item\em Noddy Banded Matrix constructor. \end{DoxyCompactList}\item 
+\textbf{ Banded\+Matrix} (const \textbf{ Banded\+Matrix} \&source)
+\begin{DoxyCompactList}\small\item\em Copy constructor. \end{DoxyCompactList}\item 
+\textbf{ Banded\+Matrix} \& \textbf{ operator=} (const \textbf{ Banded\+Matrix} \&source)
+\begin{DoxyCompactList}\small\item\em Assignment operator. \end{DoxyCompactList}\item 
+const \+\_\+\+Type \& \textbf{ operator()} (const std\+::size\+\_\+t \&row, const std\+::size\+\_\+t \&col) const
+\begin{DoxyCompactList}\small\item\em Access operator. \end{DoxyCompactList}\item 
+\+\_\+\+Type \& \textbf{ operator()} (const std\+::size\+\_\+t \&row, const std\+::size\+\_\+t \&col)
+\begin{DoxyCompactList}\small\item\em Access operator. \end{DoxyCompactList}\item 
+const \+\_\+\+Type \& \textbf{ get} (const std\+::size\+\_\+t \&row, const std\+::size\+\_\+t \&col) const
+\begin{DoxyCompactList}\small\item\em Access operator. \end{DoxyCompactList}\item 
+\+\_\+\+Type \& \textbf{ set} (const std\+::size\+\_\+t \&row, const std\+::size\+\_\+t \&col)
+\begin{DoxyCompactList}\small\item\em Access operator. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ nrows} () const
+\begin{DoxyCompactList}\small\item\em Get the number of rows. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ ncols} () const
+\begin{DoxyCompactList}\small\item\em Get the number of columns. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ nelts} () const
+\begin{DoxyCompactList}\small\item\em Get the number of elements. \end{DoxyCompactList}\item 
+void \textbf{ scale} (const \+\_\+\+Type \&mult)
+\begin{DoxyCompactList}\small\item\em Scale all entries in the matrix by a scalar. \end{DoxyCompactList}\item 
+void \textbf{ transpose} ()
+\begin{DoxyCompactList}\small\item\em Transpose the matrix. \end{DoxyCompactList}\item 
+double \textbf{ one\+\_\+norm} () const
+\item 
+double \textbf{ two\+\_\+norm} () const
+\item 
+double \textbf{ inf\+\_\+norm} () const
+\item 
+double \textbf{ frob\+\_\+norm} () const
+\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ multiply} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&X) const
+\begin{DoxyCompactList}\small\item\em Right multiply the matrix by a D\+E\+N\+SE vector. \end{DoxyCompactList}\item 
+void \textbf{ dump} () const
+\begin{DoxyCompactList}\small\item\em Output the matrix contents to std\+::cout. \end{DoxyCompactList}\item 
+void \textbf{ assign} (\+\_\+\+Type elt)
+\begin{DoxyCompactList}\small\item\em Assign a value the matrix so that it has the same geometry, but zero entries in all locations including those reserved for pivotting. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ noffdiag} () const
+\begin{DoxyCompactList}\small\item\em Get the number of off-\/diagonal elements where the total I\+N\+P\+UT band width is 2$\ast$noffdiag+1 since the band structure is symmetric. \end{DoxyCompactList}\item 
+void \textbf{ row\+\_\+swap} (const std\+::size\+\_\+t \&row1, const std\+::size\+\_\+t \&row2)
+\begin{DoxyCompactList}\small\item\em Exchange rows in the matrix. \end{DoxyCompactList}\item 
+double $\ast$ \textbf{ base} ()
+\begin{DoxyCompactList}\small\item\em Allow direct access to the vector m\+\_\+storage. \end{DoxyCompactList}\item 
+\textbf{ elt\+\_\+iter} \textbf{ get\+\_\+elt\+\_\+iter} (std\+::size\+\_\+t row, std\+::size\+\_\+t col)
+\item 
+double $\ast$ \textbf{ base} ()
+\item 
+double $\ast$ \textbf{ base} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ m\+\_\+storage}
+\begin{DoxyCompactList}\small\item\em A contiguous vector. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ m\+\_\+N}
+\begin{DoxyCompactList}\small\item\em The number of rows/cols in the matrix. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ m\+\_\+L}
+\begin{DoxyCompactList}\small\item\em Max number of (I\+N\+P\+UT) bands above OR below the main diagonal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type$>$\newline
+class Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$}
+
+A matrix class that constructs a B\+A\+N\+D\+ED matrix. 
+
+Definition at line 16 of file Banded\+Matrix.\+h.
+
+
+
+\doxysubsubsection{Member Typedef Documentation}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_ae662da6ee04624c1e8e0c671bd0bb4f1}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!elt\_iter@{elt\_iter}}
+\index{elt\_iter@{elt\_iter}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{elt\_iter}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+typedef \textbf{ Dense\+Vector}$<$\+\_\+\+Type$>$\+::\textbf{ elt\+\_\+iter} \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::\textbf{ elt\+\_\+iter}}
+
+
+
+Definition at line 20 of file Banded\+Matrix.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_abd6c64e048d1979edadd578ad5b1acff}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!BandedMatrix@{BandedMatrix}}
+\index{BandedMatrix@{BandedMatrix}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{BandedMatrix()\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::\textbf{ Banded\+Matrix} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Empty constructor .. should we stop this? 
+
+
+
+Definition at line 23 of file Banded\+Matrix.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24     \{\}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a8e6fa2d083c68ebb4b991d505976691a}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!BandedMatrix@{BandedMatrix}}
+\index{BandedMatrix@{BandedMatrix}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{BandedMatrix()\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::\textbf{ Banded\+Matrix} (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{rows,  }\item[{const std\+::size\+\_\+t \&}]{offdiag,  }\item[{const \+\_\+\+Type \&}]{fill }\end{DoxyParamCaption})}
+
+
+
+Noddy Banded Matrix constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rows} & The number of rows in the matrix. \\
+\hline
+{\em offdiag} & The maximum number of bands above OR below the diagonal. The total number stored will be 3 $\ast$ offdiag + 1; i.\+e. assumes the number of offdiagonal elts is the same both above and below, and we must an extra \textquotesingle{}offdiag\textquotesingle{} because of fill-\/in during pivotting. \\
+\hline
+{\em fill} & The initial value to be placed in each element of the banded matrix. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 16 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18                                                        :}
+\DoxyCodeLine{19     Sequential\_Matrix\_base<\_Type>(),}
+\DoxyCodeLine{20     m\_N(rows),}
+\DoxyCodeLine{21     m\_L(upper\_offdiag\_bands) \{}
+\DoxyCodeLine{22     \textcolor{comment}{// we'll assume that the upper \& lower offdiags are of equal size.}}
+\DoxyCodeLine{23     \textcolor{comment}{// logical m\_storage is the main diagonal + upper offdiagonal + lower offdiagonal}}
+\DoxyCodeLine{24     \textcolor{comment}{// = 2 * m\_L + 1.}}
+\DoxyCodeLine{25     \textcolor{comment}{// However, allowing for row interchanging during pivotting leads to additional}}
+\DoxyCodeLine{26     \textcolor{comment}{// padding of m\_L, to make a total of 3*m\_L+1.}}
+\DoxyCodeLine{27     m\_storage = DenseVector<\_Type>(m\_N * (3 * m\_L + 1), 0.0);}
+\DoxyCodeLine{28   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::m\+\_\+L, Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::m\+\_\+N, and Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::m\+\_\+storage.
+
+\mbox{\label{classCppNoddy_1_1BandedMatrix_ad29805f106cc165e01731e116a4459d1}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!BandedMatrix@{BandedMatrix}}
+\index{BandedMatrix@{BandedMatrix}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{BandedMatrix()\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::\textbf{ Banded\+Matrix} (\begin{DoxyParamCaption}\item[{const \textbf{ Banded\+Matrix}$<$ \+\_\+\+Type $>$ \&}]{source }\end{DoxyParamCaption})}
+
+
+
+Copy constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The source object to be copied \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 31 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31                                                                      :}
+\DoxyCodeLine{32     Sequential\_Matrix\_base<\_Type>() \{}
+\DoxyCodeLine{33     *\textcolor{keyword}{this} = source;}
+\DoxyCodeLine{34   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::source().
+
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_ac145c370d26b3941cd1fed22e323df80}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!assign@{assign}}
+\index{assign@{assign}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{assign()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::assign (\begin{DoxyParamCaption}\item[{\+\_\+\+Type}]{elt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Assign a value the matrix so that it has the same geometry, but zero entries in all locations including those reserved for pivotting. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elt} & The value to be assigned to all entries \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 106 of file Banded\+Matrix.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{106                            \{}
+\DoxyCodeLine{107       m\_storage.assign(m\_storage.size(), elt);}
+\DoxyCodeLine{108     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::m\+\_\+storage.
+
+
+
+Referenced by Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$\+::assemble\+\_\+matrix\+\_\+problem().
+
+\mbox{\label{classCppNoddy_1_1BandedMatrix_aa9a408b5550aa9e3cbdccd3d5e555bfb}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!base@{base}}
+\index{base@{base}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{base()\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double$\ast$ \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::base (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Allow direct access to the vector m\+\_\+storage. 
+
+Dangerous, but used for passing to L\+A\+P\+A\+CK. \mbox{\label{classCppNoddy_1_1BandedMatrix_a01dd077faa3b26eec93465997a46df25}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!base@{base}}
+\index{base@{base}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{base()\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily double $\ast$ \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ double $>$\+::base (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 160 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{160                                      \{}
+\DoxyCodeLine{161     \textcolor{keywordflow}{return} \&(m\_storage[0]);}
+\DoxyCodeLine{162   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_ae89d3380caa4a2843092723157a249b8}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!base@{base}}
+\index{base@{base}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{base()\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily double $\ast$ \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ std\+::complex$<$ double $>$ $>$\+::base (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 165 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{165                                                   \{}
+\DoxyCodeLine{166     \textcolor{comment}{//return \&( m\_storage[0].real() );}}
+\DoxyCodeLine{167     \textcolor{keywordflow}{return} \&\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{double}(\&)[2]\textcolor{keyword}{>}(m\_storage[0])[0];}
+\DoxyCodeLine{168   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a29d26c63ef2ea941020adadcbf795237}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!blank@{blank}}
+\index{blank@{blank}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{blank()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::blank (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 26 of file Banded\+Matrix.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26                  \{}
+\DoxyCodeLine{27       m\_storage = DenseVector<\_Type>(m\_N * (3 * m\_L + 1), 0.0);}
+\DoxyCodeLine{28     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::m\+\_\+L, Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::m\+\_\+N, and Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::m\+\_\+storage.
+
+\mbox{\label{classCppNoddy_1_1BandedMatrix_afb2f743979bcbaf7e79bce809e8e9e60}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!dump@{dump}}
+\index{dump@{dump}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{dump()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::dump\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Output the matrix contents to std\+::cout. 
+
+
+
+Implements \textbf{ Cpp\+Noddy\+::\+Sequential\+\_\+\+Matrix\+\_\+base$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Sequential__Matrix__base_a1988db797d0fafc92ccfae5afafdee92}.
+
+
+
+Definition at line 137 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{137                                        \{}
+\DoxyCodeLine{138     std::cout << \textcolor{stringliteral}{"BANDED mtx size = "} << nrows() << \textcolor{stringliteral}{" x "} << ncols()}
+\DoxyCodeLine{139               << \textcolor{stringliteral}{" with INPUT no. of bands = "} << 2 * m\_L + 1}
+\DoxyCodeLine{140               << \textcolor{stringliteral}{" and total bands STORED (for pivotting) = "} << 3 * m\_L + 1 << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{141     std::cout.precision(4);}
+\DoxyCodeLine{142     std::cout << \textcolor{stringliteral}{"-\/ start matrix \(\backslash\)n"};}
+\DoxyCodeLine{143     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < nrows(); ++i) \{}
+\DoxyCodeLine{144       std::cout << \textcolor{stringliteral}{" row "} << i << \textcolor{stringliteral}{" =  "};}
+\DoxyCodeLine{145       \textcolor{keywordflow}{for}(std::size\_t j = 0; j < nrows(); ++j) \{}
+\DoxyCodeLine{146         \textcolor{keywordflow}{if}(i == j)}
+\DoxyCodeLine{147           std::cout << \textcolor{stringliteral}{"*"};}
+\DoxyCodeLine{148         \textcolor{keywordflow}{if}(((\textcolor{keywordtype}{int}) j < (\textcolor{keywordtype}{int}) i -\/ (\textcolor{keywordtype}{int}) m\_L) || ((int) j > (\textcolor{keywordtype}{int}) i + (int)(2*m\_L))) \{}
+\DoxyCodeLine{149           std::cout << 0 << \textcolor{stringliteral}{", "};}
+\DoxyCodeLine{150         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{151           std::cout << operator()(i, j) << \textcolor{stringliteral}{", "};}
+\DoxyCodeLine{152         \}}
+\DoxyCodeLine{153       \}}
+\DoxyCodeLine{154       std::cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{155     \}}
+\DoxyCodeLine{156     std::cout << \textcolor{stringliteral}{"-\/ end matrix \(\backslash\)n"};}
+\DoxyCodeLine{157   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a11325d47e5a059f464d6730517c32580}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!frob\_norm@{frob\_norm}}
+\index{frob\_norm@{frob\_norm}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{frob\_norm()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::frob\+\_\+norm}
+
+\begin{DoxyReturn}{Returns}
+The sum of the two\+\_\+norm of all rows 
+\end{DoxyReturn}
+
+
+Definition at line 126 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{126                                               \{}
+\DoxyCodeLine{127     \textcolor{keywordtype}{double} sum(0.0);}
+\DoxyCodeLine{128     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} row = 0; row < m\_N; ++row) \{}
+\DoxyCodeLine{129       \textcolor{comment}{// copy the row into a temp vector}}
+\DoxyCodeLine{130       DenseVector<\_Type> temp(3 * m\_L + 1, \&m\_storage[ row * (3 * m\_L + 1) ]);}
+\DoxyCodeLine{131       sum += temp.two\_norm();}
+\DoxyCodeLine{132     \}}
+\DoxyCodeLine{133     \textcolor{keywordflow}{return} sum;}
+\DoxyCodeLine{134   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::two\+\_\+norm().
+
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a6b3122061bfa293109e7169030876907}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!get@{get}}
+\index{get@{get}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{get()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+const \+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::get (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{row,  }\item[{const std\+::size\+\_\+t \&}]{col }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Access operator. 
+
+
+
+Implements \textbf{ Cpp\+Noddy\+::\+Sequential\+\_\+\+Matrix\+\_\+base$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Sequential__Matrix__base_a70fa57a3637b367cd380af7bc2788541}.
+
+
+
+Definition at line 206 of file Banded\+Matrix.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{206                                                      \{}
+\DoxyCodeLine{207     \textcolor{keywordflow}{return} operator()(row, col);}
+\DoxyCodeLine{208   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_af6fa54b0ec1600f2b135774cc8ad71c6}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!get\_elt\_iter@{get\_elt\_iter}}
+\index{get\_elt\_iter@{get\_elt\_iter}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{get\_elt\_iter()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ elt\+\_\+iter} \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::get\+\_\+elt\+\_\+iter (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{row,  }\item[{std\+::size\+\_\+t}]{col }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 127 of file Banded\+Matrix.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{127                                                         \{}
+\DoxyCodeLine{128       \textcolor{keywordflow}{return} m\_storage.begin() + m\_L * (3 * col + 2) + row;}
+\DoxyCodeLine{129     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::m\+\_\+L, and Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::m\+\_\+storage.
+
+
+
+Referenced by Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$\+::assemble\+\_\+matrix\+\_\+problem().
+
+\mbox{\label{classCppNoddy_1_1BandedMatrix_ae434a54504321e2ac8247ecd54db4474}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!inf\_norm@{inf\_norm}}
+\index{inf\_norm@{inf\_norm}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{inf\_norm()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::inf\+\_\+norm}
+
+\begin{DoxyReturn}{Returns}
+The maximum inf\+\_\+norm of all rows 
+\end{DoxyReturn}
+
+
+Definition at line 114 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{114                                              \{}
+\DoxyCodeLine{115     \textcolor{keywordtype}{double} max(0.0);}
+\DoxyCodeLine{116     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} row = 0; row < m\_N; ++row) \{}
+\DoxyCodeLine{117       \textcolor{comment}{// copy the row into a temp vector}}
+\DoxyCodeLine{118       DenseVector<\_Type> temp(3 * m\_L + 1, \&m\_storage[ row * (3 * m\_L + 1) ]);}
+\DoxyCodeLine{119       max = std::max(max, temp.inf\_norm());}
+\DoxyCodeLine{120     \}}
+\DoxyCodeLine{121     \textcolor{keywordflow}{return} max;}
+\DoxyCodeLine{122   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::inf\+\_\+norm().
+
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a5099bcb1b1653f9eeaade21b141b5e5a}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!multiply@{multiply}}
+\index{multiply@{multiply}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{multiply()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::multiply (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{X }\end{DoxyParamCaption}) const}
+
+
+
+Right multiply the matrix by a D\+E\+N\+SE vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em X} & The D\+E\+N\+SE vector to multiply by \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A D\+E\+N\+SE vector of length \doxyref{ncols()}{p.}{classCppNoddy_1_1BandedMatrix_ac40afe5c74b2bae1b41b2923e82faf92} produced from the multiplication 
+\end{DoxyReturn}
+
+
+Definition at line 58 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{58                                                                                     \{}
+\DoxyCodeLine{59     std::string problem;}
+\DoxyCodeLine{60     problem = \textcolor{stringliteral}{" The multiply method of the BandedMatrix class has \(\backslash\)n"};}
+\DoxyCodeLine{61     problem += \textcolor{stringliteral}{" not been implemented. \(\backslash\)n"};}
+\DoxyCodeLine{62     \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{63     \textcolor{keywordflow}{return} m\_storage; \textcolor{comment}{// dummy return}}
+\DoxyCodeLine{64   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_ac40afe5c74b2bae1b41b2923e82faf92}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!ncols@{ncols}}
+\index{ncols@{ncols}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{ncols()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::ncols\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Get the number of columns. 
+
+\begin{DoxyReturn}{Returns}
+The number of columns in the matrix 
+\end{DoxyReturn}
+
+
+Implements \textbf{ Cpp\+Noddy\+::\+Sequential\+\_\+\+Matrix\+\_\+base$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Sequential__Matrix__base_ada968915fce07d8c89c6f87dcd2aea3b}.
+
+
+
+Definition at line 222 of file Banded\+Matrix.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{222                                                     \{}
+\DoxyCodeLine{223     \textcolor{keywordflow}{return} m\_N;}
+\DoxyCodeLine{224   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_adf3292edce3b21341639db374a70f362}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!nelts@{nelts}}
+\index{nelts@{nelts}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{nelts()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::nelts\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the number of elements. 
+
+\begin{DoxyReturn}{Returns}
+The number of elements 
+\end{DoxyReturn}
+
+
+Implements \textbf{ Cpp\+Noddy\+::\+Sequential\+\_\+\+Matrix\+\_\+base$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Sequential__Matrix__base_a964ce81c7338b7d587c4f37c0891a3b6}.
+
+
+
+Definition at line 47 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{47                                              \{}
+\DoxyCodeLine{48     \textcolor{keywordflow}{return} m\_storage.size();}
+\DoxyCodeLine{49   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a248ddb2145d5b09022bcc087a24dcac6}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!noffdiag@{noffdiag}}
+\index{noffdiag@{noffdiag}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{noffdiag()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::noffdiag\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the number of off-\/diagonal elements where the total I\+N\+P\+UT band width is 2$\ast$noffdiag+1 since the band structure is symmetric. 
+
+\begin{DoxyReturn}{Returns}
+The number of upper or lower offdiagonal bands; N\+O\+TE\+: the number of offdiagonals S\+T\+O\+R\+ED will typically be three times this to allow for pivotting 
+\end{DoxyReturn}
+
+
+Definition at line 227 of file Banded\+Matrix.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{227                                                        \{}
+\DoxyCodeLine{228     \textcolor{keywordflow}{return} m\_L;}
+\DoxyCodeLine{229   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$\+::assemble\+\_\+matrix\+\_\+problem(), and main().
+
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a55ff3ec9bf8851844124bb46a0f432ed}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!nrows@{nrows}}
+\index{nrows@{nrows}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{nrows()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::nrows\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Get the number of rows. 
+
+\begin{DoxyReturn}{Returns}
+The number of rows in the matrix 
+\end{DoxyReturn}
+
+
+Implements \textbf{ Cpp\+Noddy\+::\+Sequential\+\_\+\+Matrix\+\_\+base$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Sequential__Matrix__base_a9ed1f9de408603df757bd78950b45e7e}.
+
+
+
+Definition at line 217 of file Banded\+Matrix.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{217                                                     \{}
+\DoxyCodeLine{218     \textcolor{keywordflow}{return} m\_N;}
+\DoxyCodeLine{219   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a9c3b5d307eda21303e7f439717fd56af}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!one\_norm@{one\_norm}}
+\index{one\_norm@{one\_norm}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{one\_norm()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::one\+\_\+norm}
+
+\begin{DoxyReturn}{Returns}
+The maximum one\+\_\+norm of all rows 
+\end{DoxyReturn}
+
+
+Definition at line 90 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{90                                              \{}
+\DoxyCodeLine{91     \textcolor{keywordtype}{double} max(0.0);}
+\DoxyCodeLine{92     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} row = 0; row < m\_N; ++row) \{}
+\DoxyCodeLine{93       \textcolor{comment}{// copy the row into a temp vector}}
+\DoxyCodeLine{94       DenseVector<\_Type> temp(3 * m\_L + 1, \&m\_storage[ row * (3 * m\_L + 1) ]);}
+\DoxyCodeLine{95       max = std::max(max, temp.one\_norm());}
+\DoxyCodeLine{96     \}}
+\DoxyCodeLine{97     \textcolor{keywordflow}{return} max;}
+\DoxyCodeLine{98   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::one\+\_\+norm().
+
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a6abfee4cd34984ba249a8d8ae5f31826}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{operator()()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::operator() (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{row,  }\item[{const std\+::size\+\_\+t \&}]{col }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Access operator. 
+
+
+
+Implements \textbf{ Cpp\+Noddy\+::\+Sequential\+\_\+\+Matrix\+\_\+base$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Sequential__Matrix__base_a62315ee83fe50f6ed63431e3866f29c8}.
+
+
+
+Definition at line 175 of file Banded\+Matrix.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{175                                                                                           \{}
+\DoxyCodeLine{176 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{177     \textcolor{comment}{// if outside the m\_Nxm\_N matrix}}
+\DoxyCodeLine{178     \textcolor{keywordflow}{if}((row >= m\_N) || (row < 0) || (col >= m\_N) || (col < 0)) \{}
+\DoxyCodeLine{179       std::string problem;}
+\DoxyCodeLine{180       problem = \textcolor{stringliteral}{" The operator() of BandedMatrix has been called \(\backslash\)n"};}
+\DoxyCodeLine{181       problem += \textcolor{stringliteral}{" with a (row, col) index that is outside \(\backslash\)n"};}
+\DoxyCodeLine{182       problem += \textcolor{stringliteral}{" the square m\_Nxm\_N matrix.\(\backslash\)n"};}
+\DoxyCodeLine{183       \textcolor{keywordflow}{throw} ExceptionRange(problem, m\_N, m\_N, row, col);}
+\DoxyCodeLine{184     \}}
+\DoxyCodeLine{185     \textcolor{comment}{// check if the subscripts are out of the band}}
+\DoxyCodeLine{186     \textcolor{keywordflow}{if}(!((col + m\_L >= row) \&\& (col <= 2*m\_L + row))) \{}
+\DoxyCodeLine{187       std::string problem;}
+\DoxyCodeLine{188       problem = \textcolor{stringliteral}{" The operator() of BandedMatrix has been called \(\backslash\)n"};}
+\DoxyCodeLine{189       problem += \textcolor{stringliteral}{" with a (row, col) index that is outside \(\backslash\)n"};}
+\DoxyCodeLine{190       problem += \textcolor{stringliteral}{" the band structure.\(\backslash\)n"};}
+\DoxyCodeLine{191       std::cout << \textcolor{stringliteral}{" m\_L = "} << m\_L << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{192       std::cout << \textcolor{stringliteral}{" row = "} << row << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{193       std::cout << \textcolor{stringliteral}{" col = "} << col << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{194       \textcolor{keywordflow}{throw} ExceptionRange(problem, m\_N, m\_L, row, col);}
+\DoxyCodeLine{195     \}}
+\DoxyCodeLine{196 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{197     \textcolor{comment}{// MOSTLY WE PUSH BANDED MATRICES TO LAPACK -\/ so we'll keep column major}}
+\DoxyCodeLine{198     \textcolor{comment}{// internal storage ... a la Fortran}}
+\DoxyCodeLine{199     \textcolor{comment}{// return m\_storage[ col * ( 3 * m\_L + 1 ) + ( row -\/ col ) + 2 * m\_L ];}}
+\DoxyCodeLine{200     \textcolor{comment}{// or equiv.}}
+\DoxyCodeLine{201     \textcolor{keywordflow}{return} m\_storage[ m\_L * (3 * col + 2) + row ];}
+\DoxyCodeLine{202   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a0d43120da4b70c455e0eae6402496397}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{operator()()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+const \+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::operator() (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{row,  }\item[{const std\+::size\+\_\+t \&}]{col }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Access operator. 
+
+
+
+Implements \textbf{ Cpp\+Noddy\+::\+Sequential\+\_\+\+Matrix\+\_\+base$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Sequential__Matrix__base_aa6ceb89a9befb03886a43007cf46e40e}.
+
+
+
+Definition at line 147 of file Banded\+Matrix.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{147                                                                                                       \{}
+\DoxyCodeLine{148 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{149     \textcolor{comment}{// if outside the m\_Nxm\_N matrix}}
+\DoxyCodeLine{150     \textcolor{keywordflow}{if}((row >= m\_N) || (row < 0) || (col >= m\_N) || (col < 0)) \{}
+\DoxyCodeLine{151       std::string problem;}
+\DoxyCodeLine{152       problem = \textcolor{stringliteral}{" The const operator() of BandedMatrix has been called \(\backslash\)n"};}
+\DoxyCodeLine{153       problem += \textcolor{stringliteral}{" with a (row, col) index that is outside \(\backslash\)n"};}
+\DoxyCodeLine{154       problem += \textcolor{stringliteral}{" the square m\_Nxm\_N matrix.\(\backslash\)n"};}
+\DoxyCodeLine{155       \textcolor{keywordflow}{throw} ExceptionGeom(problem, m\_N, m\_N, row, col);}
+\DoxyCodeLine{156     \}}
+\DoxyCodeLine{157     \textcolor{comment}{// check if the subscripts are out of the band}}
+\DoxyCodeLine{158     \textcolor{keywordflow}{if}(!((col + m\_L >= row) \&\& (col <= 2*m\_L + row))) \{}
+\DoxyCodeLine{159       std::string problem;}
+\DoxyCodeLine{160       problem = \textcolor{stringliteral}{" The const operator() of BandedMatrix has been called \(\backslash\)n"};}
+\DoxyCodeLine{161       problem += \textcolor{stringliteral}{" with a (row, col) index that is outside \(\backslash\)n"};}
+\DoxyCodeLine{162       problem += \textcolor{stringliteral}{" the band structure. Bandwidth and offset from\(\backslash\)n"};}
+\DoxyCodeLine{163       problem += \textcolor{stringliteral}{" the diagonal information follows.\(\backslash\)n"};}
+\DoxyCodeLine{164       \textcolor{keywordflow}{throw} ExceptionGeom(problem, m\_L, col -\/ row);}
+\DoxyCodeLine{165     \}}
+\DoxyCodeLine{166 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{167     \textcolor{comment}{// MOSTLY WE PUSH BANDED MATRICES TO LAPACK -\/ so we'll keep column major}}
+\DoxyCodeLine{168     \textcolor{comment}{// internal storage ... a la Fortran}}
+\DoxyCodeLine{169     \textcolor{comment}{// return m\_storage[ col * ( 3 * m\_L + 1 ) + ( row -\/ col ) + 2 * m\_L ];}}
+\DoxyCodeLine{170     \textcolor{comment}{// or equiv.}}
+\DoxyCodeLine{171     \textcolor{keywordflow}{return} m\_storage[ m\_L * (3 * col + 2) + row ];}
+\DoxyCodeLine{172   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a863b40308ce57b7d8347aa92148eaad9}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{operator=()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Banded\+Matrix}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \textbf{ Banded\+Matrix}$<$ \+\_\+\+Type $>$ \&}]{source }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Assignment operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The source object for the assignment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The newly assigned object 
+\end{DoxyReturn}
+
+
+Definition at line 37 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{37                                                                                               \{}
+\DoxyCodeLine{38     \textcolor{keywordflow}{if}(\textcolor{keyword}{this} == \&source)}
+\DoxyCodeLine{39       \textcolor{keywordflow}{return} * \textcolor{keyword}{this};}
+\DoxyCodeLine{40     m\_storage = source.m\_storage;}
+\DoxyCodeLine{41     m\_N = source.m\_N;}
+\DoxyCodeLine{42     m\_L = source.m\_L;}
+\DoxyCodeLine{43     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{44   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::source().
+
+\mbox{\label{classCppNoddy_1_1BandedMatrix_ad6057b96a752c137f9eb8411b5e9bb8c}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!row\_swap@{row\_swap}}
+\index{row\_swap@{row\_swap}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{row\_swap()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::row\+\_\+swap (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{row1,  }\item[{const std\+::size\+\_\+t \&}]{row2 }\end{DoxyParamCaption})}
+
+
+
+Exchange rows in the matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row1} & First row to be swapped \\
+\hline
+{\em row2} & Second row to be swapped \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\textbf{ Todo}]M\+A\+KE ME P\+R\+I\+V\+A\+TE OR E\+L\+S\+E! \end{DoxyRefDesc}
+
+
+Definition at line 79 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{79                                                                                  \{}
+\DoxyCodeLine{80     \textcolor{comment}{// WE MUST HAVE row2 > row1 \& row1 must have no elements left of the diagonal!}}
+\DoxyCodeLine{81     \textcolor{comment}{// only of any use to native Gaussian elimination solver}\textcolor{comment}{}}
+\DoxyCodeLine{82 \textcolor{comment}{    /// \(\backslash\)todo MAKE ME PRIVATE OR ELSE!}}
+\DoxyCodeLine{83 \textcolor{comment}{}    \textcolor{keywordflow}{for}(std::size\_t col = row1; col <= std::min(row1 + 2 * m\_L, m\_N -\/ 1); ++col) \{}
+\DoxyCodeLine{84       std::swap(\textcolor{keyword}{operator}()(row1, col), \textcolor{keyword}{operator}()(row2, col));}
+\DoxyCodeLine{85     \}}
+\DoxyCodeLine{86   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a1d507ed4ae20373f6c09cfa85fad44d1}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!scale@{scale}}
+\index{scale@{scale}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{scale()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::scale (\begin{DoxyParamCaption}\item[{const \+\_\+\+Type \&}]{mult }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Scale all entries in the matrix by a scalar. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mult} & The scalar multiplier \\
+\hline
+\end{DoxyParams}
+
+
+Implements \textbf{ Cpp\+Noddy\+::\+Sequential\+\_\+\+Matrix\+\_\+base$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Sequential__Matrix__base_a0d5696cf9bada8aa9c25aeee5f43fa8f}.
+
+
+
+Definition at line 52 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{52                                                    \{}
+\DoxyCodeLine{53     m\_storage *= mult;}
+\DoxyCodeLine{54   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_afe9cae6c340b34a8d3096183a7e42533}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!set@{set}}
+\index{set@{set}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{set()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::set (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{row,  }\item[{const std\+::size\+\_\+t \&}]{col }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Access operator. 
+
+
+
+Implements \textbf{ Cpp\+Noddy\+::\+Sequential\+\_\+\+Matrix\+\_\+base$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Sequential__Matrix__base_a78cdd7b54cc2d76e8c9df83ef0423525}.
+
+
+
+Definition at line 212 of file Banded\+Matrix.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{212                                                \{}
+\DoxyCodeLine{213     \textcolor{keywordflow}{return} operator()(row, col);}
+\DoxyCodeLine{214   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a1836efbc505d150a07092fb096936ec7}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!transpose@{transpose}}
+\index{transpose@{transpose}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{transpose()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::transpose}
+
+
+
+Transpose the matrix. 
+
+
+
+Definition at line 68 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{68                                       \{}
+\DoxyCodeLine{69     \textcolor{keywordflow}{for}(std::size\_t row = 0; row < m\_N; ++row) \{}
+\DoxyCodeLine{70       \textcolor{keywordflow}{for}(std::size\_t col = std::max(0, \textcolor{keywordtype}{int}(row) -\/ \textcolor{keywordtype}{int}(m\_L)); col < row; ++col) \{}
+\DoxyCodeLine{71         \textcolor{comment}{// swap elements}}
+\DoxyCodeLine{72         std::swap(\textcolor{keyword}{operator}()(row, col), \textcolor{keyword}{operator}()(col, row));}
+\DoxyCodeLine{73       \}}
+\DoxyCodeLine{74     \}}
+\DoxyCodeLine{75   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_aaa04a69f12201f6d095c14382832d274}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!two\_norm@{two\_norm}}
+\index{two\_norm@{two\_norm}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{two\_norm()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::two\+\_\+norm}
+
+\begin{DoxyReturn}{Returns}
+The maximum two\+\_\+norm of all rows 
+\end{DoxyReturn}
+
+
+Definition at line 102 of file Banded\+Matrix.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{102                                              \{}
+\DoxyCodeLine{103     \textcolor{keywordtype}{double} max(0.0);}
+\DoxyCodeLine{104     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} row = 0; row < m\_N; ++row) \{}
+\DoxyCodeLine{105       \textcolor{comment}{// copy the row into a temp vector}}
+\DoxyCodeLine{106       DenseVector<\_Type> temp(3 * m\_L + 1, \&m\_storage[ row * (3 * m\_L + 1) ]);}
+\DoxyCodeLine{107       max = std::max(max, temp.two\_norm());}
+\DoxyCodeLine{108     \}}
+\DoxyCodeLine{109     \textcolor{keywordflow}{return} max;}
+\DoxyCodeLine{110   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::two\+\_\+norm().
+
+
+
+\doxysubsubsection{Member Data Documentation}
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a69aafaf6c003a467f0254e1c84d94969}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!m\_L@{m\_L}}
+\index{m\_L@{m\_L}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{m\_L}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::m\+\_\+L}
+
+
+
+Max number of (I\+N\+P\+UT) bands above OR below the main diagonal. 
+
+
+
+Definition at line 138 of file Banded\+Matrix.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::\+Banded\+Matrix(), Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::blank(), and Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::get\+\_\+elt\+\_\+iter().
+
+\mbox{\label{classCppNoddy_1_1BandedMatrix_a972e4ad03438c4a2df6671aa35fcf452}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!m\_N@{m\_N}}
+\index{m\_N@{m\_N}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{m\_N}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::m\+\_\+N}
+
+
+
+The number of rows/cols in the matrix. 
+
+
+
+Definition at line 136 of file Banded\+Matrix.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::\+Banded\+Matrix(), and Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::blank().
+
+\mbox{\label{classCppNoddy_1_1BandedMatrix_ab7b7f0685be8dc17085562e852cfd0de}} 
+\index{CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}!m\_storage@{m\_storage}}
+\index{m\_storage@{m\_storage}!CppNoddy::BandedMatrix$<$ \_Type $>$@{CppNoddy::BandedMatrix$<$ \_Type $>$}}
+\doxyparagraph{m\_storage}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$\+\_\+\+Type$>$ \textbf{ Cpp\+Noddy\+::\+Banded\+Matrix}$<$ \+\_\+\+Type $>$\+::m\+\_\+storage}
+
+
+
+A contiguous vector. 
+
+
+
+Definition at line 134 of file Banded\+Matrix.\+h.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::assign(), Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::\+Banded\+Matrix(), Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::blank(), and Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::get\+\_\+elt\+\_\+iter().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Banded\+Matrix.\+h}\item 
+src/\textbf{ Banded\+Matrix.\+cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,116 @@
+\doxysubsection{Cpp\+Noddy\+::Example\+::Biharmonic\+\_\+equation Class Reference}
+\label{classCppNoddy_1_1Example_1_1Biharmonic__equation}\index{CppNoddy::Example::Biharmonic\_equation@{CppNoddy::Example::Biharmonic\_equation}}
+
+
+Define the biharmonic eigenvalue equation by inheriting \doxyref{Equation}{p.}{classCppNoddy_1_1Equation} base class.  
+
+
+Inheritance diagram for Cpp\+Noddy\+::Example\+::Biharmonic\+\_\+equation\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classCppNoddy_1_1Example_1_1Biharmonic__equation}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Biharmonic\+\_\+equation} ()
+\begin{DoxyCompactList}\small\item\em The biharmonic is a 4th order complex problem. \end{DoxyCompactList}\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ \&\textbf{ f}) const
+\begin{DoxyCompactList}\small\item\em We implement the equation as 4 first-\/order O\+D\+Es. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ D\+\_\+complex} \textbf{ lambda}
+\begin{DoxyCompactList}\small\item\em The eigenvalue. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+Define the biharmonic eigenvalue equation by inheriting \doxyref{Equation}{p.}{classCppNoddy_1_1Equation} base class. 
+
+Definition at line 22 of file E\+V\+P\+Shoot\+Biharmonic.\+cpp.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Biharmonic__equation_a41db599894aeb524feae8943e6440e30}} 
+\index{CppNoddy::Example::Biharmonic\_equation@{CppNoddy::Example::Biharmonic\_equation}!Biharmonic\_equation@{Biharmonic\_equation}}
+\index{Biharmonic\_equation@{Biharmonic\_equation}!CppNoddy::Example::Biharmonic\_equation@{CppNoddy::Example::Biharmonic\_equation}}
+\doxyparagraph{Biharmonic\_equation()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Biharmonic\+\_\+equation\+::\+Biharmonic\+\_\+equation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The biharmonic is a 4th order complex problem. 
+
+
+
+Definition at line 26 of file E\+V\+P\+Shoot\+Biharmonic.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26 : Equation<D\_complex>( 4 ) \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Biharmonic__equation_a4d1ab2522790879055512a6dafc2890c}} 
+\index{CppNoddy::Example::Biharmonic\_equation@{CppNoddy::Example::Biharmonic\_equation}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::Biharmonic\_equation@{CppNoddy::Example::Biharmonic\_equation}}
+\doxyparagraph{residual\_fn()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Biharmonic\+\_\+equation\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ \&}]{z,  }\item[{\textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+We implement the equation as 4 first-\/order O\+D\+Es. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ D\+\_\+complex $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 29 of file E\+V\+P\+Shoot\+Biharmonic.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30       \{}
+\DoxyCodeLine{31         f[ 0 ] = z[ 1 ];}
+\DoxyCodeLine{32         f[ 1 ] = z[ 2 ];}
+\DoxyCodeLine{33         f[ 2 ] = z[ 3 ];}
+\DoxyCodeLine{34         f[ 3 ] = -\/ z[ 2 ] * 2.0 * lambda -\/ z[ 0 ] * pow( lambda, 2 );}
+\DoxyCodeLine{35       \}}
+
+\end{DoxyCode}
+
+
+References f, lambda, and Cpp\+Noddy\+::\+Example\+::z().
+
+
+
+\doxysubsubsection{Member Data Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Biharmonic__equation_a2442e8bdac11f19b5c9cc8d246783d66}} 
+\index{CppNoddy::Example::Biharmonic\_equation@{CppNoddy::Example::Biharmonic\_equation}!lambda@{lambda}}
+\index{lambda@{lambda}!CppNoddy::Example::Biharmonic\_equation@{CppNoddy::Example::Biharmonic\_equation}}
+\doxyparagraph{lambda}
+{\footnotesize\ttfamily \textbf{ D\+\_\+complex} Cpp\+Noddy\+::\+Example\+::\+Biharmonic\+\_\+equation\+::lambda}
+
+
+
+The eigenvalue. 
+
+
+
+Definition at line 38 of file E\+V\+P\+Shoot\+Biharmonic.\+cpp.
+
+
+
+Referenced by residual\+\_\+fn().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tests/\+E\+V\+P/\textbf{ E\+V\+P\+Shoot\+Biharmonic.\+cpp}\end{DoxyCompactItemize}

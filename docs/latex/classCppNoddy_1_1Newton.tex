@@ -1,0 +1,422 @@
+\doxysubsection{Cpp\+Noddy\+::Newton$<$ \+\_\+\+Type $>$ Class Template Reference}
+\label{classCppNoddy_1_1Newton}\index{CppNoddy::Newton$<$ \_Type $>$@{CppNoddy::Newton$<$ \_Type $>$}}
+
+
+A vector N\+E\+W\+T\+ON iteration class.  
+
+
+
+
+{\ttfamily \#include $<$Newton.\+h$>$}
+
+Inheritance diagram for Cpp\+Noddy\+::Newton$<$ \+\_\+\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classCppNoddy_1_1Newton}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Newton} (\textbf{ Residual}$<$ \+\_\+\+Type $>$ $\ast$ptr\+\_\+to\+\_\+residual\+\_\+object, unsigned max\+\_\+steps=20, double tolerance=1.e-\/8, double derivative\+\_\+step=1.e-\/8)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+void \textbf{ iterate} (\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&x)
+\begin{DoxyCompactList}\small\item\em The \doxyref{Newton}{p.}{classCppNoddy_1_1Newton} iteration method. \end{DoxyCompactList}\item 
+void \textbf{ set\+\_\+monitor\+\_\+det} (bool flag)
+\begin{DoxyCompactList}\small\item\em If set then the system will monitor the sign of determinant of the Jacobian matrix and cause an \doxyref{Exception\+Bifurcation}{p.}{classCppNoddy_1_1ExceptionBifurcation} when it changes sign. \end{DoxyCompactList}\item 
+void \textbf{ solve} (\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&x)
+\begin{DoxyCompactList}\small\item\em Solve the system for an initial guess by \doxyref{Newton}{p.}{classCppNoddy_1_1Newton} iteration, this method is inherited from the \doxyref{Arc\+Length\+\_\+base}{p.}{classCppNoddy_1_1ArcLength__base} class and this simply points it to the iteration method. \end{DoxyCompactList}\item 
+void \textbf{ arclength\+\_\+solve} (\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&x)
+\begin{DoxyCompactList}\small\item\em Arc-\/length solve the system. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type$>$\newline
+class Cpp\+Noddy\+::\+Newton$<$ \+\_\+\+Type $>$}
+
+A vector N\+E\+W\+T\+ON iteration class. 
+
+This allows for \doxyref{Newton}{p.}{classCppNoddy_1_1Newton} iteration to be performed for a vector function of a vector unknown. Use templates to allow double or complex. 
+
+Definition at line 25 of file Newton.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Newton_a6d6cdb73e7e509ae67f46bad8fdd213a}} 
+\index{CppNoddy::Newton$<$ \_Type $>$@{CppNoddy::Newton$<$ \_Type $>$}!Newton@{Newton}}
+\index{Newton@{Newton}!CppNoddy::Newton$<$ \_Type $>$@{CppNoddy::Newton$<$ \_Type $>$}}
+\doxyparagraph{Newton()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Newton}$<$ \+\_\+\+Type $>$\+::\textbf{ Newton} (\begin{DoxyParamCaption}\item[{\textbf{ Residual}$<$ \+\_\+\+Type $>$ $\ast$}]{ptr\+\_\+to\+\_\+residual\+\_\+object,  }\item[{unsigned}]{max\+\_\+steps = {\ttfamily 20},  }\item[{double}]{tolerance = {\ttfamily 1.e-\/8},  }\item[{double}]{derivative\+\_\+step = {\ttfamily 1.e-\/8} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ptr\+\_\+to\+\_\+residual\+\_\+object} & A pointer to an inherited \doxyref{Residual}{p.}{classCppNoddy_1_1Residual} object \\
+\hline
+{\em max\+\_\+steps} & The maximum number of iteration steps. \\
+\hline
+{\em tolerance} & A tolerance used as a convergence criterion. \\
+\hline
+{\em derivative\+\_\+step} & A step length used to compute derivatives. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 19 of file Newton.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23     : ArcLength\_base< \_Type >(),}
+\DoxyCodeLine{24       TOL(tolerance),}
+\DoxyCodeLine{25       MAX\_STEPS(max\_steps),}
+\DoxyCodeLine{26       p\_RESIDUAL(ptr\_to\_residual\_object) \{}
+\DoxyCodeLine{27     p\_RESIDUAL -\/> delta() = derivative\_step;}
+\DoxyCodeLine{28     DELTA = derivative\_step;}
+\DoxyCodeLine{29     MONITOR\_DET = \textcolor{keyword}{false};}
+\DoxyCodeLine{30     LAST\_DET\_SIGN = 1;}
+\DoxyCodeLine{31   \}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Newton_a56dc2583c714d8ff0c8f27b21fddd8d5}} 
+\index{CppNoddy::Newton$<$ \_Type $>$@{CppNoddy::Newton$<$ \_Type $>$}!arclength\_solve@{arclength\_solve}}
+\index{arclength\_solve@{arclength\_solve}!CppNoddy::Newton$<$ \_Type $>$@{CppNoddy::Newton$<$ \_Type $>$}}
+\doxyparagraph{arclength\_solve()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Newton}$<$ \+\_\+\+Type $>$\+::arclength\+\_\+solve (\begin{DoxyParamCaption}\item[{\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{x }\end{DoxyParamCaption})}
+
+
+
+Arc-\/length solve the system. 
+
+Before this can be called the arc\+\_\+init method should have been called in order to ensure we know a solution and have derivatives w.\+r.\+t. the arc-\/length parameter. 
+
+Definition at line 98 of file Newton.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{98                                                            \{}
+\DoxyCodeLine{99 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{100     \textcolor{keywordflow}{if}(!\textcolor{keyword}{this} -\/> INITIALISED) \{}
+\DoxyCodeLine{101       std::string problem;}
+\DoxyCodeLine{102       problem = \textcolor{stringliteral}{"The Newton.arclength\_solve method has been called, but \(\backslash\)n"};}
+\DoxyCodeLine{103       problem += \textcolor{stringliteral}{" you haven't called the arc\_init method first. This means \(\backslash\)n"};}
+\DoxyCodeLine{104       problem += \textcolor{stringliteral}{" that a starting solution \& derivatives thereof are unknown. \(\backslash\)n"};}
+\DoxyCodeLine{105       problem += \textcolor{stringliteral}{" Please initialise things appropriately! "};}
+\DoxyCodeLine{106       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{107     \}}
+\DoxyCodeLine{108 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{109 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{110     std::cout.precision(6);}
+\DoxyCodeLine{111     std::cout << \textcolor{stringliteral}{"[ DEBUG ] : Entering arclength\_solve of the Newton class with\(\backslash\)n"};}
+\DoxyCodeLine{112     std::cout << \textcolor{stringliteral}{"[ DEBUG ] : a parameter of "} << *(\textcolor{keyword}{this} -\/> p\_PARAM) << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{114     \textcolor{comment}{// backup the state/system in case we fail}}
+\DoxyCodeLine{115     DenseVector<\_Type> backup\_state(x);}
+\DoxyCodeLine{116     \_Type backup\_parameter(*(\textcolor{keyword}{this} -\/> p\_PARAM));}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118     \textcolor{keywordtype}{int} det\_sign(1);}
+\DoxyCodeLine{119     \textcolor{comment}{// init some local vars}}
+\DoxyCodeLine{120     \textcolor{keywordtype}{bool} step\_succeeded(\textcolor{keyword}{false});}
+\DoxyCodeLine{121     \textcolor{keywordtype}{unsigned} itn(0);}
+\DoxyCodeLine{122     \textcolor{comment}{// make a guess at the next solution}}
+\DoxyCodeLine{123     *(\textcolor{keyword}{this} -\/> p\_PARAM) = \textcolor{keyword}{this} -\/> LAST\_PARAM + \textcolor{keyword}{this} -\/> PARAM\_DERIV\_S * \textcolor{keyword}{this} -\/> DS;}
+\DoxyCodeLine{124     x = \textcolor{keyword}{this} -\/> LAST\_X + \textcolor{keyword}{this} -\/> X\_DERIV\_S * \textcolor{keyword}{this} -\/> DS;}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126     \textcolor{comment}{// the order of the system}}
+\DoxyCodeLine{127     \textcolor{keywordtype}{unsigned} N = \textcolor{keyword}{this} -\/> p\_RESIDUAL -\/> get\_order();}
+\DoxyCodeLine{128     DenseMatrix<\_Type> J(N, N, 0.0);}
+\DoxyCodeLine{129     DenseVector<\_Type> R1(N, 0.0);}
+\DoxyCodeLine{130     DenseVector<\_Type> R2(N, 0.0);}
+\DoxyCodeLine{131     DenseVector<\_Type> dR\_dp(N, 0.0);}
+\DoxyCodeLine{132     \textcolor{comment}{//}}
+\DoxyCodeLine{133     \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{134       \textcolor{comment}{// update the residual object to the current guess}}
+\DoxyCodeLine{135       \textcolor{keyword}{this} -\/> p\_RESIDUAL -\/> update(x);}
+\DoxyCodeLine{136       \textcolor{comment}{// get the Jacobian of the system}}
+\DoxyCodeLine{137       J = \textcolor{keyword}{this} -\/> p\_RESIDUAL -\/> jacobian();}
+\DoxyCodeLine{138       R1 = \textcolor{keyword}{this} -\/> p\_RESIDUAL -\/> residual();}
+\DoxyCodeLine{139       \textcolor{comment}{// get the residual of the EXTRA arclength residual}}
+\DoxyCodeLine{140       \textcolor{keywordtype}{double} E1 = \textcolor{keyword}{this} -\/> arclength\_residual(x);}
+\DoxyCodeLine{141       \textcolor{comment}{// compute derivatives w.r.t the parameter}}
+\DoxyCodeLine{142       *(\textcolor{keyword}{this} -\/> p\_PARAM) += \textcolor{keyword}{this} -\/> DELTA;}
+\DoxyCodeLine{143       \textcolor{keyword}{this} -\/> p\_RESIDUAL -\/> residual\_fn(x, R2);}
+\DoxyCodeLine{144       \textcolor{keywordtype}{double} E2 = \textcolor{keyword}{this} -\/> arclength\_residual(x);}
+\DoxyCodeLine{145       *(\textcolor{keyword}{this} -\/> p\_PARAM)  -\/= \textcolor{keyword}{this} -\/> DELTA;}
+\DoxyCodeLine{146       dR\_dp = (R2 -\/ R1) / \textcolor{keyword}{this} -\/> DELTA;}
+\DoxyCodeLine{147       \_Type dE\_dp = (E2 -\/ E1) / \textcolor{keyword}{this} -\/> DELTA;}
+\DoxyCodeLine{148       \textcolor{comment}{// bordering algorithm}}
+\DoxyCodeLine{149       DenseVector<\_Type> y(-\/R1);}
+\DoxyCodeLine{150       DenseVector<\_Type> z(-\/dR\_dp);}
+\DoxyCodeLine{151 \textcolor{preprocessor}{\#ifdef LAPACK}}
+\DoxyCodeLine{152       DenseLinearSystem<\_Type> sys1(\&J, \&y, \textcolor{stringliteral}{"lapack"});}
+\DoxyCodeLine{153 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{154       DenseLinearSystem<\_Type> sys1(\&J, \&y, \textcolor{stringliteral}{"native"});}
+\DoxyCodeLine{155 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{156       sys1.set\_monitor\_det(MONITOR\_DET);}
+\DoxyCodeLine{157       \textcolor{keywordflow}{try} \{}
+\DoxyCodeLine{158         sys1.solve();}
+\DoxyCodeLine{159         det\_sign = sys1.get\_det\_sign();}
+\DoxyCodeLine{160       \} \textcolor{keywordflow}{catch} ( \textcolor{keyword}{const} ExceptionExternal \&error ) \{}
+\DoxyCodeLine{161         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{162       \}}
+\DoxyCodeLine{163       \textcolor{comment}{// the solve will have overwritten the LHS, so we need to replace it}}
+\DoxyCodeLine{164       J = \textcolor{keyword}{this} -\/> p\_RESIDUAL -\/> jacobian();}
+\DoxyCodeLine{165 \textcolor{preprocessor}{\#ifdef LAPACK}}
+\DoxyCodeLine{166       DenseLinearSystem<\_Type> sys2(\&J, \&z, \textcolor{stringliteral}{"lapack"});}
+\DoxyCodeLine{167 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{168       DenseLinearSystem<\_Type> sys2(\&J, \&z, \textcolor{stringliteral}{"native"});}
+\DoxyCodeLine{169 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{170       \textcolor{keywordflow}{try} \{}
+\DoxyCodeLine{171         sys2.solve();}
+\DoxyCodeLine{172       \} \textcolor{keywordflow}{catch}( \textcolor{keyword}{const} ExceptionExternal \&error ) \{}
+\DoxyCodeLine{173         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{174       \}}
+\DoxyCodeLine{175       DenseVector<\_Type> JacE(\textcolor{keyword}{this} -\/> Jac\_arclength\_residual(x));}
+\DoxyCodeLine{176       \_Type delta\_p = -\/ (E1 + Utility::dot(JacE, y)) /}
+\DoxyCodeLine{177                       (dE\_dp + Utility::dot(JacE, z));}
+\DoxyCodeLine{178       DenseVector<\_Type> delta\_x = y + z * delta\_p;}
+\DoxyCodeLine{179       \textcolor{keywordtype}{double} max\_correction = std::max(delta\_x.inf\_norm(), std::abs(delta\_p));}
+\DoxyCodeLine{180       \textcolor{keywordflow}{if}(max\_correction < this -\/> TOL) \{}
+\DoxyCodeLine{181         step\_succeeded = \textcolor{keyword}{true};}
+\DoxyCodeLine{182         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{183       \}}
+\DoxyCodeLine{184       \textcolor{comment}{// add the corrections to the state variables}}
+\DoxyCodeLine{185       x += delta\_x;}
+\DoxyCodeLine{186       *(\textcolor{keyword}{this} -\/> p\_PARAM) += delta\_p;}
+\DoxyCodeLine{187       ++itn;}
+\DoxyCodeLine{188       \textcolor{keywordflow}{if}(itn > MAX\_STEPS) \{}
+\DoxyCodeLine{189         step\_succeeded = \textcolor{keyword}{false};}
+\DoxyCodeLine{190         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{191       \}}
+\DoxyCodeLine{192     \} \textcolor{keywordflow}{while}(\textcolor{keyword}{true});}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{194     \textcolor{comment}{// is this a successful step?}}
+\DoxyCodeLine{195     \textcolor{keywordflow}{if}(!step\_succeeded) \{}
+\DoxyCodeLine{196 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{197       std::cout << \textcolor{stringliteral}{"[ DEBUG ] : REJECTING STEP \(\backslash\)n"};}
+\DoxyCodeLine{198 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{199       \textcolor{comment}{// if not a successful step then restore things}}
+\DoxyCodeLine{200       x = backup\_state;}
+\DoxyCodeLine{201       *(\textcolor{keyword}{this} -\/> p\_PARAM) = backup\_parameter;}
+\DoxyCodeLine{202       \textcolor{comment}{// restore the residual object to its initial state}}
+\DoxyCodeLine{203       \textcolor{keyword}{this} -\/> p\_RESIDUAL -\/> update(x);}
+\DoxyCodeLine{204       \textcolor{comment}{// reduce our step length}}
+\DoxyCodeLine{205       \textcolor{keyword}{this} -\/> DS /= \textcolor{keyword}{this} -\/> ARCSTEP\_MULTIPLIER;}
+\DoxyCodeLine{206     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{207       \textcolor{comment}{// update the variables needed for arc-\/length continuation}}
+\DoxyCodeLine{208       \textcolor{keyword}{this} -\/> update(x);}
+\DoxyCodeLine{209       \textcolor{keywordflow}{if}(LAST\_DET\_SIGN * det\_sign < 0) \{}
+\DoxyCodeLine{210         LAST\_DET\_SIGN = det\_sign;}
+\DoxyCodeLine{211         std::string problem;}
+\DoxyCodeLine{212         problem = \textcolor{stringliteral}{"[ INFO ] : Determinant monitor has changed signs in the Newton class.\(\backslash\)n"};}
+\DoxyCodeLine{213         problem += \textcolor{stringliteral}{"[ INFO ] : Bifurcation detected.\(\backslash\)n"};}
+\DoxyCodeLine{214         \textcolor{keywordflow}{throw} ExceptionBifurcation(problem);}
+\DoxyCodeLine{215       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{216         LAST\_DET\_SIGN = det\_sign;}
+\DoxyCodeLine{217       \}}
+\DoxyCodeLine{218 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{219       std::cout << \textcolor{stringliteral}{"[ DEBUG ] : Number of iterations = "} << itn << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{220       std::cout << \textcolor{stringliteral}{"[ DEBUG ] : Parameter p = "} << *(\textcolor{keyword}{this} -\/> p\_PARAM)}
+\DoxyCodeLine{221                 << \textcolor{stringliteral}{"; arclength DS = "} << \textcolor{keyword}{this} -\/> DS << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{222 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{223       \textcolor{keywordflow}{if}(itn >= 7) \{}
+\DoxyCodeLine{224         \textcolor{comment}{// converging too slowly, so decrease DS}}
+\DoxyCodeLine{225         \textcolor{keyword}{this} -\/> DS /= \textcolor{keyword}{this} -\/> ARCSTEP\_MULTIPLIER;}
+\DoxyCodeLine{226 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{227         std::cout << \textcolor{stringliteral}{"[ DEBUG ] : I decreased DS to "} << \textcolor{keyword}{this} -\/> DS << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{228 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{229       \}}
+\DoxyCodeLine{230       \textcolor{keywordflow}{if}(itn <= 2) \{}
+\DoxyCodeLine{231         \textcolor{keywordflow}{if}(std::abs(\textcolor{keyword}{this} -\/> DS * \textcolor{keyword}{this} -\/> ARCSTEP\_MULTIPLIER) < \textcolor{keyword}{this} -\/> MAX\_DS) \{}
+\DoxyCodeLine{232           \textcolor{comment}{// converging too quickly, so increase DS}}
+\DoxyCodeLine{233           \textcolor{keyword}{this} -\/> DS *= \textcolor{keyword}{this} -\/> ARCSTEP\_MULTIPLIER;}
+\DoxyCodeLine{234 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{235           std::cout << \textcolor{stringliteral}{"[ DEBUG ] : I increased DS to "} << \textcolor{keyword}{this} -\/> DS << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{236 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{237         \}}
+\DoxyCodeLine{238       \}}
+\DoxyCodeLine{239     \}}
+\DoxyCodeLine{240   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Utility\+::dot(), Cpp\+Noddy\+::\+Dense\+Linear\+System$<$ \+\_\+\+Type $>$\+::get\+\_\+det\+\_\+sign(), Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::inf\+\_\+norm(), Cpp\+Noddy\+::\+Dense\+Linear\+System$<$ \+\_\+\+Type $>$\+::set\+\_\+monitor\+\_\+det(), Cpp\+Noddy\+::\+Dense\+Linear\+System$<$ \+\_\+\+Type $>$\+::solve(), and Cpp\+Noddy\+::\+Example\+::z().
+
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1Newton_a5446bc117bb6aac1762bc55e137b6753}} 
+\index{CppNoddy::Newton$<$ \_Type $>$@{CppNoddy::Newton$<$ \_Type $>$}!iterate@{iterate}}
+\index{iterate@{iterate}!CppNoddy::Newton$<$ \_Type $>$@{CppNoddy::Newton$<$ \_Type $>$}}
+\doxyparagraph{iterate()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Newton}$<$ \+\_\+\+Type $>$\+::iterate (\begin{DoxyParamCaption}\item[{\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{x }\end{DoxyParamCaption})}
+
+
+
+The \doxyref{Newton}{p.}{classCppNoddy_1_1Newton} iteration method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & An initial guess vector and returns the solution via this too. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 35 of file Newton.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{35                                                    \{}
+\DoxyCodeLine{36     \textcolor{comment}{// length of the vector}}
+\DoxyCodeLine{37     \textcolor{keywordtype}{unsigned} N = x.size();}
+\DoxyCodeLine{38     \textcolor{comment}{// Jacobian}}
+\DoxyCodeLine{39     DenseMatrix<\_Type> J(N, N, 0.0);}
+\DoxyCodeLine{40     \textcolor{comment}{// NVectors}}
+\DoxyCodeLine{41     DenseVector<\_Type> oldFn(N, 0.0), newFn(N, 0.0);}
+\DoxyCodeLine{42     \textcolor{comment}{// linear system object -\/ native because no LAPACK complex at the moment}}
+\DoxyCodeLine{43     DenseLinearSystem<\_Type> system(\&J, \&oldFn, \textcolor{stringliteral}{"native"});}
+\DoxyCodeLine{44     system.set\_monitor\_det(MONITOR\_DET);}
+\DoxyCodeLine{45     \textcolor{comment}{// iteration counter}}
+\DoxyCodeLine{46     \textcolor{keywordtype}{unsigned} itn = 0;}
+\DoxyCodeLine{47     \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{48       \textcolor{comment}{// increment the counter}}
+\DoxyCodeLine{49       ++itn;}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51       \textcolor{comment}{// evaluate the residuals and jacobian at the current state}}
+\DoxyCodeLine{52       p\_RESIDUAL -\/> update(x);}
+\DoxyCodeLine{53       \textcolor{comment}{// get the residuals}}
+\DoxyCodeLine{54       oldFn = p\_RESIDUAL -\/> residual();}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{56       std::cout << \textcolor{stringliteral}{" DEBUG: starting with |Residuals|  = "} << oldFn.inf\_norm() << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59       \textcolor{keywordflow}{if}((std::abs(oldFn.inf\_norm()) < TOL) || (itn == MAX\_STEPS)) \{}
+\DoxyCodeLine{60         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{61       \}}
+\DoxyCodeLine{62       \textcolor{comment}{// retrieve the current jacobian}}
+\DoxyCodeLine{63       J = p\_RESIDUAL -\/> jacobian();}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65       \textcolor{comment}{// linear solver}}
+\DoxyCodeLine{66       \textcolor{comment}{// \(\backslash\)todo LU interface to LAPACK for complex matrices}}
+\DoxyCodeLine{67       system.solve();}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{70       std::cout << \textcolor{stringliteral}{" DEBUG: Iteration number    = "} << itn << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{71       std::cout << \textcolor{stringliteral}{" DEBUG: |Newton correction| = "} << oldFn.inf\_norm() << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74       \textcolor{comment}{// must *subtract* delta}}
+\DoxyCodeLine{75       x -\/= oldFn;}
+\DoxyCodeLine{76     \} \textcolor{keywordflow}{while}(\textcolor{keyword}{true});}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78     \textcolor{comment}{// More the 'MAX\_STEPS' iterations currently triggers a failure.}}
+\DoxyCodeLine{79     \textcolor{keywordflow}{if}(itn == MAX\_STEPS) \{}
+\DoxyCodeLine{80       std::string problem;}
+\DoxyCodeLine{81       problem = \textcolor{stringliteral}{" The Newton.iterate method took too many iterations. \(\backslash\)n"};}
+\DoxyCodeLine{82       problem += \textcolor{stringliteral}{" At the moment, this is set as a failure. \(\backslash\)n"};}
+\DoxyCodeLine{83       \textcolor{keywordflow}{throw} ExceptionItn(problem, itn, oldFn.inf\_norm());}
+\DoxyCodeLine{84     \}}
+\DoxyCodeLine{85     LAST\_DET\_SIGN = system.get\_det\_sign();}
+\DoxyCodeLine{86     \textcolor{keywordflow}{if}(MONITOR\_DET) \{}
+\DoxyCodeLine{87       \textcolor{keywordflow}{if}(system.get\_det\_sign() * LAST\_DET\_SIGN < 0) \{}
+\DoxyCodeLine{88         std::string problem;}
+\DoxyCodeLine{89         problem = \textcolor{stringliteral}{"[ INFO ] : Determinant monitor has changed signs in ODE\_BVP.\(\backslash\)n"};}
+\DoxyCodeLine{90         problem += \textcolor{stringliteral}{"[ INFO ] : Bifurcation detected.\(\backslash\)n"};}
+\DoxyCodeLine{91         \textcolor{keywordflow}{throw} ExceptionBifurcation(problem);}
+\DoxyCodeLine{92       \}}
+\DoxyCodeLine{93     \}}
+\DoxyCodeLine{94   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Dense\+Linear\+System$<$ \+\_\+\+Type $>$\+::get\+\_\+det\+\_\+sign(), Cpp\+Noddy\+::\+Dense\+Linear\+System$<$ \+\_\+\+Type $>$\+::set\+\_\+monitor\+\_\+det(), Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::size(), and Cpp\+Noddy\+::\+Dense\+Linear\+System$<$ \+\_\+\+Type $>$\+::solve().
+
+
+
+Referenced by main(), and Cpp\+Noddy\+::\+Newton$<$ \+\_\+\+Type $>$\+::solve().
+
+\mbox{\label{classCppNoddy_1_1Newton_a2e681741126b85cd32eea5038d6b91a7}} 
+\index{CppNoddy::Newton$<$ \_Type $>$@{CppNoddy::Newton$<$ \_Type $>$}!set\_monitor\_det@{set\_monitor\_det}}
+\index{set\_monitor\_det@{set\_monitor\_det}!CppNoddy::Newton$<$ \_Type $>$@{CppNoddy::Newton$<$ \_Type $>$}}
+\doxyparagraph{set\_monitor\_det()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Newton}$<$ \+\_\+\+Type $>$\+::set\+\_\+monitor\+\_\+det (\begin{DoxyParamCaption}\item[{bool}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+If set then the system will monitor the sign of determinant of the Jacobian matrix and cause an \doxyref{Exception\+Bifurcation}{p.}{classCppNoddy_1_1ExceptionBifurcation} when it changes sign. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em flag} & The value to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 47 of file Newton.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{47                                     \{}
+\DoxyCodeLine{48       MONITOR\_DET = flag;}
+\DoxyCodeLine{49     \}}
+
+\end{DoxyCode}
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1Newton_ab20eb1ac6290f1c4bdc16040745d9207}} 
+\index{CppNoddy::Newton$<$ \_Type $>$@{CppNoddy::Newton$<$ \_Type $>$}!solve@{solve}}
+\index{solve@{solve}!CppNoddy::Newton$<$ \_Type $>$@{CppNoddy::Newton$<$ \_Type $>$}}
+\doxyparagraph{solve()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Newton}$<$ \+\_\+\+Type $>$\+::solve (\begin{DoxyParamCaption}\item[{\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Solve the system for an initial guess by \doxyref{Newton}{p.}{classCppNoddy_1_1Newton} iteration, this method is inherited from the \doxyref{Arc\+Length\+\_\+base}{p.}{classCppNoddy_1_1ArcLength__base} class and this simply points it to the iteration method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & An initial guess vector, the solution overwrites it. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \textbf{ Cpp\+Noddy\+::\+Arc\+Length\+\_\+base$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1ArcLength__base_a24e3bdf000a68093ee117ff476ffcc58}.
+
+
+
+Definition at line 55 of file Newton.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{55                                       \{}
+\DoxyCodeLine{56       iterate(x);}
+\DoxyCodeLine{57     \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Newton$<$ \+\_\+\+Type $>$\+::iterate().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Newton.\+h}\item 
+src/\textbf{ Newton.\+cpp}\end{DoxyCompactItemize}

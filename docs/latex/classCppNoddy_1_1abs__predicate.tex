@@ -1,0 +1,63 @@
+\doxysubsection{Cpp\+Noddy\+::abs\+\_\+predicate$<$ \+\_\+\+Type $>$ Class Template Reference}
+\label{classCppNoddy_1_1abs__predicate}\index{CppNoddy::abs\_predicate$<$ \_Type $>$@{CppNoddy::abs\_predicate$<$ \_Type $>$}}
+
+
+A function object predicate that compares the absolute value of two elements and returns a true of elt1 $<$ elt2.  
+
+
+
+
+{\ttfamily \#include $<$Functors.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \textbf{ operator()} (\+\_\+\+Type elt1, \+\_\+\+Type elt2)
+\begin{DoxyCompactList}\small\item\em Return true if argument 1 $<$ argument 2. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type$>$\newline
+class Cpp\+Noddy\+::abs\+\_\+predicate$<$ \+\_\+\+Type $>$}
+
+A function object predicate that compares the absolute value of two elements and returns a true of elt1 $<$ elt2. 
+
+Definition at line 15 of file Functors.\+h.
+
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1abs__predicate_ae189494bfb101138f4157785c999e980}} 
+\index{CppNoddy::abs\_predicate$<$ \_Type $>$@{CppNoddy::abs\_predicate$<$ \_Type $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!CppNoddy::abs\_predicate$<$ \_Type $>$@{CppNoddy::abs\_predicate$<$ \_Type $>$}}
+\doxyparagraph{operator()()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+bool \textbf{ Cpp\+Noddy\+::abs\+\_\+predicate}$<$ \+\_\+\+Type $>$\+::operator() (\begin{DoxyParamCaption}\item[{\+\_\+\+Type}]{elt1,  }\item[{\+\_\+\+Type}]{elt2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return true if argument 1 $<$ argument 2. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elt1} & First element to compare \\
+\hline
+{\em elt2} & Second element to compare \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 20 of file Functors.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{20                                             \{}
+\DoxyCodeLine{21       \textcolor{keywordflow}{return} std::abs(elt2) > std::abs(elt1);}
+\DoxyCodeLine{22     \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Functors.\+h}\end{DoxyCompactItemize}

@@ -1,0 +1,514 @@
+\doxysubsection{Cpp\+Noddy\+::Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$ Class Template Reference}
+\label{classCppNoddy_1_1DenseLinearEigenSystem}\index{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}}
+
+
+A linear Nth-\/order generalised eigensystem class.  
+
+
+
+
+{\ttfamily \#include $<$Dense\+Linear\+Eigen\+System.\+h$>$}
+
+Inheritance diagram for Cpp\+Noddy\+::Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCppNoddy_1_1DenseLinearEigenSystem}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Dense\+Linear\+Eigen\+System} (\textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ $\ast$Aptr, \textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ $\ast$Bptr)
+\begin{DoxyCompactList}\small\item\em Constructor for a linear system object. \end{DoxyCompactList}\item 
+\textbf{ $\sim$\+Dense\+Linear\+Eigen\+System} ()
+\begin{DoxyCompactList}\small\item\em Destructor for a linear system object. \end{DoxyCompactList}\item 
+void \textbf{ eigensolve} ()
+\begin{DoxyCompactList}\small\item\em Solve the matrix linear eigensystem. \end{DoxyCompactList}\item 
+void \textbf{ tag\+\_\+eigenvalues\+\_\+right} (const int \&val)
+\begin{DoxyCompactList}\small\item\em Tag those eigenvalues that are to the right of a specified point. \end{DoxyCompactList}\item 
+void \textbf{ tag\+\_\+eigenvalues\+\_\+left} (const int \&val)
+\begin{DoxyCompactList}\small\item\em Tag those eigenvalues that are to the left of a specified point. \end{DoxyCompactList}\item 
+void \textbf{ tag\+\_\+eigenvalues\+\_\+upper} (const int \&val)
+\begin{DoxyCompactList}\small\item\em Tag those eigenvalues that are in the upper half-\/plane above a specified point. \end{DoxyCompactList}\item 
+void \textbf{ tag\+\_\+eigenvalues\+\_\+lower} (const int \&val)
+\begin{DoxyCompactList}\small\item\em Tag those eigenvalues that are in the lower half-\/plane below a specified point. \end{DoxyCompactList}\item 
+void \textbf{ tag\+\_\+eigenvalues\+\_\+disc} (const int \&val, const double \&radius)
+\begin{DoxyCompactList}\small\item\em Tag those eigenvalues that are within a disc centred at a point in the complex plane. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ \textbf{ get\+\_\+tagged\+\_\+eigenvalues} () const
+\begin{DoxyCompactList}\small\item\em Get the the tagged eigenvalues. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Matrix}$<$ \textbf{ D\+\_\+complex} $>$ \textbf{ get\+\_\+tagged\+\_\+eigenvectors} () const
+\begin{DoxyCompactList}\small\item\em Get the the tagged eigenvectors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type$>$\newline
+class Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$}
+
+A linear Nth-\/order generalised eigensystem class. 
+
+Here we can construct a linear eigenproblem in the form \[ A_{NxN} \,{\underline x}_i = \lambda_i\, B_{NxN}\, {\underline x}_i \] for dense double/complex matrices $ A $ and $ B $. The eigenvalues and eigenvectors can be tagged and retrieved as required. 
+
+Definition at line 19 of file Dense\+Linear\+Eigen\+System.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1DenseLinearEigenSystem_ab17d644cf519d19c7194b63b9673038e}} 
+\index{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}!DenseLinearEigenSystem@{DenseLinearEigenSystem}}
+\index{DenseLinearEigenSystem@{DenseLinearEigenSystem}!CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}}
+\doxyparagraph{DenseLinearEigenSystem()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System}$<$ \+\_\+\+Type $>$\+::\textbf{ Dense\+Linear\+Eigen\+System} (\begin{DoxyParamCaption}\item[{\textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ $\ast$}]{Aptr,  }\item[{\textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ $\ast$}]{Bptr }\end{DoxyParamCaption})}
+
+
+
+Constructor for a linear system object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Aptr} & A pointer to a typed A matrix \\
+\hline
+{\em Bptr} & A pointer to a typed B matrix \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 17 of file Dense\+Linear\+Eigen\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17                                                                                                           :}
+\DoxyCodeLine{18     LinearEigenSystem\_base() \{}
+\DoxyCodeLine{19     m\_pA = Aptr;}
+\DoxyCodeLine{20     m\_pB = Bptr;}
+\DoxyCodeLine{21   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseLinearEigenSystem_afd77e7dde3f59e62bc1d2a529b759a8d}} 
+\index{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}!````~DenseLinearEigenSystem@{$\sim$DenseLinearEigenSystem}}
+\index{````~DenseLinearEigenSystem@{$\sim$DenseLinearEigenSystem}!CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}}
+\doxyparagraph{$\sim$DenseLinearEigenSystem()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System}$<$ \+\_\+\+Type $>$\+::$\sim$\textbf{ Dense\+Linear\+Eigen\+System}}
+
+
+
+Destructor for a linear system object. 
+
+
+
+Definition at line 24 of file Dense\+Linear\+Eigen\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{25   \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1DenseLinearEigenSystem_a7a3dad5ab396dc721b19c78af8e0dfa8}} 
+\index{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}!eigensolve@{eigensolve}}
+\index{eigensolve@{eigensolve}!CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}}
+\doxyparagraph{eigensolve()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System}$<$ \+\_\+\+Type $>$\+::eigensolve\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Solve the matrix linear eigensystem. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base} \doxyref{}{p.}{classCppNoddy_1_1LinearEigenSystem__base_a8c73a760b55c7ee52cef367b02d141d9}.
+
+
+
+Definition at line 28 of file Dense\+Linear\+Eigen\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{28                                                  \{}
+\DoxyCodeLine{29     \textcolor{comment}{// reset any tagged eigenvalues}}
+\DoxyCodeLine{30     m\_tagged\_indices.clear();}
+\DoxyCodeLine{31     \textcolor{comment}{//}}
+\DoxyCodeLine{32     \textcolor{keywordflow}{if}(m\_calc\_eigenvectors) \{}
+\DoxyCodeLine{33       eigensolve\_lapack\_with\_vectors();}
+\DoxyCodeLine{34     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{35       eigensolve\_lapack\_without\_vectors();}
+\DoxyCodeLine{36     \}}
+\DoxyCodeLine{37   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+H\+S\+T\+::\+Orr\+\_\+\+Sommerfeld\+::global\+\_\+evp(), Cpp\+Noddy\+::\+H\+S\+T\+::\+Rayleigh$<$ \+\_\+\+Type $>$\+::global\+\_\+evp(), and main().
+
+\mbox{\label{classCppNoddy_1_1DenseLinearEigenSystem_a40ba80a5f5a13901978a16640e0badea}} 
+\index{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}!get\_tagged\_eigenvalues@{get\_tagged\_eigenvalues}}
+\index{get\_tagged\_eigenvalues@{get\_tagged\_eigenvalues}!CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}}
+\doxyparagraph{get\_tagged\_eigenvalues()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ \textbf{ Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System}$<$ \+\_\+\+Type $>$\+::get\+\_\+tagged\+\_\+eigenvalues\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the the tagged eigenvalues. 
+
+All of the tagged eigenvalues are returned in a complex vector, with no ordering guaranteed. \begin{DoxyReturn}{Returns}
+The tagged eigenvalues as a complex vector 
+\end{DoxyReturn}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base} \doxyref{}{p.}{classCppNoddy_1_1LinearEigenSystem__base_ae01a77a88274a3d3b54db350492bf1c4}.
+
+
+
+Definition at line 337 of file Dense\+Linear\+Eigen\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{337                                                                                      \{}
+\DoxyCodeLine{338     \textcolor{keywordflow}{if}(m\_tagged\_indices.size() == 0) \{}
+\DoxyCodeLine{339       std::string problem;}
+\DoxyCodeLine{340       problem = \textcolor{stringliteral}{"In DenseLinearEigenSystem.get\_tagged\_eigenvalues() : there are\(\backslash\)n"};}
+\DoxyCodeLine{341       problem += \textcolor{stringliteral}{"no eigenvalues that have been tagged. This set is empty.\(\backslash\)n"};}
+\DoxyCodeLine{342       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{343     \}}
+\DoxyCodeLine{344     \textcolor{comment}{// storage for the eigenvalues}}
+\DoxyCodeLine{345     DenseVector<D\_complex> evals;}
+\DoxyCodeLine{346     \textcolor{comment}{// loop through the tagged set}}
+\DoxyCodeLine{347     \textcolor{keywordflow}{for}(iter p = m\_tagged\_indices.begin(); p != m\_tagged\_indices.end(); ++p) \{}
+\DoxyCodeLine{348       \textcolor{comment}{// get the index of the relevant eigenvalue from the set}}
+\DoxyCodeLine{349       std::size\_t j = *p;}
+\DoxyCodeLine{350       \textcolor{comment}{// work out the complex eigenvalue associated with this index}}
+\DoxyCodeLine{351       \textcolor{comment}{// and add it to the vector}}
+\DoxyCodeLine{352       evals.push\_back(m\_eigenvalues\_alpha[ j ] / m\_eigenvalues\_beta[ j ]);}
+\DoxyCodeLine{353     \}}
+\DoxyCodeLine{354     \textcolor{comment}{// return the complex vector of eigenvalues}}
+\DoxyCodeLine{355     \textcolor{keywordflow}{return} evals;}
+\DoxyCodeLine{356   \}}
+
+\end{DoxyCode}
+
+
+References p, and Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$\+::push\+\_\+back().
+
+
+
+Referenced by Cpp\+Noddy\+::\+H\+S\+T\+::\+Orr\+\_\+\+Sommerfeld\+::global\+\_\+evp(), Cpp\+Noddy\+::\+H\+S\+T\+::\+Rayleigh$<$ \+\_\+\+Type $>$\+::global\+\_\+evp(), and main().
+
+\mbox{\label{classCppNoddy_1_1DenseLinearEigenSystem_ad348fdc4b2e87f5a2d202e5914b4766a}} 
+\index{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}!get\_tagged\_eigenvectors@{get\_tagged\_eigenvectors}}
+\index{get\_tagged\_eigenvectors@{get\_tagged\_eigenvectors}!CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}}
+\doxyparagraph{get\_tagged\_eigenvectors()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Matrix}$<$ \textbf{ D\+\_\+complex} $>$ \textbf{ Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System}$<$ \+\_\+\+Type $>$\+::get\+\_\+tagged\+\_\+eigenvectors\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the the tagged eigenvectors. 
+
+All of the eigenvectors associated with the tagged eigenvalues are returned, with the i-\/th eigenvector corresponding to the i-\/th eigenvalue as returned by the get\+\_\+tagged\+\_\+eigenvalues method. The i-\/th eigenvector is returned in row i of the complex dense matrix. \begin{DoxyReturn}{Returns}
+The tagged eigenvectors as a complex matrix 
+\end{DoxyReturn}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base} \doxyref{}{p.}{classCppNoddy_1_1LinearEigenSystem__base_a0ee67ea40283b94751cca97e09cd9ed7}.
+
+
+
+Definition at line 359 of file Dense\+Linear\+Eigen\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{359                                                                                       \{}
+\DoxyCodeLine{360     \textcolor{keywordflow}{if}(m\_tagged\_indices.size() == 0) \{}
+\DoxyCodeLine{361       std::string problem;}
+\DoxyCodeLine{362       problem = \textcolor{stringliteral}{"In DenseLinearEigenSystem.get\_tagged\_eigenvectors() : there are\(\backslash\)n"};}
+\DoxyCodeLine{363       problem += \textcolor{stringliteral}{"no eigenvalues that have been tagged. This set is empty.\(\backslash\)n"};}
+\DoxyCodeLine{364       \textcolor{keywordflow}{throw} ExceptionRuntime(problem);}
+\DoxyCodeLine{365     \}}
+\DoxyCodeLine{366     \textcolor{comment}{// order of the problem}}
+\DoxyCodeLine{367     std::size\_t N = m\_eigenvalues\_alpha.size();}
+\DoxyCodeLine{368     \textcolor{comment}{// eigenvector storage : size() eigenvectors each of length N}}
+\DoxyCodeLine{369     DenseMatrix<D\_complex> evecs(m\_tagged\_indices.size(), N, 0.0);}
+\DoxyCodeLine{370     std::size\_t row = 0;}
+\DoxyCodeLine{371     \textcolor{comment}{// loop through the tagged set}}
+\DoxyCodeLine{372     \textcolor{keywordflow}{for}(iter p = m\_tagged\_indices.begin(); p != m\_tagged\_indices.end(); ++p) \{}
+\DoxyCodeLine{373       \textcolor{comment}{// get the index of the relevant eigenvalue from the set}}
+\DoxyCodeLine{374       std::size\_t j = *p;}
+\DoxyCodeLine{375       \textcolor{comment}{// put the eigenvector in the matrix}}
+\DoxyCodeLine{376       evecs[ row ] = m\_all\_eigenvectors[ j ];}
+\DoxyCodeLine{377       \textcolor{comment}{// next row/eigenvector}}
+\DoxyCodeLine{378       ++row;}
+\DoxyCodeLine{379     \}}
+\DoxyCodeLine{380     \textcolor{keywordflow}{return} evecs;}
+\DoxyCodeLine{381   \}}
+
+\end{DoxyCode}
+
+
+References p.
+
+
+
+Referenced by Cpp\+Noddy\+::\+H\+S\+T\+::\+Rayleigh$<$ \+\_\+\+Type $>$\+::global\+\_\+evp(), and main().
+
+\mbox{\label{classCppNoddy_1_1DenseLinearEigenSystem_a0d62cee6e7c1de5f377f64c62f81bebc}} 
+\index{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}!tag\_eigenvalues\_disc@{tag\_eigenvalues\_disc}}
+\index{tag\_eigenvalues\_disc@{tag\_eigenvalues\_disc}!CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}}
+\doxyparagraph{tag\_eigenvalues\_disc()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System}$<$ \+\_\+\+Type $>$\+::tag\+\_\+eigenvalues\+\_\+disc (\begin{DoxyParamCaption}\item[{const int \&}]{val,  }\item[{const double \&}]{radius }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Tag those eigenvalues that are within a disc centred at a point in the complex plane. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & Tags are added or removed for val +ve or -\/ve \\
+\hline
+{\em radius} & The radius of the disc to be considered \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base} \doxyref{}{p.}{classCppNoddy_1_1LinearEigenSystem__base_a3c3bcb9e7a2e4527d7763a109837b309}.
+
+
+
+Definition at line 386 of file Dense\+Linear\+Eigen\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{386                                                                                                \{}
+\DoxyCodeLine{387     \textcolor{comment}{// loop through all the eigenvalues}}
+\DoxyCodeLine{388     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_eigenvalues\_alpha.size(); ++i) \{}
+\DoxyCodeLine{389       \textcolor{comment}{// if the eigenvalue is in the disc centred at m\_shift then include it}}
+\DoxyCodeLine{390       \textcolor{keywordflow}{if}(std::abs(m\_eigenvalues\_alpha[ i ] -\/ m\_shift * m\_eigenvalues\_beta[ i ]) <}
+\DoxyCodeLine{391           std::abs(radius * m\_eigenvalues\_beta[ i ])) \{}
+\DoxyCodeLine{392         \textcolor{keywordflow}{if}(val > 0) \{}
+\DoxyCodeLine{393           \textcolor{comment}{// add it to our set of tagged eigenvalues}}
+\DoxyCodeLine{394           m\_tagged\_indices.insert(m\_tagged\_indices.end(), i);}
+\DoxyCodeLine{395         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{396           \textcolor{comment}{// remove it from the set if it exists}}
+\DoxyCodeLine{397           m\_tagged\_indices.erase(i);}
+\DoxyCodeLine{398         \}}
+\DoxyCodeLine{399       \}}
+\DoxyCodeLine{400     \}}
+\DoxyCodeLine{401   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+H\+S\+T\+::\+Orr\+\_\+\+Sommerfeld\+::global\+\_\+evp(), Cpp\+Noddy\+::\+H\+S\+T\+::\+Rayleigh$<$ \+\_\+\+Type $>$\+::global\+\_\+evp(), and main().
+
+\mbox{\label{classCppNoddy_1_1DenseLinearEigenSystem_aa5d1a70b7e583fc6cc8ab13d42c4f24a}} 
+\index{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}!tag\_eigenvalues\_left@{tag\_eigenvalues\_left}}
+\index{tag\_eigenvalues\_left@{tag\_eigenvalues\_left}!CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}}
+\doxyparagraph{tag\_eigenvalues\_left()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System}$<$ \+\_\+\+Type $>$\+::tag\+\_\+eigenvalues\+\_\+left (\begin{DoxyParamCaption}\item[{const int \&}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Tag those eigenvalues that are to the left of a specified point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & Tags are added or removed for val +ve or -\/ve \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base} \doxyref{}{p.}{classCppNoddy_1_1LinearEigenSystem__base_a783627c35309d201f088b0d39b5cf1a8}.
+
+
+
+Definition at line 423 of file Dense\+Linear\+Eigen\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{423                                                                          \{}
+\DoxyCodeLine{424     \textcolor{keywordtype}{double} real\_value = m\_shift.real();}
+\DoxyCodeLine{425     \textcolor{comment}{// loop through all the eigenvalues}}
+\DoxyCodeLine{426     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_eigenvalues\_alpha.size(); ++i) \{}
+\DoxyCodeLine{427       \textcolor{comment}{// if the eigenvalue is to the left of the shift position}}
+\DoxyCodeLine{428       \textcolor{keywordflow}{if}((m\_eigenvalues\_alpha[ i ] * std::conj(m\_eigenvalues\_beta[ i ])).real() <}
+\DoxyCodeLine{429           std::pow(std::abs(m\_eigenvalues\_beta[ i ]), 2) * real\_value) \{}
+\DoxyCodeLine{430         \textcolor{keywordflow}{if}(val > 0) \{}
+\DoxyCodeLine{431           \textcolor{comment}{// add it to our set of tagged eigenvalues}}
+\DoxyCodeLine{432           m\_tagged\_indices.insert(m\_tagged\_indices.end(), i);}
+\DoxyCodeLine{433         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{434           \textcolor{comment}{// remove it from the set if it exists}}
+\DoxyCodeLine{435           m\_tagged\_indices.erase(i);}
+\DoxyCodeLine{436         \}}
+\DoxyCodeLine{437       \}}
+\DoxyCodeLine{438     \}}
+\DoxyCodeLine{439   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Utility\+::real().
+
+\mbox{\label{classCppNoddy_1_1DenseLinearEigenSystem_a8af521da22d16ef4f9cfe4f7ad409b39}} 
+\index{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}!tag\_eigenvalues\_lower@{tag\_eigenvalues\_lower}}
+\index{tag\_eigenvalues\_lower@{tag\_eigenvalues\_lower}!CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}}
+\doxyparagraph{tag\_eigenvalues\_lower()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System}$<$ \+\_\+\+Type $>$\+::tag\+\_\+eigenvalues\+\_\+lower (\begin{DoxyParamCaption}\item[{const int \&}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Tag those eigenvalues that are in the lower half-\/plane below a specified point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & Tags are added or removed for val +ve or -\/ve \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base} \doxyref{}{p.}{classCppNoddy_1_1LinearEigenSystem__base_a36c54b017a8d9560287494dea3c79416}.
+
+
+
+Definition at line 461 of file Dense\+Linear\+Eigen\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{461                                                                           \{}
+\DoxyCodeLine{462     \textcolor{keywordtype}{double} imag\_value = m\_shift.imag();}
+\DoxyCodeLine{463     \textcolor{comment}{// loop through all the eigenvalues}}
+\DoxyCodeLine{464     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_eigenvalues\_alpha.size(); ++i) \{}
+\DoxyCodeLine{465       \textcolor{comment}{// if the eigenvalue is in the half plane then include it}}
+\DoxyCodeLine{466       \textcolor{keywordflow}{if}((m\_eigenvalues\_alpha[ i ] * std::conj(m\_eigenvalues\_beta[ i ])).imag() <}
+\DoxyCodeLine{467           std::pow(std::abs(m\_eigenvalues\_beta[ i ]), 2) * imag\_value) \{}
+\DoxyCodeLine{468         \textcolor{keywordflow}{if}(val > 0) \{}
+\DoxyCodeLine{469           \textcolor{comment}{// add it to our set of tagged eigenvalues}}
+\DoxyCodeLine{470           m\_tagged\_indices.insert(m\_tagged\_indices.end(), i);}
+\DoxyCodeLine{471         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{472           \textcolor{comment}{// remove it from the set if it exists}}
+\DoxyCodeLine{473           m\_tagged\_indices.erase(i);}
+\DoxyCodeLine{474         \}}
+\DoxyCodeLine{475       \}}
+\DoxyCodeLine{476     \}}
+\DoxyCodeLine{477   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Utility\+::imag().
+
+\mbox{\label{classCppNoddy_1_1DenseLinearEigenSystem_a09e7eee659f0dc931982533bd4f34007}} 
+\index{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}!tag\_eigenvalues\_right@{tag\_eigenvalues\_right}}
+\index{tag\_eigenvalues\_right@{tag\_eigenvalues\_right}!CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}}
+\doxyparagraph{tag\_eigenvalues\_right()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System}$<$ \+\_\+\+Type $>$\+::tag\+\_\+eigenvalues\+\_\+right (\begin{DoxyParamCaption}\item[{const int \&}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Tag those eigenvalues that are to the right of a specified point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & Tags are added or removed for val +ve or -\/ve \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base} \doxyref{}{p.}{classCppNoddy_1_1LinearEigenSystem__base_a3190bf7f049cab3273d57837dd47ca18}.
+
+
+
+Definition at line 404 of file Dense\+Linear\+Eigen\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{404                                                                           \{}
+\DoxyCodeLine{405     \textcolor{keywordtype}{double} real\_value = m\_shift.real();}
+\DoxyCodeLine{406     \textcolor{comment}{// loop through all the eigenvalues}}
+\DoxyCodeLine{407     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_eigenvalues\_alpha.size(); ++i) \{}
+\DoxyCodeLine{408       \textcolor{comment}{// if the eigenvalue is to the right of the shift position}}
+\DoxyCodeLine{409       \textcolor{keywordflow}{if}((m\_eigenvalues\_alpha[ i ] * std::conj(m\_eigenvalues\_beta[ i ])).real() >}
+\DoxyCodeLine{410           std::pow(std::abs(m\_eigenvalues\_beta[ i ]), 2) * real\_value) \{}
+\DoxyCodeLine{411         \textcolor{keywordflow}{if}(val > 0) \{}
+\DoxyCodeLine{412           \textcolor{comment}{// add it to our set of tagged eigenvalues}}
+\DoxyCodeLine{413           m\_tagged\_indices.insert(m\_tagged\_indices.end(), i);}
+\DoxyCodeLine{414         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{415           \textcolor{comment}{// remove it from the set if it exists}}
+\DoxyCodeLine{416           m\_tagged\_indices.erase(i);}
+\DoxyCodeLine{417         \}}
+\DoxyCodeLine{418       \}}
+\DoxyCodeLine{419     \}}
+\DoxyCodeLine{420   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Utility\+::real().
+
+\mbox{\label{classCppNoddy_1_1DenseLinearEigenSystem_ac191d3bb4af25e5d21f563a05e212a60}} 
+\index{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}!tag\_eigenvalues\_upper@{tag\_eigenvalues\_upper}}
+\index{tag\_eigenvalues\_upper@{tag\_eigenvalues\_upper}!CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$@{CppNoddy::DenseLinearEigenSystem$<$ \_Type $>$}}
+\doxyparagraph{tag\_eigenvalues\_upper()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System}$<$ \+\_\+\+Type $>$\+::tag\+\_\+eigenvalues\+\_\+upper (\begin{DoxyParamCaption}\item[{const int \&}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Tag those eigenvalues that are in the upper half-\/plane above a specified point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & Tags are added or removed for val +ve or -\/ve \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base} \doxyref{}{p.}{classCppNoddy_1_1LinearEigenSystem__base_aee00a5bf7b676aeee309d9529e81b3c3}.
+
+
+
+Definition at line 442 of file Dense\+Linear\+Eigen\+System.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{442                                                                           \{}
+\DoxyCodeLine{443     \textcolor{keywordtype}{double} imag\_value = m\_shift.imag();}
+\DoxyCodeLine{444     \textcolor{comment}{// loop through all the eigenvalues}}
+\DoxyCodeLine{445     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_eigenvalues\_alpha.size(); ++i) \{}
+\DoxyCodeLine{446       \textcolor{comment}{// if the eigenvalue is in the half plane then include it}}
+\DoxyCodeLine{447       \textcolor{keywordflow}{if}((m\_eigenvalues\_alpha[ i ] * std::conj(m\_eigenvalues\_beta[ i ])).imag() >}
+\DoxyCodeLine{448           std::pow(std::abs(m\_eigenvalues\_beta[ i ]), 2) * imag\_value) \{}
+\DoxyCodeLine{449         \textcolor{keywordflow}{if}(val > 0) \{}
+\DoxyCodeLine{450           \textcolor{comment}{// add it to our set of tagged eigenvalues}}
+\DoxyCodeLine{451           m\_tagged\_indices.insert(m\_tagged\_indices.end(), i);}
+\DoxyCodeLine{452         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{453           \textcolor{comment}{// remove it from the set if it exists}}
+\DoxyCodeLine{454           m\_tagged\_indices.erase(i);}
+\DoxyCodeLine{455         \}}
+\DoxyCodeLine{456       \}}
+\DoxyCodeLine{457     \}}
+\DoxyCodeLine{458   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Utility\+::imag().
+
+
+
+Referenced by main().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Dense\+Linear\+Eigen\+System.\+h}\item 
+src/\textbf{ Dense\+Linear\+Eigen\+System.\+cpp}\end{DoxyCompactItemize}

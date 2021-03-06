@@ -1,0 +1,23 @@
+\doxysubsection{include/\+P\+D\+E\+\_\+\+I\+B\+VP.h File Reference}
+\label{PDE__IBVP_8h}\index{include/PDE\_IBVP.h@{include/PDE\_IBVP.h}}
+{\ttfamily \#include $<$Dense\+Vector.\+h$>$}\newline
+{\ttfamily \#include $<$Dense\+Matrix.\+h$>$}\newline
+{\ttfamily \#include $<$Equation\+\_\+2matrix.\+h$>$}\newline
+{\ttfamily \#include $<$Residual\+\_\+with\+\_\+coords.\+h$>$}\newline
+{\ttfamily \#include $<$One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h$>$}\newline
+{\ttfamily \#include $<$Uncopyable.\+h$>$}\newline
+{\ttfamily \#include $<$Timer.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$}
+\begin{DoxyCompactList}\small\item\em A templated object for real/complex vector system of unsteady equations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+A specification of a class for an $ n^{th} $-\/order I\+B\+VP of the form \[ M_1( {\underline f}(y,t), y, t )\cdot {\underline f}_t (y,t)+ M_0( {\underline f}(y,t), y, t ) \cdot {\underline f}_y (y,t) = {\underline R}( {\underline f}(y,t), y, t )\,, \] subject to $ n $ conditions defined at $ y = y_{left} $ and $ y_{right} $ for some components of $ {\underline f}(y) $. Here $ M_{0,1} $ are matrices. The solution at the new time step $ t+\Delta t $ is \[ {\underline f}^{new} = {\underline F} + {\underline g} \] where $ {\underline F} $ is the current guess at the solution and $ {\underline g} $ is the linearised correction. The solution at the previous time $ t $ is \[ {\underline f}^{old} = {\underline O} \] A Crank-\/\+Nicolson method is employed with the linearised problem at the mid-\/time point $ t + \Delta t /2 $ being\+: \[ \frac{2}{\Delta t} M_1 \cdot {\underline g } + 2 M_0 \cdot {\underline g}_y - J \cdot {\underline g} + J_2 \cdot \frac{\underline F - \underline O}{\Delta t} \cdot {\underline g} + J_1 \cdot \frac{\underline F_y + \underline O_y}{2} \cdot {\underline g} = 2 {\underline R} - \frac{2}{\Delta t} M_2 \cdot ( {\underline F} - {\underline O} ) - M_1 \cdot ( {\underline F}_y + {\underline O}_y )\] Where $ M_{0,1}, J, J_{1,2}, R $ are evaluated at the mid-\/time step with arguments $ \left ( \frac{\underline F + \underline O}{2}, y, t + \frac{\Delta t}{2} \right ) $, with $ J_{1,2} $ denoting the Jacobian of the matrices $ \partial {(M_{0,1})}_{ij} / \partial f_k $. This problem is solved by second-\/order central differencing at the spatial ( $ y $) inter-\/node mid points. 

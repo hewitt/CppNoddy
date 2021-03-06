@@ -1,0 +1,136 @@
+\doxysubsection{Tests/\+Generic/\+Quadrature.cpp File Reference}
+\label{Quadrature_8cpp}\index{Tests/Generic/Quadrature.cpp@{Tests/Generic/Quadrature.cpp}}
+{\ttfamily \#include $<$Generic\+\_\+bundle.\+h$>$}\newline
+{\ttfamily \#include $<$Fn\+Quadrature.\+h$>$}\newline
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\item 
+ \textbf{ Cpp\+Noddy\+::\+Example}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ Cpp\+Noddy\+::\+Example\+::\+Qfn} (const double \&x, double \&\textbf{ f})
+\begin{DoxyCompactList}\small\item\em The function that defines the integrand. \end{DoxyCompactList}\item 
+void \textbf{ Cpp\+Noddy\+::\+Example\+::test} (unsigned n)
+\begin{DoxyCompactList}\small\item\em The test will fail if it requires more than a set number of subintervals in the integration to converge to the exact value to within the specified tol. \end{DoxyCompactList}\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+bool \textbf{ Cpp\+Noddy\+::\+Example\+::failed} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Compute the integral \[ \int_0^{20} \cos(x) \exp \left ( -\frac{x}{4} \right ) \mbox{d}x \] with varying schemes, then compare the result to the exact value \[ \frac{4 e^{-5}}{17} \left ( e^5 - \cos (20) + 4\sin (20) \right ) \] 
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{Quadrature_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{Quadrature.cpp@{Quadrature.cpp}!main@{main}}
+\index{main@{main}!Quadrature.cpp@{Quadrature.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Define I as being a Quadrature object with limits 0,20 and a default of 1 sub-\/interval.
+
+Definition at line 41 of file Quadrature.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{45   cout << \textcolor{stringliteral}{"=== Quadrature: integral of cos(x)exp(-\/x/4) =========\(\backslash\)n"};}
+\DoxyCodeLine{46   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{47 \textcolor{comment}{}}
+\DoxyCodeLine{48 \textcolor{comment}{  /// Define I as being a Quadrature object with limits 0,20}}
+\DoxyCodeLine{49 \textcolor{comment}{  /// and a default of 1 sub-\/interval.}}
+\DoxyCodeLine{50 \textcolor{comment}{}  FnQuadrature I( Example::Qfn, 0.0, 20.0 , 1 );}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \textcolor{keywordtype}{double} result;}
+\DoxyCodeLine{53   \textcolor{keywordtype}{unsigned} n = 1;}
+\DoxyCodeLine{54   \textcolor{keyword}{const} \textcolor{keywordtype}{double} exact = ( 4. / 17. ) * ( exp( 5.0 ) -\/ cos( 20.0 ) + 4 * sin( 20.0 ) ) * exp( -\/5.0 );}
+\DoxyCodeLine{55   \textcolor{keyword}{const} \textcolor{keywordtype}{double} tol = 1.e-\/7;}
+\DoxyCodeLine{56   cout << \textcolor{stringliteral}{" Tolerance used : "} << tol << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{57   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{58   cout << \textcolor{stringliteral}{" Trapezium summation \(\backslash\)n"};}
+\DoxyCodeLine{59   cout.precision( 12 );}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61   \textcolor{keywordflow}{do}}
+\DoxyCodeLine{62   \{}
+\DoxyCodeLine{63     I.set\_subintervals( n );}
+\DoxyCodeLine{64     result = I.trapezium() -\/ exact;}
+\DoxyCodeLine{65     cout << \textcolor{stringliteral}{"n = "} << n << \textcolor{stringliteral}{"  Integral error = "} << abs( result ) << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{66     n *= 2;}
+\DoxyCodeLine{67     Example::test( n );}
+\DoxyCodeLine{68   \}}
+\DoxyCodeLine{69   \textcolor{keywordflow}{while} ( ( abs( result ) > tol ) \&\& !Example::failed );}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71   cout << \textcolor{stringliteral}{"    required "} << n / 2 << \textcolor{stringliteral}{" sub-\/intervals. \(\backslash\)n"};}
+\DoxyCodeLine{72   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{73   cout << \textcolor{stringliteral}{" Sub\_Gauss with 1 Guass point \(\backslash\)n"};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75   n = 1;}
+\DoxyCodeLine{76   \textcolor{keywordflow}{do}}
+\DoxyCodeLine{77   \{}
+\DoxyCodeLine{78     I.set\_subintervals( n );}
+\DoxyCodeLine{79     result = I.sub\_Gauss( 1 ) -\/ exact;}
+\DoxyCodeLine{80     cout << \textcolor{stringliteral}{"n = "} << n << \textcolor{stringliteral}{"  Integral error = "} << abs( result ) << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{81     n *= 2;}
+\DoxyCodeLine{82     Example::test( n );}
+\DoxyCodeLine{83   \}}
+\DoxyCodeLine{84   \textcolor{keywordflow}{while} ( ( abs( result ) > tol ) \&\& !Example::failed );}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86   cout << \textcolor{stringliteral}{"    required "} << n / 2 << \textcolor{stringliteral}{" sub-\/intervals. \(\backslash\)n"};}
+\DoxyCodeLine{87   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{88   cout << \textcolor{stringliteral}{" Sub\_Gauss with 2 Guass points \(\backslash\)n"};}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90   n = 1;}
+\DoxyCodeLine{91   \textcolor{keywordflow}{do}}
+\DoxyCodeLine{92   \{}
+\DoxyCodeLine{93     I.set\_subintervals( n );}
+\DoxyCodeLine{94     result = I.sub\_Gauss( 2 ) -\/ exact;}
+\DoxyCodeLine{95     cout << \textcolor{stringliteral}{"n = "} << n << \textcolor{stringliteral}{"  Integral error = "} << abs( result ) << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{96     n *= 2;}
+\DoxyCodeLine{97     Example::test( n );}
+\DoxyCodeLine{98   \}}
+\DoxyCodeLine{99   \textcolor{keywordflow}{while} ( ( abs( result ) > tol ) \&\& !Example::failed );}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101   cout << \textcolor{stringliteral}{"    required "} << n / 2 << \textcolor{stringliteral}{" sub-\/intervals. \(\backslash\)n"};}
+\DoxyCodeLine{102   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{103   cout << \textcolor{stringliteral}{" Sub\_Gauss with 3 Guass points \(\backslash\)n"};}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105   n = 1;}
+\DoxyCodeLine{106   \textcolor{keywordflow}{do}}
+\DoxyCodeLine{107   \{}
+\DoxyCodeLine{108     I.set\_subintervals( n );}
+\DoxyCodeLine{109     result = I.sub\_Gauss( 3 ) -\/ exact;}
+\DoxyCodeLine{110     cout << \textcolor{stringliteral}{"n = "} << n << \textcolor{stringliteral}{"  Integral error = "} << abs( result ) << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{111     n *= 2;}
+\DoxyCodeLine{112     Example::test( n );}
+\DoxyCodeLine{113   \}}
+\DoxyCodeLine{114   \textcolor{keywordflow}{while} ( ( abs( result ) > tol ) \&\& !Example::failed );}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116   cout << \textcolor{stringliteral}{"    required "} << n / 2 << \textcolor{stringliteral}{" sub-\/intervals. \(\backslash\)n"};}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118   \textcolor{keywordflow}{if} ( Example::failed )}
+\DoxyCodeLine{119   \{}
+\DoxyCodeLine{120     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{121     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{122   \}}
+\DoxyCodeLine{123   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{124   \{}
+\DoxyCodeLine{125     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{126     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{127   \}}
+\DoxyCodeLine{128 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::failed, Cpp\+Noddy\+::\+Example\+::\+Qfn(), Cpp\+Noddy\+::\+Fn\+Quadrature\+::set\+\_\+subintervals(), Cpp\+Noddy\+::\+Fn\+Quadrature\+::sub\+\_\+\+Gauss(), Cpp\+Noddy\+::\+Example\+::test(), and Cpp\+Noddy\+::\+Fn\+Quadrature\+::trapezium().
+

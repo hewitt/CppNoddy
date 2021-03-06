@@ -1,0 +1,61 @@
+\doxysubsection{Cpp\+Noddy\+::Exception\+External Class Reference}
+\label{classCppNoddy_1_1ExceptionExternal}\index{CppNoddy::ExceptionExternal@{CppNoddy::ExceptionExternal}}
+
+
+An exception to indicate that an error has been detected in an external (L\+A\+P\+A\+CK) routine.  
+
+
+
+
+{\ttfamily \#include $<$Exceptions.\+h$>$}
+
+Inheritance diagram for Cpp\+Noddy\+::Exception\+External\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classCppNoddy_1_1ExceptionExternal}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Exception\+External} (const std\+::string \&problem, const int \&ifail=0)
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+An exception to indicate that an error has been detected in an external (L\+A\+P\+A\+CK) routine. 
+
+Definition at line 20 of file Exceptions.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1ExceptionExternal_a67533fd6ef9210225d73a72410944daa}} 
+\index{CppNoddy::ExceptionExternal@{CppNoddy::ExceptionExternal}!ExceptionExternal@{ExceptionExternal}}
+\index{ExceptionExternal@{ExceptionExternal}!CppNoddy::ExceptionExternal@{CppNoddy::ExceptionExternal}}
+\doxyparagraph{ExceptionExternal()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Exception\+External\+::\+Exception\+External (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{problem,  }\item[{const int \&}]{ifail = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 22 of file Exceptions.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{22                                                                       :}
+\DoxyCodeLine{23       std::runtime\_error(problem) \{}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#ifdef WHAT}}
+\DoxyCodeLine{25       error\_header();}
+\DoxyCodeLine{26       std::cout << problem << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{27       std::cout << \textcolor{stringliteral}{" External library failure \(\backslash\)n"};}
+\DoxyCodeLine{28       std::cout << \textcolor{stringliteral}{" Returned error code = "} << ifail << \textcolor{stringliteral}{"\(\backslash\)n\(\backslash\)n"};}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Exceptions.\+h}\end{DoxyCompactItemize}

@@ -1,0 +1,503 @@
+\doxysubsection{Cpp\+Noddy\+::Tracker\+File Class Reference}
+\label{classCppNoddy_1_1TrackerFile}\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+
+
+{\ttfamily \#include $<$Tracker\+File.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Tracker\+File} (int prec=12)
+\item 
+\textbf{ Tracker\+File} (std\+::string filename, int prec=12)
+\item 
+\textbf{ $\sim$\+Tracker\+File} ()
+\item 
+void \textbf{ precision} (unsigned prec)
+\item 
+void \textbf{ push\+\_\+ptr} (double $\ast$scalar, std\+::string desc=\char`\"{}\char`\"{})
+\item 
+void \textbf{ push\+\_\+ptr} (\textbf{ D\+\_\+complex} $\ast$scalar, std\+::string desc=\char`\"{}\char`\"{})
+\item 
+void \textbf{ push\+\_\+ptr} (\textbf{ Dense\+Vector}$<$ double $>$ $\ast$ptr\+\_\+to\+\_\+vector, std\+::string desc=\char`\"{}\char`\"{})
+\item 
+void \textbf{ push\+\_\+ptr} (\textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ $\ast$ptr\+\_\+to\+\_\+vector, std\+::string desc=\char`\"{}\char`\"{})
+\item 
+void \textbf{ push\+\_\+ptr} (\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ double $>$ $\ast$ptr\+\_\+to\+\_\+mesh, std\+::string desc=\char`\"{}\char`\"{})
+\item 
+void \textbf{ push\+\_\+ptr} (\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \textbf{ D\+\_\+complex} $>$ $\ast$ptr\+\_\+to\+\_\+mesh, std\+::string desc=\char`\"{}\char`\"{})
+\item 
+void \textbf{ push\+\_\+ptr} (\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \textbf{ D\+\_\+complex}, \textbf{ D\+\_\+complex} $>$ $\ast$ptr\+\_\+to\+\_\+mesh, std\+::string desc=\char`\"{}\char`\"{})
+\item 
+void \textbf{ newline} ()
+\item 
+void \textbf{ set\+\_\+filename} (std\+::string filename)
+\item 
+void \textbf{ header} ()
+\item 
+void \textbf{ update} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ofstream \textbf{ m\+\_\+dump\+File}
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+
+
+Definition at line 17 of file Tracker\+File.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1TrackerFile_a47936f16f7b23d21bece79f8070a6bfe}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!TrackerFile@{TrackerFile}}
+\index{TrackerFile@{TrackerFile}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{TrackerFile()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Tracker\+File\+::\+Tracker\+File (\begin{DoxyParamCaption}\item[{int}]{prec = {\ttfamily 12} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 12 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{12                                    \{}
+\DoxyCodeLine{13     \textcolor{keyword}{this} -\/> m\_precision = prec;}
+\DoxyCodeLine{14   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TrackerFile_aac3127d2a401b91982413a301a60f8bf}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!TrackerFile@{TrackerFile}}
+\index{TrackerFile@{TrackerFile}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{TrackerFile()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Tracker\+File\+::\+Tracker\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{int}]{prec = {\ttfamily 12} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 16 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16                                                        \{}
+\DoxyCodeLine{17     m\_dumpFile.open(filename.c\_str());}
+\DoxyCodeLine{18     \textcolor{keyword}{this} -\/> m\_precision = prec;}
+\DoxyCodeLine{19     m\_dumpFile.precision(prec);}
+\DoxyCodeLine{20     m\_dumpFile << std::scientific;}
+\DoxyCodeLine{21   \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+dump\+File.
+
+\mbox{\label{classCppNoddy_1_1TrackerFile_a56bf41138889519358348cd340b724e6}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!````~TrackerFile@{$\sim$TrackerFile}}
+\index{````~TrackerFile@{$\sim$TrackerFile}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{$\sim$TrackerFile()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Tracker\+File\+::$\sim$\+Tracker\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 23 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23                             \{}
+\DoxyCodeLine{24     m\_dumpFile.close();}
+\DoxyCodeLine{25   \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+dump\+File.
+
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1TrackerFile_a084563bc0dfa75c3a84e7abfbf8c0c60}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!header@{header}}
+\index{header@{header}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{header()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Tracker\+File\+::header (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 81 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{81                            \{}
+\DoxyCodeLine{82     \textcolor{comment}{// write the header}}
+\DoxyCodeLine{83     m\_dumpFile << \textcolor{stringliteral}{" \# Header : \(\backslash\)n \# "};}
+\DoxyCodeLine{84     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_doubleDesc.size(); ++i) \{}
+\DoxyCodeLine{85       m\_dumpFile << m\_doubleDesc[ i ] << \textcolor{stringliteral}{" | "};}
+\DoxyCodeLine{86     \}}
+\DoxyCodeLine{87     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_doubleVectorDesc.size(); ++i) \{}
+\DoxyCodeLine{88       m\_dumpFile << m\_doubleVectorDesc[ i ] << \textcolor{stringliteral}{" | "};}
+\DoxyCodeLine{89     \}}
+\DoxyCodeLine{90     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_complexVectorDesc.size(); ++i) \{}
+\DoxyCodeLine{91       m\_dumpFile << m\_complexVectorDesc[ i ] + \textcolor{stringliteral}{" (Real)"} << \textcolor{stringliteral}{" | "};}
+\DoxyCodeLine{92       m\_dumpFile << m\_complexVectorDesc[ i ] + \textcolor{stringliteral}{" (Imag)"} << \textcolor{stringliteral}{" | "};}
+\DoxyCodeLine{93     \}}
+\DoxyCodeLine{94     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_doubleMeshDesc.size(); ++i) \{}
+\DoxyCodeLine{95       m\_dumpFile << m\_doubleMeshDesc[ i ] + \textcolor{stringliteral}{" (nodes)"} << \textcolor{stringliteral}{" | "};}
+\DoxyCodeLine{96       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} var = 0; var < (*p\_doubleMesh[ i ]).get\_nvars(); ++var) \{}
+\DoxyCodeLine{97         m\_dumpFile << m\_doubleMeshDesc[ i ] + \textcolor{stringliteral}{" var\#"} + Utility::stringify(var) + \textcolor{stringliteral}{" | "};}
+\DoxyCodeLine{98       \}}
+\DoxyCodeLine{99     \}}
+\DoxyCodeLine{100     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_complexMeshDesc.size(); ++i) \{}
+\DoxyCodeLine{101       m\_dumpFile << m\_complexMeshDesc[ i ] + \textcolor{stringliteral}{"(nodes)"} << \textcolor{stringliteral}{" | "};}
+\DoxyCodeLine{102       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} var = 0; var < (*p\_complexMesh[ i ]).get\_nvars(); ++var) \{}
+\DoxyCodeLine{103         m\_dumpFile << m\_complexMeshDesc[ i ] + \textcolor{stringliteral}{" var\#"} + Utility::stringify(var) + \textcolor{stringliteral}{" (Real) | "};}
+\DoxyCodeLine{104         m\_dumpFile << m\_complexMeshDesc[ i ] + \textcolor{stringliteral}{" var\#"} + Utility::stringify(var) + \textcolor{stringliteral}{" (Imag) | "};}
+\DoxyCodeLine{105       \}}
+\DoxyCodeLine{106     \}}
+\DoxyCodeLine{107     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_complexComplexMeshDesc.size(); ++i) \{}
+\DoxyCodeLine{108       m\_dumpFile << m\_complexComplexMeshDesc[ i ] + \textcolor{stringliteral}{"(nodes)\_real"} << \textcolor{stringliteral}{" | "};}
+\DoxyCodeLine{109       m\_dumpFile << m\_complexComplexMeshDesc[ i ] + \textcolor{stringliteral}{"(nodes)\_imag"} << \textcolor{stringliteral}{" | "};}
+\DoxyCodeLine{110       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} var = 0; var < (*p\_complexComplexMesh[ i ]).get\_nvars(); ++var) \{}
+\DoxyCodeLine{111         m\_dumpFile << m\_complexComplexMeshDesc[ i ] + \textcolor{stringliteral}{" var\#"} + Utility::stringify(var) + \textcolor{stringliteral}{" (Real) | "};}
+\DoxyCodeLine{112         m\_dumpFile << m\_complexComplexMeshDesc[ i ] + \textcolor{stringliteral}{" var\#"} + Utility::stringify(var) + \textcolor{stringliteral}{" (Imag) | "};}
+\DoxyCodeLine{113       \}}
+\DoxyCodeLine{114     \}}
+\DoxyCodeLine{115     m\_dumpFile << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{116   \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+dump\+File, and Cpp\+Noddy\+::\+Utility\+::stringify().
+
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1TrackerFile_ad083d333084b585b638ade061584270b}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!newline@{newline}}
+\index{newline@{newline}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{newline()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Tracker\+File\+::newline (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 66 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66                             \{}
+\DoxyCodeLine{67     m\_dumpFile << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{68   \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+dump\+File.
+
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1TrackerFile_aa337b011b31f36550c0b31eed234c7ec}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!precision@{precision}}
+\index{precision@{precision}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{precision()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Tracker\+File\+::precision (\begin{DoxyParamCaption}\item[{unsigned}]{prec }\end{DoxyParamCaption})}
+
+
+
+Definition at line 76 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{76                                            \{}
+\DoxyCodeLine{77     \textcolor{keyword}{this} -\/> m\_precision = prec;}
+\DoxyCodeLine{78     m\_dumpFile.precision(prec);}
+\DoxyCodeLine{79   \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+dump\+File.
+
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1TrackerFile_a8ce3c100a18b1afb0e01b535d1695485}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!push\_ptr@{push\_ptr}}
+\index{push\_ptr@{push\_ptr}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{push\_ptr()\hspace{0.1cm}{\footnotesize\ttfamily [1/7]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Tracker\+File\+::push\+\_\+ptr (\begin{DoxyParamCaption}\item[{\textbf{ D\+\_\+complex} $\ast$}]{scalar,  }\item[{std\+::string}]{desc = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 32 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{32                                                               \{}
+\DoxyCodeLine{33     \textcolor{comment}{//p\_Doubles.push\_back( \&( scalar -\/> real() ) );}}
+\DoxyCodeLine{34     \textcolor{comment}{//p\_Doubles.push\_back( \&( scalar -\/> imag() ) );}}
+\DoxyCodeLine{35     \textcolor{comment}{// above is no longer valid for g++-\/7.2}}
+\DoxyCodeLine{36     p\_doubles.push\_back(\&\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{double}(\&)[2]\textcolor{keyword}{>}(*scalar)[0]);}
+\DoxyCodeLine{37     p\_doubles.push\_back(\&\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{double}(\&)[2]\textcolor{keyword}{>}(*scalar)[1]);}
+\DoxyCodeLine{38     m\_doubleDesc.push\_back(desc + \textcolor{stringliteral}{" (real)"});}
+\DoxyCodeLine{39     m\_doubleDesc.push\_back(desc + \textcolor{stringliteral}{" (imag)"});}
+\DoxyCodeLine{40   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TrackerFile_a458d874a16811df246724ce609fc16cc}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!push\_ptr@{push\_ptr}}
+\index{push\_ptr@{push\_ptr}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{push\_ptr()\hspace{0.1cm}{\footnotesize\ttfamily [2/7]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Tracker\+File\+::push\+\_\+ptr (\begin{DoxyParamCaption}\item[{\textbf{ Dense\+Vector}$<$ \textbf{ D\+\_\+complex} $>$ $\ast$}]{ptr\+\_\+to\+\_\+vector,  }\item[{std\+::string}]{desc = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 47 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{47                                                                                   \{}
+\DoxyCodeLine{48     p\_complexVectors.push\_back(ptr\_to\_vector);}
+\DoxyCodeLine{49     m\_complexVectorDesc.push\_back(desc);}
+\DoxyCodeLine{50   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TrackerFile_ae710bc99f4cfdfeed91cc21de6635fc4}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!push\_ptr@{push\_ptr}}
+\index{push\_ptr@{push\_ptr}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{push\_ptr()\hspace{0.1cm}{\footnotesize\ttfamily [3/7]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Tracker\+File\+::push\+\_\+ptr (\begin{DoxyParamCaption}\item[{\textbf{ Dense\+Vector}$<$ double $>$ $\ast$}]{ptr\+\_\+to\+\_\+vector,  }\item[{std\+::string}]{desc = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 42 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{42                                                                                \{}
+\DoxyCodeLine{43     p\_doubleVectors.push\_back(ptr\_to\_vector);}
+\DoxyCodeLine{44     m\_doubleVectorDesc.push\_back(desc);}
+\DoxyCodeLine{45   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TrackerFile_ad4387c0994adde19fd1932a9810b72a9}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!push\_ptr@{push\_ptr}}
+\index{push\_ptr@{push\_ptr}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{push\_ptr()\hspace{0.1cm}{\footnotesize\ttfamily [4/7]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Tracker\+File\+::push\+\_\+ptr (\begin{DoxyParamCaption}\item[{double $\ast$}]{scalar,  }\item[{std\+::string}]{desc = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 27 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{27                                                            \{}
+\DoxyCodeLine{28     p\_doubles.push\_back(scalar);}
+\DoxyCodeLine{29     m\_doubleDesc.push\_back(desc);}
+\DoxyCodeLine{30   \}}
+
+\end{DoxyCode}
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1TrackerFile_a7a6803f3603cce97fd07c224efb7477e}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!push\_ptr@{push\_ptr}}
+\index{push\_ptr@{push\_ptr}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{push\_ptr()\hspace{0.1cm}{\footnotesize\ttfamily [5/7]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Tracker\+File\+::push\+\_\+ptr (\begin{DoxyParamCaption}\item[{\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \textbf{ D\+\_\+complex} $>$ $\ast$}]{ptr\+\_\+to\+\_\+mesh,  }\item[{std\+::string}]{desc = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 57 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{57                                                                                    \{}
+\DoxyCodeLine{58     p\_complexMesh.push\_back(ptr\_to\_mesh);}
+\DoxyCodeLine{59     m\_complexMeshDesc.push\_back(desc);}
+\DoxyCodeLine{60   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TrackerFile_ad09f88ff4a210c378e3e147df47d5bf0}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!push\_ptr@{push\_ptr}}
+\index{push\_ptr@{push\_ptr}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{push\_ptr()\hspace{0.1cm}{\footnotesize\ttfamily [6/7]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Tracker\+File\+::push\+\_\+ptr (\begin{DoxyParamCaption}\item[{\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ \textbf{ D\+\_\+complex}, \textbf{ D\+\_\+complex} $>$ $\ast$}]{ptr\+\_\+to\+\_\+mesh,  }\item[{std\+::string}]{desc = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 62 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{62                                                                                               \{}
+\DoxyCodeLine{63     p\_complexComplexMesh.push\_back(ptr\_to\_mesh);}
+\DoxyCodeLine{64     m\_complexMeshDesc.push\_back(desc);}
+\DoxyCodeLine{65   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TrackerFile_a419ae58b41f3f6e4016fc20edb1d80eb}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!push\_ptr@{push\_ptr}}
+\index{push\_ptr@{push\_ptr}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{push\_ptr()\hspace{0.1cm}{\footnotesize\ttfamily [7/7]}}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Tracker\+File\+::push\+\_\+ptr (\begin{DoxyParamCaption}\item[{\textbf{ One\+D\+\_\+\+Node\+\_\+\+Mesh}$<$ double $>$ $\ast$}]{ptr\+\_\+to\+\_\+mesh,  }\item[{std\+::string}]{desc = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 52 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{52                                                                                 \{}
+\DoxyCodeLine{53     p\_doubleMesh.push\_back(ptr\_to\_mesh);}
+\DoxyCodeLine{54     m\_doubleMeshDesc.push\_back(desc);}
+\DoxyCodeLine{55   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1TrackerFile_ad9e3b5970c3538e4585ff29483891ba5}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!set\_filename@{set\_filename}}
+\index{set\_filename@{set\_filename}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{set\_filename()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Tracker\+File\+::set\+\_\+filename (\begin{DoxyParamCaption}\item[{std\+::string}]{filename }\end{DoxyParamCaption})}
+
+
+
+Definition at line 70 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{70                                                    \{}
+\DoxyCodeLine{71     m\_dumpFile.close();}
+\DoxyCodeLine{72     m\_dumpFile.open(filename.c\_str());}
+\DoxyCodeLine{73     m\_dumpFile.precision(m\_precision);}
+\DoxyCodeLine{74   \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+dump\+File.
+
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1TrackerFile_ab41c214f2976537f77815eb7fd6578e8}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!update@{update}}
+\index{update@{update}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{update()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Tracker\+File\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 118 of file Tracker\+File.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{118                            \{}
+\DoxyCodeLine{119     \textcolor{keywordtype}{unsigned} block\_size(1);}
+\DoxyCodeLine{120     \textcolor{keywordflow}{if}(!p\_doubleVectors.empty()) \{}
+\DoxyCodeLine{121       block\_size = p\_doubleVectors[ 0 ] -\/> size();}
+\DoxyCodeLine{122     \}}
+\DoxyCodeLine{123     \textcolor{keywordflow}{if}(!p\_complexVectors.empty()) \{}
+\DoxyCodeLine{124       block\_size = p\_complexVectors[ 0 ] -\/> size();}
+\DoxyCodeLine{125     \}}
+\DoxyCodeLine{126     \textcolor{keywordflow}{if}(!p\_doubleMesh.empty()) \{}
+\DoxyCodeLine{127       block\_size = p\_doubleMesh[ 0 ] -\/> get\_nnodes();}
+\DoxyCodeLine{128     \}}
+\DoxyCodeLine{129     \textcolor{keywordflow}{if}(!p\_complexMesh.empty()) \{}
+\DoxyCodeLine{130       block\_size = p\_complexMesh[ 0 ] -\/> get\_nnodes();}
+\DoxyCodeLine{131     \}}
+\DoxyCodeLine{132     \textcolor{keywordflow}{if}(!p\_complexComplexMesh.empty()) \{}
+\DoxyCodeLine{133       block\_size = p\_complexComplexMesh[ 0 ] -\/> get\_nnodes();}
+\DoxyCodeLine{134     \}}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} line = 0; line < block\_size; ++line) \{}
+\DoxyCodeLine{137       dump\_scalar\_data();}
+\DoxyCodeLine{138       \textcolor{keywordflow}{if}(!p\_doubleVectors.empty()) \{}
+\DoxyCodeLine{139         \textcolor{comment}{// for each vector ptr}}
+\DoxyCodeLine{140         \textcolor{keywordflow}{for}(std::size\_t i = 0; i < p\_doubleVectors.size(); ++i) \{}
+\DoxyCodeLine{141           m\_dumpFile << (*p\_doubleVectors[ i ]) [ line ] << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{142         \}}
+\DoxyCodeLine{143       \}}
+\DoxyCodeLine{144       \textcolor{keywordflow}{if}(!p\_complexVectors.empty()) \{}
+\DoxyCodeLine{145         \textcolor{comment}{// for each vector ptr}}
+\DoxyCodeLine{146         \textcolor{keywordflow}{for}(std::size\_t i = 0; i < p\_complexVectors.size(); ++i) \{}
+\DoxyCodeLine{147           m\_dumpFile << (*p\_complexVectors[ i ]) [ line ].real() << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{148           m\_dumpFile << (*p\_complexVectors[ i ]) [ line ].imag() << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{149         \}}
+\DoxyCodeLine{150       \}}
+\DoxyCodeLine{151       \textcolor{keywordflow}{if}(!p\_doubleMesh.empty()) \{}
+\DoxyCodeLine{152         \textcolor{comment}{// for each mesh ptr}}
+\DoxyCodeLine{153         \textcolor{keywordflow}{for}(std::size\_t i = 0; i < p\_doubleMesh.size(); ++i) \{}
+\DoxyCodeLine{154           m\_dumpFile << (*p\_doubleMesh[ i ]).coord(line) << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{155           \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} var = 0; var < p\_doubleMesh[ i ] -\/> get\_nvars(); ++var) \{}
+\DoxyCodeLine{156             m\_dumpFile << (*p\_doubleMesh[ i ])(line, var) << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{157           \}}
+\DoxyCodeLine{158         \}}
+\DoxyCodeLine{159       \}}
+\DoxyCodeLine{160       \textcolor{keywordflow}{if}(!p\_complexMesh.empty()) \{}
+\DoxyCodeLine{161         \textcolor{comment}{// for each mesh ptr}}
+\DoxyCodeLine{162         \textcolor{keywordflow}{for}(std::size\_t i = 0; i < p\_complexMesh.size(); ++i) \{}
+\DoxyCodeLine{163           m\_dumpFile << (*p\_complexMesh[ i ]).coord(line) << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{164           \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} var = 0; var < p\_complexMesh[ i ] -\/> get\_nvars(); ++var) \{}
+\DoxyCodeLine{165             m\_dumpFile << (*p\_complexMesh[ i ])(line, var).real() << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{166             m\_dumpFile << (*p\_complexMesh[ i ])(line, var).imag() << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{167           \}}
+\DoxyCodeLine{168         \}}
+\DoxyCodeLine{169       \}}
+\DoxyCodeLine{170       \textcolor{keywordflow}{if}(!p\_complexComplexMesh.empty()) \{}
+\DoxyCodeLine{171         \textcolor{comment}{// for each mesh ptr}}
+\DoxyCodeLine{172         \textcolor{keywordflow}{for}(std::size\_t i = 0; i < p\_complexComplexMesh.size(); ++i) \{}
+\DoxyCodeLine{173           m\_dumpFile << (*p\_complexComplexMesh[ i ]).coord(line).real() << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{174           m\_dumpFile << (*p\_complexComplexMesh[ i ]).coord(line).imag() << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{175           \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} var = 0; var < p\_complexComplexMesh[ i ] -\/> get\_nvars(); ++var) \{}
+\DoxyCodeLine{176             m\_dumpFile << (*p\_complexComplexMesh[ i ])(line, var).real() << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{177             m\_dumpFile << (*p\_complexComplexMesh[ i ])(line, var).imag() << \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{178           \}}
+\DoxyCodeLine{179         \}}
+\DoxyCodeLine{180       \}}
+\DoxyCodeLine{181       m\_dumpFile << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{182     \}}
+\DoxyCodeLine{183     \textcolor{comment}{// flush the buffer}}
+\DoxyCodeLine{184     m\_dumpFile.flush();}
+\DoxyCodeLine{185   \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Utility\+::imag(), m\+\_\+dump\+File, and Cpp\+Noddy\+::\+Utility\+::real().
+
+
+
+Referenced by main().
+
+
+
+\doxysubsubsection{Member Data Documentation}
+\mbox{\label{classCppNoddy_1_1TrackerFile_a203ac2278955d73ff083f8f39387e3d8}} 
+\index{CppNoddy::TrackerFile@{CppNoddy::TrackerFile}!m\_dumpFile@{m\_dumpFile}}
+\index{m\_dumpFile@{m\_dumpFile}!CppNoddy::TrackerFile@{CppNoddy::TrackerFile}}
+\doxyparagraph{m\_dumpFile}
+{\footnotesize\ttfamily std\+::ofstream Cpp\+Noddy\+::\+Tracker\+File\+::m\+\_\+dump\+File\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 52 of file Tracker\+File.\+h.
+
+
+
+Referenced by header(), newline(), precision(), set\+\_\+filename(), Tracker\+File(), update(), and $\sim$\+Tracker\+File().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Tracker\+File.\+h}\item 
+src/\textbf{ Tracker\+File.\+cpp}\end{DoxyCompactItemize}

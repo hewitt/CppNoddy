@@ -1,0 +1,1519 @@
+\doxysubsection{Cpp\+Noddy\+::Dense\+Vector$<$ \+\_\+\+Type $>$ Class Template Reference}
+\label{classCppNoddy_1_1DenseVector}\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+
+
+An \doxyref{Dense\+Vector}{p.}{classCppNoddy_1_1DenseVector} class -- a dense vector object.  
+
+
+
+
+{\ttfamily \#include $<$Dense\+Vector.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\+::vector$<$ \+\_\+\+Type $>$\+::iterator \textbf{ elt\+\_\+iter}
+\item 
+typedef std\+::vector$<$ \+\_\+\+Type $>$\+::const\+\_\+iterator \textbf{ elt\+\_\+citer}
+\item 
+typedef std\+::vector$<$ \+\_\+\+Type $>$\+::reverse\+\_\+iterator \textbf{ elt\+\_\+riter}
+\item 
+typedef std\+::vector$<$ \+\_\+\+Type $>$\+::const\+\_\+reverse\+\_\+iterator \textbf{ elt\+\_\+criter}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Dense\+Vector} ()
+\begin{DoxyCompactList}\small\item\em Constructor for a non-\/filled vector, to be filled by the user. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector} (const std\+::size\+\_\+t \&\textbf{ size}, const \+\_\+\+Type \&fill)
+\begin{DoxyCompactList}\small\item\em Constructor with specified fill-\/in initialization. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector} (const std\+::size\+\_\+t \&\textbf{ size}, const \+\_\+\+Type $\ast$\textbf{ p})
+\begin{DoxyCompactList}\small\item\em Construct a Noddy vector from a contiguous set of real data. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename \+\_\+source\+Type $>$ }\\\textbf{ Dense\+Vector} (const \textbf{ Dense\+Vector}$<$ \+\_\+source\+Type $>$ \&source)
+\begin{DoxyCompactList}\small\item\em A templated implicitly converting copy constructor. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector} \& \textbf{ operator=} (const \textbf{ Dense\+Vector} \&source)
+\begin{DoxyCompactList}\small\item\em Copy assignment. \end{DoxyCompactList}\item 
+\textbf{ $\sim$\+Dense\+Vector} ()
+\item 
+\textbf{ elt\+\_\+iter} \textbf{ begin} ()
+\begin{DoxyCompactList}\small\item\em Pass through to the storage container. \end{DoxyCompactList}\item 
+\textbf{ elt\+\_\+riter} \textbf{ rbegin} ()
+\begin{DoxyCompactList}\small\item\em Pass through to the storage container. \end{DoxyCompactList}\item 
+\textbf{ elt\+\_\+citer} \textbf{ begin} () const
+\begin{DoxyCompactList}\small\item\em Pass through to the storage container. \end{DoxyCompactList}\item 
+\textbf{ elt\+\_\+criter} \textbf{ rbegin} () const
+\begin{DoxyCompactList}\small\item\em Pass through to the storage container. \end{DoxyCompactList}\item 
+\textbf{ elt\+\_\+iter} \textbf{ end} ()
+\begin{DoxyCompactList}\small\item\em Pass through to the storage container. \end{DoxyCompactList}\item 
+\textbf{ elt\+\_\+citer} \textbf{ end} () const
+\begin{DoxyCompactList}\small\item\em Pass through to the storage container. \end{DoxyCompactList}\item 
+\textbf{ elt\+\_\+riter} \textbf{ rend} ()
+\begin{DoxyCompactList}\small\item\em Pass through to the storage container. \end{DoxyCompactList}\item 
+\textbf{ elt\+\_\+criter} \textbf{ rend} () const
+\begin{DoxyCompactList}\small\item\em Pass through to the storage container. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ operator+} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&x) const
+\begin{DoxyCompactList}\small\item\em Operator overloading for addition. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ operator+} () const
+\begin{DoxyCompactList}\small\item\em Overloading for +. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ operator-\/} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&x) const
+\begin{DoxyCompactList}\small\item\em Operator overloading for subtraction. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ operator-\/} () const
+\begin{DoxyCompactList}\small\item\em Overloading for -\/. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ operator$\ast$} (const \+\_\+\+Type \&\textbf{ m}) const
+\begin{DoxyCompactList}\small\item\em Operator overloading for scalar multiplication. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ operator/} (const \+\_\+\+Type \&\textbf{ m}) const
+\begin{DoxyCompactList}\small\item\em Operaotr overloading for scalar division. \end{DoxyCompactList}\item 
+const \+\_\+\+Type \& \textbf{ operator[$\,$]} (const std\+::size\+\_\+t \&i) const
+\begin{DoxyCompactList}\small\item\em Overloading of the [] operator. \end{DoxyCompactList}\item 
+\+\_\+\+Type \& \textbf{ operator[$\,$]} (const std\+::size\+\_\+t \&i)
+\begin{DoxyCompactList}\small\item\em Overloading of the [] operator. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ operator$\ast$=} (const \+\_\+\+Type \&\textbf{ m})
+\begin{DoxyCompactList}\small\item\em Overloading $\ast$= for scalar multiplication. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ operator/=} (const \+\_\+\+Type \&\textbf{ m})
+\begin{DoxyCompactList}\small\item\em Overloading /= for scalar multiplication. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ operator-\/=} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&x)
+\begin{DoxyCompactList}\small\item\em Overloading the -\/= operator. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ operator+=} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&x)
+\begin{DoxyCompactList}\small\item\em Overloading the += operator. \end{DoxyCompactList}\item 
+void \textbf{ push\+\_\+back} (const \+\_\+\+Type \&fill)
+\begin{DoxyCompactList}\small\item\em A pass-\/thru definition of push\+\_\+back. \end{DoxyCompactList}\item 
+void \textbf{ resize} (const std\+::size\+\_\+t \&length)
+\begin{DoxyCompactList}\small\item\em A pass-\/thru definition of resize. \end{DoxyCompactList}\item 
+void \textbf{ assign} (const std\+::size\+\_\+t n, const \+\_\+\+Type elem)
+\begin{DoxyCompactList}\small\item\em A pass-\/thru definition of assign. \end{DoxyCompactList}\item 
+void \textbf{ clear} ()
+\begin{DoxyCompactList}\small\item\em A pass-\/thru definition of clear. \end{DoxyCompactList}\item 
+double \textbf{ one\+\_\+norm} () const
+\begin{DoxyCompactList}\small\item\em l1-\/norm. \end{DoxyCompactList}\item 
+double \textbf{ two\+\_\+norm} () const
+\begin{DoxyCompactList}\small\item\em l2-\/norm. \end{DoxyCompactList}\item 
+double \textbf{ inf\+\_\+norm} () const
+\begin{DoxyCompactList}\small\item\em Infinity norm. \end{DoxyCompactList}\item 
+void \textbf{ scale} (const \+\_\+\+Type \&scale)
+\begin{DoxyCompactList}\small\item\em Scale each element of the vector, equivalent to $\ast$=. \end{DoxyCompactList}\item 
+void \textbf{ add} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&x)
+\begin{DoxyCompactList}\small\item\em Add a vector, element wise, equivalent to +=. \end{DoxyCompactList}\item 
+void \textbf{ sub} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&x)
+\begin{DoxyCompactList}\small\item\em Subtract a vector, element wise, equivalent to -\/=. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ size} () const
+\begin{DoxyCompactList}\small\item\em A pass-\/thru definition to get the size of the vector. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \textbf{ nelts} () const
+\begin{DoxyCompactList}\small\item\em Get the number of elements in the vector Since the vector is dense, the number of elements is the size. \end{DoxyCompactList}\item 
+void \textbf{ reserve} (const std\+::size\+\_\+t \&n)
+\begin{DoxyCompactList}\small\item\em Reserve space for the vector. \end{DoxyCompactList}\item 
+void \textbf{ swap} (const std\+::size\+\_\+t \&i, const std\+::size\+\_\+t \&j)
+\begin{DoxyCompactList}\small\item\em Swap elements i and j. \end{DoxyCompactList}\item 
+void \textbf{ dump} () const
+\begin{DoxyCompactList}\small\item\em Dump to std\+::cout. \end{DoxyCompactList}\item 
+void \textbf{ dump\+\_\+file} (std\+::string filename, int precision=10) const
+\begin{DoxyCompactList}\small\item\em Dump the contents to a file, each element on a separate line. \end{DoxyCompactList}\item 
+\textbf{ Dense\+Vector} (const \textbf{ Dense\+Vector}$<$ double $>$ \&source)
+\item 
+\textbf{ Dense\+Vector} (const \textbf{ Dense\+Vector}$<$ std\+::complex$<$ double $>$ $>$ \&source)
+\item 
+void \textbf{ dump\+\_\+file} (std\+::string filename, int precision) const
+\item 
+void \textbf{ dump\+\_\+file} (std\+::string filename, int precision) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Banded\+Matrix$<$ \+\_\+\+Type $>$}
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type$>$\newline
+class Cpp\+Noddy\+::\+Dense\+Vector$<$ \+\_\+\+Type $>$}
+
+An \doxyref{Dense\+Vector}{p.}{classCppNoddy_1_1DenseVector} class -- a dense vector object. 
+
+This is templated but intended O\+N\+LY for double or std\+::complex$<$double$>$. We just encapsulate the S\+TL vector container and pass through a few simple iterators whilst adding appropriate operator overloading and norms. 
+
+Definition at line 34 of file Dense\+Vector.\+h.
+
+
+
+\doxysubsubsection{Member Typedef Documentation}
+\mbox{\label{classCppNoddy_1_1DenseVector_a711948b3fd516b3084bc228fa5fcf108}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!elt\_citer@{elt\_citer}}
+\index{elt\_citer@{elt\_citer}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{elt\_citer}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+typedef std\+::vector$<$\+\_\+\+Type$>$\+::const\+\_\+iterator \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::\textbf{ elt\+\_\+citer}}
+
+
+
+Definition at line 38 of file Dense\+Vector.\+h.
+
+\mbox{\label{classCppNoddy_1_1DenseVector_a0c3f030013aba9322ee981dfdbed95f6}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!elt\_criter@{elt\_criter}}
+\index{elt\_criter@{elt\_criter}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{elt\_criter}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+typedef std\+::vector$<$\+\_\+\+Type$>$\+::const\+\_\+reverse\+\_\+iterator \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::\textbf{ elt\+\_\+criter}}
+
+
+
+Definition at line 40 of file Dense\+Vector.\+h.
+
+\mbox{\label{classCppNoddy_1_1DenseVector_af09cba8a8e781a0a791a3851b318b147}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!elt\_iter@{elt\_iter}}
+\index{elt\_iter@{elt\_iter}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{elt\_iter}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+typedef std\+::vector$<$\+\_\+\+Type$>$\+::iterator \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::\textbf{ elt\+\_\+iter}}
+
+
+
+Definition at line 37 of file Dense\+Vector.\+h.
+
+\mbox{\label{classCppNoddy_1_1DenseVector_a5bef5165f3994729b7e9c1a3802944c8}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!elt\_riter@{elt\_riter}}
+\index{elt\_riter@{elt\_riter}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{elt\_riter}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+typedef std\+::vector$<$\+\_\+\+Type$>$\+::reverse\+\_\+iterator \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::\textbf{ elt\+\_\+riter}}
+
+
+
+Definition at line 39 of file Dense\+Vector.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1DenseVector_ac265743dcb557ad0c74c13c359753497}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!DenseVector@{DenseVector}}
+\index{DenseVector@{DenseVector}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{DenseVector()\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::\textbf{ Dense\+Vector}}
+
+
+
+Constructor for a non-\/filled vector, to be filled by the user. 
+
+
+
+Definition at line 17 of file Dense\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18   \{\}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_aa7dbdc4a2f9b1e7b4c0c6b1c27433146}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!DenseVector@{DenseVector}}
+\index{DenseVector@{DenseVector}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{DenseVector()\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::\textbf{ Dense\+Vector} (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{size,  }\item[{const \+\_\+\+Type \&}]{fill }\end{DoxyParamCaption})}
+
+
+
+Constructor with specified fill-\/in initialization. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fill} & Data to be initialised to each entry \\
+\hline
+{\em size} & The size of the vector to be instantiated \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 28 of file Dense\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{29                                                      : m\_vec(size, fill)}
+\DoxyCodeLine{30   \{\}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_afad641824c70ff1719786953adcdaa69}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!DenseVector@{DenseVector}}
+\index{DenseVector@{DenseVector}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{DenseVector()\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::\textbf{ Dense\+Vector} (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{size,  }\item[{const \+\_\+\+Type $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Construct a Noddy vector from a contiguous set of real data. 
+
+This will be nasty if you pass the wrong pointer, but is useful in interfacing with external libraries 
+\begin{DoxyParams}{Parameters}
+{\em size} & The number of elements in the vector. \\
+\hline
+{\em p} & A pointer to the start of the data. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 21 of file Dense\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21                                                                        \{}
+\DoxyCodeLine{22     m\_vec.reserve(size);}
+\DoxyCodeLine{23     \textcolor{comment}{// assign the array contents to the vector}}
+\DoxyCodeLine{24     m\_vec.assign(p, p + size);}
+\DoxyCodeLine{25   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a989472c90a271558858a9933af7f0d77}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!DenseVector@{DenseVector}}
+\index{DenseVector@{DenseVector}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{DenseVector()\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+template$<$typename \+\_\+source\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::\textbf{ Dense\+Vector} (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+source\+Type $>$ \&}]{source }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A templated implicitly converting copy constructor. 
+
+Note this is specialised for double to double and std\+::complex$<$double$>$ to std\+::complex$<$double$>$ copy construction. 
+\begin{DoxyParams}{Parameters}
+{\em source} & The \doxyref{Dense\+Vector}{p.}{classCppNoddy_1_1DenseVector} to be used in the initialising. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 62 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{62                                                         \{}
+\DoxyCodeLine{63       \textcolor{comment}{// size the current vector}}
+\DoxyCodeLine{64       m\_vec.resize(source.size());}
+\DoxyCodeLine{65       elt\_iter p\_local(m\_vec.begin());}
+\DoxyCodeLine{66       \textcolor{keywordflow}{for}(\textcolor{keyword}{typename} DenseVector<\_sourceType>::elt\_citer}
+\DoxyCodeLine{67           p\_from = source.begin();}
+\DoxyCodeLine{68           p\_from != source.end();}
+\DoxyCodeLine{69           ++p\_from, ++p\_local) \{}
+\DoxyCodeLine{70         *p\_local = *p\_from;}
+\DoxyCodeLine{71       \}}
+\DoxyCodeLine{72     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a6dc1fd82dbc6151ffc3305f26786fa3c}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!````~DenseVector@{$\sim$DenseVector}}
+\index{````~DenseVector@{$\sim$DenseVector}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{$\sim$DenseVector()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::$\sim$\textbf{ Dense\+Vector}\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 268 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{269   \{\}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_af241380f8183aa58a3481b98bd29132e}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!DenseVector@{DenseVector}}
+\index{DenseVector@{DenseVector}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{DenseVector()\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ double $>$\+::\textbf{ Dense\+Vector} (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{source }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 274 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{274                                                                            \{}
+\DoxyCodeLine{275     m\_vec = source.m\_vec;}
+\DoxyCodeLine{276   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a25cdca654074ca6ab0c11d96deeeaf85}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!DenseVector@{DenseVector}}
+\index{DenseVector@{DenseVector}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{DenseVector()\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ std\+::complex$<$ double $>$ $>$\+::\textbf{ Dense\+Vector} (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ std\+::complex$<$ double $>$ $>$ \&}]{source }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 280 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{280                                                                                                      \{}
+\DoxyCodeLine{281     m\_vec = source.m\_vec;}
+\DoxyCodeLine{282   \}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1DenseVector_a5a1227af95956376bebf17db48c5aca9}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!add@{add}}
+\index{add@{add}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{add()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::add (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{x }\end{DoxyParamCaption})}
+
+
+
+Add a vector, element wise, equivalent to +=. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The vector to be added to this object. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 39 of file Dense\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39                                 \{}
+\DoxyCodeLine{40     operator+=(x);}
+\DoxyCodeLine{41   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_acfb0287fb36d801c77b15c14d0b7c56b}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!assign@{assign}}
+\index{assign@{assign}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{assign()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::assign (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t}]{n,  }\item[{const \+\_\+\+Type}]{elem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A pass-\/thru definition of assign. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & The number of elements to assign \\
+\hline
+{\em elem} & The element copy to be used in the assign \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 190 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{190                                                      \{}
+\DoxyCodeLine{191       m\_vec.assign(n, elem);}
+\DoxyCodeLine{192     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_ab64eb7a12ffa855b5b3d2acdd76e9d2c}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!begin@{begin}}
+\index{begin@{begin}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{begin()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ elt\+\_\+iter} \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pass through to the storage container. 
+
+
+
+Definition at line 82 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{82                      \{}
+\DoxyCodeLine{83       \textcolor{keywordflow}{return} m\_vec.begin();}
+\DoxyCodeLine{84     \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+Utility\+::dot(), main(), Cpp\+Noddy\+::\+Dense\+Vector$<$ D\+\_\+complex $>$\+::operator+=(), and Cpp\+Noddy\+::\+Dense\+Vector$<$ D\+\_\+complex $>$\+::operator-\/=().
+
+\mbox{\label{classCppNoddy_1_1DenseVector_a085ef19a870afd06d02108a800861f70}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!begin@{begin}}
+\index{begin@{begin}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{begin()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ elt\+\_\+citer} \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pass through to the storage container. 
+
+
+
+Definition at line 92 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{92                             \{}
+\DoxyCodeLine{93       \textcolor{keywordflow}{return} m\_vec.begin();}
+\DoxyCodeLine{94     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a7b884d3842e0724457388b8f9f175924}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!clear@{clear}}
+\index{clear@{clear}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{clear()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::clear\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A pass-\/thru definition of clear. 
+
+
+
+Definition at line 320 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{320                                         \{}
+\DoxyCodeLine{321     m\_vec.clear();}
+\DoxyCodeLine{322   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+Dense\+Vector$<$ D\+\_\+complex $>$\+::clear().
+
+\mbox{\label{classCppNoddy_1_1DenseVector_a4e70e0e58d05b44ff5c3adcfedc97072}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!dump@{dump}}
+\index{dump@{dump}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{dump()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::dump}
+
+
+
+Dump to std\+::cout. 
+
+
+
+Definition at line 64 of file Dense\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{64                                       \{}
+\DoxyCodeLine{65     std::cout << \textcolor{stringliteral}{"size = "} << size() << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{66     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < size(); ++i) \{}
+\DoxyCodeLine{67       std::cout << m\_vec[ i ] << \textcolor{stringliteral}{", "};}
+\DoxyCodeLine{68     \}}
+\DoxyCodeLine{69     std::cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{70   \}}
+
+\end{DoxyCode}
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1DenseVector_a0c0f9abd43ef8a33af8eaef72d946955}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!dump\_file@{dump\_file}}
+\index{dump\_file@{dump\_file}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{dump\_file()\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ double $>$\+::dump\+\_\+file (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{int}]{precision }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 74 of file Dense\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{74                                                                              \{}
+\DoxyCodeLine{75     std::ofstream dump;}
+\DoxyCodeLine{76     dump.open(filename.c\_str());}
+\DoxyCodeLine{77     dump.precision(precision);}
+\DoxyCodeLine{78     dump.setf(std::ios::showpoint);}
+\DoxyCodeLine{79     dump.setf(std::ios::showpos);}
+\DoxyCodeLine{80     dump.setf(std::ios::scientific);}
+\DoxyCodeLine{81     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_vec.size(); ++i) \{}
+\DoxyCodeLine{82       dump << i << \textcolor{stringliteral}{" "} << m\_vec[ i ] << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{83     \}}
+\DoxyCodeLine{84   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_ad8628f05eac0ffd8e5d86ce666c899c6}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!dump\_file@{dump\_file}}
+\index{dump\_file@{dump\_file}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{dump\_file()\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ std\+::complex$<$ double $>$ $>$\+::dump\+\_\+file (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{int}]{precision }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 87 of file Dense\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{87                                                                                           \{}
+\DoxyCodeLine{88     std::ofstream dump;}
+\DoxyCodeLine{89     dump.open(filename.c\_str());}
+\DoxyCodeLine{90     dump.precision(precision);}
+\DoxyCodeLine{91     dump.setf(std::ios::showpoint);}
+\DoxyCodeLine{92     dump.setf(std::ios::showpos);}
+\DoxyCodeLine{93     dump.setf(std::ios::scientific);}
+\DoxyCodeLine{94     \textcolor{keywordflow}{for}(std::size\_t i = 0; i < m\_vec.size(); ++i) \{}
+\DoxyCodeLine{95       dump << i << \textcolor{stringliteral}{" "} << m\_vec[ i ].real() << \textcolor{stringliteral}{" "} << m\_vec[ i ].imag()  << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{96     \}}
+\DoxyCodeLine{97   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a0ec028871de109cb6e5a4baf6b8b9e90}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!dump\_file@{dump\_file}}
+\index{dump\_file@{dump\_file}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{dump\_file()\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::dump\+\_\+file (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{int}]{precision = {\ttfamily 10} }\end{DoxyParamCaption}) const}
+
+
+
+Dump the contents to a file, each element on a separate line. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the file to write to \\
+\hline
+{\em precision} & Precision of the output strings \\
+\hline
+\end{DoxyParams}
+\mbox{\label{classCppNoddy_1_1DenseVector_add820f2418befbdee641b19b6daee1d7}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!end@{end}}
+\index{end@{end}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{end()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ elt\+\_\+iter} \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pass through to the storage container. 
+
+
+
+Definition at line 102 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{102                    \{}
+\DoxyCodeLine{103       \textcolor{keywordflow}{return} m\_vec.end();}
+\DoxyCodeLine{104     \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+Utility\+::dot(), and main().
+
+\mbox{\label{classCppNoddy_1_1DenseVector_a4d8dd5e4acd2e895e90285f65b602fe0}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!end@{end}}
+\index{end@{end}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{end()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ elt\+\_\+citer} \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pass through to the storage container. 
+
+
+
+Definition at line 107 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{107                           \{}
+\DoxyCodeLine{108       \textcolor{keywordflow}{return} m\_vec.end();}
+\DoxyCodeLine{109     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a29f285a071ea9f89462b5d8cd1fbee24}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!inf\_norm@{inf\_norm}}
+\index{inf\_norm@{inf\_norm}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{inf\_norm()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::inf\+\_\+norm}
+
+
+
+Infinity norm. 
+
+\begin{DoxyReturn}{Returns}
+The maximum (abs) element in the vector. 
+\end{DoxyReturn}
+
+
+Definition at line 59 of file Dense\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{59                                             \{}
+\DoxyCodeLine{60     \textcolor{keywordflow}{return} std::abs(*max\_element(begin(), end(), abs\_predicate<\_Type>()));}
+\DoxyCodeLine{61   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ D\+\_\+complex $>$\+::adapt(), Cpp\+Noddy\+::\+Newton$<$ \+\_\+\+Type $>$\+::arclength\+\_\+solve(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ D\+\_\+complex $>$\+::arclength\+\_\+solve(), Cpp\+Noddy\+::reversed\+\_\+\+B\+L$<$ \+\_\+\+Type $>$\+::bidirectional\+\_\+step2(), Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::inf\+\_\+norm(), main(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ D\+\_\+complex $>$\+::solve2(), Cpp\+Noddy\+::reversed\+\_\+\+B\+L$<$ \+\_\+\+Type $>$\+::step2(), Cpp\+Noddy\+::\+P\+D\+E\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$\+::step2(), and Cpp\+Noddy\+::\+P\+D\+E\+\_\+double\+\_\+\+I\+B\+V\+P$<$ \+\_\+\+Type $>$\+::step2().
+
+\mbox{\label{classCppNoddy_1_1DenseVector_a217b6c4f92b41619cddf19d23286bc32}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!nelts@{nelts}}
+\index{nelts@{nelts}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{nelts()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::nelts\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the number of elements in the vector Since the vector is dense, the number of elements is the size. 
+
+\begin{DoxyReturn}{Returns}
+The number of elements in the vector. 
+\end{DoxyReturn}
+
+
+Definition at line 335 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{335                                                    \{}
+\DoxyCodeLine{336     \textcolor{keywordflow}{return} m\_vec.size();}
+\DoxyCodeLine{337   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a093d2b3693c2b8ebf9491ce176e161fc}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!one\_norm@{one\_norm}}
+\index{one\_norm@{one\_norm}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{one\_norm()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::one\+\_\+norm}
+
+
+
+l1-\/norm. 
+
+\begin{DoxyReturn}{Returns}
+The square-\/root of the sum of the squares. 
+\end{DoxyReturn}
+
+
+Definition at line 49 of file Dense\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49                                             \{}
+\DoxyCodeLine{50     \textcolor{keywordflow}{return} accumulate(begin(), end(), 0.0, absAdd\_functor<\_Type>());}
+\DoxyCodeLine{51   \}}
+
+\end{DoxyCode}
+
+
+Referenced by main(), and Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::one\+\_\+norm().
+
+\mbox{\label{classCppNoddy_1_1DenseVector_a8d846f69bcdae8e2621c63704d48d4b1}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{operator$\ast$()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{const \+\_\+\+Type \&}]{m }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Operator overloading for scalar multiplication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & The scalar multiplier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The \textquotesingle{}this\textquotesingle{} vector scaled by the constant \textquotesingle{}m\textquotesingle{} 
+\end{DoxyReturn}
+
+
+Definition at line 345 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{345                                                                               \{}
+\DoxyCodeLine{346     DenseVector<\_Type> temp(*\textcolor{keyword}{this});}
+\DoxyCodeLine{347     temp *= m;}
+\DoxyCodeLine{348     \textcolor{keywordflow}{return} temp;}
+\DoxyCodeLine{349   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a590e0c470a337593e7ae44401898eefa}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!operator$\ast$=@{operator$\ast$=}}
+\index{operator$\ast$=@{operator$\ast$=}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{operator$\ast$=()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::operator$\ast$= (\begin{DoxyParamCaption}\item[{const \+\_\+\+Type \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading $\ast$= for scalar multiplication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & The scalar multiplier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the \textquotesingle{}this\textquotesingle{} vector multiplied by the scalar 
+\end{DoxyReturn}
+
+
+Definition at line 352 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{352                                                                           \{}
+\DoxyCodeLine{353     \textcolor{comment}{// run thru m\_vec from begin to end, transforming into}}
+\DoxyCodeLine{354     \textcolor{comment}{// m\_vec container starting from begin using functor}}
+\DoxyCodeLine{355     std::transform(m\_vec.begin(), m\_vec.end(), m\_vec.begin(), scale\_functor<\_Type, \_Type>(m));}
+\DoxyCodeLine{356     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{357   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a6c0ec610e2b71397a85d3c40443c4931}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!operator+@{operator+}}
+\index{operator+@{operator+}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{operator+()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::operator+\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading for +. 
+
+\begin{DoxyReturn}{Returns}
++this 
+\end{DoxyReturn}
+
+
+Definition at line 325 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{325                                                                 \{}
+\DoxyCodeLine{326     \textcolor{keywordflow}{return} * \textcolor{keyword}{this};}
+\DoxyCodeLine{327   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a8e0aa3b5a11056014c17ede66ea8a622}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!operator+@{operator+}}
+\index{operator+@{operator+}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{operator+()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::operator+ (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{x }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Operator overloading for addition. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The dense vector to be added \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The sum of \textquotesingle{}this\textquotesingle{} and x 
+\end{DoxyReturn}
+
+
+Definition at line 425 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{425                                                                                            \{}
+\DoxyCodeLine{426 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{427     \textcolor{keywordflow}{if}(x.size() != size()) \{}
+\DoxyCodeLine{428       std::string problem;}
+\DoxyCodeLine{429       problem = \textcolor{stringliteral}{" The DenseVector.operator+ method is trying to use \(\backslash\)n"};}
+\DoxyCodeLine{430       problem += \textcolor{stringliteral}{" two vectors of unequal length \(\backslash\)n"};}
+\DoxyCodeLine{431       \textcolor{keywordflow}{throw} ExceptionGeom(problem, size(), x.size());}
+\DoxyCodeLine{432     \}}
+\DoxyCodeLine{433 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{434     DenseVector<\_Type> temp(*\textcolor{keyword}{this});}
+\DoxyCodeLine{435     temp += x;}
+\DoxyCodeLine{436     \textcolor{keywordflow}{return} temp;}
+\DoxyCodeLine{437   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_afae6321d02abe4b956a210ca54a8d623}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{operator+=()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::operator+= (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading the += operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & A dense vector that will be added to \textquotesingle{}this\textquotesingle{} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the \textquotesingle{}this\textquotesingle{} vector after addition by x 
+\end{DoxyReturn}
+
+
+Definition at line 389 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{389                                                                                        \{}
+\DoxyCodeLine{390 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{391     \textcolor{keywordflow}{if}(x.size() != size()) \{}
+\DoxyCodeLine{392       std::string problem;}
+\DoxyCodeLine{393       problem = \textcolor{stringliteral}{" The DenseVector.operator+= method is trying to use \(\backslash\)n"};}
+\DoxyCodeLine{394       problem += \textcolor{stringliteral}{" two vectors of unequal length \(\backslash\)n"};}
+\DoxyCodeLine{395       \textcolor{keywordflow}{throw} ExceptionGeom(problem, size(), x.size());}
+\DoxyCodeLine{396     \}}
+\DoxyCodeLine{397 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{398     std::transform(m\_vec.begin(), m\_vec.end(), x.begin(), m\_vec.begin(), std::plus<\_Type>());}
+\DoxyCodeLine{399     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{400   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_af7c5f66ddffeddb4c81a08e9a6fa265a}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{operator-\/()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::operator-\/\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading for -\/. 
+
+\begin{DoxyReturn}{Returns}
+-\/this 
+\end{DoxyReturn}
+
+
+Definition at line 418 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{418                                                                 \{}
+\DoxyCodeLine{419     DenseVector<\_Type> temp(*\textcolor{keyword}{this});}
+\DoxyCodeLine{420     temp *= -\/1;}
+\DoxyCodeLine{421     \textcolor{keywordflow}{return} temp;}
+\DoxyCodeLine{422   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_acf80213990ac816765f7b793db60be7c}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{operator-\/()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::operator-\/ (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{x }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Operator overloading for subtraction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The dense vector to be subtracted from \textquotesingle{}this\textquotesingle{} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The subtraction of x from \textquotesingle{}this\textquotesingle{} 
+\end{DoxyReturn}
+
+
+Definition at line 403 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{403                                                                                            \{}
+\DoxyCodeLine{404 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{405     \textcolor{keywordflow}{if}(x.size() != size()) \{}
+\DoxyCodeLine{406       std::string problem;}
+\DoxyCodeLine{407       problem = \textcolor{stringliteral}{" The DenseVector.operator-\/ method is trying to use \(\backslash\)n"};}
+\DoxyCodeLine{408       problem += \textcolor{stringliteral}{" two vectors of unequal length \(\backslash\)n"};}
+\DoxyCodeLine{409       \textcolor{keywordflow}{throw} ExceptionGeom(problem, size(), x.size());}
+\DoxyCodeLine{410     \}}
+\DoxyCodeLine{411 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{412     DenseVector<\_Type> temp(*\textcolor{keyword}{this});}
+\DoxyCodeLine{413     temp -\/= x;}
+\DoxyCodeLine{414     \textcolor{keywordflow}{return} temp;}
+\DoxyCodeLine{415   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a945c5b033e2113be9cf75a6dcaff46c4}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!operator-\/=@{operator-\/=}}
+\index{operator-\/=@{operator-\/=}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{operator-\/=()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::operator-\/= (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading the -\/= operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & A dense vector that will be subtracted from \textquotesingle{}this\textquotesingle{} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the \textquotesingle{}this\textquotesingle{} vector after subtraction by x 
+\end{DoxyReturn}
+
+
+Definition at line 375 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{375                                                                                        \{}
+\DoxyCodeLine{376 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{377     \textcolor{keywordflow}{if}(x.size() != size()) \{}
+\DoxyCodeLine{378       std::string problem;}
+\DoxyCodeLine{379       problem = \textcolor{stringliteral}{" The DenseVector.operator-\/= method is trying to use \(\backslash\)n"};}
+\DoxyCodeLine{380       problem += \textcolor{stringliteral}{" two vectors of unequal length \(\backslash\)n"};}
+\DoxyCodeLine{381       \textcolor{keywordflow}{throw} ExceptionGeom(problem, size(), x.size());}
+\DoxyCodeLine{382     \}}
+\DoxyCodeLine{383 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{384     std::transform(m\_vec.begin(), m\_vec.end(), x.begin(), m\_vec.begin(), std::minus<\_Type>());}
+\DoxyCodeLine{385     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{386   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_ac61bead5d71d687709c6bf85e9515a16}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!operator/@{operator/}}
+\index{operator/@{operator/}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{operator/()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::operator/ (\begin{DoxyParamCaption}\item[{const \+\_\+\+Type \&}]{m }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Operaotr overloading for scalar division. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & The scalar divisor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The \textquotesingle{}this\textquotesingle{} vector divided by the constant \textquotesingle{}m\textquotesingle{} 
+\end{DoxyReturn}
+
+
+Definition at line 360 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{360                                                                               \{}
+\DoxyCodeLine{361     DenseVector<\_Type> temp(*\textcolor{keyword}{this});}
+\DoxyCodeLine{362     temp *= (1. / m);}
+\DoxyCodeLine{363     \textcolor{keywordflow}{return} temp;}
+\DoxyCodeLine{364   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a5d2d79e7dc74bd7209e0734c724d8122}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!operator/=@{operator/=}}
+\index{operator/=@{operator/=}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{operator/=()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::operator/= (\begin{DoxyParamCaption}\item[{const \+\_\+\+Type \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading /= for scalar multiplication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & The scalar divisor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the \textquotesingle{}this\textquotesingle{} vector divided by the scalar 
+\end{DoxyReturn}
+
+
+Definition at line 367 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{367                                                                           \{}
+\DoxyCodeLine{368     \textcolor{comment}{// run thru m\_vecfrom begin to end, transforming into}}
+\DoxyCodeLine{369     \textcolor{comment}{// m\_vec container starting from begin using functor}}
+\DoxyCodeLine{370     std::transform(m\_vec.begin(), m\_vec.end(), m\_vec.begin(), scale\_functor<\_Type, \_Type>(1.0 / m));}
+\DoxyCodeLine{371     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{372   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_aa587338bf625288edebd421d90a6f141}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{operator=()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \& \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{source }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Copy assignment. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & Object to copy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The new object 
+\end{DoxyReturn}
+
+
+Definition at line 440 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{440                                                                                            \{}
+\DoxyCodeLine{441     \textcolor{keywordflow}{if}(\textcolor{keyword}{this} == \&source)}
+\DoxyCodeLine{442       \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{443     m\_vec = source.m\_vec;}
+\DoxyCodeLine{444     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{445   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a875815ce347643abb421b65445c83e53}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!operator[]@{operator[]}}
+\index{operator[]@{operator[]}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{operator[]()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::operator[$\,$] (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading of the [] operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the element to be accessed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The element stored at index i (read/write) 
+\end{DoxyReturn}
+
+
+Definition at line 285 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{285                                                                  \{}
+\DoxyCodeLine{286 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{287     \textcolor{keywordflow}{if}((i < 0) || (i >= size())) \{}
+\DoxyCodeLine{288       std::string problem;}
+\DoxyCodeLine{289       problem = \textcolor{stringliteral}{" The DenseVector.operator[] method has a range error. \(\backslash\)n"};}
+\DoxyCodeLine{290       \textcolor{keywordflow}{throw} ExceptionRange(problem, size(), i);}
+\DoxyCodeLine{291     \}}
+\DoxyCodeLine{292 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{293     \textcolor{keywordflow}{return} m\_vec[ i ];}
+\DoxyCodeLine{294   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_aa36c3c2ecc57c7847f91dfd9fd140434}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!operator[]@{operator[]}}
+\index{operator[]@{operator[]}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{operator[]()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+const \+\_\+\+Type \& \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::operator[$\,$] (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading of the [] operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the element to be accessed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The element stored at index i (read only) 
+\end{DoxyReturn}
+
+
+Definition at line 297 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{297                                                                              \{}
+\DoxyCodeLine{298 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{299     \textcolor{keywordflow}{if}((i < 0) || (i >= size())) \{}
+\DoxyCodeLine{300       std::string problem;}
+\DoxyCodeLine{301       problem = \textcolor{stringliteral}{" The DenseVector.operator[] method has a range error. \(\backslash\)n"};}
+\DoxyCodeLine{302       \textcolor{keywordflow}{throw} ExceptionRange(problem, size(), i);}
+\DoxyCodeLine{303     \}}
+\DoxyCodeLine{304 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{305     \textcolor{keywordflow}{return} m\_vec[ i ];}
+\DoxyCodeLine{306   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a116b3bb4aa8e4e13623f9f090f19e16b}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!push\_back@{push\_back}}
+\index{push\_back@{push\_back}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{push\_back()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::push\+\_\+back (\begin{DoxyParamCaption}\item[{const \+\_\+\+Type \&}]{fill }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A pass-\/thru definition of push\+\_\+back. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fill} & The data element to be pushed into the vector \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 310 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{310                                                              \{}
+\DoxyCodeLine{311     m\_vec.push\_back(fill);}
+\DoxyCodeLine{312   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ D\+\_\+complex $>$\+::adapt(), Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::find\+\_\+roots1(), Cpp\+Noddy\+::\+Fn\+Quadrature\+::\+Gauss(), Cpp\+Noddy\+::\+One\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh\+::get\+\_\+face\+\_\+pos\+\_\+vector(), Cpp\+Noddy\+::\+One\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh\+::get\+\_\+mid\+\_\+node\+\_\+vector(), Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::get\+\_\+nodes\+\_\+vars(), Cpp\+Noddy\+::\+Dense\+Linear\+Eigen\+System$<$ \+\_\+\+Type $>$\+::get\+\_\+tagged\+\_\+eigenvalues(), Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base\+::get\+\_\+tagged\+\_\+eigenvalues(), main(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh\+::maxmod(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh\+::minmod(), Cpp\+Noddy\+::\+Dense\+Matrix$<$ D\+\_\+complex $>$\+::multiply(), Cpp\+Noddy\+::\+Dense\+Vector$<$ D\+\_\+complex $>$\+::push\+\_\+back(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+I\+V\+P$<$ D\+\_\+complex $>$\+::shoot4(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+I\+V\+P$<$ D\+\_\+complex $>$\+::shoot45(), Cpp\+Noddy\+::\+Utility\+::three\+\_\+uniform\+\_\+node\+\_\+vector(), Cpp\+Noddy\+::\+Utility\+::two\+\_\+uniform\+\_\+node\+\_\+vector(), and Cpp\+Noddy\+::\+Two\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1DenseVector_a97c7bbf8e40aec44344c275ba62c9951}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!rbegin@{rbegin}}
+\index{rbegin@{rbegin}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{rbegin()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ elt\+\_\+riter} \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::rbegin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pass through to the storage container. 
+
+
+
+Definition at line 87 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{87                        \{}
+\DoxyCodeLine{88       \textcolor{keywordflow}{return} m\_vec.rbegin();}
+\DoxyCodeLine{89     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_ae3207865a463b34851fa1cc9eb18b906}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!rbegin@{rbegin}}
+\index{rbegin@{rbegin}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{rbegin()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ elt\+\_\+criter} \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::rbegin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pass through to the storage container. 
+
+
+
+Definition at line 97 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{97                               \{}
+\DoxyCodeLine{98       \textcolor{keywordflow}{return} m\_vec.rbegin();}
+\DoxyCodeLine{99     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a52fd2d1004cc6936979a236b4af3c80e}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!rend@{rend}}
+\index{rend@{rend}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{rend()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ elt\+\_\+riter} \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::rend (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pass through to the storage container. 
+
+
+
+Definition at line 112 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{112                      \{}
+\DoxyCodeLine{113       \textcolor{keywordflow}{return} m\_vec.rend();}
+\DoxyCodeLine{114     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a2fa2b33ceab80b2abf89894b73862dbf}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!rend@{rend}}
+\index{rend@{rend}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{rend()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+\textbf{ elt\+\_\+criter} \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::rend (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pass through to the storage container. 
+
+
+
+Definition at line 117 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{117                             \{}
+\DoxyCodeLine{118       \textcolor{keywordflow}{return} m\_vec.rend();}
+\DoxyCodeLine{119     \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_a6f64f1c58f7aaaa7a060db848d76ffe9}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!reserve@{reserve}}
+\index{reserve@{reserve}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{reserve()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::reserve (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Reserve space for the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & The number of elements to reserve space for \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 340 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{340                                                             \{}
+\DoxyCodeLine{341     m\_vec.reserve(n);}
+\DoxyCodeLine{342   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+Dense\+Matrix$<$ D\+\_\+complex $>$\+::multiply(), Cpp\+Noddy\+::\+Dense\+Vector$<$ D\+\_\+complex $>$\+::reserve(), and Cpp\+Noddy\+::\+Two\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::\+Two\+D\+\_\+\+Node\+\_\+\+Mesh().
+
+\mbox{\label{classCppNoddy_1_1DenseVector_a390c3ed17d2414fd5053a5a095a633e2}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!resize@{resize}}
+\index{resize@{resize}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{resize()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::resize (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A pass-\/thru definition of resize. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em length} & The target length after resizing \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 315 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{315                                                                 \{}
+\DoxyCodeLine{316     m\_vec.resize(length);}
+\DoxyCodeLine{317   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+Dense\+Vector$<$ D\+\_\+complex $>$\+::resize().
+
+\mbox{\label{classCppNoddy_1_1DenseVector_aab7b4b70f6cbac290ee7d6bc934466c6}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!scale@{scale}}
+\index{scale@{scale}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{scale()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::scale (\begin{DoxyParamCaption}\item[{const \+\_\+\+Type \&}]{scale }\end{DoxyParamCaption})}
+
+
+
+Scale each element of the vector, equivalent to $\ast$=. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scale} & The value to scale each element by. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 33 of file Dense\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{33                                                \{}
+\DoxyCodeLine{34     operator*=(m);}
+\DoxyCodeLine{35   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+Fn\+Quadrature\+::\+Gauss().
+
+\mbox{\label{classCppNoddy_1_1DenseVector_a86924ce8347501d25d3c1498ca2c199a}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!size@{size}}
+\index{size@{size}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{size()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+std\+::size\+\_\+t \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::size\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A pass-\/thru definition to get the size of the vector. 
+
+Since the vector is dense, the number of elements is the size. \begin{DoxyReturn}{Returns}
+The number of elements in the vector. 
+\end{DoxyReturn}
+
+
+Definition at line 330 of file Dense\+Vector.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{330                                                   \{}
+\DoxyCodeLine{331     \textcolor{keywordflow}{return} m\_vec.size();}
+\DoxyCodeLine{332   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+E\+V\+P$<$ \+\_\+\+Type $>$\+::add\+\_\+tagged\+\_\+to\+\_\+mesh(), Cpp\+Noddy\+::\+Arc\+Length\+\_\+base$<$ D\+\_\+complex $>$\+::arclength\+\_\+residual(), Cpp\+Noddy\+::\+Utility\+::dot(), Cpp\+Noddy\+::\+Example\+::\+Nlin\+Adv\+::edge\+\_\+values(), Cpp\+Noddy\+::\+Example\+::\+Acoustic\+\_\+1d\+\_\+ref\+::edge\+\_\+values(), Cpp\+Noddy\+::\+Example\+::\+Shallow\+\_\+2d\+\_\+source\+::edge\+\_\+values(), Utils\+\_\+\+Fill\+::fill(), Cpp\+Noddy\+::\+Fn\+Quadrature\+::\+Gauss(), Cpp\+Noddy\+::\+One\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh\+::get\+\_\+slope(), Cpp\+Noddy\+::\+One\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh\+::get\+\_\+soln(), Cpp\+Noddy\+::\+Utility\+::imag(), Cpp\+Noddy\+::\+Newton$<$ \+\_\+\+Type $>$\+::iterate(), Cpp\+Noddy\+::\+Arc\+Length\+\_\+base$<$ D\+\_\+complex $>$\+::\+Jac\+\_\+arclength\+\_\+residual(), main(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::max\+\_\+abs(), Cpp\+Noddy\+::\+Dense\+Matrix$<$ D\+\_\+complex $>$\+::multiply(), Cpp\+Noddy\+::\+Dense\+Vector$<$ D\+\_\+complex $>$\+::nelts(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+E\+V\+P$<$ \+\_\+\+Type $>$\+::\+O\+D\+E\+\_\+\+E\+V\+P(), Cpp\+Noddy\+::\+One\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh\+::\+One\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh(), Cpp\+Noddy\+::\+Dense\+Vector$<$ D\+\_\+complex $>$\+::operator+(), Cpp\+Noddy\+::\+Dense\+Vector$<$ D\+\_\+complex $>$\+::operator+=(), Cpp\+Noddy\+::\+Dense\+Vector$<$ D\+\_\+complex $>$\+::operator-\/(), Cpp\+Noddy\+::\+Dense\+Vector$<$ D\+\_\+complex $>$\+::operator-\/=(), Cpp\+Noddy\+::\+Utility\+::real(), Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::remesh1(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type $>$\+::remesh1(), Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ D\+\_\+complex $>$\+::set\+\_\+vars\+\_\+from\+\_\+vector(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+I\+V\+P$<$ D\+\_\+complex $>$\+::shoot4(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+I\+V\+P$<$ D\+\_\+complex $>$\+::shoot45(), Cpp\+Noddy\+::\+Dense\+Vector$<$ D\+\_\+complex $>$\+::size(), Cpp\+Noddy\+::\+Fn\+Quadrature\+::sub\+\_\+\+Gauss(), Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base\+::tag\+\_\+eigenvalues\+\_\+all(), Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base\+::tag\+\_\+eigenvalues\+\_\+disc(), Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base\+::tag\+\_\+eigenvalues\+\_\+left(), Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base\+::tag\+\_\+eigenvalues\+\_\+lower(), Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base\+::tag\+\_\+eigenvalues\+\_\+right(), Cpp\+Noddy\+::\+Linear\+Eigen\+System\+\_\+base\+::tag\+\_\+eigenvalues\+\_\+upper(), Cpp\+Noddy\+::\+Fn\+Quadrature\+::trapezium(), Cpp\+Noddy\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh\+::\+Two\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh(), and Cpp\+Noddy\+::\+Arc\+Length\+\_\+base$<$ D\+\_\+complex $>$\+::update\+\_\+theta().
+
+\mbox{\label{classCppNoddy_1_1DenseVector_a4ba218d55bbf49a0a6fa76ee27964752}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!sub@{sub}}
+\index{sub@{sub}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{sub()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::sub (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{x }\end{DoxyParamCaption})}
+
+
+
+Subtract a vector, element wise, equivalent to -\/=. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The vector to be subtracted from this object. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 44 of file Dense\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{44                                                           \{}
+\DoxyCodeLine{45     operator-\/=(x);}
+\DoxyCodeLine{46   \}}
+
+\end{DoxyCode}
+
+
+Referenced by main().
+
+\mbox{\label{classCppNoddy_1_1DenseVector_a76c7c2c60f7d92d5c0573770e79b4990}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!swap@{swap}}
+\index{swap@{swap}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{swap()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::swap (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{i,  }\item[{const std\+::size\+\_\+t \&}]{j }\end{DoxyParamCaption})}
+
+
+
+Swap elements i and j. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the element to swap. \\
+\hline
+{\em j} & The index of the other element to swap. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 100 of file Dense\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{101                                                     \{}
+\DoxyCodeLine{102 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{103     \textcolor{keywordflow}{if}((i >= size()) || (j >= size())) \{}
+\DoxyCodeLine{104       std::string problem;}
+\DoxyCodeLine{105       problem = \textcolor{stringliteral}{" The DenseVector.swap method is trying to access \(\backslash\)n"};}
+\DoxyCodeLine{106       problem += \textcolor{stringliteral}{" outside the max/min number of elements. \(\backslash\)n"};}
+\DoxyCodeLine{107       \textcolor{keywordflow}{if}(i > size())}
+\DoxyCodeLine{108         \textcolor{keywordflow}{throw} ExceptionRange(problem, size(), i);}
+\DoxyCodeLine{109       \textcolor{keywordflow}{if}(j > size())}
+\DoxyCodeLine{110         \textcolor{keywordflow}{throw} ExceptionRange(problem, size(), j);}
+\DoxyCodeLine{111     \}}
+\DoxyCodeLine{112 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{113     std::swap<\_Type>(m\_vec[ i ], m\_vec[ j ]);}
+\DoxyCodeLine{114   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1DenseVector_ad946d7adef2ef4a5f8728c6fa9d26c62}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!two\_norm@{two\_norm}}
+\index{two\_norm@{two\_norm}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{two\_norm()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Dense\+Vector}$<$ \+\_\+\+Type $>$\+::two\+\_\+norm}
+
+
+
+l2-\/norm. 
+
+No attention paid to possible overflow for large vectors. \begin{DoxyReturn}{Returns}
+The square-\/root of the sum of the squares. 
+\end{DoxyReturn}
+
+
+Definition at line 54 of file Dense\+Vector.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54                                             \{}
+\DoxyCodeLine{55     \textcolor{keywordflow}{return} std::sqrt(accumulate(begin(), end(), 0.0, absSquareAdd\_functor<\_Type>()));}
+\DoxyCodeLine{56   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::frob\+\_\+norm(), main(), and Cpp\+Noddy\+::\+Banded\+Matrix$<$ \+\_\+\+Type $>$\+::two\+\_\+norm().
+
+
+
+\doxysubsubsection{Friends And Related Function Documentation}
+\mbox{\label{classCppNoddy_1_1DenseVector_aee8bb9e60d0b3fb566b456b78d3b3776}} 
+\index{CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}!BandedMatrix$<$ \_Type $>$@{BandedMatrix$<$ \_Type $>$}}
+\index{BandedMatrix$<$ \_Type $>$@{BandedMatrix$<$ \_Type $>$}!CppNoddy::DenseVector$<$ \_Type $>$@{CppNoddy::DenseVector$<$ \_Type $>$}}
+\doxyparagraph{BandedMatrix$<$ \_Type $>$}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type $>$ \\
+friend class \textbf{ Banded\+Matrix}$<$ \+\_\+\+Type $>$\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line 254 of file Dense\+Vector.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Dense\+Vector.\+h}\item 
+src/\textbf{ Dense\+Vector.\+cpp}\end{DoxyCompactItemize}

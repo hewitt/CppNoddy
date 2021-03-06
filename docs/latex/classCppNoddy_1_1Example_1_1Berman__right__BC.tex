@@ -1,0 +1,86 @@
+\doxysubsection{Cpp\+Noddy\+::Example\+::Berman\+\_\+right\+\_\+\+BC Class Reference}
+\label{classCppNoddy_1_1Example_1_1Berman__right__BC}\index{CppNoddy::Example::Berman\_right\_BC@{CppNoddy::Example::Berman\_right\_BC}}
+Inheritance diagram for Cpp\+Noddy\+::Example\+::Berman\+\_\+right\+\_\+\+BC\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCppNoddy_1_1Example_1_1Berman__right__BC}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Berman\+\_\+right\+\_\+\+BC} ()
+\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ double $>$ \&B) const
+\begin{DoxyCompactList}\small\item\em A blank virtual residual function method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+
+
+Definition at line 60 of file B\+V\+P\+Berman.\+cpp.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Berman__right__BC_ab298049bb0b6e3c45cfd625f6c7626df}} 
+\index{CppNoddy::Example::Berman\_right\_BC@{CppNoddy::Example::Berman\_right\_BC}!Berman\_right\_BC@{Berman\_right\_BC}}
+\index{Berman\_right\_BC@{Berman\_right\_BC}!CppNoddy::Example::Berman\_right\_BC@{CppNoddy::Example::Berman\_right\_BC}}
+\doxyparagraph{Berman\_right\_BC()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Berman\+\_\+right\+\_\+\+B\+C\+::\+Berman\+\_\+right\+\_\+\+BC (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 64 of file B\+V\+P\+Berman.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{64 : Residual<double> ( 2, 4 ) \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Berman__right__BC_aabf64f5cbaf8c38e55b81d5590fbe1a0}} 
+\index{CppNoddy::Example::Berman\_right\_BC@{CppNoddy::Example::Berman\_right\_BC}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::Berman\_right\_BC@{CppNoddy::Example::Berman\_right\_BC}}
+\doxyparagraph{residual\_fn()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Berman\+\_\+right\+\_\+\+B\+C\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{state,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+A blank virtual residual function method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The unknown variable. \\
+\hline
+{\em f} & The residual function f(x). \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 66 of file B\+V\+P\+Berman.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{67       \{}
+\DoxyCodeLine{68         B[ 0 ] = z[ f ] -\/ 1.0;}
+\DoxyCodeLine{69         B[ 1 ] = z[ fd ];}
+\DoxyCodeLine{70       \}}
+
+\end{DoxyCode}
+
+
+References f, fd, and Cpp\+Noddy\+::\+Example\+::z().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tests/\+B\+V\+P/\textbf{ B\+V\+P\+Berman.\+cpp}\end{DoxyCompactItemize}

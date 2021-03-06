@@ -1,0 +1,95 @@
+\doxysubsection{Tests/\+Meshes/1\+D\+Node\+Mesh\+Airy\+\_\+lapack.cpp File Reference}
+\label{1DNodeMeshAiry__lapack_8cpp}\index{Tests/Meshes/1DNodeMeshAiry\_lapack.cpp@{Tests/Meshes/1DNodeMeshAiry\_lapack.cpp}}
+{\ttfamily \#include $<$Utility.\+h$>$}\newline
+{\ttfamily \#include $<$One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h$>$}\newline
+{\ttfamily \#include $<$Banded\+Linear\+System.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Solves the Airy equation \[ f\textnormal{\textquotesingle}\textnormal{\textquotesingle}(x) - xf(x) = 0 \] on the negative real axis over the range [-\/10,0] then pushes the data into a One\+D\+\_\+\+Gen\+Mesh object and integrates the result. The integral is checked against the table in Abramowitz \& Stegun\+: \[ \int_{-10}^0 \mbox{Ai}(s) \, \mbox{d}s \approx 0.7656984 \] The finite-\/difference solution of the Airy equation and the trapezoidal scheme used in the integration are both second order. 
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{1DNodeMeshAiry__lapack_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{1DNodeMeshAiry\_lapack.cpp@{1DNodeMeshAiry\_lapack.cpp}!main@{main}}
+\index{main@{main}!1DNodeMeshAiry\_lapack.cpp@{1DNodeMeshAiry\_lapack.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 22 of file 1\+D\+Node\+Mesh\+Airy\+\_\+lapack.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{26   cout << \textcolor{stringliteral}{"=== OneD\_Node\_Mesh \& BandedMatrix: Airy function ====\(\backslash\)n"};}
+\DoxyCodeLine{27   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29   \textcolor{keywordtype}{size\_t} n = 8001;                 \textcolor{comment}{// number of points}}
+\DoxyCodeLine{30   \textcolor{keywordtype}{double} l = -\/10.0;                \textcolor{comment}{// domain size}}
+\DoxyCodeLine{31   \textcolor{keywordtype}{double} d = abs( l ) / ( n -\/ 1 ); \textcolor{comment}{// Mesh step}}
+\DoxyCodeLine{32   \textcolor{comment}{// a uniform mesh to store the result in}}
+\DoxyCodeLine{33   OneD\_Node\_Mesh<double> soln( Utility::uniform\_node\_vector( l, 0.0, n ), 1 );}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35   BandedMatrix<double> a( n, 3, 0.0 );     \textcolor{comment}{// Tridiagonal banded matrix}}
+\DoxyCodeLine{36   DenseVector<double> b( n, 0.0 );         \textcolor{comment}{// RHS vector}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38   a( 0, 0 ) = 1.0;               \textcolor{comment}{// BC is that f(-\/10) = Ai(-\/10)}}
+\DoxyCodeLine{39   b[ 0 ] = 0.04024123849;        \textcolor{comment}{// value from Abramowitz \& Stegun}}
+\DoxyCodeLine{40   \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{size\_t} i = 1; i < n -\/ 1; ++i )}
+\DoxyCodeLine{41   \{}
+\DoxyCodeLine{42     \textcolor{comment}{// set up the f''(x) operator}}
+\DoxyCodeLine{43     a( i, i-\/1 ) = 1.0/(d*d);}
+\DoxyCodeLine{44     a( i, i ) = -\/2.0/(d*d);}
+\DoxyCodeLine{45     a( i, i+1 ) = 1.0/(d*d);}
+\DoxyCodeLine{46     \textcolor{comment}{// add the -\/xf(x) term}}
+\DoxyCodeLine{47     a( i, i ) -\/= soln.coord( i );}
+\DoxyCodeLine{48   \}}
+\DoxyCodeLine{49   a( n -\/ 1, n -\/ 1 ) = 1.0;       \textcolor{comment}{// BC is that f(0) = Ai(0)}}
+\DoxyCodeLine{50   b[ n -\/ 1 ] = 0.3550280539;     \textcolor{comment}{// value from Abramowitz \& Stegun}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \textcolor{comment}{// solve the FD equations}}
+\DoxyCodeLine{53   BandedLinearSystem<double> system( \&a, \&b, \textcolor{stringliteral}{"lapack"} );}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55   \textcolor{keywordflow}{try}}
+\DoxyCodeLine{56   \{}
+\DoxyCodeLine{57     system.solve();}
+\DoxyCodeLine{58   \}}
+\DoxyCodeLine{59   \textcolor{keywordflow}{catch} (\textcolor{keyword}{const} std::runtime\_error \&error )}
+\DoxyCodeLine{60   \{}
+\DoxyCodeLine{61     cout << \textcolor{stringliteral}{" \(\backslash\)033[1;31;48m  * FAILED THROUGH EXCEPTION BEING RAISED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{62     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{63   \}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \textcolor{comment}{// put the result into the solution mesh}}
+\DoxyCodeLine{66   soln.set\_vars\_from\_vector( b );}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68   \textcolor{comment}{// check the integral against Abramowitz \& Stegun data}}
+\DoxyCodeLine{69   \textcolor{keyword}{const} \textcolor{keywordtype}{double} tol = 1.e-\/5;}
+\DoxyCodeLine{70   \textcolor{keywordflow}{if} ( abs( soln.integral2() -\/ 0.7656984 ) > tol )}
+\DoxyCodeLine{71   \{}
+\DoxyCodeLine{72     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{73     cout.precision( 10 );}
+\DoxyCodeLine{74     cout << n << \textcolor{stringliteral}{" "} << soln.integral2() -\/ 0.7656984 << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{75     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{76   \}}
+\DoxyCodeLine{77   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{78   \{}
+\DoxyCodeLine{79     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{80     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{81   \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::coord(), Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::integral2(), Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::set\+\_\+vars\+\_\+from\+\_\+vector(), Cpp\+Noddy\+::\+Banded\+Linear\+System$<$ \+\_\+\+Type $>$\+::solve(), and Cpp\+Noddy\+::\+Utility\+::uniform\+\_\+node\+\_\+vector().
+

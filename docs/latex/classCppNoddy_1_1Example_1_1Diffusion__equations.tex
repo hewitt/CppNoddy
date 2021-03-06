@@ -1,0 +1,204 @@
+\doxysubsection{Cpp\+Noddy\+::Example\+::Diffusion\+\_\+equations Class Reference}
+\label{classCppNoddy_1_1Example_1_1Diffusion__equations}\index{CppNoddy::Example::Diffusion\_equations@{CppNoddy::Example::Diffusion\_equations}}
+Inheritance diagram for Cpp\+Noddy\+::Example\+::Diffusion\+\_\+equations\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{classCppNoddy_1_1Example_1_1Diffusion__equations}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Diffusion\+\_\+equations} ()
+\begin{DoxyCompactList}\small\item\em The problem is 2nd order and real. \end{DoxyCompactList}\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ f}) const
+\begin{DoxyCompactList}\small\item\em Define the Karman equations. \end{DoxyCompactList}\item 
+void \textbf{ matrix0} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Matrix}$<$ double $>$ \&\textbf{ m}) const
+\begin{DoxyCompactList}\small\item\em Define the domain-\/derivative terms by providing the mass matrix. \end{DoxyCompactList}\item 
+void \textbf{ get\+\_\+jacobian\+\_\+of\+\_\+matrix0\+\_\+mult\+\_\+vector} (const \textbf{ Dense\+Vector}$<$ double $>$ \&state, const \textbf{ Dense\+Vector}$<$ double $>$ \&vec, \textbf{ Dense\+Matrix}$<$ double $>$ \&\textbf{ h}) const
+\begin{DoxyCompactList}\small\item\em To speed things up we\textquotesingle{}ll overload this to say the mass matrix is constant. \end{DoxyCompactList}\item 
+void \textbf{ matrix1} (const \textbf{ Dense\+Vector}$<$ double $>$ \&\textbf{ z}, \textbf{ Dense\+Matrix}$<$ double $>$ \&\textbf{ m}) const
+\begin{DoxyCompactList}\small\item\em Define the unsteady terms by providing the mass matrix. \end{DoxyCompactList}\item 
+void \textbf{ get\+\_\+jacobian\+\_\+of\+\_\+matrix1\+\_\+mult\+\_\+vector} (const \textbf{ Dense\+Vector}$<$ double $>$ \&state, const \textbf{ Dense\+Vector}$<$ double $>$ \&vec, \textbf{ Dense\+Matrix}$<$ double $>$ \&\textbf{ h}) const
+\begin{DoxyCompactList}\small\item\em To speed things up we\textquotesingle{}ll overload this to say the mass matrix is constant. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+
+
+Definition at line 24 of file I\+B\+V\+P\+Diffusion\+Nonlinear.\+cpp.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Diffusion__equations_ab7cb04ba3e5ce84ea7a66c4b97b71541}} 
+\index{CppNoddy::Example::Diffusion\_equations@{CppNoddy::Example::Diffusion\_equations}!Diffusion\_equations@{Diffusion\_equations}}
+\index{Diffusion\_equations@{Diffusion\_equations}!CppNoddy::Example::Diffusion\_equations@{CppNoddy::Example::Diffusion\_equations}}
+\doxyparagraph{Diffusion\_equations()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Diffusion\+\_\+equations\+::\+Diffusion\+\_\+equations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The problem is 2nd order and real. 
+
+
+
+Definition at line 29 of file I\+B\+V\+P\+Diffusion\+Nonlinear.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{29 : Equation\_2matrix<double> ( 2 ) \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Diffusion__equations_af8dea4dca8bd0c8359ab76903d804abf}} 
+\index{CppNoddy::Example::Diffusion\_equations@{CppNoddy::Example::Diffusion\_equations}!get\_jacobian\_of\_matrix0\_mult\_vector@{get\_jacobian\_of\_matrix0\_mult\_vector}}
+\index{get\_jacobian\_of\_matrix0\_mult\_vector@{get\_jacobian\_of\_matrix0\_mult\_vector}!CppNoddy::Example::Diffusion\_equations@{CppNoddy::Example::Diffusion\_equations}}
+\doxyparagraph{get\_jacobian\_of\_matrix0\_mult\_vector()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Diffusion\+\_\+equations\+::get\+\_\+jacobian\+\_\+of\+\_\+matrix0\+\_\+mult\+\_\+vector (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{state,  }\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{vec,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{h }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+To speed things up we\textquotesingle{}ll overload this to say the mass matrix is constant. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix$<$ double, double $>$} \doxyref{}{p.}{classCppNoddy_1_1Equation__1matrix_a293c22844ca906668d9c13945438fa09}.
+
+
+
+Definition at line 50 of file I\+B\+V\+P\+Diffusion\+Nonlinear.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{51       \{}
+\DoxyCodeLine{52         \textcolor{comment}{// blank definition leads to a zero result}}
+\DoxyCodeLine{53       \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Example_1_1Diffusion__equations_a979fcf24fcb546df54f0fd310398e62c}} 
+\index{CppNoddy::Example::Diffusion\_equations@{CppNoddy::Example::Diffusion\_equations}!get\_jacobian\_of\_matrix1\_mult\_vector@{get\_jacobian\_of\_matrix1\_mult\_vector}}
+\index{get\_jacobian\_of\_matrix1\_mult\_vector@{get\_jacobian\_of\_matrix1\_mult\_vector}!CppNoddy::Example::Diffusion\_equations@{CppNoddy::Example::Diffusion\_equations}}
+\doxyparagraph{get\_jacobian\_of\_matrix1\_mult\_vector()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Diffusion\+\_\+equations\+::get\+\_\+jacobian\+\_\+of\+\_\+matrix1\+\_\+mult\+\_\+vector (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{state,  }\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{vec,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{h }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+To speed things up we\textquotesingle{}ll overload this to say the mass matrix is constant. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+2matrix$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Equation__2matrix_a5b3040cf23a1a082ebab4a819102ceee}.
+
+
+
+Definition at line 62 of file I\+B\+V\+P\+Diffusion\+Nonlinear.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{63       \{}
+\DoxyCodeLine{64         \textcolor{comment}{// blank definition leads to a zero result}}
+\DoxyCodeLine{65       \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Example_1_1Diffusion__equations_ad9659c96fd9538ab432a6b187950b7e2}} 
+\index{CppNoddy::Example::Diffusion\_equations@{CppNoddy::Example::Diffusion\_equations}!matrix0@{matrix0}}
+\index{matrix0@{matrix0}!CppNoddy::Example::Diffusion\_equations@{CppNoddy::Example::Diffusion\_equations}}
+\doxyparagraph{matrix0()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Diffusion\+\_\+equations\+::matrix0 (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{z,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{m }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the domain-\/derivative terms by providing the mass matrix. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix$<$ double, double $>$} \doxyref{}{p.}{classCppNoddy_1_1Equation__1matrix_af3f73a36fb2ec75a03f0298874d30e4c}.
+
+
+
+Definition at line 42 of file I\+B\+V\+P\+Diffusion\+Nonlinear.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{43       \{}
+\DoxyCodeLine{44         \textcolor{comment}{// blank definition leads to a identity result}}
+\DoxyCodeLine{45         m( 0, 0 ) = 1.0;}
+\DoxyCodeLine{46         m( 1, 1 ) = -\/z[ U ]/sigma;}
+\DoxyCodeLine{47       \}}
+
+\end{DoxyCode}
+
+
+References m, Cpp\+Noddy\+::\+Example\+::sigma(), Cpp\+Noddy\+::\+Example\+::\+U(), and Cpp\+Noddy\+::\+Example\+::z().
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Diffusion__equations_abdb0fa7c7e54eba3a2bc3ed4b5c2726a}} 
+\index{CppNoddy::Example::Diffusion\_equations@{CppNoddy::Example::Diffusion\_equations}!matrix1@{matrix1}}
+\index{matrix1@{matrix1}!CppNoddy::Example::Diffusion\_equations@{CppNoddy::Example::Diffusion\_equations}}
+\doxyparagraph{matrix1()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Diffusion\+\_\+equations\+::matrix1 (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{z,  }\item[{\textbf{ Dense\+Matrix}$<$ double $>$ \&}]{m }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the unsteady terms by providing the mass matrix. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+2matrix$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Equation__2matrix_a362eab539b08f747e8360d5d1a0934e8}.
+
+
+
+Definition at line 56 of file I\+B\+V\+P\+Diffusion\+Nonlinear.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{57       \{}
+\DoxyCodeLine{58         m( 1, 0 ) = 1.0;}
+\DoxyCodeLine{59       \}}
+
+\end{DoxyCode}
+
+
+References m.
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Diffusion__equations_a8d5e3803842c2238e0e9d2bb24d23d88}} 
+\index{CppNoddy::Example::Diffusion\_equations@{CppNoddy::Example::Diffusion\_equations}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::Diffusion\_equations@{CppNoddy::Example::Diffusion\_equations}}
+\doxyparagraph{residual\_fn()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Diffusion\+\_\+equations\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{z,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the Karman equations. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 32 of file I\+B\+V\+P\+Diffusion\+Nonlinear.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{33       \{ }
+\DoxyCodeLine{34         \textcolor{keywordtype}{double} E( A*exp( -\/coord(1) ) );}
+\DoxyCodeLine{35         \textcolor{keywordtype}{double} Y( coord(0) );}
+\DoxyCodeLine{36         \textcolor{comment}{// we will add some source terms to give an exact solution}}
+\DoxyCodeLine{37         f[ 0 ] = z[ Ud ];}
+\DoxyCodeLine{38         f[ 1 ] = -\/E*sin(M\_PI*Y) + ((1+Y)+E*sin(M\_PI*Y))*(M\_PI*M\_PI)*E*sin(M\_PI*Y)/sigma;}
+\DoxyCodeLine{39       \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::\+A(), Cpp\+Noddy\+::\+Residual\+\_\+with\+\_\+coords$<$ double, double $>$\+::coord(), E, f, Cpp\+Noddy\+::\+Example\+::sigma(), Ud, and Cpp\+Noddy\+::\+Example\+::z().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tests/\+I\+B\+V\+P/\textbf{ I\+B\+V\+P\+Diffusion\+Nonlinear.\+cpp}\end{DoxyCompactItemize}

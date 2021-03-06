@@ -1,0 +1,212 @@
+\doxysubsection{Cpp\+Noddy\+::Residual\+\_\+with\+\_\+coords$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$ Class Template Reference}
+\label{classCppNoddy_1_1Residual__with__coords}\index{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$@{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$}}
+
+
+A base class to be inherited by objects that define residuals.  
+
+
+
+
+{\ttfamily \#include $<$Residual\+\_\+with\+\_\+coords.\+h$>$}
+
+Inheritance diagram for Cpp\+Noddy\+::Residual\+\_\+with\+\_\+coords$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCppNoddy_1_1Residual__with__coords}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Residual\+\_\+with\+\_\+coords} (const unsigned \&order, const unsigned \&ncoords)
+\begin{DoxyCompactList}\small\item\em Constructor for a \textquotesingle{}square\textquotesingle{} residual object that is, N residuals for N unknowns. \end{DoxyCompactList}\item 
+\textbf{ Residual\+\_\+with\+\_\+coords} (const unsigned \&order, const unsigned \&nvars, const unsigned \&ncoords)
+\begin{DoxyCompactList}\small\item\em Constructor for a \textquotesingle{}non-\/square\textquotesingle{} residual object that is, there are less residual constraints than unknowns. \end{DoxyCompactList}\item 
+virtual \textbf{ $\sim$\+Residual\+\_\+with\+\_\+coords} ()
+\begin{DoxyCompactList}\small\item\em An empty destructor. \end{DoxyCompactList}\item 
+\+\_\+\+Xtype \& \textbf{ coord} (const unsigned \&i)
+\begin{DoxyCompactList}\small\item\em General handle access to the coordinates. \end{DoxyCompactList}\item 
+const \+\_\+\+Xtype \& \textbf{ coord} (const unsigned \&i) const
+\begin{DoxyCompactList}\small\item\em General handle access to the coordinates. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \+\_\+\+Xtype $>$ \textbf{ coords}
+\begin{DoxyCompactList}\small\item\em The coordinates stored for this residual. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type, typename \+\_\+\+Xtype = double$>$\newline
+class Cpp\+Noddy\+::\+Residual\+\_\+with\+\_\+coords$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$}
+
+A base class to be inherited by objects that define residuals. 
+
+Definition at line 19 of file Residual\+\_\+with\+\_\+coords.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Residual__with__coords_a23956be977a24fe71939b737c49eb908}} 
+\index{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$@{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$}!Residual\_with\_coords@{Residual\_with\_coords}}
+\index{Residual\_with\_coords@{Residual\_with\_coords}!CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$@{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{Residual\_with\_coords()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Residual\+\_\+with\+\_\+coords}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::\textbf{ Residual\+\_\+with\+\_\+coords} (\begin{DoxyParamCaption}\item[{const unsigned \&}]{order,  }\item[{const unsigned \&}]{ncoords }\end{DoxyParamCaption})}
+
+
+
+Constructor for a \textquotesingle{}square\textquotesingle{} residual object that is, N residuals for N unknowns. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em order} & The order of the residual vector \\
+\hline
+{\em ncoords} & The number of coordinates to store \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 13 of file Residual\+\_\+with\+\_\+coords.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{13                                                                                                           : Residual<\_Type>(order) \{}
+\DoxyCodeLine{14     coords = std::vector<\_Xtype>(ncoords, 0.0);}
+\DoxyCodeLine{15   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Residual__with__coords_a062c42952ceccd289003f303e2fa3944}} 
+\index{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$@{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$}!Residual\_with\_coords@{Residual\_with\_coords}}
+\index{Residual\_with\_coords@{Residual\_with\_coords}!CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$@{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{Residual\_with\_coords()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Residual\+\_\+with\+\_\+coords}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::\textbf{ Residual\+\_\+with\+\_\+coords} (\begin{DoxyParamCaption}\item[{const unsigned \&}]{order,  }\item[{const unsigned \&}]{nvars,  }\item[{const unsigned \&}]{ncoords }\end{DoxyParamCaption})}
+
+
+
+Constructor for a \textquotesingle{}non-\/square\textquotesingle{} residual object that is, there are less residual constraints than unknowns. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em order} & The number of residuals \\
+\hline
+{\em nvars} & The number of unknowns/variables \\
+\hline
+{\em ncoords} & The number of coordinates to store \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 18 of file Residual\+\_\+with\+\_\+coords.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18                                                                                                                                  : Residual<\_Type>(order, nvars) \{}
+\DoxyCodeLine{19     coords = std::vector<\_Xtype>(ncoords, 0.0);}
+\DoxyCodeLine{20   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Residual__with__coords_a175a327c41967f7376ab187e8620f788}} 
+\index{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$@{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$}!````~Residual\_with\_coords@{$\sim$Residual\_with\_coords}}
+\index{````~Residual\_with\_coords@{$\sim$Residual\_with\_coords}!CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$@{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{$\sim$Residual\_with\_coords()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Residual\+\_\+with\+\_\+coords}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::$\sim$\textbf{ Residual\+\_\+with\+\_\+coords}\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+An empty destructor. 
+
+
+
+Definition at line 23 of file Residual\+\_\+with\+\_\+coords.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23                                                              \{}
+\DoxyCodeLine{24   \}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Residual__with__coords_ab0929bab3b4a96ecf2765cb9645af91e}} 
+\index{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$@{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$}!coord@{coord}}
+\index{coord@{coord}!CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$@{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{coord()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\+\_\+\+Xtype \& \textbf{ Cpp\+Noddy\+::\+Residual\+\_\+with\+\_\+coords}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::coord (\begin{DoxyParamCaption}\item[{const unsigned \&}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+General handle access to the coordinates. 
+
+\begin{DoxyReturn}{Returns}
+A handle to the i-\/th coordinate 
+\end{DoxyReturn}
+
+
+Definition at line 54 of file Residual\+\_\+with\+\_\+coords.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54                                                                              \{}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{56 \textcolor{comment}{    /// \(\backslash\)todo check range on coord}}
+\DoxyCodeLine{57 \textcolor{comment}{}\textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{58     \textcolor{keywordflow}{return} coords[ i ];}
+\DoxyCodeLine{59   \}}
+
+\end{DoxyCode}
+\mbox{\label{classCppNoddy_1_1Residual__with__coords_a12d61db2fb9b3a16537c21b4d0163a9c}} 
+\index{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$@{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$}!coord@{coord}}
+\index{coord@{coord}!CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$@{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{coord()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+const \+\_\+\+Xtype \& \textbf{ Cpp\+Noddy\+::\+Residual\+\_\+with\+\_\+coords}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::coord (\begin{DoxyParamCaption}\item[{const unsigned \&}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+General handle access to the coordinates. 
+
+\begin{DoxyReturn}{Returns}
+A handle to the i-\/th coordinate 
+\end{DoxyReturn}
+
+
+Definition at line 62 of file Residual\+\_\+with\+\_\+coords.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{62                                                                                          \{}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#ifdef PARANOID}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{65     \textcolor{keywordflow}{return} coords[ i ];}
+\DoxyCodeLine{66   \}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Data Documentation}
+\mbox{\label{classCppNoddy_1_1Residual__with__coords_a7da3488e379b26ce81548ee47b885de4}} 
+\index{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$@{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$}!coords@{coords}}
+\index{coords@{coords}!CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$@{CppNoddy::Residual\_with\_coords$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{coords}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype  = double$>$ \\
+std\+::vector$<$\+\_\+\+Xtype$>$ \textbf{ Cpp\+Noddy\+::\+Residual\+\_\+with\+\_\+coords}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::coords\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The coordinates stored for this residual. 
+
+
+
+Definition at line 48 of file Residual\+\_\+with\+\_\+coords.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Residual\+\_\+with\+\_\+coords.\+h}\item 
+src/\textbf{ Residual\+\_\+with\+\_\+coords.\+cpp}\end{DoxyCompactItemize}

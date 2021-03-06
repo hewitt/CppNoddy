@@ -1,0 +1,26 @@
+\doxysubsection{include/\+O\+D\+E\+\_\+\+E\+VP.h File Reference}
+\label{ODE__EVP_8h}\index{include/ODE\_EVP.h@{include/ODE\_EVP.h}}
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$Dense\+Vector.\+h$>$}\newline
+{\ttfamily \#include $<$Dense\+Matrix.\+h$>$}\newline
+{\ttfamily \#include $<$Equation\+\_\+2matrix.\+h$>$}\newline
+{\ttfamily \#include $<$Exceptions.\+h$>$}\newline
+{\ttfamily \#include $<$Uncopyable.\+h$>$}\newline
+{\ttfamily \#include $<$One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h$>$}\newline
+{\ttfamily \#include $<$Linear\+Eigen\+System\+\_\+base.\+h$>$}\newline
+{\ttfamily \#include $<$Residual.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+E\+V\+P$<$ \+\_\+\+Type $>$}
+\begin{DoxyCompactList}\small\item\em A templated object for real/complex vector system of first-\/order ordinary differential equations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+A specification of a class for an $ n^{th} $-\/order O\+DE L\+I\+N\+E\+AR E\+VP defined by \[ \lambda M_1({\underline f}(x),x ) \cdot {\underline f } + M_0({\underline f}(x),x ) \cdot {\underline f}^\prime (x) = {\underline R}( {\underline f}(x), x )\,, \] subject to $ n $ zero Dirichlet conditions defined at $ x = x_{left} $ or $ x_{right} $ for some components of $ {\underline f}(x) $. The routine constructs a banded 2nd order finite-\/difference (banded) representation of the E\+VP in the form \[ A_{M\times M} {\underline x} = \lambda B_{M\times M} {\underline x} \] which can then be solved via the Linear\+Eigen\+System class where $ M = N \times O $ for an order O equation and N (uniformly spaced) mesh points. The default configuration uses the Dense\+Linear\+Eigen\+System class for solution via L\+A\+P\+A\+CK although A\+R\+P\+A\+CK can be used if you really know the resulting system has the correct mass matrix properties (typically it wont!). 

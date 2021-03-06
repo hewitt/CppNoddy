@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
   
   bool failed(true);
   const double tol(1.e-14);
-  double abserror = mesh.max(1);
+  double abserror = mesh.max_abs(1);
   cout << "error = " << abserror << "\n";
 
   if ( abserror < tol ) failed = false;

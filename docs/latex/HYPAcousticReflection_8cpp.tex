@@ -1,0 +1,161 @@
+\doxysubsection{Tests/\+H\+Y\+P\+\_\+1\+D/\+H\+Y\+P\+Acoustic\+Reflection.cpp File Reference}
+\label{HYPAcousticReflection_8cpp}\index{Tests/HYP\_1D/HYPAcousticReflection.cpp@{Tests/HYP\_1D/HYPAcousticReflection.cpp}}
+{\ttfamily \#include $<$One\+D\+\_\+\+H\+Y\+P\+\_\+bundle.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+Acoustic\+\_\+1d\+\_\+ref}
+\begin{DoxyCompactList}\small\item\em Define the system. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\item 
+ \textbf{ Cpp\+Noddy\+::\+Example}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \textbf{ p}, 
+\textbf{ u}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \textbf{ Cpp\+Noddy\+::\+Example\+::K} (2.\+0)
+\begin{DoxyCompactList}\small\item\em bulk modulus \end{DoxyCompactList}\item 
+double \textbf{ Cpp\+Noddy\+::\+Example\+::rho} (2.\+0)
+\begin{DoxyCompactList}\small\item\em higher density \end{DoxyCompactList}\item 
+void \textbf{ Cpp\+Noddy\+::\+Example\+::\+Q\+\_\+init} (const double \&x, \textbf{ Dense\+Vector}$<$ double $>$ \&q)
+\begin{DoxyCompactList}\small\item\em Set the initial state of the system. \end{DoxyCompactList}\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Solve the constant coefficient linear sound wave problem \[ p_t + K u_x = 0 \] \[ \rho u_t + p_x = 0 \] for a right-\/propagating square pulse in a medium with constant bulk modulus $K=1$ and density $\rho = 1$ and reflecting boundary conditions at both sides. 
+
+\doxysubsubsection{Enumeration Type Documentation}
+\mbox{\label{HYPAcousticReflection_8cpp_a6b7b47dd702d9e331586d485013fd1ea}} 
+\doxyparagraph{anonymous enum}
+{\footnotesize\ttfamily anonymous enum}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{p@{p}!HYPAcousticReflection.cpp@{HYPAcousticReflection.cpp}}\index{HYPAcousticReflection.cpp@{HYPAcousticReflection.cpp}!p@{p}}}\mbox{\label{HYPAcousticReflection_8cpp_a6b7b47dd702d9e331586d485013fd1eaa188032b3e6837794e08d485d4426f1bb}} 
+p&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{u@{u}!HYPAcousticReflection.cpp@{HYPAcousticReflection.cpp}}\index{HYPAcousticReflection.cpp@{HYPAcousticReflection.cpp}!u@{u}}}\mbox{\label{HYPAcousticReflection_8cpp_a6b7b47dd702d9e331586d485013fd1eaa63f235d4a03b00a5e43f0bfa785c853d}} 
+u&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 13 of file H\+Y\+P\+Acoustic\+Reflection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{13 \{ p, u \};}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{HYPAcousticReflection_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{HYPAcousticReflection.cpp@{HYPAcousticReflection.cpp}!main@{main}}
+\index{main@{main}!HYPAcousticReflection.cpp@{HYPAcousticReflection.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 83 of file H\+Y\+P\+Acoustic\+Reflection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{84 \{}
+\DoxyCodeLine{85   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{86   cout << \textcolor{stringliteral}{"=== Hyperbolic: 1D acoustic wave reflection problem =\(\backslash\)n"};}
+\DoxyCodeLine{87   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89   \textcolor{comment}{// define the domain/mesh}}
+\DoxyCodeLine{90   \textcolor{keyword}{const} \textcolor{keywordtype}{double} left =  -\/3.0;}
+\DoxyCodeLine{91   \textcolor{keyword}{const} \textcolor{keywordtype}{double} right = 3.0;}
+\DoxyCodeLine{92   \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} N = 800;}
+\DoxyCodeLine{93   DenseVector<double> faces\_x = Utility::uniform\_node\_vector( left, right, N );}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95   \textcolor{comment}{// time}}
+\DoxyCodeLine{96   \textcolor{keywordtype}{double} t = 0;}
+\DoxyCodeLine{97   \textcolor{keywordtype}{double} t\_end = 6;}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99   \textcolor{comment}{// hyperbolic problem}}
+\DoxyCodeLine{100   Example::Acoustic\_1d\_ref conservative\_problem;}
+\DoxyCodeLine{101   OneD\_TVDLF\_Mesh Acoustic\_mesh( faces\_x, \&conservative\_problem, Example::Q\_init );}
+\DoxyCodeLine{102   Acoustic\_mesh.set\_limiter( 1 );}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104   \textcolor{comment}{// output}}
+\DoxyCodeLine{105   \textcolor{keywordtype}{double} I1 = Acoustic\_mesh.integrate()[0];}
+\DoxyCodeLine{106   \textcolor{keywordtype}{int} loop\_counter( 0 );}
+\DoxyCodeLine{107   \textcolor{keywordtype}{int} file\_counter( 1 );}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109   std::string dirname(\textcolor{stringliteral}{"./DATA"});}
+\DoxyCodeLine{110   mkdir( dirname.c\_str(), S\_IRWXU );}
+\DoxyCodeLine{111   std::string filename\_stub;}
+\DoxyCodeLine{112   filename\_stub = \textcolor{stringliteral}{"./DATA/HYP\_acoustic\_ref"};}
+\DoxyCodeLine{113   TrackerFile my\_file( 5 );}
+\DoxyCodeLine{114   OneD\_Node\_Mesh<double> soln = Acoustic\_mesh.get\_soln();}
+\DoxyCodeLine{115   my\_file.push\_ptr( \&soln, \textcolor{stringliteral}{"mesh"} );}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117   \textcolor{keywordflow}{do}}
+\DoxyCodeLine{118   \{}
+\DoxyCodeLine{119     \textcolor{keywordflow}{if} ( loop\_counter \% 10 == 0 )}
+\DoxyCodeLine{120     \{}
+\DoxyCodeLine{121       my\_file.set\_filename( filename\_stub + Utility::stringify( file\_counter ) + \textcolor{stringliteral}{".dat"} );}
+\DoxyCodeLine{122       soln = Acoustic\_mesh.get\_soln();}
+\DoxyCodeLine{123       my\_file.update();}
+\DoxyCodeLine{124       file\_counter += 1;}
+\DoxyCodeLine{125     \}}
+\DoxyCodeLine{126     \textcolor{comment}{// take a step}}
+\DoxyCodeLine{127     t += Acoustic\_mesh.update( 0.49, t\_end -\/ t );}
+\DoxyCodeLine{128     ++loop\_counter;}
+\DoxyCodeLine{129   \}}
+\DoxyCodeLine{130   \textcolor{keywordflow}{while} ( ( t < t\_end ) \&\& ( loop\_counter < 1100 ) );}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132   \textcolor{keywordtype}{double} I2 = Acoustic\_mesh.integrate()[0];}
+\DoxyCodeLine{133   \textcolor{comment}{// compute the pressure difference after the pressure pulse}}
+\DoxyCodeLine{134   \textcolor{comment}{// has returned to its original position}}
+\DoxyCodeLine{135   soln = Acoustic\_mesh.get\_soln();}
+\DoxyCodeLine{136   my\_file.update();}
+\DoxyCodeLine{137   \textcolor{keywordtype}{double} diff = 0.0;}
+\DoxyCodeLine{138   \textcolor{keywordflow}{for} ( std::size\_t i = 0; i < soln.get\_nnodes(); ++i )}
+\DoxyCodeLine{139   \{}
+\DoxyCodeLine{140     \textcolor{comment}{// get the initial condition}}
+\DoxyCodeLine{141     DenseVector<double> q( 2, 0.0 );}
+\DoxyCodeLine{142     Example::Q\_init( soln.coord( i ), q );}
+\DoxyCodeLine{143     \textcolor{comment}{// difference between initial and final state}}
+\DoxyCodeLine{144     diff = std::max( diff, q[0] -\/ soln( i, 0 ) );}
+\DoxyCodeLine{145   \}}
+\DoxyCodeLine{146   \textcolor{comment}{// check the maximum difference in the reflected pulse \& the}}
+\DoxyCodeLine{147   \textcolor{comment}{// integral of the pressure over the mesh}}
+\DoxyCodeLine{148   \textcolor{keywordflow}{if} ( ( diff > 1.e-\/2 ) || ( std::abs( I1 -\/ I2 ) > 1.e-\/8 ) )}
+\DoxyCodeLine{149   \{}
+\DoxyCodeLine{150     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{151     cout << \textcolor{stringliteral}{"difference in the reflected wave = "} << diff << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{152     cout << \textcolor{stringliteral}{"difference in the integral = "} << std::abs( I1 -\/ I2 ) << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{153     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{154   \}}
+\DoxyCodeLine{155   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{156   \{}
+\DoxyCodeLine{157     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{158     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{159   \}}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161 \} \textcolor{comment}{// end of main()}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::coord(), Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::get\+\_\+nnodes(), Cpp\+Noddy\+::\+One\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh\+::get\+\_\+soln(), Cpp\+Noddy\+::\+One\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh\+::integrate(), Cpp\+Noddy\+::\+Tracker\+File\+::push\+\_\+ptr(), Cpp\+Noddy\+::\+Example\+::\+Q\+\_\+init(), Cpp\+Noddy\+::\+Tracker\+File\+::set\+\_\+filename(), Cpp\+Noddy\+::\+One\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh\+::set\+\_\+limiter(), Cpp\+Noddy\+::\+Utility\+::stringify(), Cpp\+Noddy\+::\+Utility\+::uniform\+\_\+node\+\_\+vector(), Cpp\+Noddy\+::\+Tracker\+File\+::update(), and Cpp\+Noddy\+::\+One\+D\+\_\+\+T\+V\+D\+L\+F\+\_\+\+Mesh\+::update().
+

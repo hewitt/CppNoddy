@@ -1,0 +1,153 @@
+\doxysubsection{Cpp\+Noddy\+::Example\+::Berman\+\_\+residual Class Reference}
+\label{classCppNoddy_1_1Example_1_1Berman__residual}\index{CppNoddy::Example::Berman\_residual@{CppNoddy::Example::Berman\_residual}}
+
+
+Define a residual function using the boundary conditions for the Berman equation.  
+
+
+Inheritance diagram for Cpp\+Noddy\+::Example\+::Berman\+\_\+residual\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCppNoddy_1_1Example_1_1Berman__residual}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Berman\+\_\+residual} ()
+\item 
+\textbf{ $\sim$\+Berman\+\_\+residual} ()
+\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ double $>$ \&unknown, \textbf{ Dense\+Vector}$<$ double $>$ \&BC) const
+\begin{DoxyCompactList}\small\item\em implement a residual function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ O\+D\+E\+\_\+\+I\+VP}$<$ double $>$ $\ast$ \textbf{ ode}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+Define a residual function using the boundary conditions for the Berman equation. 
+
+Definition at line 52 of file Berman\+Shooting.\+cpp.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Berman__residual_a3be3abef3d2514b7dbb0211ccfbe1480}} 
+\index{CppNoddy::Example::Berman\_residual@{CppNoddy::Example::Berman\_residual}!Berman\_residual@{Berman\_residual}}
+\index{Berman\_residual@{Berman\_residual}!CppNoddy::Example::Berman\_residual@{CppNoddy::Example::Berman\_residual}}
+\doxyparagraph{Berman\_residual()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Berman\+\_\+residual\+::\+Berman\+\_\+residual (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 58 of file Berman\+Shooting.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{58                         : Residual<double> ( 2 )}
+\DoxyCodeLine{59       \{}
+\DoxyCodeLine{60         \textcolor{comment}{// instantiate the Berman equation as our problem}}
+\DoxyCodeLine{61         eqn = \textcolor{keyword}{new} Berman\_equation;}
+\DoxyCodeLine{62         \textcolor{comment}{// set the Reynolds number}}
+\DoxyCodeLine{63         eqn -\/> Re = 1.0;}
+\DoxyCodeLine{64         \textcolor{comment}{// instantiate an ODE in [-\/1.,1] with a maximum of}}
+\DoxyCodeLine{65         \textcolor{comment}{// 100 integrator steps, using this problem equation}}
+\DoxyCodeLine{66         ode = \textcolor{keyword}{new} ODE\_IVP<double>( eqn, -\/1.0, 1.0, 500 );}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68       \}}
+
+\end{DoxyCode}
+
+
+References ode, and Cpp\+Noddy\+::\+Example\+::\+Re.
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Berman__residual_add117870ccb9ae8b69086d4d698d9563}} 
+\index{CppNoddy::Example::Berman\_residual@{CppNoddy::Example::Berman\_residual}!````~Berman\_residual@{$\sim$Berman\_residual}}
+\index{````~Berman\_residual@{$\sim$Berman\_residual}!CppNoddy::Example::Berman\_residual@{CppNoddy::Example::Berman\_residual}}
+\doxyparagraph{$\sim$Berman\_residual()}
+{\footnotesize\ttfamily Cpp\+Noddy\+::\+Example\+::\+Berman\+\_\+residual\+::$\sim$\+Berman\+\_\+residual (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 70 of file Berman\+Shooting.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{71       \{}
+\DoxyCodeLine{72         \textcolor{keyword}{delete} ode;}
+\DoxyCodeLine{73         \textcolor{keyword}{delete} eqn;}
+\DoxyCodeLine{74       \}}
+
+\end{DoxyCode}
+
+
+References ode.
+
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Berman__residual_ad1c7893ead9f8b5f536b78a4be7db1c5}} 
+\index{CppNoddy::Example::Berman\_residual@{CppNoddy::Example::Berman\_residual}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::Berman\_residual@{CppNoddy::Example::Berman\_residual}}
+\doxyparagraph{residual\_fn()}
+{\footnotesize\ttfamily void Cpp\+Noddy\+::\+Example\+::\+Berman\+\_\+residual\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ double $>$ \&}]{unknown,  }\item[{\textbf{ Dense\+Vector}$<$ double $>$ \&}]{BC }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+implement a residual function. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ double $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 77 of file Berman\+Shooting.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{78       \{}
+\DoxyCodeLine{79         DenseVector<double> u( 4, 0.0 ); \textcolor{comment}{// 4 variables of Berman problem}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81         u[ 0 ] = -\/1.0;         \textcolor{comment}{// V = 0}}
+\DoxyCodeLine{82         u[ 1 ] = 0.0;          \textcolor{comment}{// V' = 0}}
+\DoxyCodeLine{83         u[ 2 ] = unknown[ 0 ]; \textcolor{comment}{// V'' = unknown0}}
+\DoxyCodeLine{84         u[ 3 ] = unknown[ 1 ]; \textcolor{comment}{// A = unknown1}}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86         u = ode -\/> shoot4( u );}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88         BC[ 0 ] = u[ 0 ] -\/ 1.;}
+\DoxyCodeLine{89         BC[ 1 ] = u[ 1 ];}
+\DoxyCodeLine{90       \}}
+
+\end{DoxyCode}
+
+
+References ode, and u.
+
+
+
+\doxysubsubsection{Member Data Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Berman__residual_ab2aa726e644118a36a2c33c2d9bb6e36}} 
+\index{CppNoddy::Example::Berman\_residual@{CppNoddy::Example::Berman\_residual}!ode@{ode}}
+\index{ode@{ode}!CppNoddy::Example::Berman\_residual@{CppNoddy::Example::Berman\_residual}}
+\doxyparagraph{ode}
+{\footnotesize\ttfamily \textbf{ O\+D\+E\+\_\+\+I\+VP}$<$double$>$$\ast$ Cpp\+Noddy\+::\+Example\+::\+Berman\+\_\+residual\+::ode}
+
+
+
+Definition at line 55 of file Berman\+Shooting.\+cpp.
+
+
+
+Referenced by Berman\+\_\+residual(), residual\+\_\+fn(), and $\sim$\+Berman\+\_\+residual().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tests/\+B\+V\+P/\textbf{ Berman\+Shooting.\+cpp}\end{DoxyCompactItemize}

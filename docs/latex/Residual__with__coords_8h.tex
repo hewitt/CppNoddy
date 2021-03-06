@@ -1,0 +1,19 @@
+\doxysubsection{include/\+Residual\+\_\+with\+\_\+coords.h File Reference}
+\label{Residual__with__coords_8h}\index{include/Residual\_with\_coords.h@{include/Residual\_with\_coords.h}}
+{\ttfamily \#include $<$Residual.\+h$>$}\newline
+{\ttfamily \#include $<$Dense\+Vector.\+h$>$}\newline
+{\ttfamily \#include $<$Dense\+Matrix.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Residual\+\_\+with\+\_\+coords$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$}
+\begin{DoxyCompactList}\small\item\em A base class to be inherited by objects that define residuals. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+A specification of a (double/complex) residual class that not only defines a vector residual of a vector of state variables but may also depend upon N additional (double) variables. This is useful for the specification of boundary conditions in the P\+D\+E\+\_\+\+I\+B\+VP and P\+D\+E\+\_\+double\+\_\+\+I\+B\+VP classes where the boundary conditions are dependent on the time/spatial location. 

@@ -1,0 +1,155 @@
+\doxysubsection{Cpp\+Noddy\+::Example\+::Troesch\+\_\+equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$ Class Template Reference}
+\label{classCppNoddy_1_1Example_1_1Troesch__equation}\index{CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$@{CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$}}
+
+
+Define the harmonic equation by inheriting the \doxyref{Equation}{p.}{classCppNoddy_1_1Equation} base class.  
+
+
+Inheritance diagram for Cpp\+Noddy\+::Example\+::Troesch\+\_\+equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classCppNoddy_1_1Example_1_1Troesch__equation}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Troesch\+\_\+equation} ()
+\begin{DoxyCompactList}\small\item\em The harmonic equation is a 2nd order O\+DE. \end{DoxyCompactList}\item 
+void \textbf{ residual\+\_\+fn} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&\textbf{ z}, \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&\textbf{ g}) const
+\begin{DoxyCompactList}\small\item\em The Berman equation. \end{DoxyCompactList}\item 
+void \textbf{ matrix0} (const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&x, \textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ \&\textbf{ m}) const
+\begin{DoxyCompactList}\small\item\em Define the matrix in terms of the current state vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \textbf{ c}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Type, typename \+\_\+\+Xtype$>$\newline
+class Cpp\+Noddy\+::\+Example\+::\+Troesch\+\_\+equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$}
+
+Define the harmonic equation by inheriting the \doxyref{Equation}{p.}{classCppNoddy_1_1Equation} base class. 
+
+Definition at line 22 of file B\+V\+P\+Troesch.\+cpp.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Troesch__equation_af5dcf5669fdcd2db1a700ab84973dde7}} 
+\index{CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$@{CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$}!Troesch\_equation@{Troesch\_equation}}
+\index{Troesch\_equation@{Troesch\_equation}!CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$@{CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{Troesch\_equation()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+\textbf{ Cpp\+Noddy\+::\+Example\+::\+Troesch\+\_\+equation}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::\textbf{ Troesch\+\_\+equation} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The harmonic equation is a 2nd order O\+DE. 
+
+
+
+Definition at line 28 of file B\+V\+P\+Troesch.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{28 : Equation\_1matrix<\_Type, \_Xtype>( 2 ) \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Troesch__equation_ab2cda655be68dc16b12aa2c8b4ecf4ab}} 
+\index{CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$@{CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$}!matrix0@{matrix0}}
+\index{matrix0@{matrix0}!CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$@{CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{matrix0()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Example\+::\+Troesch\+\_\+equation}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::matrix0 (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{x,  }\item[{\textbf{ Dense\+Matrix}$<$ \+\_\+\+Type $>$ \&}]{m }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Define the matrix in terms of the current state vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The current state vector. \\
+\hline
+{\em m} & The matrix. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Equation\+\_\+1matrix$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$} \doxyref{}{p.}{classCppNoddy_1_1Equation__1matrix_af3f73a36fb2ec75a03f0298874d30e4c}.
+
+
+
+Definition at line 37 of file B\+V\+P\+Troesch.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{38       \{}
+\DoxyCodeLine{39         Utils\_Fill::fill\_identity(m);}
+\DoxyCodeLine{40       \}}
+
+\end{DoxyCode}
+
+
+References Utils\+\_\+\+Fill\+::fill\+\_\+identity(), and m.
+
+\mbox{\label{classCppNoddy_1_1Example_1_1Troesch__equation_a35de9e1e78917e20ad23be02b8530de9}} 
+\index{CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$@{CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$}!residual\_fn@{residual\_fn}}
+\index{residual\_fn@{residual\_fn}!CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$@{CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{residual\_fn()}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+void \textbf{ Cpp\+Noddy\+::\+Example\+::\+Troesch\+\_\+equation}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::residual\+\_\+fn (\begin{DoxyParamCaption}\item[{const \textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{z,  }\item[{\textbf{ Dense\+Vector}$<$ \+\_\+\+Type $>$ \&}]{g }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+The Berman equation. 
+
+
+
+Reimplemented from \textbf{ Cpp\+Noddy\+::\+Residual$<$ \+\_\+\+Type $>$} \doxyref{}{p.}{classCppNoddy_1_1Residual_a8016270e2cd26406a3681087f4a105c8}.
+
+
+
+Definition at line 31 of file B\+V\+P\+Troesch.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{32       \{}
+\DoxyCodeLine{33         g[ f ] = z[ fd ];}
+\DoxyCodeLine{34         g[ fd ] = c*std::sinh(c*z[f]);}
+\DoxyCodeLine{35       \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::\+Troesch\+\_\+equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::c, f, fd, Cpp\+Noddy\+::\+Example\+::g(), and Cpp\+Noddy\+::\+Example\+::z().
+
+
+
+\doxysubsubsection{Member Data Documentation}
+\mbox{\label{classCppNoddy_1_1Example_1_1Troesch__equation_ab880a79ae53eb0d21b562e3be3252982}} 
+\index{CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$@{CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$}!c@{c}}
+\index{c@{c}!CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$@{CppNoddy::Example::Troesch\_equation$<$ \_Type, \_Xtype $>$}}
+\doxyparagraph{c}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Type , typename \+\_\+\+Xtype $>$ \\
+double \textbf{ Cpp\+Noddy\+::\+Example\+::\+Troesch\+\_\+equation}$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::c}
+
+
+
+Definition at line 25 of file B\+V\+P\+Troesch.\+cpp.
+
+
+
+Referenced by Cpp\+Noddy\+::\+Example\+::\+Troesch\+\_\+equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::residual\+\_\+fn().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tests/\+B\+V\+P/\textbf{ B\+V\+P\+Troesch.\+cpp}\end{DoxyCompactItemize}

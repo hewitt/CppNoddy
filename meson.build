@@ -4,8 +4,8 @@ project('CppNoddy', 'cpp',
 
 # this is a Cpp project
 compiler = meson.get_compiler('cpp')
-add_global_arguments( '-O3', language: 'cpp' )
-#add_global_arguments( '-std=c++17', language: 'cpp' )
+add_global_arguments( '-O', language: 'cpp' )
+add_global_arguments( '-std=c++11', language: 'cpp' )
 add_global_arguments( '-DgFortran', language: 'cpp' )
 add_global_arguments( '-ggdb', language: 'cpp' )
 #add_global_arguments( '-DDEBUG', language: 'cpp' )

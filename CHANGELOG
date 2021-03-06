@@ -1,4 +1,4 @@
-0.91 [2D Orr Sommerfeld test case yusing SLEPc]
+0.92 [2D Orr Sommerfeld test case using SLEPc]
 
 0.91 [Build system changed from SCons to Meson]
 

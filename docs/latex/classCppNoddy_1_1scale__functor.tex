@@ -1,0 +1,91 @@
+\doxysubsection{Cpp\+Noddy\+::scale\+\_\+functor$<$ \+\_\+container\+Type, \+\_\+value\+Type $>$ Class Template Reference}
+\label{classCppNoddy_1_1scale__functor}\index{CppNoddy::scale\_functor$<$ \_containerType, \_valueType $>$@{CppNoddy::scale\_functor$<$ \_containerType, \_valueType $>$}}
+
+
+A unary pure function object that scales through multiplication.  
+
+
+
+
+{\ttfamily \#include $<$Functors.\+h$>$}
+
+Inheritance diagram for Cpp\+Noddy\+::scale\+\_\+functor$<$ \+\_\+container\+Type, \+\_\+value\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCppNoddy_1_1scale__functor}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ scale\+\_\+functor} (\+\_\+value\+Type value)
+\item 
+\+\_\+container\+Type \textbf{ operator()} (\+\_\+container\+Type elt)
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+\subsubsection*{template$<$class \+\_\+container\+Type, typename \+\_\+value\+Type$>$\newline
+class Cpp\+Noddy\+::scale\+\_\+functor$<$ \+\_\+container\+Type, \+\_\+value\+Type $>$}
+
+A unary pure function object that scales through multiplication. 
+
+The object is type templated for any object that defines operator$\ast$ and the M\+U\+L\+T\+I\+P\+L\+I\+ER is set in the functor constructor. 
+
+Definition at line 74 of file Functors.\+h.
+
+
+
+\doxysubsubsection{Constructor \& Destructor Documentation}
+\mbox{\label{classCppNoddy_1_1scale__functor_aaa433b923966f9fdbcf7d9cde949a197}} 
+\index{CppNoddy::scale\_functor$<$ \_containerType, \_valueType $>$@{CppNoddy::scale\_functor$<$ \_containerType, \_valueType $>$}!scale\_functor@{scale\_functor}}
+\index{scale\_functor@{scale\_functor}!CppNoddy::scale\_functor$<$ \_containerType, \_valueType $>$@{CppNoddy::scale\_functor$<$ \_containerType, \_valueType $>$}}
+\doxyparagraph{scale\_functor()}
+{\footnotesize\ttfamily template$<$class \+\_\+container\+Type , typename \+\_\+value\+Type $>$ \\
+\textbf{ Cpp\+Noddy\+::scale\+\_\+functor}$<$ \+\_\+container\+Type, \+\_\+value\+Type $>$\+::\textbf{ scale\+\_\+functor} (\begin{DoxyParamCaption}\item[{\+\_\+value\+Type}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The value to be used in the scale operation \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 77 of file Functors.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{77                                     : std::unary\_function< \_valueType, \_containerType>() \{}
+\DoxyCodeLine{78       MULTIPLIER = value;}
+\DoxyCodeLine{79     \}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Member Function Documentation}
+\mbox{\label{classCppNoddy_1_1scale__functor_a1809454dac574a61e7159aa6eec67d0b}} 
+\index{CppNoddy::scale\_functor$<$ \_containerType, \_valueType $>$@{CppNoddy::scale\_functor$<$ \_containerType, \_valueType $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!CppNoddy::scale\_functor$<$ \_containerType, \_valueType $>$@{CppNoddy::scale\_functor$<$ \_containerType, \_valueType $>$}}
+\doxyparagraph{operator()()}
+{\footnotesize\ttfamily template$<$class \+\_\+container\+Type , typename \+\_\+value\+Type $>$ \\
+\+\_\+container\+Type \textbf{ Cpp\+Noddy\+::scale\+\_\+functor}$<$ \+\_\+container\+Type, \+\_\+value\+Type $>$\+::operator() (\begin{DoxyParamCaption}\item[{\+\_\+container\+Type}]{elt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+The operator$\ast$( elt, value) operation where value is specified in the constructor 
+\end{DoxyReturn}
+
+
+Definition at line 83 of file Functors.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{83                                                   \{}
+\DoxyCodeLine{84       \textcolor{keywordflow}{return} elt * MULTIPLIER;}
+\DoxyCodeLine{85     \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ Functors.\+h}\end{DoxyCompactItemize}

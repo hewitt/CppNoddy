@@ -1,0 +1,146 @@
+\doxysubsection{Tests/\+E\+V\+P/\+E\+V\+P\+Harmonic\+Local.cpp File Reference}
+\label{EVPHarmonicLocal_8cpp}\index{Tests/EVP/EVPHarmonicLocal.cpp@{Tests/EVP/EVPHarmonicLocal.cpp}}
+{\ttfamily \#include $<$B\+V\+P\+\_\+bundle.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../\+Utils\+\_\+\+Fill.\+h\char`\"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+Harmonic\+\_\+equation$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$}
+\begin{DoxyCompactList}\small\item\em Define the harmonic equation by inheriting the \doxyref{Equation}{p.}{classCppNoddy_1_1Equation} base class. \end{DoxyCompactList}\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+Harmonic\+\_\+left\+\_\+\+B\+C$<$ \+\_\+\+Type $>$}
+\item 
+class \textbf{ Cpp\+Noddy\+::\+Example\+::\+Harmonic\+\_\+right\+\_\+\+B\+C$<$ \+\_\+\+Type $>$}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\item 
+ \textbf{ Cpp\+Noddy\+::\+Example}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \textbf{ f}, 
+\textbf{ fd}, 
+\textbf{ lambda}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Solves the harmonic equation \[ f\textnormal{\textquotesingle}\textnormal{\textquotesingle}(x) + \lambda f(x) = 0 \] as a L\+O\+C\+AL eigenvalue problem for $ \lambda $ over the unit domain with homogeneous boundary conditions for $ f(x) $ but using the nonlinear B\+VP solver to refine a guess at an eigenvalue. For example, we would have run an (expensive) global eigenvalue search (E\+V\+P\+\_\+\+Harmonic) then refined the eigenvalue of interest in the way shown in this example.
+
+Note\+: This approach (as it stands) is not as efficient as it could be since we include N extra degrees of freedom (where N is the number of mesh points) into the problem for only one eigenvalue. This retains the banded structure, but it would perhaps be better to solve using a sparse structure, or an appropriate multi-\/step algorithm for the for the banded matrix. 
+
+\doxysubsubsection{Enumeration Type Documentation}
+\mbox{\label{EVPHarmonicLocal_8cpp_a16af7b253440dadd46a80a4b9fddba4d}} 
+\doxyparagraph{anonymous enum}
+{\footnotesize\ttfamily anonymous enum}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{f@{f}!EVPHarmonicLocal.cpp@{EVPHarmonicLocal.cpp}}\index{EVPHarmonicLocal.cpp@{EVPHarmonicLocal.cpp}!f@{f}}}\mbox{\label{EVPHarmonicLocal_8cpp_a16af7b253440dadd46a80a4b9fddba4da7ce756344023b99e5ab27b804feb765c}} 
+f&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{fd@{fd}!EVPHarmonicLocal.cpp@{EVPHarmonicLocal.cpp}}\index{EVPHarmonicLocal.cpp@{EVPHarmonicLocal.cpp}!fd@{fd}}}\mbox{\label{EVPHarmonicLocal_8cpp_a16af7b253440dadd46a80a4b9fddba4da1e4d60e5b05464d07a30096747025a42}} 
+fd&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{lambda@{lambda}!EVPHarmonicLocal.cpp@{EVPHarmonicLocal.cpp}}\index{EVPHarmonicLocal.cpp@{EVPHarmonicLocal.cpp}!lambda@{lambda}}}\mbox{\label{EVPHarmonicLocal_8cpp_a16af7b253440dadd46a80a4b9fddba4dae8d55daf9b8f28830628b6a5ae775f56}} 
+lambda&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 25 of file E\+V\+P\+Harmonic\+Local.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{25 \{ f, fd, lambda \};}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{EVPHarmonicLocal_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{EVPHarmonicLocal.cpp@{EVPHarmonicLocal.cpp}!main@{main}}
+\index{main@{main}!EVPHarmonicLocal.cpp@{EVPHarmonicLocal.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 88 of file E\+V\+P\+Harmonic\+Local.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{89 \{}
+\DoxyCodeLine{90   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{91   cout << \textcolor{stringliteral}{"=== EVP: Local refinement of an eigenvalue  =========\(\backslash\)n"};}
+\DoxyCodeLine{92   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94   cout << \textcolor{stringliteral}{" Number of points : |local eigenvalue -\/ pi\string^2| \(\backslash\)n"};}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96   \textcolor{comment}{// set up the problem}}
+\DoxyCodeLine{97   Example::Harmonic\_equation problem;}
+\DoxyCodeLine{98   \textcolor{comment}{// set up BCs}}
+\DoxyCodeLine{99   Example::Harmonic\_left\_BC BC\_left;}
+\DoxyCodeLine{100   Example::Harmonic\_right\_BC BC\_right;}
+\DoxyCodeLine{101   \textcolor{comment}{// set up the domain from 0 to 1}}
+\DoxyCodeLine{102   \textcolor{keywordtype}{double} left = 0.0;}
+\DoxyCodeLine{103   \textcolor{keywordtype}{double} right = 1.0;}
+\DoxyCodeLine{104   \textcolor{comment}{// set our guess for the eigenvalue -\/-\/ this would come}}
+\DoxyCodeLine{105   \textcolor{comment}{// from the global method in a less trivial problem.}}
+\DoxyCodeLine{106   D\_complex eigenvalue\_guess = 9.0;}
+\DoxyCodeLine{107   \textcolor{keywordtype}{bool} failed( \textcolor{keyword}{true} );}
+\DoxyCodeLine{108   \textcolor{comment}{// loop through some meshes with increasing numbers of points}}
+\DoxyCodeLine{109   \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{unsigned} i = 6; i <= 10; ++i )}
+\DoxyCodeLine{110   \{}
+\DoxyCodeLine{111     \textcolor{keywordtype}{unsigned} N( 0 );}
+\DoxyCodeLine{112     N = unsigned( std::pow( 2.0, \textcolor{keywordtype}{double}( i ) ) );}
+\DoxyCodeLine{113     \textcolor{comment}{// mesh}}
+\DoxyCodeLine{114     DenseVector<double> nodes( Utility::uniform\_node\_vector( left, right, N ) );}
+\DoxyCodeLine{115     \textcolor{comment}{// construct the ODE\_BVP object}}
+\DoxyCodeLine{116     ODE\_BVP<D\_complex> ode( \&problem, nodes, \&BC\_left, \&BC\_right );}
+\DoxyCodeLine{117     \textcolor{comment}{// makes no sense to monitor the determinant here}}
+\DoxyCodeLine{118     ode.set\_monitor\_det( \textcolor{keyword}{false} );}
+\DoxyCodeLine{119     \textcolor{comment}{// run through the mesh \& set an initial guess}}
+\DoxyCodeLine{120     \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{unsigned} i = 0; i < N; ++i )}
+\DoxyCodeLine{121     \{}
+\DoxyCodeLine{122       \textcolor{keywordtype}{double} x = ode.solution().coord( i );}
+\DoxyCodeLine{123       ode.solution()( i, f ) = x * ( 1 -\/ x );}
+\DoxyCodeLine{124       ode.solution()( i, fd ) = 1.0 -\/ 2 * x;}
+\DoxyCodeLine{125       ode.solution()( i, lambda ) = eigenvalue\_guess;}
+\DoxyCodeLine{126     \}}
+\DoxyCodeLine{127     \textcolor{comment}{// solve for the eigenvalue/eigenfunction}}
+\DoxyCodeLine{128     ode.solve2();}
+\DoxyCodeLine{129     \textcolor{comment}{// an error measure}}
+\DoxyCodeLine{130     \textcolor{keywordtype}{double} abs\_error( std::abs( ode.solution()( 1, lambda ) -\/ M\_PI * M\_PI ) );}
+\DoxyCodeLine{131     \textcolor{comment}{// output for fun}}
+\DoxyCodeLine{132     cout << \textcolor{stringliteral}{"  "} << N << \textcolor{stringliteral}{" : "} << abs\_error << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{133     \textcolor{keywordflow}{if} ( abs\_error < 1.e-\/4 )}
+\DoxyCodeLine{134       failed = \textcolor{keyword}{false};}
+\DoxyCodeLine{135   \}}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137   \textcolor{keywordflow}{if} ( failed )}
+\DoxyCodeLine{138   \{}
+\DoxyCodeLine{139     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{140     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{141   \}}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143   cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{144   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{145 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+One\+D\+\_\+\+Node\+\_\+\+Mesh$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::coord(), f, Cpp\+Noddy\+::\+Example\+::failed, fd, lambda, Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::set\+\_\+monitor\+\_\+det(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::solution(), Cpp\+Noddy\+::\+O\+D\+E\+\_\+\+B\+V\+P$<$ \+\_\+\+Type, \+\_\+\+Xtype $>$\+::solve2(), and Cpp\+Noddy\+::\+Utility\+::uniform\+\_\+node\+\_\+vector().
+

@@ -1,0 +1,24 @@
+\doxysubsection{src/\+O\+D\+E\+\_\+\+B\+VP.cpp File Reference}
+\label{ODE__BVP_8cpp}\index{src/ODE\_BVP.cpp@{src/ODE\_BVP.cpp}}
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$O\+D\+E\+\_\+\+B\+V\+P.\+h$>$}\newline
+{\ttfamily \#include $<$Residual\+\_\+with\+\_\+coords.\+h$>$}\newline
+{\ttfamily \#include $<$Arc\+Length\+\_\+base.\+h$>$}\newline
+{\ttfamily \#include $<$Banded\+Linear\+System.\+h$>$}\newline
+{\ttfamily \#include $<$Residual.\+h$>$}\newline
+{\ttfamily \#include $<$Utility.\+h$>$}\newline
+{\ttfamily \#include $<$Exceptions.\+h$>$}\newline
+{\ttfamily \#include $<$Timer.\+h$>$}\newline
+{\ttfamily \#include $<$One\+D\+\_\+\+Node\+\_\+\+Mesh.\+h$>$}\newline
+{\ttfamily \#include $<$Equation\+\_\+1matrix.\+h$>$}\newline
+{\ttfamily \#include $<$Equation\+\_\+2matrix.\+h$>$}\newline
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ Cpp\+Noddy}
+\begin{DoxyCompactList}\small\item\em A collection of OO numerical routines aimed at simple (typical) applied problems in continuum mechanics. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+An implementation of a class for an $ n^{th} $-\/order O\+DE B\+VP defined by \[ {\underline f}^\prime (x) = {\underline R}( {\underline f}(x), x )\,, \] subject to $ n $ Dirichlet conditions defined at $ x = x_{left} $ or $ x_{right} $ for some components of $ {\underline f}(x) $. The system is solved by applying Newton iteration, with the intermediate problem\+: \[ {\underline g}^\prime (x) - \frac{\partial {\underline R}}{\partial \underline f} \Big \vert_{\underline F} \,\,{\underline g}(x) = {\underline R}( {\underline F}(x), x) - {\underline F}^\prime (x) \,, \] for the corrections $ \underline g(x) $ to the current approximation to the solution $ {\underline F}(x) $.The numerical scheme can be run for any given distribution of nodes and can adapt the nodal positions based on residual evaluations (including both refinement and unrefinement). 

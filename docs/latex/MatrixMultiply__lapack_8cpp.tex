@@ -1,0 +1,142 @@
+\doxysubsection{Tests/\+Matrix/\+Matrix\+Multiply\+\_\+lapack.cpp File Reference}
+\label{MatrixMultiply__lapack_8cpp}\index{Tests/Matrix/MatrixMultiply\_lapack.cpp@{Tests/Matrix/MatrixMultiply\_lapack.cpp}}
+{\ttfamily \#include $<$Timer.\+h$>$}\newline
+{\ttfamily \#include $<$Types.\+h$>$}\newline
+{\ttfamily \#include $<$Utility.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Function Documentation}
+\mbox{\label{MatrixMultiply__lapack_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{MatrixMultiply\_lapack.cpp@{MatrixMultiply\_lapack.cpp}!main@{main}}
+\index{main@{main}!MatrixMultiply\_lapack.cpp@{MatrixMultiply\_lapack.cpp}}
+\doxyparagraph{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 19 of file Matrix\+Multiply\+\_\+lapack.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{23   cout << \textcolor{stringliteral}{"=== Matrix: Native/BLAS multiplication  =============\(\backslash\)n"};}
+\DoxyCodeLine{24   cout << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26   DenseMatrix<double> a( 2, 3, 0.0 );}
+\DoxyCodeLine{27   DenseMatrix<double> b( 3, 2, 0.0 );}
+\DoxyCodeLine{28   DenseMatrix<double> c( 2, 2, 0.0 );}
+\DoxyCodeLine{29   a( 0, 0 ) = 1.0;}
+\DoxyCodeLine{30   a( 0, 1 ) = 2.0;}
+\DoxyCodeLine{31   a( 0, 2 ) = 3.0;}
+\DoxyCodeLine{32   a( 1, 0 ) = 4.0;}
+\DoxyCodeLine{33   a( 1, 1 ) = 5.0;}
+\DoxyCodeLine{34   a( 1, 2 ) = 6.0;}
+\DoxyCodeLine{35   b( 0, 0 ) = 1.0;}
+\DoxyCodeLine{36   b( 0, 1 ) = 2.0;}
+\DoxyCodeLine{37   b( 1, 0 ) = 3.0;}
+\DoxyCodeLine{38   b( 1, 1 ) = 4.0;}
+\DoxyCodeLine{39   b( 2, 0 ) = 5.0;}
+\DoxyCodeLine{40   b( 2, 1 ) = 6.0;}
+\DoxyCodeLine{41   DenseMatrix<double> answer( 2, 2, 0.0 );}
+\DoxyCodeLine{42   answer( 0, 0 ) = 22.0;}
+\DoxyCodeLine{43   answer( 0, 1 ) = 28.0;}
+\DoxyCodeLine{44   answer( 1, 0 ) = 49.0;}
+\DoxyCodeLine{45   answer( 1, 1 ) = 64.0;}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47   c = a.multiply( b );}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \textcolor{keyword}{const} \textcolor{keywordtype}{double} tol = 1.e-\/10;}
+\DoxyCodeLine{50   \textcolor{keywordtype}{bool} failed = \textcolor{keyword}{false};}
+\DoxyCodeLine{51   c.sub( answer );}
+\DoxyCodeLine{52   \textcolor{keywordflow}{if} ( c.inf\_norm() > tol )}
+\DoxyCodeLine{53   \{}
+\DoxyCodeLine{54     std::cout << \textcolor{stringliteral}{" Infinity norm of error = "} << c.inf\_norm() << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{55     std::cout << \textcolor{stringliteral}{" Native method : Simple (2x3) * (3x2) matrix mult failed\(\backslash\)n"};}
+\DoxyCodeLine{56     failed = \textcolor{keyword}{true};}
+\DoxyCodeLine{57   \}}
+\DoxyCodeLine{58   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{59   \{}
+\DoxyCodeLine{60     std::cout << \textcolor{stringliteral}{" Native method : Simple (2x3) * (3x2) matrix mult passed \(\backslash\)n"};}
+\DoxyCodeLine{61   \}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63   \textcolor{comment}{// if LAPACK Libs are present, then do the same test}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#ifdef LAPACK}}
+\DoxyCodeLine{65   DenseMatrix<double> cblas( 2, 2, 0.0 );}
+\DoxyCodeLine{66   cblas = Utility::multiply( a, b );}
+\DoxyCodeLine{67   cblas.sub( answer );}
+\DoxyCodeLine{68   \textcolor{keywordflow}{if} ( cblas.inf\_norm() > tol )}
+\DoxyCodeLine{69   \{}
+\DoxyCodeLine{70     std::cout << \textcolor{stringliteral}{" Infinity norm of error = "} << cblas.inf\_norm() << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{71     std::cout << \textcolor{stringliteral}{" BLAS : Simple (2x3) * (3x2) matrix mult failed \(\backslash\)n"};}
+\DoxyCodeLine{72     failed = \textcolor{keyword}{true};}
+\DoxyCodeLine{73   \}}
+\DoxyCodeLine{74   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{75   \{}
+\DoxyCodeLine{76     std::cout << \textcolor{stringliteral}{" BLAS : Simple (2x3) * (3x2) matrix mult test passed \(\backslash\)n"};}
+\DoxyCodeLine{77   \}}
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#ifdef TIME}}
+\DoxyCodeLine{81   Timer timer;}
+\DoxyCodeLine{82   \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{int} N = 128; N <= 2048 ; N *= 2 )}
+\DoxyCodeLine{83   \{}
+\DoxyCodeLine{84     std::cout << \textcolor{stringliteral}{"\(\backslash\)n -\/-\/-\/ Filling arrays of size "} << N << \textcolor{stringliteral}{"x"} << N << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86     \textcolor{comment}{// random array data}}
+\DoxyCodeLine{87     DenseMatrix<double> A( N, N, 0.0 );}
+\DoxyCodeLine{88     Utility::fill\_random( A );}
+\DoxyCodeLine{89     DenseMatrix<double> B( N, N, 0.0 );}
+\DoxyCodeLine{90     Utility::fill\_random( B );}
+\DoxyCodeLine{91     DenseMatrix<double> C( N, N, 0.0 );}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93     timer.start();}
+\DoxyCodeLine{94     C = A.multiply( B );}
+\DoxyCodeLine{95     timer.stop();}
+\DoxyCodeLine{96     std::cout << \textcolor{stringliteral}{"\(\backslash\)n Native N\string^3 multiplication method :\(\backslash\)n"};}
+\DoxyCodeLine{97     timer.print();}
+\DoxyCodeLine{98     timer.reset();}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \textcolor{preprocessor}{\#ifdef LAPACK}}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102     DenseMatrix<double> Cblas( N, N, 0.0 );}
+\DoxyCodeLine{103     timer.start();}
+\DoxyCodeLine{104     Cblas = Utility::multiply( A, B );}
+\DoxyCodeLine{105     timer.stop();}
+\DoxyCodeLine{106     std::cout << \textcolor{stringliteral}{"\(\backslash\)n BLAS multiplication method :\(\backslash\)n"};}
+\DoxyCodeLine{107     timer.print();}
+\DoxyCodeLine{108     timer.reset();}
+\DoxyCodeLine{109     \textcolor{comment}{// Check the difference between the methods}}
+\DoxyCodeLine{110     Cblas.sub( C );}
+\DoxyCodeLine{111     \textcolor{keywordflow}{if} ( Cblas.inf\_norm() > tol )}
+\DoxyCodeLine{112     \{}
+\DoxyCodeLine{113       std::cout << \textcolor{stringliteral}{" Infinity norm of error = "} << Cblas.inf\_norm() << \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{114       std::cout << \textcolor{stringliteral}{" BLAS \& native matrix multiplication disagree! \(\backslash\)n"};}
+\DoxyCodeLine{115       failed = \textcolor{keyword}{true};}
+\DoxyCodeLine{116     \}}
+\DoxyCodeLine{117 \textcolor{preprocessor}{\#endif // LAPACK}}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119   \}}
+\DoxyCodeLine{120 \textcolor{preprocessor}{\#endif // TIME}}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122   \textcolor{keywordflow}{if} ( failed )}
+\DoxyCodeLine{123   \{}
+\DoxyCodeLine{124     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;31;48m  * FAILED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{125   \}}
+\DoxyCodeLine{126   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{127   \{}
+\DoxyCodeLine{128     cout << \textcolor{stringliteral}{"\(\backslash\)033[1;32;48m  * PASSED \(\backslash\)033[0m\(\backslash\)n"};}
+\DoxyCodeLine{129   \}}
+\DoxyCodeLine{130 \}}
+
+\end{DoxyCode}
+
+
+References Cpp\+Noddy\+::\+Example\+::\+A(), Cpp\+Noddy\+::\+Example\+::failed, Utils\+\_\+\+Fill\+::fill\+\_\+random(), Cpp\+Noddy\+::\+Dense\+Matrix$<$ \+\_\+\+Type $>$\+::inf\+\_\+norm(), Cpp\+Noddy\+::\+Dense\+Matrix$<$ \+\_\+\+Type $>$\+::multiply(), Cpp\+Noddy\+::\+Utility\+::multiply(), Cpp\+Noddy\+::\+Timer\+::print(), Cpp\+Noddy\+::\+Timer\+::reset(), Cpp\+Noddy\+::\+Timer\+::start(), Cpp\+Noddy\+::\+Timer\+::stop(), and Cpp\+Noddy\+::\+Dense\+Matrix$<$ \+\_\+\+Type $>$\+::sub().
+
