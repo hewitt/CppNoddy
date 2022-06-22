@@ -6,19 +6,22 @@ if slepc
    CppNoddy = shared_library('CppNoddy',
 	 sources,
 	 include_directories : [ inc ],
-	 dependencies : [ blas_dep, lapack_dep, petsc_dep, slepc_dep, mpich_dep ],
-	 install : true )
+	 dependencies : [ lapack_dep, petsc_dep, slepc_dep, mpich_dep ],
+	 cpp_args : build_args,
+	 install : true ) 
 elif petscd or petscz
    CppNoddy = shared_library('CppNoddy',
 	 sources,
 	 include_directories : [ inc ],
-	 dependencies : [ blas_dep, lapack_dep, petsc_dep, mpich_dep ],
-	 install : true )
+	 dependencies : [ lapack_dep, petsc_dep, mpich_dep ],
+	 cpp_args : build_args,
+	 install : true )  
 else
    CppNoddy = shared_library('CppNoddy',
 	 sources,
 	 include_directories : [ inc ],
-	 dependencies : [ blas_dep, lapack_dep ],
+	 dependencies : [ lapack_dep ],
+	 cpp_args : build_args,
 	 install : true )
 endif
 

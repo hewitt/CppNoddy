@@ -122,6 +122,26 @@ int main(int argc, char* argv[])
   spectrum.push_ptr( &lambdas, "evs" );
   spectrum.update();
 
+  // eigenfunctions
+  DenseMatrix<D_complex> eigenvectors;
+  eigenvectors = system.get_tagged_eigenvectors();
+  DenseVector<double> ynodes = Utility::uniform_node_vector(left,right,nodes);
+  OneD_Node_Mesh<D_complex> mesh( ynodes, 4 );
+  // non-zero eigenvalue list => dump index 0 mode
+  if ( lambdas.nelts() > 0 ) {    
+    int index(0);
+    for ( unsigned i = 0; i < nodes; ++i ) {
+      mesh(i,0) = eigenvectors(index,2*i+0); //phi_i
+      mesh(i,1) = eigenvectors(index,2*i+1); //psi_i
+    }
+    for ( unsigned i = 1; i < nodes-1; ++i ) {
+      mesh(i,2) = (mesh(i+1,0)-mesh(i-1,0))/(2*d); //u_i=phi'
+      mesh(i,3) = -I*alpha*mesh(i,0);              //v_i=-i*alpha*phi
+    }
+  }
+  mesh.normalise(0);
+  mesh.dump_gnu("./DATA/eigenmode.dat");
+  
   if ( std::abs( min_growth_rate ) < tol )
   {
     cout << "\033[1;32;48m  * PASSED \033[0m\n";

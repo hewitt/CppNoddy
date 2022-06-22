@@ -48,6 +48,29 @@ namespace CppNoddy {
     return nodes_vars;
   }
 
+  template<typename _Type>
+  OneD_Node_Mesh<_Type> TwoD_Mapped_Node_Mesh<_Type>::get_xsection_at_xnode(const std::size_t nodex) const {
+    OneD_Node_Mesh<_Type> xsection(m_Y, m_nv);
+    for(std::size_t nodey = 0; nodey < m_ny; ++nodey) {
+      xsection.set_nodes_vars(nodey, this -> get_nodes_vars(nodex, nodey));
+    }
+    return xsection;
+  }
+
+  template<typename _Type>
+  OneD_Node_Mesh<_Type> TwoD_Mapped_Node_Mesh<_Type>::get_xsection_at_ynode(const std::size_t nodey) const {
+    OneD_Node_Mesh<_Type> xsection(m_X, m_nv);
+    for(std::size_t nodex = 0; nodex < m_nx; ++nodex) {
+      xsection.set_nodes_vars(nodex, this -> get_nodes_vars(nodex, nodey));
+    }
+    return xsection;
+  }
+  
+
+  /// Sometimes a useful mapping is painful to invert analytically.
+  /// Here we construct the physical node distribution by finding
+  /// the set of points x_i such that the computation nodes X satisfy
+  /// X_i = FnComp_X(x_i), for example.
   template <typename _Type>
   void TwoD_Mapped_Node_Mesh<_Type>::init_mapping() {
     #ifdef DEBUG
@@ -79,21 +102,22 @@ namespace CppNoddy {
     // temporary fill to span the domain -- corrected below
     m_X = Utility::uniform_node_vector(m_left,m_right,m_nx);
     m_Y = Utility::uniform_node_vector(m_bottom,m_top,m_ny);
-
+    
     // we now need the corresponding m_Y coordinates in the physical domain
     {
-      for(unsigned j = 1; j < m_ny; ++j) {
-        // for each node in m_compY
-        unsigned kmin(0);
-        double min(99e9);
-        for(unsigned k = 0; k < m_ny; ++k) {
-          // find the y value that is closest to it
-          if(std::abs(FnComp_Y(m_Y[k]) - m_compY[j]) < min) {
-            min = std::abs(FnComp_Y(m_Y[k]) - m_compY[j]);
-            kmin = k;
-          }
-        }
-        double y = m_Y[kmin];
+      // start and end points are mapped correctly
+      for(unsigned j = 1; j < m_ny-1; ++j) {
+        // // for each node in m_compY
+        // unsigned kmin(0);
+        // double min(99e9);
+        // for(unsigned k = 0; k < m_ny; ++k) {
+        //   // find the y value that is closest to it
+        //   if(std::abs(FnComp_Y(m_Y[k]) - m_compY[j]) < min) {
+        //     min = std::abs(FnComp_Y(m_Y[k]) - m_compY[j]);
+        //     kmin = k;
+        //   }
+        // }
+        double y = m_Y[j-1];
         double delta = 1.e-8;
         double correction = 1.0;
         do {
@@ -106,20 +130,13 @@ namespace CppNoddy {
         m_Y[ j ] = y;
       }
     }
+    
     // we now need the corresponding m_X coordinates in the physical domain
     {
-      for(unsigned i = 1; i < m_nx; ++i) {
-        // for each node in m_compY
-        unsigned kmin(0);
-        double min(99e9);
-        for(unsigned k = 0; k < m_ny; ++k) {
-          // find the y value that is closest to it
-          if(std::abs(FnComp_X(m_X[k]) - m_compX[i]) < min) {
-            min = std::abs(FnComp_X(m_X[k]) - m_compX[i]);
-            kmin = k;
-          }
-        }
-        double x = m_X[kmin];
+      // start and end are already mapped correctly
+      for(unsigned i = 1; i < m_nx-1; ++i) {
+        // use the previous point as an approximate guess at current mapping
+        double x = m_X[i-1];
         double delta = 1.e-8;
         double correction = 1.0;
         do {

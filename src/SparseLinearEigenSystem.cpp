@@ -375,7 +375,8 @@ namespace CppNoddy {
        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
     PetscViewerPushFormat(PETSC_VIEWER_STDOUT_WORLD,PETSC_VIEWER_ASCII_INFO_DETAIL);
-    EPSReasonView(petsc_eps,PETSC_VIEWER_STDOUT_WORLD);
+    //EPSReasonView(petsc_eps,PETSC_VIEWER_STDOUT_WORLD); // deprecated in 3.14
+    EPSConvergedReasonView(petsc_eps,PETSC_VIEWER_STDOUT_WORLD); // replaces EPSReasonView
     EPSErrorView(petsc_eps,EPS_ERROR_ABSOLUTE,PETSC_VIEWER_STDOUT_WORLD);
     PetscViewerPopFormat(PETSC_VIEWER_STDOUT_WORLD);
     //#endif

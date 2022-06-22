@@ -20,7 +20,7 @@
 #include <TrackerFile.h>
 
 //#define DENSE
-//#define UNIFORM
+#define UNIFORM
 #define TYPEI
 
 #if defined(TYPEI)
@@ -156,8 +156,8 @@ int main( int argc, char *argv[] )
   const D_complex eye( 0.0, 1.0 );
   
   // discretise with these many nodal points
-  const std::size_t NZ( 251 );
-  const std::size_t NY( 251 );
+  const std::size_t NZ( 301 );
+  const std::size_t NY( 301 );
   //
   //
   Example::My_Mesh<double> base( -A, 0.0, -1.0, 0.0, NZ, NY, 1 );

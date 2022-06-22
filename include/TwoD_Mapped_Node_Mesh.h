@@ -92,6 +92,10 @@ namespace CppNoddy {
 
     /// ctor of a blank mesh
     TwoD_Mapped_Node_Mesh(const double left, const double right, const double bottom, const double top, const std::size_t nx, const std::size_t ny, const std::size_t nvars) : m_left(left), m_right(right), m_bottom(bottom), m_top(top), m_nx(nx), m_ny(ny), m_nv(nvars) {
+#ifdef DEBUG
+      std::cout << "[DEBUG] making a blank TwoD_Mapped_Node_Mesh\n";
+      std::cout << "[DEBUG] a " << nx << " by " << ny << " mesh with " << nvars << " variables.\n";
+#endif      
       // initialise the storage, but fill these below in init_mapping()
       m_X = DenseVector<double> (m_nx,0.0);
       m_Y = DenseVector<double> (m_ny,0.0);
@@ -100,6 +104,9 @@ namespace CppNoddy {
       // we'll store the data as ( x, y, v ) ->  x * ny * nv + y * nv + v
       m_vars = DenseVector<_Type>(m_nx * m_ny * m_nv, 0.0);
       // user needs to call init_mapping() to set up m_compX, m_compY after this
+#ifdef DEBUG
+      std::cout << "[DEBUG] leaving the TwoD_Mapped_Node_Mesh ctor.\n";
+#endif
     }
 
 
@@ -188,6 +195,16 @@ namespace CppNoddy {
     /// Access the vector of y-nodal positions
     /// \return A vector of the nodal positions for this mesh
     DenseVector<double>& ynodes();
+
+    /// Get a cross section of the 2D mesh at a specified (constant) x node
+    /// \param nodex The x nodal index at which the cross section is to be taken
+    /// \return A 1D nodal mesh
+    OneD_Node_Mesh<_Type> get_xsection_at_xnode(const std::size_t nodex) const;
+
+    /// Get a cross section of the 2D mesh at a specified (constant) y node
+    /// \param nodey The y nodal index at which the cross section is to be taken
+    /// \return A 1D nodal mesh
+    OneD_Node_Mesh<_Type> get_xsection_at_ynode(const std::size_t nodey) const;
 
     /// A simple method for reading data from a file
     /// \param filename The filename to write the data to (will overwrite)

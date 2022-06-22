@@ -42,7 +42,6 @@ namespace CppNoddy {
     /// every time a solve is requested on a real system.
     /// \param flag The boolean value to set.
     void set_monitor_det(bool flag);
-
     
    private:
 

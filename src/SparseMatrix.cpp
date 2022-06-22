@@ -196,7 +196,6 @@ namespace CppNoddy {
   template <typename _Type>
   void SparseMatrix<_Type>::dump() const {
     std::cout << "SPARSE mtx size = " << m_nr << " x  sparse \n";
-    std::cout.precision(4);
     std::cout << "- start matrix \n";
     for(std::size_t row = 0; row < m_nr; ++row) {
       std::cout << " row " << row << " :  ";

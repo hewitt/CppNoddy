@@ -343,7 +343,6 @@ namespace CppNoddy {
 
   template<>
   void TwoD_Node_Mesh<D_complex>::normalise(const std::size_t& var) {
-    //std::cout << "[DEBUG] asked to normalise a complex mesh\n";
     unsigned max_nx(0);
     unsigned max_ny(0);
     double max(0.0);
@@ -358,8 +357,15 @@ namespace CppNoddy {
       }
     }
     D_complex factor(m_vars[(max_nx * m_ny + max_ny) * m_nv + var ]);
-    //std::cout << "[DEBUG] MAX |variable| had complex value of " << factor << "\n";
+    std::cout << "[DEBUG] Normalise factor = " << factor << "\n";
     m_vars.scale(1./factor);
+    // D_complex max_elt = m_vars[(max_nx * m_ny + max_ny) * m_nv + var ];
+    // std::cout << "[DEBUG] Normalise max_elt = " << max_elt << "\n";
+    // // to here will give |variable|=1 but in general v_r and v+i .ne. 0
+    // // additionally we can scale by a factor of unit magnitude
+    // // in order to make v_r=1 and v_i=0.
+    // m_vars.scale( std::conj(max_elt) );
+    // std::cout << "[DEBUG] Normalise max_elt = " << m_vars[(max_nx * m_ny + max_ny) * m_nv + var ] << "\n";
   }
 
   // specialised because obviously a double mesh element won't be able

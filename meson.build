@@ -1,20 +1,16 @@
-project('CppNoddy', 'cpp',
+project('CppNoddy',
+  'cpp',
   version : '0.9',
   license : 'GPL2')
 
-# this is a Cpp project
-compiler = meson.get_compiler('cpp')
-add_global_arguments( '-O', language: 'cpp' )
-add_global_arguments( '-std=c++11', language: 'cpp' )
-add_global_arguments( '-DgFortran', language: 'cpp' )
-add_global_arguments( '-ggdb', language: 'cpp' )
-#add_global_arguments( '-DDEBUG', language: 'cpp' )
-#add_global_arguments( '-DPARANOID', language: 'cpp' )
+build_args = [
+  '-Ofast',
+  '-DDEBUG'
+]
 
 lapack_dep = dependency('lapack', required:false)
-blas_dep = dependency('blas', required:false)
-petsc_dep = dependency('PETSc', required:false)
-slepc_dep = dependency('SLEPc', required:false)
+petsc_dep = dependency('petsc', required:false) # capitalisation matters if not found
+slepc_dep = dependency('slepc', required:false)
 mpich_dep = dependency('mpich', required:false)
 
 slepc = false

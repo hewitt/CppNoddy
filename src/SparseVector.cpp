@@ -315,6 +315,7 @@ namespace CppNoddy {
 
   template <typename _Type>
   void SparseVector<_Type>::dump() const {
+    std::cout.precision(6);
     if(MAP_VEC.begin() == MAP_VEC.end()) {
       std::cout << "[ Empty vector ]\n";
     } else {
