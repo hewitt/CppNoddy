@@ -5,7 +5,7 @@ dep = []
 
 if lapack_dep.found()
    dep += lapack_dep
-   #dep += blas_dep
+   dep += blas_dep
 endif
 if petscd or petscz
    dep += petsc_dep
