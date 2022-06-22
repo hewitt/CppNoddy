@@ -4,11 +4,12 @@ project('CppNoddy',
   license : 'GPL2')
 
 build_args = [
-  '-Ofast',
-  '-DDEBUG'
+  '-Ofast'
+  #,'-DDEBUG'
 ]
 
 lapack_dep = dependency('lapack', required:false)
+blas_dep = dependency('blas', required:false)
 petsc_dep = dependency('petsc', required:false) # capitalisation matters if not found
 slepc_dep = dependency('slepc', required:false)
 mpich_dep = dependency('mpich', required:false)
