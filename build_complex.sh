@@ -4,7 +4,7 @@
 # meson --buildtype=debugoptimized build
 # meson --buildtype=plain --prefix=/home/hewitt/CURRENT/Projects/CppNoddy/build build
 
-meson build_complex --prefix=/home/hewitt/local
+meson build_complex --prefix=/home/hewitt/CURRENT/Projects/CppNoddy/build_complex
 meson configure -Dslepc=true -Dpetscz=true build_complex
 #meson configure build
 

@@ -1,1 +1,46 @@
-build_complex.sh
+* Build for real arithmetic with PETSc/SLEPc
+
+meson build_real --prefix=/home/username/local
+meson configure -Dslepc=true -Dpetscd=true build_real
+
+cd build_real
+ninja reconfigure
+ninja
+ninja test
+ninja install
+
+* Build for complex arithmetic with PETSc/SLEPc
+
+meson build_complex --prefix=/home/username/local
+meson configure -Dslepc=true -Dpetscd=true build_complex
+
+cd build_complex
+ninja reconfigure
+ninja
+ninja test
+ninja install
+
+
+* Build Docker container with real arithmetic for PETSc/SLEPc
+
+cd ./build_docker/real
+docker build -t real:ffast-math .
+
+** Run the Docker container and self-test codes
+
+docker container run -ti --rm -u $(id -u):$(id -g) -v $PWD:/CODE -v $PWD/DATA:/DATA -w /CODE real:ffast-math
+
+cd /home/noddy/build
+ninja test
+
+* Build Docker container with complex arithmetic for PETSc/SLEPc
+
+cd ./build_docker/complex
+docker build -t complex:ffast-math .
+
+** Run the Docker container and self-test codes
+
+docker container run -ti --rm -u $(id -u):$(id -g) -v $PWD:/CODE -v $PWD/DATA:/DATA -w /CODE real:ffast-math
+
+cd /home/noddy/build
+ninja test
