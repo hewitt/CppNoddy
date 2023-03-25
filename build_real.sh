@@ -4,11 +4,11 @@
 # meson --buildtype=debugoptimized build
 # meson --buildtype=plain --prefix=/home/hewitt/CURRENT/Projects/CppNoddy/build build
 
-meson build_double --prefix=/home/hewitt/local
-meson configure -Dslepc=true -Dpetscd=true build_double
+meson build_real --prefix=/home/hewitt/local
+meson configure -Dslepc=true -Dpetscd=true build_real
 #meson configure build
 
-cd build_double
+cd build_real
 ninja reconfigure
 ninja
 #ninja test
