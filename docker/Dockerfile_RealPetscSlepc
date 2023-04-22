@@ -1,6 +1,8 @@
 FROM ubuntu:22.04 AS base
 LABEL maintainer="Rich Hewitt, richard.hewitt@manchester.ac.uk"
 
+ARG HOST_UID
+
 #########################
 # base system configure #
 #########################
@@ -10,7 +12,7 @@ RUN apt-get update
 # utils + build-tools + libs
 RUN apt-get install -y wget tar \
      build-essential meson ninja-build git python3 gcc gfortran make pkg-config git \
-     libmkl-dev && rm -rf /var/lib/apt/lists/*
+     valgrind libmkl-dev && rm -rf /var/lib/apt/lists/*
 #######################################################
 # we want the MKL version of libs in this base system #
 #######################################################
@@ -20,7 +22,7 @@ RUN update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/libblas.so  li
   update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/liblapack.so  liblapack.so-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99 &&\
   update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/libblapack.so.3  liblapack.so.3-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99
 # setup the user
-RUN useradd -ms /bin/bash noddy && echo "noddy:noddy" | chpasswd
+RUN useradd -u $HOST_UID -ms /bin/bash noddy && echo "noddy:noddy" | chpasswd
 ######################
 # switch to the user #
 ######################
@@ -38,8 +40,6 @@ ENV PETSCTYPE real
 #################################
 # grab PETSc/SLEPc as the user  #
 #################################
-#RUN wget --no-verbose https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-$VPETSC.tar.gz && tar -xzf petsc-$VPETSC.tar.gz
-#RUN wget --no-verbose https://slepc.upv.es/download/distrib/slepc-$VSLEPC.tar.gz && tar -xzf slepc-$VSLEPC.tar.gz
 RUN git clone -b release https://gitlab.com/petsc/petsc.git petsc
 RUN git clone -b release https://gitlab.com/slepc/slepc
 # set up PETSc/SLEPc env vars

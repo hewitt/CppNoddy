@@ -27,12 +27,9 @@ namespace CppNoddy {
 
     /// Typedef iterator types
     typedef typename std::vector<DenseVector<_Type> >::iterator row_iter;
-    typedef typename std::vector<DenseVector<_Type> >::const_iterator
-    row_citer;
-    typedef typename std::vector<DenseVector<_Type> >::reverse_iterator
-    row_riter;
-    typedef typename std::vector<DenseVector<_Type> >::const_reverse_iterator
-    row_criter;
+    typedef typename std::vector<DenseVector<_Type> >::const_iterator row_citer;
+    typedef typename std::vector<DenseVector<_Type> >::reverse_iterator row_riter;
+    typedef typename std::vector<DenseVector<_Type> >::const_reverse_iterator row_criter;
     typedef typename DenseVector<_Type>::elt_iter elt_iter;
     typedef typename DenseVector<_Type>::elt_citer elt_citer;
     typedef typename DenseVector<_Type>::elt_riter elt_riter;

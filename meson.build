@@ -4,7 +4,8 @@ project('CppNoddy',
   license : 'GPL2')
 
 build_args = [
-  '-Ofast',
+  '-O2',
+  '-march=native'
   #'-DDEBUG'
 ]
 

@@ -23,8 +23,7 @@ int main()
   cout << "=== Matrix: compare access speeds to native array ===\n";
   cout << "\n";
 
-  const std::size_t L = 5000;
-  const int loops( 100 );
+  const std::size_t L = 10000;
   // DenseMatrix object
   DenseMatrix<double> A( L, L, 0.0 );
   // A TwoD_Node_Mesh object (coordinates of the mesh don't matter)
@@ -35,11 +34,11 @@ int main()
   B = new double[ L * L ];
   // put some junk into the DenseMatrix
   Utils_Fill::fill_random( A );
-  // copy the matrix to a native array & the mesh object
-  for ( std::size_t row = 0; row < L; ++row )
-  {
-    for ( std::size_t col = 0; col < L; ++col )
-    {
+
+
+  // copy the random matrix to a native array & the mesh object
+  for ( std::size_t row = 0; row < L; ++row ) {
+    for ( std::size_t col = 0; col < L; ++col ) {
       B[ row * L + col ] = A( row, col );
       M( row, col, 0 ) = A( row, col );
     }
@@ -48,14 +47,9 @@ int main()
   cout << " DenseMatrix<double> scaling on a per-element basis via access operator.\n";
   Timer timer;
   timer.start();
-  for ( int i = 0; i < loops; ++i )
-  {
-    for ( std::size_t row = 0; row < L; ++row )
-    {
-      for ( std::size_t col = 0; col < L; ++col )
-      {
-        A( row, col ) *= 2.0;
-      }
+  for ( std::size_t row = 0; row < L; ++row ) {
+    for ( std::size_t col = 0; col < L; ++col ) {
+      A( row, col ) *= 2.0;
     }
   }
   timer.stop();
@@ -65,14 +59,9 @@ int main()
 
   cout << "\n TwoD_Node_Mesh<double> scaling on a per-element basis via access operator.\n";
   timer.start();
-  for ( int i = 0; i < loops; ++i )
-  {
-    for ( std::size_t row = 0; row < L; ++row )
-    {
-      for ( std::size_t col = 0; col < L; ++col )
-      {
-        M( row, col, 0 ) *= 2.0;
-      }
+  for ( std::size_t row = 0; row < L; ++row ) {
+    for ( std::size_t col = 0; col < L; ++col ) {
+      M( row, col, 0 ) *= 2.0;
     }
   }
   timer.stop();
@@ -82,14 +71,9 @@ int main()
 
   cout << "\n Native array scaling on a per-element basis.\n";
   timer.start();
-  for ( int i = 0; i < loops; ++i )
-  {
-    for ( std::size_t row = 0; row < L; ++row )
-    {
-      for ( std::size_t col = 0; col < L; ++col )
-      {
-        B[ row * L + col ] *= 2.0;
-      }
+  for ( std::size_t row = 0; row < L; ++row ) {
+    for ( std::size_t col = 0; col < L; ++col ) {
+      B[ row * L + col ] *= 2.0;
     }
   }
   timer.stop();
@@ -99,37 +83,30 @@ int main()
 
   delete[] B;
 
-
   cout << "The % slow-down for a DenseMatrix was " <<
     100.0 * ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) << "\n";
 
   cout << "The % slow-down for a TwoD_Node_Mesh was " <<
     100.0 * ( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) << "\n";
-
   
   bool failed( false );
   // fail if there is more than a 5% overhead between DenseMatrix & native
-  if ( ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) > 0.05 )
-  {
+  if ( ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) > 0.05 ) {
     failed = true;
     cout << "The % slow-down for a DenseMatrix was " <<
          100.0 * ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) << "\n";
   }
   // fail if there is more than a 5% overhead between DenseMatrix & TwoD_Node_Mesh
-  if ( std::abs( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) > 0.05 )
-  {
+  if ( std::abs( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) > 0.05 ) {
     failed = true;
     cout << "The % slow-down for a TwoD_Node_Mesh was " <<
          100.0 * ( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) << "\n";
   }
 
-  if ( failed )
-  {
+  if ( failed ) {
     cout << "\033[1;31;48m  * FAILED \033[0m\n";
     return 1;
-  }
-  else
-  {
+  } else {
     cout << "\033[1;32;48m  * PASSED \033[0m\n";
     return 0;
   }
