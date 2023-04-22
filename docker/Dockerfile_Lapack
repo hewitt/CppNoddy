@@ -12,7 +12,7 @@ RUN apt-get update
 # utils + build-tools + libs
 RUN apt-get install -y wget tar \
      build-essential meson ninja-build git python3 gcc gfortran make pkg-config git \
-     liblapack64-dev libblas64-dev && rm -rf /var/lib/apt/lists/*
+     liblapack-dev libblas-dev && rm -rf /var/lib/apt/lists/*
 #######################################################
 # we want the MKL version of libs in this base system #
 #######################################################
