@@ -28,7 +28,7 @@ RUN useradd -u $HOST_UID -ms /bin/bash noddy && echo "noddy:noddy" | chpasswd
 ######################
 USER noddy
 WORKDIR /home/noddy
-
+RUN mkdir /home/noddy/local
 
 #
 # PETSC/SLEPC build layer
@@ -41,6 +41,7 @@ WORKDIR /home/noddy
 
 FROM base AS cppnoddy
 USER noddy
+
 WORKDIR /home/noddy/local
 #COPY --from=petscslepc /home/noddy/local .
 ######################
