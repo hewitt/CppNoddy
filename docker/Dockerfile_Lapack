@@ -54,7 +54,7 @@ ENV LD_LIBRARY_PATH /home/noddy/local/lib:$LD_LIBRARY_PATH
 ENV PKG_CONFIG_PATH /home/noddy/local/lib/pkgconfig:$PKG_CONFIG_PATH
 RUN meson build --buildtype=plain --optimization=2 --prefix=/home/noddy/local
 # CHANGE petscd/petscz for real/complex
-RUN meson configure -Dslepc=true -Dpetscd=true build
+RUN meson configure build
 WORKDIR /home/noddy/CppNoddy/build
 RUN ninja reconfigure
 RUN ninja
