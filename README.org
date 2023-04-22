@@ -1,20 +1,45 @@
-* Build Docker container with real arithmetic for PETSc/SLEPc
+* Build as a Docker container (real arithmetic) with PETSc/SLEPc
 
+This will generate a docker container from this Github repo and build a container
+that has a CppNoddy library to wrap around PETSc/SLEPc linked to MKL.The build will take some time and the container will be quite large because of PETSc+SLEPc+MKL (approx. 3GB).
 #+BEGIN_SRC shell
-docker build --build-arg HOST_UID=$(id -u) -f docker/Dockerfile_RealPetscSlepc -t real .
+  docker build --rm --build-arg HOST_UID=$(id -u) -f Dockerfile_RealPetscSlepc -t real https://github.com/hewitt/CppNoddy.git#:docker
 #+END_SRC
 
 ** Run the Docker container and self-test codes
 
-#+BEGIN_SRC shell
-docker container run -ti --rm -u $(id -u):$(id -g) -v $PWD:/CODE -v $PWD/DATA:/DATA -w /CODE real
+This mounts the current directory $PWD as /CODE in the container. Any output from the code in the container can directed to /DATA which in this case points to a user directory ~/data.
 
-cd /home/noddy/build
-ninja test
+#+BEGIN_SRC shell
+  docker container run -ti --log-driver none --rm -u $(id -u):$(id -g) -v $PWD:/CODE -v ~/data:/DATA -w /CODE real:latest
+  
+  cd /home/noddy/build
+  ninja test
+#+END_SRC
+
+* Build a smaller Docker container with only Lapack/Blas support.
+
+#+BEGIN_SRC shell
+  docker build --rm --build-arg HOST_UID=$(id -u) -f Dockerfile_Lapack -t lapack https://github.com/hewitt/CppNoddy.git#:docker
+#+END_SRC
+
+** Run the Docker container and self-test codes
+
+This mounts the current directory $PWD as /CODE in the container. Any output from the code in the container can directed to /DATA which in this case points to a user directory ~/data.
+
+#+BEGIN_SRC shell
+  docker container run -ti --log-driver none --rm -u $(id -u):$(id -g) -v $PWD:/CODE -v ~/data:/DATA -w /CODE lapack:latest
+  
+  cd /home/noddy/build
+  ninja test
 #+END_SRC
 
 
-* Build for real arithmetic with PETSc/SLEPc
+
+* Build locally for real arithmetic with PETSc/SLEPc
+
+You will need accessible lapack64/blas64 libs. If slepc=petsc=true you will
+also need a separately installed PETSc/SLEPc instance.
 
 #+BEGIN_SRC shell
 meson build_real --prefix=/home/username/local
