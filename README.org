@@ -1,8 +1,7 @@
 * Build Docker container with real arithmetic for PETSc/SLEPc
 
 #+BEGIN_SRC shell
-cd ./docker
-docker build --build-arg HOST_UID=$(id -u) -f docker/Dockerfile_RealPetscSlepc -tag real .
+docker build --build-arg HOST_UID=$(id -u) -f docker/Dockerfile_RealPetscSlepc -t real .
 #+END_SRC
 
 ** Run the Docker container and self-test codes

@@ -5,8 +5,6 @@
 #ifndef SEQUENTIALMATRIXBASE_H
 #define SEQUENTIALMATRIXBASE_H
 
-#include <DenseVector.h>
-
 namespace CppNoddy {
 
   /// A base matrix class for sequential matrices.

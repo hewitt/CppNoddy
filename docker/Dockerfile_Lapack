@@ -1,6 +1,7 @@
-#FROM ubuntu:22.04 AS base
-FROM ubuntu:23.04 AS base
+FROM ubuntu:22.04 AS base
 LABEL maintainer="Rich Hewitt, richard.hewitt@manchester.ac.uk"
+
+ARG HOST_UID
 
 #########################
 # base system configure #
@@ -10,30 +11,29 @@ ENV TZ=Europe/London
 RUN apt-get update
 # utils + build-tools + libs
 RUN apt-get install -y wget tar \
-     build-essential meson ninja-build git python3 gcc-12-base gfortran make \
-     liblapack-dev pkg-config git \
-     valgrind mpich libpthread-stubs0-dev libhwloc-plugins \     
+     build-essential meson ninja-build git python3 gcc gfortran make pkg-config git \
      && rm -rf /var/lib/apt/lists/*
 #######################################################
 # we want the MKL version of libs in this base system #
 #######################################################
+# Probably not needed because we specify MKL explicitly below now in the PETSc ./configure
 #RUN update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/libblas.so  libblas.so-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99 &&\
 #  update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/libblas.so.3  libblas.so.3-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99 &&\
 #  update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/liblapack.so  liblapack.so-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99 &&\
 #  update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/libblapack.so.3  liblapack.so.3-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99
 # setup the user
-RUN useradd -ms /bin/bash noddy && echo "noddy:noddy" | chpasswd
+RUN useradd -u $HOST_UID -ms /bin/bash noddy && echo "noddy:noddy" | chpasswd
 ######################
 # switch to the user #
 ######################
 USER noddy
 WORKDIR /home/noddy
 
+
 #
 # PETSC/SLEPC build layer
 #
-
-# SKIPPED -- only LAPACK support
+# --- SKIPPED
 
 #
 # final CppNoddy layer cuts out the build layer's source files
@@ -41,7 +41,8 @@ WORKDIR /home/noddy
 
 FROM base AS cppnoddy
 USER noddy
-RUN mkdir -p /home/noddy/local
+WORKDIR /home/noddy/local
+#COPY --from=petscslepc /home/noddy/local .
 ######################
 # configure CppNoddy #
 ######################
@@ -51,9 +52,9 @@ WORKDIR /home/noddy/CppNoddy
 # we need to set the *_PATH variables to build CppNoddy with PETSc/SLEPc
 ENV LD_LIBRARY_PATH /home/noddy/local/lib:$LD_LIBRARY_PATH
 ENV PKG_CONFIG_PATH /home/noddy/local/lib/pkgconfig:$PKG_CONFIG_PATH
-RUN meson build --prefix=/home/noddy/local
+RUN meson build --buildtype=plain --optimization=2 --prefix=/home/noddy/local
 # CHANGE petscd/petscz for real/complex
-RUN meson configure -Dslepc=false -Dpetscd=false build
+RUN meson configure -Dslepc=true -Dpetscd=true build
 WORKDIR /home/noddy/CppNoddy/build
 RUN ninja reconfigure
 RUN ninja
@@ -63,3 +64,6 @@ RUN ninja install
 # now UPDATE *_PATH to add CppNoddy
 ENV LD_LIBRARY_PATH /home/noddy/local/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 ENV PKG_CONFIG_PATH /home/noddy/local/lib/x86_64-linux-gnu/pkgconfig:$PKG_CONFIG_PATH
+# default THREADS, MKL takes priority I think
+ENV MKL_NUM_THREADS 4
+ENV OMP_NUM_THREADS 4
