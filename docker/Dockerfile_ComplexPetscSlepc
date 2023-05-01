@@ -12,15 +12,7 @@ RUN apt-get update
 # utils + build-tools + libs
 RUN apt-get install -y wget tar \
      build-essential meson ninja-build git python3 gcc gfortran make pkg-config git \
-     valgrind libmkl-dev && rm -rf /var/lib/apt/lists/*
-#######################################################
-# we want the MKL version of libs in this base system #
-#######################################################
-# Probably not needed because we specify MKL explicitly below now in the PETSc ./configure
-RUN update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/libblas.so  libblas.so-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99 &&\
-  update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/libblas.so.3  libblas.so.3-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99 &&\
-  update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/liblapack.so  liblapack.so-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99 &&\
-  update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/libblapack.so.3  liblapack.so.3-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99
+     liblapack-dev libblas-dev && rm -rf /var/lib/apt/lists/*
 # setup the user
 RUN useradd -u $HOST_UID -ms /bin/bash noddy && echo "noddy:noddy" | chpasswd
 ######################
@@ -40,8 +32,6 @@ ENV PETSCTYPE complex
 #################################
 # grab PETSc/SLEPc as the user  #
 #################################
-#RUN wget --no-verbose https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-$VPETSC.tar.gz && tar -xzf petsc-$VPETSC.tar.gz
-#RUN wget --no-verbose https://slepc.upv.es/download/distrib/slepc-$VSLEPC.tar.gz && tar -xzf slepc-$VSLEPC.tar.gz
 RUN git clone -b release https://gitlab.com/petsc/petsc.git petsc
 RUN git clone -b release https://gitlab.com/slepc/slepc
 # set up PETSc/SLEPc env vars
@@ -53,7 +43,7 @@ ENV PETSC_ARCH x86_64-linux-gnu-$PETSCTYPE-opt
 #################
 WORKDIR /home/noddy/petsc
 RUN ./configure --prefix=/home/noddy/local COPTFLAGS="-O3 -ffast-math -march=native" CXXOPTFLAGS="-O3 -ffast-math -march=native" FOPTFLAGS="-O3 -ffast-math -march=native" --download-superlu_dist \
-    --download-mpich --download-scalapack --download-mumps --download-cmake --with-blaslapack-lib=/usr/lib/x86_64-linux-gnu/libmkl_rt.so --with-blaslapack-include=/usr/include/mkl --with-mkl_pardiso-dir=/usr/include/mkl \
+    --download-mpich --download-scalapack --download-mumps --download-cmake \
     --with-scalar-type=$PETSCTYPE && make all && make install
 #################
 # compile SLEPc #
