@@ -12,16 +12,16 @@ RUN apt-get update
 # utils + build-tools + libs
 RUN apt-get install -y wget tar \
      build-essential meson ninja-build git python3 gcc gfortran make pkg-config git \
-     liblapack-dev libblas-dev libmkl-dev && rm -rf /var/lib/apt/lists/*
+     libmkl-dev && rm -rf /var/lib/apt/lists/*
 #######################################################
 # we want the MKL version of libs in this base system #
 #######################################################
 # 
 # Probably not needed because we specify MKL explicitly below now in the PETSc ./configure
-#RUN update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/libblas.so  libblas.so-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99 &&\
-#  update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/libblas.so.3  libblas.so.3-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99 &&\
-#  update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/liblapack.so  liblapack.so-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99 &&\
-#  update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/libblapack.so.3  liblapack.so.3-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99
+RUN update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/libblas.so  libblas.so-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99 &&\
+  update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/libblas.so.3  libblas.so.3-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99 &&\
+  update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/liblapack.so  liblapack.so-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99 &&\
+  update-alternatives  --install /usr/lib/x86_64-linux-gnu/blas/libblapack.so.3  liblapack.so.3-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/libmkl_rt.so 99
 # setup the user
 RUN useradd -u $HOST_UID -ms /bin/bash noddy && echo "noddy:noddy" | chpasswd
 ######################

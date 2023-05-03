@@ -7,10 +7,10 @@ build_args = [
   #'-DDEBUG'
 ]
 
-lapack_dep = dependency('lapack', required:false)
-blas_dep = dependency('blas', required:false)
-petsc_dep = dependency('petsc', required:false) # capitalisation matters if not found
-slepc_dep = dependency('slepc', required:false)
+lapack_dep = dependency('lapack64','lapack', required:false)
+blas_dep = dependency('blas64', 'blas', required:false)
+petsc_dep = dependency('petsc', 'Petsc', required:false) # capitalisation matters if not found
+slepc_dep = dependency('slepc', 'Slepc', required:false)
 mpich_dep = dependency('mpich', required:false)
 
 slepc = false
@@ -21,16 +21,13 @@ petscz = false
 # LOOK FOR SPECIFIED OPTIONS  #
 ###############################
 
-if get_option('petscd') or get_option('petscz')
-   petsc = true
-   if get_option('petscd')
-      petscd = true
-      message( 'Using real arithmetic PETSc')
-   endif
-   if get_option('petscz')
-      petscz = true
-      message( 'Using complex arithmetic PETSc')
-   endif
+if get_option('petscd')
+   petscd = true
+   message( 'Using real arithmetic PETSc')
+endif
+if get_option('petscz')
+   petscz = true
+   message( 'Using complex arithmetic PETSc')
 endif
 
 if get_option('slepc')
@@ -64,7 +61,6 @@ if slepc_dep.found()
       add_global_arguments('-DSLEPC', language : 'cpp')
    endif
 endif
-
 
 # define the CppNoddy includes
 inc = include_directories('include')

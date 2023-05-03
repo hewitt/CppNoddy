@@ -1,14 +1,13 @@
 * Build as a Docker container (real arithmetic) with PETSc/SLEPc
 
-This will generate a docker container from this Github repo and build a container
-that has a CppNoddy library to wrap around PETSc/SLEPc linked to MKL.The build will take some time and the container will be quite large because of PETSc+SLEPc+MKL (approx. 3GB).
+This will generate a docker container from this Github repo with a CppNoddy library to wrap around PETSc/SLEPc linked to MKL.The build will take some time and the container will be quite large because of PETSc+SLEPc+MKL (approx. 3GB).
 #+BEGIN_SRC shell
   docker build --rm --build-arg HOST_UID=$(id -u) -f Dockerfile_RealPetscSlepc -t real https://github.com/hewitt/CppNoddy.git#:docker
 #+END_SRC
 
 ** Run the Docker container and self-test codes
 
-This mounts the current directory $PWD as /CODE in the container. Any output from the code in the container can directed to /DATA which in this case points to a user directory ~/data.
+This mounts the current directory $PWD as /CODE in the container. Any output from the code in the container can be directed to /DATA which in this case points to a user directory ~/data.
 
 #+BEGIN_SRC shell
   docker container run -ti --log-driver none --rm -u $(id -u):$(id -g) -v $PWD:/CODE -v ~/data:/DATA -w /CODE real:latest
@@ -17,7 +16,8 @@ This mounts the current directory $PWD as /CODE in the container. Any output fro
   ninja test
 #+END_SRC
 
-* Build a smaller Docker container with only Lapack/Blas support.
+* Build a Docker container with only Lapack/Blas support.
+This should be slightly quicker, but because it pulls in the Intel MKL it will still be the best part of 3GB as a container.
 
 #+BEGIN_SRC shell
   docker build --rm --build-arg HOST_UID=$(id -u) -f Dockerfile_Lapack -t lapack https://github.com/hewitt/CppNoddy.git#:docker
@@ -25,7 +25,7 @@ This mounts the current directory $PWD as /CODE in the container. Any output fro
 
 ** Run the Docker container and self-test codes
 
-This mounts the current directory $PWD as /CODE in the container. Any output from the code in the container can directed to /DATA which in this case points to a user directory ~/data.
+This mounts the current directory $PWD as /CODE in the container. Any output from the code in the container can be directed to /DATA which in this case points to a user directory ~/data.
 
 #+BEGIN_SRC shell
   docker container run -ti --log-driver none --rm -u $(id -u):$(id -g) -v $PWD:/CODE -v ~/data:/DATA -w /CODE lapack:latest
