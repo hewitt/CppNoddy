@@ -37,7 +37,7 @@ WORKDIR /home/noddy
 
 
 FROM base AS petscslepc
-ENV PETSCTYPE 
+ENV PETSCTYPE real
 #################################
 # grab PETSc/SLEPc as the user  #
 #################################

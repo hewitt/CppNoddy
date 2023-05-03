@@ -1,13 +1,15 @@
 * Build as a Docker container (real arithmetic) with PETSc/SLEPc
 
-This will generate a docker container from this Github repo with a CppNoddy library to wrap around PETSc/SLEPc linked to MKL.The build will take some time and the container will be quite large because of PETSc+SLEPc+MKL (approx. 3GB).
+This will generate a docker container for CppNoddy, including PETSc/SLEPc compiled with Intel's MKL LAPACK implementation.The build will take some time and the container will be quite large because of PETSc+SLEPc+MKL (approx. 3GB).
 #+BEGIN_SRC shell
-  docker build --rm --build-arg HOST_UID=$(id -u) -f Dockerfile_RealPetscSlepc -t real https://github.com/hewitt/CppNoddy.git#:docker
+  docker build --rm --build-arg HOST_UID=$(id -u) -f Dockerfile_RealPetscSlepcMKL -t real https://github.com/hewitt/CppNoddy.git#:docker
 #+END_SRC
+
+For the "complex" arithmetic version of PETSc, replace "Dockerfile_RealPetscSlepcMKL" with "Dockerfile_ComplexPetscSlepcMKL" and change the tag to "-t complex". 
 
 ** Run the Docker container and self-test codes
 
-This mounts the current directory $PWD as /CODE in the container. Any output from the code in the container can be directed to /DATA which in this case points to a user directory ~/data.
+This mounts the current directory ($PWD) as /CODE in the container. Any output generated within the container should be directed to /DATA, which in this case points to a user directory ~/data outside the container.
 
 #+BEGIN_SRC shell
   docker container run -ti --log-driver none --rm -u $(id -u):$(id -g) -v $PWD:/CODE -v ~/data:/DATA -w /CODE real:latest
@@ -16,8 +18,9 @@ This mounts the current directory $PWD as /CODE in the container. Any output fro
   ninja test
 #+END_SRC
 
-* Build a Docker container with only Lapack/Blas support.
-This should be slightly quicker, but because it pulls in the Intel MKL it will still be the best part of 3GB as a container.
+* Build a Docker container with only native Ubuntu LAPACK/BLAS support.
+
+This should be much quicker, but because it is the netlib version of the LAPACK library. The container will also be substantially smaller.
 
 #+BEGIN_SRC shell
   docker build --rm --build-arg HOST_UID=$(id -u) -f Dockerfile_Lapack -t lapack https://github.com/hewitt/CppNoddy.git#:docker
@@ -25,7 +28,7 @@ This should be slightly quicker, but because it pulls in the Intel MKL it will s
 
 ** Run the Docker container and self-test codes
 
-This mounts the current directory $PWD as /CODE in the container. Any output from the code in the container can be directed to /DATA which in this case points to a user directory ~/data.
+This mounts the current directory ($PWD) as /CODE in the container. Any output generated within the container should be directed to /DATA, which in this case points to a user directory ~/data outside the container.
 
 #+BEGIN_SRC shell
   docker container run -ti --log-driver none --rm -u $(id -u):$(id -g) -v $PWD:/CODE -v ~/data:/DATA -w /CODE lapack:latest
@@ -38,12 +41,12 @@ This mounts the current directory $PWD as /CODE in the container. Any output fro
 
 * Build locally for real arithmetic with PETSc/SLEPc
 
-You will need accessible lapack64/blas64 libs. If slepc=petsc=true you will
+You will need accessible lapack(64)/blas(64) libs. If slepc=petsc=true you will
 also need a separately installed PETSc/SLEPc instance.
 
 #+BEGIN_SRC shell
 meson build_real --prefix=/home/username/local
-meson configure -Dslepc=true -Dpetscd=true build_real
+meson configure -Dslepc=true -Dpetscd=true build
 
 cd build_real
 ninja reconfigure
@@ -52,5 +55,6 @@ ninja test
 ninja install
 #+END_SRC
 
+for complex PETSc, use "-Dpetscz=true".
 
 
