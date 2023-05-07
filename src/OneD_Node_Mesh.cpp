@@ -449,7 +449,7 @@ namespace CppNoddy {
     dump.setf(std::ios::showpos);
     dump.setf(std::ios::scientific);
     for(std::size_t i = 0; i < m_X.size(); ++i) {
-      dump << real(m_X[ i ]) << " " << imag(m_X[ i ]) << " ";
+      dump << m_X[ i ] << " ";
       for(std::size_t var = 0; var < m_nv; ++var) {
         dump << real(m_vars[ i * m_nv + var ]) << " " << imag(m_vars[ i * m_nv + var ]) << " ";
       }
@@ -457,6 +457,22 @@ namespace CppNoddy {
     }
   }
 
+  template <>
+  void OneD_Node_Mesh< std::complex<double>, std::complex<double> >::dump_gnu(std::string filename, int precision) const {
+    std::ofstream dump;
+    dump.open(filename.c_str());
+    dump.precision(precision);
+    dump.setf(std::ios::showpoint);
+    dump.setf(std::ios::showpos);
+    dump.setf(std::ios::scientific);
+    for(std::size_t i = 0; i < m_X.size(); ++i) {
+      dump << real(m_X[ i ]) << " " << imag(m_X[ i ]) << " ";
+      for(std::size_t var = 0; var < m_nv; ++var) {
+        dump << real(m_vars[ i * m_nv + var ]) << " " << imag(m_vars[ i * m_nv + var ]) << " ";
+      }
+      dump << "\n";
+    }
+  }
 
   
   
