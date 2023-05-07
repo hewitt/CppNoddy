@@ -1,24 +1,27 @@
-* Build as a Docker container (real arithmetic) with PETSc/SLEPc
+* Build a Docker container (real arithmetic) with PETSc/SLEPc
 
 This will generate a docker container for CppNoddy, including PETSc/SLEPc compiled with Intel's MKL LAPACK implementation.The build will take some time and the container will be quite large because of PETSc+SLEPc+MKL (approx. 3GB).
 #+BEGIN_SRC shell
-  docker build --rm --build-arg HOST_UID=$(id -u) -f Dockerfile_RealPetscSlepcMKL -t real https://github.com/hewitt/CppNoddy.git#:docker
+  docker build --rm --build-arg HOST_UID=$(id -u) -f Dockerfile_RealPetscSlepcMKL -t real-mkl https://github.com/hewitt/CppNoddy.git#:docker
 #+END_SRC
 
-For the "complex" arithmetic version of PETSc, replace "Dockerfile_RealPetscSlepcMKL" with "Dockerfile_ComplexPetscSlepcMKL" and change the tag to "-t complex". 
+For the "complex" arithmetic version of PETSc, replace "Dockerfile_RealPetscSlepcMKL" with "Dockerfile_ComplexPetscSlepcMKL" and change the tag to "-t complex-mkl". 
 
 ** Run the Docker container and self-test codes
 
 This mounts the current directory ($PWD) as /CODE in the container. Any output generated within the container should be directed to /DATA, which in this case points to a user directory ~/data outside the container.
 
 #+BEGIN_SRC shell
-  docker container run -ti --log-driver none --rm -u $(id -u):$(id -g) -v $PWD:/CODE -v ~/data:/DATA -w /CODE real:latest
+  docker container run -ti --log-driver none --rm -u $(id -u):$(id -g) -v $PWD:/CODE -v ~/data:/DATA -w /CODE real-mkl:latest
   
-  cd /home/noddy/build
+  cd /home/noddy/CppNoddy/build
   ninja test
 #+END_SRC
 
-* Build a Docker container with only native Ubuntu LAPACK/BLAS support.
+
+
+
+* Build a smaller Docker container with only native Ubuntu LAPACK/BLAS support.
 
 This should be much quicker, but because it is the netlib version of the LAPACK library. The container will also be substantially smaller.
 
@@ -33,9 +36,11 @@ This mounts the current directory ($PWD) as /CODE in the container. Any output g
 #+BEGIN_SRC shell
   docker container run -ti --log-driver none --rm -u $(id -u):$(id -g) -v $PWD:/CODE -v ~/data:/DATA -w /CODE lapack:latest
   
-  cd /home/noddy/build
+  cd /home/noddy/CppNoddy/build
   ninja test
 #+END_SRC
+
+
 
 
 
@@ -45,10 +50,10 @@ You will need accessible lapack(64)/blas(64) libs. If slepc=petsc=true you will
 also need a separately installed PETSc/SLEPc instance.
 
 #+BEGIN_SRC shell
-meson build_real --prefix=/home/username/local
+meson build --prefix=/home/username/local
 meson configure -Dslepc=true -Dpetscd=true build
 
-cd build_real
+cd build
 ninja reconfigure
 ninja
 ninja test
