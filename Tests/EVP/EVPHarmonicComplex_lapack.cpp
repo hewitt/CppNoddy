@@ -105,7 +105,7 @@ int main()
 
     cout << "    " << N << " : " << lambdas[ 0 ].real() - M_PI * M_PI << " +i " << lambdas[0].imag() 
          << " : " << timer.get_time() << "\n";
-/    timer.stop();
+    timer.stop();
   }
 
   // real parameterisation of complex path
@@ -374,8 +374,7 @@ int main()
   if ( abs( lambdas[ 0 ].real() - M_PI * M_PI ) > tol )
     failed = true;
 
-  if ( failed )
-  {
+  if ( failed ) {
     cout << "\033[1;31;48m  * FAILED \033[0m\n";
     cout << "    Final error = " << abs( lambdas[ 0 ].real() - M_PI * M_PI ) << "\n";
     return 1;
