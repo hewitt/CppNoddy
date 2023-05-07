@@ -423,8 +423,8 @@ namespace CppNoddy {
     std::cout << "Mesh dump complete\n";
   }
 
-  template < typename _Type, typename _Xtype >
-  void OneD_Node_Mesh<_Type, _Xtype>::dump_gnu(std::string filename, int precision) const {
+  template <>
+  void OneD_Node_Mesh<double, double>::dump_gnu(std::string filename, int precision) const {
     std::ofstream dump;
     dump.open(filename.c_str());
     dump.precision(precision);
