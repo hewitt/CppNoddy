@@ -372,9 +372,10 @@ namespace CppNoddy {
 
     
   
-  template < typename _Type, typename _Xtype >
-  void OneD_Node_Mesh<_Type, _Xtype>::read(std::string filename, bool reset )  {
+  template <>
+  void OneD_Node_Mesh<double, double>::read(std::string filename, bool reset )  {
     std::ifstream dump;
+    std::cout << "[INFO] Reading OneD_Node_Mesh<double,double> data from " + filename + "\n";
     dump.open(filename.c_str());
     if (dump.good() != true) {
       std::string problem;
@@ -411,6 +412,88 @@ namespace CppNoddy {
     }
   }
 
+  template <>
+  void OneD_Node_Mesh<D_complex, double>::read(std::string filename, bool reset )  {
+    std::ifstream dump;
+    std::cout << "[INFO] Reading OneD_Node_Mesh<D_complex,double> data from " + filename + "\n";
+    dump.open(filename.c_str());
+    if (dump.good() != true) {
+      std::string problem;
+      problem = " The OneD_Node_Mesh.read method is trying to read a \n";
+      problem += " file (" + filename + ") that doesn't exist.\n";
+      throw ExceptionRuntime(problem);
+    }
+    dump.precision(15);
+    dump.setf(std::ios::showpoint);
+    dump.setf(std::ios::showpos);
+    dump.setf(std::ios::scientific);
+    std::size_t N = get_nnodes();
+    for (std::size_t i = 0; i < N; ++i) {
+        double x;
+        dump >> x;
+        for (std::size_t var = 0; var < m_nv; ++var) {
+          double rValue, iValue;
+          dump >> rValue; dump >> iValue;
+          m_vars[ i * m_nv + var ] = D_complex(rValue,iValue);
+        }
+        if (reset != true) {
+          // if not reseting the mesh we should check the node positions
+          if (std::fabs(x - m_X[ i ]) > 1.e-6) {
+            std::cout << " Read x = " << x << " Expected x = " << m_X[ i ] << "\n";
+            std::cout << " Absolute differences are " << fabs(x - m_X[i]) <<  "\n";
+            std::string problem;
+            problem = " The TwoD_Node_Mesh.read method is trying to read a \n";
+            problem += " file whose nodal points are in a different position. \n";
+            throw ExceptionRuntime(problem);
+          }
+        } else {
+          m_X[ i ] = x;
+        }
+    }
+  }
+
+  template <>
+  void OneD_Node_Mesh<D_complex, D_complex>::read(std::string filename, bool reset )  {
+    std::ifstream dump;
+    std::cout << "[INFO] Reading OneD_Node_Mesh<D_complex, D_complex> data from " + filename + "\n";
+    dump.open(filename.c_str());
+    if (dump.good() != true) {
+      std::string problem;
+      problem = " The OneD_Node_Mesh.read method is trying to read a \n";
+      problem += " file (" + filename + ") that doesn't exist.\n";
+      throw ExceptionRuntime(problem);
+    }
+    dump.precision(15);
+    dump.setf(std::ios::showpoint);
+    dump.setf(std::ios::showpos);
+    dump.setf(std::ios::scientific);
+    std::size_t N = get_nnodes();
+    for (std::size_t i = 0; i < N; ++i) {
+      double rX, iX;
+      dump >> rX; dump >> iX;
+      D_complex X(rX,iX);
+      for (std::size_t var = 0; var < m_nv; ++var) {
+        double rValue, iValue;
+        dump >> rValue; dump >> iValue;
+        m_vars[ i * m_nv + var ] = D_complex(rValue,iValue);
+      }
+      if (reset != true) {
+        // if not reseting the mesh we should check the node positions
+        if (std::fabs( X - m_X[ i ]) > 1.e-6) {
+          std::cout << " Read x = " << X << " Expected x = " << m_X[ i ] << "\n";
+          std::cout << " Absolute differences are " << fabs(x - m_X[i]) <<  "\n";
+          std::string problem;
+          problem = " The TwoD_Node_Mesh.read method is trying to read a \n";
+          problem += " file whose nodal points are in a different position. \n";
+          throw ExceptionRuntime(problem);
+        }
+      } else {
+        m_X[ i ] = X;
+      }
+    }
+  }
+
+  
   template < typename _Type, typename _Xtype >
   void OneD_Node_Mesh<_Type, _Xtype>::dump() const {
     std::cout << "Number of nodes = " << m_X.size() << "\n";
