@@ -8,6 +8,7 @@
 #include <DenseVector.h>
 #include <OneD_Node_Mesh.h>
 #include <Exceptions.h>
+#include <Types.h>
 
 namespace CppNoddy {
 
