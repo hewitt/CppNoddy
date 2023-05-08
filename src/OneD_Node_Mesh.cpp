@@ -482,7 +482,7 @@ namespace CppNoddy {
         // if not reseting the mesh we should check the node positions
         if (std::fabs( X - m_X[ i ]) > 1.e-6) {
           std::cout << " Read x = " << X << " Expected x = " << m_X[ i ] << "\n";
-          std::cout << " Absolute differences are " << fabs(x - m_X[i]) <<  "\n";
+          std::cout << " Absolute differences are " << fabs( X - m_X[i]) <<  "\n";
           std::string problem;
           problem = " The TwoD_Node_Mesh.read method is trying to read a \n";
           problem += " file whose nodal points are in a different position. \n";
