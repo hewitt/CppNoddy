@@ -186,7 +186,7 @@ namespace CppNoddy {
       m_vars.scale(1./maxval);
     }
 
-    // double maxAbsLocation(unsigned var);
+   // double maxAbsLocation(unsigned var);
    // double dep_max_abs_location(unsigned var) {
    //     double max(0.0);
    //     std::size_t maxIndex(0);

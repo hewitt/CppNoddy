@@ -9,7 +9,6 @@
 /// re-interpolate the data onto a non-uniform mesh and
 /// check the integral again.
 
-
 #include <OneD_Node_Mesh.h>
 #include <Utility.h>
 
