@@ -52,8 +52,6 @@
  and `time'.
  * - A class for \link #CppNoddy::PDE_double_IBVP Two dimensional parabolic problems \endlink with a second-order box scheme.
  * - Classes for both \link #CppNoddy::OneD_TVDLF_Mesh 1-D \endlink and \link #CppNoddy::TwoD_TVDLF_Mesh 2-D \endlink hyperbolic problems via central scheme algorithms.
- * - 2-D Poisson objects (\link #CppNoddy::Poisson_Cartesian Cartesian \endlink and
- *        \link #CppNoddy::Poisson_meridional axisymmetric \endlink cylindrical polars).
  * - \link #CppNoddy::Newton vector \endlink Newton iteration classes.
  * - Arc-length continuation solvers exist for Residual objects and boundary value problems.
  * - An ability to link to selected BLAS, LAPACK and PETSc routines via a simplified API
@@ -65,91 +63,14 @@
  * - It's an introduction/framework for final-year undergraduate project students or graduate students.
  * - Just for fun.
  *
- * \section get0 Getting and running it
- *
- * You need a machine with a recent C++ compiler and 'git' to clone the latest version.
- * The build system uses 'meson'. The source is hosted on Github
- * and can be obtained using 'git' via
- *
- *       git clone git://github.com/hewitt/CppNoddy.git
- *
- * A minimal install can be achieved via
- *
- *       meson --buildtype=debugoptimized build
- *
- *       cd build
- *
- *       ninja
- *
- * The self-tests can be executed via
- *
- *       ninja tests
- *
- *
- * Optionally you can link to PETSc (for sparse matrix problems) and SLEPc (for sparse matrix eigenvalue problems) via
- *
- *       meson configure -Dpetscz=true -Dslepc=true
- *
- * for complex arithmetic, or
- *
- *       meson configure -Dpetscd=true -Dslepc=true
- *
- * for real arithmetic.
- * If PETSc/SLEPc are not installed system-wide, you will need to set PKG_CONFIG_PATH to point to PETSc.pc and SLEPc.pc via
- *
- *       export PKG_CONFIG_PATH=$PETSC_DIR/$PETSC_ARCH/lib/pkgconfig:$SLEPC/$PETSC_ARCH/lib/pkgconfig
- *
- * assuming a bash shell. The environment variables $PETSC_DIR/$SLEPC_DIR point to the base locations of the respective source trees, whilst $PETSC_ARCH is the name of the build directory (assumed to be the same in both cases). Suggested configure options for PETSc are
- *
- *      ./configure --download-superlu_dist --download-mpich --download-metis --download-parmetis --download-cmake --download-scalapack --download-mumps --with-scalar-type=complex
- *
- * for complex arithmetic or use --with-scalar-type=real for real arithmetic.
- *
- * See the \link Tests \endlink for a starting point.
- *
- * \section best0 Is it fast/accurate?
- *
- * The matrix classes have native solvers that are naive unoptimised Gaussian elimination algorithms. These routines will only be practical (if at all!) for rather `small' matrix/band sizes and do not scale well. If the problem is of even moderate size, then you should link to your local LAPACK/PETSc routines. LAPACK/PETSc/SLEPc libraries are not shipped with CppNoddy, you have to install them separately yourself if they are not available by default.
- *
- * The code is not especially optimised, in fact in many places the code is deliberately  un-optimised for greater transparency; it is not intended for 'heavy duty' problems. The only sanity checks applied are those listed in the test/example codes \link Tests \endlink.
- *
- * \section flames0 It made my machine burst into flames
- *
- * I never said it wouldn't ;-) The code comes with no guarantees.
- *
- * \section add0 I think it needs a CppNoddy::foo<bar> class
+ * \subsection add0 I think it needs a CppNoddy::foo<bar> class
  *
  * Feel free to add something. If you're an undergraduate looking for a final-year project or an MSc. student and have  an idea of something to include (or wish to redesign something that I did in a stupid way), then let me know.
  *
  *
- * \htmlonly
-<p style="text-align: center;"
-<!-- Creative Commons License -->
-<a href="http://creativecommons.org/licenses/GPL/2.0/">
-<img alt="CC-GNU GPL" border="0" src="http://creativecommons.org/images
-/public/cc-GPL-a.png" /></a><br />
-This software is licenced under the <a href="http://creativecommons.org/licenses/GPL/2.0/">CC-GNU GPL</a>.
-<!-- /Creative Commons License -->
-<!--
-<rdf:RDF xmlns="http://web.resource.org/cc/"
-    xmlns:dc="http://purl.org/dc/elements/1.1/"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<Work rdf:about="">
-   <license rdf:resource="http://creativecommons.org/licenses/GPL/2.0/" />
-   <dc:type rdf:resource="http://purl.org/dc/dcmitype/Software" />
-</Work>
-<License rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
-   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
-   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
-   <requires rdf:resource="http://web.resource.org/cc/Notice" />
-   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
-   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
-   <requires rdf:resource="http://web.resource.org/cc/SourceCode" />
-</License>
-</rdf:RDF>
--->
 <br/>
-&#169; Content created by R.E. Hewitt, 2007.
+<p>
+Content created by R.E. Hewitt, 2007. MIT license.
 </p>
 
  * \endhtmlonly

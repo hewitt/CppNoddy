@@ -1,246 +1,248 @@
-\_form#0:\[ A_{NxN} \,{\underline x}_i = B_{1xN} \]
-\_form#1:\[ A_{NxN} \,{\underline x}_i = \lambda_i\, B_{NxN}\, {\underline x}_i \]
-\_form#2:$ A $
-\_form#3:$ B $
-\_form#4:$ n^{th} $
-\_form#5:\[ {\underline f}^\prime (y) = {\underline R}( {\underline f}(y), y )\,, \]
-\_form#6:$ n $
-\_form#7:$ y = y_{left} $
-\_form#8:$ y_{right} $
-\_form#9:$ {\underline f}(y) $
-\_form#10:\[ {\underline g}^\prime (y) - \frac{\partial {\underline R}}{\partial \underline f} \Big \vert_{\underline F} \,\,{\underline g}(y) = {\underline R}( {\underline F}(y), y) - {\underline F}^\prime (y) \,, \]
-\_form#11:$ \underline g(y) $
-\_form#12:$ {\underline F}(y) $
-\_form#13:\[ \lambda M_1({\underline f}(x),x ) \cdot {\underline f } + M_0({\underline f}(x),x ) \cdot {\underline f}^\prime (x) = {\underline R}( {\underline f}(x), x )\,, \]
-\_form#14:$ x = x_{left} $
-\_form#15:$ x_{right} $
-\_form#16:$ {\underline f}(x) $
-\_form#17:\[ A_{M\times M} {\underline x} = \lambda B_{M\times M} {\underline x} \]
-\_form#18:$ M = N \times O $
-\_form#19:\[ \underline{ \dot f} (t) = \underline R ( \underline f (t), t) \,, \]
-\_form#20:$ \underline f (0) $
-\_form#21:\[ M_2( {\underline f}(y,x,t), y, x, t )\cdot {\underline f}_x (y,x,t) + M_1( {\underline f}(y,x,t), y,x, t )\cdot {\underline f}_t (y,x,t) + M_0( {\underline f}(y,x,t), y,x, t )\cdot {\underline f}_y (y,x,t) = {\underline R}( {\underline f}(y,x,t), y,x, t )\,, \]
-\_form#22:$ y = y_{bottom} $
-\_form#23:$ y_{top} $
-\_form#24:$ {\underline f}(y,x,t) $
-\_form#25:$ M_2 $
-\_form#26:$ M_1 $
-\_form#27:$ M_0 $
-\_form#28:$ t+\Delta t $
-\_form#29:$ x = x_j $
-\_form#30:\[ {\underline f}^{new} = {\underline F}_{j} + {\underline g} \]
-\_form#31:$ {\underline F}_{j} $
-\_form#32:$ {\underline g} $
-\_form#33:$ t $
-\_form#34:$ x = x_{j} $
-\_form#35:\[ {\underline f}^{old} = {\underline O}_{j} \]
-\_form#36:$ t + \Delta t /2 $
-\_form#37:$ ( x_{j+1} + x_{j} ) / 2 $
-\_form#38:\[ \frac{2}{x_{j+1} - x_{j}}\, M_2 \cdot {\underline g } + \frac{2}{\Delta t}\, M_1 \cdot {\underline g } + M_0 \cdot {\underline g}_y - J \cdot {\underline g} \]
-\_form#39:\[ + J_{2} \cdot \frac{ ( \underline F_{j+1} + \underline O_{j+1} - \underline F_j - \underline O_j) }{ 2(x_{j+1} - x_j) } \cdot {\underline g} \]
-\_form#40:\[ + J_{1} \cdot \frac{(\underline F_{j+1} + \underline F_j - \underline O_j - \underline O_{j+1})}{2\Delta t} \cdot {\underline g} \]
-\_form#41:\[ + J_{0} \cdot \frac{( \underline F_{j+1} + \underline F_j + \underline O_j + \underline O_{j+1})_y}{4} \cdot {\underline g} \]
-\_form#42:\[ = 4 {\underline R} - M_0 \cdot \biggl ({\underline F_j}_y + {\underline O_j}_y + {\underline F_{j+1}}_y + {\underline O_{j+1}}_y \biggr ) - \frac{2}{x_{j+1}-x_j} M_1 \cdot \biggl ( {\underline F}_{j+1} + {\underline O}_{j+1} - {\underline F}_{j} - {\underline O}_{j} \biggr ) - \frac{2}{\Delta t} M_2 \cdot \biggl ( {\underline F}_{j+1} + {\underline F}_{j} - {\underline O}_{j+1} - {\underline O}_{j} \biggr ) \]
-\_form#43:$ M_{0,1,2}, J, J_{0,1,2}, R $
-\_form#44:$ \left ( \frac{\underline F_{j} + \underline O_{j} + \underline F_{j+1} + \underline O_{j+1} }{4}, y, ( x_{j+1} + x_{j} ) / 2, t + \frac{\Delta t}{2} \right ) $
-\_form#45:$ J_{0,1,2} $
-\_form#46:$ \partial {M_{0,1,2}}_{ij} / \partial f_k $
-\_form#47:$ y $
-\_form#48:\[ M_1( {\underline f}(y,t), y, t )\cdot {\underline f}_t (y,t)+ M_0( {\underline f}(y,t), y, t ) \cdot {\underline f}_y (y,t) = {\underline R}( {\underline f}(y,t), y, t )\,, \]
-\_form#49:$ M_{0,1} $
-\_form#50:\[ {\underline f}^{new} = {\underline F} + {\underline g} \]
-\_form#51:$ {\underline F} $
-\_form#52:\[ {\underline f}^{old} = {\underline O} \]
-\_form#53:\[ \frac{2}{\Delta t} M_1 \cdot {\underline g } + 2 M_0 \cdot {\underline g}_y - J \cdot {\underline g} + J_2 \cdot \frac{\underline F - \underline O}{\Delta t} \cdot {\underline g} + J_1 \cdot \frac{\underline F_y + \underline O_y}{2} \cdot {\underline g} = 2 {\underline R} - \frac{2}{\Delta t} M_2 \cdot ( {\underline F} - {\underline O} ) - M_1 \cdot ( {\underline F}_y + {\underline O}_y )\]
-\_form#54:$ M_{0,1}, J, J_{1,2}, R $
-\_form#55:$ \left ( \frac{\underline F + \underline O}{2}, y, t + \frac{\Delta t}{2} \right ) $
-\_form#56:$ J_{1,2} $
-\_form#57:$ \partial {(M_{0,1})}_{ij} / \partial f_k $
-\_form#58:\[ {\underline f}^\prime (x) = {\underline R}( {\underline f}(x), x )\,, \]
-\_form#59:\[ {\underline g}^\prime (x) - \frac{\partial {\underline R}}{\partial \underline f} \Big \vert_{\underline F} \,\,{\underline g}(x) = {\underline R}( {\underline F}(x), x) - {\underline F}^\prime (x) \,, \]
-\_form#60:$ \underline g(x) $
-\_form#61:$ {\underline F}(x) $
-\_form#62:\[ A_{MxM} {\underline x} = \lambda B_{MxM} {\underline x} \]
-\_form#63:$ M = N x O $
-\_form#64:$n$
-\_form#65:\[ x^2 + p^2 = 2\,, \]
-\_form#66:$p$
-\_form#67:\[ x^2 + p^2 = 1\,, y = \sin(x) \]
-\_form#68:\[ f'''(y) + f(y) f''(y) + \beta \left ( 1 - f'(y)^2 \right )= 0\,, \]
-\_form#69:$ \beta $
-\_form#70:$ f(0)=f'(0)=0 $
-\_form#71:$ f'(\infty) = 1 $
-\_form#72:$ \beta \approx -0.19 $
-\_form#73:\[ R \equiv (x - 3)( (x-2)^2 + (p-4) ) = 0 \]
-\_form#74:$ x=0, p=0 $
-\_form#75:$ x=2, p =4 $
-\_form#76:$ x =3, p=3 $
-\_form#77:\[ f'''(y) = Re \left ( f(y)f''(y) - f'(y)^2 - K \right )\]
-\_form#78:$y\in [-1,1]$
-\_form#79:$K$
-\_form#80:$Re$
-\_form#81:$f(\pm 1) = \pm 1$
-\_form#82:$f'(\pm 1 ) = 0$
-\_form#83:\[ f'''(y) + f(y) f''(y) = 0\,, \]
-\_form#84:\[ f^(iv)(y) = Re ( f(y)f'''(y) - f'(y)f''(y) ) \]
-\_form#85:$ f(\pm 1) = \pm 1 $
-\_form#86:$ f'(\pm 1) = 0 $
-\_form#87:$ y \in [0,\infty ] $
-\_form#88:\[ f''(z) + f(z) = 0 \]
-\_form#89:$ f(0) = 0 $
-\_form#90:$ f(1) = 1 $
-\_form#91:$ f(i) = 1 $
-\_form#92:\[ U''(y) = U^2(y) + V(y)U'(y) - W^2(y) \]
-\_form#93:\[ W''(y) = 2U(y)W(y) + V(y)W'(y) \]
-\_form#94:\[ 2U(y) + V'(y) = 0 \]
-\_form#95:$ U(0)=V(0)=0 $
-\_form#96:$ W(0)=1 $
-\_form#97:$ U(\infty ) \to 0 $
-\_form#98:$ W(\infty ) \to 0 $
-\_form#99:\[ U''(y) = U^2(y) + V(y)U'(y) - W^2(y) + s^2 \]
-\_form#100:$ W(\infty ) \to s $
-\_form#101:$ s=0 $
-\_form#102:\[ f(y) f''(y) + f'(y)^2 = 1+\gamma y \]
-\_form#103:$ f(0) = 1 $
-\_form#104:$ f(1) = 2 $
-\_form#105:$ f(y) $
-\_form#106:\[ f(y)=\left ( y^2 + \frac{\gamma}{3}y^3 + (2-\frac{\gamma}{3}) y + 1 \right )^{1/2}\,.\]
-\_form#107:\[ f''(y) = c \sinh (cy) \]
-\_form#108:\[ - u_x - u_t + u_{yy} = ( ( 1 - y^2 )( x + t ) - 2 ) e^{-xt}\,, \]
-\_form#109:$ u(x=0,y,t) = 1-y^2 $
-\_form#110:$ u(x,t=0,y) = 1 - y^2 $
-\_form#111:$ f(x, y = \pm 1,t ) = 0 $
-\_form#112:$ (x,y) \in [0,10]\times [-1,1] $
-\_form#113:$ u = (1-y^2) e^{-xt} $
-\_form#114:$ \tau $
-\_form#115:$ (x,t) $
-\_form#116:\[ -u u_x - u_t + u_{yy} = y^2 t^2 e^{-2x} - y e^{-x}\,, \]
-\_form#117:$ u(x=0,y,t) = ty $
-\_form#118:$ u(x,t=0,y) = 0 $
-\_form#119:$ f(x, y = 0,t ) = 0 $
-\_form#120:$ f(x, y = 1,t ) = t $
-\_form#121:$ (x,y) \in [0,10]\times [0,1] $
-\_form#122:$ u = yte^{-x} $
-\_form#123:$ c $
-\_form#124:\[ A_{4x4} \,{\underline x}_i = \lambda_i\, B_{4x4}\, {\underline x}_i \]
-\_form#125:$ \lambda_i $
-\_form#126:$i=1,2,3,4.$
-\_form#127:$ A_{4x4} $
-\_form#128:$ B_{4x4} $
-\_form#129:$ 3-9i,\, 2-5i,\, 3-i,\, 4-5i $
-\_form#130:$ \vert\lambda\vert < 4$
-\_form#131:$ 3-i $
-\_form#132:\[ f''(x) + \lambda f(x) = 0 \]
-\_form#133:$ \lambda $
-\_form#134:$ f(x) $
-\_form#135:$ m^2 \pi^2 $
-\_form#136:$n \to \infty $
-\_form#137:$ O(\Delta^2)$
-\_form#138:$ \Delta = 1/(n-1) $
-\_form#139:\[ f''(x_i) + \lambda f(x_i) = \frac{ f_{i-1} - 2f_i + f_{i+1} }{ \Delta^2 } + \lambda f_i + O(\Delta^2) \]
-\_form#140:\[ \phi''(y) - \alpha^2 \phi(y) - \psi(y) = 0\,, \]
-\_form#141:\[ \psi''(y) - \alpha^2 \psi(y) - i \alpha Re \left \{ ( U(y) - c ) \psi(y) - U''(y) \phi \right \} = 0\,, \]
-\_form#142:$ \phi(\pm 1) = \phi'(\pm 1) = 0 $
-\_form#143:$ \alpha = 1.02 $
-\_form#144:$ Re = 5772.2 $
-\_form#145:$ U(y) = 1 - y^2 $
-\_form#146:$ \Im ( c ) \approx 0 $
-\_form#147:$ \alpha $
-\_form#148:$ Re $
-\_form#149:$c_i = 0$
-\_form#150:\[ (U_B(y)-c) (\phi''(y) - \alpha^2 \phi(y)) - U_B''(y) \phi(y) = 0\,, \]
-\_form#151:$ \phi( 0 ) = \phi( 2\pi ) = 0 $
-\_form#152:$\alpha $
-\_form#153:$ c_i=0 $
-\_form#154:$ U_B(y)=\sin(y) $
-\_form#155:$ \sqrt(3)/2 $
-\_form#156:\[ \left ( \frac{\mbox{d}^2}{\mbox{d}x^2} - \lambda \right )^2 f(x) = 0\,, \quad \mbox{where} \quad f(0)=f(1)=f'(0)=f'(1)=0\,,\]
-\_form#157:$\lambda$
-\_form#158:\[ A_{2x2} \,{\underline x}_i = \lambda_i\, B_{2x2}\, {\underline x}_i \]
-\_form#159:$i=1,2.$
-\_form#160:$ A_{2x2} $
-\_form#161:$ B_{2x2} = I $
-\_form#162:$ 5,\, -1 $
-\_form#163:$ \vert\lambda\vert < 10$
-\_form#164:\[ f(z) = z^3 - 1 \]
-\_form#165:\[ \int_0^{20} \cos(x) \exp \left ( -\frac{x}{4} \right ) \mbox{d}x \]
-\_form#166:\[ \frac{4 e^{-5}}{17} \left ( e^5 - \cos (20) + 4\sin (20) \right ) \]
-\_form#167:\[ p_t + K u_x = 0 \]
-\_form#168:\[ \rho u_t + p_x = 0 \]
-\_form#169:$K=4$
-\_form#170:$\rho = 1$
-\_form#171:$\vert x \vert < 1$
-\_form#172:$\rho = 4$
-\_form#173:\[ - \left ( \frac{\frac{K_1}{K_2}-\frac{c_1}{c_2}}{\frac{K_1}{K_2}+\frac{c_1}{c_2}} \right ) \]
-\_form#174:$ K_{1,2} $
-\_form#175:$c_{1,2}$
-\_form#176:$c_i = \sqrt{ K_i \rho_i } $
-\_form#177:$K=1$
-\_form#178:\[ Q_t + \left ( \frac{Q^2}{2} \right )_x = 0 \quad \mbox{where} \quad Q=Q(x,t) \]
-\_form#179:$ x\in[0,1]$
-\_form#180:\[ Q(x,0) = \sin( 2\pi x ) \]
-\_form#181:$ Q $
-\_form#182:\[ h_t + (uh)_r = -hu/r \]
-\_form#183:\[ (uh)_t + (hu^2 + gh^2 /2 )_r = -hu^2/r \]
-\_form#184:\[ \rho_t + \left ( m \right )_x = 0 \]
-\_form#185:\[ m_t + \left ( \rho u^2 + p \right )_x = 0 \]
-\_form#186:\[ E_t + \left ( u ( E + p ) \right )_x = 0 \]
-\_form#187:\[ u = m / \rho \]
-\_form#188:\[ p = ( \gamma - 1 ) ( E - \frac12 \rho u^2 ) \]
-\_form#189:$ \gamma = 1.4 $
-\_form#190:\[ (\rho, m, E ) = ( 1, 0, 2.5 ) \]
-\_form#191:$ x < \frac12 $
-\_form#192:\[ (\rho, m, E ) = ( 0.125, 0, 0.25 ) \]
-\_form#193:$ x > \frac12 $
-\_form#194:\[ Q_t + \left ( \frac{Q}{\sqrt{2}} \right )_x + \left ( \frac{Q}{\sqrt{2}} \right )_y= 0 \quad \mbox{where} \quad Q=Q(x,y,t) \]
-\_form#195:$ (x,y)\in[-1,1]\times[-1,1]$
-\_form#196:\[ Q_t + \left ( \frac{Q^2}{2} \right )_x = 0 \quad \mbox{where} \quad Q=Q(x,y,t) \]
-\_form#197:\[ Q_t + \left ( \frac{Q^2}{\sqrt{2}} \right )_x + \left ( \frac{Q^2}{\sqrt{2}} \right )_y = 0 \quad \mbox{where} \quad Q=Q(x,y,t) \]
-\_form#198:\[ Q_t + \left ( \frac{Q^2}{2} \right )_y = 0 \quad \mbox{where} \quad Q=Q(x,y,t) \]
-\_form#199:\[ f_t = f_{yy} \]
-\_form#200:$ f(1) = 0 $
-\_form#201:$ f(y,t=0) = y(1-y) $
-\_form#202:\[ f(y,t) = \sum_{n=1,3,...}^M \frac{8}{n^3\pi^3} \sin ( n\pi y) \exp{ -n^2\pi^2 t } \]
-\_form#203:$ M $
-\_form#204:$ < \tau /10 $
-\_form#205:\[ U_t - U U_{yy} = -Ae^{-t} sin(\pi y) + ( (1+y) + Ae^{-t} sin(\pi y) )\pi^2 Ae^{-t} sin(\pi y)/\sigma \]
-\_form#206:$ U(y=0)=1, U(y=1)=2 $
-\_form#207:$ A=10 $
-\_form#208:$ U(y,t=0)=1+y+A sin(\pi y) $
-\_form#209:$ U(y,t) = =1+y+A sin(\pi y)e^{-t} $
-\_form#210:\[ -U_t + U_{yy} = U^2 + VU_y - W^2 - W_\infty^2 \]
-\_form#211:\[ -W_t + W_{yy} = 2U W + V W_y \]
-\_form#212:\[ 2U + V_y = 0 \]
-\_form#213:$ U(y=0)=V(y=0)=0 $
-\_form#214:$ W(y=0)=\Omega(t) $
-\_form#215:$ U(y \to \infty ) \to 0 $
-\_form#216:$ W(y \to \infty ) \to 0 $
-\_form#217:$ W_{\infty} $
-\_form#218:$ W_\infty = 0 $
-\_form#219:\[ \Omega(t) = 1 - (1 - W_\infty) \exp( -10t )\]
-\_form#220:\[ U_{yy} - Re U U_t = S( y, t ) \]
-\_form#221:$ U(y=0,t) = 1 $
-\_form#222:$ U(y=1,t) = 2 $
-\_form#223:$ U(y,t=0) = 1 + y + \epsilon y(1-y) $
-\_form#224:\[ S(y,t) = ( 1 + y + \epsilon y(1-y)e^{-t} ) \epsilon y(1-y ) e^{-t} - 2\epsilon e^{-t} / Re \]
-\_form#225:$\epsilon $
-\_form#226:\[ U(y,t) = 1 + y + \epsilon y(1-y) e^{-t} \]
-\_form#227:\[ f''(y) + \lambda f(y) = 0 \]
-\_form#228:$\lambda=10$
-\_form#229:$ y = 0$
-\_form#230:$1$
-\_form#231:\[ \dot x = a( y - x )\,,\quad \dot y = x ( b - z ) - y\,, \quad \dot z = -c z + xy\,, \]
-\_form#232:$ a=10 $
-\_form#233:$ b = 7 $
-\_form#234:$ c = 8/3 $
-\_form#235:$ (x,y,z) = (4,4,6) $
-\_form#236:$ 2 \times 2 $
-\_form#237:$ 2\times 3 $
-\_form#238:$ 3 \times 2$
-\_form#239:$ \cos(x) $
-\_form#240:\[ f''(x) - xf(x) = 0 \]
-\_form#241:\[ \int_{-10}^0 \mbox{Ai}(s) \, \mbox{d}s \approx 0.7656984 \]
-\_form#242:\[ \nabla^2 \psi(x,y) = 2( x^2 + y^2 ) \]
-\_form#243:\[ \psi(x,\pm 1) = x^2\,, \quad\mbox{and}\quad \psi(\pm 1, y) = y^2 \]
-\_form#244:$ (x,y) \in [-1,1]\times[-1,1] $
-\_form#245:\[ \psi(x,y) = x^2y^2 \]
+\_form#0=93x14:\[ A_{NxN} \,{\underline x}_i = B_{1xN} \]
+\_form#1=124x14:\[ A_{NxN} \,{\underline x}_i = \lambda_i\, B_{NxN}\, {\underline x}_i \]
+\_form#2=10x10:$ A $
+\_form#3=10x10:$ B $
+\_form#4=18x11:$ n^{th} $
+\_form#5=105x16:\[ {\underline f}^\prime (y) = {\underline R}( {\underline f}(y), y )\,, \]
+\_form#6=9x6:$ n $
+\_form#7=48x10:$ y = y_{left} $
+\_form#8=30x10:$ y_{right} $
+\_form#9=24x15:$ {\underline f}(y) $
+\_form#10=225x31:\[ {\underline g}^\prime (y) - \frac{\partial {\underline R}}{\partial \underline f} \Big \vert_{\underline F} \,\,{\underline g}(y) = {\underline R}( {\underline F}(y), y) - {\underline F}^\prime (y) \,, \]
+\_form#11=23x15:$ \underline g(y) $
+\_form#12=26x14:$ {\underline F}(y) $
+\_form#13=281x16:\[ \lambda M_1({\underline f}(x),x ) \cdot {\underline f } + M_0({\underline f}(x),x ) \cdot {\underline f}^\prime (x) = {\underline R}( {\underline f}(x), x )\,, \]
+\_form#14=49x10:$ x = x_{left} $
+\_form#15=31x10:$ x_{right} $
+\_form#16=25x15:$ {\underline f}(x) $
+\_form#17=116x13:\[ A_{M\times M} {\underline x} = \lambda B_{M\times M} {\underline x} \]
+\_form#18=66x10:$ M = N \times O $
+\_form#19=95x18:\[ \underline{ \dot f} (t) = \underline R ( \underline f (t), t) \,, \]
+\_form#20=24x15:$ \underline f (0) $
+\_form#21=598x18:\[ M_2( {\underline f}(y,x,t), y, x, t )\cdot {\underline f}_x (y,x,t) + M_1( {\underline f}(y,x,t), y,x, t )\cdot {\underline f}_t (y,x,t) + M_0( {\underline f}(y,x,t), y,x, t )\cdot {\underline f}_y (y,x,t) = {\underline R}( {\underline f}(y,x,t), y,x, t )\,, \]
+\_form#22=61x9:$ y = y_{bottom} $
+\_form#23=21x10:$ y_{top} $
+\_form#24=46x15:$ {\underline f}(y,x,t) $
+\_form#25=16x13:$ M_2 $
+\_form#26=16x13:$ M_1 $
+\_form#27=16x13:$ M_0 $
+\_form#28=36x11:$ t+\Delta t $
+\_form#29=36x10:$ x = x_j $
+\_form#30=81x15:\[ {\underline f}^{new} = {\underline F}_{j} + {\underline g} \]
+\_form#31=15x15:$ {\underline F}_{j} $
+\_form#32=8x11:$ {\underline g} $
+\_form#33=5x9:$ t $
+\_form#34=36x10:$ x = x_{j} $
+\_form#35=53x18:\[ {\underline f}^{old} = {\underline O}_{j} \]
+\_form#36=48x14:$ t + \Delta t /2 $
+\_form#37=75x14:$ ( x_{j+1} + x_{j} ) / 2 $
+\_form#38=251x30:\[ \frac{2}{x_{j+1} - x_{j}}\, M_2 \cdot {\underline g } + \frac{2}{\Delta t}\, M_1 \cdot {\underline g } +  M_0 \cdot {\underline g}_y - J \cdot {\underline g} \]
+\_form#39=191x33:\[ + J_{2} \cdot \frac{ ( \underline F_{j+1} + \underline O_{j+1} - \underline F_j - \underline O_j) }{ 2(x_{j+1} - x_j) } \cdot {\underline g} \]
+\_form#40=191x29:\[ + J_{1} \cdot \frac{(\underline F_{j+1} + \underline F_j - \underline O_j - \underline O_{j+1})}{2\Delta t} \cdot {\underline g} \]
+\_form#41=198x29:\[ + J_{0} \cdot \frac{( \underline F_{j+1} + \underline F_j + \underline O_j + \underline O_{j+1})_y}{4} \cdot {\underline g} \]
+\_form#42=598x31:\[ = 4 {\underline R} - M_0 \cdot \biggl ({\underline F_j}_y + {\underline O_j}_y + {\underline F_{j+1}}_y + {\underline O_{j+1}}_y \biggr ) - \frac{2}{x_{j+1}-x_j} M_1 \cdot \biggl ( {\underline F}_{j+1} + {\underline O}_{j+1} - {\underline F}_{j} - {\underline O}_{j} \biggr ) - \frac{2}{\Delta t} M_2 \cdot \biggl ( {\underline F}_{j+1} + {\underline F}_{j} - {\underline O}_{j+1} - {\underline O}_{j} \biggr ) \]
+\_form#43=95x14:$ M_{0,1,2}, J, J_{0,1,2}, R $
+\_form#44=241x24:$ \left ( \frac{\underline F_{j} + \underline O_{j} + \underline F_{j+1} + \underline O_{j+1} }{4}, y, ( x_{j+1} + x_{j} ) / 2, t + \frac{\Delta t}{2} \right ) $
+\_form#45=28x14:$ J_{0,1,2} $
+\_form#46=75x16:$ \partial {M_{0,1,2}}_{ij} / \partial f_k $
+\_form#47=8x9:$ y $
+\_form#48=374x18:\[ M_1( {\underline f}(y,t), y, t )\cdot {\underline f}_t (y,t)+ M_0( {\underline f}(y,t), y, t ) \cdot {\underline f}_y (y,t) = {\underline R}( {\underline f}(y,t), y, t )\,, \]
+\_form#49=25x14:$ M_{0,1} $
+\_form#50=76x15:\[ {\underline f}^{new} = {\underline F} + {\underline g} \]
+\_form#51=11x13:$ {\underline F} $
+\_form#52=49x18:\[ {\underline f}^{old} = {\underline O} \]
+\_form#53=481x29:\[ \frac{2}{\Delta t} M_1 \cdot {\underline g } + 2 M_0 \cdot {\underline g}_y - J \cdot {\underline g} + J_2 \cdot \frac{\underline F - \underline O}{\Delta t} \cdot {\underline g} + J_1 \cdot \frac{\underline F_y + \underline O_y}{2} \cdot {\underline g} = 2 {\underline R} - \frac{2}{\Delta t} M_2 \cdot ( {\underline F} - {\underline O} ) -  M_1 \cdot ( {\underline F}_y + {\underline O}_y )\]
+\_form#54=79x14:$ M_{0,1}, J, J_{1,2}, R $
+\_form#55=90x24:$ \left ( \frac{\underline F + \underline O}{2}, y, t + \frac{\Delta t}{2} \right ) $
+\_form#56=20x14:$ J_{1,2} $
+\_form#57=76x16:$ \partial {(M_{0,1})}_{ij} / \partial f_k $
+\_form#58=106x16:\[ {\underline f}^\prime (x) = {\underline R}( {\underline f}(x), x )\,, \]
+\_form#59=228x31:\[ {\underline g}^\prime (x) - \frac{\partial {\underline R}}{\partial \underline f} \Big \vert_{\underline F} \,\,{\underline g}(x) = {\underline R}( {\underline F}(x), x) - {\underline F}^\prime (x) \,, \]
+\_form#60=24x15:$ \underline g(x) $
+\_form#61=26x14:$ {\underline F}(x) $
+\_form#62=113x13:\[ A_{MxM} {\underline x} = \lambda B_{MxM} {\underline x} \]
+\_form#63=58x10:$ M = N x O $
+\_form#64=9x6:$n$
+\_form#65=69x15:\[ x^2 + p^2 = 2\,, \]
+\_form#66=8x9:$p$
+\_form#67=125x16:\[ x^2 + p^2 = 1\,, y = \sin(x) \]
+\_form#68=221x18:\[ f'''(y) + f(y) f''(y) + \beta \left ( 1 - f'(y)^2 \right )= 0\,, \]
+\_form#69=9x13:$ \beta $
+\_form#70=89x14:$ f(0)=f'(0)=0 $
+\_form#71=55x14:$ f'(\infty) = 1 $
+\_form#72=58x13:$ \beta \approx -0.19 $
+\_form#73=194x16:\[ R \equiv (x - 3)( (x-2)^2 + (p-4) ) = 0 \]
+\_form#74=65x11:$ x=0, p=0 $
+\_form#75=66x11:$ x=2, p =4 $
+\_form#76=65x11:$ x =3, p=3 $
+\_form#77=205x18:\[ f'''(y) = Re \left ( f(y)f''(y) - f'(y)^2 - K \right )\]
+\_form#78=56x14:$y\in [-1,1]$
+\_form#79=11x10:$K$
+\_form#80=15x10:$Re$
+\_form#81=65x14:$f(\pm 1) = \pm 1$
+\_form#82=59x14:$f'(\pm 1 ) = 0$
+\_form#83=130x15:\[ f'''(y) + f(y) f''(y) = 0\,, \]
+\_form#84=214x16:\[ f^(iv)(y) = Re ( f(y)f'''(y) - f'(y)f''(y) ) \]
+\_form#85=65x14:$ f(\pm 1) = \pm 1 $
+\_form#86=59x14:$ f'(\pm 1) = 0 $
+\_form#87=53x14:$ y \in [0,\infty ] $
+\_form#88=91x15:\[ f''(z) + f(z) = 0 \]
+\_form#89=46x14:$ f(0) = 0 $
+\_form#90=45x14:$ f(1) = 1 $
+\_form#91=44x14:$ f(i) = 1 $
+\_form#92=201x16:\[ U''(y) = U^2(y) + V(y)U'(y) - W^2(y) \]
+\_form#93=189x15:\[ W''(y) = 2U(y)W(y) + V(y)W'(y)  \]
+\_form#94=101x15:\[ 2U(y) + V'(y) = 0 \]
+\_form#95=91x14:$ U(0)=V(0)=0 $
+\_form#96=51x14:$ W(0)=1 $
+\_form#97=58x14:$ U(\infty ) \to 0 $
+\_form#98=61x14:$ W(\infty ) \to 0 $
+\_form#99=229x16:\[ U''(y) = U^2(y) + V(y)U'(y) - W^2(y) + s^2 \]
+\_form#100=60x14:$ W(\infty ) \to s $
+\_form#101=29x9:$ s=0 $
+\_form#102=154x16:\[ f(y) f''(y) + f'(y)^2 = 1+\gamma y  \]
+\_form#103=45x14:$ f(0) = 1 $
+\_form#104=46x14:$ f(1) = 2 $
+\_form#105=23x14:$ f(y) $
+\_form#106=211x29:\[ f(y)=\left ( y^2 + \frac{\gamma}{3}y^3 + (2-\frac{\gamma}{3}) y + 1 \right )^{1/2}\,.\]
+\_form#107=98x15:\[ f''(y) = c \sinh (cy)  \]
+\_form#108=239x16:\[ - u_x - u_t + u_{yy} = ( ( 1 - y^2 )( x + t ) - 2 ) e^{-xt}\,, \]
+\_form#109=120x15:$ u(x=0,y,t) = 1-y^2 $
+\_form#110=120x15:$ u(x,t=0,y) = 1 - y^2 $
+\_form#111=101x14:$ f(x, y = \pm 1,t ) = 0 $
+\_form#112=124x14:$ (x,y) \in [0,10]\times [-1,1] $
+\_form#113=91x15:$ u = (1-y^2) e^{-xt} $
+\_form#114=8x6:$ \tau $
+\_form#115=26x14:$ (x,t) $
+\_form#116=201x16:\[ -u u_x - u_t + u_{yy} = y^2 t^2 e^{-2x} - y e^{-x}\,, \]
+\_form#117=98x14:$ u(x=0,y,t) = ty $
+\_form#118=93x14:$ u(x,t=0,y) = 0 $
+\_form#119=91x14:$ f(x, y = 0,t ) = 0 $
+\_form#120=90x14:$ f(x, y = 1,t ) = t $
+\_form#121=114x14:$ (x,y) \in [0,10]\times [0,1] $
+\_form#122=55x11:$ u = yte^{-x} $
+\_form#123=5x6:$ c $
+\_form#124=108x14:\[ A_{4x4} \,{\underline x}_i = \lambda_i\, B_{4x4}\, {\underline x}_i \]
+\_form#125=10x13:$ \lambda_i $
+\_form#126=66x11:$i=1,2,3,4.$
+\_form#127=26x13:$ A_{4x4} $
+\_form#128=25x13:$ B_{4x4} $
+\_form#129=145x11:$ 3-9i,\, 2-5i,\, 3-i,\, 4-5i $
+\_form#130=38x14:$ \vert\lambda\vert < 4$
+\_form#131=26x9:$ 3-i $
+\_form#132=100x15:\[ f''(x) + \lambda f(x) = 0 \]
+\_form#133=8x10:$ \lambda $
+\_form#134=24x14:$ f(x) $
+\_form#135=30x11:$ m^2 \pi^2 $
+\_form#136=40x8:$n \to \infty $
+\_form#137=35x15:$ O(\Delta^2)$
+\_form#138=78x14:$ \Delta = 1/(n-1) $
+\_form#139=281x28:\[ f''(x_i) + \lambda f(x_i) = \frac{ f_{i-1} - 2f_i + f_{i+1} }{ \Delta^2 } + \lambda f_i + O(\Delta^2) \]
+\_form#140=99x15:\[ f''(z) + \lambda f(z) = 0 \]
+\_form#141=23x14:$ f(z) $
+\_form#142=151x16:\[ \phi''(y) - \alpha^2 \phi(y) - \psi(y) = 0\,, \]
+\_form#143=306x16:\[ \psi''(y) - \alpha^2 \psi(y) - i \alpha Re \left \{ ( U(y) - c ) \psi(y) - U''(y) \phi \right \} = 0\,, \]
+\_form#144=109x14:$ \phi(\pm 1) = \phi'(\pm 1) = 0 $
+\_form#145=46x9:$ \alpha = 1.02 $
+\_form#146=66x10:$ Re = 5772.2 $
+\_form#147=75x15:$ U(y) = 1 - y^2 $
+\_form#148=46x14:$ \Im ( c ) \approx 0 $
+\_form#149=8x6:$ \alpha $
+\_form#150=15x10:$ Re $
+\_form#151=33x11:$c_i = 0$
+\_form#152=256x16:\[ (U_B(y)-c) (\phi''(y) - \alpha^2 \phi(y)) - U_B''(y) \phi(y) = 0\,, \]
+\_form#153=94x14:$ \phi( 0 ) = \phi( 2\pi ) = 0 $
+\_form#154=8x6:$\alpha $
+\_form#155=33x11:$ c_i=0 $
+\_form#156=80x14:$ U_B(y)=\sin(y) $
+\_form#157=41x16:$ \sqrt(3)/2 $
+\_form#158=359x35:\[ \left ( \frac{\mbox{d}^2}{\mbox{d}x^2} - \lambda \right )^2 f(x) = 0\,, \quad \mbox{where} \quad f(0)=f(1)=f'(0)=f'(1)=0\,,\]
+\_form#159=8x10:$\lambda$
+\_form#160=108x14:\[ A_{2x2} \,{\underline x}_i = \lambda_i\, B_{2x2}\, {\underline x}_i \]
+\_form#161=43x11:$i=1,2.$
+\_form#162=26x13:$ A_{2x2} $
+\_form#163=49x13:$ B_{2x2} = I $
+\_form#164=29x11:$ 5,\, -1 $
+\_form#165=44x14:$ \vert\lambda\vert < 10$
+\_form#166=74x16:\[ f(z) = z^3 - 1 \]
+\_form#167=133x33:\[ \int_0^{20} \cos(x) \exp \left ( -\frac{x}{4} \right ) \mbox{d}x \]
+\_form#168=166x29:\[ \frac{4 e^{-5}}{17} \left ( e^5 - \cos (20) + 4\sin (20) \right ) \]
+\_form#169=75x13:\[ p_t + K u_x = 0 \]
+\_form#170=69x11:\[ \rho u_t + p_x = 0 \]
+\_form#171=34x10:$K=4$
+\_form#172=30x11:$\rho = 1$
+\_form#173=36x14:$\vert x \vert < 1$
+\_form#174=30x11:$\rho = 4$
+\_form#175=75x39:\[ - \left ( \frac{\frac{K_1}{K_2}-\frac{c_1}{c_2}}{\frac{K_1}{K_2}+\frac{c_1}{c_2}} \right ) \]
+\_form#176=24x14:$ K_{1,2} $
+\_form#177=18x10:$c_{1,2}$
+\_form#178=63x14:$c_i = \sqrt{ K_i \rho_i } $
+\_form#179=34x10:$K=1$
+\_form#180=215x33:\[ Q_t + \left ( \frac{Q^2}{2} \right )_x = 0 \quad \mbox{where} \quad Q=Q(x,t) \]
+\_form#181=48x14:$ x\in[0,1]$
+\_form#182=100x14:\[ Q(x,0) =  \sin( 2\pi x ) \]
+\_form#183=10x13:$ Q $
+\_form#184=109x14:\[ h_t +  (uh)_r = -hu/r \]
+\_form#185=184x16:\[ (uh)_t + (hu^2 + gh^2 /2 )_r = -hu^2/r \]
+\_form#186=76x14:\[ \rho_t + \left ( m \right )_x = 0 \]
+\_form#187=111x18:\[ m_t + \left ( \rho u^2 + p \right )_x = 0 \]
+\_form#188=116x14:\[ E_t + \left ( u ( E + p ) \right )_x = 0 \]
+\_form#189=49x14:\[ u = m / \rho \]
+\_form#190=125x26:\[ p = ( \gamma - 1 ) ( E - \frac12 \rho u^2 ) \]
+\_form#191=41x11:$ \gamma = 1.4 $
+\_form#192=113x14:\[ (\rho, m, E ) = (  1, 0, 2.5 ) \]
+\_form#193=31x16:$ x < \frac12 $
+\_form#194=141x14:\[ (\rho, m, E ) = ( 0.125, 0, 0.25 ) \]
+\_form#195=31x16:$ x > \frac12 $
+\_form#196=288x34:\[ Q_t + \left ( \frac{Q}{\sqrt{2}} \right )_x + \left ( \frac{Q}{\sqrt{2}} \right )_y= 0 \quad \mbox{where} \quad Q=Q(x,y,t) \]
+\_form#197=128x14:$ (x,y)\in[-1,1]\times[-1,1]$
+\_form#198=226x33:\[ Q_t + \left ( \frac{Q^2}{2} \right )_x = 0 \quad \mbox{where} \quad Q=Q(x,y,t) \]
+\_form#199=288x34:\[ Q_t + \left ( \frac{Q^2}{\sqrt{2}} \right )_x + \left ( \frac{Q^2}{\sqrt{2}} \right )_y = 0 \quad \mbox{where} \quad Q=Q(x,y,t) \]
+\_form#200=226x34:\[ Q_t + \left ( \frac{Q^2}{2} \right )_y = 0 \quad \mbox{where} \quad Q=Q(x,y,t) \]
+\_form#201=44x14:\[ f_t = f_{yy} \]
+\_form#202=46x14:$ f(1) = 0 $
+\_form#203=116x14:$ f(y,t=0) = y(1-y) $
+\_form#204=233x39:\[ f(y,t) = \sum_{n=1,3,...}^M \frac{8}{n^3\pi^3} \sin ( n\pi y) \exp{ -n^2\pi^2 t } \]
+\_form#205=14x10:$ M $
+\_form#206=39x14:$ < \tau /10 $
+\_form#207=395x16:\[ U_t - U U_{yy} = -Ae^{-t} sin(\pi y) + ( (1+y) + Ae^{-t} sin(\pi y) )\pi^2 Ae^{-t} sin(\pi y)/\sigma \]
+\_form#208=149x14:$ U(y=0)=1, U(y=1)=2 $
+\_form#209=40x10:$ A=10 $
+\_form#210=169x14:$ U(y,t=0)=1+y+A sin(\pi y) $
+\_form#211=174x15:$ U(y,t) = =1+y+A sin(\pi y)e^{-t} $
+\_form#212=201x16:\[ -U_t + U_{yy} = U^2 + VU_y - W^2 - W_\infty^2 \]
+\_form#213=153x14:\[ -W_t + W_{yy} = 2U W + V W_y  \]
+\_form#214=68x14:\[ 2U + V_y = 0 \]
+\_form#215=138x14:$ U(y=0)=V(y=0)=0 $
+\_form#216=91x14:$ W(y=0)=\Omega(t) $
+\_form#217=84x14:$ U(y \to \infty ) \to 0 $
+\_form#218=88x14:$ W(y \to \infty ) \to 0 $
+\_form#219=21x13:$ W_{\infty} $
+\_form#220=45x13:$ W_\infty = 0 $
+\_form#221=171x14:\[ \Omega(t) = 1 - (1 - W_\infty) \exp( -10t )\]
+\_form#222=124x14:\[ U_{yy} - Re U U_t = S( y, t ) \]
+\_form#223=81x14:$ U(y=0,t) = 1 $
+\_form#224=81x14:$ U(y=1,t) = 2 $
+\_form#225=168x14:$ U(y,t=0) = 1 + y + \epsilon y(1-y) $
+\_form#226=305x15:\[ S(y,t) = ( 1 + y + \epsilon y(1-y)e^{-t} ) \epsilon y(1-y ) e^{-t} - 2\epsilon e^{-t} / Re \]
+\_form#227=5x6:$\epsilon $
+\_form#228=163x15:\[ U(y,t) = 1 + y + \epsilon y(1-y) e^{-t} \]
+\_form#229=99x15:\[ f''(y) + \lambda f(y) = 0 \]
+\_form#230=36x10:$\lambda=10$
+\_form#231=30x11:$ y = 0$
+\_form#232=5x9:$1$
+\_form#233=276x14:\[ \dot x = a( y - x )\,,\quad \dot y = x ( b - z ) - y\,, \quad \dot z = -c z + xy\,, \]
+\_form#234=35x9:$ a=10 $
+\_form#235=29x10:$ b = 7 $
+\_form#236=40x14:$ c = 8/3 $
+\_form#237=96x14:$ (x,y,z) = (4,4,6) $
+\_form#238=28x9:$ 2 \times 2 $
+\_form#239=28x9:$ 2\times 3 $
+\_form#240=29x9:$ 3 \times 2$
+\_form#241=34x14:$ \cos(x) $
+\_form#242=100x15:\[ f''(x) - xf(x) = 0 \]
+\_form#243=140x33:\[ \int_{-10}^0 \mbox{Ai}(s) \, \mbox{d}s \approx 0.7656984 \]
+\_form#244=126x16:\[ \nabla^2 \psi(x,y) = 2( x^2 + y^2 ) \]
+\_form#245=204x16:\[ \psi(x,\pm 1) = x^2\,, \quad\mbox{and}\quad \psi(\pm 1, y) = y^2 \]
+\_form#246=128x14:$ (x,y) \in [-1,1]\times[-1,1] $
+\_form#247=79x16:\[ \psi(x,y) = x^2y^2 \]
