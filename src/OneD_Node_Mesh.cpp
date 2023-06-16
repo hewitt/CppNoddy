@@ -371,8 +371,8 @@ namespace CppNoddy {
     return sum;
   }
 
-    
-  
+
+  // real data on a real mesh
   template <>
   void OneD_Node_Mesh<double, double>::read(std::string filename, bool reset )  {
     std::ifstream dump;
@@ -413,6 +413,7 @@ namespace CppNoddy {
     }
   }
 
+  // complex data on a real mesh
   template <>
   void OneD_Node_Mesh<D_complex, double>::read(std::string filename, bool reset )  {
     std::ifstream dump;
@@ -453,6 +454,7 @@ namespace CppNoddy {
     }
   }
 
+  // complex data on a path in the complex plane
   template <>
   void OneD_Node_Mesh<D_complex, D_complex>::read(std::string filename, bool reset )  {
     std::ifstream dump;
