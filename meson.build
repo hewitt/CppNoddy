@@ -5,7 +5,7 @@ project('CppNoddy',
 
 # COMMENT OUT WHEN LIB TESTED
 build_args = [
- '-DDEBUG'
+ '-DDEBUG',
  '-DPARANOID'
 ]
 

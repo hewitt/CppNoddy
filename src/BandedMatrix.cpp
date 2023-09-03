@@ -42,7 +42,7 @@ namespace CppNoddy {
     m_L = source.m_L;
     return *this;
   }
-
+    
   template <typename _Type>
   std::size_t BandedMatrix<_Type>::nelts() const {
     return m_storage.size();
@@ -52,7 +52,6 @@ namespace CppNoddy {
   void BandedMatrix<_Type>::scale(const _Type& mult) {
     m_storage *= mult;
   }
-
 
   template <typename _Type>
   DenseVector<_Type> BandedMatrix<_Type>::multiply(const DenseVector<_Type>& X) const {
