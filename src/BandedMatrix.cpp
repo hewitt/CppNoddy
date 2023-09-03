@@ -20,7 +20,7 @@ namespace CppNoddy {
     m_N(rows),
     m_L(upper_offdiag_bands) {
     // we'll assume that the upper & lower offdiags are of equal size.
-    // logical m_storage is the main diagonal + upper offdiagonal + lower offdiagonal
+    // logical m_storage is the main diagonal (=1) + upper offdiagonal (=m_L) + lower offdiagonal (=m_L)
     // = 2 * m_L + 1.
     // However, allowing for row interchanging during pivotting leads to additional
     // padding of m_L, to make a total of 3*m_L+1.

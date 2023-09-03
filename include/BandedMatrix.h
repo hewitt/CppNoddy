@@ -154,8 +154,9 @@ namespace CppNoddy {
       problem += " the square m_Nxm_N matrix.\n";
       throw ExceptionGeom(problem, m_N, m_N, row, col);
     }
-    // check if the subscripts are out of the band
-    if(!((col + m_L >= row) && (col <= 2*m_L + row))) {
+    // subscripts are IN the band if col-row<=m_L or col-row>=-m_L
+    // so access is OUT of band if !(col-row<=m_L or col-row>=-m_L)
+    if(!((col + m_L >= row) && (col <= m_L + row))) {
       std::string problem;
       problem = " The const operator() of BandedMatrix has been called \n";
       problem += " with a (row, col) index that is outside \n";
