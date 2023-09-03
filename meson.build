@@ -5,8 +5,8 @@ project('CppNoddy',
 
 # COMMENT OUT WHEN LIB TESTED
 build_args = [
- '-DDEBUG',
- '-DPARANOID'
+ #'-DDEBUG',
+ #'-DPARANOID'
 ]
 
 lapack_dep = dependency('lapack64','lapack', required:false)

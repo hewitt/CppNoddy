@@ -27,10 +27,10 @@ namespace CppNoddy {
   /// compares these two resulting values. Used for computing which
   /// of two components is nearest to the specified value.
   template <typename _Type>
-  class absDiff_predicate : public std::binary_function< _Type, _Type, bool> {
+  class absDiff_predicate {//: public std::binary_function< _Type, _Type, bool> {
    public:
     /// \param value The target value that is to used.
-    absDiff_predicate(_Type value) : std::binary_function< _Type, _Type, bool>() {
+    absDiff_predicate(_Type value) {//: std::binary_function< _Type, _Type, bool>() {
       this -> target_elt = value;
     }
 
@@ -71,10 +71,10 @@ namespace CppNoddy {
   /// The object is type templated for any object that defines
   /// operator* and the MULTIPLIER is set in the functor constructor.
   template <class _containerType, typename _valueType>
-  class scale_functor : public std::unary_function< _valueType, _containerType > {
+  class scale_functor {//: public std::unary_function< _valueType, _containerType > {
    public:
     /// \param value The value to be used in the scale operation
-    scale_functor(_valueType value) : std::unary_function< _valueType, _containerType>() {
+    scale_functor(_valueType value) {//: std::unary_function< _valueType, _containerType>() {
       MULTIPLIER = value;
     }
 
