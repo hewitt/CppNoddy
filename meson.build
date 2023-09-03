@@ -3,8 +3,11 @@ project('CppNoddy',
   version : '0.9',
   license : 'GPL2')
 
-add_global_arguments('-DDEBUG', language : 'cpp')
-add_global_arguments('-DPARANOID', language : 'cpp')
+# COMMENT OUT WHEN LIB TESTED
+build_args = [
+ '-DDEBUG'
+ '-DPARANOID'
+]
 
 lapack_dep = dependency('lapack64','lapack', required:false)
 blas_dep = dependency('blas64', 'blas', required:false)
