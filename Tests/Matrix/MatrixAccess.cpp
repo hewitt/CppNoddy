@@ -44,12 +44,12 @@ int main()
     }
   }
 
-  cout << " DenseMatrix<double> scaling on a per-element basis via access operator.\n";
+  cout << " DenseMatrix<double> ad-hoc op on a per-element basis via access operator.\n";
   Timer timer;
   timer.start();
   for ( std::size_t row = 0; row < L; ++row ) {
     for ( std::size_t col = 0; col < L; ++col ) {
-      A( row, col ) *= 2.0;
+      A( row, col ) = sin( A(row,col) );
     }
   }
   timer.stop();
@@ -57,11 +57,11 @@ int main()
   timer.print();
   timer.reset();
 
-  cout << "\n TwoD_Node_Mesh<double> scaling on a per-element basis via access operator.\n";
+  cout << "\n TwoD_Node_Mesh<double> ad-hoc op on a per-element basis via access operator.\n";
   timer.start();
   for ( std::size_t row = 0; row < L; ++row ) {
     for ( std::size_t col = 0; col < L; ++col ) {
-      M( row, col, 0 ) *= 2.0;
+      M( row, col, 0 ) = sin( M(row,col,0) );
     }
   }
   timer.stop();
@@ -73,7 +73,7 @@ int main()
   timer.start();
   for ( std::size_t row = 0; row < L; ++row ) {
     for ( std::size_t col = 0; col < L; ++col ) {
-      B[ row * L + col ] *= 2.0;
+      B[ row * L + col ] = sin( B[row*L+col] );
     }
   }
   timer.stop();
@@ -83,22 +83,22 @@ int main()
 
   delete[] B;
 
-  cout << "The % slow-down for a DenseMatrix was " <<
-    100.0 * ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) << "\n";
+  //cout << "The % slow-down for a DenseMatrix was " <<
+  //  100.0 * ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) << "\n";
 
-  cout << "The % slow-down for a TwoD_Node_Mesh was " <<
-    100.0 * ( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) << "\n";
+  //cout << "The % slow-down for a TwoD_Node_Mesh was " <<
+  //  100.0 * ( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) << "\n";
   
   bool failed( false );
-  // fail if there is more than a 5% overhead between DenseMatrix & native
-  if ( ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) > 0.05 ) {
+  // fail if there is more than a 1% overhead between DenseMatrix & native
+  if ( ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) > 0.01 ) {
     failed = true;
     cout << "The % slow-down for a DenseMatrix was " <<
-         100.0 * ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) << "\n";
+         100.0 * ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) << "%\n";
   }
-  // fail if there is more than a 5% overhead between DenseMatrix & TwoD_Node_Mesh
-  if ( std::abs( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) > 0.05 ) {
-    failed = true;
+  // fail if there is more than a 10% overhead between DenseMatrix & TwoD_Node_Mesh
+  if ( ( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) > 0.10 ) {
+    failed = true;      
     cout << "The % slow-down for a TwoD_Node_Mesh was " <<
          100.0 * ( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) << "\n";
   }

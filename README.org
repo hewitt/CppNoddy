@@ -5,7 +5,7 @@ This will generate a docker container for CppNoddy, including PETSc/SLEPc compil
   docker build --rm --build-arg HOST_UID=$(id -u) -f Dockerfile_RealPetscSlepcMKL -t real-mkl https://github.com/hewitt/CppNoddy.git#:docker
 #+END_SRC
 
-For the "complex" arithmetic version of PETSc, replace "Dockerfile_RealPetscSlepcMKL" with "Dockerfile_ComplexPetscSlepcMKL" and change the tag to "-t complex-mkl". 
+For the *"complex"* arithmetic version of PETSc, replace "Dockerfile_RealPetscSlepcMKL" with "Dockerfile_ComplexPetscSlepcMKL" and change the tag to "-t complex-mkl". 
 
 ** Run the Docker container and self-test codes
 
@@ -60,6 +60,6 @@ ninja test
 ninja install
 #+END_SRC
 
-for complex PETSc, use "-Dpetscz=true".
+for *complex* PETSc, use "-Dpetscz=true".
 
 

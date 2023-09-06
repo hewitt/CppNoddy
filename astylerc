@@ -1,7 +1,0 @@
-indent=spaces=2
-style=google
-indent-namespaces
-indent-classes
-indent-col1-comments
-convert-tabs
-unpad-paren
