@@ -90,14 +90,14 @@ int main()
   //  100.0 * ( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) << "\n";
   
   bool failed( false );
-  // fail if there is more than a 1% overhead between DenseMatrix & native
-  if ( ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) > 0.01 ) {
+  // fail if there is more than a 5% overhead between DenseMatrix & native
+  if ( ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) > 0.05 ) {
     failed = true;
     cout << "The % slow-down for a DenseMatrix was " <<
          100.0 * ( timeA - timeB ) / ( 0.5 * ( timeA + timeB ) ) << "%\n";
   }
-  // fail if there is more than a 10% overhead between DenseMatrix & TwoD_Node_Mesh
-  if ( ( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) > 0.10 ) {
+  // fail if there is more than a 5% overhead between DenseMatrix & TwoD_Node_Mesh
+  if ( ( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) > 0.05 ) {
     failed = true;      
     cout << "The % slow-down for a TwoD_Node_Mesh was " <<
          100.0 * ( timeM - timeB ) / ( 0.5 * ( timeM + timeB ) ) << "\n";

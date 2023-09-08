@@ -323,7 +323,7 @@ namespace CppNoddy {
 
   template <typename _Type>
   inline DenseVector<_Type> DenseVector<_Type>::operator+() const {
-    return * this;
+    return *this;
   }
 
   template <typename _Type>

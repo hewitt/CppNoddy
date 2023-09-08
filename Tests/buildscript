@@ -60,7 +60,7 @@ if ( build and stub.contains('_superludist') )
   if build
     message( 'Building test: ' + stub )
     exe = executable(stub, source, include_directories : inc,
-      dependencies : dep, link_with : CppNoddy )
+      dependencies : dep, cpp_args : build_args, link_with : CppNoddy )
     test(stub, exe, args: arguments, timeout : 300 ) 
   endif  
 

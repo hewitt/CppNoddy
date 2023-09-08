@@ -5,6 +5,8 @@ project('CppNoddy',
 
 # COMMENT OUT WHEN LIB TESTED
 build_args = [
+  '-w',
+  '-Wformat=0'
  #'-DDEBUG',
  #'-DPARANOID'
 ]

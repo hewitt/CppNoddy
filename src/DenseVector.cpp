@@ -35,8 +35,7 @@ namespace CppNoddy {
   }
 
   template <typename _Type>
-  void DenseVector<_Type>::add
-  (const DenseVector<_Type>& x) {
+  void DenseVector<_Type>::add(const DenseVector<_Type>& x) {
     operator+=(x);
   }
 
